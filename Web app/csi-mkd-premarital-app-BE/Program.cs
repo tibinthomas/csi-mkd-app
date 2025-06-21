@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Data;
+using csi_mkd_premarital_app_BE.Models;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +25,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
