@@ -1,0 +1,6 @@
+@csi_mkd_premarital_app_BE_HostAddress = http://localhost:5177
+
+GET {{csi_mkd_premarital_app_BE_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
