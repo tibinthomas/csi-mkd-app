@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using csi-mkd-premarital-app-BE.Models;
-using csi-mkd-premarital-app-BE.Data;
+using csi_mkd_premarital_app_BE.Models;
+using csi_mkd_premarital_app_BE.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

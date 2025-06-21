@@ -1,7 +1,7 @@
-// Models/Student.cs
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-namespace csi-mkd-premarital-app-BE.Models;
+
+namespace csi_mkd_premarital_app_BE.Models;
 
     public class Student
     {

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using csi-mkd-premarital-app-BE.Models;
+using csi_mkd_premarital_app_BE.Models;
 
 
-namespace csi-mkd-premarital-app-BE.Data;
+namespace csi_mkd_premarital_app_BE.Data;
 
     public class ApplicationDbContext : DbContext
     {
