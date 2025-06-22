@@ -13,6 +13,17 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
         }
     );
+
+    options.AddPolicy(
+        "AllowFrontend",
+        policy =>
+        {
+            policy
+                .WithOrigins("https://gray-wave-0441f1a00.2.azurestaticapps.net")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        }
+    );
 });
 
 builder.Services.AddControllers();
@@ -31,6 +42,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 var app = builder.Build();
 
 app.UseCors("LocalCorsPolicy");
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 
