@@ -43,6 +43,7 @@ var app = builder.Build();
 
 app.UseCors("LocalCorsPolicy");
 app.UseCors("AllowFrontend");
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
@@ -64,6 +65,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapGet("/", () => "Hi from Minimal API!").WithOpenApi();
+app.MapControllers();
+
+app.MapGet("/", () => "Hi from Teena").WithOpenApi();
 
 app.Run();
