@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using csi_mkd_premarital_app_BE.Data;
@@ -11,9 +12,11 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250627194943_RecreateBaseline")]
+    partial class RecreateBaseline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +58,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AuditEntries", (string)null);
+                    b.ToTable("AuditEntries");
                 });
 
             modelBuilder.Entity("GeneralRegistration", b =>
@@ -121,7 +124,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GeneralRegistrations", (string)null);
+                    b.ToTable("GeneralRegistrations");
                 });
 
             modelBuilder.Entity("PremaritalRegistration", b =>
@@ -206,7 +209,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PremaritalRegistrations", (string)null);
+                    b.ToTable("PremaritalRegistrations");
                 });
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.SessionFeedback", b =>
@@ -258,7 +261,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SessionFeedbacks", (string)null);
+                    b.ToTable("SessionFeedbacks");
                 });
 #pragma warning restore 612, 618
         }
