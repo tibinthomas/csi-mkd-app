@@ -223,7 +223,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("PartnerName")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -256,6 +256,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<string>("Valuable")
                         .HasColumnType("text");
 
+                    b.HasKey("Id");
                     b.HasKey("Id");
 
                     b.ToTable("SessionFeedbacks", (string)null);
