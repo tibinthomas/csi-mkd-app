@@ -21,9 +21,9 @@ public class PremaritalRegisterResponseDto
 
     public required string Days { get; set; }
 
-    public bool ChoirMember { get; set; }
-    public bool SsTeacher { get; set; }
-    public bool YouthFellowship { get; set; }
+    public bool? ChoirMember { get; set; }
+    public bool? SsTeacher { get; set; }
+    public bool? YouthFellowship { get; set; }
 
     public string? OtherChurchActivities { get; set; }
     public string? PhotoPath { get; set; }

@@ -1,6 +1,9 @@
+using System.Text;
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +48,36 @@ builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =
 }
 );
 
+// AdminUser User Authentication
+// Access configuration here
+var configuration = builder.Configuration;
+
+// JWT Setup
+var key = Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]!);
+if (string.IsNullOrEmpty(configuration["JwtSettings:Key"]))
+{
+    throw new Exception("JWT key is not configured in appsettings.json");
+}
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = configuration["JwtSettings:Issuer"],
+        ValidAudience = configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 app.UseCors("LocalCorsPolicy");
@@ -61,6 +94,26 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "CSI MKD API V1");
         c.RoutePrefix = "swagger";
     });
+}
+
+// Seeding Admin user
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+
+    if (!db.AdminUsers.Any())
+    {
+        var passwordHash = BCrypt.Net.BCrypt.HashPassword("admin123"); // Replace with a strong password
+        db.AdminUsers.Add(new AdminUser
+        {
+            Username = "admin",
+            PasswordHash = passwordHash
+        });
+
+        db.SaveChanges();
+    }
 }
 
 app.UseHttpsRedirection();

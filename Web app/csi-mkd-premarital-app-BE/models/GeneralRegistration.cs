@@ -43,4 +43,6 @@ public class GeneralRegistration
     public bool Declaration { get; set; }
 
     public string? PhotoPath { get; set; }
+    public byte[] RowVersion { get; set; } = default!;
+
 }

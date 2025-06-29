@@ -19,5 +19,7 @@ namespace csi_mkd_premarital_app_BE.Models
         public string? Comments { get; set; }
 
         public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
+        public byte[] RowVersion { get; set; } = default!;
+
     }
 }

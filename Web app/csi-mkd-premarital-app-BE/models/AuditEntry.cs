@@ -8,4 +8,6 @@ public class AuditEntry
     public string? KeyValues { get; set; }
     public string? OldValues { get; set; }
     public string? NewValues { get; set; }
+    public byte[] RowVersion { get; set; } = default!;
+
 }
