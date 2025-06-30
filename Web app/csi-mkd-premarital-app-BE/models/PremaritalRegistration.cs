@@ -25,6 +25,6 @@ public class PremaritalRegistration
 
     public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 
-    [Timestamp]
-    public byte[] RowVersion { get; set; } = default!;
+    // [Timestamp]
+    // public byte[] RowVersion { get; set; } = default!;
 }

@@ -12,8 +12,8 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250629041516_ChurchActivitiesNullable")]
-    partial class ChurchActivitiesNullable
+    [Migration("20250630213214_InitialCreation")]
+    partial class InitialCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,6 +38,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("bytea");
 
                     b.Property<string>("Username")
@@ -71,6 +74,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("bytea");
 
                     b.Property<string>("TableName")
@@ -142,6 +148,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("bytea");
 
                     b.Property<string>("SessionType")
@@ -222,6 +231,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("bytea");
 
@@ -239,6 +249,44 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PremaritalRegistrations");
+                });
+
+            modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.SessionConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("integer");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("bytea");
+
+                    b.Property<string>("SessionName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("SubmittedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SessionConfigurations");
                 });
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.SessionFeedback", b =>
@@ -279,6 +327,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasColumnType("integer");
 
                     b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("bytea");
 
                     b.Property<string>("SessionTitle")

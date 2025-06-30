@@ -15,41 +15,48 @@ public class ApplicationDbContext : DbContext
     public DbSet<AuditEntry> AuditEntries { get; set; }
     public DbSet<SessionFeedback> SessionFeedbacks { get; set; }
     public DbSet<AdminUser> AdminUsers { get; set; }
+    public DbSet<SessionConfiguration> SessionConfigurations { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        base.OnModelCreating(modelBuilder);
+    // protected override void OnModelCreating(ModelBuilder modelBuilder)
+    // {
+    //     base.OnModelCreating(modelBuilder);
 
-        // GeneralRegistration RowVersion
-        modelBuilder.Entity<GeneralRegistration>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion()
-            .IsConcurrencyToken();
+    //     // GeneralRegistration RowVersion
+    //     modelBuilder.Entity<GeneralRegistration>()
+    //         .Property(p => p.RowVersion)
+    //         .IsRowVersion()
+    //         .IsConcurrencyToken();
 
 
-        // PremaritalRegistration RowVersion
-        modelBuilder.Entity<PremaritalRegistration>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion()
-            .IsConcurrencyToken();
+    //     // PremaritalRegistration RowVersion
+    //     modelBuilder.Entity<PremaritalRegistration>()
+    //         .Property(p => p.RowVersion)
+    //         .IsRowVersion()
+    //         .IsConcurrencyToken();
 
-        // AuditEntry RowVersion (if needed)
-        modelBuilder.Entity<AuditEntry>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion()
-            .IsConcurrencyToken();
+    //     // AuditEntry RowVersion (if needed)
+    //     modelBuilder.Entity<AuditEntry>()
+    //         .Property(p => p.RowVersion)
+    //         .IsRowVersion()
+    //         .IsConcurrencyToken();
 
-        // SessionFeedback RowVersion (if needed)
-        modelBuilder.Entity<SessionFeedback>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion()
-            .IsConcurrencyToken();
+    //     // SessionFeedback RowVersion (if needed)
+    //     modelBuilder.Entity<SessionFeedback>()
+    //         .Property(p => p.RowVersion)
+    //         .IsRowVersion()
+    //         .IsConcurrencyToken();
 
-        // AdminUser RowVersion (if needed)
-        modelBuilder.Entity<AdminUser>()
-            .Property(p => p.RowVersion)
-            .IsRowVersion()
-            .IsConcurrencyToken();
-    }
+    //     // AdminUser RowVersion (if needed)
+    //     modelBuilder.Entity<AdminUser>()
+    //         .Property(p => p.RowVersion)
+    //         .IsRowVersion()
+    //         .IsConcurrencyToken();
+
+    //     // SessionConfig RowVersion (if needed)
+    //     modelBuilder.Entity<SessionConfiguration>()
+    //         .Property(p => p.RowVersion)
+    //         .IsRowVersion()
+    //         .IsConcurrencyToken();
+    // }
 }
 

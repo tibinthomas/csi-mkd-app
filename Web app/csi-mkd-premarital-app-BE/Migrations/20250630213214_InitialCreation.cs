@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreation : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(type: "text", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: false)
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +39,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     UserId = table.Column<string>(type: "text", nullable: true),
                     KeyValues = table.Column<string>(type: "text", nullable: true),
                     OldValues = table.Column<string>(type: "text", nullable: true),
-                    NewValues = table.Column<string>(type: "text", nullable: true)
+                    NewValues = table.Column<string>(type: "text", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,7 +66,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     MaritalStatus = table.Column<string>(type: "text", nullable: false),
                     SessionType = table.Column<string>(type: "text", nullable: false),
                     Declaration = table.Column<bool>(type: "boolean", nullable: false),
-                    PhotoPath = table.Column<string>(type: "text", nullable: true)
+                    PhotoPath = table.Column<string>(type: "text", nullable: true),
+                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,6 +106,25 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SessionConfigurations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SessionName = table.Column<string>(type: "text", nullable: false),
+                    Year = table.Column<int>(type: "integer", nullable: false),
+                    Month = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    SubmittedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SessionConfigurations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SessionFeedbacks",
                 columns: table => new
                 {
@@ -119,7 +141,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     Valuable = table.Column<string>(type: "text", nullable: true),
                     Improvements = table.Column<string>(type: "text", nullable: true),
                     Comments = table.Column<string>(type: "text", nullable: true),
-                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,6 +164,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             migrationBuilder.DropTable(
                 name: "PremaritalRegistrations");
+
+            migrationBuilder.DropTable(
+                name: "SessionConfigurations");
 
             migrationBuilder.DropTable(
                 name: "SessionFeedbacks");

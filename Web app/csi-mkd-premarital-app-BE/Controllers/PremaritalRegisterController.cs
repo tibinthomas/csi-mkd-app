@@ -81,87 +81,6 @@ public class PremaritalRegisterController : ControllerBase
         return Ok(new { message = "Registration saved successfully" });
     }
 
-    // [HttpGet]
-    // public async Task<IActionResult> GetAllRegistrations()
-    // {
-    //     var registrations = await _context.PremaritalRegistrations
-    //         .Select(r => new
-    //         {
-    //             r.Id,
-    //             r.Name,
-    //             r.FatherName,
-    //             r.Address,
-    //             r.Sex,
-    //             r.Age,
-    //             r.Education,
-    //             r.Occupation,
-    //             r.ChurchName,
-    //             r.FianceName,
-    //             r.DateOfMarriage,
-    //             r.Phone,
-    //             r.Email,
-    //             r.Days,
-    //             r.ChurchActivitiesJson,
-    //             r.Declaration,
-    //             PhotoPath = r.PhotoFilePath,
-    //             VicarLetterPath = r.VicarLetterFilePath,
-    //             RowVersion = Convert.ToBase64String(r.RowVersion)
-    //         })
-    //         .ToListAsync();
-
-    //     // Parse ChurchActivitiesJson and map to DTO
-    //     var result = registrations.Select(r =>
-    //     {
-    //         bool choirMember = false;
-    //         bool ssTeacher = false;
-    //         bool youthFellowship = false;
-    //         string? other = null;
-
-    //         if (!string.IsNullOrEmpty(r.ChurchActivitiesJson))
-    //         {
-    //             try
-    //             {
-    //                 using var doc = JsonDocument.Parse(r.ChurchActivitiesJson);
-    //                 var root = doc.RootElement;
-    //                 choirMember = root.TryGetProperty("choirMember", out var choirProp) && choirProp.GetBoolean();
-    //                 ssTeacher = root.TryGetProperty("ssTeacher", out var ssProp) && ssProp.GetBoolean();
-    //                 youthFellowship = root.TryGetProperty("youthFellowship", out var youthProp) && youthProp.GetBoolean();
-    //                 other = root.TryGetProperty("other", out var otherProp) ? otherProp.GetString() : null;
-    //             }
-    //             catch
-    //             {
-    //                 // optionally log parse errors
-    //             }
-    //         }
-
-    //         return new PremaritalRegisterResponseDto
-    //         {
-    //             Id = r.Id,
-    //             Name = r.Name,
-    //             FatherName = r.FatherName,
-    //             Address = r.Address,
-    //             Sex = r.Sex,
-    //             Age = r.Age,
-    //             Education = r.Education,
-    //             Occupation = r.Occupation,
-    //             ChurchName = r.ChurchName,
-    //             FianceName = r.FianceName,
-    //             DateOfMarriage = r.DateOfMarriage,
-    //             Phone = r.Phone,
-    //             Email = r.Email,
-    //             Days = r.Days,
-    //             ChoirMember = choirMember,
-    //             SsTeacher = ssTeacher,
-    //             YouthFellowship = youthFellowship,
-    //             OtherChurchActivities = other,
-    //             PhotoPath = r.PhotoPath,
-    //             VicarLetterPath = r.VicarLetterPath,
-    //             RowVersion = r.RowVersion
-    //         };
-    //     });
-
-    //     return Ok(result);
-    // }
     [HttpGet]
     public async Task<IActionResult> GetAllRegistrations()
     {
@@ -187,7 +106,7 @@ public class PremaritalRegisterController : ControllerBase
                 r.Declaration,
                 PhotoPath = r.PhotoFilePath,
                 VicarLetterPath = r.VicarLetterFilePath,
-                RowVersion = Convert.ToBase64String(r.RowVersion)  // byte[] to base64 string
+                // RowVersion = Convert.ToBase64String(r.RowVersion)  // byte[] to base64 string
             })
             .ToListAsync();
 

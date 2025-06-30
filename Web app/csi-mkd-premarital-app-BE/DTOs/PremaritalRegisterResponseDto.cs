@@ -29,5 +29,5 @@ public class PremaritalRegisterResponseDto
     public string? PhotoPath { get; set; }
     public string? VicarLetterPath { get; set; }
 
-    public required string RowVersion { get; set; } // Base64 string
+    // public required string RowVersion { get; set; } // Base64 string
 }

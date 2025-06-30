@@ -34,12 +34,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("text");
@@ -69,12 +63,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<string>("OldValues")
                         .HasColumnType("text");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("TableName")
                         .IsRequired()
@@ -143,12 +131,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<string>("PhotoPath")
                         .HasColumnType("text");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("SessionType")
                         .IsRequired()
@@ -226,12 +208,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
-
                     b.Property<string>("Sex")
                         .IsRequired()
                         .HasColumnType("text");
@@ -246,6 +222,38 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("PremaritalRegistrations");
+                });
+
+            modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.SessionConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Month")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SessionName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("SubmittedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SessionConfigurations");
                 });
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.SessionFeedback", b =>
@@ -284,12 +292,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<int>("RelevanceRating")
                         .HasColumnType("integer");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("SessionTitle")
                         .IsRequired()
