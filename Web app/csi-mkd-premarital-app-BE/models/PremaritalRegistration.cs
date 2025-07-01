@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using csi_mkd_premarital_app_BE.Models;
 
 public class PremaritalRegistration
 {
@@ -23,6 +24,12 @@ public class PremaritalRegistration
     public required string PhotoFilePath { get; set; }
     public required string VicarLetterFilePath { get; set; }
 
+    public required int SessionId { get; set; }
+
+    public required DateTime SelectedDate { get; set; }
+
+    [ForeignKey("SessionId")]
+    public SessionConfiguration? SessionConfiguration { get; set; }
     public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 
     // [Timestamp]
