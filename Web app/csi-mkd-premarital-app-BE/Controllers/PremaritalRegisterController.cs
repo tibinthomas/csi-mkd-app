@@ -116,11 +116,31 @@ public class PremaritalRegisterController : ControllerBase
             r.SessionId,
             SessionName = r.SessionConfiguration!.SessionName,
             PhotoPath = r.PhotoFilePath,
-            VicarLetterPath = r.VicarLetterFilePath
+            VicarLetterPath = r.VicarLetterFilePath,
+            r.PaymentStatus,
         });
 
         return Ok(result);
     }
 
+    [HttpPut("{id}/paymentstatus")]
+    public async Task<IActionResult> UpdatePaymentStatus(int id, [FromBody] PaymentStatusUpdateDto dto)
+    {
+        var registration = await _context.PremaritalRegistrations.FindAsync(id);
+        if (registration == null)
+            return NotFound();
 
+        registration.PaymentStatus = dto.PaymentStatus;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Payment status updated successfully" });
+        }
+        catch (DbUpdateException)
+        {
+            // Log error if needed
+            return StatusCode(500, "Failed to update payment status");
+        }
+    }
 }
