@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,8 +19,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Username = table.Column<string>(type: "text", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
+                    PasswordHash = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,8 +38,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     UserId = table.Column<string>(type: "text", nullable: true),
                     KeyValues = table.Column<string>(type: "text", nullable: true),
                     OldValues = table.Column<string>(type: "text", nullable: true),
-                    NewValues = table.Column<string>(type: "text", nullable: true),
-                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
+                    NewValues = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,12 +64,53 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     MaritalStatus = table.Column<string>(type: "text", nullable: false),
                     SessionType = table.Column<string>(type: "text", nullable: false),
                     Declaration = table.Column<bool>(type: "boolean", nullable: false),
-                    PhotoPath = table.Column<string>(type: "text", nullable: true),
-                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
+                    PhotoPath = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GeneralRegistrations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SessionConfigurations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SessionName = table.Column<string>(type: "text", nullable: false),
+                    Year = table.Column<int>(type: "integer", nullable: false),
+                    Month = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    SubmittedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SessionConfigurations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SessionFeedbacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SessionTitle = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    QualityRating = table.Column<int>(type: "integer", nullable: false),
+                    RelevanceRating = table.Column<int>(type: "integer", nullable: false),
+                    EngagementRating = table.Column<int>(type: "integer", nullable: false),
+                    OrganizationRating = table.Column<int>(type: "integer", nullable: false),
+                    Valuable = table.Column<string>(type: "text", nullable: true),
+                    Improvements = table.Column<string>(type: "text", nullable: true),
+                    Comments = table.Column<string>(type: "text", nullable: true),
+                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SessionFeedbacks", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,57 +136,24 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     Declaration = table.Column<bool>(type: "boolean", nullable: false),
                     PhotoFilePath = table.Column<string>(type: "text", nullable: false),
                     VicarLetterFilePath = table.Column<string>(type: "text", nullable: false),
-                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
+                    SessionId = table.Column<int>(type: "integer", nullable: false),
+                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PremaritalRegistrations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PremaritalRegistrations_SessionConfigurations_SessionId",
+                        column: x => x.SessionId,
+                        principalTable: "SessionConfigurations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "SessionConfigurations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SessionName = table.Column<string>(type: "text", nullable: false),
-                    Year = table.Column<int>(type: "integer", nullable: false),
-                    Month = table.Column<int>(type: "integer", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    SubmittedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SessionConfigurations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SessionFeedbacks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    SessionTitle = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    QualityRating = table.Column<int>(type: "integer", nullable: false),
-                    RelevanceRating = table.Column<int>(type: "integer", nullable: false),
-                    EngagementRating = table.Column<int>(type: "integer", nullable: false),
-                    OrganizationRating = table.Column<int>(type: "integer", nullable: false),
-                    Valuable = table.Column<string>(type: "text", nullable: true),
-                    Improvements = table.Column<string>(type: "text", nullable: true),
-                    Comments = table.Column<string>(type: "text", nullable: true),
-                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "bytea", rowVersion: true, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SessionFeedbacks", x => x.Id);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_PremaritalRegistrations_SessionId",
+                table: "PremaritalRegistrations",
+                column: "SessionId");
         }
 
         /// <inheritdoc />
@@ -166,10 +172,10 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 name: "PremaritalRegistrations");
 
             migrationBuilder.DropTable(
-                name: "SessionConfigurations");
+                name: "SessionFeedbacks");
 
             migrationBuilder.DropTable(
-                name: "SessionFeedbacks");
+                name: "SessionConfigurations");
         }
     }
 }

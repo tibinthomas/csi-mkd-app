@@ -73,6 +73,8 @@ public class PremaritalRegisterController : ControllerBase
             Declaration = dto.Declaration,
             PhotoFilePath = $"/uploads/{photoFileName}",
             VicarLetterFilePath = $"/uploads/{vicarLetterFileName}",
+            SessionId = dto.SessionId,
+            PaymentStatus = dto.PaymentStatus,
         };
 
         _context.PremaritalRegistrations.Add(registration);
@@ -84,33 +86,40 @@ public class PremaritalRegisterController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAllRegistrations()
     {
-
         var registrations = await _context.PremaritalRegistrations
-            .Select(r => new
-            {
-                r.Id,
-                r.Name,
-                r.FatherName,
-                r.Address,
-                r.Sex,
-                r.Age,
-                r.Education,
-                r.Occupation,
-                r.ChurchName,
-                r.FianceName,
-                r.DateOfMarriage,
-                r.Phone,
-                r.Email,
-                r.Days,
-                r.ChurchActivitiesJson,
-                r.Declaration,
-                PhotoPath = r.PhotoFilePath,
-                VicarLetterPath = r.VicarLetterFilePath,
-                // RowVersion = Convert.ToBase64String(r.RowVersion)  // byte[] to base64 string
-            })
+            .Include(r => r.SessionConfiguration)
             .ToListAsync();
 
-        return Ok(registrations);
+        if (registrations.Any(r => r.SessionConfiguration == null))
+        {
+            return StatusCode(500, "One or more registrations are missing associated session configuration.");
+        }
+
+        var result = registrations.Select(r => new
+        {
+            r.Id,
+            r.Name,
+            r.FatherName,
+            r.Address,
+            r.Sex,
+            r.Age,
+            r.Education,
+            r.Occupation,
+            r.ChurchName,
+            r.FianceName,
+            r.DateOfMarriage,
+            r.Phone,
+            r.Email,
+            r.Days,
+            r.ChurchActivitiesJson,
+            r.Declaration,
+            r.SessionId,
+            SessionName = r.SessionConfiguration!.SessionName,
+            PhotoPath = r.PhotoFilePath,
+            VicarLetterPath = r.VicarLetterFilePath
+        });
+
+        return Ok(result);
     }
 
 

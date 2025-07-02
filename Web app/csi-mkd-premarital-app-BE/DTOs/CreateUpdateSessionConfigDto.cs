@@ -9,14 +9,12 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public int? Id { get; set; }
 
         public required string SessionName { get; set; }
-
-        public int Year { get; set; }
-
-        public int Month { get; set; }
-
         public DateTime StartDate { get; set; }
-
         public DateTime EndDate { get; set; }
+
+        public bool IsActive { get; set; }
+        
+        public DateTime SubmittedDate { get; set; } = DateTime.UtcNow;
 
         // public string? RowVersion { get; set; }
 

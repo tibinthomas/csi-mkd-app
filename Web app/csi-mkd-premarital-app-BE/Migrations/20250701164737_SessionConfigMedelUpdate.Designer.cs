@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using csi_mkd_premarital_app_BE.Data;
@@ -11,9 +12,11 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250701164737_SessionConfigMedelUpdate")]
+    partial class SessionConfigMedelUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,9 +203,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("PaymentStatus")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("text");
@@ -242,9 +242,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("SessionName")
                         .IsRequired()

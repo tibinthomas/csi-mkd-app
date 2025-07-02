@@ -23,10 +23,9 @@ namespace csi_mkd_premarital_app_BE.Controllers
         {
             Id = s.Id,
             SessionName = s.SessionName,
-            Year = s.Year,
-            Month = s.Month,
             StartDate = s.StartDate,
             EndDate = s.EndDate,
+            IsActive = s.IsActive,
             SubmittedDate = s.SubmittedDate,
             // RowVersion = Convert.ToBase64String(s.RowVersion) // Convert for JSON
         };
@@ -55,10 +54,9 @@ namespace csi_mkd_premarital_app_BE.Controllers
             var session = new SessionConfiguration
             {
                 SessionName = dto.SessionName,
-                Year = dto.Year,
-                Month = dto.Month,
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
+                IsActive = dto.IsActive,
                 SubmittedDate = DateTime.UtcNow,
             };
 
@@ -87,11 +85,10 @@ namespace csi_mkd_premarital_app_BE.Controllers
             {
                 Id = id,
                 SessionName = dto.SessionName,
-                Year = dto.Year,
-                Month = dto.Month,
                 StartDate = dto.StartDate,
                 EndDate = dto.EndDate,
-                SubmittedDate = existing.SubmittedDate,
+                IsActive = dto.IsActive,
+                SubmittedDate = DateTime.UtcNow,
                 // RowVersion = Convert.FromBase64String(dto.RowVersion) // real concurrency check
             };
 

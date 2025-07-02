@@ -28,4 +28,9 @@ public class PremaritalRegistrationDto
     public required IFormFile Photo { get; set; }
 
     public required IFormFile VicarLetter { get; set; }
+
+    public required int SessionId { get; set; }
+    
+    public bool PaymentStatus { get; set; }
+
 }

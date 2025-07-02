@@ -12,8 +12,8 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250630214036_SkippedRowVersion")]
-    partial class SkippedRowVersion
+    [Migration("20250701164321_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -211,6 +211,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("SessionId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Sex")
                         .IsRequired()
                         .HasColumnType("text");
@@ -223,6 +226,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
 
                     b.ToTable("PremaritalRegistrations");
                 });
@@ -309,6 +314,17 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SessionFeedbacks");
+                });
+
+            modelBuilder.Entity("PremaritalRegistration", b =>
+                {
+                    b.HasOne("csi_mkd_premarital_app_BE.Models.SessionConfiguration", "SessionConfiguration")
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SessionConfiguration");
                 });
 #pragma warning restore 612, 618
         }

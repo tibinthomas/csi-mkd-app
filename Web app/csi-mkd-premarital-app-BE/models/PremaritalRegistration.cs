@@ -24,12 +24,12 @@ public class PremaritalRegistration
     public required string PhotoFilePath { get; set; }
     public required string VicarLetterFilePath { get; set; }
 
+    [ForeignKey("SessionConfiguration")]
     public required int SessionId { get; set; }
 
-    public required DateTime SelectedDate { get; set; }
-
-    [ForeignKey("SessionId")]
     public SessionConfiguration? SessionConfiguration { get; set; }
+    public bool PaymentStatus { get; set; } // true = Paid, false = Unpaid
+
     public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 
     // [Timestamp]

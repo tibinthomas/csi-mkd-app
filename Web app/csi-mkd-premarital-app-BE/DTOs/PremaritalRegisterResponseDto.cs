@@ -28,6 +28,8 @@ public class PremaritalRegisterResponseDto
     public string? OtherChurchActivities { get; set; }
     public string? PhotoPath { get; set; }
     public string? VicarLetterPath { get; set; }
+    public required int SessionId { get; set; }
+    public bool PaymentStatus { get; set; }
 
     // public required string RowVersion { get; set; } // Base64 string
 }

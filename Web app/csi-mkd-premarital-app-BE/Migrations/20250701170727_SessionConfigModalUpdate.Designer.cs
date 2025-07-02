@@ -12,8 +12,8 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250630213214_InitialCreation")]
-    partial class InitialCreation
+    [Migration("20250701170727_SessionConfigModalUpdate")]
+    partial class SessionConfigModalUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,12 +36,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -72,12 +66,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<string>("OldValues")
                         .HasColumnType("text");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("TableName")
                         .IsRequired()
@@ -146,12 +134,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<string>("PhotoPath")
                         .HasColumnType("text");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
 
                     b.Property<string>("SessionType")
                         .IsRequired()
@@ -229,11 +211,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
+                    b.Property<int>("SessionId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Sex")
                         .IsRequired()
@@ -247,6 +226,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
 
                     b.ToTable("PremaritalRegistrations");
                 });
@@ -262,14 +243,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Month")
-                        .HasColumnType("integer");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SessionName")
                         .IsRequired()
@@ -280,9 +255,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.Property<DateTime>("SubmittedDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -326,12 +298,6 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<int>("RelevanceRating")
                         .HasColumnType("integer");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
-
                     b.Property<string>("SessionTitle")
                         .IsRequired()
                         .HasColumnType("text");
@@ -345,6 +311,17 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SessionFeedbacks");
+                });
+
+            modelBuilder.Entity("PremaritalRegistration", b =>
+                {
+                    b.HasOne("csi_mkd_premarital_app_BE.Models.SessionConfiguration", "SessionConfiguration")
+                        .WithMany()
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SessionConfiguration");
                 });
 #pragma warning restore 612, 618
         }
