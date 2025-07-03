@@ -1,6 +1,6 @@
 using System.Text;
 using csi_mkd_premarital_app_BE.Data;
-using csi_mkd_premarital_app_BE.Models;
+using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -77,6 +77,7 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<EmailService>();
 
 var app = builder.Build();
 

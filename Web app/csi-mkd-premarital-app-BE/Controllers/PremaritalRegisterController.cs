@@ -2,7 +2,7 @@ using csi_mkd_premarital_app_BE.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
-
+using csi_mkd_premarital_app_BE.Services;
 [ApiController]
 [Route("api/[controller]")]
 public class PremaritalRegisterController : ControllerBase
@@ -10,10 +10,13 @@ public class PremaritalRegisterController : ControllerBase
     private readonly ApplicationDbContext _context;
     private readonly IWebHostEnvironment _env;
 
-    public PremaritalRegisterController(ApplicationDbContext context, IWebHostEnvironment env)
+    private readonly EmailService _emailService;
+
+    public PremaritalRegisterController(ApplicationDbContext context, IWebHostEnvironment env, EmailService emailService)
     {
         _context = context;
         _env = env;
+        _emailService = emailService;
     }
 
     [HttpPost]
@@ -79,6 +82,7 @@ public class PremaritalRegisterController : ControllerBase
 
         _context.PremaritalRegistrations.Add(registration);
         await _context.SaveChangesAsync();
+        await _emailService.SendConfirmationEmail(dto.Email, dto.Name);
 
         return Ok(new { message = "Registration saved successfully" });
     }
