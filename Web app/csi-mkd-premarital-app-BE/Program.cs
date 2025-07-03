@@ -7,57 +7,48 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(
-        name: "LocalCorsPolicy",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod();
-        }
-    );
-
-    options.AddPolicy(
-        "AllowFrontend",
-        policy =>
-        {
-            policy
-                .WithOrigins("https://gray-wave-0441f1a00.2.azurestaticapps.net")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        }
-    );
-});
-
+// Add services to the container
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new() { Title = "My API", Version = "v1" });
+    options.SwaggerDoc("v1", new() { Title = "CSI MKD API", Version = "v1" });
 });
 
-builder.Services.AddScoped<AuditSaveChangesInterceptor>();
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("LocalCorsPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("https://gray-wave-0441f1a00.2.azurestaticapps.net")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+// Add DB context with interceptor
+builder.Services.AddScoped<AuditSaveChangesInterceptor>();
 builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
     options.AddInterceptors(serviceProvider.GetRequiredService<AuditSaveChangesInterceptor>());
+});
 
-}
-);
-
-// AdminUser User Authentication
-// Access configuration here
+// JWT Authentication
 var configuration = builder.Configuration;
-
-// JWT Setup
 var key = Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]!);
 if (string.IsNullOrEmpty(configuration["JwtSettings:Key"]))
 {
     throw new Exception("JWT key is not configured in appsettings.json");
 }
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,12 +72,23 @@ builder.Services.AddScoped<EmailService>();
 
 var app = builder.Build();
 
-app.UseCors("LocalCorsPolicy");
-app.UseCors("AllowFrontend");
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
+// Use HTTPS
 app.UseHttpsRedirection();
 
+// Use static files
+app.UseStaticFiles();
+
+// CORS policy based on environment
+if (app.Environment.IsDevelopment())
+{
+    app.UseCors("LocalCorsPolicy");
+}
+else
+{
+    app.UseCors("AllowFrontend");
+}
+
+// Use Swagger only in development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -97,8 +99,17 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Seeding Admin user
+// Authentication & Authorization
+app.UseAuthentication();
+app.UseAuthorization();
 
+// Routing
+app.MapControllers();
+
+// Test endpoint
+app.MapGet("/", () => "Hi from Teena").WithOpenApi();
+
+// DB Migration & Seeding
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -106,7 +117,7 @@ using (var scope = app.Services.CreateScope())
 
     if (!db.AdminUsers.Any())
     {
-        var passwordHash = BCrypt.Net.BCrypt.HashPassword("admin123"); // Replace with a strong password
+        var passwordHash = BCrypt.Net.BCrypt.HashPassword("admin123"); // Replace with secure password
         db.AdminUsers.Add(new AdminUser
         {
             Username = "admin",
@@ -116,19 +127,5 @@ using (var scope = app.Services.CreateScope())
         db.SaveChanges();
     }
 }
-
-app.UseHttpsRedirection();
-
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.MapControllers();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.MapGet("/", () => "Hi from Teena").WithOpenApi();
 
 app.Run();
