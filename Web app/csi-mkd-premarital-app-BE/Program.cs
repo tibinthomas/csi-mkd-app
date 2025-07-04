@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 
-    options.AddPolicy("AllowFrontendApp", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
         policy.WithOrigins("https://gray-wave-0441f1a00.2.azurestaticapps.net")
               .AllowAnyHeader()
@@ -78,15 +78,9 @@ app.UseHttpsRedirection();
 // Use static files
 app.UseStaticFiles();
 
-// CORS policy based on environment
-if (app.Environment.IsDevelopment())
-{
-    app.UseCors("LocalCorsPolicy");
-}
-else
-{
-    app.UseCors("AllowFrontendApp");
-}
+
+app.UseCors("AllowFrontend");
+
 
 // Use Swagger only in development
 if (app.Environment.IsDevelopment())
