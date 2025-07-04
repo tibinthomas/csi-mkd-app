@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Text.Json;
+using csi_mkd_premarital_app_BE.Models;
+
 
 public class AuditSaveChangesInterceptor : SaveChangesInterceptor
 {
