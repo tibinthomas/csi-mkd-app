@@ -1,4 +1,7 @@
-public class PaymentStatusUpdateDto
+namespace csi_mkd_premarital_app_BE.DTOs
 {
-    public bool PaymentStatus { get; set; }
+    public class PaymentStatusUpdateDto
+    {
+        public bool PaymentStatus { get; set; }
+    }
 }

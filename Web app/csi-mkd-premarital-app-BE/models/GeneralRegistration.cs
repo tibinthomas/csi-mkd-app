@@ -1,48 +1,51 @@
 using System.ComponentModel.DataAnnotations;
 
-public class GeneralRegistration
+namespace csi_mkd_premarital_app_BE.Models
 {
-    [Key]
-    public int Id { get; set; }
+    public class GeneralRegistration
+    {
+        [Key]
+        public int Id { get; set; }
 
-    [Required, MaxLength(50)]
-    public required string Name { get; set; }
+        [Required, MaxLength(50)]
+        public required string Name { get; set; }
 
-    [Required]
-    public required string FatherName { get; set; }
+        [Required]
+        public required string FatherName { get; set; }
 
-    [Required]
-    public required string Address { get; set; }
+        [Required]
+        public required string Address { get; set; }
 
-    [Required]
-    public required string Sex { get; set; }
+        [Required]
+        public required string Sex { get; set; }
 
-    [Required, Range(1, 120)]
-    public int Age { get; set; }
+        [Required, Range(1, 120)]
+        public int Age { get; set; }
 
-    [Required]
-    public required string Education { get; set; }
+        [Required]
+        public required string Education { get; set; }
 
-    [Required]
-    public required string Occupation { get; set; }
+        [Required]
+        public required string Occupation { get; set; }
 
-    public string? ChurchName { get; set; }
+        public string? ChurchName { get; set; }
 
-    [Required, RegularExpression(@"^\d{10}$")]
-    public required string Phone { get; set; }
+        [Required, RegularExpression(@"^\d{10}$")]
+        public required string Phone { get; set; }
 
-    [Required, EmailAddress]
-    public required string Email { get; set; }
+        [Required, EmailAddress]
+        public required string Email { get; set; }
 
-    [Required]
-    public required string MaritalStatus { get; set; }
+        [Required]
+        public required string MaritalStatus { get; set; }
 
-    [Required]
-    public required string SessionType { get; set; }
+        [Required]
+        public required string SessionType { get; set; }
 
-    public bool Declaration { get; set; }
+        public bool Declaration { get; set; }
 
-    public string? PhotoPath { get; set; }
-    // public byte[] RowVersion { get; set; } = default!;
+        public string? PhotoPath { get; set; }
+        // public byte[] RowVersion { get; set; } = default!;
 
+    }
 }

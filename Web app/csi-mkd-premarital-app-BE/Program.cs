@@ -1,5 +1,6 @@
 using System.Text;
 using csi_mkd_premarital_app_BE.Data;
+using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
