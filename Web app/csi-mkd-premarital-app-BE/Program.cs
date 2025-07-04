@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowFrontendApp", policy =>
     {
         policy.WithOrigins("https://gray-wave-0441f1a00.2.azurestaticapps.net")
               .AllowAnyHeader()
@@ -85,7 +85,7 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseCors("AllowFrontend");
+    app.UseCors("AllowFrontendApp");
 }
 
 // Use Swagger only in development
