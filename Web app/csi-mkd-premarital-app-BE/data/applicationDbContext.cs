@@ -1,63 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using csi_mkd_premarital_app_BE.Models;
+using System.Reflection;
 
 namespace csi_mkd_premarital_app_BE.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public DbSet<GeneralRegistration> GeneralRegistrations => Set<GeneralRegistration>();
+        public DbSet<PremaritalRegistration> PremaritalRegistrations => Set<PremaritalRegistration>();
+        public DbSet<AuditEntry> AuditEntries => Set<AuditEntry>();
+        public DbSet<SessionFeedback> SessionFeedbacks => Set<SessionFeedback>();
+        public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
+        public DbSet<SessionConfiguration> SessionConfigurations => Set<SessionConfiguration>();
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-
-        public DbSet<GeneralRegistration> GeneralRegistrations { get; set; }
-        public DbSet<PremaritalRegistration> PremaritalRegistrations { get; set; }
-        public DbSet<AuditEntry> AuditEntries { get; set; }
-        public DbSet<SessionFeedback> SessionFeedbacks { get; set; }
-        public DbSet<AdminUser> AdminUsers { get; set; }
-        public DbSet<SessionConfiguration> SessionConfigurations { get; set; }
-
-        // protected override void OnModelCreating(ModelBuilder modelBuilder)
-        // {
-        //     base.OnModelCreating(modelBuilder);
-
-        //     // GeneralRegistration RowVersion
-        //     modelBuilder.Entity<GeneralRegistration>()
-        //         .Property(p => p.RowVersion)
-        //         .IsRowVersion()
-        //         .IsConcurrencyToken();
-
-
-        //     // PremaritalRegistration RowVersion
-        //     modelBuilder.Entity<PremaritalRegistration>()
-        //         .Property(p => p.RowVersion)
-        //         .IsRowVersion()
-        //         .IsConcurrencyToken();
-
-        //     // AuditEntry RowVersion (if needed)
-        //     modelBuilder.Entity<AuditEntry>()
-        //         .Property(p => p.RowVersion)
-        //         .IsRowVersion()
-        //         .IsConcurrencyToken();
-
-        //     // SessionFeedback RowVersion (if needed)
-        //     modelBuilder.Entity<SessionFeedback>()
-        //         .Property(p => p.RowVersion)
-        //         .IsRowVersion()
-        //         .IsConcurrencyToken();
-
-        //     // AdminUser RowVersion (if needed)
-        //     modelBuilder.Entity<AdminUser>()
-        //         .Property(p => p.RowVersion)
-        //         .IsRowVersion()
-        //         .IsConcurrencyToken();
-
-        //     // SessionConfig RowVersion (if needed)
-        //     modelBuilder.Entity<SessionConfiguration>()
-        //         .Property(p => p.RowVersion)
-        //         .IsRowVersion()
-        //         .IsConcurrencyToken();
-        // }
     }
-
 }

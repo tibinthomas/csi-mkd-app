@@ -1,54 +1,101 @@
 using System.Text;
 using csi_mkd_premarital_app_BE.Data;
-using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = null;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new() { Title = "CSI MKD API", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "CSI MKD API",
+        Version = "v1",
+        Description = "API for CSI MKD Premarital Counseling Application"
+    });
+
+    // Add JWT Authentication to Swagger
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token in the text input below.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 // Configure CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("LocalCorsPolicy", policy =>
+    options.AddPolicy("AllowedOrigins", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("https://gray-wave-0441f1a00.2.azurestaticapps.net")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy.WithOrigins(
+                "http://localhost:4200",
+                "https://gray-wave-0441f1a00.2.azurestaticapps.net"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithExposedHeaders("Content-Disposition");
     });
 });
 
-// Add DB context with interceptor
-builder.Services.AddScoped<AuditSaveChangesInterceptor>();
+// Configure Database
 builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.AddInterceptors(serviceProvider.GetRequiredService<AuditSaveChangesInterceptor>());
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        npgsqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 3,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorCodesToAdd: null);
+    });
+
+    if (builder.Environment.IsDevelopment())
+    {
+        options.EnableSensitiveDataLogging()
+               .EnableDetailedErrors();
+    }
 });
 
-// JWT Authentication
-var configuration = builder.Configuration;
-var key = Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]!);
-if (string.IsNullOrEmpty(configuration["JwtSettings:Key"]))
-{
-    throw new Exception("JWT key is not configured in appsettings.json");
-}
+// Register Services
+builder.Services.AddScoped<AuditSaveChangesInterceptor>();
+builder.Services.AddScoped<EmailService>();
+
+// Configure JWT Authentication
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]
+    ?? throw new InvalidOperationException("JWT key is not configured"));
 
 builder.Services.AddAuthentication(options =>
 {
@@ -61,29 +108,18 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = configuration["JwtSettings:Issuer"],
-        ValidAudience = configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ClockSkew = TimeSpan.Zero
     };
 });
 
-builder.Services.AddAuthorization();
-builder.Services.AddScoped<EmailService>();
-
 var app = builder.Build();
 
-// Use HTTPS
-app.UseHttpsRedirection();
-
-// Use static files
-app.UseStaticFiles();
-
-
-app.UseCors("AllowFrontend");
-
-
-// Use Swagger only in development
+// Configure middleware pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -94,33 +130,16 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// Authentication & Authorization
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseCors("AllowedOrigins");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Routing
 app.MapControllers();
 
-// Test endpoint
-app.MapGet("/", () => "Hi from Teena").WithOpenApi();
-
-// DB Migration & Seeding
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
-
-    if (!db.AdminUsers.Any())
-    {
-        var passwordHash = BCrypt.Net.BCrypt.HashPassword("admin123"); // Replace with secure password
-        db.AdminUsers.Add(new AdminUser
-        {
-            Username = "admin",
-            PasswordHash = passwordHash
-        });
-
-        db.SaveChanges();
-    }
-}
+// Add health check endpoint
+app.MapGet("/health", () => Results.Ok("Healthy"));
 
 app.Run();
