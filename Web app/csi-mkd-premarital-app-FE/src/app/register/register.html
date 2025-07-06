@@ -1,0 +1,58 @@
+<main class="min-h-screen py-20 px-6 bg-white">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1 class="mb-12 text-3xl font-extrabold text-rose-900 tracking-tight">Choose a Registration Type</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <!-- Premarital Counselling -->
+      <mat-card
+        class="cursor-pointer rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
+        routerLink="/register/premarital-register"
+      >
+        <img
+          mat-card-image
+          ngSrc="/assets/couple.jpg"
+          width="300"
+          height="160"
+          alt="Premarital Counselling"
+          class="w-full h-40 object-cover rounded-t-xl"
+          loading="lazy"
+          decoding="async"
+        />
+        <mat-card-header class="px-6 pt-6 flex flex-col items-center text-center">
+          <mat-card-title class="text-xl font-semibold text-rose-900"> Premarital Counselling </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="px-6 pb-6 m-3 text-left">
+          <p class="text-gray-700 leading-relaxed">
+            Three-day residential program to prepare couples for a strong, committed, and faithful marriage.
+          </p>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- General Counselling -->
+      <mat-card
+        class="cursor-pointer rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
+        routerLink="/register/general-register"
+      >
+        <img
+          mat-card-image
+          ngSrc="/assets/family.jpg"
+          width="300"
+          height="160"
+          alt="General Counselling"
+          class="w-full h-40 object-cover rounded-t-xl"
+          loading="lazy"
+          decoding="async"
+        />
+        <mat-card-header class="px-6 pt-6 flex flex-col items-center text-center">
+          <mat-card-title class="text-xl font-semibold text-rose-900"> General Counselling </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="px-6 pb-6 m-3 text-left">
+          <p class="text-gray-700 leading-relaxed">
+            Register for counselling services including individual, family, student, and addiction support.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</main>
+<router-outlet></router-outlet>

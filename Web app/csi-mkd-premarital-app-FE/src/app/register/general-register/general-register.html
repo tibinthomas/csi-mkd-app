@@ -1,0 +1,154 @@
+<section class="py-20 px-4">
+  <mat-card class="max-w-4xl mx-auto p-6">
+    <mat-card-header class="mb-6">
+      <mat-card-title class="text-center text-2xl sm:text-3xl"> General Registration Form </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div class="grid md:grid-cols-2 gap-6">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Full Name</mat-label>
+            <input matInput formControlName="name" />
+            @if (isInvalid('name')) {
+            <mat-error>Full Name is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Father's Name</mat-label>
+            <input matInput formControlName="fatherName" />
+            @if (isInvalid('fatherName')) {
+            <mat-error>Father's Name is required.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Address</mat-label>
+          <textarea matInput formControlName="address" rows="3"></textarea>
+          @if (isInvalid('address')) {
+          <mat-error>Address is required.</mat-error>
+          }
+        </mat-form-field>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Sex</mat-label>
+            <mat-select formControlName="sex">
+              <mat-option value="Male">Male</mat-option>
+              <mat-option value="Female">Female</mat-option>
+            </mat-select>
+            @if (isInvalid('sex')) {
+            <mat-error>Please select your sex.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Age</mat-label>
+            <input matInput type="number" formControlName="age" />
+            @if (isInvalid('age')) {
+            <mat-error>
+              @if (form.get('age')?.errors?.['required']) {
+              <span>Age is required.</span>
+              } @if (form.get('age')?.errors?.['min']) {
+              <span>Minimum valid age is 1.</span>
+              } @if (form.get('age')?.errors?.['max']) {
+              <span>Maximum valid age is 120.</span>
+              }
+            </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Education</mat-label>
+            <input matInput formControlName="education" />
+            @if (isInvalid('education')) {
+            <mat-error>Education field is required.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Occupation</mat-label>
+          <input matInput formControlName="occupation" />
+          @if (isInvalid('occupation')) {
+          <mat-error>Occupation field is required.</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Church Name</mat-label>
+          <input matInput formControlName="churchName" />
+        </mat-form-field>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" />
+            @if (isInvalid('phone')) {
+            <mat-error>Phone number is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            @if (isInvalid('email')) {
+            <mat-error>
+              @if (form.get('email')?.errors?.['required']) {
+              <span>Email is required.</span>
+              } @if (form.get('email')?.errors?.['email']) {
+              <span>Invalid email format.</span>
+              }
+            </mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Marital Status</mat-label>
+            <mat-select formControlName="maritalStatus">
+              <mat-option value="Single">Single</mat-option>
+              <mat-option value="Married">Married</mat-option>
+            </mat-select>
+            @if (isInvalid('maritalStatus')) {
+            <mat-error>Please select your marital status.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Session Type</mat-label>
+            <mat-select formControlName="sessionType">
+              <mat-option value="In-Person">In-Person</mat-option>
+              <mat-option value="Online">Online</mat-option>
+            </mat-select>
+            @if (isInvalid('sessionType')) {
+            <mat-error>Please select the session type.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Upload Passport Size Photo</label>
+          <button mat-raised-button type="button" (click)="photoInput.click()">Choose Photo</button>
+          <input #photoInput type="file" accept="image/*" (change)="onFileChange($event)" class="hidden" />
+          @if (photoError()) {
+          <mat-error>{{ photoError() }}</mat-error>
+          }
+        </div>
+
+        <div class="flex items-center gap-2">
+          <mat-checkbox formControlName="declaration"> I would like to attend the counselling course. </mat-checkbox>
+          @if (isInvalid('declaration')) {
+          <mat-error>You must accept the declaration.</mat-error>
+          }
+        </div>
+
+        <div>
+          <button mat-raised-button type="submit" class="w-full">Submit Registration</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
+  "configurations": {
+    "csi-mkd-premarital-app-fe": {
+      "appLocation": ".",
+      "outputLocation": "dist/fe/browser",
+      "appBuildCommand": "npm run build",
+      "run": "npm start",
+      "appDevserverUrl": "http://localhost:4200",
+      "appName": "csi-mkd-premarital-app-fe",
+      "resourceGroup": "csi-mkd-premarital-app-fe-rg"
+    }
+  }
+}

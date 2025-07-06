@@ -1,0 +1,213 @@
+<main>
+  <!-- Hero Section -->
+  <section
+    class="bg-cover bg-center h-screen flex items-center justify-center relative"
+    style="background-image: url('/assets/background-image.jpg')"
+  >
+    <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
+    <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white">
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow">CSI Counselling Centre, Kottayam</h1>
+      <p class="text-xl italic font-light">Healing Minds. Empowering Lives.</p>
+      <p class="mt-4 text-sm">Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</p>
+      <div class="mt-6">
+        <button mat-raised-button color="primary" routerLink="/register">Book Appointment</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who We Are -->
+  <section class="py-20 px-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <img
+        ngSrc="/assets/individual.jpg"
+        width="600"
+        height="400"
+        class="w-full rounded-3xl shadow-2xl"
+        alt="Who We Are"
+      />
+      <div>
+        <h2 class="text-4xl font-bold mb-4 text-rose-900">Who We Are</h2>
+        <p class="text-lg leading-relaxed">
+          With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers
+          holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided
+          by a commitment to mental, emotional, and spiritual well-being.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-16 text-rose-900">Our Services</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <mat-card>
+          <img mat-card-image ngSrc="/assets/individual.jpg" width="256" height="192" alt="Individual Counselling" />
+          <mat-card-header>
+            <mat-card-title>Individual Counselling</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Personal & online sessions for stress, anxiety, grief, and related challenges.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <img mat-card-image ngSrc="/assets/family.jpg" width="256" height="192" alt="Couple & Family Therapy" />
+          <mat-card-header>
+            <mat-card-title>Couple & Family Therapy</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Resolve conflicts and strengthen family relationships with professional guidance.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <img mat-card-image ngSrc="/assets/child.jpg" width="256" height="192" alt="Child & Adolescent Therapy" />
+          <mat-card-header>
+            <mat-card-title>Child & Adolescent Therapy</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Support for behavioral, academic, emotional development, and career guidance.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <img mat-card-image ngSrc="/assets/child.jpg" width="256" height="192" alt="Psychodiagnostics" />
+          <mat-card-header>
+            <mat-card-title>Psychodiagnostics</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Assessments for learning difficulties, psychological testing, and career planning.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <img mat-card-image ngSrc="/assets/couple.jpg" width="256" height="192" alt="Premarital Counselling" />
+          <mat-card-header>
+            <mat-card-title>Premarital Counselling</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Three-day residential program to prepare couples for a strong and faithful marriage.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <img mat-card-image ngSrc="/assets/individual.jpg" width="256" height="192" alt="Outreach Programs" />
+          <mat-card-header>
+            <mat-card-title>School & College Outreach Programmes</mat-card-title>
+            <mat-card-subtitle> S.H.A.P.E. - Student’s Holistic and Pragmatic Empowerment </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Empowering individuals to ensure holistic wellbeing through counselling and other initiatives.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <img mat-card-image ngSrc="/assets/individual.jpg" width="256" height="192" alt="Outreach Programs" />
+          <mat-card-header>
+            <mat-card-title>Pre-confirmational Counselling</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>
+              Pre-confirmational counselling is a certified half/one day programme, typically to guidance and educate
+              individuals preferably youths who are preparing for their confirmation.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold text-center text-rose-900 mb-16">Why Choose Us?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Faith-Sensitive Care</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Confidential counselling with sensitivity to Christian values.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <a routerLink="/team-members" routerLinkActive="underline underline-offset-4">Experienced Team</a>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Panel of certified psychologists, pastoral counsellors, and clergy.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Holistic Healing</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Integration of professional therapy with spiritual care and support.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Accessible Services</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>Both in-person and online appointments at affordable rates.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Community Outreach</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>SHAPE programs, leadership workshops, and mental health campaigns.</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Safe Environment</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>A non-judgmental and peaceful setting for personal growth and healing.</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Contact Section -->
+  <footer class="py-16 mt-20">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 text-center md:text-left">
+      <!-- Address -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4">📍 Visit Us</h3>
+        <ul class="space-y-1 text-sm">
+          <li>CSI Counselling Centre</li>
+          <li>CMS Press Compound</li>
+          <li>Chalukunnu, Kottayam-1</li>
+          <li>Kerala, India – 686001</li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4">📞 Contact</h3>
+        <ul class="space-y-1 text-sm">
+          <li>+91-8129778832</li>
+          <li>+91-8606638973</li>
+          <li>csimkdmarry&#64;gmail.com</li>
+          <li class="mt-2">🕒 Mon – Sat | 9:00 AM – 6:00 PM</li>
+        </ul>
+      </div>
+
+      <!-- Scripture or Motto -->
+      <div class="mt-8">
+        <blockquote class="italic text-sm leading-relaxed">
+          “Come to me, all who are weary and burdened, and I will give you rest.”
+        </blockquote>
+        <p class="mt-2 text-xs">– Matthew 11:28</p>
+      </div>
+    </div>
+
+    <div class="mt-12 text-center text-xs">
+      © {{ currentYear() }} CSI Counselling Centre, Kottayam. All rights reserved.
+    </div>
+  </footer>
+</main>
+<router-outlet></router-outlet>

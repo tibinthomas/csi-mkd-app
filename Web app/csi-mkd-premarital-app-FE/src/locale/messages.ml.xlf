@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="1769638224126160393" datatype="html">
+        <source>Admin Login</source>
+        <target>അഡ്മിൻ ലോഗിൻ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="loggingIn" datatype="html">
+        <source>ലോഗിൻ ചെയ്യുന്നു...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login" datatype="html">
+        <source>Login</source>
+        <target>ലോഗിൻ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

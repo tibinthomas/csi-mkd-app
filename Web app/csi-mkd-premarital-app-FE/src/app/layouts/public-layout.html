@@ -1,0 +1,42 @@
+<mat-toolbar color="primary" class="flex justify-between items-center">
+  <div class="flex items-center space-x-2">
+    <img src="assets/csi-logo.png" alt="CSI Logo" class="h-10 w-auto sm:h-16" />
+  </div>
+
+  <div class="text-center">
+    <h1 class="text-xs sm:text-2xl font-bold uppercase tracking-wide text-rose-900">CSI Counselling Centre</h1>
+    <h2 class="text-xs sm:text-sm uppercase tracking-wide">Madhya Kerala Diocese</h2>
+  </div>
+
+  <div class="flex items-center space-x-2">
+    <img src="assets/csi-mkd-logo.png" alt="CSI MKD Logo" class="h-10 w-auto sm:h-16" />
+  </div>
+
+  <div class="flex items-center">
+    <app-language-selector></app-language-selector>
+    <!-- Hamburger menu button: only visible on small screens -->
+    <button [matMenuTriggerFor]="menu" class="sm:hidden">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>
+
+<mat-menu #menu="matMenu">
+  <a mat-menu-item routerLink="/about" routerLinkActive="active-link">About</a>
+  <a mat-menu-item routerLink="/team-members" routerLinkActive="active-link">Our Team</a>
+  <a mat-menu-item routerLink="/register" routerLinkActive="active-link">Register</a>
+  <a mat-menu-item routerLink="/feedback" routerLinkActive="active-link">Feedback</a>
+</mat-menu>
+
+<!-- Desktop navigation: hidden on small screens -->
+<nav class="hidden sm:block bg-primary-dark">
+  <div class="max-w-7xl mx-auto px-4 py-3">
+    <div class="flex justify-center items-center space-x-8">
+      <a mat-button routerLink="/about" routerLinkActive="active-link">About</a>
+      <a mat-button routerLink="/team-members" routerLinkActive="active-link">Our Team</a>
+      <a mat-button routerLink="/register" routerLinkActive="active-link">Register</a>
+      <a mat-button routerLink="/feedback" routerLinkActive="active-link">Feedback</a>
+    </div>
+  </div>
+</nav>
+<router-outlet></router-outlet>
