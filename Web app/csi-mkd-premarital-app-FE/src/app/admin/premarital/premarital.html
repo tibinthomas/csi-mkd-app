@@ -1,122 +1,81 @@
 <div class="p-4 sm:p-6">
   <h3 class="text-2xl font-bold mb-6 text-rose-900">Premarital Registrations</h3>
 
-  <button mat-raised-button color="primary" (click)="downloadAsPDF()" class="mb-6">
-    <mat-icon>download</mat-icon>
-    Download Full List
-  </button>
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search for name or email" #input />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="downloadAsPDF()">
+      <mat-icon>download</mat-icon>
+      Download Full List
+    </button>
+  </div>
 
   <div #pdfContent class="export-pdf overflow-x-auto rounded-lg shadow">
-    <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full bg-white">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.name }}</td>
+    <table mat-table [dataSource]="filteredData()" multiTemplateDataRows class="min-w-full mat-elevation-z8">
+      <!-- Dynamic columns using @for -->
+      @for (column of columnsToDisplay(); track column) {
+      <ng-container matColumnDef="{{ column }}">
+        <th mat-header-cell *matHeaderCellDef class="capitalize">{{ column }}</th>
+        <td mat-cell *matCellDef="let reg">{{ reg[column] }}</td>
       </ng-container>
+      }
 
-      <ng-container matColumnDef="sex">
-        <th mat-header-cell *matHeaderCellDef>Sex</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.sex }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="age">
-        <th mat-header-cell *matHeaderCellDef>Age</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.age }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef>Phone</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.phone }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.email }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="sessionName">
-        <th mat-header-cell *matHeaderCellDef>Session</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.sessionName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="photoPath">
-        <th mat-header-cell *matHeaderCellDef>Photo</th>
+      <!-- Expand button column -->
+      <ng-container matColumnDef="expand">
+        <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let reg">
-          @if (reg.photoPath) {
-            <img
-              [ngSrc]="reg.photoPath"
-              width="40"
-              height="40"
-              class="h-10 w-10 object-cover rounded-full border"
-              alt="User photo"
-              />
-          }
+          <button
+            mat-icon-button
+            aria-label="expand row"
+            (click)="toggle(reg); $event.stopPropagation()"
+            class="example-toggle-button"
+            [class.example-toggle-button-expanded]="isExpanded(reg)"
+          >
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </button>
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="vicarLetterPath">
-        <th mat-header-cell *matHeaderCellDef>Vicar Letter</th>
-        <td mat-cell *matCellDef="let reg">
-          @if (reg.vicarLetterPath) {
-            <a [href]="reg.vicarLetterPath" target="_blank" mat-button color="primary">
-              Download
-            </a>
-          }
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="paymentStatus">
-        <th mat-header-cell *matHeaderCellDef>Payment Status</th>
-        <td mat-cell *matCellDef="let reg">
-          @if (!reg.paymentStatus) {
-            <button mat-raised-button color="warn" (click)="markPaymentReceived(reg)">
-              Approve
-            </button>
-          }
-          @if (reg.paymentStatus) {
-            <span class="text-green-700 font-medium">Payment Received</span>
-          }
-        </td>
-      </ng-container>
-
-      <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+      <!-- Expandable detail row -->
       <ng-container matColumnDef="expandedDetail">
-        <td mat-cell *matCellDef="let reg" [attr.colspan]="displayedColumns.length">
-          <div class="example-element-detail" [@detailExpand]="reg === selectedReg() ? 'expanded' : 'collapsed'">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-800 text-sm p-4">
-              <div><strong>Father Name:</strong> {{ reg.fatherName }}</div>
-              <div><strong>Education:</strong> {{ reg.education }}</div>
-              <div><strong>Occupation:</strong> {{ reg.occupation }}</div>
-              <div><strong>Church Name:</strong> {{ reg.churchName }}</div>
-              <div><strong>Fiancé Name:</strong> {{ reg.fianceName }}</div>
-              <div><strong>Date of Marriage:</strong> {{ reg.dateOfMarriage | date : "MMMM d, y" }}</div>
-              <div>
+        <td mat-cell *matCellDef="let reg" [attr.colspan]="columnsToDisplayWithExpand().length">
+          <div class="p-4 text-sm text-gray-700" [@detailExpand]="expandedElement === reg ? 'expanded' : 'collapsed'">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div><strong>Father Name:</strong> {{ reg.FatherName }}</div>
+              <div><strong>Education:</strong> {{ reg.Education }}</div>
+              <div><strong>Occupation:</strong> {{ reg.Occupation }}</div>
+              <div><strong>Church:</strong> {{ reg.ChurchName }}</div>
+              <div><strong>Fiancé Name:</strong> {{ reg.FianceName }}</div>
+              <div><strong>Date of Marriage:</strong> {{ reg.DateOfMarriage | date : "MMMM d, y" }}</div>
+              <div class="md:col-span-2">
                 <strong>Church Activities:</strong>
-                @if (hasActivities(reg.churchActivities)) {
+                <ng-container *ngIf="hasActivities(reg.churchActivities); else noActivities">
                   <ul class="list-disc list-inside">
-                    @for (activity of getSelectedActivities(reg.churchActivities); track activity) {
-                      <li>
-                        {{ activity }}
-                      </li>
-                    }
+                    <li *ngFor="let activity of getSelectedActivities(reg.churchActivities)">{{ activity }}</li>
                   </ul>
-                }
-                @if (!hasActivities(reg.churchActivities)) {
+                </ng-container>
+                <ng-template #noActivities>
                   <span class="italic text-gray-400">None</span>
-                }
+                </ng-template>
               </div>
             </div>
           </div>
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <!-- Table structure -->
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand()"></tr>
       <tr
         mat-row
-        *matRowDef="let reg; columns: displayedColumns"
+        *matRowDef="let reg; columns: columnsToDisplayWithExpand()"
         class="example-element-row"
-        [class.example-expanded-row]="selectedReg() === reg"
-        (click)="handleRowClick($event, reg)"
-      ></tr>
+        [class.example-expanded-row]="isExpanded(reg)"
+        (click)="toggle(reg)"
+      >
+        >
+      </tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
   </div>

@@ -2,19 +2,21 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  ViewChild,
   inject,
   signal,
-  ViewChild,
+  computed,
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
 import {
   animate,
   state,
@@ -22,22 +24,41 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { FormsModule } from '@angular/forms';
+import {
+  MatFormField,
+  MatFormFieldModule,
+  MatLabel,
+} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-premarital-list',
   templateUrl: './premarital.html',
+  styleUrl: './premarital.scss',
+
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
   imports: [
     CommonModule,
-    NgOptimizedImage,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
+    MatExpansionModule,
+    FormsModule,
+    MatFormField,
+    MatLabel,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
   ],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
+      state(
+        'collapsed',
+        style({ height: '0px', minHeight: '0', display: 'none' })
+      ),
+      state('expanded', style({ height: '*', display: 'block' })),
       transition(
         'expanded <=> collapsed',
         animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')
@@ -46,24 +67,30 @@ import {
   ],
 })
 export class PremaritalComponent {
-  displayedColumns: string[] = [
+  private readonly premaritalRegisterService = inject(
+    PremaritalRegisterService
+  );
+
+  protected readonly columnsToDisplay = signal<string[]>([
     'name',
     'sex',
     'age',
     'phone',
     'email',
     'sessionName',
-    'photoPath',
-    'vicarLetterPath',
     'paymentStatus',
-  ];
-  private readonly premaritalRegisterService = inject(
-    PremaritalRegisterService
-  );
+  ]);
+
+  protected readonly columnsToDisplayWithExpand = computed(() => [
+    ...this.columnsToDisplay(),
+    'expand',
+  ]);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
   private readonly refreshTrigger = signal(0);
+  protected readonly filterValue = signal('');
+  expandedElement: any = null;
 
   @ViewChild('pdfContent', { static: false })
   private readonly pdfContent!: ElementRef;
@@ -73,16 +100,11 @@ export class PremaritalComponent {
       this.premaritalRegisterService.apiPremaritalRegisterGet().pipe(
         map((data: any) => {
           const parsed = typeof data === 'string' ? JSON.parse(data) : data;
-          return parsed.map((reg: any) => ({
-            ...reg,
-            churchActivities: reg.churchActivitiesJson
-              ? JSON.parse(reg.churchActivitiesJson)
-              : {},
-          }));
+          return this.formatRegistrations(parsed);
         }),
         catchError((err) => {
           console.error('Error loading registrations:', err);
-          return of([]); // fallback to empty array
+          return of([]);
         })
       )
     )
@@ -92,8 +114,47 @@ export class PremaritalComponent {
     initialValue: [],
   });
 
+  protected readonly filteredData = computed(() => {
+    const filter = this.filterValue().trim().toLowerCase();
+    if (!filter) return this.registrations();
+
+    return this.registrations().filter(
+      (reg: any) =>
+        reg.name?.toLowerCase().includes(filter) ||
+        reg.email?.toLowerCase().includes(filter) ||
+        reg.phone?.toLowerCase().includes(filter)
+    );
+  });
+
+  private formatRegistrations(data: any[]): any[] {
+    return data.map((reg) => ({
+      ...reg,
+      name: reg.Name,
+      sex: reg.Sex,
+      age: reg.Age,
+      phone: reg.Phone,
+      email: reg.Email,
+      sessionName: reg.SessionName,
+      photoPath: reg.PhotoPath,
+      vicarLetterPath: reg.VicarLetterPath,
+      paymentStatus: reg.PaymentStatus,
+      churchActivities: reg.ChurchActivitiesJson
+        ? JSON.parse(reg.ChurchActivitiesJson)
+        : {},
+    }));
+  }
+
   toggleDetails(reg: any): void {
     this.selectedReg.update((value) => (value === reg ? null : reg));
+  }
+
+  isExpanded(reg: any) {
+    return this.expandedElement === reg;
+  }
+
+  /** Toggles the expanded state of an element. */
+  toggle(reg: any) {
+    this.expandedElement = this.isExpanded(reg) ? null : reg;
   }
 
   hasActivities(activities: any): boolean {
@@ -115,9 +176,7 @@ export class PremaritalComponent {
     const selected: string[] = [];
 
     for (const key in labels) {
-      if (activities?.[key]) {
-        selected.push(labels[key]);
-      }
+      if (activities?.[key]) selected.push(labels[key]);
     }
 
     if (activities?.other?.trim()) {
@@ -126,6 +185,32 @@ export class PremaritalComponent {
 
     return selected;
   }
+
+  markPaymentReceived(reg: any): void {
+    if (reg.paymentStatus) return;
+
+    const updated = {
+      ...reg,
+      paymentStatus: true,
+    };
+
+    this.premaritalRegisterService
+      .apiPremaritalRegisterIdPaymentstatusPut({
+        id: reg.id,
+        body: updated,
+      })
+      .pipe(
+        catchError((err) => {
+          console.error('Failed to mark payment as received:', err);
+          alert('Failed to mark payment as received.');
+          return of(null);
+        })
+      )
+      .subscribe(() => {
+        this.refreshTrigger.set(this.refreshTrigger() + 1);
+      });
+  }
+
   async downloadAsPDF() {
     try {
       this.showAllDetails.set(true);
@@ -149,36 +234,15 @@ export class PremaritalComponent {
     }
   }
 
-  handleRowClick(event: MouseEvent, reg: any) {
-    const target = event.target as HTMLElement;
-    if (target.closest('button')) {
-      return;
-    }
-    this.toggleDetails(reg);
+  // applyFilter(value: string) {
+  //   this.filterValue.set(value);
+  // }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    filterValue.trim().toLowerCase();
+    this.filterValue.set(filterValue);
   }
-
-  markPaymentReceived(reg: any) {
-    if (reg.paymentStatus) return;
-
-    const updated = {
-      ...reg,
-      paymentStatus: true,
-    };
-
-    this.premaritalRegisterService
-      .apiPremaritalRegisterIdPaymentstatusPut({
-        id: reg.id,
-        body: updated,
-      })
-      .pipe(
-        catchError((err) => {
-          console.error('Failed to mark payment as received:', err);
-          alert('Failed to mark payment as received.');
-          return of(null);
-        })
-      )
-      .subscribe(() => {
-        this.refreshTrigger.set(this.refreshTrigger() + 1);
-      });
+  clearFilter() {
+    this.filterValue.set('');
   }
 }

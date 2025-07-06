@@ -72,8 +72,6 @@ export class SessionConfig implements OnInit {
         map((data) =>
           data.map((session: any) => ({
             ...session,
-            startDate: this.toLocalTimeString(session.startDate),
-            endDate: this.toLocalTimeString(session.endDate),
           }))
         ),
         catchError((err) => {
@@ -210,17 +208,6 @@ export class SessionConfig implements OnInit {
   toUtcIsoString(dateInput: string | Date): string {
     const localDate = new Date(dateInput);
     return localDate.toISOString();
-  }
-
-  toLocalTimeString(utcIsoString: string): string {
-    const date = new Date(utcIsoString);
-    const day = date.getUTCDate();
-    const year = date.getUTCFullYear();
-    const month = date.toLocaleString('en-US', {
-      month: 'long',
-      timeZone: 'UTC',
-    });
-    return `${month} ${day}, ${year}`;
   }
 }
 
