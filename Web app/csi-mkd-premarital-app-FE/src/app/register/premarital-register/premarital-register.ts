@@ -28,7 +28,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from './success-dialog';
 @Component({
   selector: 'app-premarital-register',
   imports: [
@@ -50,6 +51,8 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class PremaritalRegister {
   private readonly fb = inject(FormBuilder);
+  readonly dialog = inject(MatDialog);
+
   private readonly premaritalRegisterService = inject(
     PremaritalRegisterService
   );
@@ -250,6 +253,12 @@ export class PremaritalRegister {
         next: () => {
           this.successMessage.set('Registration submitted successfully!');
           this.showSuccessModal.set(true);
+          this.dialog.open(SuccessDialogComponent, {
+            width: '400px',
+            disableClose: true,
+          });
+
+          // this.sendConfirmationEmail(formData.name, formData.email);
           this.resetForm();
         },
         error: (err) => {
@@ -257,7 +266,21 @@ export class PremaritalRegister {
           this.errorMessage.set('Submission failed. Please try again.');
           this.showErrorModal.set(true);
           this.isSubmitting.set(false);
+          // this.snackbar.open('Submission failed. Try again.', 'Close', {
+          //   duration: 3000,
+          // });
         },
       });
   }
+
+  // private sendConfirmationEmail(name: string, email: string): void {
+  //   this.http.post('/api/send-confirmation-email', { name, email }).subscribe({
+  //     next: () => {
+  //       console.log('Confirmation email sent');
+  //     },
+  //     error: (err) => {
+  //       console.error('Failed to send confirmation email:', err);
+  //     },
+  //   });
+  // }
 }
