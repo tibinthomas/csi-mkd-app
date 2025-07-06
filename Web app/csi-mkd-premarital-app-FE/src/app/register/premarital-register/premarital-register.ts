@@ -26,6 +26,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-premarital-register',
@@ -40,6 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    DatePipe,
+    MatIcon,
   ],
   templateUrl: './premarital-register.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,6 +68,8 @@ export class PremaritalRegister {
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;
+  photoFileName: string | null = '';
+  vicarLetterFileName: string | null = '';
 
   private readonly sessions$ = this.sessionConfigService
     .apiSessionconfigGet$Json()
@@ -71,8 +77,8 @@ export class PremaritalRegister {
       map((data: any) =>
         data.map((session: any) => ({
           ...session,
-          startDate: this.toLocalTimeString(session.startDate),
-          endDate: this.toLocalTimeString(session.endDate),
+          startDate: session.startDate,
+          endDate: session.endDate,
         }))
       ),
       catchError((err) => {
@@ -122,6 +128,8 @@ export class PremaritalRegister {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0] || null;
     if (type === 'photo') {
+      this.photoFileName = file && file.name;
+
       if (file && !file.type.startsWith('image/')) {
         this.photoError.set('Only image files are allowed.');
         this.photoFile.set(null);
@@ -137,6 +145,8 @@ export class PremaritalRegister {
         'image/jpeg',
         'image/png',
       ];
+      this.vicarLetterFileName = file && file.name;
+
       if (file && !allowedTypes.includes(file.type)) {
         this.vicarLetterError.set('Allowed types: PDF, DOC, JPG, PNG');
         this.vicarLetterFile.set(null);
@@ -249,19 +259,5 @@ export class PremaritalRegister {
           this.isSubmitting.set(false);
         },
       });
-  }
-
-  toLocalTimeString(utcIsoString: string): string {
-    const date = new Date(utcIsoString);
-
-    // Use UTC getters to avoid local time shift
-    const day = date.getUTCDate();
-    const year = date.getUTCFullYear();
-    const month = date.toLocaleString('en-US', {
-      month: 'long',
-      timeZone: 'UTC',
-    });
-
-    return `${month} ${day}, ${year}`;
   }
 }

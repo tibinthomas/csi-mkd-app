@@ -152,8 +152,8 @@
             <mat-label>Session</mat-label>
             <mat-select formControlName="sessionId">
               @for (session of sessionList(); track session) {
-              <mat-option [value]="session.id" [disabled]="!session.isActive">
-                {{ session.sessionName }} ({{ session.startDate }} - {{ session.endDate }})
+              <mat-option [value]="session.Id" [disabled]="!session.IsActive">
+                {{ session.SessionName }} ({{ session.StartDate | date }} - {{ session.EndDate | date }})
               </mat-option>
               }
             </mat-select>
@@ -163,26 +163,40 @@
           </mat-form-field>
         </div>
 
-        <div>
+        <!-- Upload Photo -->
+        <div class="mb-6">
           <label class="block font-medium mb-2">Upload Passport Size Photo</label>
-          <button mat-raised-button type="button" (click)="photoInput.click()">Choose Photo</button>
-          <input #photoInput type="file" accept="image/*" (change)="onFileChange($event, 'photo')" class="hidden" />
-          @if (photoError()) {
+          <button mat-raised-button color="primary" type="button" (click)="photoInput.click()">
+            <mat-icon>upload</mat-icon>
+            Choose Photo
+          </button>
+          <input #photoInput type="file" accept="image/*" (change)="onFileChange($event, 'photo')" hidden />
+
+          @if (photoFileName) {
+          <span class="text-sm text-gray-600 mt-2 block">{{ photoFileName }}</span>
+          } @if (photoError()) {
           <mat-error>{{ photoError() }}</mat-error>
           }
         </div>
 
-        <div>
+        <!-- Upload Vicar Letter -->
+        <div class="mb-6">
           <label class="block font-medium mb-2">Upload Witness of Vicar</label>
-          <button mat-raised-button type="button" (click)="letterInput.click()">Choose File</button>
+          <button mat-raised-button color="primary" type="button" (click)="letterInput.click()">
+            <mat-icon>upload_file</mat-icon>
+            Choose File
+          </button>
           <input
             #letterInput
             type="file"
             accept=".pdf,.doc,.docx,image/*"
             (change)="onFileChange($event, 'vicarLetter')"
-            class="hidden"
+            hidden
           />
-          @if (vicarLetterError()) {
+
+          @if (vicarLetterFileName) {
+          <span class="text-sm text-gray-600 mt-2 block">{{ vicarLetterFileName }}</span>
+          } @if (vicarLetterError()) {
           <mat-error>{{ vicarLetterError() }}</mat-error>
           }
         </div>
