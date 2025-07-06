@@ -5,6 +5,7 @@ using System.Text.Json;
 using csi_mkd_premarital_app_BE.Services;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
+
 namespace csi_mkd_premarital_app_BE.Controllers
 {
     [ApiController]
@@ -86,9 +87,9 @@ namespace csi_mkd_premarital_app_BE.Controllers
 
             _context.PremaritalRegistrations.Add(registration);
             await _context.SaveChangesAsync();
-            await _emailService.SendConfirmationEmail(dto.Email, dto.Name);
+            _emailService.SendConfirmationEmail(dto.Email, dto.Name);
 
-            return Ok(new { message = "Registration saved successfully" });
+            return Ok(new { message = "Registered and email sent!" });
         }
 
         [HttpGet]

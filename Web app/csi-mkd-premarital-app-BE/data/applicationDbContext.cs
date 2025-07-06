@@ -12,6 +12,7 @@ namespace csi_mkd_premarital_app_BE.Data
         public DbSet<SessionFeedback> SessionFeedbacks => Set<SessionFeedback>();
         public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
         public DbSet<SessionConfiguration> SessionConfigurations => Set<SessionConfiguration>();
+        public DbSet<EmailConfig> EmailConfigs => Set<EmailConfig>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
