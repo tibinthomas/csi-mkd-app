@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { SessionFormDialogComponent } from './session-config-form';
 
 @Component({
   selector: 'app-session-config',
@@ -91,72 +92,71 @@ export class SessionConfig implements OnInit {
     this.refreshTrigger.set(this.refreshTrigger() + 1);
   }
 
-  onSubmit() {
-    if (this.form.invalid) return;
+  // onSubmit() {
+  //   if (this.form.invalid) return;
 
-    const raw = this.form.value;
-    const session = {
-      ...raw,
-      sessionName: raw.sessionName ?? null,
-      startDate: this.toUtcIsoString(raw.startDate as string),
-      endDate: this.toUtcIsoString(raw.endDate as string),
-      isActive: raw.isActive !== null ? raw.isActive : true,
-    };
+  //   const raw = this.form.value;
+  //   const session = {
+  //     ...raw,
+  //     sessionName: raw.sessionName ?? null,
+  //     startDate: this.toUtcIsoString(raw.startDate as string),
+  //     endDate: this.toUtcIsoString(raw.endDate as string),
+  //     isActive: raw.isActive !== null ? raw.isActive : true,
+  //   };
 
-    if (this.editMode() && session.id) {
-      this.sessionConfigService
-        .apiSessionconfigIdPut({
-          id: session.id,
-          body: session,
-        })
-        .subscribe({
-          next: () => {
-            this.refreshTrigger.set(this.refreshTrigger() + 1);
-            this.form.reset();
-            this.editMode.set(false);
-            this.closeModal();
-          },
-          error: (err) => {
-            console.error('Update failed', err);
-            alert('Failed to update session configuration.');
-          },
-        });
-    } else {
-      this.sessionConfigService
-        .apiSessionconfigPost$Json({
-          body: session,
-        })
-        .subscribe({
-          next: () => {
-            this.refreshTrigger.set(this.refreshTrigger() + 1);
-            this.form.reset();
-            this.closeModal();
-          },
-          error: (err) => {
-            console.error('Creation failed', err);
-            alert('Failed to create session configuration.');
-          },
-        });
-    }
-  }
+  //   if (this.editMode() && session.id) {
+  //     this.sessionConfigService
+  //       .apiSessionconfigIdPut({
+  //         id: session.id,
+  //         body: session,
+  //       })
+  //       .subscribe({
+  //         next: () => {
+  //           this.refreshTrigger.set(this.refreshTrigger() + 1);
+  //           this.form.reset();
+  //           this.editMode.set(false);
+  //         },
+  //         error: (err) => {
+  //           console.error('Update failed', err);
+  //           alert('Failed to update session configuration.');
+  //         },
+  //       });
+  //   } else {
+  //     this.sessionConfigService
+  //       .apiSessionconfigPost$Json({
+  //         body: session,
+  //       })
+  //       .subscribe({
+  //         next: () => {
+  //           this.refreshTrigger.set(this.refreshTrigger() + 1);
+  //           this.form.reset();
+  //           this.closeModal();
+  //         },
+  //         error: (err) => {
+  //           console.error('Creation failed', err);
+  //           alert('Failed to create session configuration.');
+  //         },
+  //       });
+  //   }
+  // }
 
-  editSession(session: any) {
-    this.editMode.set(true);
-    this.form.patchValue(session);
-    this.showModal.set(true);
-  }
+  // editSession(session: any) {
+  //   this.editMode.set(true);
+  //   this.form.patchValue(session);
+  //   this.showModal.set(true);
+  // }
 
   deleteSession(session: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        message: `Are you sure you want to delete the session "${session.sessionName}"?`,
+        message: `Are you sure you want to delete the session "${session.SessionName}"?`,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.sessionConfigService
-          .apiSessionconfigIdDelete({ id: session.id })
+          .apiSessionconfigIdDelete({ id: session.Id })
           .subscribe({
             next: () => {
               this.refreshTrigger.set(this.refreshTrigger() + 1);
@@ -175,11 +175,11 @@ export class SessionConfig implements OnInit {
   toggleStatus(session: any) {
     const updatedSession = {
       ...session,
-      isActive: !session.isActive,
+      isActive: !session.IsActive,
     };
     this.sessionConfigService
       .apiSessionconfigIdPut({
-        id: session.id,
+        id: session.Id,
         body: updatedSession,
       })
       .subscribe({
@@ -195,19 +195,59 @@ export class SessionConfig implements OnInit {
       });
   }
 
-  openModal() {
-    this.editMode.set(false);
-    this.form.reset();
-    this.showModal.set(true);
-  }
-
-  closeModal() {
-    this.showModal.set(false);
-  }
-
   toUtcIsoString(dateInput: string | Date): string {
     const localDate = new Date(dateInput);
     return localDate.toISOString();
+  }
+
+  addSession() {
+    const dialogRef = this.dialog.open(SessionFormDialogComponent, {
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const session = {
+          ...result,
+          startDate: this.toUtcIsoString(result.startDate),
+          endDate: this.toUtcIsoString(result.endDate),
+        };
+        this.sessionConfigService
+          .apiSessionconfigPost$Json({ body: session })
+          .subscribe({
+            next: () => this.refreshTrigger.set(this.refreshTrigger() + 1),
+            error: () =>
+              this.dialog.open(AlertDialog, {
+                data: { message: 'Failed to create session' },
+              }),
+          });
+      }
+    });
+  }
+
+  editSession(session: any) {
+    const dialogRef = this.dialog.open(SessionFormDialogComponent, {
+      data: { session },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const updated = {
+          ...result,
+          startDate: this.toUtcIsoString(result.startDate),
+          endDate: this.toUtcIsoString(result.endDate),
+        };
+        this.sessionConfigService
+          .apiSessionconfigIdPut({ id: updated.id, body: updated })
+          .subscribe({
+            next: () => this.refreshTrigger.set(this.refreshTrigger() + 1),
+            error: () =>
+              this.dialog.open(AlertDialog, {
+                data: { message: 'Failed to update session' },
+              }),
+          });
+      }
+    });
   }
 }
 

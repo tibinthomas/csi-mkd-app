@@ -12,7 +12,7 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -51,6 +51,7 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
+    NgOptimizedImage,
   ],
   animations: [
     trigger('detailExpand', [
@@ -67,24 +68,10 @@ import { MatInputModule } from '@angular/material/input';
   ],
 })
 export class PremaritalComponent {
+  baseApiUrl = API_ROOT_URL;
   private readonly premaritalRegisterService = inject(
     PremaritalRegisterService
   );
-
-  protected readonly columnsToDisplay = signal<string[]>([
-    'name',
-    'sex',
-    'age',
-    'phone',
-    'email',
-    'sessionName',
-    'paymentStatus',
-  ]);
-
-  protected readonly columnsToDisplayWithExpand = computed(() => [
-    ...this.columnsToDisplay(),
-    'expand',
-  ]);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -99,8 +86,12 @@ export class PremaritalComponent {
     switchMap(() =>
       this.premaritalRegisterService.apiPremaritalRegisterGet().pipe(
         map((data: any) => {
-          const parsed = typeof data === 'string' ? JSON.parse(data) : data;
-          return this.formatRegistrations(parsed);
+          const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+
+          return parsedData.map((item: any) => ({
+            ...item,
+            ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'), // safely parse the nested JSON
+          }));
         }),
         catchError((err) => {
           console.error('Error loading registrations:', err);
@@ -120,41 +111,19 @@ export class PremaritalComponent {
 
     return this.registrations().filter(
       (reg: any) =>
-        reg.name?.toLowerCase().includes(filter) ||
-        reg.email?.toLowerCase().includes(filter) ||
-        reg.phone?.toLowerCase().includes(filter)
+        reg.Name?.toLowerCase().includes(filter) ||
+        reg.Email?.toLowerCase().includes(filter) ||
+        reg.Phone?.toLowerCase().includes(filter)
     );
   });
-
-  private formatRegistrations(data: any[]): any[] {
-    return data.map((reg) => ({
-      ...reg,
-      name: reg.Name,
-      sex: reg.Sex,
-      age: reg.Age,
-      phone: reg.Phone,
-      email: reg.Email,
-      sessionName: reg.SessionName,
-      photoPath: reg.PhotoPath,
-      vicarLetterPath: reg.VicarLetterPath,
-      paymentStatus: reg.PaymentStatus,
-      churchActivities: reg.ChurchActivitiesJson
-        ? JSON.parse(reg.ChurchActivitiesJson)
-        : {},
-    }));
-  }
-
-  toggleDetails(reg: any): void {
-    this.selectedReg.update((value) => (value === reg ? null : reg));
-  }
-
-  isExpanded(reg: any) {
-    return this.expandedElement === reg;
-  }
 
   /** Toggles the expanded state of an element. */
   toggle(reg: any) {
     this.expandedElement = this.isExpanded(reg) ? null : reg;
+  }
+
+  isExpanded(reg: any) {
+    return this.expandedElement === reg;
   }
 
   hasActivities(activities: any): boolean {
@@ -186,28 +155,22 @@ export class PremaritalComponent {
     return selected;
   }
 
-  markPaymentReceived(reg: any): void {
-    if (reg.paymentStatus) return;
-
+  approvePayment(reg: any): void {
     const updated = {
       ...reg,
-      paymentStatus: true,
+      paymentStatus: !reg.paymentStatus,
     };
-
     this.premaritalRegisterService
-      .apiPremaritalRegisterIdPaymentstatusPut({
-        id: reg.id,
-        body: updated,
-      })
-      .pipe(
-        catchError((err) => {
-          console.error('Failed to mark payment as received:', err);
-          alert('Failed to mark payment as received.');
-          return of(null);
-        })
-      )
-      .subscribe(() => {
-        this.refreshTrigger.set(this.refreshTrigger() + 1);
+      .apiPremaritalRegisterIdPaymentstatusPut({ id: reg.Id, body: updated })
+      .subscribe({
+        next: () => {
+          reg.PaymentStatus = 'Received';
+          this.refreshTrigger.set(this.refreshTrigger() + 1);
+        },
+        error: (err) => {
+          console.error('Payment update failed', err);
+          alert('Failed to update payment status. Please try again.');
+        },
       });
   }
 
@@ -234,14 +197,12 @@ export class PremaritalComponent {
     }
   }
 
-  // applyFilter(value: string) {
-  //   this.filterValue.set(value);
-  // }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     filterValue.trim().toLowerCase();
     this.filterValue.set(filterValue);
   }
+
   clearFilter() {
     this.filterValue.set('');
   }

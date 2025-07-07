@@ -12,24 +12,36 @@ import { PaymentStatusUpdateDto } from '../../models/payment-status-update-dto';
 
 export interface ApiPremaritalRegisterIdPaymentstatusPut$Params {
   id: number;
-      body?: PaymentStatusUpdateDto
+  body?: PaymentStatusUpdateDto;
 }
 
-export function apiPremaritalRegisterIdPaymentstatusPut(http: HttpClient, rootUrl: string, params: ApiPremaritalRegisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterIdPaymentstatusPut.PATH, 'put');
+export function apiPremaritalRegisterIdPaymentstatusPut(
+  http: HttpClient,
+  rootUrl: string,
+  params: ApiPremaritalRegisterIdPaymentstatusPut$Params,
+  context?: HttpContext
+): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(
+    rootUrl,
+    apiPremaritalRegisterIdPaymentstatusPut.PATH,
+    'put'
+  );
   if (params) {
     rb.path('id', params.id, {});
     rb.body(params.body, 'application/*+json');
   }
 
-  return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
-  ).pipe(
-    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-    map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
-    })
-  );
+  return http
+    .request(rb.build({ responseType: 'text', accept: '*/*', context }))
+    .pipe(
+      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return (r as HttpResponse<any>).clone({
+          body: undefined,
+        }) as StrictHttpResponse<void>;
+      })
+    );
 }
 
-apiPremaritalRegisterIdPaymentstatusPut.PATH = '/api/PremaritalRegister/{id}/paymentstatus';
+apiPremaritalRegisterIdPaymentstatusPut.PATH =
+  '/api/PremaritalRegister/{id}/paymentstatus';
