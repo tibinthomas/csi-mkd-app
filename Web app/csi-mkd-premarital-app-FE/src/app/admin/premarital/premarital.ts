@@ -31,6 +31,12 @@ import {
   MatLabel,
 } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-premarital-list',
@@ -69,6 +75,7 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class PremaritalComponent {
   baseApiUrl = API_ROOT_URL;
+  private readonly dialog = inject(MatDialog);
   private readonly premaritalRegisterService = inject(
     PremaritalRegisterService
   );
@@ -88,10 +95,12 @@ export class PremaritalComponent {
         map((data: any) => {
           const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
 
-          return parsedData.map((item: any) => ({
-            ...item,
-            ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'), // safely parse the nested JSON
-          }));
+          return parsedData
+            .map((item: any) => ({
+              ...item,
+              ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'),
+            }))
+            .sort((a: any, b: any) => b.Id - a.Id);
         }),
         catchError((err) => {
           console.error('Error loading registrations:', err);
@@ -156,22 +165,31 @@ export class PremaritalComponent {
   }
 
   approvePayment(reg: any): void {
-    const updated = {
-      ...reg,
-      paymentStatus: !reg.paymentStatus,
-    };
-    this.premaritalRegisterService
-      .apiPremaritalRegisterIdPaymentstatusPut({ id: reg.Id, body: updated })
-      .subscribe({
-        next: () => {
-          reg.PaymentStatus = 'Received';
-          this.refreshTrigger.set(this.refreshTrigger() + 1);
-        },
-        error: (err) => {
-          console.error('Payment update failed', err);
-          alert('Failed to update payment status. Please try again.');
-        },
-      });
+    const dialogRef = this.dialog.open(ConfirmationDialog);
+
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        const updated = {
+          ...reg,
+          paymentStatus: !reg.paymentStatus,
+        };
+        this.premaritalRegisterService
+          .apiPremaritalRegisterIdPaymentstatusPut({
+            id: reg.Id,
+            body: updated,
+          })
+          .subscribe({
+            next: () => {
+              reg.PaymentStatus = 'Received';
+              this.refreshTrigger.set(this.refreshTrigger() + 1);
+            },
+            error: (err) => {
+              console.error('Payment update failed', err);
+              alert('Failed to update payment status. Please try again.');
+            },
+          });
+      }
+    });
   }
 
   async downloadAsPDF() {
@@ -205,5 +223,30 @@ export class PremaritalComponent {
 
   clearFilter() {
     this.filterValue.set('');
+  }
+}
+
+@Component({
+  selector: 'confirmation-dialog',
+  template: `
+    <h2 mat-dialog-title>Confirm Approval</h2>
+    <mat-dialog-content
+      >Are you sure you want to approve this payment?</mat-dialog-content
+    >
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-raised-button color="primary" (click)="dialogRef.close(true)">
+        Approve
+      </button>
+    </mat-dialog-actions>
+  `,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class ConfirmationDialog {
+  dialogRef = inject<MatDialogRef<ConfirmationDialog>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

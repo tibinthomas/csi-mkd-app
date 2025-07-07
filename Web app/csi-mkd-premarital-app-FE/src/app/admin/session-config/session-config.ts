@@ -71,9 +71,11 @@ export class SessionConfig implements OnInit {
     switchMap(() =>
       this.sessionConfigService.apiSessionconfigGet$Json().pipe(
         map((data) =>
-          data.map((session: any) => ({
-            ...session,
-          }))
+          data
+            .map((session: any) => ({
+              ...session,
+            }))
+            .sort((a: any, b: any) => b.Id - a.Id)
         ),
         catchError((err) => {
           console.error('Failed to load sessions', err);
