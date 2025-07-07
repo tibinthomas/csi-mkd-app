@@ -203,15 +203,17 @@
 
         <div class="flex items-center gap-2">
           <mat-checkbox formControlName="declaration">
-            I would like to attend the premarital counselling course.
+            I would like to attend the premarital counselling course. @if (isInvalid('declaration')) {
+            <mat-error>You must accept the declaration.</mat-error>
+            }
           </mat-checkbox>
-          @if (isInvalid('declaration')) {
-          <mat-error>You must accept the declaration.</mat-error>
-          }
         </div>
 
         <div>
-          <button mat-raised-button color="primary" type="submit" class="w-full">Submit Registration</button>
+          <!-- <button mat-raised-button color="primary" type="submit" class="w-full">Submit Registration</button> -->
+          <button mat-raised-button color="primary" type="submit" class="w-full" [disabled]="isSubmitting()">
+            {{ isSubmitting() ? "Submitting..." : "Register" }}
+          </button>
         </div>
       </form>
     </mat-card-content>

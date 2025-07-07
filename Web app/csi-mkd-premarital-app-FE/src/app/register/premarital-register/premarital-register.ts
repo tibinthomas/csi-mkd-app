@@ -136,6 +136,9 @@ export class PremaritalRegister {
       if (file && !file.type.startsWith('image/')) {
         this.photoError.set('Only image files are allowed.');
         this.photoFile.set(null);
+      } else if (file && file.size > 5 * 1024 * 1024) {
+        this.photoError.set('File too large. Max size is 5MB.');
+        this.photoFile.set(null);
       } else {
         this.photoFile.set(file);
         this.photoError.set('');
@@ -152,6 +155,9 @@ export class PremaritalRegister {
 
       if (file && !allowedTypes.includes(file.type)) {
         this.vicarLetterError.set('Allowed types: PDF, DOC, JPG, PNG');
+        this.vicarLetterFile.set(null);
+      } else if (file && file.size > 5 * 1024 * 1024) {
+        this.vicarLetterError.set('File too large. Max size is 5MB.');
         this.vicarLetterFile.set(null);
       } else {
         this.vicarLetterFile.set(file);
