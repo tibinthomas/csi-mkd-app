@@ -1,5 +1,5 @@
 @use 'tailwindcss';
-@use './rose-theme.scss' as *;
+@use './theme-config.scss' as *;
 
 @tailwind base;
 @tailwind components;

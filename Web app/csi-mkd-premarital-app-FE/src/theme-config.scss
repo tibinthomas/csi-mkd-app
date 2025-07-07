@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+@use 'green-color-palette' as custom-palette;
+
+html {
+  @include mat.theme(
+    (
+      color: custom-palette.$primary-palette,
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
