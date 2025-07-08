@@ -152,5 +152,19 @@ namespace csi_mkd_premarital_app_BE.Controllers
                 return StatusCode(500, "Failed to update payment status");
             }
         }
+
+        [HttpGet("check-email")]
+        public async Task<IActionResult> CheckEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return BadRequest(new { message = "Email is required" });
+            }
+
+            var exists = await _context.PremaritalRegistrations
+                .AnyAsync(r => r.Email.ToLower() == email.ToLower());
+
+            return Ok(new { exists });
+        }
     }
 }
