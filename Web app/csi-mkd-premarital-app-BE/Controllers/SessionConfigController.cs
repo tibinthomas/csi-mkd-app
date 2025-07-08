@@ -121,9 +121,7 @@ namespace csi_mkd_premarital_app_BE.Controllers
 
             if (hasRegistrations)
             {
-                Console.WriteLine(hasRegistrations);
                 return BadRequest(new { message = "Cannot delete session. It is associated with one or more registrations." });
-
             }
 
             _context.SessionConfigurations.Remove(session);
