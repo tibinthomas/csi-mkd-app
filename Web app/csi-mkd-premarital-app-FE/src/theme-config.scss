@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
-@use 'green-color-palette' as custom-palette;
+@use 'pink-colour-palette' as custom-palette;
+// @use 'green-color-palette' as custom-palette;
 
 html {
   @include mat.theme(

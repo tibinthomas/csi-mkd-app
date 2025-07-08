@@ -1,20 +1,21 @@
 <mat-toolbar color="primary" class="flex justify-between items-center">
+  <!-- Left Logo -->
   <div class="flex items-center space-x-2">
     <img src="assets/csi-logo.png" alt="CSI Logo" class="h-10 w-auto sm:h-16" />
   </div>
 
+  <!-- Center Title -->
   <div class="text-center">
-    <h1 class="text-xs sm:text-2xl font-bold uppercase tracking-wide text-rose-900">CSI Counselling Centre</h1>
+    <h1 class="text-xs sm:text-3xl font-bold uppercase tracking-wide">CSI Counselling Centre</h1>
     <h2 class="text-xs sm:text-sm uppercase tracking-wide">Madhya Kerala Diocese</h2>
   </div>
 
+  <!-- Right section: Language + Right Logo + Menu -->
   <div class="flex items-center space-x-2">
-    <img src="assets/csi-mkd-logo.png" alt="CSI MKD Logo" class="h-10 w-auto sm:h-16" />
-  </div>
-
-  <div class="flex items-center">
     <app-language-selector></app-language-selector>
-    <!-- Hamburger menu button: only visible on small screens -->
+    <img src="assets/csi-mkd-logo.png" alt="CSI MKD Logo" class="h-10 w-auto sm:h-16" />
+
+    <!-- Hamburger menu: only on small screens -->
     <button [matMenuTriggerFor]="menu" class="sm:hidden">
       <mat-icon>menu</mat-icon>
     </button>
