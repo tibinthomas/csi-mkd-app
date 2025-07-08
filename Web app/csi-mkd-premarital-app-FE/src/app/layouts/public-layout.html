@@ -6,14 +6,18 @@
 
   <!-- Center Title -->
   <div class="text-center">
-    <h1 class="text-xs sm:text-3xl font-bold uppercase tracking-wide">CSI Counselling Centre</h1>
-    <h2 class="text-xs sm:text-sm uppercase tracking-wide">Madhya Kerala Diocese</h2>
+    <h1 class="text-base sm:text-3xl font-bold uppercase tracking-wide !text-base sm:!text-3xl">
+      CSI Counselling Centre
+    </h1>
+
+    <h2 class="text-xs sm:text-sm uppercase tracking-wide !text-xs sm:!text-sm">Madhya Kerala Diocese</h2>
   </div>
 
   <!-- Right section: Language + Right Logo + Menu -->
-  <div class="flex items-center space-x-2">
-    <app-language-selector></app-language-selector>
+  <div class="flex items-center">
     <img src="assets/csi-mkd-logo.png" alt="CSI MKD Logo" class="h-10 w-auto sm:h-16" />
+
+    <app-language-selector></app-language-selector>
 
     <!-- Hamburger menu: only on small screens -->
     <button [matMenuTriggerFor]="menu" class="sm:hidden">
