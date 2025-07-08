@@ -4,6 +4,7 @@
 
 export { AuthService } from './services/auth.service';
 export { CsiMkdPremaritalAppBeService } from './services/csi-mkd-premarital-app-be.service';
+export { EmailConfigService } from './services/email-config.service';
 export { FeedbackService } from './services/feedback.service';
 export { PremaritalRegisterService } from './services/premarital-register.service';
 export { RegisterService } from './services/register.service';

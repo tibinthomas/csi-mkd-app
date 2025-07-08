@@ -120,17 +120,17 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="w-full">
+          <mat-form-field appearance="fill" class="w-full mb-2">
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email" />
-            @if (isInvalid('email')) {
-            <mat-error>
-              @if (form.get('email')?.errors?.['required']) {
-              <span>Email is required.</span>
-              } @if (form.get('email')?.errors?.['email']) {
-              <span>Invalid email format.</span>
-              }
-            </mat-error>
+            @if (form.get('email')?.touched && form.get('email')?.errors?.['emailTaken']) {
+            <mat-error>This email is already registered.</mat-error>
+            } @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
+            <mat-error>Email is required.</mat-error>
+            } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
+            <mat-error>Invalid email format.</mat-error>
+            } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
+            <mat-error>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error>
             }
           </mat-form-field>
         </div>

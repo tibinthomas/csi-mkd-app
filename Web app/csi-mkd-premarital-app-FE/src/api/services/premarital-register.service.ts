@@ -11,6 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { apiPremaritalRegisterCheckEmailGet } from '../fn/premarital-register/api-premarital-register-check-email-get';
+import { ApiPremaritalRegisterCheckEmailGet$Params } from '../fn/premarital-register/api-premarital-register-check-email-get';
 import { apiPremaritalRegisterGet } from '../fn/premarital-register/api-premarital-register-get';
 import { ApiPremaritalRegisterGet$Params } from '../fn/premarital-register/api-premarital-register-get';
 import { apiPremaritalRegisterIdPaymentstatusPut } from '../fn/premarital-register/api-premarital-register-id-paymentstatus-put';
@@ -95,6 +97,31 @@ export class PremaritalRegisterService extends BaseService {
    */
   apiPremaritalRegisterIdPaymentstatusPut(params: ApiPremaritalRegisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<void> {
     return this.apiPremaritalRegisterIdPaymentstatusPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalRegisterCheckEmailGet()` */
+  static readonly ApiPremaritalRegisterCheckEmailGetPath = '/api/PremaritalRegister/check-email';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalRegisterCheckEmailGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalRegisterCheckEmailGet$Response(params?: ApiPremaritalRegisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalRegisterCheckEmailGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalRegisterCheckEmailGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalRegisterCheckEmailGet(params?: ApiPremaritalRegisterCheckEmailGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalRegisterCheckEmailGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

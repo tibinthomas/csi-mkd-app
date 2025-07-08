@@ -11,8 +11,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { get } from '../fn/csi-mkd-premarital-app-be/get';
-import { Get$Params } from '../fn/csi-mkd-premarital-app-be/get';
+import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
+import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
 
 @Injectable({ providedIn: 'root' })
 export class CsiMkdPremaritalAppBeService extends BaseService {
@@ -20,28 +20,28 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `get()` */
-  static readonly GetPath = '/';
+  /** Path part for operation `healthGet()` */
+  static readonly HealthGetPath = '/health';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `get()` instead.
+   * To access only the response body, use `healthGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  get$Response(params?: Get$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return get(this.http, this.rootUrl, params, context);
+  healthGet$Response(params?: HealthGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return healthGet(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `get$Response()` instead.
+   * To access the full response (for headers, for example), `healthGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  get(params?: Get$Params, context?: HttpContext): Observable<string> {
-    return this.get$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
+  healthGet(params?: HealthGet$Params, context?: HttpContext): Observable<void> {
+    return this.healthGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

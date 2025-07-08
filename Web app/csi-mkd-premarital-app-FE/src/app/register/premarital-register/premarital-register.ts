@@ -30,6 +30,8 @@ import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from './success-dialog';
+import { uniqueEmailValidator } from '../../core/validators/unique-email.validator';
+import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 @Component({
   selector: 'app-premarital-register',
   imports: [
@@ -74,26 +76,6 @@ export class PremaritalRegister {
   photoFileName: string | null = '';
   vicarLetterFileName: string | null = '';
 
-  private readonly sessions$ = this.sessionConfigService
-    .apiSessionconfigGet$Json()
-    .pipe(
-      map((data: any) =>
-        data.map((session: any) => ({
-          ...session,
-          startDate: session.startDate,
-          endDate: session.endDate,
-        }))
-      ),
-      catchError((err) => {
-        console.error('Error loading sessions:', err);
-        return of([]); // fallback to empty array
-      })
-    );
-
-  protected readonly sessionList = toSignal(this.sessions$, {
-    initialValue: [],
-  });
-
   constructor() {
     this.form = this.fb.group({
       name: [
@@ -114,7 +96,18 @@ export class PremaritalRegister {
       fianceName: [''],
       dateOfMarriage: [''],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        {
+          validators: [
+            Validators.required,
+            Validators.email,
+            emailDomainValidator(),
+          ],
+          asyncValidators: [uniqueEmailValidator()],
+          updateOn: 'blur',
+        },
+      ],
       days: ['', Validators.required],
       churchActivities: this.fb.group({
         choirMember: [false],
@@ -126,6 +119,26 @@ export class PremaritalRegister {
       sessionId: ['', Validators.required],
     });
   }
+
+  private readonly sessions$ = this.sessionConfigService
+    .apiSessionconfigGet$Json()
+    .pipe(
+      map((data: any) =>
+        data.map((session: any) => ({
+          ...session,
+          startDate: session.startDate,
+          endDate: session.endDate,
+        }))
+      ),
+      catchError((err) => {
+        console.error('Error loading sessions:', err);
+        return of([]); // fallback to empty array
+      })
+    );
+
+  protected readonly sessionList = toSignal(this.sessions$, {
+    initialValue: [],
+  });
 
   onFileChange(event: Event, type: 'photo' | 'vicarLetter') {
     const target = event.target as HTMLInputElement;

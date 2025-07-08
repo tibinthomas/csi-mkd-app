@@ -8,17 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PaymentStatusUpdateDto } from '../../models/payment-status-update-dto';
+import { EmailConfig } from '../../models/email-config';
 
-export interface ApiPremaritalRegisterIdPaymentstatusPut$Params {
-  id: number;
-      body?: PaymentStatusUpdateDto
+export interface ApiEmailConfigPost$Params {
+      body?: EmailConfig
 }
 
-export function apiPremaritalRegisterIdPaymentstatusPut(http: HttpClient, rootUrl: string, params: ApiPremaritalRegisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterIdPaymentstatusPut.PATH, 'put');
+export function apiEmailConfigPost(http: HttpClient, rootUrl: string, params?: ApiEmailConfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiEmailConfigPost.PATH, 'post');
   if (params) {
-    rb.path('id', params.id, {});
     rb.body(params.body, 'application/*+json');
   }
 
@@ -32,4 +30,4 @@ export function apiPremaritalRegisterIdPaymentstatusPut(http: HttpClient, rootUr
   );
 }
 
-apiPremaritalRegisterIdPaymentstatusPut.PATH = '/api/PremaritalRegister/{id}/paymentstatus';
+apiEmailConfigPost.PATH = '/api/EmailConfig';

@@ -8,18 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PaymentStatusUpdateDto } from '../../models/payment-status-update-dto';
 
-export interface ApiPremaritalRegisterIdPaymentstatusPut$Params {
-  id: number;
-      body?: PaymentStatusUpdateDto
+export interface ApiPremaritalRegisterCheckEmailGet$Params {
+  email?: string;
 }
 
-export function apiPremaritalRegisterIdPaymentstatusPut(http: HttpClient, rootUrl: string, params: ApiPremaritalRegisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterIdPaymentstatusPut.PATH, 'put');
+export function apiPremaritalRegisterCheckEmailGet(http: HttpClient, rootUrl: string, params?: ApiPremaritalRegisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterCheckEmailGet.PATH, 'get');
   if (params) {
-    rb.path('id', params.id, {});
-    rb.body(params.body, 'application/*+json');
+    rb.query('email', params.email, {});
   }
 
   return http.request(
@@ -32,4 +29,4 @@ export function apiPremaritalRegisterIdPaymentstatusPut(http: HttpClient, rootUr
   );
 }
 
-apiPremaritalRegisterIdPaymentstatusPut.PATH = '/api/PremaritalRegister/{id}/paymentstatus';
+apiPremaritalRegisterCheckEmailGet.PATH = '/api/PremaritalRegister/check-email';

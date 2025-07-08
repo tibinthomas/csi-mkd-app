@@ -31,10 +31,7 @@ export class FeedbackService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet$Response(
-    params?: ApiFeedbackGet$Params,
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<void>> {
+  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiFeedbackGet(this.http, this.rootUrl, params, context);
   }
 
@@ -44,10 +41,7 @@ export class FeedbackService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet(
-    params?: ApiFeedbackGet$Params,
-    context?: HttpContext
-  ): Observable<void> {
+  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<void> {
     return this.apiFeedbackGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
@@ -62,10 +56,7 @@ export class FeedbackService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiFeedbackPost$Response(
-    params?: ApiFeedbackPost$Params,
-    context?: HttpContext
-  ): Observable<StrictHttpResponse<void>> {
+  apiFeedbackPost$Response(params?: ApiFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiFeedbackPost(this.http, this.rootUrl, params, context);
   }
 
@@ -75,12 +66,10 @@ export class FeedbackService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiFeedbackPost(
-    params?: ApiFeedbackPost$Params,
-    context?: HttpContext
-  ): Observable<void> {
+  apiFeedbackPost(params?: ApiFeedbackPost$Params, context?: HttpContext): Observable<void> {
     return this.apiFeedbackPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
+
 }
