@@ -152,7 +152,7 @@
             <mat-label>Session</mat-label>
             <mat-select formControlName="sessionId">
               @for (session of sessionList(); track session) {
-              <mat-option [value]="session.Id" [disabled]="!session.IsActive">
+              <mat-option [value]="session.Id" [hidden]="!session.IsActive">
                 {{ session.SessionName }} ({{ session.StartDate | date }} - {{ session.EndDate | date }})
               </mat-option>
               }

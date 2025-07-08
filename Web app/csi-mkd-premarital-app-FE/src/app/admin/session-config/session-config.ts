@@ -164,9 +164,12 @@ export class SessionConfig implements OnInit {
               this.refreshTrigger.set(this.refreshTrigger() + 1);
             },
             error: (err) => {
-              console.error('Delete failed', err);
+              const errorMsg =
+                JSON.parse(err?.error).message ??
+                'Failed to delete session configuration.';
+              console.log(err);
               this.dialog.open(AlertDialog, {
-                data: { message: 'Failed to delete session configuration.' },
+                data: { message: errorMsg },
               });
             },
           });
@@ -175,26 +178,38 @@ export class SessionConfig implements OnInit {
   }
 
   toggleStatus(session: any) {
-    const updatedSession = {
-      ...session,
-      isActive: !session.IsActive,
-    };
-    this.sessionConfigService
-      .apiSessionconfigIdPut({
-        id: session.Id,
-        body: updatedSession,
-      })
-      .subscribe({
-        next: () => {
-          this.refreshTrigger.set(this.refreshTrigger() + 1);
-        },
-        error: (err) => {
-          console.error('Failed to toggle session status', err);
-          this.dialog.open(AlertDialog, {
-            data: { message: 'Failed to update status.' },
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: `Do you want to make "${session.SessionName}" ${
+          session.IsActive ? 'inactive' : 'active'
+        }?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const updatedSession = {
+          ...session,
+          isActive: !session.IsActive,
+        };
+        this.sessionConfigService
+          .apiSessionconfigIdPut({
+            id: session.Id,
+            body: updatedSession,
+          })
+          .subscribe({
+            next: () => {
+              this.refreshTrigger.set(this.refreshTrigger() + 1);
+            },
+            error: (err) => {
+              console.error('Failed to toggle session status', err);
+              this.dialog.open(AlertDialog, {
+                data: { message: 'Failed to update status.' },
+              });
+            },
           });
-        },
-      });
+      }
+    });
   }
 
   toUtcIsoString(dateInput: string | Date): string {
