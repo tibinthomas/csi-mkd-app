@@ -108,18 +108,28 @@ namespace csi_mkd_premarital_app_BE.Controllers
         }
 
 
-        // DELETE: api/sessions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSession(int id)
         {
             var session = await _context.SessionConfigurations.FindAsync(id);
             if (session == null)
-                return NotFound();
+                return NotFound(new { message = "Session not found." });
+
+            // Check if any PremaritalRegistrations are using this session
+            var hasRegistrations = await _context.PremaritalRegistrations
+                .AnyAsync(r => r.SessionId == id);
+
+            if (hasRegistrations)
+            {
+                Console.WriteLine(hasRegistrations);
+                return BadRequest(new { message = "Cannot delete session. It is associated with one or more registrations." });
+
+            }
 
             _context.SessionConfigurations.Remove(session);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(new { message = "Session deleted successfully." });
         }
     }
 }
