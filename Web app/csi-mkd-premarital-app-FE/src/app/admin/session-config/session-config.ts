@@ -4,6 +4,7 @@ import {
   inject,
   signal,
   OnInit,
+  computed,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -25,7 +26,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { SessionFormDialogComponent } from './session-config-form';
-
+import { formatDate } from '@angular/common';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelTitle,
+  MatExpansionPanelHeader,
+  MatExpansionPanelDescription,
+} from '@angular/material/expansion';
 @Component({
   selector: 'app-session-config',
   templateUrl: './session-config.html',
@@ -41,6 +49,11 @@ import { SessionFormDialogComponent } from './session-config-form';
     MatDatepickerModule,
     MatNativeDateModule,
     DatePipe,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelTitle,
+    MatExpansionPanelHeader,
+    MatExpansionPanelDescription,
   ],
 })
 export class SessionConfig implements OnInit {
@@ -51,6 +64,7 @@ export class SessionConfig implements OnInit {
     'isActive',
     'actions',
   ];
+
   private readonly fb = inject(FormBuilder);
   private readonly sessionConfigService = inject(SessionConfigService);
   private readonly dialog = inject(MatDialog);
@@ -66,6 +80,7 @@ export class SessionConfig implements OnInit {
   protected readonly editMode = signal(false);
   protected readonly showModal = signal(false);
   private readonly refreshTrigger = signal(0);
+  protected selectedYear = signal(new Date());
 
   private readonly sessionList$ = toObservable(this.refreshTrigger).pipe(
     switchMap(() =>
@@ -94,59 +109,35 @@ export class SessionConfig implements OnInit {
     this.refreshTrigger.set(this.refreshTrigger() + 1);
   }
 
-  // onSubmit() {
-  //   if (this.form.invalid) return;
+  chooseYear(normalizedYear: Date, datepicker: any) {
+    this.selectedYear.set(new Date(normalizedYear.getFullYear(), 0));
+    datepicker.close();
+  }
 
-  //   const raw = this.form.value;
-  //   const session = {
-  //     ...raw,
-  //     sessionName: raw.sessionName ?? null,
-  //     startDate: this.toUtcIsoString(raw.startDate as string),
-  //     endDate: this.toUtcIsoString(raw.endDate as string),
-  //     isActive: raw.isActive !== null ? raw.isActive : true,
-  //   };
+  onYearChange(event: any) {
+    this.selectedYear.set(new Date(event.value.getFullYear()));
+  }
 
-  //   if (this.editMode() && session.id) {
-  //     this.sessionConfigService
-  //       .apiSessionconfigIdPut({
-  //         id: session.id,
-  //         body: session,
-  //       })
-  //       .subscribe({
-  //         next: () => {
-  //           this.refreshTrigger.set(this.refreshTrigger() + 1);
-  //           this.form.reset();
-  //           this.editMode.set(false);
-  //         },
-  //         error: (err) => {
-  //           console.error('Update failed', err);
-  //           alert('Failed to update session configuration.');
-  //         },
-  //       });
-  //   } else {
-  //     this.sessionConfigService
-  //       .apiSessionconfigPost$Json({
-  //         body: session,
-  //       })
-  //       .subscribe({
-  //         next: () => {
-  //           this.refreshTrigger.set(this.refreshTrigger() + 1);
-  //           this.form.reset();
-  //           this.closeModal();
-  //         },
-  //         error: (err) => {
-  //           console.error('Creation failed', err);
-  //           alert('Failed to create session configuration.');
-  //         },
-  //       });
-  //   }
-  // }
+  readonly groupedSessions = computed(() => {
+    const year = this.selectedYear().getFullYear();
+    const sessionsInYear = this.sessionList().filter(
+      (s) => new Date(s.StartDate).getFullYear() === year
+    );
 
-  // editSession(session: any) {
-  //   this.editMode.set(true);
-  //   this.form.patchValue(session);
-  //   this.showModal.set(true);
-  // }
+    if (!sessionsInYear.length) return [];
+
+    const grouped: Record<string, any[]> = {};
+    sessionsInYear.forEach((session) => {
+      const month = formatDate(session.StartDate, 'MMMM', 'en-US');
+      if (!grouped[month]) grouped[month] = [];
+      grouped[month].push(session);
+    });
+
+    return Object.entries(grouped).map(([monthName, sessions]) => ({
+      monthName,
+      sessions,
+    }));
+  });
 
   deleteSession(session: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
