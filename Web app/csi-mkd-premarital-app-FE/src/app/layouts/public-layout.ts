@@ -3,12 +3,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
 
 @Component({
   selector: 'app-public-layout',
-
+  styleUrl: './public-layout.scss',
   imports: [
     RouterOutlet,
     RouterLink,
@@ -17,6 +17,7 @@ import { LanguageSelectorComponent } from '../shared/language-selector/language-
     MatIconModule,
     MatMenuModule,
     LanguageSelectorComponent,
+    RouterLinkActive,
   ],
   templateUrl: './public-layout.html',
 })
