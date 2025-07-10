@@ -129,5 +129,17 @@ namespace csi_mkd_premarital_app_BE.Controllers
 
             return Ok(new { message = "Session deleted successfully." });
         }
+
+        [HttpGet("sessions")]
+        public async Task<IActionResult> GetSessionsByYear(int year)
+        {
+            var sessions = await _context.SessionConfigurations
+                .Where(s => s.StartDate.Year == year)
+                .OrderBy(s => s.StartDate)
+                .ToListAsync();
+
+            return Ok(sessions);
+        }
+
     }
 }
