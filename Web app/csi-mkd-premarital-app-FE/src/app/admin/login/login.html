@@ -1,58 +1,64 @@
-<div class="min-h-screen flex items-center justify-center">
-  <mat-card class="w-full max-w-md">
-    <mat-card-header>
-      <mat-card-title i18n class="text-center text-2xl sm:text-3xl font-extrabold">Admin Login</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-label="Admin Login Form">
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Username</mat-label>
-          <input
-            matInput
-            formControlName="username"
-            placeholder="Enter your username"
-            autocomplete="username"
-            required
-            autofocus
-          />
-          @if ( loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty ||
-          loginForm.controls['username'].touched) ) {
-          <mat-error> Username is required. </mat-error>
+<section
+  class="bg-cover bg-center h-screen flex items-center justify-center relative"
+  style="background-image: url('assets/background-image.jpg')"
+>
+  <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
+  <div class="min-h-screen flex items-center justify-center">
+    <mat-card class="w-full max-w-md p-5">
+      <mat-card-header>
+        <mat-card-title i18n class="text-center text-2xl sm:text-3xl font-extrabold">Admin Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-label="Admin Login Form">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              formControlName="username"
+              placeholder="Enter your username"
+              autocomplete="username"
+              required
+              autofocus
+            />
+            @if ( loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty ||
+            loginForm.controls['username'].touched) ) {
+            <mat-error> Username is required. </mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+            @if ( loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty ||
+            loginForm.controls['password'].touched) ) {
+            <mat-error> Password is required. </mat-error>
+            }
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="loginForm.invalid || loading()"
+            class="w-full"
+          >
+            {{ loginLabel() }}
+          </button>
+
+          @if (errorMessage()) {
+          <div class="text-red-600 text-center mt-2 font-medium">
+            {{ errorMessage() }}
+          </div>
           }
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Password</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-            required
-          />
-          @if ( loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty ||
-          loginForm.controls['password'].touched) ) {
-          <mat-error> Password is required. </mat-error>
-          }
-        </mat-form-field>
-
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          [disabled]="loginForm.invalid || loading()"
-          class="w-full"
-        >
-          {{ loginLabel() }}
-        </button>
-
-        @if (errorMessage()) {
-        <div class="text-red-600 text-center mt-2 font-medium">
-          {{ errorMessage() }}
-        </div>
-        }
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

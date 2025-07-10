@@ -1,31 +1,39 @@
-<mat-toolbar color="primary" class="flex justify-between items-center">
-  <!-- Left Logo -->
+<mat-toolbar color="primary" class="flex flex-wrap justify-between items-center px-4 py-3">
+  <!-- Left: Logo -->
   <div class="flex items-center space-x-2">
-    <img src="assets/csi-logo.png" alt="CSI Logo" class="h-10 w-auto sm:h-16" />
+    <img src="assets/csi-logo.png" alt="CSI Logo" class="h-10 sm:h-16 w-auto" />
   </div>
 
-  <!-- Center Title -->
-  <div class="text-center">
-    <h1 class="text-base sm:text-3xl font-bold uppercase tracking-wide !text-base sm:!text-3xl">
-      CSI Counselling Centre
-    </h1>
-
-    <h2 class="text-xs sm:text-sm uppercase tracking-wide !text-xs sm:!text-sm">Madhya Kerala Diocese</h2>
+  <!-- Center: Title -->
+  <div class="flex-1 text-center sm:block">
+    <h1 class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide">CSI Counselling Centre</h1>
+    <h2 class="!text-xs sm:!text-sm uppercase tracking-wide">Madhya Kerala Diocese</h2>
   </div>
 
-  <!-- Right section: Language + Right Logo + Menu -->
-  <div class="flex items-center">
-    <img src="assets/csi-mkd-logo.png" alt="CSI MKD Logo" class="h-10 w-auto sm:h-16" />
+  <!-- Right: Nav + Right Logo + Language + Menu -->
+  <div class="flex items-center space-x-4">
+    <!-- Desktop Nav Links -->
+    <div class="hidden lg:flex space-x-4">
+      <a mat-button routerLink="/about" routerLinkActive="active-link">About</a>
+      <a mat-button routerLink="/team-members" routerLinkActive="active-link">Our Team</a>
+      <a mat-button routerLink="/register" routerLinkActive="active-link">Register</a>
+      <a mat-button routerLink="/feedback" routerLinkActive="active-link">Feedback</a>
+    </div>
 
+    <!-- Right Logo -->
+
+    <!-- Language Selector -->
     <app-language-selector></app-language-selector>
 
-    <!-- Hamburger menu: only on small screens -->
-    <button [matMenuTriggerFor]="menu" class="sm:hidden">
+    <!-- Mobile Hamburger -->
+    <button [matMenuTriggerFor]="menu" class="lg:hidden">
       <mat-icon>menu</mat-icon>
     </button>
+    <img src="assets/csi-mkd-logo.png" alt="CSI MKD Logo" class="h-10 sm:h-16 w-auto" />
   </div>
 </mat-toolbar>
 
+<!-- Mobile Nav Menu -->
 <mat-menu #menu="matMenu">
   <a mat-menu-item routerLink="/about" routerLinkActive="active-link">About</a>
   <a mat-menu-item routerLink="/team-members" routerLinkActive="active-link">Our Team</a>
@@ -33,15 +41,4 @@
   <a mat-menu-item routerLink="/feedback" routerLinkActive="active-link">Feedback</a>
 </mat-menu>
 
-<!-- Desktop navigation: hidden on small screens -->
-<nav class="hidden sm:block bg-primary-dark">
-  <div class="max-w-7xl mx-auto px-4 py-3">
-    <div class="flex justify-center items-center space-x-8">
-      <a mat-button routerLink="/about" routerLinkActive="active-link">About</a>
-      <a mat-button routerLink="/team-members" routerLinkActive="active-link">Our Team</a>
-      <a mat-button routerLink="/register" routerLinkActive="active-link">Register</a>
-      <a mat-button routerLink="/feedback" routerLinkActive="active-link">Feedback</a>
-    </div>
-  </div>
-</nav>
 <router-outlet></router-outlet>
