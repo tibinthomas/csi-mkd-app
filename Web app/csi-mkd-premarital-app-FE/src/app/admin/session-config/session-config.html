@@ -17,7 +17,12 @@
 <button mat-raised-button color="primary" (click)="addSession()" class="mb-4 ml-4">Add Session</button>
 
 <!-- Monthly Accordion -->
-@if(groupedSessions().length > 0){
+
+@if(isLoading()){
+<div class="flex justify-center items-center mt-8">
+  <mat-spinner diameter="40" color="primary"></mat-spinner>
+</div>
+} @else if(groupedSessions().length > 0){
 <mat-accordion>
   @for (group of groupedSessions();track group ){
   <mat-expansion-panel>

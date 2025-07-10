@@ -277,7 +277,6 @@ export class PremaritalRegister {
             disableClose: true,
           });
 
-          // this.sendConfirmationEmail(formData.name, formData.email);
           this.resetForm();
         },
         error: (err) => {
@@ -285,21 +284,7 @@ export class PremaritalRegister {
           this.errorMessage.set('Submission failed. Please try again.');
           this.showErrorModal.set(true);
           this.isSubmitting.set(false);
-          // this.snackbar.open('Submission failed. Try again.', 'Close', {
-          //   duration: 3000,
-          // });
         },
       });
   }
-
-  // private sendConfirmationEmail(name: string, email: string): void {
-  //   this.http.post('/api/send-confirmation-email', { name, email }).subscribe({
-  //     next: () => {
-  //       console.log('Confirmation email sent');
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to send confirmation email:', err);
-  //     },
-  //   });
-  // }
 }

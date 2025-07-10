@@ -37,7 +37,7 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelDescription,
 } from '@angular/material/expansion';
-import { SessionConfigurationDto } from '../../../api/models';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-session-config',
   templateUrl: './session-config.html',
@@ -59,6 +59,7 @@ import { SessionConfigurationDto } from '../../../api/models';
     MatExpansionPanelHeader,
     MatExpansionPanelDescription,
     MatDatepicker,
+    MatProgressSpinnerModule,
   ],
 })
 export class SessionConfig implements OnInit {
@@ -89,6 +90,7 @@ export class SessionConfig implements OnInit {
   readonly currentYear = signal(new Date().getFullYear());
 
   readonly allSessions = signal<SessionConfig[]>([]);
+  readonly isLoading = signal(false);
 
   private readonly sessionList$ = toObservable(this.refreshTrigger).pipe(
     switchMap(() =>
@@ -123,9 +125,17 @@ export class SessionConfig implements OnInit {
   }
 
   fetchSessions(year: number) {
+    this.isLoading.set(true);
+
     this.sessionConfigService.apiSessionconfigSessionsGet({ year }).subscribe({
-      next: (sessions: any) => this.allSessions.set(sessions),
-      error: (err) => console.error('Failed to load sessions', err),
+      next: (sessions: any) => {
+        this.allSessions.set(sessions);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Failed to load sessions', err),
+          this.isLoading.set(false);
+      },
     });
   }
 
