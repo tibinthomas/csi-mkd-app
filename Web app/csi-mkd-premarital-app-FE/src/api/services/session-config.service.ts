@@ -27,6 +27,8 @@ import { apiSessionconfigPost$Json } from '../fn/session-config/api-sessionconfi
 import { ApiSessionconfigPost$Json$Params } from '../fn/session-config/api-sessionconfig-post-json';
 import { apiSessionconfigPost$Plain } from '../fn/session-config/api-sessionconfig-post-plain';
 import { ApiSessionconfigPost$Plain$Params } from '../fn/session-config/api-sessionconfig-post-plain';
+import { apiSessionconfigSessionsGet } from '../fn/session-config/api-sessionconfig-sessions-get';
+import { ApiSessionconfigSessionsGet$Params } from '../fn/session-config/api-sessionconfig-sessions-get';
 import { SessionConfigurationDto } from '../models/session-configuration-dto';
 
 @Injectable({ providedIn: 'root' })
@@ -222,6 +224,31 @@ export class SessionConfigService extends BaseService {
    */
   apiSessionconfigIdDelete(params: ApiSessionconfigIdDelete$Params, context?: HttpContext): Observable<void> {
     return this.apiSessionconfigIdDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigSessionsGet()` */
+  static readonly ApiSessionconfigSessionsGetPath = '/api/sessionconfig/sessions';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigSessionsGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigSessionsGet$Response(params?: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigSessionsGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigSessionsGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigSessionsGet(params?: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigSessionsGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

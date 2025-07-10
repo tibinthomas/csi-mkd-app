@@ -34,28 +34,40 @@ import { LanguageSelectorComponent } from '../shared/language-selector/language-
         [mode]="isMobile() ? 'over' : 'side'"
         [opened]="!isMobile() || sidenavOpen()"
         (openedChange)="sidenavOpen.set($event)"
+        class="h-full"
       >
         <mat-toolbar color="primary">CSI Admin</mat-toolbar>
-        <mat-nav-list>
-          <a
-            mat-list-item
-            routerLink="/admin/dashboard"
-            routerLinkActive="active-link"
-            >Dashboard</a
-          >
-          <a
-            mat-list-item
-            routerLink="/admin/premarital"
-            routerLinkActive="active-link"
-            >Premarital List</a
-          >
-          <a
-            mat-list-item
-            routerLink="/admin/session-config"
-            routerLinkActive="active-link"
-            >Session Configuration</a
-          >
-          <a mat-list-item routerLink="/admin/login">Logout</a>
+
+        <mat-nav-list class="flex flex-col justify-between flex-1">
+          <!-- Top links -->
+          <div>
+            <a
+              mat-list-item
+              routerLink="/admin/dashboard"
+              routerLinkActive="active-link"
+              (click)="toggleSidenav()"
+              >Dashboard</a
+            >
+            <a
+              mat-list-item
+              routerLink="/admin/premarital"
+              routerLinkActive="active-link"
+              (click)="toggleSidenav()"
+              >Premarital List</a
+            >
+            <a
+              mat-list-item
+              routerLink="/admin/session-config"
+              routerLinkActive="active-link"
+              (click)="toggleSidenav()"
+              >Session Configuration</a
+            >
+          </div>
+
+          <!-- Logout at the bottom -->
+          <div class="flex justify-center pt-10">
+            <button mat-raised-button routerLink="/admin/login">Logout</button>
+          </div>
         </mat-nav-list>
       </mat-sidenav>
 

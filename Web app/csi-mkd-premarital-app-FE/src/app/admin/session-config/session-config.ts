@@ -22,7 +22,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatDatepicker,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { SessionFormDialogComponent } from './session-config-form';
@@ -34,6 +37,7 @@ import {
   MatExpansionPanelHeader,
   MatExpansionPanelDescription,
 } from '@angular/material/expansion';
+import { SessionConfigurationDto } from '../../../api/models';
 @Component({
   selector: 'app-session-config',
   templateUrl: './session-config.html',
@@ -54,6 +58,7 @@ import {
     MatExpansionPanelTitle,
     MatExpansionPanelHeader,
     MatExpansionPanelDescription,
+    MatDatepicker,
   ],
 })
 export class SessionConfig implements OnInit {
@@ -81,6 +86,9 @@ export class SessionConfig implements OnInit {
   protected readonly showModal = signal(false);
   private readonly refreshTrigger = signal(0);
   protected selectedYear = signal(new Date());
+  readonly currentYear = signal(new Date().getFullYear());
+
+  readonly allSessions = signal<SessionConfig[]>([]);
 
   private readonly sessionList$ = toObservable(this.refreshTrigger).pipe(
     switchMap(() =>
@@ -106,16 +114,26 @@ export class SessionConfig implements OnInit {
   });
 
   ngOnInit() {
+    this.fetchSessions(this.currentYear());
     this.refreshTrigger.set(this.refreshTrigger() + 1);
-  }
-
-  chooseYear(normalizedYear: Date, datepicker: any) {
-    this.selectedYear.set(new Date(normalizedYear.getFullYear(), 0));
-    datepicker.close();
   }
 
   onYearChange(event: any) {
     this.selectedYear.set(new Date(event.value.getFullYear()));
+  }
+
+  fetchSessions(year: number) {
+    this.sessionConfigService.apiSessionconfigSessionsGet({ year }).subscribe({
+      next: (sessions: any) => this.allSessions.set(sessions),
+      error: (err) => console.error('Failed to load sessions', err),
+    });
+  }
+
+  chooseYear(normalizedYear: Date, datepicker: MatDatepicker<Date>) {
+    this.selectedYear.set(normalizedYear);
+    this.currentYear.set(normalizedYear.getFullYear());
+    this.fetchSessions(normalizedYear.getFullYear());
+    datepicker.close();
   }
 
   readonly groupedSessions = computed(() => {
