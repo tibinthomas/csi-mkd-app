@@ -249,7 +249,9 @@ export class PremaritalRegister {
       Occupation: raw.occupation,
       ChurchName: raw.churchName,
       FianceName: raw.fianceName || undefined,
-      DateOfMarriage: raw.dateOfMarriage || undefined,
+      DateOfMarriage: raw.dateOfMarriage
+        ? this.toUtcIsoString(raw.dateOfMarriage)
+        : undefined,
       Phone: raw.phone,
       Email: raw.email,
       Days: raw.days,
@@ -286,5 +288,10 @@ export class PremaritalRegister {
           this.isSubmitting.set(false);
         },
       });
+  }
+
+  toUtcIsoString(dateInput: string | Date): string {
+    const localDate = new Date(dateInput);
+    return localDate.toISOString();
   }
 }
