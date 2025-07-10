@@ -73,7 +73,7 @@ namespace csi_mkd_premarital_app_BE.Controllers
                 Occupation = dto.Occupation,
                 ChurchName = dto.ChurchName,
                 FianceName = dto.FianceName,
-                DateOfMarriage = dto.DateOfMarriage.ToUniversalTime(),
+                DateOfMarriage = dto.DateOfMarriage,
                 Phone = dto.Phone,
                 Email = dto.Email,
                 Days = dto.Days,
@@ -84,7 +84,6 @@ namespace csi_mkd_premarital_app_BE.Controllers
                 SessionId = dto.SessionId,
                 PaymentStatus = dto.PaymentStatus,
             };
-
             _context.PremaritalRegistrations.Add(registration);
             await _context.SaveChangesAsync();
             _emailService.SendConfirmationEmail(dto.Email, dto.Name);

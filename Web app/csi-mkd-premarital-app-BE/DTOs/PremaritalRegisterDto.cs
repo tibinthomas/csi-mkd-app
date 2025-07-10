@@ -13,7 +13,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public required string Occupation { get; set; }
         public required string ChurchName { get; set; }
         public string? FianceName { get; set; }
-        public DateTime DateOfMarriage { get; set; }
+        public DateTime? DateOfMarriage { get; set; }
         public required string Phone { get; set; }
         public required string Email { get; set; }
         public required string Days { get; set; }
