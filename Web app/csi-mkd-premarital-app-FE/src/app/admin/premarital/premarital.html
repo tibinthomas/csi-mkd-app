@@ -16,9 +16,13 @@
     <table mat-table [dataSource]="filteredData()" multiTemplateDataRows class="min-w-full mat-elevation-z8">
       <!-- Dynamic columns using @for -->
       <!-- Table Columns -->
-      <ng-container matColumnDef="Name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.Name }}</td>
+      <ng-container matColumnDef="FirstName">
+        <th mat-header-cell *matHeaderCellDef>First Name</th>
+        <td mat-cell *matCellDef="let reg">{{ reg.FirstName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="LastName">
+        <th mat-header-cell *matHeaderCellDef>Last Name</th>
+        <td mat-cell *matCellDef="let reg">{{ reg.LastName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Sex">
@@ -138,7 +142,8 @@
       <tr
         mat-header-row
         *matHeaderRowDef="[
-          'Name',
+          'FirstName',
+          'LastName',
           'Sex',
           'Age',
           'Email',
@@ -156,7 +161,8 @@
         *matRowDef="
           let reg;
           columns: [
-            'Name',
+            'FirstName',
+            'LastName',
             'Sex',
             'Age',
             'Email',
