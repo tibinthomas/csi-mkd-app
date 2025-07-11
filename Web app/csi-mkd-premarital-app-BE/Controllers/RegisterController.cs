@@ -45,7 +45,8 @@ namespace csi_mkd_premarital_app_BE.Controllers
 
             var registration = new GeneralRegistration
             {
-                Name = dto.Name,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 FatherName = dto.FatherName,
                 Address = dto.Address,
                 Sex = dto.Sex,

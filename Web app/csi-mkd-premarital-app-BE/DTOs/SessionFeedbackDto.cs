@@ -5,7 +5,8 @@ namespace csi_mkd_premarital_app_BE.DTOs
     public class SessionFeedbackDto
     {
         public required string SessionTitle { get; set; }
-        public required string Name { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
         public required string Email { get; set; }
 
         [Required]

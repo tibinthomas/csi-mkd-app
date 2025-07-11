@@ -8,7 +8,8 @@ namespace csi_mkd_premarital_app_BE.Models
     public class PremaritalRegistration
     {
         public int Id { get; set; }
-        public required string Name { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
         public required string FatherName { get; set; }
         public required string Address { get; set; }
         public required string Sex { get; set; }

@@ -4,7 +4,8 @@ namespace csi_mkd_premarital_app_BE.DTOs
 {
     public class PremaritalRegistrationDto
     {
-        public required string Name { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
         public required string FatherName { get; set; }
         public required string Address { get; set; }
         public required string Sex { get; set; }

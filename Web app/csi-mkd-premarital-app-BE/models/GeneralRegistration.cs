@@ -8,7 +8,10 @@ namespace csi_mkd_premarital_app_BE.Models
         public int Id { get; set; }
 
         [Required, MaxLength(50)]
-        public required string Name { get; set; }
+        public required string FirstName { get; set; }
+        [Required]
+
+        public required string LastName { get; set; }
 
         [Required]
         public required string FatherName { get; set; }

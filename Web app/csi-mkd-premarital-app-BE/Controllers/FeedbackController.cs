@@ -25,7 +25,8 @@ namespace csi_mkd_premarital_app_BE.Controllers
             var feedback = new SessionFeedback
             {
                 SessionTitle = dto.SessionTitle,
-                Name = dto.Name,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 Email = dto.Email,
                 Date = DateTime.SpecifyKind(dto.Date, DateTimeKind.Utc),
                 QualityRating = dto.QualityRating,

@@ -64,7 +64,8 @@ namespace csi_mkd_premarital_app_BE.Controllers
             // Map DTO to entity
             var registration = new PremaritalRegistration
             {
-                Name = dto.Name,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 FatherName = dto.FatherName,
                 Address = dto.Address,
                 Sex = dto.Sex,
@@ -86,27 +87,41 @@ namespace csi_mkd_premarital_app_BE.Controllers
             };
             _context.PremaritalRegistrations.Add(registration);
             await _context.SaveChangesAsync();
-            _emailService.SendConfirmationEmail(dto.Email, dto.Name);
+            _emailService.SendConfirmationEmail(dto.Email, dto.FirstName);
 
             return Ok(new { message = "Registered and email sent!" });
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllRegistrations()
+        public async Task<IActionResult> GetAllRegistrations([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var registrations = await _context.PremaritalRegistrations
+            if (page < 1 || pageSize < 1)
+            {
+                return BadRequest(new { message = "Page and pageSize must be greater than 0." });
+            }
+
+            var query = _context.PremaritalRegistrations
                 .Include(r => r.SessionConfiguration)
+                .AsNoTracking()
+                .OrderByDescending(r => r.Id);
+
+            var totalCount = await query.CountAsync();
+
+            var paginatedData = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            if (registrations.Any(r => r.SessionConfiguration == null))
+            if (paginatedData.Any(r => r.SessionConfiguration == null))
             {
                 return StatusCode(500, "One or more registrations are missing associated session configuration.");
             }
 
-            var result = registrations.Select(r => new
+            var items = paginatedData.Select(r => new
             {
                 r.Id,
-                r.Name,
+                r.FirstName,
+                r.LastName,
                 r.FatherName,
                 r.Address,
                 r.Sex,
@@ -128,7 +143,11 @@ namespace csi_mkd_premarital_app_BE.Controllers
                 r.PaymentStatus,
             });
 
-            return Ok(result);
+            return Ok(new
+            {
+                totalCount,
+                items
+            });
         }
 
         [HttpPut("{id}/paymentstatus")]
