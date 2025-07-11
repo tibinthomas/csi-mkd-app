@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll.directive'; // adjust path
 
 @Component({
   selector: 'app-about',
@@ -14,6 +15,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     NgOptimizedImage,
     MatCardModule,
     MatButtonModule,
+    AnimateOnScrollDirective,
   ],
 })
 export class About {

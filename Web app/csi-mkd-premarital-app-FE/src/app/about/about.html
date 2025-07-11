@@ -3,6 +3,7 @@
   <section
     class="bg-cover bg-center h-screen flex items-center justify-center relative"
     style="background-image: url('assets/background-image.jpg')"
+    appAnimateOnScroll
   >
     <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
     <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white">
@@ -43,7 +44,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @for (service of services; track service.title) {
-        <mat-card class="flex flex-col h-full shadow-md rounded-xl overflow-hidden">
+        <mat-card class="flex flex-col h-full shadow-md rounded-xl overflow-hidden" appAnimateOnScroll>
           <img
             mat-card-image
             [ngSrc]="service.image"
@@ -75,7 +76,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @for (item of reasons; track item.title) {
-        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-white">
+        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-white" appAnimateOnScroll>
           <mat-card-header class="pb-2">
             <mat-card-title class="text-xl font-semibold">
               @if (item.link) {
