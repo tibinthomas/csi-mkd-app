@@ -5,11 +5,19 @@
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-3 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Full Name</mat-label>
-            <input matInput formControlName="name" />
-            @if (isInvalid('name')) {
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+            @if (isInvalid('firstName')) {
+            <mat-error>Full Name is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+            @if (isInvalid('lastName')) {
             <mat-error>Full Name is required.</mat-error>
             }
           </mat-form-field>

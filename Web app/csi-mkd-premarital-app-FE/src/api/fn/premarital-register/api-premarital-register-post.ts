@@ -11,7 +11,8 @@ import { RequestBuilder } from '../../request-builder';
 
 export interface ApiPremaritalRegisterPost$Params {
       body?: {
-'Name': string;
+'FirstName': string;
+'LastName': string;
 'FatherName': string;
 'Address': string;
 'Sex': string;

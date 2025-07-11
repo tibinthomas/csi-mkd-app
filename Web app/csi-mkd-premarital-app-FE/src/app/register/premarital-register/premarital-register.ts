@@ -32,6 +32,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from './success-dialog';
 import { uniqueEmailValidator } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
+// import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 @Component({
   selector: 'app-premarital-register',
   imports: [
@@ -47,6 +48,7 @@ import { emailDomainValidator } from '../../core/validators/email-domain.validat
     MatDialogModule,
     DatePipe,
     MatIcon,
+    // AnimateOnScrollDirective,
   ],
   templateUrl: './premarital-register.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -78,7 +80,15 @@ export class PremaritalRegister {
 
   constructor() {
     this.form = this.fb.group({
-      name: [
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
+      ],
+      lastName: [
         '',
         [
           Validators.required,
@@ -240,7 +250,8 @@ export class PremaritalRegister {
     const raw = this.form.value;
 
     const body = {
-      Name: raw.name,
+      FirstName: raw.firstName,
+      LastName: raw.lastName,
       FatherName: raw.fatherName,
       Address: raw.address,
       Sex: raw.sex,

@@ -7,8 +7,9 @@ export interface SessionFeedbackDto {
   Date: string;
   Email: string | null;
   EngagementRating?: number;
+  FirstName: string | null;
   Improvements?: string | null;
-  Name: string | null;
+  LastName: string | null;
   OrganizationRating?: number;
   QualityRating?: number;
   RelevanceRating?: number;

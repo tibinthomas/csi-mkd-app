@@ -31,8 +31,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatButtonModule
-],
+    MatButtonModule,
+  ],
   templateUrl: './general-register.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -52,7 +52,8 @@ export class GeneralRegister {
 
   constructor() {
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3)]],
+      firstName: ['', [Validators.required, Validators.minLength(3)]],
+      lastName: ['', [Validators.required, Validators.minLength(3)]],
       fatherName: ['', Validators.required],
       address: ['', Validators.required],
       sex: ['', Validators.required],
@@ -113,7 +114,8 @@ export class GeneralRegister {
     const raw = this.form.value;
 
     const body = {
-      Name: raw.name,
+      FirstName: raw.firstName,
+      LastName: raw.lastName,
       FatherName: raw.fatherName,
       Address: raw.address,
       Sex: raw.sex,
