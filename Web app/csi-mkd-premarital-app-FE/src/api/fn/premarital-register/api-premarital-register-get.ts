@@ -10,11 +10,15 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface ApiPremaritalRegisterGet$Params {
+  page?: number;
+  pageSize?: number;
 }
 
 export function apiPremaritalRegisterGet(http: HttpClient, rootUrl: string, params?: ApiPremaritalRegisterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterGet.PATH, 'get');
   if (params) {
+    rb.query('page', params.page, {});
+    rb.query('pageSize', params.pageSize, {});
   }
 
   return http.request(

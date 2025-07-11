@@ -34,7 +34,7 @@ import { LanguageSelectorComponent } from '../shared/language-selector/language-
         [mode]="isMobile() ? 'over' : 'side'"
         [opened]="!isMobile() || sidenavOpen()"
         (openedChange)="sidenavOpen.set($event)"
-        class="h-full"
+        class="h-full !w-auto !min-w-[12rem] py-2"
       >
         <mat-toolbar color="primary">CSI Admin</mat-toolbar>
 

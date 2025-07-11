@@ -37,6 +37,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-premarital-list',
@@ -58,6 +59,7 @@ import {
     MatInputModule,
     MatTableModule,
     NgOptimizedImage,
+    MatPaginatorModule,
   ],
   animations: [
     trigger('detailExpand', [
@@ -85,31 +87,55 @@ export class PremaritalComponent {
   private readonly refreshTrigger = signal(0);
   protected readonly filterValue = signal('');
   expandedElement: any = null;
+  protected readonly pageIndex = signal(0); // MatPaginator uses 0-based index
+  protected readonly pageSize = signal(10);
+  protected readonly totalCount = signal(0);
 
   @ViewChild('pdfContent', { static: false })
   private readonly pdfContent!: ElementRef;
 
-  private readonly registrations$ = toObservable(this.refreshTrigger).pipe(
-    switchMap(() =>
-      this.premaritalRegisterService.apiPremaritalRegisterGet().pipe(
-        map((data: any) => {
-          const parsedData = typeof data === 'string' ? JSON.parse(data) : data;
+  private readonly registrations$ = toObservable(
+    computed(() => [this.refreshTrigger(), this.pageIndex(), this.pageSize()])
+  ).pipe(
+    switchMap(([_, pageIndex, pageSize]) =>
+      this.premaritalRegisterService
+        .apiPremaritalRegisterGet({
+          page: pageIndex + 1,
+          pageSize,
+        })
+        .pipe(
+          map((response: any) => {
+            const data =
+              typeof response === 'string' ? JSON.parse(response) : response;
 
-          return parsedData
-            .map((item: any) => ({
+            // Assuming API returns: { totalCount, items: [] }
+            this.totalCount.set(data.totalCount || 0);
+
+            return (data.items ?? []).map((item: any) => ({
               ...item,
               ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'),
-            }))
-            .sort((a: any, b: any) => b.Id - a.Id);
-        }),
-        catchError((err) => {
-          console.error('Error loading registrations:', err);
-          return of([]);
-        })
-      )
+            }));
+          }),
+          catchError((err) => {
+            console.error('Error loading paginated data:', err);
+            return of([]);
+          })
+        )
     )
   );
 
+  onPageChange(event: any) {
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
+  }
+
+  // applyFilter(event: Event) {
+  //   const filterValue = (event.target as HTMLInputElement).value
+  //     .trim()
+  //     .toLowerCase();
+  //   this.pageIndex.set(0); // Reset to first page
+  //   this.filterValue.set(filterValue);
+  // }
   protected readonly registrations = toSignal(this.registrations$, {
     initialValue: [],
   });
