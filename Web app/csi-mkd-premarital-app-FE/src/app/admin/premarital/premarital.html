@@ -1,19 +1,59 @@
 <div class="p-4 sm:p-6">
   <h3 class="text-2xl font-bold mb-6">Premarital Registrations</h3>
 
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-    <mat-form-field>
-      <mat-label>Filter</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Search for name or email" #input />
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="downloadAsPDF()">
-      <mat-icon>download</mat-icon>
-      Download Full List
-    </button>
+  <!-- Filter Controls -->
+  <div class="flex flex-col gap-4 mb-6">
+    <!-- Row 1: Search Input + Buttons -->
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 max-w-screen-md">
+      <!-- Search + Search Button + Clear Button -->
+      <div class="flex flex-1 items-center gap-2">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            [value]="searchTermInput()"
+            (input)="searchTermInput.set($any($event.target).value)"
+            placeholder="Search first name, email, or phone"
+          />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="searchRegistrations()">
+          <mat-icon class="px-4">search</mat-icon>
+          Search
+        </button>
+
+        <button mat-raised-button color="warn" (click)="clearFilters()">Clear</button>
+      </div>
+    </div>
+
+    <!-- Row 2: Checkboxes + Download Button to right -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <!-- Checkboxes Group -->
+      <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+        <mat-checkbox [checked]="unapprovedOnly()" (change)="unapprovedOnly.set($event.checked); pageIndex.set(0)">
+          Show Unapproved Payments Only
+        </mat-checkbox>
+
+        <mat-checkbox
+          [checked]="activeSessionOnly()"
+          (change)="activeSessionOnly.set($event.checked); pageIndex.set(0)"
+        >
+          Show Active Sessions Only
+        </mat-checkbox>
+      </div>
+
+      <!-- Download Button -->
+      <div>
+        <button mat-raised-button color="accent" (click)="downloadAsPDF()">
+          <mat-icon>download</mat-icon>
+          Download Full List
+        </button>
+      </div>
+    </div>
   </div>
 
   <div #pdfContent class="export-pdf overflow-x-auto rounded-lg shadow">
-    <table mat-table [dataSource]="filteredData()" multiTemplateDataRows class="min-w-full mat-elevation-z8">
+    <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full mat-elevation-z8">
       <!-- Dynamic columns using @for -->
       <!-- Table Columns -->
       <ng-container matColumnDef="FirstName">

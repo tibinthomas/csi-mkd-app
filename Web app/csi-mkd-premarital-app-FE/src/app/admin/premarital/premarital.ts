@@ -38,6 +38,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-premarital-list',
@@ -60,6 +61,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     NgOptimizedImage,
     MatPaginatorModule,
+    MatCheckboxModule,
   ],
   animations: [
     trigger('detailExpand', [
@@ -76,7 +78,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
   ],
 })
 export class PremaritalComponent {
-  baseApiUrl = API_ROOT_URL;
   private readonly dialog = inject(MatDialog);
   private readonly premaritalRegisterService = inject(
     PremaritalRegisterService
@@ -85,72 +86,82 @@ export class PremaritalComponent {
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
   private readonly refreshTrigger = signal(0);
-  protected readonly filterValue = signal('');
-  expandedElement: any = null;
-  protected readonly pageIndex = signal(0); // MatPaginator uses 0-based index
-  protected readonly pageSize = signal(10);
   protected readonly totalCount = signal(0);
+  // This one is bound to the input box
+  protected readonly searchTermInput = signal<string>('');
 
+  // This is used in the actual API request (only updated on search click)
+  protected readonly searchTerm = signal<string>('');
+  protected readonly unapprovedOnly = signal<boolean>(false);
+  protected readonly activeSessionOnly = signal<boolean>(false);
+  protected readonly pageIndex = signal<number>(0);
+  protected readonly pageSize = signal<number>(10);
   @ViewChild('pdfContent', { static: false })
   private readonly pdfContent!: ElementRef;
+  private readonly filterTrigger = signal(0);
+
+  baseApiUrl = API_ROOT_URL;
+  expandedElement: any = null;
 
   private readonly registrations$ = toObservable(
-    computed(() => [this.refreshTrigger(), this.pageIndex(), this.pageSize()])
+    computed(() => [
+      this.filterTrigger(),
+      this.pageIndex(),
+      this.pageSize(),
+      this.searchTerm(),
+      this.unapprovedOnly(),
+      this.activeSessionOnly(),
+    ])
   ).pipe(
-    switchMap(([_, pageIndex, pageSize]) =>
-      this.premaritalRegisterService
-        .apiPremaritalRegisterGet({
-          page: pageIndex + 1,
-          pageSize,
-        })
-        .pipe(
-          map((response: any) => {
-            const data =
-              typeof response === 'string' ? JSON.parse(response) : response;
-
-            // Assuming API returns: { totalCount, items: [] }
-            this.totalCount.set(data.totalCount || 0);
-
-            return (data.items ?? []).map((item: any) => ({
-              ...item,
-              ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'),
-            }));
-          }),
-          catchError((err) => {
-            console.error('Error loading paginated data:', err);
-            return of([]);
+    switchMap(
+      ([_, pageIndex, pageSize, searchTerm, unapproved, activeSession]) =>
+        this.premaritalRegisterService
+          .apiPremaritalRegisterFilterGet({
+            Page: (pageIndex as number) + 1,
+            PageSize: pageSize as number,
+            Search: searchTerm as string,
+            UnapprovedOnly: unapproved as boolean,
+            ActiveSessionOnly: activeSession as boolean,
           })
-        )
+          .pipe(
+            map((response: any) => {
+              const data =
+                typeof response === 'string' ? JSON.parse(response) : response;
+              this.totalCount.set(data.totalCount || 0);
+
+              return (data.items ?? []).map((item: any) => ({
+                ...item,
+                ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'),
+              }));
+            }),
+            catchError((err) => {
+              console.error('Error loading filtered data:', err);
+              return of([]);
+            })
+          )
     )
   );
+
+  protected readonly registrations = toSignal(this.registrations$, {
+    initialValue: [],
+  });
+
+  searchRegistrations() {
+    this.searchTerm.set(this.searchTermInput().trim());
+    this.pageIndex.set(0); // Reset pagination
+  }
+
+  clearFilters() {
+    this.searchTerm.set('');
+    this.unapprovedOnly.set(false);
+    this.activeSessionOnly.set(false);
+    this.searchRegistrations();
+  }
 
   onPageChange(event: any) {
     this.pageIndex.set(event.pageIndex);
     this.pageSize.set(event.pageSize);
   }
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value
-  //     .trim()
-  //     .toLowerCase();
-  //   this.pageIndex.set(0); // Reset to first page
-  //   this.filterValue.set(filterValue);
-  // }
-  protected readonly registrations = toSignal(this.registrations$, {
-    initialValue: [],
-  });
-
-  protected readonly filteredData = computed(() => {
-    const filter = this.filterValue().trim().toLowerCase();
-    if (!filter) return this.registrations();
-
-    return this.registrations().filter(
-      (reg: any) =>
-        reg.Name?.toLowerCase().includes(filter) ||
-        reg.Email?.toLowerCase().includes(filter) ||
-        reg.Phone?.toLowerCase().includes(filter)
-    );
-  });
 
   /** Toggles the expanded state of an element. */
   toggle(reg: any) {
@@ -244,11 +255,11 @@ export class PremaritalComponent {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     filterValue.trim().toLowerCase();
-    this.filterValue.set(filterValue);
+    this.searchTerm.set(filterValue);
   }
 
   clearFilter() {
-    this.filterValue.set('');
+    this.searchTerm.set('');
   }
 }
 
