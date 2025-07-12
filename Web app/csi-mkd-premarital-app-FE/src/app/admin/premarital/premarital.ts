@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { jsPDF } from 'jspdf';
-import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -152,7 +152,7 @@ export class PremaritalComponent {
   }
 
   clearFilters() {
-    this.searchTerm.set('');
+    this.searchTermInput.set('');
     this.unapprovedOnly.set(false);
     this.activeSessionOnly.set(false);
     this.searchRegistrations();
@@ -229,27 +229,70 @@ export class PremaritalComponent {
     });
   }
 
-  async downloadAsPDF() {
-    try {
-      this.showAllDetails.set(true);
-      await new Promise((resolve) => setTimeout(resolve, 500));
+  downloadAsPDF(): void {
+    const doc = new jsPDF({
+      orientation: 'portrait',
+      unit: 'pt',
+      format: 'a4',
+    });
 
-      const data = this.pdfContent.nativeElement;
-      const canvas = await html2canvas(data, { scale: 2, useCORS: true });
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    doc.setFontSize(16);
+    doc.text('Premarital Registrations Report', 40, 40);
 
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('premarital-registrations.pdf');
-    } catch (error) {
-      console.error('PDF generation failed:', error);
-      alert('Failed to generate PDF.');
-    } finally {
-      this.showAllDetails.set(false);
-    }
+    const data = this.registrations();
+
+    data.forEach((reg: any, index: any) => {
+      const yOffset = 60 + index * 180; // Vertical spacing per entry
+
+      // Prevent content from overflowing page
+      if (yOffset > doc.internal.pageSize.height - 200) {
+        doc.addPage();
+      }
+
+      const baseY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 20 : yOffset;
+
+      autoTable(doc, {
+        startY: baseY,
+        head: [['Field', 'Value']],
+        body: [
+          ['Full Name', `${reg.FirstName} ${reg.LastName}`],
+          ['Sex', reg.Sex],
+          ['Age', reg.Age],
+          ['Email', reg.Email],
+          ['Phone', reg.Phone],
+          ['Father Name', reg.FatherName],
+          ['Address', reg.Address],
+          ['Education', reg.Education],
+          ['Occupation', reg.Occupation],
+          ['Church', reg.ChurchName],
+          ['Fiancé Name', reg.FianceName],
+          ['Session Name', reg.SessionName],
+          ['Session Days', reg.Days],
+          [
+            'Date of Marriage',
+            new Date(reg.DateOfMarriage).toLocaleDateString(),
+          ],
+          [
+            'Church Activities',
+            this.getSelectedActivities(reg.ChurchActivities).join(', ') ||
+              'None',
+          ],
+          ['Payment Status', reg.PaymentStatus ? 'Received' : 'Pending'],
+        ],
+        styles: {
+          fontSize: 10,
+          cellPadding: 4,
+        },
+        theme: 'grid',
+        headStyles: {
+          fillColor: [63, 81, 181],
+          textColor: 255,
+        },
+        margin: { left: 40, right: 40 },
+      });
+    });
+
+    doc.save('premarital-registrations-full.pdf');
   }
 
   applyFilter(event: Event) {
