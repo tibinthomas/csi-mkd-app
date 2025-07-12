@@ -5,7 +5,11 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter, withHashLocation } from '@angular/router';
+import {
+  provideRouter,
+  withHashLocation,
+  withViewTransitions,
+} from '@angular/router';
 // import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { ApiConfiguration } from '../api/api-configuration';
 import { routes } from './app.routes';
@@ -19,7 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideHttpClient(withInterceptors([tokenInterceptor])),
-    provideRouter(routes, withHashLocation()),
+    provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideAppInitializer(() => {
       const apiConfig: ApiConfiguration = inject(ApiConfiguration);
       apiConfig.rootUrl = API_ROOT_URL;
