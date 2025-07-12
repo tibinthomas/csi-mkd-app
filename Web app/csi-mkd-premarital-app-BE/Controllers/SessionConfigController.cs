@@ -119,15 +119,18 @@ namespace csi_mkd_premarital_app_BE.Controllers
             var hasRegistrations = await _context.PremaritalRegistrations
                 .AnyAsync(r => r.SessionId == id);
 
-            if (hasRegistrations)
+            try
             {
+                _context.SessionConfigurations.Remove(session);
+                await _context.SaveChangesAsync();
+                return Ok(new { message = "Session deleted successfully." });
+            }
+            catch (DbUpdateException)
+            {
+                // You can inspect the exception for FK violation if you want more specific handling
                 return BadRequest(new { message = "Cannot delete session. It is associated with one or more registrations." });
             }
 
-            _context.SessionConfigurations.Remove(session);
-            await _context.SaveChangesAsync();
-
-            return Ok(new { message = "Session deleted successfully." });
         }
 
         [HttpGet("sessions")]

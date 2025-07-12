@@ -18,6 +18,13 @@ namespace csi_mkd_premarital_app_BE.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<PremaritalRegistration>()
+                .HasOne(r => r.SessionConfiguration)
+                .WithMany(s => s.PremaritalRegistrations)
+                .HasForeignKey(r => r.SessionId)
+                .OnDelete(DeleteBehavior.Restrict); // <-- prevents cascade delete
         }
+
     }
 }

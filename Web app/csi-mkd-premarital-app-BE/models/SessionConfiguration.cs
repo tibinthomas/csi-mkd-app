@@ -13,6 +13,7 @@ namespace csi_mkd_premarital_app_BE.Models
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime SubmittedDate { get; set; } = DateTime.UtcNow;
+        public ICollection<PremaritalRegistration> PremaritalRegistrations { get; set; } = new List<PremaritalRegistration>();
 
         // [Timestamp]
         // [Column(TypeName = "bytea")]
