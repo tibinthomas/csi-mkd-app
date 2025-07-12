@@ -6,7 +6,7 @@ import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll
   selector: 'app-team-members',
   imports: [MatCardModule, AnimateOnScrollDirective],
   templateUrl: './team-members.html',
-
+  styleUrl: './team-members.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TeamMembers {

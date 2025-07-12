@@ -1,105 +1,113 @@
 <section class="py-10 px-4">
   <mat-card class="max-w-4xl mx-auto p-6 mt-20" appAnimateOnScroll>
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl sm:text-3xl font-bold"> Premarital Registration Form </mat-card-title>
+      <mat-card-title class="text-center text-2xl sm:text-3xl pt-serif-bold">
+        Premarital Registration Form
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-2">
         <div class="grid md:grid-cols-3 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>First Name</mat-label>
+            <mat-label class="pt-serif-regular">First Name</mat-label>
             <input matInput formControlName="firstName" />
             @if (isInvalid('firstName')) {
-            <mat-error>First Name is required.</mat-error>
+            <mat-error class="pt-serif-regular">First Name is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Last Name</mat-label>
+            <mat-label class="pt-serif-regular">Last Name</mat-label>
             <input matInput formControlName="lastName" />
             @if (isInvalid('lastName')) {
-            <mat-error>Last Name is required.</mat-error>
+            <mat-error class="pt-serif-regular">Last Name is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Father's Name</mat-label>
+            <mat-label class="pt-serif-regular">Father's Name</mat-label>
             <input matInput formControlName="fatherName" />
             @if (isInvalid('fatherName')) {
-            <mat-error>Father's Name is required.</mat-error>
+            <mat-error class="pt-serif-regular">Father's Name is required.</mat-error>
             }
           </mat-form-field>
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Address</mat-label>
+          <mat-label class="pt-serif-regular">Address</mat-label>
           <textarea matInput formControlName="address" rows="3"></textarea>
           @if (isInvalid('address')) {
-          <mat-error>Address is required.</mat-error>
+          <mat-error class="pt-serif-regular">Address is required.</mat-error>
           }
         </mat-form-field>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Sex</mat-label>
+            <mat-label class="pt-serif-regular">Sex</mat-label>
             <mat-select formControlName="sex">
-              <mat-option value="Male">Male</mat-option>
-              <mat-option value="Female">Female</mat-option>
+              <mat-option value="Male" class="pt-serif-regular">Male</mat-option>
+              <mat-option value="Female" class="pt-serif-regular">Female</mat-option>
             </mat-select>
             @if (isInvalid('sex')) {
-            <mat-error>Please select your sex.</mat-error>
+            <mat-error class="pt-serif-regular">Please select your sex.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Age</mat-label>
+            <mat-label class="pt-serif-regular">Age</mat-label>
             <input matInput type="number" formControlName="age" />
             @if (isInvalid('age')) {
             <mat-error>
               @if (form.get('age')?.errors?.['required']) {
-              <span>Age is required.</span>
+              <span class="pt-serif-regular">Age is required.</span>
               } @if (form.get('age')?.errors?.['min']) {
-              <span>Minimum valid age is 1.</span>
+              <span class="pt-serif-regular">Minimum valid age is 1.</span>
               } @if (form.get('age')?.errors?.['max']) {
-              <span>Maximum valid age is 120.</span>
+              <span class="pt-serif-regular">Maximum valid age is 120.</span>
               }
             </mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Education</mat-label>
+            <mat-label class="pt-serif-regular">Education</mat-label>
             <input matInput formControlName="education" />
             @if (isInvalid('education')) {
-            <mat-error>Education field is required.</mat-error>
+            <mat-error class="pt-serif-regular">Education field is required.</mat-error>
             }
           </mat-form-field>
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Occupation</mat-label>
+          <mat-label class="pt-serif-regular">Occupation</mat-label>
           <input matInput formControlName="occupation" />
           @if (isInvalid('occupation')) {
-          <mat-error>Occupation field is required.</mat-error>
+          <mat-error class="pt-serif-regular">Occupation field is required.</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Church Name</mat-label>
+          <mat-label class="pt-serif-regular">Church Name</mat-label>
           <input matInput formControlName="churchName" />
           @if (isInvalid('churchName')) {
-          <mat-error>Church Name is required.</mat-error>
+          <mat-error class="pt-serif-regular">Church Name is required.</mat-error>
           }
         </mat-form-field>
 
         <fieldset formGroupName="churchActivities" class="border border-gray-300 rounded-lg p-2">
-          <legend class="font-semibold text-gray-700">Church Activities</legend>
-          <div class="flex flex-wrap gap-6 items-center">
-            <mat-checkbox formControlName="choirMember">Choir Member</mat-checkbox>
-            <mat-checkbox formControlName="ssTeacher">S. S. Teacher</mat-checkbox>
-            <mat-checkbox formControlName="youthFellowship">Youth Fellowship</mat-checkbox>
+          <legend class="font-semibold text-gray-700 pt-serif-regular">Church Activities</legend>
+          <div class="flex flex-wrap gap-6 items-center pt-serif-regular">
+            <mat-checkbox formControlName="choirMember" class="pt-serif-regular">
+              <mat-label class="pt-serif-regular">Choir Member</mat-label>
+            </mat-checkbox>
+            <mat-checkbox formControlName="ssTeacher" class="pt-serif-regular">
+              <mat-label class="pt-serif-regular">S. S. Teacher</mat-label>
+            </mat-checkbox>
+            <mat-checkbox formControlName="youthFellowship" class="pt-serif-regular">
+              <mat-label class="pt-serif-regular">Youth Fellowship</mat-label>
+            </mat-checkbox>
             <mat-form-field appearance="fill" class="flex-grow max-w-xs">
-              <mat-label>Other</mat-label>
+              <mat-label class="pt-serif-regular">Other</mat-label>
               <input matInput formControlName="other" />
             </mat-form-field>
           </div>
@@ -107,12 +115,12 @@
 
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Fiancé/Fiancée Name</mat-label>
+            <mat-label class="pt-serif-regular">Fiancé/Fiancée Name</mat-label>
             <input matInput formControlName="fianceName" />
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Date of Marriage</mat-label>
+            <mat-label class="pt-serif-regular">Date of Marriage</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="dateOfMarriage" [min]="minDate" />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -121,60 +129,62 @@
 
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Phone Number</mat-label>
+            <mat-label class="pt-serif-regular">Phone Number</mat-label>
             <input matInput formControlName="phone" />
             @if (isInvalid('phone')) {
-            <mat-error>Phone number is required.</mat-error>
+            <mat-error class="pt-serif-regular">Phone number is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full mb-2">
-            <mat-label>Email</mat-label>
+            <mat-label class="pt-serif-regular">Email</mat-label>
             <input matInput type="email" formControlName="email" />
             @if (form.get('email')?.touched && form.get('email')?.errors?.['emailTaken']) {
-            <mat-error>This email is already registered.</mat-error>
+            <mat-error class="pt-serif-regular">This email is already registered.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
-            <mat-error>Email is required.</mat-error>
+            <mat-error class="pt-serif-regular">Email is required.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
-            <mat-error>Invalid email format.</mat-error>
+            <mat-error class="pt-serif-regular">Invalid email format.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
-            <mat-error>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error>
+            <mat-error class="pt-serif-regular"
+              >Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error
+            >
             }
           </mat-form-field>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>No.of days</mat-label>
+            <mat-label class="pt-serif-regular">No.of days</mat-label>
             <mat-select formControlName="days">
-              <mat-option value="1 Day (Only with the Bishop's permission)">
+              <mat-option value="1 Day (Only with the Bishop's permission)" class="pt-serif-regular">
                 1 Day (Only with the Bishop's permission)
               </mat-option>
-              <mat-option value="3 Days">3 Days</mat-option>
+              <mat-option value="3 Days" class="pt-serif-regular">3 Days</mat-option>
             </mat-select>
             @if (isInvalid('days')) {
-            <mat-error>Please select the number of days.</mat-error>
+            <mat-error class="pt-serif-regular">Please select the number of days.</mat-error>
             }
           </mat-form-field>
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Session</mat-label>
+            <mat-label class="pt-serif-regular">Session</mat-label>
             <mat-select formControlName="sessionId">
               @for (session of sessionList(); track session) {
-              <mat-option [value]="session.Id" [hidden]="!session.IsActive">
+              <mat-option [value]="session.Id" [hidden]="!session.IsActive" class="pt-serif-regular">
                 {{ session.SessionName }} ({{ session.StartDate | date }} - {{ session.EndDate | date }})
               </mat-option>
               }
             </mat-select>
             @if (isInvalid('sessionId')) {
-            <mat-error>Please select a session.</mat-error>
+            <mat-error class="pt-serif-regular">Please select a session.</mat-error>
             }
           </mat-form-field>
         </div>
 
         <!-- Upload Photo -->
         <div class="mb-6">
-          <label class="block font-medium mb-2">Upload Passport Size Photo</label>
-          <button mat-raised-button color="primary" type="button" (click)="photoInput.click()">
+          <label class="block font-medium mb-2 pt-serif-regular">Upload Passport Size Photo</label>
+          <button mat-raised-button color="primary" type="button" (click)="photoInput.click()" class="pt-serif-bold">
             <mat-icon>upload</mat-icon>
             Choose Photo
           </button>
@@ -183,14 +193,14 @@
           @if (photoFileName) {
           <span class="text-sm text-gray-600 mt-2 block">{{ photoFileName }}</span>
           } @if (photoError()) {
-          <mat-error>{{ photoError() }}</mat-error>
+          <mat-error class="pt-serif-regular">{{ photoError() }}</mat-error>
           }
         </div>
 
         <!-- Upload Vicar Letter -->
         <div class="mb-6">
-          <label class="block font-medium mb-2">Upload Witness of Vicar</label>
-          <button mat-raised-button color="primary" type="button" (click)="letterInput.click()">
+          <label class="block font-medium mb-2 pt-serif-regular">Upload Witness of Vicar</label>
+          <button mat-raised-button color="primary" type="button" (click)="letterInput.click()" class="pt-serif-bold">
             <mat-icon>upload_file</mat-icon>
             Choose File
           </button>
@@ -205,21 +215,28 @@
           @if (vicarLetterFileName) {
           <span class="text-sm text-gray-600 mt-2 block">{{ vicarLetterFileName }}</span>
           } @if (vicarLetterError()) {
-          <mat-error>{{ vicarLetterError() }}</mat-error>
+          <mat-error class="pt-serif-regular">{{ vicarLetterError() }}</mat-error>
           }
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 pt-serif-regular">
           <mat-checkbox formControlName="declaration">
-            I would like to attend the premarital counselling course. @if (isInvalid('declaration')) {
-            <mat-error>You must accept the declaration.</mat-error>
+            <p class="pt-serif-regular">I would like to attend the premarital counselling course.</p>
+            @if (isInvalid('declaration')) {
+            <mat-error class="pt-serif-regular">You must accept the declaration.</mat-error>
             }
           </mat-checkbox>
         </div>
 
         <div>
           <!-- <button mat-raised-button color="primary" type="submit" class="w-full">Submit Registration</button> -->
-          <button mat-raised-button color="primary" type="submit" class="w-full" [disabled]="isSubmitting()">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="w-full pt-serif-bold"
+            [disabled]="isSubmitting()"
+          >
             {{ isSubmitting() ? "Submitting..." : "Register" }}
           </button>
         </div>

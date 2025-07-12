@@ -1,4 +1,7 @@
-<mat-toolbar color="primary" class="flex flex-wrap justify-between items-center px-4 py-5 animate-fade-slide">
+<mat-toolbar
+  color="primary"
+  class="flex flex-wrap justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
+>
   <!-- Left: CSI Logo -->
   <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
     <img
@@ -10,10 +13,12 @@
 
   <!-- Center: Title -->
   <div class="flex-1 text-center sm:block">
-    <h1 class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500">
+    <h1 class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500 pt-serif-bold">
       CSI Counselling Centre
     </h1>
-    <h2 class="!text-xs sm:!text-sm uppercase tracking-wide transition-all duration-500">Madhya Kerala Diocese</h2>
+    <h2 class="!text-xs sm:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular">
+      Madhya Kerala Diocese
+    </h2>
   </div>
 
   <!-- Right: Nav + Logos + Language + Menu -->
@@ -24,28 +29,28 @@
         mat-button
         routerLink="/about"
         routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300"
+        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
         >About</a
       >
       <a
         mat-button
         routerLink="/team-members"
         routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300"
+        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
         >Our Team</a
       >
       <a
         mat-button
         routerLink="/register"
         routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300"
+        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
         >Register</a
       >
       <a
         mat-button
         routerLink="/feedback"
         routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300"
+        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
         >Feedback</a
       >
     </div>
