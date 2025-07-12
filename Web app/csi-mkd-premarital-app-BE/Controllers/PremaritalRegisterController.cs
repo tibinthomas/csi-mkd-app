@@ -184,5 +184,80 @@ namespace csi_mkd_premarital_app_BE.Controllers
 
             return Ok(new { exists });
         }
+
+        [HttpGet("filter")]
+        public async Task<IActionResult> FilteredRegistrations([FromQuery] RegistrationFilterDto filter)
+        {
+            if (filter.Page < 1 || filter.PageSize < 1)
+            {
+                return BadRequest(new { message = "Page and PageSize must be greater than 0." });
+            }
+
+            var query = _context.PremaritalRegistrations
+                .Include(r => r.SessionConfiguration)
+                .AsQueryable();
+
+            // Apply search filter
+            if (!string.IsNullOrWhiteSpace(filter.Search))
+            {
+                query = query.Where(r =>
+                    r.FirstName.Contains(filter.Search) ||
+                    r.LastName.Contains(filter.Search) ||
+                    r.Email.Contains(filter.Search));
+            }
+
+            // Filter only approved
+            if (filter.UnapprovedOnly == true)
+            {
+                // Filter registrations where payment NOT received
+                query = query.Where(r => r.PaymentStatus == false);
+            }
+
+            if (filter.ActiveSessionOnly == true)
+            {
+                query = query.Where(r => r.SessionConfiguration != null && r.SessionConfiguration.IsActive);
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var results = await query
+                .OrderByDescending(r => r.SubmittedAt)
+                .Skip((filter.Page - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToListAsync();
+
+            var items = results.Select(r => new
+            {
+                r.Id,
+                r.FirstName,
+                r.LastName,
+                r.FatherName,
+                r.Address,
+                r.Sex,
+                r.Age,
+                r.Education,
+                r.Occupation,
+                r.ChurchName,
+                r.FianceName,
+                r.DateOfMarriage,
+                r.Phone,
+                r.Email,
+                r.Days,
+                r.ChurchActivitiesJson,
+                r.Declaration,
+                r.SessionId,
+                SessionName = r.SessionConfiguration?.SessionName ?? "N/A",
+                PhotoPath = r.PhotoFilePath,
+                VicarLetterPath = r.VicarLetterFilePath,
+                r.PaymentStatus,
+            });
+
+            return Ok(new
+            {
+                totalCount,
+                items
+            });
+        }
+
     }
 }
