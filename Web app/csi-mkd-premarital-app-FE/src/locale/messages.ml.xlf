@@ -440,7 +440,7 @@
       </trans-unit>
       <trans-unit id="7741873707372237131" datatype="html">
         <source>sessions</source>
-         <target>കാൻസൽ </target>
+         <target>സെഷൻസ് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
           <context context-type="linenumber">33</context>
@@ -448,7 +448,7 @@
       </trans-unit>
       <trans-unit id="2456043080471762298" datatype="html">
         <source>delete</source>
-         <target>കാൻസൽ </target>
+         <target>ഡിലീറ്റ്  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
           <context context-type="linenumber">71</context>
@@ -456,7 +456,7 @@
       </trans-unit>
       <trans-unit id="6386281131533761953" datatype="html">
         <source>No sessions available for</source>
-         <target>കാ </target>
+         <target>ലഭ്യമായ സെഷനുകളുടെ എണ്ണം</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
           <context context-type="linenumber">84,85</context>
@@ -464,7 +464,7 @@
       </trans-unit>
       <trans-unit id="133207310816409726" datatype="html">
         <source>Premarital Counselling Feedback Form</source>
-        <target>കാ </target>
+        <target>പ്രീമാരിറ്റൽ  കൗൺസിലിങ്  ഫീഡ്ബാക്ക്  ഫോം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">4</context>
@@ -472,7 +472,7 @@
       </trans-unit>
       <trans-unit id="4539249320687988656" datatype="html">
         <source>Session Title</source>
-        <target>കാ </target>
+        <target>സെഷന്റെ പേര് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">9</context>
@@ -480,7 +480,7 @@
       </trans-unit>
       <trans-unit id="2297688463310993102" datatype="html">
         <source>Your Name</source>
-        <target>കാ </target>
+        <target>താങ്കളുടെ പേര്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">15</context>
@@ -488,7 +488,7 @@
       </trans-unit>
       <trans-unit id="204562474612147063" datatype="html">
         <source>Your Email</source>
-        <target>കാ </target>
+        <target>താങ്കളുടെ ഇമെയിൽ ഐഡി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">20</context>
@@ -496,7 +496,7 @@
       </trans-unit>
       <trans-unit id="1920318926494934522" datatype="html">
         <source>Date of Session</source>
-        <target>കാ </target>
+        <target>സെഷന്റെ തീയതി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">26</context>
@@ -504,6 +504,7 @@
       </trans-unit>
       <trans-unit id="3272830838222584108" datatype="html">
         <source>Overall Quality</source>
+        <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">34,35</context>
@@ -511,6 +512,7 @@
       </trans-unit>
       <trans-unit id="6752807975877546003" datatype="html">
         <source>Content Relevance</source>
+        <target>ഉള്ളടക്കത്തിന്റെ പ്രസക്തി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">43,44</context>
@@ -518,6 +520,7 @@
       </trans-unit>
       <trans-unit id="7239374508943813513" datatype="html">
         <source>Presenter Engagement</source>
+        <target>അവതാരകൻ്റെ ഇടപെടൽ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">52,53</context>
@@ -525,6 +528,7 @@
       </trans-unit>
       <trans-unit id="3076687427621376223" datatype="html">
         <source>Organization</source>
+        <target>ഓർഗനൈസഷൻ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">61,62</context>
@@ -532,6 +536,7 @@
       </trans-unit>
       <trans-unit id="6488186088347933729" datatype="html">
         <source>What did you find most valuable about this session?</source>
+        <target>ഈ സെഷനിൽ നിങ്ങൾക്ക് ഏറ്റവും വിലപ്പെട്ടതായി തോന്നിയത് എന്താണ്? </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">71</context>
@@ -539,6 +544,7 @@
       </trans-unit>
       <trans-unit id="6225844174314680570" datatype="html">
         <source>What could have been improved?</source>
+        <target>എന്താണ് മെച്ചപ്പെടുത്താമായിരുന്നത്? </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">76</context>
@@ -546,6 +552,7 @@
       </trans-unit>
       <trans-unit id="3620477072638508381" datatype="html">
         <source>Any other comments or suggestions?</source>
+        <target>അഭിപ്രായങ്ങളും നിർദ്ദേശങ്ങളും? </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">81</context>
