@@ -4,6 +4,7 @@
     <body>
 <trans-unit id="5988282777895538729" datatype="html">
         <source>📍 Visit Us</source>
+        <target>📍ഞങ്ങളെ സന്ദർശിക്കുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">113,114</context>
@@ -11,6 +12,7 @@
       </trans-unit>
       <trans-unit id="15139457058898869" datatype="html">
         <source>CSI Counselling Centre</source>
+        <target>സി.എസ്.ഐ. കൗൺസിലിംഗ് സെന്റർ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">115,116</context>
@@ -18,6 +20,7 @@
       </trans-unit>
       <trans-unit id="44607424985578943" datatype="html">
         <source>CMS Press Compound</source>
+        <target>സിഎംഎസ് പ്രസ് കോമ്പൗണ്ട്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">116,117</context>
@@ -25,6 +28,7 @@
       </trans-unit>
       <trans-unit id="3439648431163558335" datatype="html">
         <source>Chalukunnu, Kottayam-1</source>
+        <target>ചാലുകുന്ന്, കോട്ടയം-1</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">117,118</context>
@@ -32,6 +36,7 @@
       </trans-unit>
       <trans-unit id="6872852153782905618" datatype="html">
         <source>Kerala, India – 686001</source>
+        <target>കേരളം, ഇന്ത്യ – 686001</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">118,119</context>
@@ -39,7 +44,7 @@
       </trans-unit>
       <trans-unit id="8019837104806442842" datatype="html">
         <source> View on Google Maps </source>
-        <target>അ</target>
+        <target>ഗൂഗിൾ മാപ്സിൽ കാണുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">129</context>
@@ -47,6 +52,7 @@
       </trans-unit>
       <trans-unit id="1599624959003937558" datatype="html">
         <source>📞 Contact</source>
+        <target>📞ഫോൺ നമ്പർ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">137,138</context>
@@ -54,7 +60,7 @@
       </trans-unit>
       <trans-unit id="5267338403509660144" datatype="html">
         <source>🕒 Mon – Sat | 9:00 AM – 6:00 PM</source>
-        <target>അ</target>
+        <target>🕒തിങ്കൾ-വെള്ളി | 9:00 AM മുതൽ 6:00 PM വരെ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">150,151</context>
