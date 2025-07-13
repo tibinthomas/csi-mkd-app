@@ -132,6 +132,54 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="5248717555542428023" datatype="html">
+        <source>Username</source>
+        <target>യൂസർ നെയിം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4327001039034401261" datatype="html">
+        <source>Enter your username</source>
+        <target>നിങ്ങളുടെ യൂസർ നെയിം നൽകുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.html</context>
+          <context context-type="linenumber">18,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9081239727073547463" datatype="html">
+        <source> Username is required. </source>
+        <target>യൂസർ നെയിം ആവശ്യമാണ്.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1431416938026210429" datatype="html">
+        <source>Password</source>
+        <target>പാസ്സ്‌വേർഡ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2772023564304193657" datatype="html">
+        <source>Enter your password</source>
+        <target>നിങ്ങളുടെ പാസ്സ്‌വേർഡ് നൽകുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2161528641772974097" datatype="html">
+        <source> Password is required. </source>
+        <target>പാസ്സ്‌വേർഡ് ആവശ്യമാണ്.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/login/login.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="loggingIn" datatype="html">
         <source>ലോഗിൻ ചെയ്യുന്നു...</source>
         <context-group purpose="location">
