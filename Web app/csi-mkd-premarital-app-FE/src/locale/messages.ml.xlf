@@ -2,6 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+    <!--src/app/about -->
 <trans-unit id="5988282777895538729" datatype="html">
         <source>📍 Visit Us</source>
         <target>📍ഞങ്ങളെ സന്ദർശിക്കുക</target>
@@ -84,17 +85,42 @@
       </trans-unit>
       <trans-unit id="2112748115630306078" datatype="html">
         <source> © <x id="INTERPOLATION" equiv-text="{{ currentYear() }}"/> CSI Counselling Centre, Kottayam. All rights reserved. </source>
-        <target>സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ, കോട്ടയം.All rights reserved.</target>
+        <target> © <x id="INTERPOLATION" equiv-text="{{ currentYear() }}"/> CSI Counselling Centre, Kottayam. All rights reserved. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">178,180</context>
         </context-group>
       </trans-unit>
+<!--src/app/admin/dashboard/dashboard.html-->
 
+
+     <trans-unit id="4453176063787191635" datatype="html">
+        <source>Welcome back, Admin!</source>
+        <target>- മത്തായി 11:28</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4555457172864212828" datatype="html">
+        <source>Users</source>
+        <target>യൂസേഴ്സ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="17234570072885140" datatype="html">
+        <source>Registrations</source>
+        <target>രജിസ്ട്രേഷൻസ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="754422484225812101" datatype="html">
         <source>Feedbacks</source>
         <target>ഫീഡ്‌ബാക്കുകൾ</target>
-       
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
           <context context-type="linenumber">28</context>
