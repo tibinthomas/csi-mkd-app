@@ -2,10 +2,8 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-    <!--src/app/about -->
-<trans-unit id="5988282777895538729" datatype="html">
+      <trans-unit id="5988282777895538729" datatype="html">
         <source>📍 Visit Us</source>
-        <target>📍ഞങ്ങളെ സന്ദർശിക്കുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">113,114</context>
@@ -13,7 +11,6 @@
       </trans-unit>
       <trans-unit id="15139457058898869" datatype="html">
         <source>CSI Counselling Centre</source>
-        <target>സി.എസ്.ഐ. കൗൺസിലിംഗ് സെന്റർ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">115,116</context>
@@ -21,7 +18,6 @@
       </trans-unit>
       <trans-unit id="44607424985578943" datatype="html">
         <source>CMS Press Compound</source>
-        <target>സിഎംഎസ് പ്രസ് കോമ്പൗണ്ട്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">116,117</context>
@@ -29,7 +25,6 @@
       </trans-unit>
       <trans-unit id="3439648431163558335" datatype="html">
         <source>Chalukunnu, Kottayam-1</source>
-        <target>ചാലുകുന്ന്, കോട്ടയം-1</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">117,118</context>
@@ -37,7 +32,6 @@
       </trans-unit>
       <trans-unit id="6872852153782905618" datatype="html">
         <source>Kerala, India – 686001</source>
-        <target>കേരളം, ഇന്ത്യ – 686001</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">118,119</context>
@@ -45,7 +39,6 @@
       </trans-unit>
       <trans-unit id="8019837104806442842" datatype="html">
         <source> View on Google Maps </source>
-        <target>ഗൂഗിൾ മാപ്സിൽ കാണുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">129</context>
@@ -53,7 +46,6 @@
       </trans-unit>
       <trans-unit id="1599624959003937558" datatype="html">
         <source>📞 Contact</source>
-        <target>📞ഫോൺ നമ്പർ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">137,138</context>
@@ -61,7 +53,6 @@
       </trans-unit>
       <trans-unit id="5267338403509660144" datatype="html">
         <source>🕒 Mon – Sat | 9:00 AM – 6:00 PM</source>
-        <target>🕒തിങ്കൾ-വെള്ളി | 9:00 AM മുതൽ 6:00 PM വരെ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">150,151</context>
@@ -69,7 +60,6 @@
       </trans-unit>
       <trans-unit id="1333708020551014414" datatype="html">
         <source> “Come to me, all who are weary and burdened, and I will give you rest.” </source>
-        <target>"ക്ഷീണിതരും ഭാരം ചുമക്കുന്നവരും ആയുള്ളോരേ, എല്ലാവരും എന്റെ അടുക്കൽ വരുവിൻ; ഞാൻ നിങ്ങളെ ആശ്വസിപ്പിക്കും."</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">157</context>
@@ -77,7 +67,6 @@
       </trans-unit>
       <trans-unit id="357046268884988158" datatype="html">
         <source>– Matthew 11:28</source>
-        <target>- മത്തായി 11:28</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">159,160</context>
@@ -85,16 +74,13 @@
       </trans-unit>
       <trans-unit id="2112748115630306078" datatype="html">
         <source> © <x id="INTERPOLATION" equiv-text="{{ currentYear() }}"/> CSI Counselling Centre, Kottayam. All rights reserved. </source>
-        <target> © <x id="INTERPOLATION" equiv-text="{{ currentYear() }}"/> CSI Counselling Centre, Kottayam. All rights reserved. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">178,180</context>
         </context-group>
       </trans-unit>
-<!--src/app/admin/dashboard/dashboard.html-->
-     <trans-unit id="4453176063787191635" datatype="html">
+      <trans-unit id="4453176063787191635" datatype="html">
         <source>Welcome back, Admin!</source>
-        <target>സ്വാഗതം, അഡ്മിൻ!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
           <context context-type="linenumber">2,4</context>
@@ -102,7 +88,6 @@
       </trans-unit>
       <trans-unit id="4555457172864212828" datatype="html">
         <source>Users</source>
-        <target>യൂസേഴ്സ്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
           <context context-type="linenumber">8</context>
@@ -110,7 +95,6 @@
       </trans-unit>
       <trans-unit id="17234570072885140" datatype="html">
         <source>Registrations</source>
-        <target>രജിസ്ട്രേഷൻസ്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
           <context context-type="linenumber">18</context>
@@ -118,24 +102,20 @@
       </trans-unit>
       <trans-unit id="754422484225812101" datatype="html">
         <source>Feedbacks</source>
-        <target>ഫീഡ്‌ബാക്കുകൾ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
-      <!--src/app/admin/login/login-->
       <trans-unit id="1769638224126160393" datatype="html">
         <source>Admin Login</source>
-        <target>അഡ്മിൻ ലോഗിൻ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.html</context>
-          <context context-type="linenumber">5</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="5248717555542428023" datatype="html">
+      <trans-unit id="5248717555542428023" datatype="html">
         <source>Username</source>
-        <target>യൂസർ നെയിം</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.html</context>
           <context context-type="linenumber">14</context>
@@ -143,7 +123,6 @@
       </trans-unit>
       <trans-unit id="4327001039034401261" datatype="html">
         <source>Enter your username</source>
-        <target>നിങ്ങളുടെ യൂസർ നെയിം നൽകുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.html</context>
           <context context-type="linenumber">18,19</context>
@@ -151,7 +130,6 @@
       </trans-unit>
       <trans-unit id="9081239727073547463" datatype="html">
         <source> Username is required. </source>
-        <target>യൂസർ നെയിം ആവശ്യമാണ്.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.html</context>
           <context context-type="linenumber">26</context>
@@ -159,7 +137,6 @@
       </trans-unit>
       <trans-unit id="1431416938026210429" datatype="html">
         <source>Password</source>
-        <target>പാസ്സ്‌വേർഡ്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.html</context>
           <context context-type="linenumber">31</context>
@@ -167,7 +144,6 @@
       </trans-unit>
       <trans-unit id="2772023564304193657" datatype="html">
         <source>Enter your password</source>
-        <target>നിങ്ങളുടെ പാസ്സ്‌വേർഡ് നൽകുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.html</context>
           <context context-type="linenumber">36,37</context>
@@ -175,14 +151,13 @@
       </trans-unit>
       <trans-unit id="2161528641772974097" datatype="html">
         <source> Password is required. </source>
-        <target>പാസ്സ്‌വേർഡ് ആവശ്യമാണ്.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.html</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="loggingIn" datatype="html">
-        <source>ലോഗിൻ ചെയ്യുന്നു...</source>
+        <source>Logging in...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.ts</context>
           <context context-type="linenumber">38</context>
@@ -190,16 +165,13 @@
       </trans-unit>
       <trans-unit id="login" datatype="html">
         <source>Login</source>
-        <target>ലോഗിൻ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/login/login.ts</context>
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
-<!--src/app/admin/premarital/premarital-->
       <trans-unit id="7158592746571420879" datatype="html">
         <source>search</source>
-        <target>സെർച്ച്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">21</context>
@@ -207,7 +179,6 @@
       </trans-unit>
       <trans-unit id="8700121026680200191" datatype="html">
         <source>Clear</source>
-        <target>ക്ലിയർ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">25,26</context>
@@ -215,7 +186,6 @@
       </trans-unit>
       <trans-unit id="843106520617841317" datatype="html">
         <source> Show Unapproved Payments Only </source>
-         <target>അംഗീകരിക്കാത്ത പേയ്‌മെന്റുകൾ മാത്രം കാണിക്കുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">34</context>
@@ -223,7 +193,6 @@
       </trans-unit>
       <trans-unit id="1077568698269776507" datatype="html">
         <source> Show Active Sessions Only </source>
-         <target>ആക്റ്റീവായ സെഷനുകൾ മാത്രം കാണിക്കുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">42</context>
@@ -231,7 +200,6 @@
       </trans-unit>
       <trans-unit id="4422157031517165272" datatype="html">
         <source>Download Full List</source>
-        <target>മുഴുവൻ ലിസ്റ്റ് ഡൗൺലോഡ് ചെയ്യുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">50,51</context>
@@ -239,7 +207,6 @@
       </trans-unit>
       <trans-unit id="6028371114637047813" datatype="html">
         <source>First Name</source>
-        <target>ഫസ്റ്റ് നെയിം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">61,62</context>
@@ -247,7 +214,6 @@
       </trans-unit>
       <trans-unit id="4407559560004943843" datatype="html">
         <source>Last Name</source>
-        <target>ലാസ്‌റ് നെയിം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">65,66</context>
@@ -255,7 +221,6 @@
       </trans-unit>
       <trans-unit id="2742532852742169962" datatype="html">
         <source>Sex</source>
-        <target>സെക്സ്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">70,71</context>
@@ -263,7 +228,6 @@
       </trans-unit>
       <trans-unit id="1130652265542107236" datatype="html">
         <source>Age</source>
-        <target>വയസ്സ്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">75,76</context>
@@ -271,7 +235,6 @@
       </trans-unit>
       <trans-unit id="4768749765465246664" datatype="html">
         <source>Email</source>
-        <target>ഇമെയിൽ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">80,81</context>
@@ -279,7 +242,6 @@
       </trans-unit>
       <trans-unit id="3262236020277300799" datatype="html">
         <source>Phone</source>
-        <target>ഫോൺ നമ്പർ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">85,86</context>
@@ -287,15 +249,17 @@
       </trans-unit>
       <trans-unit id="5903110565317428249" datatype="html">
         <source>Session</source>
-        <target>സെഷൻ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">90,91</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="1645793123584415975" datatype="html">
         <source>Session Days</source>
-        <target>സെഷൻ-ദിവസങ്ങൾ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">95,96</context>
@@ -303,7 +267,6 @@
       </trans-unit>
       <trans-unit id="5750485945694679561" datatype="html">
         <source>Photo</source>
-        <target>ഫോട്ടോ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">99,100</context>
@@ -311,7 +274,6 @@
       </trans-unit>
       <trans-unit id="3193764125791084606" datatype="html">
         <source>Vicar&apos;s Letter</source>
-        <target>വികാരിയുടെ കത്ത്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">111,112</context>
@@ -319,7 +281,6 @@
       </trans-unit>
       <trans-unit id="4892553839051604445" datatype="html">
         <source>Payment</source>
-        <target>പേയ്മെന്റ്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">127,128</context>
@@ -327,7 +288,6 @@
       </trans-unit>
       <trans-unit id="8691920320483720007" datatype="html">
         <source>Received</source>
-        <target>ലഭിച്ചു</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">134,135</context>
@@ -335,7 +295,6 @@
       </trans-unit>
       <trans-unit id="3044002705450443786" datatype="html">
         <source>Father Name:</source>
-        <target>പിതാവിന്റെ പേര്:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">159</context>
@@ -343,7 +302,6 @@
       </trans-unit>
       <trans-unit id="5025457187887640726" datatype="html">
         <source>Address:</source>
-         <target>അഡ്രസ്സ് :</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">160</context>
@@ -351,7 +309,6 @@
       </trans-unit>
       <trans-unit id="3516497080568132461" datatype="html">
         <source>Education:</source>
-         <target>വിദ്യാഭ്യാസം:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">161</context>
@@ -359,7 +316,6 @@
       </trans-unit>
       <trans-unit id="1658311170791450631" datatype="html">
         <source>Occupation:</source>
-         <target>ജോലി:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">162</context>
@@ -367,7 +323,6 @@
       </trans-unit>
       <trans-unit id="3137853939815525350" datatype="html">
         <source>Church:</source>
-         <target>സഭ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">163</context>
@@ -375,7 +330,6 @@
       </trans-unit>
       <trans-unit id="6065345072830070634" datatype="html">
         <source>Fiancé Name:</source>
-        <target>പ്രതിശ്രുത വരന്റെ /വധുവിന്റെ  പേര്:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">164</context>
@@ -383,7 +337,6 @@
       </trans-unit>
       <trans-unit id="1366865666437993427" datatype="html">
         <source>Date of Marriage:</source>
-        <target>വിവാഹ തീയതി:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">165</context>
@@ -391,16 +344,13 @@
       </trans-unit>
       <trans-unit id="9130470748661769218" datatype="html">
         <source>Church Activities:</source>
-        <target>ചർച്ച്  ആക്ടിവിറ്റീസ് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">167,168</context>
         </context-group>
       </trans-unit>
-          <!--src/app/admin/session-config/session-config-form-->
-          <trans-unit id="8709923689943443494" datatype="html">
+      <trans-unit id="8709923689943443494" datatype="html">
         <source>Session Name</source>
-         <target>സെഷന്റെ പേര് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config-form.html</context>
           <context context-type="linenumber">5</context>
@@ -408,7 +358,6 @@
       </trans-unit>
       <trans-unit id="3604386807230411192" datatype="html">
         <source>Start Date</source>
-        <target>ആരംഭിക്കുന്ന തീയതി</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config-form.html</context>
           <context context-type="linenumber">10</context>
@@ -416,7 +365,6 @@
       </trans-unit>
       <trans-unit id="7379726829888309084" datatype="html">
         <source>End Date</source>
-        <target>അവസാനിക്കുന്ന തീയതി</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config-form.html</context>
           <context context-type="linenumber">17</context>
@@ -424,7 +372,6 @@
       </trans-unit>
       <trans-unit id="2159130950882492111" datatype="html">
         <source>Cancel</source>
-        <target>കാൻസൽ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config-form.html</context>
           <context context-type="linenumber">25,26</context>
@@ -432,7 +379,6 @@
       </trans-unit>
       <trans-unit id="570106978085409361" datatype="html">
         <source>Filter by Year</source>
-         <target>കാൻസൽ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
           <context context-type="linenumber">5</context>
@@ -440,7 +386,6 @@
       </trans-unit>
       <trans-unit id="7741873707372237131" datatype="html">
         <source>sessions</source>
-         <target>സെഷൻസ് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
           <context context-type="linenumber">33</context>
@@ -448,7 +393,6 @@
       </trans-unit>
       <trans-unit id="2456043080471762298" datatype="html">
         <source>delete</source>
-         <target>ഡിലീറ്റ്  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
           <context context-type="linenumber">71</context>
@@ -456,7 +400,6 @@
       </trans-unit>
       <trans-unit id="6386281131533761953" datatype="html">
         <source>No sessions available for</source>
-         <target>ലഭ്യമായ സെഷനുകളുടെ എണ്ണം</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
           <context context-type="linenumber">84,85</context>
@@ -464,7 +407,6 @@
       </trans-unit>
       <trans-unit id="133207310816409726" datatype="html">
         <source>Premarital Counselling Feedback Form</source>
-        <target>പ്രീമാരിറ്റൽ  കൗൺസിലിങ്  ഫീഡ്ബാക്ക്  ഫോം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">4</context>
@@ -472,7 +414,6 @@
       </trans-unit>
       <trans-unit id="4539249320687988656" datatype="html">
         <source>Session Title</source>
-        <target>സെഷന്റെ പേര് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">9</context>
@@ -480,7 +421,6 @@
       </trans-unit>
       <trans-unit id="2297688463310993102" datatype="html">
         <source>Your Name</source>
-        <target>താങ്കളുടെ പേര്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">15</context>
@@ -488,7 +428,6 @@
       </trans-unit>
       <trans-unit id="204562474612147063" datatype="html">
         <source>Your Email</source>
-        <target>താങ്കളുടെ ഇമെയിൽ ഐഡി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">20</context>
@@ -496,7 +435,6 @@
       </trans-unit>
       <trans-unit id="1920318926494934522" datatype="html">
         <source>Date of Session</source>
-        <target>സെഷന്റെ തീയതി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">26</context>
@@ -504,7 +442,6 @@
       </trans-unit>
       <trans-unit id="3272830838222584108" datatype="html">
         <source>Overall Quality</source>
-        <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">34,35</context>
@@ -512,7 +449,6 @@
       </trans-unit>
       <trans-unit id="6752807975877546003" datatype="html">
         <source>Content Relevance</source>
-        <target>ഉള്ളടക്കത്തിന്റെ പ്രസക്തി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">43,44</context>
@@ -520,7 +456,6 @@
       </trans-unit>
       <trans-unit id="7239374508943813513" datatype="html">
         <source>Presenter Engagement</source>
-        <target>അവതാരകൻ്റെ ഇടപെടൽ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">52,53</context>
@@ -528,7 +463,6 @@
       </trans-unit>
       <trans-unit id="3076687427621376223" datatype="html">
         <source>Organization</source>
-        <target>ഓർഗനൈസഷൻ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">61,62</context>
@@ -536,7 +470,6 @@
       </trans-unit>
       <trans-unit id="6488186088347933729" datatype="html">
         <source>What did you find most valuable about this session?</source>
-        <target>ഈ സെഷനിൽ നിങ്ങൾക്ക് ഏറ്റവും വിലപ്പെട്ടതായി തോന്നിയത് എന്താണ്? </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">71</context>
@@ -544,7 +477,6 @@
       </trans-unit>
       <trans-unit id="6225844174314680570" datatype="html">
         <source>What could have been improved?</source>
-        <target>എന്താണ് മെച്ചപ്പെടുത്താമായിരുന്നത്? </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">76</context>
@@ -552,7 +484,6 @@
       </trans-unit>
       <trans-unit id="3620477072638508381" datatype="html">
         <source>Any other comments or suggestions?</source>
-        <target>അഭിപ്രായങ്ങളും നിർദ്ദേശങ്ങളും? </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">81</context>

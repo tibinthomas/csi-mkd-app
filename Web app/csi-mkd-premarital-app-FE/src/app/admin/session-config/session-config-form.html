@@ -2,19 +2,19 @@
 
 <mat-dialog-content [formGroup]="form">
   <mat-form-field class="w-full">
-    <mat-label>Session Name</mat-label>
+    <mat-label i18n>Session Name</mat-label>
     <input matInput formControlName="sessionName" />
   </mat-form-field>
 
   <mat-form-field class="w-full">
-    <mat-label>Start Date</mat-label>
+    <mat-label i18n>Start Date</mat-label>
     <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
     <mat-datepicker-toggle matSuffix [for]="startPicker" />
     <mat-datepicker #startPicker></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field class="w-full">
-    <mat-label>End Date</mat-label>
+    <mat-label i18n>End Date</mat-label>
     <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
     <mat-datepicker-toggle matSuffix [for]="endPicker" />
     <mat-datepicker #endPicker></mat-datepicker>
@@ -22,7 +22,7 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button type="button" (click)="close()">Cancel</button>
+  <button mat-button type="button" (click)="close()" i18n>Cancel</button>
   <button mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="onSubmit()">
     {{ isEdit() ? "Update" : "Create" }}
   </button>

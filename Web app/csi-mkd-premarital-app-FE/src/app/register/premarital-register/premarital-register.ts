@@ -51,6 +51,7 @@ import { emailDomainValidator } from '../../core/validators/email-domain.validat
     // AnimateOnScrollDirective,
   ],
   templateUrl: './premarital-register.html',
+  styleUrl: './premarital-register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PremaritalRegister {

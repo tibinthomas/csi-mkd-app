@@ -1,3 +1,4 @@
+
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
@@ -68,7 +69,8 @@
               "sourceMap": true,
               "define": {
                 "API_ROOT_URL": "\"http://localhost:5177\""
-              }
+              },
+              "localize":["ml"]
             }
           },
           "defaultConfiguration": "production"

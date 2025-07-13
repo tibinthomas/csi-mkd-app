@@ -1,29 +1,29 @@
 <section class="py-20 px-4">
   <mat-card class="max-w-4xl mx-auto p-6">
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl font-extrabold">Premarital Counselling Feedback Form</mat-card-title>
+      <mat-card-title class="text-center text-2xl font-extrabold" i18n>Premarital Counselling Feedback Form</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Session Title</mat-label>
+          <mat-label i18n>Session Title</mat-label>
           <input matInput formControlName="sessionTitle" />
         </mat-form-field>
 
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Your Name</mat-label>
+            <mat-label i18n>Your Name</mat-label>
             <input matInput formControlName="name" />
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Your Email</mat-label>
+            <mat-label i18n>Your Email</mat-label>
             <input matInput type="email" formControlName="email" />
           </mat-form-field>
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Date of Session</mat-label>
+          <mat-label i18n>Date of Session</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="date" />
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -31,7 +31,7 @@
 
         <div class="grid md:grid-cols-2 gap-6">
           <div>
-            <label class="block mb-2 font-medium">Overall Quality</label>
+            <label class="block mb-2 font-medium" i18n>Overall Quality</label>
             <mat-radio-group formControlName="qualityRating">
               @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
               <mat-radio-button [value]="n">{{ n }}</mat-radio-button>
@@ -40,7 +40,7 @@
           </div>
 
           <div>
-            <label class="block mb-2 font-medium">Content Relevance</label>
+            <label class="block mb-2 font-medium" i18n>Content Relevance</label>
             <mat-radio-group formControlName="relevanceRating">
               @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
               <mat-radio-button [value]="n">{{ n }}</mat-radio-button>
@@ -49,7 +49,7 @@
           </div>
 
           <div>
-            <label class="block mb-2 font-medium">Presenter Engagement</label>
+            <label class="block mb-2 font-medium" i18n>Presenter Engagement</label>
             <mat-radio-group formControlName="engagementRating">
               @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
               <mat-radio-button [value]="n">{{ n }}</mat-radio-button>
@@ -58,7 +58,7 @@
           </div>
 
           <div>
-            <label class="block mb-2 font-medium">Organization</label>
+            <label class="block mb-2 font-medium" i18n>Organization</label>
             <mat-radio-group formControlName="organizationRating">
               @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
               <mat-radio-button [value]="n">{{ n }}</mat-radio-button>
@@ -68,17 +68,17 @@
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>What did you find most valuable about this session?</mat-label>
+          <mat-label i18n>What did you find most valuable about this session?</mat-label>
           <textarea matInput formControlName="valuable" rows="3"></textarea>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>What could have been improved?</mat-label>
+          <mat-label i18n>What could have been improved?</mat-label>
           <textarea matInput formControlName="improvements" rows="3"></textarea>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Any other comments or suggestions?</mat-label>
+          <mat-label i18n>Any other comments or suggestions?</mat-label>
           <textarea matInput formControlName="comments" rows="3"></textarea>
         </mat-form-field>
 

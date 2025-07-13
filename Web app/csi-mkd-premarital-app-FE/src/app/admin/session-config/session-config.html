@@ -2,7 +2,7 @@
 
 <!-- Year Picker -->
 <mat-form-field appearance="fill" class="w-64 mb-4">
-  <mat-label>Filter by Year</mat-label>
+  <mat-label i18n>Filter by Year</mat-label>
   <input matInput [matDatepicker]="yearPicker" [value]="selectedYear()" (dateChange)="onYearChange($event)" />
   <mat-datepicker-toggle matSuffix [for]="yearPicker" />
   <mat-datepicker
@@ -28,27 +28,32 @@
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>{{ group.monthName }}</mat-panel-title>
-      <mat-panel-description>{{ group.sessions.length }} sessions</mat-panel-description>
+      <mat-panel-description
+        >{{ group.sessions.length }}
+        <p i18n>sessions</p></mat-panel-description
+      >
     </mat-expansion-panel-header>
 
     <table mat-table [dataSource]="group.sessions" class="min-w-full bg-white">
       <ng-container matColumnDef="sessionName">
-        <th mat-header-cell *matHeaderCellDef>Session</th>
+        <th mat-header-cell *matHeaderCellDef>
+          <span i18n>Session</span>
+        </th>
         <td mat-cell *matCellDef="let session">{{ session.SessionName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="startDate">
-        <th mat-header-cell *matHeaderCellDef>Start Date</th>
+        <th mat-header-cell *matHeaderCellDef >Start Date</th>
         <td mat-cell *matCellDef="let session">{{ session.StartDate | date }}</td>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
-        <th mat-header-cell *matHeaderCellDef>End Date</th>
+        <th mat-header-cell *matHeaderCellDef >End Date</th>
         <td mat-cell *matCellDef="let session">{{ session.EndDate | date }}</td>
       </ng-container>
 
       <ng-container matColumnDef="isActive">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <th mat-header-cell *matHeaderCellDef >Status</th>
         <td mat-cell *matCellDef="let session">
           <span [class.text-green-600]="session.IsActive" [class.text-gray-500]="!session.IsActive">
             {{ session.IsActive ? "Active" : "Inactive" }}
@@ -57,13 +62,13 @@
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <th mat-header-cell *matHeaderCellDef >Actions</th>
         <td mat-cell *matCellDef="let session">
           <button mat-icon-button [color]="session.IsActive ? 'accent' : 'primary'" (click)="toggleStatus(session)">
             <mat-icon>{{ session.IsActive ? "toggle_off" : "toggle_on" }}</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="deleteSession(session)">
-            <mat-icon>delete</mat-icon>
+            <mat-icon i18n>delete</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -75,5 +80,8 @@
   }
 </mat-accordion>
 } @else{
-<div class="text-center text-gray-600 mt-8">No sessions available for {{ selectedYear().getFullYear() }}.</div>
+<div class="text-center text-gray-600 mt-8">
+  <p i18n>No sessions available for</p>
+  {{ selectedYear().getFullYear() }}.
+</div>
 }

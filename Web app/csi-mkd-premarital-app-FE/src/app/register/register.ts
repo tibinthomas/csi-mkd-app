@@ -14,7 +14,7 @@ import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll
     AnimateOnScrollDirective,
   ],
   templateUrl: './register.html',
-
+  styleUrl: './register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Register {}
