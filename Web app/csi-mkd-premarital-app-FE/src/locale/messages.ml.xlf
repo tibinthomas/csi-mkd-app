@@ -68,7 +68,7 @@
       </trans-unit>
       <trans-unit id="1333708020551014414" datatype="html">
         <source> “Come to me, all who are weary and burdened, and I will give you rest.” </source>
-        <target>അ</target>
+        <target>"ക്ഷീണിതരും ഭാരം ചുമക്കുന്നവരും ആയുള്ളോരേ, എല്ലാവരും എന്റെ അടുക്കൽ വരുവിൻ; ഞാൻ നിങ്ങളെ ആശ്വസിപ്പിക്കും."</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">157</context>
@@ -76,7 +76,7 @@
       </trans-unit>
       <trans-unit id="357046268884988158" datatype="html">
         <source>– Matthew 11:28</source>
-        <target>അ</target>
+        <target>- മത്തായി 11:28</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">159,160</context>
@@ -84,7 +84,7 @@
       </trans-unit>
       <trans-unit id="2112748115630306078" datatype="html">
         <source> © <x id="INTERPOLATION" equiv-text="{{ currentYear() }}"/> CSI Counselling Centre, Kottayam. All rights reserved. </source>
-        <target>അ</target>
+        <target>സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ, കോട്ടയം.All rights reserved.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">178,180</context>
@@ -93,8 +93,8 @@
 
       <trans-unit id="754422484225812101" datatype="html">
         <source>Feedbacks</source>
-        <target>ലോഗിൻ</target>
-        <target>അ</target>
+        <target>ഫീഡ്‌ബാക്കുകൾ</target>
+       
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/dashboard/dashboard.html</context>
           <context context-type="linenumber">28</context>
