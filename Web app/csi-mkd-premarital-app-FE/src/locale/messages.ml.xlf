@@ -229,14 +229,14 @@
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
-      <!-- <trans-unit id="621519228616090613" datatype="html">
-        <source><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>download<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> Download Full List </source>
-        <target><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon&gt;"/>download<x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/mat-icon&gt;"/> <p> മുഴുവൻ ലിസ്റ്റ് ഡൗൺലോഡ് ചെയ്യുക</p> </source></target>
+      <trans-unit id="4422157031517165272" datatype="html">
+        <source>Download Full List</source>
+        <target>മുഴുവൻ ലിസ്റ്റ് ഡൗൺലോഡ് ചെയ്യുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">49,51</context>
+          <context context-type="linenumber">50,51</context>
         </context-group>
-      </trans-unit> -->
+      </trans-unit>
       <trans-unit id="6028371114637047813" datatype="html">
         <source>First Name</source>
         <target>ഫസ്റ്റ് നെയിം </target>
@@ -430,7 +430,127 @@
           <context context-type="linenumber">25,26</context>
         </context-group>
       </trans-unit>
-      
+      <trans-unit id="570106978085409361" datatype="html">
+        <source>Filter by Year</source>
+         <target>കാൻസൽ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7741873707372237131" datatype="html">
+        <source>sessions</source>
+         <target>കാൻസൽ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2456043080471762298" datatype="html">
+        <source>delete</source>
+         <target>കാൻസൽ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6386281131533761953" datatype="html">
+        <source>No sessions available for</source>
+         <target>കാ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
+          <context context-type="linenumber">84,85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="133207310816409726" datatype="html">
+        <source>Premarital Counselling Feedback Form</source>
+        <target>കാ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4539249320687988656" datatype="html">
+        <source>Session Title</source>
+        <target>കാ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2297688463310993102" datatype="html">
+        <source>Your Name</source>
+        <target>കാ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="204562474612147063" datatype="html">
+        <source>Your Email</source>
+        <target>കാ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1920318926494934522" datatype="html">
+        <source>Date of Session</source>
+        <target>കാ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3272830838222584108" datatype="html">
+        <source>Overall Quality</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6752807975877546003" datatype="html">
+        <source>Content Relevance</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7239374508943813513" datatype="html">
+        <source>Presenter Engagement</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">52,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3076687427621376223" datatype="html">
+        <source>Organization</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6488186088347933729" datatype="html">
+        <source>What did you find most valuable about this session?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6225844174314680570" datatype="html">
+        <source>What could have been improved?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3620477072638508381" datatype="html">
+        <source>Any other comments or suggestions?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
