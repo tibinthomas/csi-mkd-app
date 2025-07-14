@@ -211,6 +211,10 @@
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">65,66</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4407559560004943843" datatype="html">
         <source>Last Name</source>
@@ -218,12 +222,20 @@
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">69,70</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="2742532852742169962" datatype="html">
         <source>Sex</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">74,75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1130652265542107236" datatype="html">
@@ -238,6 +250,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">84,85</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3262236020277300799" datatype="html">
@@ -547,6 +563,213 @@
           <context context-type="linenumber">87,88</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1802754075692434337" datatype="html">
+        <source> General Registration Form </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1267542639633732090" datatype="html">
+        <source>Full Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4540278667455316377" datatype="html">
+        <source>Father&apos;s Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1171954686195477220" datatype="html">
+        <source>Father&apos;s Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6304432362546770951" datatype="html">
+        <source>Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4588590290359822685" datatype="html">
+        <source>Address is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8012344910054029733" datatype="html">
+        <source>Male</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5667840900782067941" datatype="html">
+        <source>Female</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1117938896811518960" datatype="html">
+        <source>Please select your sex.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8020402390620783618" datatype="html">
+        <source>Education</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5318919276110084725" datatype="html">
+        <source>Occupation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2217151238786141335" datatype="html">
+        <source>Church Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8194554728555410336" datatype="html">
+        <source>Phone Number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5686828123659303197" datatype="html">
+        <source>Phone number is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8602814243662345124" datatype="html">
+        <source>Email is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">107,108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3174495843910953299" datatype="html">
+        <source>Invalid email format.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">109,110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8169207922827056818" datatype="html">
+        <source>Marital Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3413004253239957216" datatype="html">
+        <source>Single</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1832809533651384093" datatype="html">
+        <source>Married</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6326735676155119028" datatype="html">
+        <source>Please select your marital status.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6020001566132757906" datatype="html">
+        <source>Session Type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9098374844066438253" datatype="html">
+        <source>In-Person</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8870711330013548872" datatype="html">
+        <source>Online</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3993027651885101217" datatype="html">
+        <source>Please select the session type.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6567149713959239561" datatype="html">
+        <source>Upload Passport Size Photo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">141,142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2560617820933754032" datatype="html">
+        <source>Choose Photo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">142,143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8331505699939849417" datatype="html">
+        <source> I would like to attend the counselling course. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1921409629392815194" datatype="html">
+        <source>You must accept the declaration.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7357660892389602280" datatype="html">
+        <source>Submit Registration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">157,158</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2312868286639432122" datatype="html">
         <source>Choose a Registration Type</source>
         <context-group purpose="location">
@@ -574,12 +797,16 @@
           <context context-type="sourcefile">src/app/register/register.html</context>
           <context context-type="linenumber">52</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="8020628001778564381" datatype="html">
         <source>Pre Confirmational Counselling</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.html</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
     </body>

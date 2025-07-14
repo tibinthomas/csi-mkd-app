@@ -622,6 +622,242 @@
           <context context-type="linenumber">87,88</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1802754075692434337" datatype="html">
+        <source> General Registration Form </source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1267542639633732090" datatype="html">
+        <source>Full Name is required.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4540278667455316377" datatype="html">
+        <source>Father&apos;s Name</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1171954686195477220" datatype="html">
+        <source>Father&apos;s Name is required.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6304432362546770951" datatype="html">
+        <source>Address</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4588590290359822685" datatype="html">
+        <source>Address is required.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8012344910054029733" datatype="html">
+        <source>Male</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5667840900782067941" datatype="html">
+        <source>Female</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1117938896811518960" datatype="html">
+        <source>Please select your sex.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8020402390620783618" datatype="html">
+        <source>Education</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5318919276110084725" datatype="html">
+        <source>Occupation</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2217151238786141335" datatype="html">
+        <source>Church Name</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8194554728555410336" datatype="html">
+        <source>Phone Number</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5686828123659303197" datatype="html">
+        <source>Phone number is required.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8602814243662345124" datatype="html">
+        <source>Email is required.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">107,108</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3174495843910953299" datatype="html">
+        <source>Invalid email format.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">109,110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8169207922827056818" datatype="html">
+        <source>Marital Status</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3413004253239957216" datatype="html">
+        <source>Single</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1832809533651384093" datatype="html">
+        <source>Married</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6326735676155119028" datatype="html">
+        <source>Please select your marital status.</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6020001566132757906" datatype="html">
+        <source>Session Type</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9098374844066438253" datatype="html">
+        <source>In-Person</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">131</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8870711330013548872" datatype="html">
+        <source>Online</source>
+        <target>ഓൺലൈൻ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3993027651885101217" datatype="html">
+        <source>Please select the session type.</source>
+        <target>ദയവായി സെഷൻ ടൈപ്പ്  തിരഞ്ഞെടുക്കുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6567149713959239561" datatype="html">
+        <source>Upload Passport Size Photo</source>
+        <target>പാസ്‌പോർട്ട് സൈസ് ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">141,142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2560617820933754032" datatype="html">
+        <source>Choose Photo</source>
+        <target>ഫോട്ടോ തിരഞ്ഞെടുക്കൂ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">142,143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8331505699939849417" datatype="html">
+        <source> I would like to attend the counselling course. </source>
+        <target>കൗൺസിലിംഗ് കോഴ്സിൽ പങ്കെടുക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1921409629392815194" datatype="html">
+        <source>You must accept the declaration.</source>
+        <target>നിങ്ങൾ പ്രഖ്യാപനം അംഗീകരിക്കുന്നു. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7357660892389602280" datatype="html">
+        <source>Submit Registration</source>
+        <target>രജിസ്ട്രേഷൻ സമർപ്പിക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">157,158</context>
+        </context-group>
+      </trans-unit>
        <trans-unit id="2312868286639432122" datatype="html">
         <source>Choose a Registration Type</source>
         <target>രജിസ്ട്രേഷൻ ടൈപ്പ്  തിരഞ്ഞെടുക്കുക </target>

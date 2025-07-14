@@ -1,53 +1,53 @@
 <section class="py-20 px-4">
   <mat-card class="max-w-4xl mx-auto p-6">
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl sm:text-3xl"> General Registration Form </mat-card-title>
+      <mat-card-title class="text-center text-2xl sm:text-3xl" i18n> General Registration Form </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
         <div class="grid md:grid-cols-3 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>First Name</mat-label>
+            <mat-label i18n>First Name</mat-label>
             <input matInput formControlName="firstName" />
             @if (isInvalid('firstName')) {
-            <mat-error>Full Name is required.</mat-error>
+            <mat-error i18n>Full Name is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Last Name</mat-label>
+            <mat-label i18n>Last Name</mat-label>
             <input matInput formControlName="lastName" />
             @if (isInvalid('lastName')) {
-            <mat-error>Full Name is required.</mat-error>
+            <mat-error i18n>Full Name is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Father's Name</mat-label>
+            <mat-label i18n>Father's Name</mat-label>
             <input matInput formControlName="fatherName" />
             @if (isInvalid('fatherName')) {
-            <mat-error>Father's Name is required.</mat-error>
+            <mat-error i18n>Father's Name is required.</mat-error>
             }
           </mat-form-field>
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Address</mat-label>
+          <mat-label i18n>Address</mat-label>
           <textarea matInput formControlName="address" rows="3"></textarea>
           @if (isInvalid('address')) {
-          <mat-error>Address is required.</mat-error>
+          <mat-error i18n>Address is required.</mat-error>
           }
         </mat-form-field>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Sex</mat-label>
+            <mat-label i18n>Sex</mat-label>
             <mat-select formControlName="sex">
-              <mat-option value="Male">Male</mat-option>
-              <mat-option value="Female">Female</mat-option>
+              <mat-option value="Male" i18n>Male</mat-option>
+              <mat-option value="Female" i18n>Female</mat-option>
             </mat-select>
             @if (isInvalid('sex')) {
-            <mat-error>Please select your sex.</mat-error>
+            <mat-error i18n>Please select your sex.</mat-error>
             }
           </mat-form-field>
 
@@ -68,7 +68,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Education</mat-label>
+            <mat-label i18n>Education</mat-label>
             <input matInput formControlName="education" />
             @if (isInvalid('education')) {
             <mat-error>Education field is required.</mat-error>
@@ -77,7 +77,7 @@
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Occupation</mat-label>
+          <mat-label i18n>Occupation</mat-label>
           <input matInput formControlName="occupation" />
           @if (isInvalid('occupation')) {
           <mat-error>Occupation field is required.</mat-error>
@@ -85,28 +85,28 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Church Name</mat-label>
+          <mat-label i18n>Church Name</mat-label>
           <input matInput formControlName="churchName" />
         </mat-form-field>
 
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Phone Number</mat-label>
+            <mat-label i18n>Phone Number</mat-label>
             <input matInput formControlName="phone" />
             @if (isInvalid('phone')) {
-            <mat-error>Phone number is required.</mat-error>
+            <mat-error i18n>Phone number is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Email</mat-label>
+            <mat-label i18n>Email</mat-label>
             <input matInput type="email" formControlName="email" />
             @if (isInvalid('email')) {
             <mat-error>
               @if (form.get('email')?.errors?.['required']) {
-              <span>Email is required.</span>
+              <span i18n>Email is required.</span>
               } @if (form.get('email')?.errors?.['email']) {
-              <span>Invalid email format.</span>
+              <span i18n>Invalid email format.</span>
               }
             </mat-error>
             }
@@ -115,31 +115,31 @@
 
         <div class="grid md:grid-cols-3 gap-6">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Marital Status</mat-label>
+            <mat-label i18n>Marital Status</mat-label>
             <mat-select formControlName="maritalStatus">
-              <mat-option value="Single">Single</mat-option>
-              <mat-option value="Married">Married</mat-option>
+              <mat-option value="Single" i18n>Single</mat-option>
+              <mat-option value="Married" i18n>Married</mat-option>
             </mat-select>
             @if (isInvalid('maritalStatus')) {
-            <mat-error>Please select your marital status.</mat-error>
+            <mat-error i18n>Please select your marital status.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Session Type</mat-label>
+            <mat-label i18n>Session Type</mat-label>
             <mat-select formControlName="sessionType">
-              <mat-option value="In-Person">In-Person</mat-option>
-              <mat-option value="Online">Online</mat-option>
+              <mat-option value="In-Person" i18n>In-Person</mat-option>
+              <mat-option value="Online" i18n>Online</mat-option>
             </mat-select>
             @if (isInvalid('sessionType')) {
-            <mat-error>Please select the session type.</mat-error>
+            <mat-error i18n>Please select the session type.</mat-error>
             }
           </mat-form-field>
         </div>
 
         <div>
-          <label class="block font-medium mb-2">Upload Passport Size Photo</label>
-          <button mat-raised-button type="button" (click)="photoInput.click()">Choose Photo</button>
+          <label class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
+          <button mat-raised-button type="button" (click)="photoInput.click()" i18n>Choose Photo</button>
           <input #photoInput type="file" accept="image/*" (change)="onFileChange($event)" class="hidden" />
           @if (photoError()) {
           <mat-error>{{ photoError() }}</mat-error>
@@ -147,14 +147,14 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <mat-checkbox formControlName="declaration"> I would like to attend the counselling course. </mat-checkbox>
+          <mat-checkbox formControlName="declaration" i18n> I would like to attend the counselling course. </mat-checkbox>
           @if (isInvalid('declaration')) {
-          <mat-error>You must accept the declaration.</mat-error>
+          <mat-error i18n>You must accept the declaration.</mat-error>
           }
         </div>
 
         <div>
-          <button mat-raised-button type="submit" class="w-full">Submit Registration</button>
+          <button mat-raised-button type="submit" class="w-full" i18n>Submit Registration</button>
         </div>
       </form>
     </mat-card-content>
