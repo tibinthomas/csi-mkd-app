@@ -1,5 +1,6 @@
 using System.Text;
 using csi_mkd_premarital_app_BE.Data;
+using csi_mkd_premarital_app_BE.Repositories;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -91,6 +92,10 @@ builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =
 // Register Services
 builder.Services.AddScoped<AuditSaveChangesInterceptor>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<IPremaritalRegisterService, PremaritalRegisterService>();
+builder.Services.AddScoped<IPremaritalRegisterRepository, PremaritalRegisterRepository>();
+builder.Services.AddScoped<ISessionConfigService, SessionConfigService>();
+builder.Services.AddScoped<ISessionConfigRepository, SessionConfigRepository>();
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
