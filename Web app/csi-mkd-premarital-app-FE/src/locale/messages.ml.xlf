@@ -552,10 +552,74 @@
       </trans-unit>
       <trans-unit id="3620477072638508381" datatype="html">
         <source>Any other comments or suggestions?</source>
-        <target>അഭിപ്രായങ്ങളും നിർദ്ദേശങ്ങളും? </target>
+        <target>അഭിപ്രായങ്ങളും നിർദ്ദേശങ്ങളും </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback/feedback.html</context>
           <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8194145663712994855" datatype="html">
+        <source> CSI Counselling Centre </source>
+        <target>സി.എസ്.ഐ. കൗൺസിലിംഗ് സെന്റർ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5769485579622621026" datatype="html">
+        <source> Madhya Kerala Diocese </source>
+        <target>മദ്ധ്യകേരള മഹായിടവക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1726363342938046830" datatype="html">
+        <source>About</source>
+        <target>എബൌട്ട്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">84,85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1842559488621738609" datatype="html">
+        <source>Our Team</source>
+        <target>നമ്മുടെ ടീം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">85,86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3301086086650990787" datatype="html">
+        <source>Register</source>
+        <target>രജിസ്റ്റർ ചെയ്യുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">53,54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">86,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8429316238784832901" datatype="html">
+        <source>Feedback</source>
+        <target>ഫീഡ്ബാക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">87,88</context>
         </context-group>
       </trans-unit>
     </body>

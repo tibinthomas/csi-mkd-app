@@ -13,10 +13,13 @@
 
   <!-- Center: Title -->
   <div class="flex-1 text-center sm:block">
-    <h1 class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500 pt-serif-bold">
+    <h1
+      class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500 pt-serif-bold"
+      i18n
+    >
       CSI Counselling Centre
     </h1>
-    <h2 class="!text-xs sm:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular">
+    <h2 class="!text-xs sm:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular" i18n>
       Madhya Kerala Diocese
     </h2>
   </div>
@@ -30,6 +33,7 @@
         routerLink="/about"
         routerLinkActive="active-link"
         class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+        i18n
         >About</a
       >
       <a
@@ -37,6 +41,7 @@
         routerLink="/team-members"
         routerLinkActive="active-link"
         class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+        i18n
         >Our Team</a
       >
       <a
@@ -44,6 +49,7 @@
         routerLink="/register"
         routerLinkActive="active-link"
         class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+        i18n
         >Register</a
       >
       <a
@@ -51,6 +57,7 @@
         routerLink="/feedback"
         routerLinkActive="active-link"
         class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+        i18n
         >Feedback</a
       >
     </div>
@@ -74,10 +81,10 @@
 
 <!-- Mobile Nav Menu -->
 <mat-menu #menu="matMenu">
-  <a mat-menu-item routerLink="/about" routerLinkActive="active-link">About</a>
-  <a mat-menu-item routerLink="/team-members" routerLinkActive="active-link">Our Team</a>
-  <a mat-menu-item routerLink="/register" routerLinkActive="active-link">Register</a>
-  <a mat-menu-item routerLink="/feedback" routerLinkActive="active-link">Feedback</a>
+  <a mat-menu-item routerLink="/about" routerLinkActive="active-link" i18n>About</a>
+  <a mat-menu-item routerLink="/team-members" routerLinkActive="active-link" i18n>Our Team</a>
+  <a mat-menu-item routerLink="/register" routerLinkActive="active-link" i18n>Register</a>
+  <a mat-menu-item routerLink="/feedback" routerLinkActive="active-link" i18n>Feedback</a>
 </mat-menu>
 
 <router-outlet></router-outlet>
