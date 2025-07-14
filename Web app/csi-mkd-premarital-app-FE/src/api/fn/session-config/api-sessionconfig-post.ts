@@ -9,26 +9,25 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { CreateUpdateSessionDto } from '../../models/create-update-session-dto';
-import { SessionConfigurationDto } from '../../models/session-configuration-dto';
 
-export interface ApiSessionconfigPost$Plain$Params {
+export interface ApiSessionconfigPost$Params {
       body?: CreateUpdateSessionDto
 }
 
-export function apiSessionconfigPost$Plain(http: HttpClient, rootUrl: string, params?: ApiSessionconfigPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<SessionConfigurationDto>> {
-  const rb = new RequestBuilder(rootUrl, apiSessionconfigPost$Plain.PATH, 'post');
+export function apiSessionconfigPost(http: HttpClient, rootUrl: string, params?: ApiSessionconfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiSessionconfigPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/*+json');
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: 'text/plain', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<SessionConfigurationDto>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }
 
-apiSessionconfigPost$Plain.PATH = '/api/sessionconfig';
+apiSessionconfigPost.PATH = '/api/sessionconfig';

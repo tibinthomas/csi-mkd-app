@@ -11,25 +11,18 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { apiSessionconfigGet$Json } from '../fn/session-config/api-sessionconfig-get-json';
-import { ApiSessionconfigGet$Json$Params } from '../fn/session-config/api-sessionconfig-get-json';
-import { apiSessionconfigGet$Plain } from '../fn/session-config/api-sessionconfig-get-plain';
-import { ApiSessionconfigGet$Plain$Params } from '../fn/session-config/api-sessionconfig-get-plain';
+import { apiSessionconfigGet } from '../fn/session-config/api-sessionconfig-get';
+import { ApiSessionconfigGet$Params } from '../fn/session-config/api-sessionconfig-get';
 import { apiSessionconfigIdDelete } from '../fn/session-config/api-sessionconfig-id-delete';
 import { ApiSessionconfigIdDelete$Params } from '../fn/session-config/api-sessionconfig-id-delete';
-import { apiSessionconfigIdGet$Json } from '../fn/session-config/api-sessionconfig-id-get-json';
-import { ApiSessionconfigIdGet$Json$Params } from '../fn/session-config/api-sessionconfig-id-get-json';
-import { apiSessionconfigIdGet$Plain } from '../fn/session-config/api-sessionconfig-id-get-plain';
-import { ApiSessionconfigIdGet$Plain$Params } from '../fn/session-config/api-sessionconfig-id-get-plain';
+import { apiSessionconfigIdGet } from '../fn/session-config/api-sessionconfig-id-get';
+import { ApiSessionconfigIdGet$Params } from '../fn/session-config/api-sessionconfig-id-get';
 import { apiSessionconfigIdPut } from '../fn/session-config/api-sessionconfig-id-put';
 import { ApiSessionconfigIdPut$Params } from '../fn/session-config/api-sessionconfig-id-put';
-import { apiSessionconfigPost$Json } from '../fn/session-config/api-sessionconfig-post-json';
-import { ApiSessionconfigPost$Json$Params } from '../fn/session-config/api-sessionconfig-post-json';
-import { apiSessionconfigPost$Plain } from '../fn/session-config/api-sessionconfig-post-plain';
-import { ApiSessionconfigPost$Plain$Params } from '../fn/session-config/api-sessionconfig-post-plain';
+import { apiSessionconfigPost } from '../fn/session-config/api-sessionconfig-post';
+import { ApiSessionconfigPost$Params } from '../fn/session-config/api-sessionconfig-post';
 import { apiSessionconfigSessionsGet } from '../fn/session-config/api-sessionconfig-sessions-get';
 import { ApiSessionconfigSessionsGet$Params } from '../fn/session-config/api-sessionconfig-sessions-get';
-import { SessionConfigurationDto } from '../models/session-configuration-dto';
 
 @Injectable({ providedIn: 'root' })
 export class SessionConfigService extends BaseService {
@@ -42,45 +35,23 @@ export class SessionConfigService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSessionconfigGet$Plain()` instead.
+   * To access only the response body, use `apiSessionconfigGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigGet$Plain$Response(params?: ApiSessionconfigGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionConfigurationDto>>> {
-    return apiSessionconfigGet$Plain(this.http, this.rootUrl, params, context);
+  apiSessionconfigGet$Response(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigGet(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiSessionconfigGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiSessionconfigGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigGet$Plain(params?: ApiSessionconfigGet$Plain$Params, context?: HttpContext): Observable<Array<SessionConfigurationDto>> {
-    return this.apiSessionconfigGet$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<SessionConfigurationDto>>): Array<SessionConfigurationDto> => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSessionconfigGet$Json()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiSessionconfigGet$Json$Response(params?: ApiSessionconfigGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionConfigurationDto>>> {
-    return apiSessionconfigGet$Json(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiSessionconfigGet$Json$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiSessionconfigGet$Json(params?: ApiSessionconfigGet$Json$Params, context?: HttpContext): Observable<Array<SessionConfigurationDto>> {
-    return this.apiSessionconfigGet$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<SessionConfigurationDto>>): Array<SessionConfigurationDto> => r.body)
+  apiSessionconfigGet(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
@@ -89,45 +60,23 @@ export class SessionConfigService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSessionconfigPost$Plain()` instead.
+   * To access only the response body, use `apiSessionconfigPost()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiSessionconfigPost$Plain$Response(params?: ApiSessionconfigPost$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<SessionConfigurationDto>> {
-    return apiSessionconfigPost$Plain(this.http, this.rootUrl, params, context);
+  apiSessionconfigPost$Response(params?: ApiSessionconfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiSessionconfigPost$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiSessionconfigPost$Response()` instead.
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  apiSessionconfigPost$Plain(params?: ApiSessionconfigPost$Plain$Params, context?: HttpContext): Observable<SessionConfigurationDto> {
-    return this.apiSessionconfigPost$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<SessionConfigurationDto>): SessionConfigurationDto => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSessionconfigPost$Json()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiSessionconfigPost$Json$Response(params?: ApiSessionconfigPost$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<SessionConfigurationDto>> {
-    return apiSessionconfigPost$Json(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiSessionconfigPost$Json$Response()` instead.
-   *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
-   */
-  apiSessionconfigPost$Json(params?: ApiSessionconfigPost$Json$Params, context?: HttpContext): Observable<SessionConfigurationDto> {
-    return this.apiSessionconfigPost$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<SessionConfigurationDto>): SessionConfigurationDto => r.body)
+  apiSessionconfigPost(params?: ApiSessionconfigPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
@@ -136,45 +85,23 @@ export class SessionConfigService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSessionconfigIdGet$Plain()` instead.
+   * To access only the response body, use `apiSessionconfigIdGet()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigIdGet$Plain$Response(params: ApiSessionconfigIdGet$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<SessionConfigurationDto>> {
-    return apiSessionconfigIdGet$Plain(this.http, this.rootUrl, params, context);
+  apiSessionconfigIdGet$Response(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigIdGet(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiSessionconfigIdGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `apiSessionconfigIdGet$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigIdGet$Plain(params: ApiSessionconfigIdGet$Plain$Params, context?: HttpContext): Observable<SessionConfigurationDto> {
-    return this.apiSessionconfigIdGet$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<SessionConfigurationDto>): SessionConfigurationDto => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiSessionconfigIdGet$Json()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiSessionconfigIdGet$Json$Response(params: ApiSessionconfigIdGet$Json$Params, context?: HttpContext): Observable<StrictHttpResponse<SessionConfigurationDto>> {
-    return apiSessionconfigIdGet$Json(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiSessionconfigIdGet$Json$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiSessionconfigIdGet$Json(params: ApiSessionconfigIdGet$Json$Params, context?: HttpContext): Observable<SessionConfigurationDto> {
-    return this.apiSessionconfigIdGet$Json$Response(params, context).pipe(
-      map((r: StrictHttpResponse<SessionConfigurationDto>): SessionConfigurationDto => r.body)
+  apiSessionconfigIdGet(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

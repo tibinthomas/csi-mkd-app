@@ -6,6 +6,5 @@ export type { AdminLoginDto } from './models/admin-login-dto';
 export type { CreateUpdateSessionDto } from './models/create-update-session-dto';
 export type { EmailConfig } from './models/email-config';
 export type { PaymentStatusUpdateDto } from './models/payment-status-update-dto';
-export type { SessionConfigurationDto } from './models/session-configuration-dto';
 export type { SessionFeedbackDto } from './models/session-feedback-dto';
 export type { UpdatePasswordDto } from './models/update-password-dto';

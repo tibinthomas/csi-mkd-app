@@ -94,14 +94,15 @@ export class SessionConfig implements OnInit {
 
   private readonly sessionList$ = toObservable(this.refreshTrigger).pipe(
     switchMap(() =>
-      this.sessionConfigService.apiSessionconfigGet$Json().pipe(
-        map((data) =>
-          data
+      this.sessionConfigService.apiSessionconfigGet().pipe(
+        map((data: any) => {
+          const parsed = JSON.parse(data);
+          return parsed
             .map((session: any) => ({
               ...session,
             }))
-            .sort((a: any, b: any) => b.Id - a.Id)
-        ),
+            .sort((a: any, b: any) => b.Id - a.Id);
+        }),
         catchError((err) => {
           console.error('Failed to load sessions', err);
           alert('Failed to load session configurations.');
@@ -149,13 +150,13 @@ export class SessionConfig implements OnInit {
   readonly groupedSessions = computed(() => {
     const year = this.selectedYear().getFullYear();
     const sessionsInYear = this.sessionList().filter(
-      (s) => new Date(s.StartDate).getFullYear() === year
+      (s: any) => new Date(s.StartDate).getFullYear() === year
     );
 
     if (!sessionsInYear.length) return [];
 
     const grouped: Record<string, any[]> = {};
-    sessionsInYear.forEach((session) => {
+    sessionsInYear.forEach((session: any) => {
       const month = formatDate(session.StartDate, 'MMMM', 'en-US');
       if (!grouped[month]) grouped[month] = [];
       grouped[month].push(session);
@@ -249,7 +250,7 @@ export class SessionConfig implements OnInit {
           endDate: this.toUtcIsoString(result.endDate),
         };
         this.sessionConfigService
-          .apiSessionconfigPost$Json({ body: session })
+          .apiSessionconfigPost({ body: session })
           .subscribe({
             next: () => this.refreshTrigger.set(this.refreshTrigger() + 1),
             error: () =>

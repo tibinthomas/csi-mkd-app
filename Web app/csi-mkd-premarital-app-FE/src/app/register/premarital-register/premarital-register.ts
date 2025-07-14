@@ -132,15 +132,16 @@ export class PremaritalRegister {
   }
 
   private readonly sessions$ = this.sessionConfigService
-    .apiSessionconfigGet$Json()
+    .apiSessionconfigGet()
     .pipe(
-      map((data: any) =>
-        data.map((session: any) => ({
+      map((data: any) => {
+        const parsed = JSON.parse(data);
+        return parsed.map((session: any) => ({
           ...session,
           startDate: session.startDate,
           endDate: session.endDate,
-        }))
-      ),
+        }));
+      }),
       catchError((err) => {
         console.error('Error loading sessions:', err);
         return of([]); // fallback to empty array
@@ -217,7 +218,8 @@ export class PremaritalRegister {
 
     this.photoFile.set(null);
     this.vicarLetterFile.set(null);
-
+    this.vicarLetterFileName = '';
+    this.photoFileName = '';
     this.photoError.set('');
     this.vicarLetterError.set('');
     this.successMessage.set('');

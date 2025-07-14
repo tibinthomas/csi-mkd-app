@@ -111,6 +111,7 @@ export class PremaritalComponent {
       this.searchTerm(),
       this.unapprovedOnly(),
       this.activeSessionOnly(),
+      this.filterTrigger(),
     ])
   ).pipe(
     switchMap(
@@ -174,18 +175,18 @@ export class PremaritalComponent {
 
   hasActivities(activities: any): boolean {
     return (
-      activities?.choirMember ||
-      activities?.ssTeacher ||
-      activities?.youthFellowship ||
-      (activities?.other && activities.other.trim() !== '')
+      activities?.ChoirMember ||
+      activities?.SsTeacher ||
+      activities?.YouthFellowship ||
+      (activities?.Other && activities.Other.trim() !== '')
     );
   }
 
   getSelectedActivities(activities: any): string[] {
     const labels: { [key: string]: string } = {
-      choirMember: 'Choir Member',
-      ssTeacher: 'Sunday School Teacher',
-      youthFellowship: 'Youth Fellowship',
+      ChoirMember: 'Choir Member',
+      SsTeacher: 'Sunday School Teacher',
+      YouthFellowship: 'Youth Fellowship',
     };
 
     const selected: string[] = [];
@@ -204,11 +205,11 @@ export class PremaritalComponent {
   approvePayment(reg: any): void {
     const dialogRef = this.dialog.open(ConfirmationDialog);
 
-    dialogRef.afterClosed().subscribe((confirmed) => {
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         const updated = {
           ...reg,
-          paymentStatus: !reg.paymentStatus,
+          PaymentStatus: !reg.PaymentStatus,
         };
         this.premaritalRegisterService
           .apiPremaritalRegisterIdPaymentstatusPut({
@@ -217,8 +218,8 @@ export class PremaritalComponent {
           })
           .subscribe({
             next: () => {
-              reg.PaymentStatus = 'Received';
-              this.refreshTrigger.set(this.refreshTrigger() + 1);
+              reg.PaymentStatus = !reg.PaymentStatus;
+              this.refreshTrigger.set(this.refreshTrigger() + 1); // triggers new data from API
             },
             error: (err) => {
               console.error('Payment update failed', err);
