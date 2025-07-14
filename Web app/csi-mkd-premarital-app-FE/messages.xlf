@@ -547,6 +547,41 @@
           <context context-type="linenumber">87,88</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2312868286639432122" datatype="html">
+        <source>Choose a Registration Type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="556033396834595139" datatype="html">
+        <source> Select the type of counselling you’d like to register for. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7455424108310856558" datatype="html">
+        <source> A 3-day program to prepare couples for a committed and faithful marriage. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5633130290248743815" datatype="html">
+        <source> Counselling support for individuals, families, and students. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8020628001778564381" datatype="html">
+        <source>Pre Confirmational Counselling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
