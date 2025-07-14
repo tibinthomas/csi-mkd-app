@@ -47,13 +47,17 @@
       <div>
         <button mat-raised-button color="accent" (click)="downloadAsPDF()">
           <mat-icon>download</mat-icon>
-         <span i18n>Download Full List</span> 
+          <span i18n>Download Full List</span>
         </button>
       </div>
     </div>
   </div>
-
   <div #pdfContent class="export-pdf overflow-x-auto rounded-lg shadow">
+    @if(isLoading()){
+    <div class="flex justify-center items-center mt-8">
+      <mat-spinner diameter="40" color="primary"></mat-spinner>
+    </div>
+    } @else {
     <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full mat-elevation-z8">
       <!-- Dynamic columns using @for -->
       <!-- Table Columns -->
@@ -222,6 +226,7 @@
       ></tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
+    }
     <mat-paginator
       [length]="totalCount()"
       [pageSize]="pageSize()"

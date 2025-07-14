@@ -39,6 +39,7 @@ import {
 } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-premarital-list',
@@ -62,6 +63,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     NgOptimizedImage,
     MatPaginatorModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   animations: [
     trigger('detailExpand', [
@@ -99,6 +101,7 @@ export class PremaritalComponent {
   @ViewChild('pdfContent', { static: false })
   private readonly pdfContent!: ElementRef;
   private readonly filterTrigger = signal(0);
+  protected readonly isLoading = signal<boolean>(false);
 
   baseApiUrl = API_ROOT_URL;
   expandedElement: any = null;
@@ -115,8 +118,9 @@ export class PremaritalComponent {
     ])
   ).pipe(
     switchMap(
-      ([_, pageIndex, pageSize, searchTerm, unapproved, activeSession]) =>
-        this.premaritalRegisterService
+      ([_, pageIndex, pageSize, searchTerm, unapproved, activeSession]) => {
+        this.isLoading.set(true); // start spinner
+        return this.premaritalRegisterService
           .apiPremaritalRegisterFilterGet({
             Page: (pageIndex as number) + 1,
             PageSize: pageSize as number,
@@ -129,7 +133,7 @@ export class PremaritalComponent {
               const data =
                 typeof response === 'string' ? JSON.parse(response) : response;
               this.totalCount.set(data.totalCount || 0);
-
+              this.isLoading.set(false); // stop spinner
               return (data.items ?? []).map((item: any) => ({
                 ...item,
                 ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'),
@@ -137,9 +141,11 @@ export class PremaritalComponent {
             }),
             catchError((err) => {
               console.error('Error loading filtered data:', err);
+              this.isLoading.set(false); // also stop on error
               return of([]);
             })
-          )
+          );
+      }
     )
   );
 
