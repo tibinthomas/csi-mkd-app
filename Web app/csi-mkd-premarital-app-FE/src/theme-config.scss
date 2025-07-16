@@ -5,8 +5,19 @@
 html {
   @include mat.theme(
     (
-      color: custom-palette.$primary-palette,
-      typography: Roboto,
+      color: (
+        primary: custom-palette.$primary-palette,
+        accent: custom-palette.$tertiary-palette,
+        warn: mat.$red-palette,
+
+        // or use mat.$red-palette if needed
+      ),
+      // typography:
+      //   mat.define-typography-config(
+      //     (
+      //       font-family: 'PT Serif',
+      //     )
+      //   ),
       density: 0,
     )
   );

@@ -27,7 +27,7 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { DatePipe } from '@angular/common';
+import { DatePipe, I18nPluralPipe } from '@angular/common';
 import { SessionFormDialogComponent } from './session-config-form';
 import { formatDate } from '@angular/common';
 import {
@@ -60,6 +60,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatExpansionPanelDescription,
     MatDatepicker,
     MatProgressSpinnerModule,
+    I18nPluralPipe,
   ],
 })
 export class SessionConfig implements OnInit {
@@ -91,6 +92,12 @@ export class SessionConfig implements OnInit {
 
   readonly allSessions = signal<SessionConfig[]>([]);
   readonly isLoading = signal(false);
+
+  readonly sessionPluralMapping: { [k: string]: string } = {
+    '=0': $localize`:@@noSessions:No sessions`,
+    '=1': $localize`:@@oneSession:1 session`,
+    other: $localize`:@@multipleSessions: # sessions`,
+  };
 
   private readonly sessionList$ = toObservable(this.refreshTrigger).pipe(
     switchMap(() =>

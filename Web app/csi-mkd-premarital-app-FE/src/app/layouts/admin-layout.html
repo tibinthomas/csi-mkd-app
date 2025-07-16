@@ -1,0 +1,43 @@
+<mat-sidenav-container class="h-screen">
+  <mat-sidenav
+    #sidenav
+    [mode]="isMobile() ? 'over' : 'side'"
+    [opened]="!isMobile() || sidenavOpen()"
+    (openedChange)="sidenavOpen.set($event)"
+    class="h-full !w-auto !min-w-[12rem] py-2"
+  >
+    <mat-toolbar color="primary">CSI Admin</mat-toolbar>
+
+    <mat-nav-list class="flex flex-col justify-between flex-1">
+      <!-- Top links -->
+      <div>
+        <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="active-link">Dashboard</a>
+        <a mat-list-item routerLink="/admin/premarital" routerLinkActive="active-link" (click)="toggleSidenav()"
+          >Premarital List</a
+        >
+        <a mat-list-item routerLink="/admin/session-config" routerLinkActive="active-link" (click)="toggleSidenav()"
+          >Session Configuration</a
+        >
+      </div>
+
+      <!-- Logout at the bottom -->
+      <div class="flex justify-center pt-10">
+        <button mat-raised-button routerLink="/admin/login">Logout</button>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>{{ sidenavOpen() ? "close" : "menu" }}</mat-icon>
+      </button>
+
+      <span class="flex-auto"></span>
+      <app-language-selector></app-language-selector>
+    </mat-toolbar>
+    <main class="p-4">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
