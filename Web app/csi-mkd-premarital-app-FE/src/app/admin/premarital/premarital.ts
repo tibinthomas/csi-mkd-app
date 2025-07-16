@@ -193,6 +193,7 @@ export class PremaritalComponent {
       ChoirMember: 'Choir Member',
       SsTeacher: 'Sunday School Teacher',
       YouthFellowship: 'Youth Fellowship',
+      Other: activities.Other,
     };
 
     const selected: string[] = [];
@@ -235,8 +236,7 @@ export class PremaritalComponent {
       }
     });
   }
-
-  downloadAsPDF(): void {
+  async downloadAsPDF(): Promise<void> {
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'pt',
@@ -248,10 +248,10 @@ export class PremaritalComponent {
 
     const data = this.registrations();
 
-    data.forEach((reg: any, index: any) => {
-      const yOffset = 60 + index * 180; // Vertical spacing per entry
+    for (let index = 0; index < data.length; index++) {
+      const reg = data[index];
+      const yOffset = 60 + index * 180;
 
-      // Prevent content from overflowing page
       if (yOffset > doc.internal.pageSize.height - 200) {
         doc.addPage();
       }
@@ -285,6 +285,7 @@ export class PremaritalComponent {
               'None',
           ],
           ['Payment Status', reg.PaymentStatus ? 'Received' : 'Pending'],
+          ['Vicar Letter', reg.VicarLetterUrl ? reg.VicarLetterUrl : 'N/A'],
         ],
         styles: {
           fontSize: 10,
@@ -297,9 +298,32 @@ export class PremaritalComponent {
         },
         margin: { left: 40, right: 40 },
       });
-    });
+
+      // Add photo image (if exists)
+      if (reg.PhotoUrl) {
+        try {
+          const imageData = await this.getBase64ImageFromUrl(reg.PhotoUrl);
+          doc.addImage(imageData, 'JPEG', 400, baseY + 20, 100, 100);
+        } catch (e) {
+          console.warn('Could not load image', e);
+        }
+      }
+      
+    }
 
     doc.save('premarital-registrations-full.pdf');
+  }
+
+  private async getBase64ImageFromUrl(imageUrl: string): Promise<string> {
+    const res = await fetch(imageUrl);
+    const blob = await res.blob();
+
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject('Image conversion failed');
+      reader.onload = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
   }
 
   applyFilter(event: Event) {

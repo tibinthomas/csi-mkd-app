@@ -30,8 +30,8 @@ export interface ApiPremaritalRegisterPost$Params {
 'YouthFellowship'?: boolean;
 'Other'?: string;
 'Declaration': boolean;
-'Photo': Blob;
-'VicarLetter': Blob;
+'PhotoUrl': string;
+'VicarLetterUrl': string;
 'SessionId': number;
 'PaymentStatus'?: boolean;
 }

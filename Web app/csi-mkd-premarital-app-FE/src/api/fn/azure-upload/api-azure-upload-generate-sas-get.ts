@@ -9,16 +9,16 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface ApiPremaritalRegisterGet$Params {
-  page?: number;
-  pageSize?: number;
+export interface ApiAzureUploadGenerateSasGet$Params {
+  fileName?: string;
+  contentType?: string;
 }
 
-export function apiPremaritalRegisterGet(http: HttpClient, rootUrl: string, params?: ApiPremaritalRegisterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterGet.PATH, 'get');
+export function apiAzureUploadGenerateSasGet(http: HttpClient, rootUrl: string, params?: ApiAzureUploadGenerateSasGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiAzureUploadGenerateSasGet.PATH, 'get');
   if (params) {
-    rb.query('page', params.page, {});
-    rb.query('pageSize', params.pageSize, {});
+    rb.query('fileName', params.fileName, {});
+    rb.query('contentType', params.contentType, {});
   }
 
   return http.request(
@@ -31,4 +31,4 @@ export function apiPremaritalRegisterGet(http: HttpClient, rootUrl: string, para
   );
 }
 
-apiPremaritalRegisterGet.PATH = '/api/PremaritalRegister';
+apiAzureUploadGenerateSasGet.PATH = '/api/AzureUpload/generate-sas';

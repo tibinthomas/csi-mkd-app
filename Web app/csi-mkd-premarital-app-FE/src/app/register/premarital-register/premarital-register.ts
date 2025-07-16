@@ -14,9 +14,12 @@ import {
 } from '@angular/forms';
 
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
-import { SessionConfigService } from '../../../api/services';
+import {
+  AzureUploadService,
+  SessionConfigService,
+} from '../../../api/services';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of } from 'rxjs';
+import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -32,7 +35,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from './success-dialog';
 import { uniqueEmailValidator } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
+import { FileUploadService } from '../../core/services/file-upload.service';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
+
 @Component({
   selector: 'app-premarital-register',
   imports: [
@@ -62,6 +67,8 @@ export class PremaritalRegister {
     PremaritalRegisterService
   );
   private readonly sessionConfigService = inject(SessionConfigService);
+  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly fileUploadService = inject(FileUploadService);
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -252,54 +259,79 @@ export class PremaritalRegister {
 
     const raw = this.form.value;
 
-    const body = {
-      FirstName: raw.firstName,
-      LastName: raw.lastName,
-      FatherName: raw.fatherName,
-      Address: raw.address,
-      Sex: raw.sex,
-      Age: Number(raw.age),
-      Education: raw.education,
-      Occupation: raw.occupation,
-      ChurchName: raw.churchName,
-      FianceName: raw.fianceName || undefined,
-      DateOfMarriage: raw.dateOfMarriage
-        ? this.toUtcIsoString(raw.dateOfMarriage)
-        : undefined,
-      Phone: raw.phone,
-      Email: raw.email,
-      Days: raw.days,
-      ChoirMember: raw.churchActivities?.choirMember || false,
-      SsTeacher: raw.churchActivities?.ssTeacher || false,
-      YouthFellowship: raw.churchActivities?.youthFellowship || false,
-      Other: raw.churchActivities?.other || undefined,
-      Declaration: raw.declaration,
-      Photo: this.photoFile() as Blob,
-      VicarLetter: this.vicarLetterFile() as Blob,
-      SessionId: Number(raw.sessionId),
-      PaymentStatus: false, // if you want to set it; optional field
-    };
-
     this.isSubmitting.set(true);
 
-    this.premaritalRegisterService
-      .apiPremaritalRegisterPost({ body })
-      .subscribe({
-        next: () => {
-          this.successMessage.set('Registration submitted successfully!');
-          this.showSuccessModal.set(true);
-          this.dialog.open(SuccessDialogComponent, {
-            width: '400px',
-            disableClose: true,
-          });
+    const photo = this.photoFile()!;
+    const letter = this.vicarLetterFile()!;
+    const email = raw.email?.replace(/[^a-zA-Z0-9]/g, '_') || 'anonymous';
 
-          this.resetForm();
-        },
-        error: (err) => {
-          console.error(err);
-          this.errorMessage.set('Submission failed. Please try again.');
-          this.showErrorModal.set(true);
-          this.isSubmitting.set(false);
+    forkJoin([
+      this.azureUploadService.apiAzureUploadGenerateSasGet({
+        fileName: `${email}_${photo.name}`,
+        contentType: photo.type,
+      }),
+      this.azureUploadService.apiAzureUploadGenerateSasGet({
+        fileName: `${email}_${letter.name}`,
+        contentType: letter.type,
+      }),
+    ])
+      .pipe(
+        switchMap(([photoSasUrl, letterSasUrl]) =>
+          forkJoin([
+            this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!),
+            this.fileUploadService.uploadFileToAzure(letter, letterSasUrl!),
+          ])
+        )
+      )
+      .subscribe({
+        next: ([photoUrl, letterUrl]) => {
+          const raw = this.form.value;
+          const body = {
+            FirstName: raw.firstName,
+            LastName: raw.lastName,
+            FatherName: raw.fatherName,
+            Address: raw.address,
+            Sex: raw.sex,
+            Age: Number(raw.age),
+            Education: raw.education,
+            Occupation: raw.occupation,
+            ChurchName: raw.churchName,
+            FianceName: raw.fianceName || undefined,
+            DateOfMarriage: raw.dateOfMarriage
+              ? this.toUtcIsoString(raw.dateOfMarriage)
+              : undefined,
+            Phone: raw.phone,
+            Email: raw.email,
+            Days: raw.days,
+            ChoirMember: raw.churchActivities?.choirMember || false,
+            SsTeacher: raw.churchActivities?.ssTeacher || false,
+            YouthFellowship: raw.churchActivities?.youthFellowship || false,
+            Other: raw.churchActivities?.other || undefined,
+            Declaration: raw.declaration,
+            PhotoUrl: photoUrl,
+            VicarLetterUrl: letterUrl,
+            SessionId: Number(raw.sessionId),
+            PaymentStatus: false,
+          };
+
+          this.premaritalRegisterService
+            .apiPremaritalRegisterPost({ body })
+            .subscribe({
+              next: () => {
+                this.successMessage.set('Registration submitted successfully!');
+                this.dialog.open(SuccessDialogComponent, {
+                  width: '400px',
+                  disableClose: true,
+                });
+                this.resetForm();
+              },
+              error: (err) => {
+                console.error(err);
+                this.errorMessage.set('Submission failed. Please try again.');
+                this.showErrorModal.set(true);
+                this.isSubmitting.set(false);
+              },
+            });
         },
       });
   }
