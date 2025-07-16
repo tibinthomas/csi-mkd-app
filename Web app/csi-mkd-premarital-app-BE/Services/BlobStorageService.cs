@@ -13,9 +13,9 @@ public class BlobStorageService
 
     public BlobStorageService(IConfiguration configuration)
     {
-        var connectionString = configuration["AzureBlob:ConnectionString"];
-        _accountName = configuration["AzureBlob:AccountName"];
-        _accountKey = configuration["AzureBlob:AccountKey"];
+        var connectionString = configuration["AzureBlob:ConnectionString"] ?? throw new InvalidOperationException("AzureBlob:ConnectionString is missing in configuration.");
+        _accountName = configuration["AzureBlob:AccountName"] ?? throw new InvalidOperationException("AzureBlob:AccountName is missing.");
+        _accountKey = configuration["AzureBlob:AccountKey"] ?? throw new InvalidOperationException("AzureBlob:AccountKey is missing.");
         _isDevelopment = connectionString == "UseDevelopmentStorage=true";
 
         _blobServiceClient = new BlobServiceClient(connectionString);
