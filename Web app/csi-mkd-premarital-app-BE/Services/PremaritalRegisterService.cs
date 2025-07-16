@@ -24,21 +24,6 @@ namespace csi_mkd_premarital_app_BE.Services
         {
             if (dto == null) return (400, new { message = "Invalid input" });
 
-            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
-            if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
-
-            var photoFileName = $"{Guid.NewGuid()}{Path.GetExtension(dto.Photo.FileName)}";
-            var vicarFileName = $"{Guid.NewGuid()}{Path.GetExtension(dto.VicarLetter.FileName)}";
-
-            var photoPath = Path.Combine(uploadsFolder, photoFileName);
-            var vicarPath = Path.Combine(uploadsFolder, vicarFileName);
-
-            await using var photoStream = new FileStream(photoPath, FileMode.Create);
-            await dto.Photo.CopyToAsync(photoStream);
-
-            await using var vicarStream = new FileStream(vicarPath, FileMode.Create);
-            await dto.VicarLetter.CopyToAsync(vicarStream);
-
             var churchActivities = new
             {
                 dto.ChoirMember,
@@ -65,8 +50,8 @@ namespace csi_mkd_premarital_app_BE.Services
                 Days = dto.Days,
                 ChurchActivitiesJson = JsonSerializer.Serialize(churchActivities),
                 Declaration = dto.Declaration,
-                PhotoFilePath = $"/uploads/{photoFileName}",
-                VicarLetterFilePath = $"/uploads/{vicarFileName}",
+                PhotoUrl = dto.PhotoUrl,
+                VicarLetterUrl = dto.VicarLetterUrl,
                 SessionId = dto.SessionId,
                 PaymentStatus = dto.PaymentStatus,
                 SubmittedAt = DateTime.UtcNow

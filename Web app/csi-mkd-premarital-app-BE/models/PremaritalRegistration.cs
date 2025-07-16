@@ -24,8 +24,8 @@ namespace csi_mkd_premarital_app_BE.Models
         public required string Days { get; set; }
         public required string? ChurchActivitiesJson { get; set; }
         public required bool Declaration { get; set; }
-        public required string PhotoFilePath { get; set; }
-        public required string VicarLetterFilePath { get; set; }
+        public required string PhotoUrl { get; set; }
+        public required string VicarLetterUrl { get; set; }
 
         [ForeignKey("SessionConfiguration")]
         public required int SessionId { get; set; }

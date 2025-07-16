@@ -59,8 +59,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.Declaration,
                     r.SessionId,
                     SessionName = r.SessionConfiguration!.SessionName,
-                    PhotoPath = r.PhotoFilePath,
-                    VicarLetterPath = r.VicarLetterFilePath,
+                    PhotoUrl = r.PhotoUrl,
+                    VicarLetterUrl = r.VicarLetterUrl,
                     r.PaymentStatus,
                 })
             };
@@ -132,8 +132,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.Declaration,
                     r.SessionId,
                     SessionName = r.SessionConfiguration!.SessionName,
-                    PhotoPath = r.PhotoFilePath,
-                    VicarLetterPath = r.VicarLetterFilePath,
+                    PhotoUrl = r.PhotoUrl,
+                    VicarLetterUrl = r.VicarLetterUrl,
                     r.PaymentStatus,
                 })
             };

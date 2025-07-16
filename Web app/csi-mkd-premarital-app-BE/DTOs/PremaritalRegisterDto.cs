@@ -24,15 +24,10 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public bool? SsTeacher { get; set; }
         public bool? YouthFellowship { get; set; }
         public string? Other { get; set; }
-
         public required bool Declaration { get; set; }
-
-        public required IFormFile Photo { get; set; }
-
-        public required IFormFile VicarLetter { get; set; }
-
+        public required string PhotoUrl { get; set; }
+        public required string VicarLetterUrl { get; set; }
         public required int SessionId { get; set; }
-
         public bool PaymentStatus { get; set; }
 
     }
