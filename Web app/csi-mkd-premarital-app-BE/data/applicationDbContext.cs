@@ -13,7 +13,7 @@ namespace csi_mkd_premarital_app_BE.Data
         public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
         public DbSet<SessionConfiguration> SessionConfigurations => Set<SessionConfiguration>();
         public DbSet<EmailConfig> EmailConfigs => Set<EmailConfig>();
-
+        public DbSet<PremaritalDocument> PremaritalDocuments => Set<PremaritalDocument>();
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -24,6 +24,15 @@ namespace csi_mkd_premarital_app_BE.Data
                 .WithMany(s => s.PremaritalRegistrations)
                 .HasForeignKey(r => r.SessionId)
                 .OnDelete(DeleteBehavior.Restrict); // <-- prevents cascade delete
+
+            modelBuilder.Entity<PremaritalDocument>()
+                .HasKey(d => d.RegistrationId);
+
+            modelBuilder.Entity<PremaritalDocument>()
+                .HasOne(d => d.PremaritalRegistration)
+                .WithOne(r => r.PremaritalDocument)
+                .HasForeignKey<PremaritalDocument>(d => d.RegistrationId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
     }

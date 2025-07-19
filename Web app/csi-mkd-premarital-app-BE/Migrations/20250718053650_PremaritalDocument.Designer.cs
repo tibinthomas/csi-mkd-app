@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using csi_mkd_premarital_app_BE.Data;
@@ -11,9 +12,11 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250718053650_PremaritalDocument")]
+    partial class PremaritalDocument
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -397,7 +400,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.PremaritalDocument", b =>
                 {
                     b.HasOne("csi_mkd_premarital_app_BE.Models.PremaritalRegistration", "PremaritalRegistration")
-                        .WithOne("PremaritalDocument")
+                        .WithOne("Documents")
                         .HasForeignKey("csi_mkd_premarital_app_BE.Models.PremaritalDocument", "RegistrationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -418,7 +421,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.PremaritalRegistration", b =>
                 {
-                    b.Navigation("PremaritalDocument");
+                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.SessionConfiguration", b =>

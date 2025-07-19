@@ -15,55 +15,17 @@ namespace csi_mkd_premarital_app_BE.Repositories
             _context = context;
         }
 
-        public async Task AddRegistration(PremaritalRegistration registration)
+        public async Task<int> AddRegistration(PremaritalRegistration registration)
         {
             _context.PremaritalRegistrations.Add(registration);
             await _context.SaveChangesAsync();
+            return registration.Id;
         }
 
-        public async Task<object> GetPaginatedRegistrations(int page, int pageSize)
+        public async Task AddPremaritalFiles(PremaritalDocument documents)
         {
-            var query = _context.PremaritalRegistrations
-                .Include(r => r.SessionConfiguration)
-                .AsNoTracking()
-                .OrderByDescending(r => r.Id);
-
-            var totalCount = await query.CountAsync();
-
-            var data = await query
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            return new
-            {
-                totalCount,
-                items = data.Select(r => new
-                {
-                    r.Id,
-                    r.FirstName,
-                    r.LastName,
-                    r.FatherName,
-                    r.Address,
-                    r.Sex,
-                    r.Age,
-                    r.Education,
-                    r.Occupation,
-                    r.ChurchName,
-                    r.FianceName,
-                    r.DateOfMarriage,
-                    r.Phone,
-                    r.Email,
-                    r.Days,
-                    r.ChurchActivitiesJson,
-                    r.Declaration,
-                    r.SessionId,
-                    SessionName = r.SessionConfiguration!.SessionName,
-                    PhotoUrl = r.PhotoUrl,
-                    VicarLetterUrl = r.VicarLetterUrl,
-                    r.PaymentStatus,
-                })
-            };
+            _context.PremaritalDocuments.Add(documents);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> UpdatePaymentStatus(int id, bool status)
@@ -84,6 +46,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
         {
             var query = _context.PremaritalRegistrations
                 .Include(r => r.SessionConfiguration)
+                .Include(r => r.PremaritalDocument)
                 .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Search))
@@ -99,6 +62,16 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
             if (filter.ActiveSessionOnly == true)
                 query = query.Where(r => r.SessionConfiguration != null && r.SessionConfiguration.IsActive);
+
+            // Default SessionYear to current year if not specified
+            var sessionYear = filter.SessionYear ?? DateTime.UtcNow.Year;
+
+            query = query.Where(r => r.SessionConfiguration != null && r.SessionConfiguration.StartDate.Year == sessionYear);
+
+            if (!string.IsNullOrEmpty(filter.SessionName))
+            {
+                query = query.Where(r => r.SessionConfiguration != null && r.SessionConfiguration.SessionName == filter.SessionName);
+            }
 
             var totalCount = await query.CountAsync();
 
@@ -131,9 +104,9 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.ChurchActivitiesJson,
                     r.Declaration,
                     r.SessionId,
-                    SessionName = r.SessionConfiguration!.SessionName,
-                    PhotoUrl = r.PhotoUrl,
-                    VicarLetterUrl = r.VicarLetterUrl,
+                    r.SessionConfiguration!.SessionName,
+                    r.PremaritalDocument!.PhotoUrl,
+                    r.PremaritalDocument!.VicarLetterUrl,
                     r.PaymentStatus,
                 })
             };

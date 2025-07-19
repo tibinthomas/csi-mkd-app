@@ -30,8 +30,8 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public bool? YouthFellowship { get; set; }
 
         public string? OtherChurchActivities { get; set; }
-        public string? PhotoPath { get; set; }
-        public string? VicarLetterPath { get; set; }
+        public required string PhotoUrl { get; set; }
+        public required string VicarLetterUrl { get; set; }
         public required int SessionId { get; set; }
         public bool PaymentStatus { get; set; }
 

@@ -50,22 +50,33 @@ namespace csi_mkd_premarital_app_BE.Services
                 Days = dto.Days,
                 ChurchActivitiesJson = JsonSerializer.Serialize(churchActivities),
                 Declaration = dto.Declaration,
-                PhotoUrl = dto.PhotoUrl,
-                VicarLetterUrl = dto.VicarLetterUrl,
                 SessionId = dto.SessionId,
                 PaymentStatus = dto.PaymentStatus,
                 SubmittedAt = DateTime.UtcNow
             };
 
-            await _repo.AddRegistration(entity);
+            var registerId = await _repo.AddRegistration(entity);
             _emailService.SendConfirmationEmail(dto.Email, dto.FirstName);
 
-            return (200, new { message = "Registered and email sent!" });
+            return (200, new { message = "Registered and email sent!", id = registerId });
         }
 
-        public async Task<object> GetAllRegistrations(int page, int pageSize)
-            => await _repo.GetPaginatedRegistrations(page, pageSize);
+        public async Task<(int StatusCode, object Data)> SaveFiles(PremaritalDocumentDto dto)
+        {
+            if (dto == null) return (400, new { message = "Invalid input" });
+            var entity = new PremaritalDocument
+            {
+                RegistrationId = dto.RegistrationId,
+                PhotoUrl = dto.PhotoUrl,
+                VicarLetterUrl = dto.VicarLetterUrl,
+                SubmittedAt = DateTime.UtcNow
+            };
 
+            await _repo.AddPremaritalFiles(entity);
+
+            return (200, new { message = "Files uploaded!" });
+
+        }
         public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(int id, PaymentStatusUpdateDto dto)
             => await _repo.UpdatePaymentStatus(id, dto.PaymentStatus)
                 ? (200, new { message = "Updated successfully" })

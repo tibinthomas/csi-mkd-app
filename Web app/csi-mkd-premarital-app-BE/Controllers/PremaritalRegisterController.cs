@@ -22,9 +22,12 @@ public class PremaritalRegisterController : ControllerBase
         return StatusCode(result.StatusCode, result.Data);
     }
 
-    // [HttpGet]
-    // public async Task<IActionResult> GetAllRegistrations([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
-    //     => Ok(await _service.GetAllRegistrations(page, pageSize));
+    [HttpPost("save-file-urls")]
+    public async Task<IActionResult> SaveFiles([FromForm] PremaritalDocumentDto dto)
+    {
+        var result = await _service.SaveFiles(dto);
+        return StatusCode(result.StatusCode, result.Data);
+    }
 
     [HttpPut("{id}/paymentstatus")]
     public async Task<IActionResult> UpdatePaymentStatus(int id, [FromBody] PaymentStatusUpdateDto dto)
