@@ -19,6 +19,8 @@ import { apiPremaritalRegisterIdPaymentstatusPut } from '../fn/premarital-regist
 import { ApiPremaritalRegisterIdPaymentstatusPut$Params } from '../fn/premarital-register/api-premarital-register-id-paymentstatus-put';
 import { apiPremaritalRegisterPost } from '../fn/premarital-register/api-premarital-register-post';
 import { ApiPremaritalRegisterPost$Params } from '../fn/premarital-register/api-premarital-register-post';
+import { apiPremaritalRegisterSaveFileUrlsPost } from '../fn/premarital-register/api-premarital-register-save-file-urls-post';
+import { ApiPremaritalRegisterSaveFileUrlsPost$Params } from '../fn/premarital-register/api-premarital-register-save-file-urls-post';
 
 @Injectable({ providedIn: 'root' })
 export class PremaritalRegisterService extends BaseService {
@@ -47,6 +49,31 @@ export class PremaritalRegisterService extends BaseService {
    */
   apiPremaritalRegisterPost(params?: ApiPremaritalRegisterPost$Params, context?: HttpContext): Observable<void> {
     return this.apiPremaritalRegisterPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalRegisterSaveFileUrlsPost()` */
+  static readonly ApiPremaritalRegisterSaveFileUrlsPostPath = '/api/PremaritalRegister/save-file-urls';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalRegisterSaveFileUrlsPost()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalRegisterSaveFileUrlsPost$Response(params?: ApiPremaritalRegisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalRegisterSaveFileUrlsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalRegisterSaveFileUrlsPost$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalRegisterSaveFileUrlsPost(params?: ApiPremaritalRegisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalRegisterSaveFileUrlsPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

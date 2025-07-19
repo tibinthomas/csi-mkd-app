@@ -24,7 +24,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormsModule } from '@angular/forms';
 import {
   MatFormField,
   MatFormFieldModule,
@@ -40,6 +40,12 @@ import {
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { SessionConfigService } from '../../../api/services';
+import { ApiSessionconfigGet$Params } from '../../../api/fn/session-config/api-sessionconfig-get';
+import { ApiSessionconfigSessionsGet$Params } from '../../../api/fn/session-config/api-sessionconfig-sessions-get';
+import { ApiSessionconfigPost$Params } from '../../../api/fn/session-config/api-sessionconfig-post';
+import { CreateUpdateSessionDto } from '../../../api/models';
 
 @Component({
   selector: 'app-premarital-list',
@@ -64,6 +70,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatPaginatorModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   animations: [
     trigger('detailExpand', [
@@ -84,6 +91,7 @@ export class PremaritalComponent {
   private readonly premaritalRegisterService = inject(
     PremaritalRegisterService
   );
+  private readonly sessionConfigService = inject(SessionConfigService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -102,9 +110,14 @@ export class PremaritalComponent {
   private readonly pdfContent!: ElementRef;
   private readonly filterTrigger = signal(0);
   protected readonly isLoading = signal<boolean>(false);
+  // Store selected year
+  readonly selectedYear = signal<number | null>(new Date().getFullYear());
+  // Store selected session
+  readonly selectedSession = signal<string | null>(null);
 
   baseApiUrl = API_ROOT_URL;
   expandedElement: any = null;
+  disableSelect = new FormControl(false);
 
   private readonly registrations$ = toObservable(
     computed(() => [
@@ -114,11 +127,22 @@ export class PremaritalComponent {
       this.searchTerm(),
       this.unapprovedOnly(),
       this.activeSessionOnly(),
+      this.selectedYear(),
+      this.selectedSession(),
       this.filterTrigger(),
     ])
   ).pipe(
     switchMap(
-      ([_, pageIndex, pageSize, searchTerm, unapproved, activeSession]) => {
+      ([
+        _,
+        pageIndex,
+        pageSize,
+        searchTerm,
+        unapproved,
+        activeSession,
+        selectedYear,
+        selectedSession,
+      ]) => {
         this.isLoading.set(true); // start spinner
         return this.premaritalRegisterService
           .apiPremaritalRegisterFilterGet({
@@ -127,6 +151,8 @@ export class PremaritalComponent {
             Search: searchTerm as string,
             UnapprovedOnly: unapproved as boolean,
             ActiveSessionOnly: activeSession as boolean,
+            SessionYear: selectedYear as number,
+            SessionName: selectedSession as string,
           })
           .pipe(
             map((response: any) => {
@@ -151,6 +177,47 @@ export class PremaritalComponent {
 
   protected readonly registrations = toSignal(this.registrations$, {
     initialValue: [],
+  });
+
+  private readonly sessions$ = this.sessionConfigService
+    .apiSessionconfigGet()
+    .pipe(
+      map((data: any) => {
+        const parsed = JSON.parse(data);
+        return parsed.map((session: any) => ({
+          ...session,
+        }));
+      }),
+      catchError((err) => {
+        console.error('Error loading sessions:', err);
+        return of([]); // fallback to empty array
+      })
+    );
+
+  protected readonly sessionList = toSignal(this.sessions$, {
+    initialValue: [],
+  });
+
+  readonly sessionYears = computed(() => [
+    ...new Set(
+      this.sessionList().map((session: any) =>
+        new Date(session.StartDate).getFullYear()
+      )
+    ),
+  ]);
+
+  readonly filteredSessionsByYear = computed(() => {
+    const filtered = this.selectedYear()
+      ? this.sessionList().filter(
+          (session: any) =>
+            new Date(session.StartDate).getFullYear() === this.selectedYear()
+        )
+      : this.sessionList();
+
+    const uniqueSessionNames = new Set(filtered.map((s: any) => s.SessionName));
+    return [
+      ...Array.from(uniqueSessionNames).map((name) => ({ SessionName: name })),
+    ];
   });
 
   searchRegistrations() {
@@ -308,7 +375,6 @@ export class PremaritalComponent {
           console.warn('Could not load image', e);
         }
       }
-      
     }
 
     doc.save('premarital-registrations-full.pdf');

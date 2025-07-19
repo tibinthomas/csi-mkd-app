@@ -263,78 +263,188 @@ export class PremaritalRegister {
 
     const photo = this.photoFile()!;
     const letter = this.vicarLetterFile()!;
-    const email = raw.email?.replace(/[^a-zA-Z0-9]/g, '_') || 'anonymous';
 
-    forkJoin([
-      this.azureUploadService.apiAzureUploadGenerateSasGet({
-        fileName: `${email}_${photo.name}`,
-        contentType: photo.type,
-      }),
-      this.azureUploadService.apiAzureUploadGenerateSasGet({
-        fileName: `${email}_${letter.name}`,
-        contentType: letter.type,
-      }),
-    ])
-      .pipe(
-        switchMap(([photoSasUrl, letterSasUrl]) =>
-          forkJoin([
-            this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!),
-            this.fileUploadService.uploadFileToAzure(letter, letterSasUrl!),
-          ])
-        )
-      )
+    const body = {
+      FirstName: raw.firstName,
+      LastName: raw.lastName,
+      FatherName: raw.fatherName,
+      Address: raw.address,
+      Sex: raw.sex,
+      Age: Number(raw.age),
+      Education: raw.education,
+      Occupation: raw.occupation,
+      ChurchName: raw.churchName,
+      FianceName: raw.fianceName || undefined,
+      DateOfMarriage: raw.dateOfMarriage
+        ? this.toUtcIsoString(raw.dateOfMarriage)
+        : undefined,
+      Phone: raw.phone,
+      Email: raw.email,
+      Days: raw.days,
+      ChoirMember: raw.churchActivities?.choirMember || false,
+      SsTeacher: raw.churchActivities?.ssTeacher || false,
+      YouthFellowship: raw.churchActivities?.youthFellowship || false,
+      Other: raw.churchActivities?.other || undefined,
+      Declaration: raw.declaration,
+      SessionId: Number(raw.sessionId),
+      PaymentStatus: false,
+    };
+
+    this.premaritalRegisterService
+      .apiPremaritalRegisterPost({ body })
       .subscribe({
-        next: ([photoUrl, letterUrl]) => {
-          const raw = this.form.value;
-          const body = {
-            FirstName: raw.firstName,
-            LastName: raw.lastName,
-            FatherName: raw.fatherName,
-            Address: raw.address,
-            Sex: raw.sex,
-            Age: Number(raw.age),
-            Education: raw.education,
-            Occupation: raw.occupation,
-            ChurchName: raw.churchName,
-            FianceName: raw.fianceName || undefined,
-            DateOfMarriage: raw.dateOfMarriage
-              ? this.toUtcIsoString(raw.dateOfMarriage)
-              : undefined,
-            Phone: raw.phone,
-            Email: raw.email,
-            Days: raw.days,
-            ChoirMember: raw.churchActivities?.choirMember || false,
-            SsTeacher: raw.churchActivities?.ssTeacher || false,
-            YouthFellowship: raw.churchActivities?.youthFellowship || false,
-            Other: raw.churchActivities?.other || undefined,
-            Declaration: raw.declaration,
-            PhotoUrl: photoUrl,
-            VicarLetterUrl: letterUrl,
-            SessionId: Number(raw.sessionId),
-            PaymentStatus: false,
-          };
-
-          this.premaritalRegisterService
-            .apiPremaritalRegisterPost({ body })
+        next: (response: any) => {
+          const registerId: number = JSON.parse(response).id;
+          forkJoin([
+            this.azureUploadService.apiAzureUploadGenerateSasGet({
+              fileName: `${registerId}/photo/${photo.name}`,
+              contentType: photo.type,
+            }),
+            this.azureUploadService.apiAzureUploadGenerateSasGet({
+              fileName: `${registerId}/vicarletter/${letter.name}`,
+              contentType: letter.type,
+            }),
+          ])
+            .pipe(
+              switchMap(([photoSasUrl, letterSasUrl]) =>
+                forkJoin([
+                  this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!),
+                  this.fileUploadService.uploadFileToAzure(
+                    letter,
+                    letterSasUrl!
+                  ),
+                ])
+              )
+            )
             .subscribe({
-              next: () => {
-                this.successMessage.set('Registration submitted successfully!');
-                this.dialog.open(SuccessDialogComponent, {
-                  width: '400px',
-                  disableClose: true,
-                });
-                this.resetForm();
-              },
-              error: (err) => {
-                console.error(err);
-                this.errorMessage.set('Submission failed. Please try again.');
-                this.showErrorModal.set(true);
-                this.isSubmitting.set(false);
+              next: ([photoSasUrl, letterSasUrl]) => {
+                const body = {
+                  RegistrationId: registerId,
+                  PhotoUrl: photoSasUrl,
+                  VicarLetterUrl: letterSasUrl,
+                };
+                this.premaritalRegisterService
+                  .apiPremaritalRegisterSaveFileUrlsPost({ body })
+                  .subscribe({
+                    next: () => {
+                      this.successMessage.set(
+                        'Registration submitted successfully!'
+                      );
+                      this.dialog.open(SuccessDialogComponent, {
+                        width: '400px',
+                        disableClose: true,
+                      });
+                      this.resetForm();
+                    },
+                    error: (err) => {
+                      console.error(err);
+                      this.errorMessage.set(
+                        'File Upload failed. Please try again.'
+                      );
+                      this.showErrorModal.set(true);
+                      this.isSubmitting.set(false);
+                    },
+                  });
               },
             });
         },
       });
   }
+
+  // onSubmit() {
+  //   this.formSubmitted.set(true);
+
+  //   if (!this.photoFile()) {
+  //     this.photoError.set('Passport-size photo is required.');
+  //   }
+
+  //   if (!this.vicarLetterFile()) {
+  //     this.vicarLetterError.set('Vicar’s letter is required.');
+  //   }
+
+  //   if (this.form.invalid || this.photoError() || this.vicarLetterError()) {
+  //     this.form.markAllAsTouched();
+  //     return;
+  //   }
+
+  //   const raw = this.form.value;
+
+  //   this.isSubmitting.set(true);
+
+  //   const photo = this.photoFile()!;
+  //   const letter = this.vicarLetterFile()!;
+  //   const email = raw.email?.replace(/[^a-zA-Z0-9]/g, '_') || 'anonymous';
+
+  //   forkJoin([
+  //     this.azureUploadService.apiAzureUploadGenerateSasGet({
+  //       fileName: `${email}/photo/${photo.name}`,
+  //       contentType: photo.type,
+  //     }),
+  //     this.azureUploadService.apiAzureUploadGenerateSasGet({
+  //       fileName: `${email}/vicarletter/${letter.name}`,
+  //       contentType: letter.type,
+  //     }),
+  //   ])
+  //     .pipe(
+  //       switchMap(([photoSasUrl, letterSasUrl]) =>
+  //         forkJoin([
+  //           this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!),
+  //           this.fileUploadService.uploadFileToAzure(letter, letterSasUrl!),
+  //         ])
+  //       )
+  //     )
+  //     .subscribe({
+  //       next: ([photoUrl, letterUrl]) => {
+  //         const raw = this.form.value;
+  //         const body = {
+  //           FirstName: raw.firstName,
+  //           LastName: raw.lastName,
+  //           FatherName: raw.fatherName,
+  //           Address: raw.address,
+  //           Sex: raw.sex,
+  //           Age: Number(raw.age),
+  //           Education: raw.education,
+  //           Occupation: raw.occupation,
+  //           ChurchName: raw.churchName,
+  //           FianceName: raw.fianceName || undefined,
+  //           DateOfMarriage: raw.dateOfMarriage
+  //             ? this.toUtcIsoString(raw.dateOfMarriage)
+  //             : undefined,
+  //           Phone: raw.phone,
+  //           Email: raw.email,
+  //           Days: raw.days,
+  //           ChoirMember: raw.churchActivities?.choirMember || false,
+  //           SsTeacher: raw.churchActivities?.ssTeacher || false,
+  //           YouthFellowship: raw.churchActivities?.youthFellowship || false,
+  //           Other: raw.churchActivities?.other || undefined,
+  //           Declaration: raw.declaration,
+  //           PhotoUrl: photoUrl,
+  //           VicarLetterUrl: letterUrl,
+  //           SessionId: Number(raw.sessionId),
+  //           PaymentStatus: false,
+  //         };
+
+  //         this.premaritalRegisterService
+  //           .apiPremaritalRegisterPost({ body })
+  //           .subscribe({
+  //             next: () => {
+  //               this.successMessage.set('Registration submitted successfully!');
+  //               this.dialog.open(SuccessDialogComponent, {
+  //                 width: '400px',
+  //                 disableClose: true,
+  //               });
+  //               this.resetForm();
+  //             },
+  //             error: (err) => {
+  //               console.error(err);
+  //               this.errorMessage.set('Submission failed. Please try again.');
+  //               this.showErrorModal.set(true);
+  //               this.isSubmitting.set(false);
+  //             },
+  //           });
+  //       },
+  //     });
+  // }
 
   toUtcIsoString(dateInput: string | Date): string {
     const localDate = new Date(dateInput);

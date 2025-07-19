@@ -13,6 +13,8 @@ export interface ApiPremaritalRegisterFilterGet$Params {
   Search?: string;
   UnapprovedOnly?: boolean;
   ActiveSessionOnly?: boolean;
+  SessionYear?: number;
+  SessionName?: string;
   Page?: number;
   PageSize?: number;
 }
@@ -23,6 +25,8 @@ export function apiPremaritalRegisterFilterGet(http: HttpClient, rootUrl: string
     rb.query('Search', params.Search, {});
     rb.query('UnapprovedOnly', params.UnapprovedOnly, {});
     rb.query('ActiveSessionOnly', params.ActiveSessionOnly, {});
+    rb.query('SessionYear', params.SessionYear, {});
+    rb.query('SessionName', params.SessionName, {});
     rb.query('Page', params.Page, {});
     rb.query('PageSize', params.PageSize, {});
   }

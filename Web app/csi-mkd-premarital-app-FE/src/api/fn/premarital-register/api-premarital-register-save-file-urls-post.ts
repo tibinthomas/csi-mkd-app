@@ -8,41 +8,23 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-export interface ApiPremaritalRegisterPost$Params {
+export interface ApiPremaritalRegisterSaveFileUrlsPost$Params {
   body?: {
-    FirstName: string;
-    LastName: string;
-    FatherName: string;
-    Address: string;
-    Sex: string;
-    Age: number;
-    Education: string;
-    Occupation: string;
-    ChurchName: string;
-    FianceName?: string;
-    DateOfMarriage?: string;
-    Phone: string;
-    Email: string;
-    Days: string;
-    ChoirMember?: boolean;
-    SsTeacher?: boolean;
-    YouthFellowship?: boolean;
-    Other?: string;
-    Declaration: boolean;
-    SessionId: number;
-    PaymentStatus?: boolean;
+    RegistrationId: number;
+    PhotoUrl: string;
+    VicarLetterUrl: string;
   };
 }
 
-export function apiPremaritalRegisterPost(
+export function apiPremaritalRegisterSaveFileUrlsPost(
   http: HttpClient,
   rootUrl: string,
-  params?: ApiPremaritalRegisterPost$Params,
+  params?: ApiPremaritalRegisterSaveFileUrlsPost$Params,
   context?: HttpContext
 ): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(
     rootUrl,
-    apiPremaritalRegisterPost.PATH,
+    apiPremaritalRegisterSaveFileUrlsPost.PATH,
     'post'
   );
   if (params) {
@@ -61,4 +43,5 @@ export function apiPremaritalRegisterPost(
     );
 }
 
-apiPremaritalRegisterPost.PATH = '/api/PremaritalRegister';
+apiPremaritalRegisterSaveFileUrlsPost.PATH =
+  '/api/PremaritalRegister/save-file-urls';
