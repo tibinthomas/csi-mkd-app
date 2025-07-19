@@ -78,3 +78,44 @@ body {
     opacity: 1;
   }
 }
+
+/* Accessibility Styles */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus Styles */
+:focus-visible {
+  outline: 3px solid #3f51b5; /* Material primary color */
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(63, 81, 181, 0.3);
+  border-radius: 4px;
+}
+
+/* High Contrast Mode Adjustments */
+@media (forced-colors: active) {
+  .mat-toolbar {
+    border-bottom: 1px solid;
+  }
+  .mat-card {
+    border: 1px solid;
+  }
+  .mat-button,
+  .mat-raised-button,
+  .mat-icon-button {
+    border: 1px solid transparent;
+  }
+  .mat-button:focus,
+  .mat-raised-button:focus,
+  .mat-icon-button:focus {
+    border-color: Highlight;
+  }
+}

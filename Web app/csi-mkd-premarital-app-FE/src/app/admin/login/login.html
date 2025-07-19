@@ -1,15 +1,19 @@
 <section
   class="bg-cover bg-center h-screen flex items-center justify-center relative"
   style="background-image: url('assets/background-image.jpg')"
+  role="main"
+  aria-labelledby="login-title"
 >
-  <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
+  <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70" aria-hidden="true"></div>
   <div class="min-h-screen flex items-center justify-center">
-    <mat-card class="w-full max-w-md p-5">
+    <mat-card class="w-full max-w-md p-5" role="form">
       <mat-card-header>
-        <mat-card-title i18n class="text-center text-2xl sm:text-3xl font-extrabold" i18n>Admin Login</mat-card-title>
+        <mat-card-title id="login-title" class="text-center text-2xl sm:text-3xl font-extrabold" i18n
+          >Admin Login</mat-card-title
+        >
       </mat-card-header>
       <mat-card-content>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-label="Admin Login Form">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" aria-labelledby="login-title" novalidate>
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Username</mat-label>
             <input
@@ -20,10 +24,12 @@
               autocomplete="username"
               required
               autofocus
+              aria-required="true"
+              aria-describedby="username-error"
             />
             @if ( loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty ||
             loginForm.controls['username'].touched) ) {
-            <mat-error i18n> Username is required. </mat-error>
+            <mat-error id="username-error" i18n> Username is required. </mat-error>
             }
           </mat-form-field>
 
@@ -37,10 +43,12 @@
               i18n-placeholder
               autocomplete="current-password"
               required
+              aria-required="true"
+              aria-describedby="password-error"
             />
             @if ( loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty ||
             loginForm.controls['password'].touched) ) {
-            <mat-error i18n> Password is required. </mat-error>
+            <mat-error id="password-error" i18n> Password is required. </mat-error>
             }
           </mat-form-field>
 
@@ -50,12 +58,15 @@
             type="submit"
             [disabled]="loginForm.invalid || loading()"
             class="w-full"
+            [attr.aria-describedby]="loading() ? 'submit-status' : null"
           >
             {{ loginLabel() }}
           </button>
 
-          @if (errorMessage()) {
-          <div class="text-red-600 text-center mt-2 font-medium">
+          @if (loading()) {
+          <div id="submit-status" class="sr-only" aria-live="polite" i18n>Logging in, please wait</div>
+          } @if (errorMessage()) {
+          <div class="text-red-600 text-center mt-2 font-medium" role="alert" aria-live="assertive">
             {{ errorMessage() }}
           </div>
           }

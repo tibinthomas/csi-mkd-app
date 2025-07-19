@@ -1,90 +1,126 @@
-<mat-toolbar
-  color="primary"
-  class="flex flex-wrap justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
->
-  <!-- Left: CSI Logo -->
-  <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
-    <img
-      src="assets/csi-logo.png"
-      alt="CSI Logo"
-      class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain"
-    />
-  </div>
-
-  <!-- Center: Title -->
-  <div class="flex-1 text-center sm:block">
-    <h1
-      class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500 pt-serif-bold"
-      i18n
-    >
-      CSI Counselling Centre
-    </h1>
-    <h2 class="!text-xs sm:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular" i18n>
-      Madhya Kerala Diocese
-    </h2>
-  </div>
-
-  <!-- Right: Nav + Logos + Language + Menu -->
-  <div class="flex items-center space-x-4">
-    <!-- Desktop Nav Links -->
-    <div class="hidden lg:flex space-x-4">
-      <a
-        mat-button
-        routerLink="/about"
-        routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
-        i18n
-        >About</a
-      >
-      <a
-        mat-button
-        routerLink="/team-members"
-        routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
-        i18n
-        >Our Team</a
-      >
-      <a
-        mat-button
-        routerLink="/register"
-        routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
-        i18n
-        >Register</a
-      >
-      <a
-        mat-button
-        routerLink="/feedback"
-        routerLinkActive="active-link"
-        class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
-        i18n
-        >Feedback</a
-      >
+<header role="banner">
+  <mat-toolbar
+    color="primary"
+    class="flex flex-wrap justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
+  >
+    <!-- Left: CSI Logo -->
+    <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
+      <img
+        src="assets/csi-logo.png"
+        alt="CSI Church of South India Logo"
+        class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain"
+        role="img"
+      />
     </div>
 
-    <!-- Language Selector -->
-    <app-language-selector></app-language-selector>
+    <!-- Center: Title -->
+    <div class="flex-1 text-center sm:block">
+      <h1
+        class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500 pt-serif-bold"
+        i18n
+      >
+        CSI Counselling Centre
+      </h1>
+      <h2 class="!text-xs sm:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular" i18n>
+        Madhya Kerala Diocese
+      </h2>
+    </div>
 
-    <!-- Mobile Hamburger -->
-    <button [matMenuTriggerFor]="menu" class="lg:hidden active:animate-bounce" aria-label="Menu">
-      <mat-icon>menu</mat-icon>
-    </button>
+    <!-- Right: Nav + Logos + Language + Menu -->
+    <div class="flex items-center space-x-4">
+      <!-- Desktop Nav Links -->
+      <nav class="hidden lg:flex space-x-4" role="navigation" aria-label="Main navigation">
+        <a
+          mat-button
+          routerLink="/about"
+          routerLinkActive="active-link"
+          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          i18n
+          aria-label="About us page"
+          >About</a
+        >
+        <a
+          mat-button
+          routerLink="/team-members"
+          routerLinkActive="active-link"
+          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          i18n
+          aria-label="Our team members page"
+          >Our Team</a
+        >
+        <a
+          mat-button
+          routerLink="/register"
+          routerLinkActive="active-link"
+          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          i18n
+          aria-label="Registration page"
+          >Register</a
+        >
+        <a
+          mat-button
+          routerLink="/feedback"
+          routerLinkActive="active-link"
+          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          i18n
+          aria-label="Feedback page"
+          >Feedback</a
+        >
+      </nav>
 
-    <!-- Right Logo -->
-    <img
-      src="assets/csi-mkd-logo.png"
-      alt="CSI MKD Logo"
-      class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain transition-transform duration-300 hover:scale-105"
-    />
-  </div>
-</mat-toolbar>
+      <!-- Language Selector -->
+      <app-language-selector></app-language-selector>
+
+      <!-- Mobile Hamburger -->
+      <button
+        [matMenuTriggerFor]="menu"
+        class="lg:hidden active:animate-bounce"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        <mat-icon aria-hidden="true">menu</mat-icon>
+      </button>
+
+      <!-- Right Logo -->
+      <img
+        src="assets/csi-mkd-logo.png"
+        alt="CSI Madhya Kerala Diocese Logo"
+        class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain transition-transform duration-300 hover:scale-105"
+        role="img"
+      />
+    </div>
+  </mat-toolbar>
+</header>
 
 <!-- Mobile Nav Menu -->
-<mat-menu #menu="matMenu">
-  <a mat-menu-item routerLink="/about" routerLinkActive="active-link" i18n>About</a>
-  <a mat-menu-item routerLink="/team-members" routerLinkActive="active-link" i18n>Our Team</a>
-  <a mat-menu-item routerLink="/register" routerLinkActive="active-link" i18n>Register</a>
-  <a mat-menu-item routerLink="/feedback" routerLinkActive="active-link" i18n>Feedback</a>
+<mat-menu #menu="matMenu" role="menu" aria-label="Mobile navigation menu">
+  <a mat-menu-item routerLink="/about" routerLinkActive="active-link" i18n role="menuitem" aria-label="About us page"
+    >About</a
+  >
+  <a
+    mat-menu-item
+    routerLink="/team-members"
+    routerLinkActive="active-link"
+    i18n
+    role="menuitem"
+    aria-label="Our team members page"
+    >Our Team</a
+  >
+  <a
+    mat-menu-item
+    routerLink="/register"
+    routerLinkActive="active-link"
+    i18n
+    role="menuitem"
+    aria-label="Registration page"
+    >Register</a
+  >
+  <a mat-menu-item routerLink="/feedback" routerLinkActive="active-link" i18n role="menuitem" aria-label="Feedback page"
+    >Feedback</a
+  >
 </mat-menu>
 
-<router-outlet></router-outlet>
+<main role="main">
+  <router-outlet></router-outlet>
+</main>

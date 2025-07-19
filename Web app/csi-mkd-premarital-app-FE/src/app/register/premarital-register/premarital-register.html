@@ -1,63 +1,99 @@
-<section class="py-10 px-4">
+<section class="py-10 px-4" role="main" aria-labelledby="form-title">
   <mat-card class="max-w-4xl mx-auto p-6 mt-20" appAnimateOnScroll>
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl sm:text-3xl pt-serif-bold" i18n>
+      <mat-card-title id="form-title" class="text-center text-2xl sm:text-3xl pt-serif-bold" i18n>
         Premarital Registration Form
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-2">
-        <div class="grid md:grid-cols-3 gap-6">
+      <form
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        class="space-y-2"
+        role="form"
+        aria-labelledby="form-title"
+        novalidate
+      >
+        <div class="grid md:grid-cols-3 gap-6" role="group" aria-labelledby="personal-info-heading">
+          <h3 id="personal-info-heading" class="sr-only">Personal Information</h3>
           <mat-form-field appearance="fill" class="w-full">
             <mat-label class="pt-serif-regular" i18n>First Name</mat-label>
-            <input matInput formControlName="firstName" />
+            <input
+              matInput
+              formControlName="firstName"
+              aria-required="true"
+              aria-describedby="firstName-error"
+              autocomplete="given-name"
+            />
             @if (isInvalid('firstName')) {
-            <mat-error class="pt-serif-regular" i18n>First Name is required.</mat-error>
+            <mat-error id="firstName-error" class="pt-serif-regular" i18n>First Name is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label class="pt-serif-regular"i18n>Last Name</mat-label>
-            <input matInput formControlName="lastName" />
+            <mat-label class="pt-serif-regular" i18n>Last Name</mat-label>
+            <input
+              matInput
+              formControlName="lastName"
+              aria-required="true"
+              aria-describedby="lastName-error"
+              autocomplete="family-name"
+            />
             @if (isInvalid('lastName')) {
-            <mat-error class="pt-serif-regular" i18n>Last Name is required.</mat-error>
+            <mat-error id="lastName-error" class="pt-serif-regular" i18n>Last Name is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label class="pt-serif-regular" i18n>Father's Name</mat-label>
-            <input matInput formControlName="fatherName" />
+            <input matInput formControlName="fatherName" aria-required="true" aria-describedby="fatherName-error" />
             @if (isInvalid('fatherName')) {
-            <mat-error class="pt-serif-regular"i18n>Father's Name is required.</mat-error>
+            <mat-error id="fatherName-error" class="pt-serif-regular" i18n>Father's Name is required.</mat-error>
             }
           </mat-form-field>
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label class="pt-serif-regular" i18n>Address</mat-label>
-          <textarea matInput formControlName="address" rows="3"></textarea>
+          <textarea
+            matInput
+            formControlName="address"
+            rows="3"
+            aria-required="true"
+            aria-describedby="address-error"
+            autocomplete="street-address"
+          ></textarea>
           @if (isInvalid('address')) {
-          <mat-error class="pt-serif-regular" i18n>Address is required.</mat-error>
+          <mat-error id="address-error" class="pt-serif-regular" i18n>Address is required.</mat-error>
           }
         </mat-form-field>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" role="group" aria-labelledby="demographics-heading">
+          <h3 id="demographics-heading" class="sr-only">Demographics Information</h3>
           <mat-form-field appearance="fill" class="w-full">
             <mat-label class="pt-serif-regular" i18n>Sex</mat-label>
-            <mat-select formControlName="sex">
+            <mat-select formControlName="sex" aria-required="true" aria-describedby="sex-error">
               <mat-option value="Male" class="pt-serif-regular" i18n>Male</mat-option>
               <mat-option value="Female" class="pt-serif-regular" i18n>Female</mat-option>
             </mat-select>
             @if (isInvalid('sex')) {
-            <mat-error class="pt-serif-regular" i18n>Please select your sex.</mat-error>
+            <mat-error id="sex-error" class="pt-serif-regular" i18n>Please select your sex.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label class="pt-serif-regular"i18n>Age</mat-label>
-            <input matInput type="number" formControlName="age" />
+            <mat-label class="pt-serif-regular" i18n>Age</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="age"
+              aria-required="true"
+              aria-describedby="age-error"
+              min="1"
+              max="120"
+            />
             @if (isInvalid('age')) {
-            <mat-error>
+            <mat-error id="age-error">
               @if (form.get('age')?.errors?.['required']) {
               <span class="pt-serif-regular" i18n>Age is required.</span>
               } @if (form.get('age')?.errors?.['min']) {
@@ -70,10 +106,10 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label class="pt-serif-regular">Education</mat-label>
-            <input matInput formControlName="education" />
+            <mat-label class="pt-serif-regular" i18n>Education</mat-label>
+            <input matInput formControlName="education" aria-required="true" aria-describedby="education-error" />
             @if (isInvalid('education')) {
-            <mat-error class="pt-serif-regular" i18n>Education field is required.</mat-error>
+            <mat-error id="education-error" class="pt-serif-regular" i18n>Education field is required.</mat-error>
             }
           </mat-form-field>
         </div>
@@ -107,7 +143,7 @@
               <mat-label class="pt-serif-regular" i18n>Youth Fellowship</mat-label>
             </mat-checkbox>
             <mat-form-field appearance="fill" class="flex-grow max-w-xs">
-              <mat-label class="pt-serif-regular" i18n >Other</mat-label>
+              <mat-label class="pt-serif-regular" i18n>Other</mat-label>
               <input matInput formControlName="other" />
             </mat-form-field>
           </div>
@@ -146,8 +182,8 @@
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
             <mat-error class="pt-serif-regular" i18n>Invalid email format.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
-            <mat-error class="pt-serif-regular"
-              i18n>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error
+            <mat-error class="pt-serif-regular" i18n
+              >Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error
             >
             }
           </mat-form-field>
@@ -182,25 +218,53 @@
         </div>
 
         <!-- Upload Photo -->
-        <div class="mb-6">
-          <label class="block font-medium mb-2 pt-serif-regular" i18n>Upload Passport Size Photo</label>
-          <button mat-raised-button color="primary" type="button" (click)="photoInput.click()" class="pt-serif-bold">
-            <mat-icon>upload</mat-icon>
+        <div class="mb-6" role="group" aria-labelledby="photo-upload-label">
+          <label id="photo-upload-label" class="block font-medium mb-2 pt-serif-regular" i18n
+            >Upload Passport Size Photo</label
+          >
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="photoInput.click()"
+            class="pt-serif-bold"
+            aria-describedby="photo-upload-help"
+          >
+            <mat-icon aria-hidden="true">upload</mat-icon>
+            <span class="sr-only" i18n>Upload photo</span>
           </button>
-          <input #photoInput type="file" accept="image/*" (change)="onFileChange($event, 'photo')" hidden />
+          <input
+            #photoInput
+            type="file"
+            accept="image/*"
+            (change)="onFileChange($event, 'photo')"
+            hidden
+            aria-labelledby="photo-upload-label"
+            aria-describedby="photo-upload-help"
+          />
+          <div id="photo-upload-help" class="sr-only" i18n>Please select a passport size photo in image format</div>
 
           @if (photoFileName) {
-          <span class="text-sm text-gray-600 mt-2 block">{{ photoFileName }}</span>
+          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ photoFileName }}</span>
           } @if (photoError()) {
-          <mat-error class="pt-serif-regular">{{ photoError() }}</mat-error>
+          <mat-error class="pt-serif-regular" role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
           }
         </div>
 
         <!-- Upload Vicar Letter -->
-        <div class="mb-6">
-          <label class="block font-medium mb-2 pt-serif-regular" i18n>Upload Witness of Vicar</label>
-          <button mat-raised-button color="primary" type="button" (click)="letterInput.click()" class="pt-serif-bold">
-            <mat-icon>upload_file</mat-icon>
+        <div class="mb-6" role="group" aria-labelledby="letter-upload-label">
+          <label id="letter-upload-label" class="block font-medium mb-2 pt-serif-regular" i18n
+            >Upload Witness of Vicar</label
+          >
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="letterInput.click()"
+            class="pt-serif-bold"
+            aria-describedby="letter-upload-help"
+          >
+            <mat-icon aria-hidden="true">upload_file</mat-icon>
             Choose File
           </button>
           <input
@@ -209,35 +273,47 @@
             accept=".pdf,.doc,.docx,image/*"
             (change)="onFileChange($event, 'vicarLetter')"
             hidden
+            aria-labelledby="letter-upload-label"
+            aria-describedby="letter-upload-help"
           />
+          <div id="letter-upload-help" class="sr-only" i18n>
+            Please select a document file (PDF, DOC, DOCX) or image containing the witness of vicar
+          </div>
 
           @if (vicarLetterFileName) {
-          <span class="text-sm text-gray-600 mt-2 block">{{ vicarLetterFileName }}</span>
+          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ vicarLetterFileName }}</span>
           } @if (vicarLetterError()) {
-          <mat-error class="pt-serif-regular">{{ vicarLetterError() }}</mat-error>
+          <mat-error class="pt-serif-regular" role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
           }
         </div>
 
-        <div class="flex items-center gap-2 pt-serif-regular">
-          <mat-checkbox formControlName="declaration">
-            <p class="pt-serif-regular" i18n>I would like to attend the premarital counselling course.</p>
+        <div class="flex items-center gap-2 pt-serif-regular" role="group" aria-labelledby="declaration-label">
+          <mat-checkbox formControlName="declaration" aria-required="true" aria-describedby="declaration-error">
+            <span id="declaration-label" class="pt-serif-regular" i18n
+              >I would like to attend the premarital counselling course.</span
+            >
             @if (isInvalid('declaration')) {
-            <mat-error class="pt-serif-regular" i18n>You must accept the declaration.</mat-error>
+            <mat-error id="declaration-error" class="pt-serif-regular" i18n role="alert"
+              >You must accept the declaration.</mat-error
+            >
             }
           </mat-checkbox>
         </div>
 
         <div>
-          <!-- <button mat-raised-button color="primary" type="submit" class="w-full">Submit Registration</button> -->
           <button
             mat-raised-button
             color="primary"
             type="submit"
             class="w-full pt-serif-bold"
             [disabled]="isSubmitting()"
+            [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
             {{ isSubmitting() ? "Submitting..." : "Register" }}
           </button>
+          @if (isSubmitting()) {
+          <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>
+          }
         </div>
       </form>
     </mat-card-content>
