@@ -7,13 +7,13 @@
   >
     <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
     <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white">
-      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow pt-serif-bold">
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow pt-serif-bold" i18n>
         CSI Counselling Centre, Kottayam
       </h1>
-      <p class="text-xl italic font-light pt-serif-regular-italic">Healing Minds. Empowering Lives.</p>
-      <p class="mt-4 text-sm pt-serif-regular">Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</p>
+      <p class="text-xl italic font-light pt-serif-regular-italic"i18n>Healing Minds. Empowering Lives.</p>
+      <p class="mt-4 text-sm pt-serif-regular" i18n>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</p>
       <div class="mt-6">
-        <button mat-raised-button class="pt-serif-bold" color="primary" routerLink="/register">Book Appointment</button>
+        <button mat-raised-button class="pt-serif-bold" color="primary" routerLink="/register" i18n>Book Appointment</button>
       </div>
     </div>
   </section>
@@ -29,8 +29,8 @@
         alt="Who We Are"
       />
       <div>
-        <h2 class="text-4xl font-bold mb-4 pt-serif-bold">Who We Are</h2>
-        <p class="text-lg leading-relaxed pt-serif-regular">
+        <h2 class="text-4xl font-bold mb-4 pt-serif-bold"i18n>Who We Are</h2>
+        <p class="text-lg leading-relaxed pt-serif-regular" i18n>
           With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers
           holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided
           by a commitment to mental, emotional, and spiritual well-being.
@@ -42,7 +42,7 @@
   <!-- Services -->
   <section class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-16 pt-serif-bold">Our Services</h2>
+      <h2 class="text-4xl font-bold text-center mb-16 pt-serif-bold"i18n>Our Services</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @for (service of services; track service.title) {
@@ -74,7 +74,7 @@
   <!-- Why Choose Us -->
   <section class="py-15 px-6">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-16 pt-serif-bold">Why Choose Us?</h2>
+      <h2 class="text-4xl font-bold text-center mb-16 pt-serif-bold" i18n>Why Choose Us?</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @for (item of reasons; track item.title) {

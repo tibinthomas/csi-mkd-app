@@ -3,6 +3,292 @@
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
     <!--src/app/about -->
+
+
+
+ <trans-unit id="Individual Counselling" datatype="html">
+        <source>Individual Counselling</source>
+        <target>വ്യക്തിഗത കൗൺസിലിംഗ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Individual Counselling Description" datatype="html">
+        <source>Personal &amp; online sessions for stress, anxiety, grief, and related challenges.</source>
+        <target>സമ്മർദ്ദം, ഉത്കണ്ഠ, ദുഃഖം, അനുബന്ധ വെല്ലുവിളികൾ എന്നിവയ്ക്കുള്ള വ്യക്തിഗത & ഓൺലൈൻ സെഷനുകൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Couple &amp; Family Therapy" datatype="html">
+        <source>Couple &amp; Family Therapy</source>
+        <target>കപ്പിൾ  ആൻഡ്   ഫാമിലി  തെറാപ്പി </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Couple &amp; Family Therapy description" datatype="html">
+        <source>Resolve conflicts and strengthen family relationships with professional guidance.</source>
+        <target>കുടുംബ ബന്ധങ്ങൾ ശക്തികരിക്കുന്നതിനും സംഘർഷങ്ങൾ പരിഹരിക്കുന്നതിനും പ്രൊഫഷണൽ മാർഗനിർദ്ദേശങ്ങൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Child &amp; Adolescent Therapy" datatype="html">
+        <source>Child &amp; Adolescent Therapy</source>
+        <target>കുട്ടികളുടെയും കൗമാരക്കാരുടെയും തെറാപ്പി</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Child &amp; Adolescent Therapy description" datatype="html">
+        <source>Support for behavioral, academic, emotional development, and career guidance.</source>
+       <target>പെരുമാറ്റപരം, അക്കാദമിക്, വൈകാരിക വികസനം, കരിയർ മാർഗ്ഗനിർദ്ദേശം എന്നിവയ്ക്കുള്ള പിന്തുണ.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Psychodiagnostics" datatype="html">
+        <source>Psychodiagnostics</source>
+        <target>സൈക്കോ ഡയഗ്നോസ്റ്റിക്സ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Psychodiagnostics description" datatype="html">
+        <source>Assessments for learning difficulties, psychological testing, and career planning.</source>
+        <target>പഠന ബുദ്ധിമുട്ടുകൾ, മനഃശാസ്ത്ര പരിശോധന, കരിയർ ആസൂത്രണം എന്നിവയ്ക്കുള്ള വിലയിരുത്തലുകൾ.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Premarital Counselling" datatype="html">
+        <source>Premarital Counselling</source>
+         <target>പ്രീമാരിറ്റൽ  കൗൺസലിങ്  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Premarital Counselling description" datatype="html">
+        <source>Three-day residential program to prepare couples for a strong and faithful marriage. </source>
+         <target>ശക്തവും വിശ്വസ്തവുമായ ദാമ്പത്യത്തിന് ദമ്പതികളെ ഒരുക്കുന്നതിനുള്ള ത്രിദിന റെസിഡൻഷ്യൽ പ്രോഗ്രാം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Pre-confirmational Counselling" datatype="html">
+        <source>Pre-confirmational Counselling</source>
+         <target>പ്രീ-കൺഫർമേഷണൽ കൗൺസിലിംഗ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Pre-confirmational Counselling description" datatype="html">
+        <source> A certified half/one day programme to guide and educate youth preparing for confirmation.</source>
+         <target>സ്ഥിരീകരണത്തിന്റെ ഒരുക്കത്തിനായുള്ള  അംഗീകൃത ഏകദിന/അർദ്ധ ദിന പരിപാടി +</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="School &amp; College Outreach Programmes" datatype="html">
+        <source>School &amp; College Outreach Programmes</source>
+         <target>സ്കൂൾ & കോളേജ് ഔട്ട്റീച്ച് പ്രോഗ്രാമുകൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="School &amp; College Outreach Programmes subtitle" datatype="html">
+        <source>S.H.A.P.E. - Student’s Holistic and Pragmatic Empowerment</source>
+        <target>S.H.A.P.E. - വിദ്യാർത്ഥികളുടെ സമഗ്രവും പ്രായോഗികവുമായ ശാക്തീകരണം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="School &amp; College Outreach Programmes description" datatype="html">
+        <source>Empowering individuals to ensure holistic wellbeing through counselling and other initiatives.</source>
+        <target>കൗൺസിലിംഗിലൂടെയും മറ്റ് സംരംഭങ്ങളിലൂടെയും സമഗ്രമായ ക്ഷേമം ഉറപ്പാക്കാൻ വ്യക്തികളെ ശാക്തീകരിക്കുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Faith-Sensitive Care" datatype="html">
+        <source>Faith-Sensitive Care</source>
+        <target>ഫെയ്ത്ത്-സെൻസിറ്റീവ് കെയർ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Faith-Sensitive Care description" datatype="html">
+        <source>Confidential counselling with sensitivity to Christian values.</source>
+        <target>ക്രിസ്തീയ മൂല്യങ്ങളോടുള്ള സംവേദനക്ഷമതയോടെയുള്ള രഹസ്യ കൗൺസിലിംഗ്.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Experienced Team" datatype="html">
+        <source>Experienced Team</source>
+        <target>പരിചയസമ്പന്നരായ ടീം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2701382886087063861" datatype="html">
+        <source>Panel of certified psychologists, pastoral counsellors, and clergy.</source>
+        <target>സർട്ടിഫൈഡ് സൈക്കോളജിസ്റ്റുകൾ, പാസ്റ്ററൽ കൗൺസിലർമാർ, പുരോഹിതന്മാർ എന്നിവരുടെ പാനൽ.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Holistic Healing" datatype="html">
+        <source>Holistic Healing</source>
+        <target>ഹോളിസ്റ്റിക് ഹീലിംഗ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Holistic Healing description" datatype="html">
+        <source>Integration of professional therapy with spiritual care and support.</source>
+        <target>ആത്മീയ പരിചരണവും പിന്തുണയുമായി പ്രൊഫഷണൽ തെറാപ്പിയുടെ സംയോജനം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Accessible Services" datatype="html">
+        <source>Accessible Services</source>
+        <target> സേവനങ്ങൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3658859389710380278" datatype="html">
+        <source>Both in-person and online appointments at affordable rates.</source>
+        <target>വ്യക്തിഗതവും ഓൺലൈൻ കൂടിക്കാഴ്‌ചകളും മിതമായ നിരക്കിൽ.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <note priority="1" from="description">Accessible Services description</note>
+      </trans-unit>
+      <trans-unit id="Community Outreach" datatype="html">
+        <source>Community Outreach</source>
+        <target>കമ്മ്യൂണിറ്റി  ഔട്ട് റീച്ച് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8433920847161446299" datatype="html">
+        <source>SHAPE programs, leadership workshops, and mental health campaigns.</source>
+        <target>ഷേപ്പ് പ്രോഗ്രാമുകൾ, നേതൃത്വ വർക്ക്ഷോപ്പുകൾ, മാനസികാരോഗ്യ കാമ്പെയ്‌നുകൾ.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+        <note priority="1" from="description">Community Outreach description</note>
+      </trans-unit>
+      <trans-unit id="Safe Environment" datatype="html">
+        <source>Safe Environment</source>
+        <target>സുരക്ഷിതമായ അന്തരീക്ഷം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4268516236429570655" datatype="html">
+        <source>A non-judgmental and peaceful setting for personal growth and healing.</source>
+        <target>വ്യക്തിപരമായ വളർച്ചയ്ക്കും രോഗശാന്തിക്കും വേണ്ടി വിധിക്കാത്തതും സമാധാനപരവുമായ ഒരു ക്രമീകരണം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+        <note priority="1" from="description">Safe Environment description</note>
+      </trans-unit>
+     <trans-unit id="470633038250390923" datatype="html">
+        <source> CSI Counselling Centre, Kottayam </source>
+         <target>സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ,കോട്ടയം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="649308571231942992" datatype="html">
+        <source>Healing Minds. Empowering Lives.</source>
+         <target>മനസ്സിനെ സുഖപ്പെടുത്തുന്നു. ജീവിതങ്ങളെ ശാക്തീകരിക്കുന്നു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="920281652409261245" datatype="html">
+        <source>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</source>
+         <target>മദ്ധ്യ കേരള മഹായിടവക | സിഎംഎസ് പ്രസ്സ് കോമ്പൗണ്ട്, കോട്ടയം-1</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="643511603922236880" datatype="html">
+        <source>Book Appointment</source>
+         <target>ബുക്ക് അപ്പോയിൻ്റ്മെൻ്റ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4428615029049824725" datatype="html">
+        <source>Who We Are</source>
+         <target>ആരാണ് ഞങ്ങൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1279138299250820254" datatype="html">
+        <source> With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided by a commitment to mental, emotional, and spiritual well-being. </source>
+         <target>ബിഷപ്പ് റവ. ഡോ. മലയിൽ സാബു കോശി ചെറിയാന്റെ അനുഗ്രഹത്താൽ, സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ കാരുണ്യപൂർണ്ണവും, രഹസ്യാത്മകവും, തെളിവുകൾ അടിസ്ഥാനമാക്കിയുള്ളതുമായ കൗൺസിലിംഗിലൂടെ സമഗ്രമായ രോഗശാന്തി വാഗ്ദാനം ചെയ്യുന്നു. ഞങ്ങളുടെ സേവനങ്ങൾ മാനസികവും വൈകാരികവും ആത്മീയവുമായ ക്ഷേമത്തിനായുള്ള പ്രതിബദ്ധതയാൽ നയിക്കപ്പെടുന്നു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9063344890262493319" datatype="html">
+        <source>Our Services</source>
+         <target>ഞങ്ങളുടെ സേവനങ്ങൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">45,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7332871512707001452" datatype="html">
+        <source>Why Choose Us?</source>
+         <target>എന്തുകൊണ്ട് ഞങ്ങൾ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">77,79</context>
+        </context-group>
+      </trans-unit>
 <trans-unit id="5988282777895538729" datatype="html">
         <source>📍 Visit Us</source>
         <target>📍ഞങ്ങളെ സന്ദർശിക്കുക</target>
@@ -624,7 +910,7 @@
       </trans-unit>
       <trans-unit id="1802754075692434337" datatype="html">
         <source> General Registration Form </source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>ജനറൽ രജിസ്ട്രേഷൻ ഫോം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">4</context>
@@ -632,7 +918,7 @@
       </trans-unit>
       <trans-unit id="1267542639633732090" datatype="html">
         <source>Full Name is required.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target> ഫുൾ  നെയിം എന്റർ ചെയ്യുക </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">13</context>
@@ -644,7 +930,7 @@
       </trans-unit>
       <trans-unit id="4540278667455316377" datatype="html">
         <source>Father&apos;s Name</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>പിതാവിൻ്റെ പേര് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">26</context>
@@ -652,7 +938,7 @@
       </trans-unit>
       <trans-unit id="1171954686195477220" datatype="html">
         <source>Father&apos;s Name is required.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>പിതാവിൻ്റെ പേര് എന്റർ ചെയ്യുക </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">29</context>
@@ -660,7 +946,7 @@
       </trans-unit>
       <trans-unit id="6304432362546770951" datatype="html">
         <source>Address</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>അഡ്രസ്സ്  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">35</context>
@@ -668,7 +954,7 @@
       </trans-unit>
       <trans-unit id="4588590290359822685" datatype="html">
         <source>Address is required.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>അഡ്രസ്സ് എന്റർ ചെയ്യുക  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">38</context>
@@ -676,7 +962,7 @@
       </trans-unit>
       <trans-unit id="8012344910054029733" datatype="html">
         <source>Male</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>പുരുഷൻ  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">46</context>
@@ -684,7 +970,7 @@
       </trans-unit>
       <trans-unit id="5667840900782067941" datatype="html">
         <source>Female</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>സ്ത്രീ  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">47</context>
@@ -692,7 +978,7 @@
       </trans-unit>
       <trans-unit id="1117938896811518960" datatype="html">
         <source>Please select your sex.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>നിങ്ങളുടെ സെക്സ്  തിരഞ്ഞെടുക്കുക. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">50</context>
@@ -700,7 +986,7 @@
       </trans-unit>
       <trans-unit id="8020402390620783618" datatype="html">
         <source>Education</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>വിദ്യാഭ്യാസം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">71</context>
@@ -708,7 +994,7 @@
       </trans-unit>
       <trans-unit id="5318919276110084725" datatype="html">
         <source>Occupation</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>ജോലി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">80</context>
@@ -716,7 +1002,7 @@
       </trans-unit>
       <trans-unit id="2217151238786141335" datatype="html">
         <source>Church Name</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>സഭ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">88</context>
@@ -724,7 +1010,7 @@
       </trans-unit>
       <trans-unit id="8194554728555410336" datatype="html">
         <source>Phone Number</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>ഫോൺ നമ്പർ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">94</context>
@@ -732,7 +1018,7 @@
       </trans-unit>
       <trans-unit id="5686828123659303197" datatype="html">
         <source>Phone number is required.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>ഫോൺ നമ്പർ എന്റർ ചെയ്യുക </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">97</context>
@@ -740,7 +1026,7 @@
       </trans-unit>
       <trans-unit id="8602814243662345124" datatype="html">
         <source>Email is required.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target> ഇമെയിൽ ഐഡി എന്റർ ചെയ്യുക </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">107,108</context>
@@ -748,7 +1034,7 @@
       </trans-unit>
       <trans-unit id="3174495843910953299" datatype="html">
         <source>Invalid email format.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>ഇമെയിൽ ഫോർമാറ്റ് അസാധുവാണ് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">109,110</context>
@@ -756,7 +1042,7 @@
       </trans-unit>
       <trans-unit id="8169207922827056818" datatype="html">
         <source>Marital Status</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>മാരിറ്റൽ  സ്റ്റാറ്റസ്  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">118</context>
@@ -764,7 +1050,7 @@
       </trans-unit>
       <trans-unit id="3413004253239957216" datatype="html">
         <source>Single</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>സിംഗിൾ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">120</context>
@@ -772,7 +1058,7 @@
       </trans-unit>
       <trans-unit id="1832809533651384093" datatype="html">
         <source>Married</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>വിവാഹിതൻ/വിവാഹിത</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">121</context>
@@ -780,7 +1066,7 @@
       </trans-unit>
       <trans-unit id="6326735676155119028" datatype="html">
         <source>Please select your marital status.</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>ദയവായി നിങ്ങളുടെ മാരിറ്റൽ  സ്റ്റാറ്റസ്  തിരഞ്ഞെടുക്കുക. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">124</context>
@@ -788,7 +1074,7 @@
       </trans-unit>
       <trans-unit id="6020001566132757906" datatype="html">
         <source>Session Type</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>സെഷന്റെ ടൈപ്പ്  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">129</context>
@@ -796,7 +1082,7 @@
       </trans-unit>
       <trans-unit id="9098374844066438253" datatype="html">
         <source>In-Person</source>
-        <target>ഫീഡ്ബാക്ക് </target>
+        <target>നേരിട്ട് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">131</context>
@@ -858,6 +1144,215 @@
           <context context-type="linenumber">157,158</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="172699377993238502" datatype="html">
+        <source> Premarital Registration Form </source>
+        <target>പ്രീമാരിറ്റൽ  രെജിസ്‌ട്രേഷൻ  ഫോം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4841246928267486909" datatype="html">
+        <source>First Name is required.</source>
+        <target>ഫസ്റ്റ്  നെയിം എന്റർ ചെയ്യുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1761459821395698863" datatype="html">
+        <source>Last Name is required.</source>
+        <target>ലാസ്‌റ്  നെയിം എന്റർ ചെയ്യുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="6713279873470680022" datatype="html">
+        <source>Age is required.</source>
+        <target>പ്രായം എന്റർ ചെയ്യുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">62,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5725519301098748973" datatype="html">
+        <source>Minimum valid age is 1.</source>
+        <target>കുറഞ്ഞ സാധുവായ പ്രായം 1 വയസ്സ് ആണ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">64,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1919857028441345205" datatype="html">
+        <source>Maximum valid age is 120.</source>
+        <target>പരമാവധി സാധുവായ പ്രായം 120 ആണ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5140074774987488251" datatype="html">
+        <source>Education field is required.</source>
+        <target> വിദ്യാഭ്യാസം എന്റർ ചെയ്യുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4390649101822458092" datatype="html">
+        <source>Occupation field is required.</source>
+        <target> തൊഴിൽ ഫീൽഡ്  പൂരിപ്പിക്കുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3164346036811171308" datatype="html">
+        <source>Church Name is required.</source>
+        <target>സഭയുടെ   പേര് എന്റർ ചെയ്യുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5051459834448519055" datatype="html">
+        <source>Church Activities</source>
+        <target>ചർച്ച്  ആക്ടിവിറ്റീസ്  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4334862979075740757" datatype="html">
+        <source>Choir Member</source>
+        <target>കൊയർ  മെമ്പർ  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1744009516673957072" datatype="html">
+        <source>S. S. Teacher</source>
+        <target>സൺ‌ഡേ സ്കൂൾ ടീച്ചർ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1972581809934626919" datatype="html">
+        <source>Youth Fellowship</source>
+        <target>യൂത്ത്  ഫെല്ലോഷിപ്പ്  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8693603235657020323" datatype="html">
+        <source>Other</source>
+        <target>മറ്റുള്ളവ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5815761082773517077" datatype="html">
+        <source>Fiancé/Fiancée Name</source>
+        <target> പ്രതിശ്രുത വരന്റെ/പ്രതിശ്രുത വധുവിന്റെ പേര് </target>
+       <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3817783417782352862" datatype="html">
+        <source>Date of Marriage</source>
+        <target>വിവാഹ തീയതി </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3309764869185082285" datatype="html">
+        <source>Email id</source>
+        <target>ഇമെയിൽ ഐഡി </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2351905710775126919" datatype="html">
+        <source>This email is already registered.</source>
+        <target>ഈ  ഇമെയിൽ ഐഡി മുൻപ് ഉപയോഗിച്ചിട്ടുണ്ട്.ദയവായി മറ്റൊരു ഇമെയിൽ ഈദ് ഉപയോഗിക്കുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="861730928701307258" datatype="html">
+        <source>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</source>
+        <target>Gmail, Outlook, Yahoo, Hotmail എന്നിവയും ജനപ്രിയ ഇമെയിൽ ദാതാക്കളും മാത്രമേ അനുവദിക്കൂ.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3019251803682304718" datatype="html">
+        <source>No.of days</source>
+        <target>ദിവസങ്ങളുടെ എണ്ണം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7255603202519942975" datatype="html">
+        <source> 1 Day (Only with the Bishop&apos;s permission) </source>
+        <target>1 ദിവസം (ബിഷപ്പിന്റെ അനുമതിയോടെ മാത്രം) </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2947266466355516293" datatype="html">
+        <source>3 Days</source>
+        <target>3 ദിവസം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7042796217821078544" datatype="html">
+        <source>Please select the number of days.</source>
+        <target>ദിവസങ്ങളുടെ എണ്ണം തിരഞ്ഞെടുക്കുക. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6617655877574151210" datatype="html">
+        <source>Please select a session.</source>
+        <target>ദയവായി ഒരു സെഷൻ തിരഞ്ഞെടുക്കുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">179</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8185933374950594056" datatype="html">
+        <source>Upload Witness of Vicar</source>
+        <target>വികാരിയുടെ സാക്ഷ്യപത്രം അപ്‌ലോഡ് ചെയ്യുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">201,202</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6751421320012486022" datatype="html">
+        <source>I would like to attend the premarital counselling course.</source>
+        <target>പ്രീമാരിറ്റൽ കൗൺസിലിംഗ് കോഴ്‌സിൽ പങ്കെടുക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">223,224</context>
+        </context-group>
+      </trans-unit>
        <trans-unit id="2312868286639432122" datatype="html">
         <source>Choose a Registration Type</source>
         <target>രജിസ്ട്രേഷൻ ടൈപ്പ്  തിരഞ്ഞെടുക്കുക </target>
@@ -874,12 +1369,28 @@
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="6911062079921906273" datatype="html">
+        <source>Premarital Counselling</source>
+        <target>പ്രീമാരിറ്റൽ  കൗൺസലിങ്  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7455424108310856558" datatype="html">
         <source> A 3-day program to prepare couples for a committed and faithful marriage. </source>
         <target>3 ദിവസത്തെ പ്രീ മാരിറ്റൽ കൗൺസിലിങ്  </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.html</context>
           <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7643047932156050295" datatype="html">
+        <source>General Counselling</source>
+        <target>ജനറൽ  കൗൺസലിങ്  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5633130290248743815" datatype="html">

@@ -2,6 +2,62 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="470633038250390923" datatype="html">
+        <source> CSI Counselling Centre, Kottayam </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="649308571231942992" datatype="html">
+        <source>Healing Minds. Empowering Lives.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="920281652409261245" datatype="html">
+        <source>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="643511603922236880" datatype="html">
+        <source>Book Appointment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4428615029049824725" datatype="html">
+        <source>Who We Are</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1279138299250820254" datatype="html">
+        <source> With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided by a commitment to mental, emotional, and spiritual well-being. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9063344890262493319" datatype="html">
+        <source>Our Services</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">45,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7332871512707001452" datatype="html">
+        <source>Why Choose Us?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">77,79</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="5988282777895538729" datatype="html">
         <source>📍 Visit Us</source>
         <context-group purpose="location">
@@ -78,6 +134,198 @@
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">178,180</context>
         </context-group>
+      </trans-unit>
+      <trans-unit id="Individual Counselling" datatype="html">
+        <source>Individual Counselling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Individual Counselling Description" datatype="html">
+        <source>Personal &amp; online sessions for stress, anxiety, grief, and related challenges.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Couple &amp; Family Therapy" datatype="html">
+        <source>Couple &amp; Family Therapy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Couple &amp; Family Therapy description" datatype="html">
+        <source>Resolve conflicts and strengthen family relationships with professional guidance.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Child &amp; Adolescent Therapy" datatype="html">
+        <source>Child &amp; Adolescent Therapy</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Child &amp; Adolescent Therapy description" datatype="html">
+        <source>Support for behavioral, academic, emotional development, and career guidance.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Psychodiagnostics" datatype="html">
+        <source>Psychodiagnostics</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Psychodiagnostics description" datatype="html">
+        <source>Assessments for learning difficulties, psychological testing, and career planning.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Premarital Counselling" datatype="html">
+        <source>Premarital Counselling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Premarital Counselling description" datatype="html">
+        <source>Three-day residential program to prepare couples for a strong and faithful marriage. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Pre-confirmational Counselling" datatype="html">
+        <source>Pre-confirmational Counselling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Pre-confirmational Counselling description" datatype="html">
+        <source> A certified half/one day programme to guide and educate youth preparing for confirmation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="School &amp; College Outreach Programmes" datatype="html">
+        <source>School &amp; College Outreach Programmes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="School &amp; College Outreach Programmes subtitle" datatype="html">
+        <source>S.H.A.P.E. - Student’s Holistic and Pragmatic Empowerment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="School &amp; College Outreach Programmes description" datatype="html">
+        <source>Empowering individuals to ensure holistic wellbeing through counselling and other initiatives.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Faith-Sensitive Care" datatype="html">
+        <source>Faith-Sensitive Care</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Faith-Sensitive Care description" datatype="html">
+        <source>Confidential counselling with sensitivity to Christian values.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Experienced Team" datatype="html">
+        <source>Experienced Team</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2701382886087063861" datatype="html">
+        <source>@@Experienced Team description:Panel of certified psychologists, pastoral counsellors, and clergy.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Holistic Healing" datatype="html">
+        <source>Holistic Healing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Holistic Healing description" datatype="html">
+        <source>Integration of professional therapy with spiritual care and support.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Accessible Services" datatype="html">
+        <source>Accessible Services</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3658859389710380278" datatype="html">
+        <source>Both in-person and online appointments at affordable rates.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">90</context>
+        </context-group>
+        <note priority="1" from="description">Accessible Services description</note>
+      </trans-unit>
+      <trans-unit id="Community Outreach" datatype="html">
+        <source>Community Outreach</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8433920847161446299" datatype="html">
+        <source>SHAPE programs, leadership workshops, and mental health campaigns.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+        <note priority="1" from="description">Community Outreach description</note>
+      </trans-unit>
+      <trans-unit id="Safe Environment" datatype="html">
+        <source>Safe Environment</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4268516236429570655" datatype="html">
+        <source>A non-judgmental and peaceful setting for personal growth and healing.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">100</context>
+        </context-group>
+        <note priority="1" from="description">Safe Environment description</note>
       </trans-unit>
       <trans-unit id="4453176063787191635" datatype="html">
         <source>Welcome back, Admin!</source>
@@ -215,6 +463,10 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">10</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4407559560004943843" datatype="html">
         <source>Last Name</source>
@@ -225,6 +477,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2742532852742169962" datatype="html">
@@ -237,12 +493,20 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">44</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="1130652265542107236" datatype="html">
         <source>Age</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">79,80</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4768749765465246664" datatype="html">
@@ -271,7 +535,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
-          <context context-type="linenumber">40,41</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">170</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1645793123584415975" datatype="html">
@@ -400,25 +668,39 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7741873707372237131" datatype="html">
-        <source>sessions</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="2456043080471762298" datatype="html">
         <source>delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6386281131533761953" datatype="html">
         <source>No sessions available for</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
-          <context context-type="linenumber">84,85</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="noSessions" datatype="html">
+        <source>No sessions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.ts</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="oneSession" datatype="html">
+        <source>1 session</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.ts</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="multipleSessions" datatype="html">
+        <source> # sessions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.ts</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="133207310816409726" datatype="html">
@@ -587,12 +869,20 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">26</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="1171954686195477220" datatype="html">
         <source>Father&apos;s Name is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">29</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6304432362546770951" datatype="html">
@@ -601,12 +891,20 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">35</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4588590290359822685" datatype="html">
         <source>Address is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8012344910054029733" datatype="html">
@@ -615,6 +913,10 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">46</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="5667840900782067941" datatype="html">
         <source>Female</source>
@@ -622,12 +924,20 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">47</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="1117938896811518960" datatype="html">
         <source>Please select your sex.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8020402390620783618" datatype="html">
@@ -643,12 +953,20 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">80</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="2217151238786141335" datatype="html">
         <source>Church Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">88</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8194554728555410336" datatype="html">
@@ -657,12 +975,20 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">94</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">132</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="5686828123659303197" datatype="html">
         <source>Phone number is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">97</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8602814243662345124" datatype="html">
@@ -671,12 +997,20 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">107,108</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="3174495843910953299" datatype="html">
         <source>Invalid email format.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">109,110</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8169207922827056818" datatype="html">
@@ -741,6 +1075,10 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">141,142</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">186,187</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="2560617820933754032" datatype="html">
         <source>Choose Photo</source>
@@ -762,12 +1100,199 @@
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">152</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">225</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="7357660892389602280" datatype="html">
         <source>Submit Registration</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">157,158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="172699377993238502" datatype="html">
+        <source> Premarital Registration Form </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4841246928267486909" datatype="html">
+        <source>First Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1761459821395698863" datatype="html">
+        <source>Last Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="6713279873470680022" datatype="html">
+        <source>Age is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">62,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5725519301098748973" datatype="html">
+        <source>Minimum valid age is 1.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">64,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1919857028441345205" datatype="html">
+        <source>Maximum valid age is 120.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5140074774987488251" datatype="html">
+        <source>Education field is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4390649101822458092" datatype="html">
+        <source>Occupation field is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3164346036811171308" datatype="html">
+        <source>Church Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5051459834448519055" datatype="html">
+        <source>Church Activities</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4334862979075740757" datatype="html">
+        <source>Choir Member</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1744009516673957072" datatype="html">
+        <source>S. S. Teacher</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">104</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1972581809934626919" datatype="html">
+        <source>Youth Fellowship</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8693603235657020323" datatype="html">
+        <source>Other</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5815761082773517077" datatype="html">
+        <source>Fiancé/Fiancée Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3817783417782352862" datatype="html">
+        <source>Date of Marriage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3309764869185082285" datatype="html">
+        <source>Email id</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2351905710775126919" datatype="html">
+        <source>This email is already registered.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">143</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="861730928701307258" datatype="html">
+        <source>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3019251803682304718" datatype="html">
+        <source>No.of days</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7255603202519942975" datatype="html">
+        <source> 1 Day (Only with the Bishop&apos;s permission) </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2947266466355516293" datatype="html">
+        <source>3 Days</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7042796217821078544" datatype="html">
+        <source>Please select the number of days.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6617655877574151210" datatype="html">
+        <source>Please select a session.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">179</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8185933374950594056" datatype="html">
+        <source>Upload Witness of Vicar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">201,202</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6751421320012486022" datatype="html">
+        <source>I would like to attend the premarital counselling course.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">223,224</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2312868286639432122" datatype="html">
@@ -784,11 +1309,25 @@
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6911062079921906273" datatype="html">
+        <source>Premarital Counselling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7455424108310856558" datatype="html">
         <source> A 3-day program to prepare couples for a committed and faithful marriage. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.html</context>
           <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7643047932156050295" datatype="html">
+        <source>General Counselling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5633130290248743815" datatype="html">
@@ -807,6 +1346,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.html</context>
           <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1558143461517356117" datatype="html">
+        <source>Meet Our Team</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/team-members/team-members.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2986049664124147963" datatype="html">
+        <source> With a panel of certified counsellors, psychologists, and clergy dedicated to your holistic healing. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/team-members/team-members.html</context>
+          <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
     </body>
