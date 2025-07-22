@@ -37,6 +37,7 @@ import {
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -114,6 +115,9 @@ export class PremaritalComponent {
   readonly selectedYear = signal<number | null>(new Date().getFullYear());
   // Store selected session
   readonly selectedSession = signal<string | null>(null);
+  private lastSelectedYear: number | null = null;
+  readonly isApproving = signal<number | null>(null);
+  private _snackBar = inject(MatSnackBar);
 
   baseApiUrl = API_ROOT_URL;
   expandedElement: any = null;
@@ -129,7 +133,6 @@ export class PremaritalComponent {
       this.activeSessionOnly(),
       this.selectedYear(),
       this.selectedSession(),
-      this.filterTrigger(),
     ])
   ).pipe(
     switchMap(
@@ -143,6 +146,11 @@ export class PremaritalComponent {
         selectedYear,
         selectedSession,
       ]) => {
+        // If selectedYear changed, reset selectedSession to null before calling API
+        if (selectedSession !== null && this.shouldResetSession(selectedYear)) {
+          this.selectedSession.set(null);
+          selectedSession = null;
+        }
         this.isLoading.set(true); // start spinner
         return this.premaritalRegisterService
           .apiPremaritalRegisterFilterGet({
@@ -174,6 +182,15 @@ export class PremaritalComponent {
       }
     )
   );
+
+  private shouldResetSession(newYear: any): boolean {
+    if (this.lastSelectedYear !== null && this.lastSelectedYear !== newYear) {
+      this.lastSelectedYear = newYear;
+      return true;
+    }
+    this.lastSelectedYear = newYear;
+    return false;
+  }
 
   protected readonly registrations = toSignal(this.registrations$, {
     initialValue: [],
@@ -280,6 +297,8 @@ export class PremaritalComponent {
     const dialogRef = this.dialog.open(ConfirmationDialog);
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      this.isApproving.set(reg.Id);
+
       if (confirmed) {
         const updated = {
           ...reg,
@@ -293,9 +312,13 @@ export class PremaritalComponent {
           .subscribe({
             next: () => {
               reg.PaymentStatus = !reg.PaymentStatus;
+              this.isApproving.set(null);
+
               this.refreshTrigger.set(this.refreshTrigger() + 1); // triggers new data from API
             },
             error: (err) => {
+              this.isApproving.set(null);
+
               console.error('Payment update failed', err);
               alert('Failed to update payment status. Please try again.');
             },
@@ -303,6 +326,7 @@ export class PremaritalComponent {
       }
     });
   }
+
   async downloadAsPDF(): Promise<void> {
     const doc = new jsPDF({
       orientation: 'portrait',
@@ -314,70 +338,81 @@ export class PremaritalComponent {
     doc.text('Premarital Registrations Report', 40, 40);
 
     const data = this.registrations();
+    if (data.length) {
+      for (let index = 0; index < data.length; index++) {
+        const reg = data[index];
+        const yOffset = 60 + index * 180;
 
-    for (let index = 0; index < data.length; index++) {
-      const reg = data[index];
-      const yOffset = 60 + index * 180;
+        if (yOffset > doc.internal.pageSize.height - 200) {
+          doc.addPage();
+        }
 
-      if (yOffset > doc.internal.pageSize.height - 200) {
-        doc.addPage();
-      }
+        const baseY = doc.lastAutoTable
+          ? doc.lastAutoTable.finalY + 20
+          : yOffset;
 
-      const baseY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 20 : yOffset;
-
-      autoTable(doc, {
-        startY: baseY,
-        head: [['Field', 'Value']],
-        body: [
-          ['Full Name', `${reg.FirstName} ${reg.LastName}`],
-          ['Sex', reg.Sex],
-          ['Age', reg.Age],
-          ['Email', reg.Email],
-          ['Phone', reg.Phone],
-          ['Father Name', reg.FatherName],
-          ['Address', reg.Address],
-          ['Education', reg.Education],
-          ['Occupation', reg.Occupation],
-          ['Church', reg.ChurchName],
-          ['Fiancé Name', reg.FianceName],
-          ['Session Name', reg.SessionName],
-          ['Session Days', reg.Days],
-          [
-            'Date of Marriage',
-            new Date(reg.DateOfMarriage).toLocaleDateString(),
+        autoTable(doc, {
+          startY: baseY,
+          head: [['Field', 'Value']],
+          body: [
+            ['Full Name', `${reg.FirstName} ${reg.LastName}`],
+            ['Sex', reg.Sex],
+            ['Age', reg.Age],
+            ['Email', reg.Email],
+            ['Phone', reg.Phone],
+            ['Father Name', reg.FatherName],
+            ['Address', reg.Address],
+            ['Education', reg.Education],
+            ['Occupation', reg.Occupation],
+            ['Church', reg.ChurchName],
+            ['Fiancé Name', reg.FianceName],
+            ['Session Name', reg.SessionName],
+            ['Session Days', reg.Days],
+            [
+              'Date of Marriage',
+              new Date(reg.DateOfMarriage).toLocaleDateString(),
+            ],
+            [
+              'Church Activities',
+              this.getSelectedActivities(reg.ChurchActivities).join(', ') ||
+                'None',
+            ],
+            ['Payment Status', reg.PaymentStatus ? 'Received' : 'Pending'],
+            ['Vicar Letter', reg.VicarLetterUrl ? reg.VicarLetterUrl : 'N/A'],
           ],
-          [
-            'Church Activities',
-            this.getSelectedActivities(reg.ChurchActivities).join(', ') ||
-              'None',
-          ],
-          ['Payment Status', reg.PaymentStatus ? 'Received' : 'Pending'],
-          ['Vicar Letter', reg.VicarLetterUrl ? reg.VicarLetterUrl : 'N/A'],
-        ],
-        styles: {
-          fontSize: 10,
-          cellPadding: 4,
-        },
-        theme: 'grid',
-        headStyles: {
-          fillColor: [63, 81, 181],
-          textColor: 255,
-        },
-        margin: { left: 40, right: 40 },
-      });
+          styles: {
+            fontSize: 10,
+            cellPadding: 4,
+          },
+          theme: 'grid',
+          headStyles: {
+            fillColor: [63, 81, 181],
+            textColor: 255,
+          },
+          margin: { left: 40, right: 40 },
+        });
 
-      // Add photo image (if exists)
-      if (reg.PhotoUrl) {
-        try {
-          const imageData = await this.getBase64ImageFromUrl(reg.PhotoUrl);
-          doc.addImage(imageData, 'JPEG', 400, baseY + 20, 100, 100);
-        } catch (e) {
-          console.warn('Could not load image', e);
+        // Add photo image (if exists)
+        if (reg.PhotoUrl) {
+          try {
+            const imageData = await this.getBase64ImageFromUrl(reg.PhotoUrl);
+            doc.addImage(imageData, 'JPEG', 400, baseY + 20, 100, 100);
+          } catch (e) {
+            console.warn('Could not load image', e);
+          }
         }
       }
-    }
 
-    doc.save('premarital-registrations-full.pdf');
+      doc.save('premarital-registrations-full.pdf');
+    }
+  }
+
+  handleDownload(): void {
+    if (this.registrations().length) {
+      this.downloadAsPDF();
+    } else {
+      this._snackBar.open('There are no registrations to download', 'OK');
+    }
   }
 
   private async getBase64ImageFromUrl(imageUrl: string): Promise<string> {

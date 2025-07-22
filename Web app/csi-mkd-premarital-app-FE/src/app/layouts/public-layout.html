@@ -1,20 +1,21 @@
 <header role="banner">
   <mat-toolbar
     color="primary"
-    class="flex flex-wrap justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
+    class="fixed top-0 left-0 right-0 z-50 flex flex-wrap justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
   >
     <!-- Left: CSI Logo -->
-    <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105">
+    <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105 cursor-pointer">
       <img
         src="assets/csi-logo.png"
         alt="CSI Church of South India Logo"
         class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain"
         role="img"
+        routerLink="/about"
       />
     </div>
 
     <!-- Center: Title -->
-    <div class="flex-1 text-center sm:block">
+    <div class="flex-1 text-center hover:scale-101 sm:block cursor-pointer" routerLink="/about">
       <h1
         class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500 pt-serif-bold"
         i18n
@@ -86,8 +87,9 @@
       <img
         src="assets/csi-mkd-logo.png"
         alt="CSI Madhya Kerala Diocese Logo"
-        class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain transition-transform duration-300 hover:scale-105"
+        class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain transition-transform duration-300 hover:scale-105 cursor-pointer"
         role="img"
+        routerLink="/about"
       />
     </div>
   </mat-toolbar>

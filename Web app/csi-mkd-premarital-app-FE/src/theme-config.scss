@@ -1,23 +1,52 @@
+// @use '@angular/material' as mat;
+// @use 'pink-colour-palette' as custom-palette;
+// // @use 'green-color-palette' as custom-palette;
+
+// html {
+//   @include mat.theme(
+//     (
+//       color: (
+//         primary: custom-palette.$primary-palette,
+//         accent: custom-palette.$tertiary-palette,
+//         warn: mat.$red-palette,
+
+//         // or use mat.$red-palette if needed
+//       ),
+//       // typography:
+//       //   mat.define-typography-config(
+//       //     (
+//       //       font-family: 'PT Serif',
+//       //     )
+//       //   ),
+//       density: 0,
+//     )
+//   );
+// }
+
+// @use '@angular/material' as mat;
+// @use 'pink-colour-palette' as custom;
+
+// html {
+//   @include mat.all-component-themes(
+//     mat.define-light-theme((
+//       color: (
+//         primary: custom.$primary-palette,
+//         accent: custom.$tertiary-palette,
+//         warn: mat.$red-palette,
+//       ),
+//       density: 0
+//     ))
+//   );
+// }
+
 @use '@angular/material' as mat;
-@use 'pink-colour-palette' as custom-palette;
-// @use 'green-color-palette' as custom-palette;
 
 html {
+  color-scheme: light;
   @include mat.theme(
     (
-      color: (
-        primary: custom-palette.$primary-palette,
-        accent: custom-palette.$tertiary-palette,
-        warn: mat.$red-palette,
-
-        // or use mat.$red-palette if needed
-      ),
-      // typography:
-      //   mat.define-typography-config(
-      //     (
-      //       font-family: 'PT Serif',
-      //     )
-      //   ),
+      color: mat.$rose-palette,
+      typography: 'PT Serif',
       density: 0,
     )
   );
