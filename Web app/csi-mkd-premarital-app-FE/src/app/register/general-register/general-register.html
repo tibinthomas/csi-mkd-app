@@ -1,7 +1,9 @@
-<section class="py-20 px-4">
+<section class="py-30 px-4">
   <mat-card class="max-w-4xl mx-auto p-6">
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl sm:text-3xl" i18n> General Registration Form </mat-card-title>
+      <mat-card-title class="text-center text-2xl sm:text-3xl pt-serif-bold" i18n>
+        General Registration Form
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
@@ -139,7 +141,9 @@
 
         <div>
           <label class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
-          <button mat-raised-button type="button" (click)="photoInput.click()" i18n>Choose Photo</button>
+          <button mat-raised-button type="button" class="pt-serif-bold" (click)="photoInput.click()" i18n>
+            Choose Photo
+          </button>
           <input #photoInput type="file" accept="image/*" (change)="onFileChange($event)" class="hidden" />
           @if (photoError()) {
           <mat-error>{{ photoError() }}</mat-error>
@@ -147,14 +151,16 @@
         </div>
 
         <div class="flex items-center gap-2">
-          <mat-checkbox formControlName="declaration" i18n> I would like to attend the counselling course. </mat-checkbox>
+          <mat-checkbox formControlName="declaration" i18n>
+            I would like to attend the counselling course.
+          </mat-checkbox>
           @if (isInvalid('declaration')) {
           <mat-error i18n>You must accept the declaration.</mat-error>
           }
         </div>
 
         <div>
-          <button mat-raised-button type="submit" class="w-full" i18n>Submit Registration</button>
+          <button mat-raised-button type="submit" class="w-full pt-serif-bold" i18n>Submit Registration</button>
         </div>
       </form>
     </mat-card-content>

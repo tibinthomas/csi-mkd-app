@@ -17,6 +17,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.html',
+  styleUrl: './feedback.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,

@@ -34,6 +34,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
   templateUrl: './general-register.html',
+  styleUrl: './general-register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeneralRegister {

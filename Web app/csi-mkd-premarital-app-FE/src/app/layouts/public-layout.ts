@@ -5,6 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
+import { MatSelectModule } from "@angular/material/select";
 
 @Component({
   selector: 'app-public-layout',
@@ -18,7 +19,8 @@ import { LanguageSelectorComponent } from '../shared/language-selector/language-
     MatMenuModule,
     LanguageSelectorComponent,
     RouterLinkActive,
-  ],
+    MatSelectModule
+],
   templateUrl: './public-layout.html',
 })
 export class PublicLayout {
