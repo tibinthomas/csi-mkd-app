@@ -15,10 +15,6 @@ body {
   font-family: 'PT Serif', sans-serif;
 }
 
-.active-link {
-  background-color: red;
-}
-
 @layer utilities {
   .animate-fade-slide {
     animation: fadeSlideIn 0.8s ease-out forwards;

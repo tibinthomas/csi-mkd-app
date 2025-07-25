@@ -13,6 +13,7 @@ import { Dashboard } from './admin/dashboard/dashboard';
 import { PremaritalComponent } from './admin/premarital/premarital';
 import { SessionConfig } from './admin/session-config/session-config';
 import { authGuard } from './core/auth/auth.guard';
+import { Sessions } from './sessions/sessions';
 
 export const routes: Routes = [
   // Public routes wrapped inside PublicLayout
@@ -28,6 +29,11 @@ export const routes: Routes = [
       { path: 'register', component: Register },
       { path: 'register/premarital-register', component: PremaritalRegister },
       { path: 'register/general-register', component: GeneralRegister },
+      { path: 'sessions', component: Sessions },
+      {
+        path: 'register/premarital-register/:sessionId',
+        component: PremaritalRegister,
+      },
     ],
   },
 
