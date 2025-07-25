@@ -20,7 +20,7 @@ namespace csi_mkd_premarital_app_BE.Services
             _emailService = emailService;
         }
 
-        public async Task<(int StatusCode, object Data)> Register(PremaritalRegistrationDto dto)
+        public async Task<(int StatusCode, object Data)> Register(PremaritalRegisterDto dto)
         {
             if (dto == null) return (400, new { message = "Invalid input" });
 

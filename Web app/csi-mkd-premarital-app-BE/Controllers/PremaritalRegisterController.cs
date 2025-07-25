@@ -16,7 +16,7 @@ public class PremaritalRegisterController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register([FromForm] PremaritalRegistrationDto dto)
+    public async Task<IActionResult> Register([FromForm] PremaritalRegisterDto dto)
     {
         var result = await _service.Register(dto);
         return StatusCode(result.StatusCode, result.Data);

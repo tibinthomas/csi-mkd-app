@@ -97,6 +97,8 @@ builder.Services.AddScoped<IPremaritalRegisterRepository, PremaritalRegisterRepo
 builder.Services.AddScoped<ISessionConfigService, SessionConfigService>();
 builder.Services.AddScoped<ISessionConfigRepository, SessionConfigRepository>();
 builder.Services.AddScoped<BlobStorageService>();
+builder.Services.AddScoped<IGeneralRegisterService, GeneralRegisterService>();
+builder.Services.AddScoped<IGeneralRegisterRepository, GeneralRegisterRepository>();
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

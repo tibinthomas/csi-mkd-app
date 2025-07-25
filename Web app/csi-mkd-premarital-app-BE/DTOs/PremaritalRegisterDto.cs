@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 namespace csi_mkd_premarital_app_BE.DTOs
 {
-    public class PremaritalRegistrationDto
+    public class PremaritalRegisterDto
     {
         public required string FirstName { get; set; }
         public required string LastName { get; set; }
