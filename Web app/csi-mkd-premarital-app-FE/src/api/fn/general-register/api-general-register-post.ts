@@ -9,16 +9,27 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface ApiPremaritalRegisterSaveFileUrlsPost$Params {
+export interface ApiGeneralRegisterPost$Params {
       body?: {
-'RegistrationId': number;
-'PhotoUrl': string;
-'VicarLetterUrl': string;
+'FirstName': string;
+'LastName': string;
+'FatherName': string;
+'Address': string;
+'Sex': string;
+'Age'?: number;
+'Education': string;
+'Occupation': string;
+'ChurchName'?: string;
+'Phone': string;
+'Email': string;
+'MaritalStatus': string;
+'SessionType': string;
+'Declaration'?: boolean;
 }
 }
 
-export function apiPremaritalRegisterSaveFileUrlsPost(http: HttpClient, rootUrl: string, params?: ApiPremaritalRegisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterSaveFileUrlsPost.PATH, 'post');
+export function apiGeneralRegisterPost(http: HttpClient, rootUrl: string, params?: ApiGeneralRegisterPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiGeneralRegisterPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'multipart/form-data');
   }
@@ -33,4 +44,4 @@ export function apiPremaritalRegisterSaveFileUrlsPost(http: HttpClient, rootUrl:
   );
 }
 
-apiPremaritalRegisterSaveFileUrlsPost.PATH = '/api/PremaritalRegister/save-file-urls';
+apiGeneralRegisterPost.PATH = '/api/GeneralRegister';

@@ -13,13 +13,21 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
-import { RegisterService } from '../../../api/services';
+import { GeneralRegisterService } from '../../../api/services';
+import { AzureUploadService } from '../../../api/services';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { switchMap } from 'rxjs';
+import { FileUploadService } from '../../core/services/file-upload.service';
+import { SuccessDialogComponent } from '../success-dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { emailDomainValidator } from '../../core/validators/email-domain.validator';
+import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 
 @Component({
   selector: 'app-general-register',
@@ -32,6 +40,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
   ],
   templateUrl: './general-register.html',
   styleUrl: './general-register.scss',
@@ -39,7 +49,10 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class GeneralRegister {
   private readonly fb = inject(FormBuilder);
-  private readonly registerService = inject(RegisterService);
+  private readonly generalRegisterService = inject(GeneralRegisterService);
+  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly fileUploadService = inject(FileUploadService);
+  readonly dialog = inject(MatDialog);
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -50,6 +63,8 @@ export class GeneralRegister {
   protected readonly photoError = signal('');
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
+  photoFileName: string | null = '';
+  showErrorModal = signal(false);
 
   constructor() {
     this.form = this.fb.group({
@@ -63,11 +78,27 @@ export class GeneralRegister {
       occupation: ['', Validators.required],
       churchName: [''],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: [
+        '',
+        {
+          validators: [
+            Validators.required,
+            Validators.email,
+            emailDomainValidator(),
+          ],
+          asyncValidators: [
+            emailExistsValidatorFactory((email) =>
+              this.generalRegisterService.apiGeneralRegisterCheckEmailGet({
+                email,
+              })
+            ),
+          ],
+          updateOn: 'blur',
+        },
+      ],
       maritalStatus: ['', Validators.required],
       sessionType: ['', Validators.required],
       declaration: [false, Validators.requiredTrue],
-      photoFile: [null, Validators.required],
     });
   }
 
@@ -79,6 +110,8 @@ export class GeneralRegister {
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0] || null;
+    this.photoFileName = file && file.name;
+
     if (file && !file.type.startsWith('image/')) {
       this.photoError.set('Only image files are allowed.');
       this.photoFile.set(null);
@@ -94,6 +127,8 @@ export class GeneralRegister {
     this.formSubmitted.set(false);
     this.isSubmitting.set(false);
     this.photoFile.set(null);
+    this.photoFileName = '';
+
     this.photoError.set('');
     if (this.photoInput) {
       this.photoInput.nativeElement.value = '';
@@ -112,6 +147,8 @@ export class GeneralRegister {
       return;
     }
 
+    const photo = this.photoFile()!;
+
     const raw = this.form.value;
 
     const body = {
@@ -129,20 +166,53 @@ export class GeneralRegister {
       MaritalStatus: raw.maritalStatus,
       SessionType: raw.sessionType,
       Declaration: raw.declaration,
-      Photo: this.photoFile() as Blob,
     };
 
     this.isSubmitting.set(true);
 
-    this.registerService.apiRegisterPost({ body }).subscribe({
-      next: () => {
-        this.successMessage.set('Registration submitted successfully!');
-        this.resetForm();
-      },
-      error: (err) => {
-        console.error(err);
-        this.errorMessage.set('Submission failed. Please try again.');
-        this.isSubmitting.set(false);
+    this.generalRegisterService.apiGeneralRegisterPost({ body }).subscribe({
+      next: (response: any) => {
+        const registerId: number = JSON.parse(response).id;
+        this.azureUploadService
+          .apiAzureUploadGenerateSasGet({
+            fileName: `${registerId}/photo/${photo.name}`,
+            contentType: photo.type,
+          })
+          .pipe(
+            switchMap((photoSasUrl) =>
+              this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!)
+            )
+          )
+          .subscribe({
+            next: (photoSasUrl) => {
+              const body = {
+                RegistrationId: registerId,
+                PhotoUrl: photoSasUrl,
+              };
+              this.generalRegisterService
+                .apiGeneralRegisterSavePhotoUrlPost({ body })
+                .subscribe({
+                  next: () => {
+                    this.successMessage.set(
+                      'Registration submitted successfully!'
+                    );
+                    this.dialog.open(SuccessDialogComponent, {
+                      width: '400px',
+                      disableClose: true,
+                    });
+                    this.resetForm();
+                  },
+                  error: (err) => {
+                    console.error(err);
+                    this.errorMessage.set(
+                      'File Upload failed. Please try again.'
+                    );
+                    this.showErrorModal.set(true);
+                    this.isSubmitting.set(false);
+                  },
+                });
+            },
+          });
       },
     });
   }

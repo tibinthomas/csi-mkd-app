@@ -4,19 +4,21 @@ import {
   ValidationErrors,
 } from '@angular/forms';
 import { inject } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { debounceTime, switchMap, map, catchError } from 'rxjs/operators';
-import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
 
-export function uniqueEmailValidator(): AsyncValidatorFn {
-  const service = inject(PremaritalRegisterService);
+type EmailCheckFn = (email: string) => Observable<any>;
+
+export function emailExistsValidatorFactory(
+  checkEmailFn: EmailCheckFn
+): AsyncValidatorFn {
   return (control: AbstractControl) => {
     if (!control.value) return of(null);
-    console.log('Validator triggered with:', control.value);
+
     return of(control.value).pipe(
       debounceTime(300),
       switchMap((email) =>
-        service.apiPremaritalRegisterCheckEmailGet({ email }).pipe(
+        checkEmailFn(email).pipe(
           map((res: any) => {
             try {
               const data = typeof res === 'string' ? JSON.parse(res) : res;

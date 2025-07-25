@@ -9,16 +9,15 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface ApiPremaritalRegisterSaveFileUrlsPost$Params {
+export interface ApiGeneralRegisterSavePhotoUrlPost$Params {
       body?: {
 'RegistrationId': number;
 'PhotoUrl': string;
-'VicarLetterUrl': string;
 }
 }
 
-export function apiPremaritalRegisterSaveFileUrlsPost(http: HttpClient, rootUrl: string, params?: ApiPremaritalRegisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterSaveFileUrlsPost.PATH, 'post');
+export function apiGeneralRegisterSavePhotoUrlPost(http: HttpClient, rootUrl: string, params?: ApiGeneralRegisterSavePhotoUrlPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiGeneralRegisterSavePhotoUrlPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'multipart/form-data');
   }
@@ -33,4 +32,4 @@ export function apiPremaritalRegisterSaveFileUrlsPost(http: HttpClient, rootUrl:
   );
 }
 
-apiPremaritalRegisterSaveFileUrlsPost.PATH = '/api/PremaritalRegister/save-file-urls';
+apiGeneralRegisterSavePhotoUrlPost.PATH = '/api/GeneralRegister/save-photo-url';

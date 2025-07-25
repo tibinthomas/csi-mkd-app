@@ -7,6 +7,6 @@ export { AzureUploadService } from './services/azure-upload.service';
 export { CsiMkdPremaritalAppBeService } from './services/csi-mkd-premarital-app-be.service';
 export { EmailConfigService } from './services/email-config.service';
 export { FeedbackService } from './services/feedback.service';
+export { GeneralRegisterService } from './services/general-register.service';
 export { PremaritalRegisterService } from './services/premarital-register.service';
-export { RegisterService } from './services/register.service';
 export { SessionConfigService } from './services/session-config.service';

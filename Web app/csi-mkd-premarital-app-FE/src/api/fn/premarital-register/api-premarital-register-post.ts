@@ -8,57 +8,47 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+
 export interface ApiPremaritalRegisterPost$Params {
-  body?: {
-    FirstName: string;
-    LastName: string;
-    FatherName: string;
-    Address: string;
-    Sex: string;
-    Age: number;
-    Education: string;
-    Occupation: string;
-    ChurchName: string;
-    FianceName?: string;
-    DateOfMarriage?: string;
-    Phone: string;
-    Email: string;
-    Days: string;
-    ChoirMember?: boolean;
-    SsTeacher?: boolean;
-    YouthFellowship?: boolean;
-    Other?: string;
-    Declaration: boolean;
-    SessionId: number;
-    PaymentStatus?: boolean;
-  };
+      body?: {
+'FirstName': string;
+'LastName': string;
+'FatherName': string;
+'Address': string;
+'Sex': string;
+'Age': number;
+'Education': string;
+'Occupation': string;
+'ChurchName': string;
+'FianceName'?: string;
+'DateOfMarriage'?: string;
+'Phone': string;
+'Email': string;
+'Days': string;
+'ChoirMember'?: boolean;
+'SsTeacher'?: boolean;
+'YouthFellowship'?: boolean;
+'Other'?: string;
+'Declaration': boolean;
+'SessionId': number;
+'PaymentStatus'?: boolean;
+}
 }
 
-export function apiPremaritalRegisterPost(
-  http: HttpClient,
-  rootUrl: string,
-  params?: ApiPremaritalRegisterPost$Params,
-  context?: HttpContext
-): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(
-    rootUrl,
-    apiPremaritalRegisterPost.PATH,
-    'post'
-  );
+export function apiPremaritalRegisterPost(http: HttpClient, rootUrl: string, params?: ApiPremaritalRegisterPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterPost.PATH, 'post');
   if (params) {
     rb.body(params.body, 'multipart/form-data');
   }
 
-  return http
-    .request(rb.build({ responseType: 'text', accept: '*/*', context }))
-    .pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({
-          body: undefined,
-        }) as StrictHttpResponse<void>;
-      })
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 apiPremaritalRegisterPost.PATH = '/api/PremaritalRegister';

@@ -100,17 +100,19 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Email</mat-label>
+          <mat-form-field appearance="fill" class="w-full mb-2">
+            <mat-label class="pt-serif-regular" i18n>Email id</mat-label>
             <input matInput type="email" formControlName="email" />
-            @if (isInvalid('email')) {
-            <mat-error>
-              @if (form.get('email')?.errors?.['required']) {
-              <span i18n>Email is required.</span>
-              } @if (form.get('email')?.errors?.['email']) {
-              <span i18n>Invalid email format.</span>
-              }
-            </mat-error>
+            @if (form.get('email')?.touched && form.get('email')?.errors?.['emailTaken']) {
+            <mat-error class="pt-serif-regular" i18n>This email is already registered.</mat-error>
+            } @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
+            <mat-error class="pt-serif-regular" i18n>Email is required.</mat-error>
+            } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
+            <mat-error class="pt-serif-regular" i18n>Invalid email format.</mat-error>
+            } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
+            <mat-error class="pt-serif-regular" i18n
+              >Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error
+            >
             }
           </mat-form-field>
         </div>
@@ -139,14 +141,37 @@
           </mat-form-field>
         </div>
 
-        <div>
-          <label class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
-          <button mat-raised-button type="button" class="pt-serif-bold" (click)="photoInput.click()" i18n>
-            Choose Photo
+        <!-- Upload Photo -->
+        <div class="mb-6" role="group" aria-labelledby="photo-upload-label">
+          <label id="photo-upload-label" class="block font-medium mb-2 pt-serif-regular" i18n
+            >Upload Passport Size Photo</label
+          >
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="photoInput.click()"
+            class="pt-serif-bold"
+            aria-describedby="photo-upload-help"
+          >
+            <mat-icon aria-hidden="true">upload</mat-icon>
+            <span i18n>Choose photo</span>
           </button>
-          <input #photoInput type="file" accept="image/*" (change)="onFileChange($event)" class="hidden" />
-          @if (photoError()) {
-          <mat-error>{{ photoError() }}</mat-error>
+          <input
+            #photoInput
+            type="file"
+            accept="image/*"
+            (change)="onFileChange($event)"
+            hidden
+            aria-labelledby="photo-upload-label"
+            aria-describedby="photo-upload-help"
+          />
+          <div id="photo-upload-help" class="sr-only" i18n>Please select a passport size photo in image format</div>
+
+          @if (photoFileName) {
+          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ photoFileName }}</span>
+          } @if (photoError()) {
+          <mat-error class="pt-serif-regular" role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
           }
         </div>
 
@@ -159,8 +184,20 @@
           }
         </div>
 
-        <div>
-          <button mat-raised-button type="submit" class="w-full pt-serif-bold" i18n>Submit Registration</button>
+        <div class="flex justify-center">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="pt-serif-bold"
+            [disabled]="isSubmitting()"
+            [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
+          >
+            {{ isSubmitting() ? "Submitting..." : "Register" }}
+          </button>
+          @if (isSubmitting()) {
+          <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>
+          }
         </div>
       </form>
     </mat-card-content>
