@@ -51,10 +51,12 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
             if (!string.IsNullOrWhiteSpace(filter.Search))
             {
+                var search = filter.Search.ToLower();
+
                 query = query.Where(r =>
-                    r.FirstName.Contains(filter.Search) ||
-                    r.LastName.Contains(filter.Search) ||
-                    r.Email.Contains(filter.Search));
+                    r.FirstName.ToLower().Contains(search) ||
+                    r.LastName.ToLower().Contains(search) ||
+                    r.Email.ToLower().Contains(search));
             }
 
             if (filter.UnapprovedOnly == true)
