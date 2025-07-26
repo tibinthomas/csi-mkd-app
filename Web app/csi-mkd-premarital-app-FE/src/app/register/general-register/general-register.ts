@@ -175,7 +175,7 @@ export class GeneralRegister {
         const registerId: number = JSON.parse(response).id;
         this.azureUploadService
           .apiAzureUploadGenerateSasGet({
-            fileName: `${registerId}/photo/${photo.name}`,
+            fileName: `general/${registerId}/photo/${photo.name}`,
             contentType: photo.type,
           })
           .pipe(

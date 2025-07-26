@@ -303,11 +303,11 @@ export class PremaritalRegister {
           const registerId: number = JSON.parse(response).id;
           forkJoin([
             this.azureUploadService.apiAzureUploadGenerateSasGet({
-              fileName: `${registerId}/photo/${photo.name}`,
+              fileName: `premarital/${registerId}/photo/${photo.name}`,
               contentType: photo.type,
             }),
             this.azureUploadService.apiAzureUploadGenerateSasGet({
-              fileName: `${registerId}/vicarletter/${letter.name}`,
+              fileName: `premarital/${registerId}/vicarletter/${letter.name}`,
               contentType: letter.type,
             }),
           ])
