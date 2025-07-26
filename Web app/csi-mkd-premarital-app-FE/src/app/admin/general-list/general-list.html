@@ -1,5 +1,5 @@
 <div class="p-4 sm:p-6">
-  <h3 class="text-2xl font-bold mb-6">Premarital Registrations</h3>
+  <h3 class="text-2xl font-bold mb-6">General Registrations</h3>
 
   <!-- Filter Controls -->
   <div class="flex flex-col gap-4 mb-6">
@@ -7,25 +7,6 @@
     <div class="flex flex-col sm:flex-row sm:items-center gap-4 max-w-screen-md">
       <!-- Search + Search Button + Clear Button -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between items-center gap-2">
-        <!-- Session Year -->
-        <mat-form-field>
-          <mat-label>Session Year</mat-label>
-          <mat-select [value]="selectedYear()" (selectionChange)="selectedYear.set($event.value)">
-            @for(year of sessionYears(); track year) {
-            <mat-option [value]="year">{{ year }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-
-        <!-- Session Name -->
-        <mat-form-field>
-          <mat-label>Session Name</mat-label>
-          <mat-select [value]="selectedSession()" (selectionChange)="selectedSession.set($event.value)">
-            @for(session of filteredSessionsByYear(); track session) {
-            <mat-option [value]="session.SessionName">{{ session.SessionName }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Search</mat-label>
           <input
@@ -52,14 +33,6 @@
       <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
         <mat-checkbox [checked]="unapprovedOnly()" (change)="unapprovedOnly.set($event.checked); pageIndex.set(0)" i18n>
           Show Unapproved Payments Only
-        </mat-checkbox>
-
-        <mat-checkbox
-          [checked]="activeSessionOnly()"
-          (change)="activeSessionOnly.set($event.checked); pageIndex.set(0)"
-          i18n
-        >
-          Show Active Sessions Only
         </mat-checkbox>
       </div>
 
@@ -110,14 +83,9 @@
         <td mat-cell *matCellDef="let reg">{{ reg.Phone }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="SessionName">
-        <th mat-header-cell *matHeaderCellDef i18n>Session</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.SessionName }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="Days">
-        <th mat-header-cell *matHeaderCellDef i18n>Session Days</th>
-        <td mat-cell *matCellDef="let reg">{{ reg.Days }}</td>
+      <ng-container matColumnDef="SessionType">
+        <th mat-header-cell *matHeaderCellDef i18n>Session Type</th>
+        <td mat-cell *matCellDef="let reg">{{ reg.SessionType }}</td>
       </ng-container>
       <ng-container matColumnDef="PhotoPath">
         <th mat-header-cell *matHeaderCellDef i18n>Photo</th>
@@ -129,21 +97,6 @@
             alt="Photo of {{ reg.Name }}"
             class="w-14 h-14 rounded-full object-cover border border-gray-300"
           />
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="VicarLetterPath">
-        <th mat-header-cell *matHeaderCellDef i18n>Vicar's Letter</th>
-        <td mat-cell *matCellDef="let reg">
-          <a
-            [href]="reg.VicarLetterUrl"
-            target="_blank"
-            rel="noopener"
-            class="text-blue-600 hover:text-blue-800"
-            (click)="$event.stopPropagation()"
-            style="cursor: pointer"
-          >
-            View Letter
-          </a>
         </td>
       </ng-container>
 
@@ -187,19 +140,6 @@
               <div><strong i18n>Education:</strong> {{ reg.Education }}</div>
               <div><strong i18n>Occupation:</strong> {{ reg.Occupation }}</div>
               <div><strong i18n>Church:</strong> {{ reg.ChurchName }}</div>
-              <div><strong i18n>Fiancé Name:</strong> {{ reg.FianceName }}</div>
-              <div><strong i18n>Date of Marriage:</strong> {{ reg.DateOfMarriage | date : "MMMM d, y" }}</div>
-              <div class="md:col-span-2">
-                <strong i18n>Church Activities:</strong>
-                <ng-container *ngIf="hasActivities(reg.ChurchActivities); else noActivities">
-                  <ul class="list-disc list-inside">
-                    <li *ngFor="let activity of getSelectedActivities(reg.ChurchActivities)">{{ activity }}</li>
-                  </ul>
-                </ng-container>
-                <ng-template #noActivities>
-                  <span class="italic text-gray-400">None</span>
-                </ng-template>
-              </div>
             </div>
           </div>
         </td>
@@ -215,10 +155,8 @@
           'Age',
           'Email',
           'Phone',
-          'SessionName',
-          'Days',
+          'SessionType',
           'PhotoPath',
-          'VicarLetterPath',
           'PaymentStatus',
           'expand'
         ]"
@@ -234,10 +172,8 @@
             'Age',
             'Email',
             'Phone',
-            'SessionName',
-            'Days',
+            'SessionType',
             'PhotoPath',
-            'VicarLetterPath',
             'PaymentStatus',
             'expand'
           ]
@@ -250,8 +186,7 @@
     </table>
     } @else {
     <div class="text-center text-gray-600 mt-8">
-      <p i18n>No data available for</p>
-      {{ selectedSession() }}.
+      <p i18n>No data available</p>
     </div>
     }
     <mat-paginator

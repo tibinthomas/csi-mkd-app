@@ -14,6 +14,7 @@ import { PremaritalComponent } from './admin/premarital/premarital';
 import { SessionConfig } from './admin/session-config/session-config';
 import { authGuard } from './core/auth/auth.guard';
 import { Sessions } from './sessions/sessions';
+import { GeneralList } from './admin/general-list/general-list';
 
 export const routes: Routes = [
   // Public routes wrapped inside PublicLayout
@@ -53,6 +54,7 @@ export const routes: Routes = [
         path: 'session-config',
         component: SessionConfig,
       },
+      { path: 'general-list', component: GeneralList },
     ],
   },
 

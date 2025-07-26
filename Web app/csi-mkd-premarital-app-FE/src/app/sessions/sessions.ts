@@ -12,10 +12,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SessionConfigService } from '../../api/services';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-sessions',
@@ -27,17 +28,20 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     DatePipe,
     RouterOutlet,
     RouterLink,
-  ],
+    MatProgressSpinnerModule
+],
   templateUrl: './sessions.html',
   styleUrl: './sessions.scss',
 })
 export class Sessions {
   private snackBar = inject(MatSnackBar);
   private readonly sessionConfigService = inject(SessionConfigService);
+  protected readonly isLoading = signal(false);
 
   private readonly sessions$ = this.sessionConfigService
     .apiSessionconfigGet()
     .pipe(
+      tap(() => this.isLoading.set(true)), // optional: set true again if reused
       map((data: any) => {
         const parsed = JSON.parse(data);
         return parsed.map((session: any) => ({
@@ -45,9 +49,11 @@ export class Sessions {
         }));
       }),
       catchError((err) => {
+        this.isLoading.set(false);
         console.error('Error loading sessions:', err);
         return of([]); // fallback to empty array
-      })
+      }),
+      tap(() => this.isLoading.set(false)) // optional: set true again if reused
     );
 
   protected readonly sessionList = toSignal(this.sessions$, {

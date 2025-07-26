@@ -13,6 +13,10 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { apiGeneralRegisterCheckEmailGet } from '../fn/general-register/api-general-register-check-email-get';
 import { ApiGeneralRegisterCheckEmailGet$Params } from '../fn/general-register/api-general-register-check-email-get';
+import { apiGeneralRegisterFilterGet } from '../fn/general-register/api-general-register-filter-get';
+import { ApiGeneralRegisterFilterGet$Params } from '../fn/general-register/api-general-register-filter-get';
+import { apiGeneralRegisterIdPaymentstatusPut } from '../fn/general-register/api-general-register-id-paymentstatus-put';
+import { ApiGeneralRegisterIdPaymentstatusPut$Params } from '../fn/general-register/api-general-register-id-paymentstatus-put';
 import { apiGeneralRegisterPost } from '../fn/general-register/api-general-register-post';
 import { ApiGeneralRegisterPost$Params } from '../fn/general-register/api-general-register-post';
 import { apiGeneralRegisterSavePhotoUrlPost } from '../fn/general-register/api-general-register-save-photo-url-post';
@@ -33,7 +37,10 @@ export class GeneralRegisterService extends BaseService {
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralRegisterPost$Response(params?: ApiGeneralRegisterPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiGeneralRegisterPost$Response(
+    params?: ApiGeneralRegisterPost$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<void>> {
     return apiGeneralRegisterPost(this.http, this.rootUrl, params, context);
   }
 
@@ -43,14 +50,18 @@ export class GeneralRegisterService extends BaseService {
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralRegisterPost(params?: ApiGeneralRegisterPost$Params, context?: HttpContext): Observable<void> {
+  apiGeneralRegisterPost(
+    params?: ApiGeneralRegisterPost$Params,
+    context?: HttpContext
+  ): Observable<void> {
     return this.apiGeneralRegisterPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
   /** Path part for operation `apiGeneralRegisterSavePhotoUrlPost()` */
-  static readonly ApiGeneralRegisterSavePhotoUrlPostPath = '/api/GeneralRegister/save-photo-url';
+  static readonly ApiGeneralRegisterSavePhotoUrlPostPath =
+    '/api/GeneralRegister/save-photo-url';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -58,8 +69,16 @@ export class GeneralRegisterService extends BaseService {
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralRegisterSavePhotoUrlPost$Response(params?: ApiGeneralRegisterSavePhotoUrlPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiGeneralRegisterSavePhotoUrlPost(this.http, this.rootUrl, params, context);
+  apiGeneralRegisterSavePhotoUrlPost$Response(
+    params?: ApiGeneralRegisterSavePhotoUrlPost$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<void>> {
+    return apiGeneralRegisterSavePhotoUrlPost(
+      this.http,
+      this.rootUrl,
+      params,
+      context
+    );
   }
 
   /**
@@ -68,14 +87,19 @@ export class GeneralRegisterService extends BaseService {
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralRegisterSavePhotoUrlPost(params?: ApiGeneralRegisterSavePhotoUrlPost$Params, context?: HttpContext): Observable<void> {
-    return this.apiGeneralRegisterSavePhotoUrlPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
+  apiGeneralRegisterSavePhotoUrlPost(
+    params?: ApiGeneralRegisterSavePhotoUrlPost$Params,
+    context?: HttpContext
+  ): Observable<void> {
+    return this.apiGeneralRegisterSavePhotoUrlPost$Response(
+      params,
+      context
+    ).pipe(map((r: StrictHttpResponse<void>): void => r.body));
   }
 
   /** Path part for operation `apiGeneralRegisterCheckEmailGet()` */
-  static readonly ApiGeneralRegisterCheckEmailGetPath = '/api/GeneralRegister/check-email';
+  static readonly ApiGeneralRegisterCheckEmailGetPath =
+    '/api/GeneralRegister/check-email';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -83,8 +107,16 @@ export class GeneralRegisterService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiGeneralRegisterCheckEmailGet$Response(params?: ApiGeneralRegisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiGeneralRegisterCheckEmailGet(this.http, this.rootUrl, params, context);
+  apiGeneralRegisterCheckEmailGet$Response(
+    params?: ApiGeneralRegisterCheckEmailGet$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<void>> {
+    return apiGeneralRegisterCheckEmailGet(
+      this.http,
+      this.rootUrl,
+      params,
+      context
+    );
   }
 
   /**
@@ -93,10 +125,87 @@ export class GeneralRegisterService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiGeneralRegisterCheckEmailGet(params?: ApiGeneralRegisterCheckEmailGet$Params, context?: HttpContext): Observable<void> {
+  apiGeneralRegisterCheckEmailGet(
+    params?: ApiGeneralRegisterCheckEmailGet$Params,
+    context?: HttpContext
+  ): Observable<void> {
     return this.apiGeneralRegisterCheckEmailGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
+  /** Path part for operation `apiGeneralRegisterIdPaymentstatusPut()` */
+  static readonly ApiGeneralRegisterIdPaymentstatusPutPath =
+    '/api/GeneralRegister/{id}/paymentstatus';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralRegisterIdPaymentstatusPut()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiGeneralRegisterIdPaymentstatusPut$Response(
+    params: ApiGeneralRegisterIdPaymentstatusPut$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<void>> {
+    return apiGeneralRegisterIdPaymentstatusPut(
+      this.http,
+      this.rootUrl,
+      params,
+      context
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralRegisterIdPaymentstatusPut$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  apiGeneralRegisterIdPaymentstatusPut(
+    params: ApiGeneralRegisterIdPaymentstatusPut$Params,
+    context?: HttpContext
+  ): Observable<void> {
+    return this.apiGeneralRegisterIdPaymentstatusPut$Response(
+      params,
+      context
+    ).pipe(map((r: StrictHttpResponse<void>): void => r.body));
+  }
+
+  /** Path part for operation `apiGeneralRegisterFilterGet()` */
+  static readonly ApiGeneralRegisterFilterGetPath =
+    '/api/GeneralRegister/filter';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralRegisterFilterGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralRegisterFilterGet$Response(
+    params?: ApiGeneralRegisterFilterGet$Params,
+    context?: HttpContext
+  ): Observable<StrictHttpResponse<void>> {
+    return apiGeneralRegisterFilterGet(
+      this.http,
+      this.rootUrl,
+      params,
+      context
+    );
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralRegisterFilterGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralRegisterFilterGet(
+    params?: ApiGeneralRegisterFilterGet$Params,
+    context?: HttpContext
+  ): Observable<void> {
+    return this.apiGeneralRegisterFilterGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
 }
