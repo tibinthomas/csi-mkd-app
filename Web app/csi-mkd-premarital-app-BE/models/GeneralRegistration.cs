@@ -49,6 +49,11 @@ namespace csi_mkd_premarital_app_BE.Models
         public bool Declaration { get; set; }
 
         public GeneralDocument? GeneralDocument { get; set; }
+
+        public bool PaymentStatus { get; set; } // true = Paid, false = Unpaid
+
+        public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
+
         // public byte[] RowVersion { get; set; } = default!;
 
     }

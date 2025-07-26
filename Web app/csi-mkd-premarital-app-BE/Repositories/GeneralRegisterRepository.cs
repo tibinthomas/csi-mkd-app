@@ -31,6 +31,69 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
         => await _context.GeneralRegistrations
             .AnyAsync(r => r.Email.ToLower() == email.ToLower());
 
+    public async Task<bool> UpdatePaymentStatus(int id, bool status)
+    {
+        var reg = await _context.GeneralRegistrations.FindAsync(id);
+        if (reg is null) return false;
+
+        reg.PaymentStatus = status;
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<object> FilterRegistrations(GeneralRegisterFilterDto filter)
+    {
+        var query = _context.GeneralRegistrations
+            .Include(r => r.GeneralDocument)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(filter.Search))
+        {
+            var search = filter.Search.ToLower();
+
+            query = query.Where(r =>
+                r.FirstName.ToLower().Contains(search) ||
+                r.LastName.ToLower().Contains(search) ||
+                r.Email.ToLower().Contains(search));
+        }
+
+        if (filter.UnapprovedOnly == true)
+            query = query.Where(r => !r.PaymentStatus);
+
+
+        var totalCount = await query.CountAsync();
+
+        var results = await query
+            .OrderByDescending(r => r.SubmittedAt)
+            .Skip((filter.Page - 1) * filter.PageSize)
+            .Take(filter.PageSize)
+            .ToListAsync();
+
+        return new
+        {
+            totalCount,
+            items = results.Select(r => new
+            {
+                r.Id,
+                r.FirstName,
+                r.LastName,
+                r.FatherName,
+                r.Address,
+                r.Sex,
+                r.Age,
+                r.Education,
+                r.Occupation,
+                r.ChurchName,
+                r.Phone,
+                r.Email,
+                r.SessionType,
+                r.MaritalStatus,
+                r.Declaration,
+                PhotoUrl = r.GeneralDocument?.PhotoUrl,
+                r.PaymentStatus,
+            })
+        };
+    }
 }
 
 

@@ -62,4 +62,11 @@ public class GeneralRegisterService : IGeneralRegisterService
     public async Task<object> CheckEmailExists(string email)
           => new { exists = await _repo.CheckEmailExists(email) };
 
+    public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(int id, PaymentStatusUpdateDto dto)
+           => await _repo.UpdatePaymentStatus(id, dto.PaymentStatus)
+               ? (200, new { message = "Updated successfully" })
+               : (500, new { message = "Failed to update" });
+
+    public async Task<object> GetFilteredRegistrations(GeneralRegisterFilterDto filter)
+               => await _repo.FilterRegistrations(filter);
 }

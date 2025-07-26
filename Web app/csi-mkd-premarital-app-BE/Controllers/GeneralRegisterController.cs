@@ -39,4 +39,13 @@ public class GeneralRegisterController : ControllerBase
     [HttpGet("check-email")]
     public async Task<IActionResult> CheckEmail(string email)
      => Ok(await _service.CheckEmailExists(email));
+
+    [HttpPut("{id}/paymentstatus")]
+    public async Task<IActionResult> UpdatePaymentStatus(int id, [FromBody] PaymentStatusUpdateDto dto)
+         => StatusCode((await _service.UpdatePaymentStatus(id, dto)).StatusCode);
+
+
+    [HttpGet("filter")]
+    public async Task<IActionResult> FilteredRegistrations([FromQuery] GeneralRegisterFilterDto filter)
+      => Ok(await _service.GetFilteredRegistrations(filter));
 }

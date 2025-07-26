@@ -15,6 +15,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public required string Email { get; set; }
         public required string MaritalStatus { get; set; }
         public required string SessionType { get; set; }
+        public bool PaymentStatus { get; set; }
         public bool Declaration { get; set; }
     }
 }
