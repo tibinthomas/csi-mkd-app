@@ -15,8 +15,8 @@ import { SessionConfigService } from '../../api/services';
 import { catchError, map, of, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
-import { RouterLink, RouterOutlet } from '@angular/router';
-import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { RouterOutlet, Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-sessions',
@@ -27,21 +27,22 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     MatSnackBarModule,
     DatePipe,
     RouterOutlet,
-    RouterLink,
-    MatProgressSpinnerModule
-],
+    // RouterLink,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './sessions.html',
   styleUrl: './sessions.scss',
 })
 export class Sessions {
   private snackBar = inject(MatSnackBar);
+  router = inject(Router);
+
   private readonly sessionConfigService = inject(SessionConfigService);
-  protected readonly isLoading = signal(false);
+  protected readonly isLoading = signal(true);
 
   private readonly sessions$ = this.sessionConfigService
     .apiSessionconfigGet()
     .pipe(
-      tap(() => this.isLoading.set(true)), // optional: set true again if reused
       map((data: any) => {
         const parsed = JSON.parse(data);
         return parsed.map((session: any) => ({
@@ -87,6 +88,7 @@ export class Sessions {
 
   allExpanded = computed(() => {
     const yearMap = this.expandedYears();
+    if (Object.keys(yearMap).length === 0) return false; // No years to check
     return Object.values(yearMap).every((v) => v);
   });
 
@@ -107,9 +109,9 @@ export class Sessions {
     });
   }
 
-  bookSession(session: any): void {
-    this.snackBar.open(`Booked: ${session.title}`, 'Close', {
-      duration: 3000,
+  registerSession(session: any) {
+    this.router.navigate(['/register/premarital-register', session.Id], {
+      state: { selectedSessionId: session.Id },
     });
   }
 }

@@ -202,9 +202,10 @@
             <mat-error class="pt-serif-regular" i18n>Please select the number of days.</mat-error>
             }
           </mat-form-field>
+
           <mat-form-field appearance="fill" class="w-full">
             <mat-label class="pt-serif-regular" i18n>Session</mat-label>
-            <mat-select formControlName="sessionId">
+            <mat-select formControlName="sessionId" [disabled]="selectedSessionId() !== null">
               @for (session of sessionList(); track session) {
               <mat-option [value]="session.Id" [hidden]="!session.IsActive" class="pt-serif-regular">
                 {{ session.SessionName }} ({{ session.StartDate | date }} - {{ session.EndDate | date }})
@@ -244,8 +245,8 @@
           />
           <div id="photo-upload-help" class="sr-only" i18n>Please select a passport size photo in image format</div>
 
-          @if (photoFileName) {
-          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ photoFileName }}</span>
+          @if (photoFile()?.name) {
+          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ photoFile()?.name }}</span>
           } @if (photoError()) {
           <mat-error class="pt-serif-regular" role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
           }
@@ -280,8 +281,8 @@
             Please select a document file (PDF, DOC, DOCX) or image containing the witness of vicar
           </div>
 
-          @if (vicarLetterFileName) {
-          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ vicarLetterFileName }}</span>
+          @if (vicarLetterFile()?.name) {
+          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ vicarLetterFile()?.name }}</span>
           } @if (vicarLetterError()) {
           <mat-error class="pt-serif-regular" role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
           }

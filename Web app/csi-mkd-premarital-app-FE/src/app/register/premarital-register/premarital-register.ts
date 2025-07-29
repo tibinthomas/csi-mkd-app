@@ -37,6 +37,7 @@ import { emailExistsValidatorFactory } from '../../core/validators/unique-email.
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-premarital-register',
@@ -62,6 +63,7 @@ import { FileUploadService } from '../../core/services/file-upload.service';
 export class PremaritalRegister {
   private readonly fb = inject(FormBuilder);
   readonly dialog = inject(MatDialog);
+  private router = inject(Router);
 
   private readonly premaritalRegisterService = inject(
     PremaritalRegisterService
@@ -83,10 +85,14 @@ export class PremaritalRegister {
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;
-  photoFileName: string | null = '';
-  vicarLetterFileName: string | null = '';
+  selectedSessionId = signal<number | null>(null);
 
   constructor() {
+    const navState = this.router.getCurrentNavigation()?.extras.state;
+    if (navState?.['selectedSessionId']) {
+      this.selectedSessionId.set(navState['selectedSessionId']);
+    }
+
     this.form = this.fb.group({
       firstName: [
         '',
@@ -144,6 +150,16 @@ export class PremaritalRegister {
     });
   }
 
+  ngOnInit() {
+    this.sessionList(); // load sessionList()
+
+    // patch value into form if available
+    if (this.selectedSessionId()) {
+      this.form.patchValue({ sessionId: this.selectedSessionId() });
+      this.form.get('sessionId')?.disable(); // disable dropdown
+    }
+  }
+
   private readonly sessions$ = this.sessionConfigService
     .apiSessionconfigGet()
     .pipe(
@@ -169,8 +185,6 @@ export class PremaritalRegister {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0] || null;
     if (type === 'photo') {
-      this.photoFileName = file && file.name;
-
       if (file && !file.type.startsWith('image/')) {
         this.photoError.set('Only image files are allowed.');
         this.photoFile.set(null);
@@ -189,7 +203,6 @@ export class PremaritalRegister {
         'image/jpeg',
         'image/png',
       ];
-      this.vicarLetterFileName = file && file.name;
 
       if (file && !allowedTypes.includes(file.type)) {
         this.vicarLetterError.set('Allowed types: PDF, DOC, JPG, PNG');
@@ -231,8 +244,6 @@ export class PremaritalRegister {
 
     this.photoFile.set(null);
     this.vicarLetterFile.set(null);
-    this.vicarLetterFileName = '';
-    this.photoFileName = '';
     this.photoError.set('');
     this.vicarLetterError.set('');
     this.successMessage.set('');
@@ -263,7 +274,7 @@ export class PremaritalRegister {
       return;
     }
 
-    const raw = this.form.value;
+    const raw = this.form.getRawValue();
 
     this.isSubmitting.set(true);
 
