@@ -1,14 +1,14 @@
 <header role="banner">
   <mat-toolbar
     color="primary"
-    class="fixed top-0 left-0 right-0 z-50 flex flex-wrap justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
+    class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
   >
     <!-- Left: CSI Logo -->
     <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105 cursor-pointer">
       <img
         src="assets/csi-logo.png"
         alt="CSI Church of South India Logo"
-        class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain"
+        class="h-10 sm:h-12 xl:h-15 w-auto aspect-[3/2] max-w-[96px] object-contain"
         role="img"
         routerLink="/about"
       />
@@ -17,12 +17,15 @@
     <!-- Center: Title -->
     <div class="flex-1 text-center hover:scale-101 sm:block cursor-pointer" routerLink="/about">
       <h1
-        class="!text-sm sm:!text-2xl font-bold uppercase tracking-wide transition-opacity duration-500 pt-serif-bold"
+        class="!text-sm sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-wide transition-opacity duration-500 pt-serif-bold"
         i18n
       >
         CSI Counselling Centre
       </h1>
-      <h2 class="!text-xs sm:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular" i18n>
+      <h2
+        class="!text-xs sm:!text-xs xl:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular"
+        i18n
+      >
         Madhya Kerala Diocese
       </h2>
     </div>
@@ -74,7 +77,7 @@
           class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
           i18n
           aria-label="Sessions page"
-          >Sessions</a
+          >Premarital Sessions</a
         >
       </nav>
 
@@ -93,13 +96,13 @@
       </button>
 
       <!-- Right Logo -->
-      <img
+      <!-- <img
         src="assets/csi-mkd-logo.png"
         alt="CSI Madhya Kerala Diocese Logo"
-        class="h-10 sm:h-16 w-auto aspect-[3/2] max-w-[96px] object-contain transition-transform duration-300 hover:scale-105 cursor-pointer"
+        class="h-10 sm:h-12 xl:h-15 w-auto aspect-[3/2] max-w-[96px] object-contain transition-transform duration-300 hover:scale-105 cursor-pointer"
         role="img"
         routerLink="/about"
-      />
+      /> -->
     </div>
   </mat-toolbar>
 </header>
@@ -131,10 +134,19 @@
     >Feedback</a
   >
   <a mat-menu-item routerLink="/sessions" routerLinkActive="active-link" i18n role="menuitem" aria-label="Sessions page"
-    >Sessions</a
+    >Premarital Sessions</a
   >
 </mat-menu>
 
 <main role="main">
   <router-outlet></router-outlet>
 </main>
+<footer class="bg-rose-50 py-4 mt-6">
+  <div class="container px-5 text-center">
+    <p class="text-xs">&copy; {{ currentYear }} CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved.</p>
+    <p class="text-xs mt-2">
+      Developed by
+      <a href=" " class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">HomeStack team</a>
+    </p>
+  </div>
+</footer>

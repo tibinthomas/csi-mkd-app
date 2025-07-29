@@ -5,7 +5,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
-import { MatSelectModule } from "@angular/material/select";
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-public-layout',
@@ -19,13 +19,14 @@ import { MatSelectModule } from "@angular/material/select";
     MatMenuModule,
     LanguageSelectorComponent,
     RouterLinkActive,
-    MatSelectModule
-],
+    MatSelectModule,
+  ],
   templateUrl: './public-layout.html',
 })
 export class PublicLayout {
   menuOpen = false;
   registerDropdownOpen = false;
+  currentYear = new Date().getFullYear();
 
   @ViewChild('menuRef') menuRef!: ElementRef;
   @ViewChild('dropdownRef') dropdownRef!: ElementRef;
