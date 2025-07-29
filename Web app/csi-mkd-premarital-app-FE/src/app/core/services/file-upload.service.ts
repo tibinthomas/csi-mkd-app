@@ -14,6 +14,7 @@ export class FileUploadService {
         headers: {
           'x-ms-blob-type': 'BlockBlob',
           'Content-Type': file.type,
+          'X-Skip-Interceptor': '', // <== This will bypass the Authorization header
         },
         observe: 'response',
       })

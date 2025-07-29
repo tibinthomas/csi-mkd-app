@@ -12,6 +12,14 @@ export const tokenInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
+  // If the header 'X-Skip-Interceptor' exists, skip adding the Authorization token
+  if (req.headers.has('X-Skip-Interceptor')) {
+    const cleanReq = req.clone({
+      headers: req.headers.delete('X-Skip-Interceptor'),
+    });
+    return next(cleanReq);
+  }
+
   const authService = inject(AuthService);
   const token = authService.getToken();
 
