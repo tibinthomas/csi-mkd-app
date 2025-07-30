@@ -8,6 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+
 export interface ApiGeneralRegisterFilterGet$Params {
   Search?: string;
   UnapprovedOnly?: boolean;
@@ -15,17 +16,8 @@ export interface ApiGeneralRegisterFilterGet$Params {
   PageSize?: number;
 }
 
-export function apiGeneralRegisterFilterGet(
-  http: HttpClient,
-  rootUrl: string,
-  params?: ApiGeneralRegisterFilterGet$Params,
-  context?: HttpContext
-): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(
-    rootUrl,
-    apiGeneralRegisterFilterGet.PATH,
-    'get'
-  );
+export function apiGeneralRegisterFilterGet(http: HttpClient, rootUrl: string, params?: ApiGeneralRegisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiGeneralRegisterFilterGet.PATH, 'get');
   if (params) {
     rb.query('Search', params.Search, {});
     rb.query('UnapprovedOnly', params.UnapprovedOnly, {});
@@ -33,16 +25,14 @@ export function apiGeneralRegisterFilterGet(
     rb.query('PageSize', params.PageSize, {});
   }
 
-  return http
-    .request(rb.build({ responseType: 'text', accept: '*/*', context }))
-    .pipe(
-      filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
-      map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({
-          body: undefined,
-        }) as StrictHttpResponse<void>;
-      })
-    );
+  return http.request(
+    rb.build({ responseType: 'text', accept: '*/*', context })
+  ).pipe(
+    filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
+    map((r: HttpResponse<any>) => {
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+    })
+  );
 }
 
 apiGeneralRegisterFilterGet.PATH = '/api/GeneralRegister/filter';

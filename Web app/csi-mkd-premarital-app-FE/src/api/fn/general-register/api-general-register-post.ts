@@ -24,6 +24,7 @@ export interface ApiGeneralRegisterPost$Params {
 'Email': string;
 'MaritalStatus': string;
 'SessionType': string;
+'PaymentStatus'?: boolean;
 'Declaration'?: boolean;
 }
 }
