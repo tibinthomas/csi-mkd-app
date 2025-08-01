@@ -350,6 +350,10 @@ export class PremaritalRegister {
                       this.dialog.open(SuccessDialogComponent, {
                         width: '400px',
                         disableClose: true,
+                        data: {
+                          message: 'Registration successful!',
+                          registerType: 'premarital',
+                        },
                       });
                       this.resetForm();
                     },

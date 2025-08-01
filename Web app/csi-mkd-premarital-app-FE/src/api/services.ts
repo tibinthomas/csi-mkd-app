@@ -4,6 +4,7 @@
 
 export { AuthService } from './services/auth.service';
 export { AzureUploadService } from './services/azure-upload.service';
+export { ConfirmationRegisterService } from './services/confirmation-register.service';
 export { CsiMkdPremaritalAppBeService } from './services/csi-mkd-premarital-app-be.service';
 export { EmailConfigService } from './services/email-config.service';
 export { FeedbackService } from './services/feedback.service';

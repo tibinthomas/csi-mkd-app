@@ -1,0 +1,153 @@
+<section class="py-30 px-4">
+  <mat-card class="max-w-4xl mx-auto p-6">
+    <mat-card-header class="mb-6">
+      <mat-card-title class="text-center text-2xl sm:text-3xl pt-serif-bold" i18n>
+        Pre-confirmational Registration Form
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div class="grid md:grid-cols-3 gap-6">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Church Name</mat-label>
+            <input matInput formControlName="churchName" />
+            @if (isInvalid('churchName')) {
+            <mat-error i18n>Church Name is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Date of Confirmation</mat-label>
+            <input matInput [matDatepicker]="datepicker" formControlName="confirmationDate" [min]="minDate" />
+            <mat-datepicker #datepicker />
+            <mat-datepicker-toggle [for]="datepicker" matSuffix />
+            @if (isInvalid('confirmationDate')) {
+            <mat-error i18n>Confirmation Date is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Time of Confirmation</mat-label>
+            <input matInput [matTimepicker]="timepicker" formControlName="confirmationTime" />
+            <mat-timepicker #timepicker />
+            <mat-timepicker-toggle [for]="timepicker" matSuffix />
+            @if (isInvalid('confirmationDate')) {
+            <mat-error i18n>Confirmation Time is required.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+        <div formArrayName="participants">
+          @for (participant of participants().controls; let i = $index;track participant) {
+          <div [formGroupName]="i" class="grid grid-cols-4 md:grid-cols-12 gap-5 rounded relative">
+            <!-- Index number for participant-->
+            <p class="col-span-1 m-5">{{ i + 1 }}</p>
+            <!-- Participant Name -->
+            <mat-form-field appearance="fill" class="col-span-5">
+              <mat-label i18n>Participant Name</mat-label>
+              <input matInput formControlName="name" />
+              @if (isParticipantInvalid(i, 'name')) {
+              <mat-error i18n>Participant name is required.</mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Participant Age -->
+            <mat-form-field appearance="fill" class="col-span-5">
+              <mat-label i18n>Participant Age</mat-label>
+              <input matInput type="number" formControlName="age" />
+              @if (isParticipantInvalid(i, 'age')) {
+              <mat-error i18n>Age must be between 1 and 120.</mat-error>
+              }
+            </mat-form-field>
+
+            <!-- Remove Button -->
+            @if (participants().length > 1) {
+            <button
+              mat-icon-button
+              type="button"
+              (click)="removeParticipant(i)"
+              class="absolute top-2 right-2 text-red-600 col-span-1"
+              aria-label="Remove participant"
+            >
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            }
+          </div>
+          }
+          <div class="flex justify-end mb-6">
+            <button mat-raised-button type="button" class="pt-serif-bold" (click)="addParticipant()" i18n>
+              Add Participant
+            </button>
+          </div>
+          <div class="text-right text-sm text-gray-600 mb-4">
+            @if (participants().length > 0) {
+            <span i18n>Number of Participants Added: </span>{{ participants().length }}
+            } @else{
+            <span i18n>No participants added yet.</span>
+            }
+          </div>
+        </div>
+
+        <!-- Upload Vicar Letter -->
+        <div class="mb-6" role="group" aria-labelledby="letter-upload-label">
+          <label id="letter-upload-label" class="block font-medium mb-2 pt-serif-regular" i18n
+            >Upload Witness of Vicar</label
+          >
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="letterInput.click()"
+            class="pt-serif-bold"
+            aria-describedby="letter-upload-help"
+          >
+            <mat-icon aria-hidden="true">upload_file</mat-icon>
+            Choose File
+          </button>
+          <input
+            #letterInput
+            type="file"
+            accept=".pdf,.doc,.docx,image/*"
+            (change)="onFileChange($event)"
+            hidden
+            aria-labelledby="letter-upload-label"
+            aria-describedby="letter-upload-help"
+          />
+          <div id="letter-upload-help" class="sr-only" i18n>
+            Please select a document file (PDF, DOC, DOCX) or image containing the witness of vicar
+          </div>
+
+          @if (this.vicarLetterFile()?.name) {
+          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ this.vicarLetterFile()?.name }}</span>
+          } @if (vicarLetterError()) {
+          <mat-error class="pt-serif-regular" role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
+          }
+        </div>
+
+        <div class="flex items-center gap-2">
+          <mat-checkbox formControlName="consent" i18n>
+            I hereby submit with all my consent for the above.
+          </mat-checkbox>
+          @if (isInvalid('consent')) {
+          <mat-error i18n>You must accept the consent.</mat-error>
+          }
+        </div>
+
+        <div class="flex justify-center">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="pt-serif-bold"
+            [disabled]="isSubmitting()"
+            [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
+          >
+            {{ isSubmitting() ? "Submitting..." : "Register" }}
+          </button>
+          @if (isSubmitting()) {
+          <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>
+          }
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>

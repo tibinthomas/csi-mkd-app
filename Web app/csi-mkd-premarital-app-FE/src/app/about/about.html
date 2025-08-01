@@ -2,7 +2,7 @@
   <!-- Hero Section -->
   <section
     class="bg-cover bg-center h-screen flex items-center justify-center relative"
-    style="background-image: url('assets/background-image.jpg')"
+    style="background-image: url('assets/who-we-are.png')"
     appAnimateOnScroll
   >
     <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
@@ -24,7 +24,7 @@
   <section class="py-20 px-6">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
       <img
-        ngSrc="assets/individual.jpg"
+        ngSrc="assets/who-we-are.png"
         width="600"
         height="400"
         class="w-full rounded-3xl shadow-2xl"
@@ -108,53 +108,53 @@
   <link href="https://fonts.googleapis.com/css2?family=PT+Serif&display=swap" rel="stylesheet" />
 
   <!-- Footer Contact Section -->
-  <footer class="py-16 mt-20" style="font-family: 'PT Serif', serif">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 text-center md:text-left">
+  <footer class="py-16 mt-20" style="font-family: 'PT Serif', serif; background-color: #fdf1f2">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-12 text-center md:text-left">
       <!-- Address -->
       <div>
-        <h3 class="text-xl font-semibold mb-4" i18n>📍 Visit Us</h3>
+        <h3 class="text-xl font-semibold mb-4" i18n><i class="bi bi-geo-alt"></i> Visit Us</h3>
         <ul class="space-y-1 text-sm">
           <li i18n>CSI Counselling Centre</li>
           <li i18n>CMS Press Compound</li>
           <li i18n>Chalukunnu, Kottayam-1</li>
           <li i18n>Kerala, India – 686001</li>
-          <li class="mt-2">
-            📍
-            <a
-              href="https://maps.app.goo.gl/3MPoM5tQcgPo4eGx7"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="no-underline text-inherit"
-              style="text-decoration: none; color: inherit"
-              i18n
-            >
-              View on Google Maps
-            </a>
-          </li>
         </ul>
       </div>
 
       <!-- Contact Info -->
       <div>
-        <h3 class="text-xl font-semibold mb-4" i18n>📞 Contact</h3>
+        <h3 class="text-xl font-semibold mb-4" i18n><i class="bi bi-telephone"></i> Contact</h3>
         <ul class="space-y-1 text-sm">
-          <li>
-            <a href="tel:+918129778832" style="text-decoration: none; color: inherit">+91-8129778832</a>
-          </li>
-          <li>
-            <a href="tel:+918606638973" style="text-decoration: none; color: inherit">+91-8606638973</a>
-          </li>
-          <li>
-            <a href="mailto:csimkdmarry@gmail.com" style="text-decoration: none; color: inherit">
-              csimkdmarry&#64;gmail.com
-            </a>
-          </li>
-          <li class="mt-2" i18n>🕒 Mon – Sat | 9:00 AM – 6:00 PM</li>
+          <li><a href="tel:+918129778832" class="hover:underline">+91-8129778832</a></li>
+          <li><a href="tel:+918606638973" class="hover:underline">+91-8606638973</a></li>
+          <li><a href="mailto:csimkdmarry@gmail.com" class="hover:underline">csimkdmarry&#64;gmail.com</a></li>
+          <li class="mt-2" i18n><i class="bi bi-calendar-week"></i> Mon – Sat | 9:00 AM – 6:00 PM</li>
         </ul>
       </div>
-
+      <!-- Social Media -->
+      <div>
+        <h3 class="text-xl font-semibold mb-4" i18n><i class="bi bi-link-45deg"></i> Connect with Us</h3>
+        <div class="flex justify-center lg:justify-start gap-6 text-2xl text-gray-700">
+          <a
+            href="https://www.facebook.com/CsiCounselingCentreKottyam"
+            target="_blank"
+            aria-label="Facebook"
+            class="hover:text-blue-600 transition-colors duration-200"
+          >
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/c.s.i_counselling_center_ktm/"
+            target="_blank"
+            aria-label="Instagram"
+            class="hover:text-pink-600 transition-colors duration-200"
+          >
+            <i class="bi bi-instagram"></i>
+          </a>
+        </div>
+      </div>
       <!-- Scripture or Motto -->
-      <div class="mt-8">
+      <div class="mt-8 lg:mt-0">
         <blockquote class="italic text-sm leading-relaxed" i18n>
           “Come to me, all who are weary and burdened, and I will give you rest.”
         </blockquote>

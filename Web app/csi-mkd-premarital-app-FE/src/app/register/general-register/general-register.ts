@@ -12,7 +12,6 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-
 import { GeneralRegisterService } from '../../../api/services';
 import { AzureUploadService } from '../../../api/services';
 import { MatCardModule } from '@angular/material/card';
@@ -199,6 +198,10 @@ export class GeneralRegister {
                     this.dialog.open(SuccessDialogComponent, {
                       width: '400px',
                       disableClose: true,
+                      data: {
+                        message: 'Registration successful!',
+                        registerType: 'general',
+                      },
                     });
                     this.resetForm();
                   },

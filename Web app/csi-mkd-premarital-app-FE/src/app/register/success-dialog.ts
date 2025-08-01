@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-success-dialog',
@@ -21,7 +21,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     <h2 mat-dialog-title class="pt-serif-bold">Registration Successful</h2>
     <mat-dialog-content class="!text-sm text-gray-700 pt-serif-regular">
       <p>Your registration is complete!</p>
-      A confirmation email will be sent to your registered email address.
+      @if(data.registerType !== 'pre-confirmation') {
+      <p>A confirmation email will be sent to your registered email address.</p>
+      }
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-raised-button mat-dialog-close class=" pt-serif-bold">
@@ -30,4 +32,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     </mat-dialog-actions>
   `,
 })
-export class SuccessDialogComponent {}
+export class SuccessDialogComponent {
+  data = inject(MAT_DIALOG_DATA) as { registerType: string };
+}

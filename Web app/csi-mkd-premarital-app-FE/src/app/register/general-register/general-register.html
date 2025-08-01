@@ -8,11 +8,11 @@
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
         <div class="grid md:grid-cols-3 gap-6">
-          <mat-form-field appearance="fill" class="w-full">
+          <mat-form-field class="w-full">
             <mat-label i18n>First Name</mat-label>
             <input matInput formControlName="firstName" />
             @if (isInvalid('firstName')) {
-            <mat-error i18n>Full Name is required.</mat-error>
+            <mat-error i18n>First Name is required.</mat-error>
             }
           </mat-form-field>
 
@@ -20,7 +20,7 @@
             <mat-label i18n>Last Name</mat-label>
             <input matInput formControlName="lastName" />
             @if (isInvalid('lastName')) {
-            <mat-error i18n>Full Name is required.</mat-error>
+            <mat-error i18n>Last Name is required.</mat-error>
             }
           </mat-form-field>
 

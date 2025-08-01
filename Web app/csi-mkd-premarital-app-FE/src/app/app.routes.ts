@@ -15,6 +15,7 @@ import { SessionConfig } from './admin/session-config/session-config';
 import { authGuard } from './core/auth/auth.guard';
 import { Sessions } from './sessions/sessions';
 import { GeneralList } from './admin/general-list/general-list';
+import { PreConfirmRegister } from './register/pre-confirm-register/pre-confirm-register';
 
 export const routes: Routes = [
   // Public routes wrapped inside PublicLayout
@@ -30,6 +31,7 @@ export const routes: Routes = [
       { path: 'register', component: Register },
       { path: 'register/premarital-register', component: PremaritalRegister },
       { path: 'register/general-register', component: GeneralRegister },
+      { path: 'register/pre-confirm-register', component: PreConfirmRegister },
       { path: 'sessions', component: Sessions },
       {
         path: 'register/premarital-register/:sessionId',

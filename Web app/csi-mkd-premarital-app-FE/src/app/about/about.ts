@@ -44,7 +44,7 @@ export class About {
       description: $localize`:@@Psychodiagnostics description:Assessments for learning difficulties, psychological testing, and career planning.`,
     },
     {
-      image: 'assets/couple.jpg',
+      image: 'assets/premarital.png',
       title: $localize`:@@Premarital Counselling:Premarital Counselling`,
       description: $localize`:@@Premarital Counselling description:Three-day residential program to prepare couples for a strong and faithful marriage. `,
     },
