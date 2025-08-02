@@ -15,6 +15,8 @@ import { ApiConfiguration } from '../api/api-configuration';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './core/auth/token.interceptor';
+import { RateLimitInterceptor } from './core/interceptors/rate-limit-interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
 
@@ -24,6 +26,11 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideHttpClient(withInterceptors([tokenInterceptor])),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RateLimitInterceptor,
+      multi: true,
+    },
     provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideAppInitializer(() => {
       const apiConfig: ApiConfiguration = inject(ApiConfiguration);
