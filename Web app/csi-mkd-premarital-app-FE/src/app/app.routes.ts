@@ -160,6 +160,12 @@ export const routes: Routes = [
     ],
   },
 
-  // Optional wildcard route to catch unmatched routes
-  // { path: '**', redirectTo: '' },
+  // Wildcard route for a 404 page
+  {
+    path: '**',
+    title: 'Page Not Found - CSI MKD Premarital Counsel',
+    data: { description: 'The page you are looking for does not exist.' },
+    loadComponent: () =>
+      import('./not-found/not-found').then((m) => m.NotFound),
+  },
 ];
