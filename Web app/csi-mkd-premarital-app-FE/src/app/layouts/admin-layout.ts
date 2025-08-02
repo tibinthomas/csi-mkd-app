@@ -16,7 +16,7 @@ import { LanguageSelectorComponent } from '../shared/language-selector/language-
 
 @Component({
   selector: 'app-admin-layout',
-  standalone: true,
+
   imports: [
     RouterOutlet,
     RouterLink,

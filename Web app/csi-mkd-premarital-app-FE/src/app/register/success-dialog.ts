@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-success-dialog',
-  standalone: true,
+
   imports: [MatDialogModule, MatButtonModule],
   styles: `.pt-serif-regular {
   font-family: 'PT Serif', serif;

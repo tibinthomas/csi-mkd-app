@@ -2,7 +2,6 @@ import { Directive, ElementRef, Renderer2, AfterViewInit } from '@angular/core';
 
 @Directive({
   selector: '[appAnimateOnScroll]',
-  standalone: true,
 })
 export class AnimateOnScrollDirective implements AfterViewInit {
   constructor(private el: ElementRef, private renderer: Renderer2) {}

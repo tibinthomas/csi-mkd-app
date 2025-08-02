@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-session-form-dialog',
-  standalone: true,
+
   imports: [
     CommonModule,
     ReactiveFormsModule,

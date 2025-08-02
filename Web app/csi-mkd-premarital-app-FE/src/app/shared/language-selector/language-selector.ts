@@ -13,7 +13,7 @@ interface Language {
   selector: 'app-language-selector',
   templateUrl: './language-selector.html',
   styleUrls: ['./language-selector.scss'],
-  standalone: true,
+
   imports: [MatButtonModule, MatMenuModule, MatIconModule, CommonModule],
 })
 export class LanguageSelectorComponent {
