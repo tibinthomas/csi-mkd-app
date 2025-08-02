@@ -1,4 +1,5 @@
 using System.Text;
+using AspNetCoreRateLimit;
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.Repositories;
 using csi_mkd_premarital_app_BE.Services;
@@ -10,6 +11,15 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
+builder.Services.AddOptions();
+builder.Services.AddMemoryCache();
+builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+builder.Services.AddInMemoryRateLimiting();
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -140,6 +150,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseIpRateLimiting();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("AllowedOrigins");
