@@ -1,6 +1,6 @@
 {
-  "name": "fe",
-  "short_name": "fe",
+  "name": "csi-mkd-counselling",
+  "short_name": "csi-mkd-counselling",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

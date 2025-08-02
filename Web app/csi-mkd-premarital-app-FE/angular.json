@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fe": {
+    "csi-mkd-counselling": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -78,10 +78,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "fe:build:production"
+              "buildTarget": "csi-mkd-counselling:build:production"
             },
             "development": {
-              "buildTarget": "fe:build:development"
+              "buildTarget": "csi-mkd-counselling:build:development"
             }
           },
           "defaultConfiguration": "development"
