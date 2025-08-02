@@ -17,15 +17,12 @@
     <!-- Center: Title -->
     <div class="flex-1 text-center hover:scale-101 sm:block cursor-pointer" routerLink="/about">
       <h1
-        class="!text-sm sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-wide transition-opacity duration-500 pt-serif-bold"
+        class="!text-sm sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-wide transition-opacity duration-500 font-bold"
         i18n
       >
         CSI Counselling Centre
       </h1>
-      <h2
-        class="!text-xs sm:!text-xs xl:!text-sm uppercase tracking-wide transition-all duration-500 pt-serif-regular"
-        i18n
-      >
+      <h2 class="!text-xs sm:!text-xs xl:!text-sm uppercase tracking-wide transition-all duration-500" i18n>
         Madhya Kerala Diocese
       </h2>
     </div>
@@ -37,8 +34,8 @@
         <a
           mat-button
           routerLink="/about"
-          routerLinkActive="active-link"
-          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          routerLinkActive="bg-rose-50"
+          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="About us page"
           >About</a
@@ -46,8 +43,8 @@
         <a
           mat-button
           routerLink="/team-members"
-          routerLinkActive="active-link"
-          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          routerLinkActive="bg-rose-50"
+          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Our team members page"
           >Our Team</a
@@ -55,8 +52,8 @@
         <a
           mat-button
           routerLink="/register"
-          routerLinkActive="active-link"
-          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          routerLinkActive="bg-rose-50"
+          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Registration page"
           >Register</a
@@ -64,8 +61,8 @@
         <a
           mat-button
           routerLink="/feedback"
-          routerLinkActive="active-link"
-          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          routerLinkActive="bg-rose-50"
+          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Feedback page"
           >Feedback</a
@@ -73,8 +70,8 @@
         <a
           mat-button
           routerLink="/sessions"
-          routerLinkActive="active-link"
-          class="hover:underline hover:scale-105 transition-all duration-300 pt-serif-bold"
+          routerLinkActive="bg-rose-50"
+          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Sessions page"
           >Premarital Sessions</a
@@ -109,13 +106,13 @@
 
 <!-- Mobile Nav Menu -->
 <mat-menu #menu="matMenu" role="menu" aria-label="Mobile navigation menu">
-  <a mat-menu-item routerLink="/about" routerLinkActive="active-link" i18n role="menuitem" aria-label="About us page"
+  <a mat-menu-item routerLink="/about" routerLinkActive="bg-rose-50" i18n role="menuitem" aria-label="About us page"
     >About</a
   >
   <a
     mat-menu-item
     routerLink="/team-members"
-    routerLinkActive="active-link"
+    routerLinkActive="bg-rose-50"
     i18n
     role="menuitem"
     aria-label="Our team members page"
@@ -124,21 +121,21 @@
   <a
     mat-menu-item
     routerLink="/register"
-    routerLinkActive="active-link"
+    routerLinkActive="bg-rose-50"
     i18n
     role="menuitem"
     aria-label="Registration page"
     >Register</a
   >
-  <a mat-menu-item routerLink="/feedback" routerLinkActive="active-link" i18n role="menuitem" aria-label="Feedback page"
+  <a mat-menu-item routerLink="/feedback" routerLinkActive="bg-rose-50" i18n role="menuitem" aria-label="Feedback page"
     >Feedback</a
   >
-  <a mat-menu-item routerLink="/sessions" routerLinkActive="active-link" i18n role="menuitem" aria-label="Sessions page"
+  <a mat-menu-item routerLink="/sessions" routerLinkActive="bg-rose-50" i18n role="menuitem" aria-label="Sessions page"
     >Premarital Sessions</a
   >
 </mat-menu>
 
-<main role="main">
+<main role="main" class="animate-fade-in">
   <router-outlet></router-outlet>
 </main>
 <footer class="bg-rose-50 py-4 mt-6">

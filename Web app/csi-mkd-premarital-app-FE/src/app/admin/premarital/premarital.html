@@ -169,8 +169,8 @@
             mat-icon-button
             aria-label="expand row"
             (click)="toggle(reg); $event.stopPropagation()"
-            [class.example-toggle-button-expanded]="isExpanded(reg)"
-            class="example-toggle-button"
+            class="transition-transform duration-200 ease-in-out"
+            [class.rotate-180]="isExpanded(reg)"
           >
             <mat-icon>keyboard_arrow_down</mat-icon>
           </button>
@@ -242,15 +242,15 @@
             'expand'
           ]
         "
-        class="example-element-row"
-        [class.example-expanded-row]="isExpanded(reg)"
+        class="cursor-pointer"
+        [class.bg-gray-100]="isExpanded(reg)"
         (click)="toggle(reg)"
       ></tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="h-0"></tr>
     </table>
     } @else {
     <div class="text-center text-gray-600 mt-8">
-      <p i18n>No data available </p>
+      <p i18n>No data available</p>
     </div>
     }
     <mat-paginator
