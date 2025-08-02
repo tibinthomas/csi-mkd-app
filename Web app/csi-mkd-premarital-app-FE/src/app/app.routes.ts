@@ -11,30 +11,36 @@ export const routes: Routes = [
       { path: '', redirectTo: 'about', pathMatch: 'full' },
       {
         path: 'about',
+        title: 'About Us - CSI MKD Premarital Counsel',
         loadComponent: () => import('./about/about').then((m) => m.About),
       },
       {
         path: 'feedback',
+        title: 'Feedback - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./feedback/feedback').then((m) => m.Feedback),
       },
       {
         path: 'feedback-list',
+        title: 'Feedback List - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./feedback-list/feedback-list').then((m) => m.FeedbackList),
       },
       {
         path: 'team-members',
+        title: 'Our Team - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./team-members/team-members').then((m) => m.TeamMembers),
       },
       {
         path: 'register',
+        title: 'Register - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./register/register').then((m) => m.Register),
       },
       {
         path: 'register/premarital-register',
+        title: 'Premarital Registration - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./register/premarital-register/premarital-register').then(
             (m) => m.PremaritalRegister
@@ -42,6 +48,7 @@ export const routes: Routes = [
       },
       {
         path: 'register/general-register',
+        title: 'General Registration - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./register/general-register/general-register').then(
             (m) => m.GeneralRegister
@@ -49,6 +56,7 @@ export const routes: Routes = [
       },
       {
         path: 'register/pre-confirm-register',
+        title: 'Confirmation - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./register/pre-confirm-register/pre-confirm-register').then(
             (m) => m.PreConfirmRegister
@@ -56,11 +64,13 @@ export const routes: Routes = [
       },
       {
         path: 'sessions',
+        title: 'Counselling Sessions - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./sessions/sessions').then((m) => m.Sessions),
       },
       {
         path: 'register/premarital-register/:sessionId',
+        title: 'Premarital Registration - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./register/premarital-register/premarital-register').then(
             (m) => m.PremaritalRegister
@@ -72,6 +82,7 @@ export const routes: Routes = [
   // Admin login is public, outside admin layout
   {
     path: 'admin/login',
+    title: 'Admin Login - CSI MKD Premarital Counsel',
     loadComponent: () =>
       import('./admin/login/login').then((m) => m.AdminLogin),
   },
@@ -85,11 +96,13 @@ export const routes: Routes = [
     children: [
       {
         path: 'dashboard',
+        title: 'Admin Dashboard - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./admin/dashboard/dashboard').then((m) => m.Dashboard),
       },
       {
         path: 'premarital',
+        title: 'Premarital Registrations - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./admin/premarital/premarital').then(
             (m) => m.PremaritalComponent
@@ -98,6 +111,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'session-config',
+        title: 'Session Configuration - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./admin/session-config/session-config').then(
             (m) => m.SessionConfig
@@ -105,6 +119,7 @@ export const routes: Routes = [
       },
       {
         path: 'general-list',
+        title: 'General Registrations - CSI MKD Premarital Counsel',
         loadComponent: () =>
           import('./admin/general-list/general-list').then(
             (m) => m.GeneralList
