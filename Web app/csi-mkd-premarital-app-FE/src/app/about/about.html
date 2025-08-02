@@ -6,14 +6,14 @@
     appAnimateOnScroll
   >
     <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
-    <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white">
-      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow pt-serif-bold" i18n>
+    <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white animate-zoom-in">
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow font-bold" i18n>
         CSI Counselling Centre, Kottayam
       </h1>
-      <p class="text-xl italic font-light pt-serif-regular-italic" i18n>Healing Minds. Empowering Lives.</p>
-      <p class="mt-4 text-sm pt-serif-regular" i18n>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</p>
+      <p class="text-xl italic font-light italic" i18n>Healing Minds. Empowering Lives.</p>
+      <p class="mt-4 text-sm" i18n>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</p>
       <div class="mt-6">
-        <button mat-raised-button class="pt-serif-bold hover:scale-103" color="primary" routerLink="/register" i18n>
+        <button mat-raised-button class="font-bold hover:scale-103" color="primary" routerLink="/register" i18n>
           Book Appointment
         </button>
       </div>
@@ -31,8 +31,8 @@
         alt="Who We Are"
       />
       <div>
-        <h2 class="text-4xl font-bold mb-4 pt-serif-bold" i18n>Who We Are</h2>
-        <p class="text-lg leading-relaxed pt-serif-regular" i18n>
+        <h2 class="text-4xl font-bold mb-4" i18n>Who We Are</h2>
+        <p class="text-lg leading-relaxed" i18n>
           With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers
           holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided
           by a commitment to mental, emotional, and spiritual well-being.
@@ -44,11 +44,14 @@
   <!-- Services -->
   <section class="py-20 px-6">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-16 pt-serif-bold" i18n>Our Services</h2>
+      <h2 class="text-4xl font-bold text-center mb-16" i18n>Our Services</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @for (service of services; track service.title) {
-        <mat-card class="flex flex-col h-full shadow-md rounded-xl overflow-hidden" appAnimateOnScroll>
+        <mat-card
+          class="flex flex-col h-full shadow-md rounded-xl overflow-hidden animate-fade-slide"
+          appAnimateOnScroll
+        >
           <img
             mat-card-image
             [ngSrc]="service.image"
@@ -59,13 +62,13 @@
           />
 
           <mat-card-header class="pb-0">
-            <mat-card-title class="text-xl font-semibold pt-serif-bold">{{ service.title }}</mat-card-title>
+            <mat-card-title class="text-xl font-semibold font-bold">{{ service.title }}</mat-card-title>
             @if (service.subtitle) {
-            <mat-card-subtitle class="text-sm text-gray-500 pt-serif-regular">{{ service.subtitle }}</mat-card-subtitle>
+            <mat-card-subtitle class="text-sm text-gray-500">{{ service.subtitle }}</mat-card-subtitle>
             }
           </mat-card-header>
 
-          <mat-card-content class="mt-2 text-sm text-gray-700 flex-1 pt-serif-regular">
+          <mat-card-content class="mt-2 text-sm text-gray-700 flex-1">
             <p>{{ service.description }}</p>
           </mat-card-content>
         </mat-card>
@@ -76,13 +79,13 @@
   <!-- Why Choose Us -->
   <section class="py-15 px-6">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-16 pt-serif-bold" i18n>Why Choose Us?</h2>
+      <h2 class="text-4xl font-bold text-center mb-16" i18n>Why Choose Us?</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @for (item of reasons; track item.title) {
-        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-white" appAnimateOnScroll>
+        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-white animate-fade-slide" appAnimateOnScroll>
           <mat-card-header class="pb-2">
-            <mat-card-title class="text-xl font-semibold pt-serif-regular">
+            <mat-card-title class="text-xl font-semibold">
               @if (item.link) {
               <a
                 [routerLink]="item.link"
@@ -96,7 +99,7 @@
             </mat-card-title>
           </mat-card-header>
           <mat-card-content class="text-sm text-gray-700">
-            <p class="pt-serif-regular">{{ item.description }}</p>
+            <p>{{ item.description }}</p>
           </mat-card-content>
         </mat-card>
         }

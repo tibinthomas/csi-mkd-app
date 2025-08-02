@@ -52,7 +52,7 @@ import {
   styleUrl: './general-list.scss',
 
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+
   imports: [
     CommonModule,
     MatTableModule,

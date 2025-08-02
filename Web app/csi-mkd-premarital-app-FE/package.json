@@ -1,5 +1,5 @@
 {
-  "name": "fe",
+  "name": "csi-mkd-counselling",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -9,19 +9,20 @@
     "test": "ng test",
     "gen-api": "ng-openapi-gen -c ng-openapi-gen.json",
     "extract-i18n": "ng extract-i18n --output-path src/locale",
-    "build-deploy": "ng build --configuration production && cp -r dist/fe/browser/en-US/index.html dist/fe/browser && npx swa deploy --env production"
+    "build-deploy": "ng build --configuration production && cp -r dist/csi-mkd-counselling/browser/en-US/index.html dist/csi-mkd-counselling/browser && npx swa deploy --env production"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^20.1.2",
-    "@angular/cdk": "^20.1.2",
-    "@angular/common": "^20.1.2",
-    "@angular/compiler": "^20.1.2",
-    "@angular/core": "^20.1.2",
-    "@angular/forms": "^20.1.2",
-    "@angular/material": "^20.1.2",
-    "@angular/platform-browser": "^20.1.2",
-    "@angular/router": "^20.1.2",
+    "@angular/animations": "^20.1.4",
+    "@angular/cdk": "^20.1.4",
+    "@angular/common": "^20.1.4",
+    "@angular/compiler": "^20.1.4",
+    "@angular/core": "^20.1.4",
+    "@angular/forms": "^20.1.4",
+    "@angular/material": "^20.1.4",
+    "@angular/platform-browser": "^20.1.4",
+    "@angular/router": "^20.1.4",
+    "@angular/service-worker": "^20.1.4",
     "@tailwindcss/postcss": "^4.1.10",
     "azurite": "^3.34.0",
     "html2canvas": "^1.4.1",
@@ -34,10 +35,10 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "@angular/build": "^20.1.1",
-    "@angular/cli": "^20.1.1",
-    "@angular/compiler-cli": "^20.1.2",
-    "@angular/localize": "^20.1.2",
+    "@angular/build": "^20.1.4",
+    "@angular/cli": "^20.1.4",
+    "@angular/compiler-cli": "^20.1.4",
+    "@angular/localize": "^20.1.4",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.7.0",
     "karma": "~6.4.0",

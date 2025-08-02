@@ -2,7 +2,7 @@
   <section class="max-w-4xl mx-auto">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-bold">Register for a Premarital Session</h1>
-      <button mat-raised-button color="primary" class="pt-serif-bold" (click)="toggleAll()">
+      <button mat-raised-button color="primary" class="font-bold" (click)="toggleAll()">
         {{ allExpanded() ? "Collapse All" : "Expand All" }}
       </button>
     </div>
@@ -27,9 +27,11 @@
             <h3 class="text-lg font-semibold mb-2 uppercase">{{ monthGroup.month }}</h3>
             <div class="grid gap-4">
               @for (session of monthGroup.sessions; track session.Id) {
-              <mat-card class="rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
+              <mat-card
+                class="rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition animate-fade-slide"
+              >
                 <mat-card-header>
-                  <mat-card-title class="!text-lg pt-serif-bold"> {{ session.SessionName }} </mat-card-title>
+                  <mat-card-title class="!text-lg font-bold"> {{ session.SessionName }} </mat-card-title>
                   <mat-card-subtitle class="!text-lg text-gray-500">
                     {{ session.StartDate | date }} → {{ session.EndDate | date }}
                   </mat-card-subtitle>

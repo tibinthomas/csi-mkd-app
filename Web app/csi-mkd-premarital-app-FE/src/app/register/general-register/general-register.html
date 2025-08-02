@@ -1,7 +1,7 @@
 <section class="py-30 px-4">
   <mat-card class="max-w-4xl mx-auto p-6">
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl sm:text-3xl pt-serif-bold" i18n>
+      <mat-card-title class="text-center text-2xl sm:text-3xl font-bold" i18n>
         General Registration Form
       </mat-card-title>
     </mat-card-header>
@@ -101,18 +101,16 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full mb-2">
-            <mat-label class="pt-serif-regular" i18n>Email id</mat-label>
+            <mat-label i18n>Email id</mat-label>
             <input matInput type="email" formControlName="email" />
             @if (form.get('email')?.touched && form.get('email')?.errors?.['emailTaken']) {
-            <mat-error class="pt-serif-regular" i18n>This email is already registered.</mat-error>
+            <mat-error i18n>This email is already registered.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
-            <mat-error class="pt-serif-regular" i18n>Email is required.</mat-error>
+            <mat-error i18n>Email is required.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
-            <mat-error class="pt-serif-regular" i18n>Invalid email format.</mat-error>
+            <mat-error i18n>Invalid email format.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
-            <mat-error class="pt-serif-regular" i18n
-              >Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error
-            >
+            <mat-error i18n>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error>
             }
           </mat-form-field>
         </div>
@@ -143,15 +141,13 @@
 
         <!-- Upload Photo -->
         <div class="mb-6" role="group" aria-labelledby="photo-upload-label">
-          <label id="photo-upload-label" class="block font-medium mb-2 pt-serif-regular" i18n
-            >Upload Passport Size Photo</label
-          >
+          <label id="photo-upload-label" class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
           <button
             mat-raised-button
             color="primary"
             type="button"
             (click)="photoInput.click()"
-            class="pt-serif-bold"
+            class="font-bold"
             aria-describedby="photo-upload-help"
           >
             <mat-icon aria-hidden="true">upload</mat-icon>
@@ -171,7 +167,7 @@
           @if (photoFileName) {
           <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ photoFileName }}</span>
           } @if (photoError()) {
-          <mat-error class="pt-serif-regular" role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
+          <mat-error role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
           }
         </div>
 
@@ -189,7 +185,7 @@
             mat-raised-button
             color="primary"
             type="submit"
-            class="pt-serif-bold"
+            class="font-bold"
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >

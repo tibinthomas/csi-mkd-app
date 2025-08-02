@@ -54,7 +54,7 @@ import { CreateUpdateSessionDto } from '../../../api/models';
   styleUrl: './premarital.scss',
 
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
+
   imports: [
     CommonModule,
     MatTableModule,

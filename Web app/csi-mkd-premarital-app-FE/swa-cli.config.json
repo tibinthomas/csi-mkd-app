@@ -3,7 +3,7 @@
   "configurations": {
     "csi-mkd-premarital-app-fe": {
       "appLocation": ".",
-      "outputLocation": "dist/fe/browser",
+      "outputLocation": "dist/csi-mkd-counselling/browser",
       "appBuildCommand": "npm run build",
       "run": "npm start",
       "appDevserverUrl": "http://localhost:4200",
