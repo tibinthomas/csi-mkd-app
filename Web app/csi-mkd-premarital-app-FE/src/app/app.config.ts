@@ -3,7 +3,7 @@ import {
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
+  provideZonelessChangeDetection, isDevMode,
 } from '@angular/core';
 import {
   provideRouter,
@@ -16,6 +16,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './core/auth/token.interceptor';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -28,7 +29,10 @@ export const appConfig: ApplicationConfig = {
       const apiConfig: ApiConfiguration = inject(ApiConfiguration);
       apiConfig.rootUrl = API_ROOT_URL;
       return Promise.resolve();
-    }),
+    }), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }),
     // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     // AuthGuard,
   ],
