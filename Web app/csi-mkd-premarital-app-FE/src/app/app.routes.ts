@@ -1,62 +1,115 @@
 import { Routes } from '@angular/router';
-import { PublicLayout } from './layouts/public-layout';
-import { AdminLayout } from './layouts/admin-layout';
-import { About } from './about/about';
-import { Feedback } from './feedback/feedback';
-import { FeedbackList } from './feedback-list/feedback-list';
-import { TeamMembers } from './team-members/team-members';
-import { Register } from './register/register';
-import { PremaritalRegister } from './register/premarital-register/premarital-register';
-import { GeneralRegister } from './register/general-register/general-register';
-import { AdminLogin } from './admin/login/login';
-import { Dashboard } from './admin/dashboard/dashboard';
-import { PremaritalComponent } from './admin/premarital/premarital';
-import { SessionConfig } from './admin/session-config/session-config';
 import { authGuard } from './core/auth/auth.guard';
-import { Sessions } from './sessions/sessions';
-import { GeneralList } from './admin/general-list/general-list';
-import { PreConfirmRegister } from './register/pre-confirm-register/pre-confirm-register';
 
 export const routes: Routes = [
   // Public routes wrapped inside PublicLayout
   {
     path: '',
-    component: PublicLayout,
+    loadComponent: () =>
+      import('./layouts/public-layout').then((m) => m.PublicLayout),
     children: [
       { path: '', redirectTo: 'about', pathMatch: 'full' },
-      { path: 'about', component: About },
-      { path: 'feedback', component: Feedback },
-      { path: 'feedback-list', component: FeedbackList },
-      { path: 'team-members', component: TeamMembers },
-      { path: 'register', component: Register },
-      { path: 'register/premarital-register', component: PremaritalRegister },
-      { path: 'register/general-register', component: GeneralRegister },
-      { path: 'register/pre-confirm-register', component: PreConfirmRegister },
-      { path: 'sessions', component: Sessions },
+      {
+        path: 'about',
+        loadComponent: () => import('./about/about').then((m) => m.About),
+      },
+      {
+        path: 'feedback',
+        loadComponent: () =>
+          import('./feedback/feedback').then((m) => m.Feedback),
+      },
+      {
+        path: 'feedback-list',
+        loadComponent: () =>
+          import('./feedback-list/feedback-list').then((m) => m.FeedbackList),
+      },
+      {
+        path: 'team-members',
+        loadComponent: () =>
+          import('./team-members/team-members').then((m) => m.TeamMembers),
+      },
+      {
+        path: 'register',
+        loadComponent: () =>
+          import('./register/register').then((m) => m.Register),
+      },
+      {
+        path: 'register/premarital-register',
+        loadComponent: () =>
+          import('./register/premarital-register/premarital-register').then(
+            (m) => m.PremaritalRegister
+          ),
+      },
+      {
+        path: 'register/general-register',
+        loadComponent: () =>
+          import('./register/general-register/general-register').then(
+            (m) => m.GeneralRegister
+          ),
+      },
+      {
+        path: 'register/pre-confirm-register',
+        loadComponent: () =>
+          import('./register/pre-confirm-register/pre-confirm-register').then(
+            (m) => m.PreConfirmRegister
+          ),
+      },
+      {
+        path: 'sessions',
+        loadComponent: () =>
+          import('./sessions/sessions').then((m) => m.Sessions),
+      },
       {
         path: 'register/premarital-register/:sessionId',
-        component: PremaritalRegister,
+        loadComponent: () =>
+          import('./register/premarital-register/premarital-register').then(
+            (m) => m.PremaritalRegister
+          ),
       },
     ],
   },
 
   // Admin login is public, outside admin layout
-  { path: 'admin/login', component: AdminLogin },
+  {
+    path: 'admin/login',
+    loadComponent: () =>
+      import('./admin/login/login').then((m) => m.AdminLogin),
+  },
 
   // Admin protected routes wrapped inside AdminLayout
   {
     path: 'admin',
-    component: AdminLayout,
+    loadComponent: () =>
+      import('./layouts/admin-layout').then((m) => m.AdminLayout),
     canActivate: [authGuard],
     children: [
-      { path: 'dashboard', component: Dashboard },
-      { path: 'premarital', component: PremaritalComponent },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./admin/dashboard/dashboard').then((m) => m.Dashboard),
+      },
+      {
+        path: 'premarital',
+        loadComponent: () =>
+          import('./admin/premarital/premarital').then(
+            (m) => m.PremaritalComponent
+          ),
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'session-config',
-        component: SessionConfig,
+        loadComponent: () =>
+          import('./admin/session-config/session-config').then(
+            (m) => m.SessionConfig
+          ),
       },
-      { path: 'general-list', component: GeneralList },
+      {
+        path: 'general-list',
+        loadComponent: () =>
+          import('./admin/general-list/general-list').then(
+            (m) => m.GeneralList
+          ),
+      },
     ],
   },
 
