@@ -27,7 +27,9 @@
             <h3 class="text-lg font-semibold mb-2 uppercase">{{ monthGroup.month }}</h3>
             <div class="grid gap-4">
               @for (session of monthGroup.sessions; track session.Id) {
-              <mat-card class="rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition">
+              <mat-card
+                class="rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition animate-fade-slide"
+              >
                 <mat-card-header>
                   <mat-card-title class="!text-lg font-bold"> {{ session.SessionName }} </mat-card-title>
                   <mat-card-subtitle class="!text-lg text-gray-500">
