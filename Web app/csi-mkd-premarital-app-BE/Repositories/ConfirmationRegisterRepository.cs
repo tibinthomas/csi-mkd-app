@@ -28,8 +28,6 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
 
     public async Task<object> FilterRegistrations(ConfirmationRegisterFilterDto filter)
     {
-        // Implement filtering logic based on the filter criteria
-        // This is a placeholder for actual implementation
         var query = _context.ConfirmationRegistrations
             .Include(r => r.ConfirmationDocument)
             .Include(r => r.Participants)
@@ -41,8 +39,8 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
             var search = filter.Search.ToLower();
 
             query = query.Where(r =>
-                r.ChurchName.ToLower().Contains(search) ||
-                r.Participants.Any(p => p.Name.ToLower().Contains(search)));
+                EF.Functions.Like(r.ChurchName, $"%{search}%") ||
+                r.Participants.Any(p => EF.Functions.Like(p.Name, $"%{search}%")));
 
         }
 
@@ -52,12 +50,7 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
             .OrderByDescending(r => r.SubmittedDate)
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
-            .ToListAsync();
-
-        return new
-        {
-            totalCount,
-            items = results.Select(r => new
+            .Select(r => new
             {
                 r.Id,
                 r.ChurchName,
@@ -68,12 +61,15 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
                     p.Name,
                     p.Age
                 }).ToList(),
-                ConfirmationDocument = new
-                {
-                    r.ConfirmationDocument?.VicarLetterUrl
-                },
+                VicarLetterUrl = r.ConfirmationDocument != null ? r.ConfirmationDocument.VicarLetterUrl : null,
                 r.Consent,
             })
+            .ToListAsync();
+
+        return new
+        {
+            totalCount,
+            items = results
         };
     }
 }

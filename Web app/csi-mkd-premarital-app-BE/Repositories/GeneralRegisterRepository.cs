@@ -29,7 +29,7 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
 
     public async Task<bool> CheckEmailExists(string email)
         => await _context.GeneralRegistrations
-            .AnyAsync(r => r.Email.ToLower() == email.ToLower());
+            .AnyAsync(r => r.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
     public async Task<bool> UpdatePaymentStatus(int id, bool status)
     {
@@ -52,9 +52,9 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
             var search = filter.Search.ToLower();
 
             query = query.Where(r =>
-                r.FirstName.ToLower().Contains(search) ||
-                r.LastName.ToLower().Contains(search) ||
-                r.Email.ToLower().Contains(search));
+                EF.Functions.Like(r.FirstName, $"%{search}%") ||
+                EF.Functions.Like(r.LastName, $"%{search}%") ||
+                EF.Functions.Like(r.Email, $"%{search}%"));
         }
 
         if (filter.UnapprovedOnly == true)
@@ -67,12 +67,7 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
             .OrderByDescending(r => r.SubmittedAt)
             .Skip((filter.Page - 1) * filter.PageSize)
             .Take(filter.PageSize)
-            .ToListAsync();
-
-        return new
-        {
-            totalCount,
-            items = results.Select(r => new
+            .Select(r => new
             {
                 r.Id,
                 r.FirstName,
@@ -89,11 +84,15 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
                 r.SessionType,
                 r.MaritalStatus,
                 r.Declaration,
-                PhotoUrl = r.GeneralDocument?.PhotoUrl,
+                PhotoUrl = r.GeneralDocument != null ? r.GeneralDocument.PhotoUrl : null,
                 r.PaymentStatus,
             })
+            .ToListAsync();
+
+        return new
+        {
+            totalCount,
+            items = results
         };
     }
 }
-
-

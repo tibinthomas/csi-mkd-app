@@ -14,7 +14,7 @@ public class SessionConfigRepository : ISessionConfigRepository
     }
 
     public async Task<List<SessionConfiguration>> GetAll()
-        => await _context.SessionConfigurations.ToListAsync();
+        => await _context.SessionConfigurations.AsNoTracking().ToListAsync();
 
     public async Task<SessionConfiguration?> GetById(int id)
         => await _context.SessionConfigurations.FindAsync(id);

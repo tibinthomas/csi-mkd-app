@@ -40,7 +40,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
         public async Task<bool> CheckEmailExists(string email)
             => await _context.PremaritalRegistrations
-                .AnyAsync(r => r.Email.ToLower() == email.ToLower());
+                .AnyAsync(r => r.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
         public async Task<object> FilterRegistrations(RegistrationFilterDto filter)
         {
@@ -54,9 +54,9 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 var search = filter.Search.ToLower();
 
                 query = query.Where(r =>
-                    r.FirstName.ToLower().Contains(search) ||
-                    r.LastName.ToLower().Contains(search) ||
-                    r.Email.ToLower().Contains(search));
+                    EF.Functions.Like(r.FirstName, $"%{search}%") ||
+                    EF.Functions.Like(r.LastName, $"%{search}%") ||
+                    EF.Functions.Like(r.Email, $"%{search}%"));
             }
 
             if (filter.UnapprovedOnly == true)
@@ -81,12 +81,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 .OrderByDescending(r => r.SubmittedAt)
                 .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize)
-                .ToListAsync();
-
-            return new
-            {
-                totalCount,
-                items = results.Select(r => new
+                .Select(r => new
                 {
                     r.Id,
                     r.FirstName,
@@ -106,14 +101,19 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.ChurchActivitiesJson,
                     r.Declaration,
                     r.SessionId,
-                    r.SessionConfiguration!.SessionName,
-                    r.PremaritalDocument!.PhotoUrl,
-                    r.PremaritalDocument!.VicarLetterUrl,
+                    SessionName = r.SessionConfiguration != null ? r.SessionConfiguration.SessionName : null,
+                    PhotoUrl = r.PremaritalDocument != null ? r.PremaritalDocument.PhotoUrl : null,
+                    VicarLetterUrl = r.PremaritalDocument != null ? r.PremaritalDocument.VicarLetterUrl : null,
                     r.PaymentStatus,
                 })
+                .ToListAsync();
+
+            return new
+            {
+                totalCount,
+                items = results
             };
         }
     }
 
 }
-
