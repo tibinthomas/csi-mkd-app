@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using csi_mkd_premarital_app_BE.Data;
@@ -11,9 +12,11 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250801145133_PreConfirmationRegisterUpdate")]
+    partial class PreConfirmationRegisterUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,14 +75,11 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTime>("SubmittedDate")
-                        .HasColumnType("timestamp with time zone");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ConfirmationRegistrationId");
 
-                    b.ToTable("Participants");
+                    b.ToTable("Participant");
                 });
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.AdminUser", b =>

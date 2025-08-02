@@ -68,7 +68,6 @@ namespace csi_mkd_premarital_app_BE.Models
 
         public PremaritalDocument? PremaritalDocument { get; set; }
 
-
         // [Timestamp]
         // public byte[] RowVersion { get; set; } = default!;
     }

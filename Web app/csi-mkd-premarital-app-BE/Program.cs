@@ -99,6 +99,8 @@ builder.Services.AddScoped<ISessionConfigRepository, SessionConfigRepository>();
 builder.Services.AddScoped<BlobStorageService>();
 builder.Services.AddScoped<IGeneralRegisterService, GeneralRegisterService>();
 builder.Services.AddScoped<IGeneralRegisterRepository, GeneralRegisterRepository>();
+builder.Services.AddScoped<IConfirmationRegisterService, ConfirmationRegisterService>();
+builder.Services.AddScoped<IConfirmationRegisterRepository, ConfirmationRegisterRepository>();
 
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

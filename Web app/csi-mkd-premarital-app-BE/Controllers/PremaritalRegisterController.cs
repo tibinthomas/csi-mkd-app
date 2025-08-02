@@ -30,7 +30,7 @@ public class PremaritalRegisterController : ControllerBase
     }
 
     [HttpPut("{id}/paymentstatus")]
-    public async Task<IActionResult> UpdatePaymentStatus(int id, [FromBody] PaymentStatusUpdateDto dto)
+    public async Task<IActionResult> UpdatePaymentStatus([FromRoute] int id, [FromBody] PaymentStatusUpdateDto dto)
         => StatusCode((await _service.UpdatePaymentStatus(id, dto)).StatusCode);
 
     [HttpGet("check-email")]

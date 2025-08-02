@@ -10,8 +10,8 @@ namespace csi_mkd_premarital_app_BE.Models
 
         [Required, MaxLength(50)]
         public required string FirstName { get; set; }
-        [Required]
 
+        [Required]
         public required string LastName { get; set; }
 
         [Required]

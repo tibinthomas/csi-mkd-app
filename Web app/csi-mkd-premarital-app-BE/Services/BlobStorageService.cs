@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 public class BlobStorageService
 {
     private readonly BlobServiceClient _blobServiceClient;
-    private readonly string _containerName = "premarital-files";
+    private readonly string _containerName = "register-documents";
     private readonly string _accountName;
     private readonly string _accountKey;
     private readonly bool _isDevelopment;
