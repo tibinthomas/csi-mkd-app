@@ -1,6 +1,5 @@
 <header role="banner">
   <mat-toolbar
-    color="primary"
     class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
   >
     <!-- Left: CSI Logo -->
@@ -141,12 +140,93 @@
 <main role="main">
   <router-outlet></router-outlet>
 </main>
-<footer class="bg-rose-50 py-4 mt-6">
-  <div class="container px-5 text-center">
-    <p class="text-xs">&copy; {{ currentYear }} CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved.</p>
-    <p class="text-xs mt-2">
-      Developed by
-      <a href=" " class="text-blue-400 hover:underline" target="_blank" rel="noopener noreferrer">HomeStack team</a>
-    </p>
+<!-- Footer Contact Section -->
+<footer class="bg-gradient-to-br from-rose-50 via-white to-rose-100 mt-20 pt-10 border-t border-gray-200">
+  <!-- Top: Contact + Address + Scripture -->
+  <div class="max-w-7xl mx-auto px-6 grid gap-12 md:grid-cols-3 text-gray-800 text-center md:text-left">
+    <!-- Contact Info -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4" i18n><i class="bi bi-telephone"></i> Contact</h3>
+      <ul class="space-y-1 text-sm leading-relaxed">
+        <li><a href="tel:+918129778832" class="hover:underline">+91-8129778832</a></li>
+        <li><a href="tel:+918606638973" class="hover:underline">+91-8606638973</a></li>
+        <li><a href="mailto:csimkdmarry@gmail.com" class="hover:underline">csimkdmarry&#64;gmail.com</a></li>
+        <li class="mt-2 text-xs" i18n><i class="bi bi-calendar-week"></i> Mon – Sat | 9:00 AM – 6:00 PM</li>
+      </ul>
+    </div>
+
+    <!-- Address -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4" i18n><i class="bi bi-geo-alt"></i> Visit Us</h3>
+      <ul class="space-y-1 text-sm leading-relaxed">
+        <li i18n>CSI Counselling Centre</li>
+        <li i18n>CMS Press Compound</li>
+        <li i18n>Chalukunnu, Kottayam-1</li>
+        <li i18n>Kerala, India – 686001</li>
+      </ul>
+    </div>
+
+    <!-- Scripture -->
+    <div>
+      <blockquote class="italic text-sm leading-relaxed" i18n>
+        “Come to me, all who are weary and burdened, and I will give you rest.”
+      </blockquote>
+      <p class="mt-2 text-xs" i18n>– Matthew 11:28</p>
+    </div>
+  </div>
+
+  <!-- Google Map -->
+  <div class="max-w-5xl mx-auto px-6 mt-12">
+    <div class="rounded-xl overflow-hidden shadow-lg">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.9814545776558!2d76.51042919678956!3d9.596864899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b062b0f442475b7%3A0x50451aeaf955cd6f!2sCSI%20Counselling%20Centre!5e0!3m2!1sen!2sca!4v1752345411567!5m2!1sen!2sca"
+        width="100%"
+        height="260"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Google Map"
+      ></iframe>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="w-full border-t border-gray-300 mt-10"></div>
+
+  <!-- Bottom: Copyright & Social -->
+  <div
+    class="max-w-7xl mx-auto px-6 py-6 flex flex-col lg:flex-row items-center justify-between text-center lg:text-left text-xs text-gray-700"
+  >
+    <!-- Copyright -->
+    <div class="space-y-1">
+      <p>&copy; {{ currentYear }} CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved.</p>
+      <p>
+        Developed by
+        <a href="#" class="text-rose-600 hover:underline" target="_blank" rel="noopener noreferrer">HomeStack team</a>
+      </p>
+    </div>
+
+    <!-- Social Media -->
+    <div class="mt-4 lg:mt-0">
+      <div class="flex justify-center lg:justify-end gap-4 text-lg">
+        <a
+          href="https://www.facebook.com/CsiCounselingCentreKottyam"
+          target="_blank"
+          aria-label="Facebook"
+          class="hover:text-blue-600 transition duration-200"
+        >
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a
+          href="https://www.instagram.com/c.s.i_counselling_center_ktm/"
+          target="_blank"
+          aria-label="Instagram"
+          class="hover:text-pink-600 transition duration-200"
+        >
+          <i class="bi bi-instagram"></i>
+        </a>
+      </div>
+    </div>
   </div>
 </footer>
