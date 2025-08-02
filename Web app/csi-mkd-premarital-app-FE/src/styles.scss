@@ -15,6 +15,25 @@ body {
   font-family: 'PT Serif', sans-serif;
 }
 
+/* Responsive Typography */
+html {
+  font-size: 14px; /* Base font size for mobile */
+}
+
+@media (min-width: 768px) {
+  /* Tablet */
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* Desktop */
+  html {
+    font-size: 16px; /* Default font size */
+  }
+}
+
 @layer utilities {
   .animate-fade-slide {
     animation: fadeSlideIn 0.8s ease-out forwards;
@@ -31,21 +50,6 @@ body {
     }
   }
 }
-
-// .animate {
-//   animation: fadeInUp 1s ease forwards;
-// }
-
-// @keyframes fadeInUp {
-//   from {
-//     opacity: 0;
-//     transform: translateY(20px);
-//   }
-//   to {
-//     opacity: 1;
-//     transform: translateY(0);
-//   }
-// }
 
 .animate-zoom-in {
   animation: zoomIn 0.8s ease forwards;
