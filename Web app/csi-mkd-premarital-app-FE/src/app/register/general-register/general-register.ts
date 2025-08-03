@@ -67,15 +67,39 @@ export class GeneralRegister {
 
   constructor() {
     this.form = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(3)]],
-      lastName: ['', [Validators.required, Validators.minLength(3)]],
-      fatherName: ['', Validators.required],
-      address: ['', Validators.required],
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      lastName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      fatherName: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      address: ['', [Validators.required, Validators.maxLength(250)]],
       sex: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
-      education: ['', Validators.required],
-      occupation: ['', Validators.required],
-      churchName: [''],
+      education: ['', [Validators.required, Validators.maxLength(100)]],
+      occupation: ['', [Validators.required, Validators.maxLength(100)]],
+      churchName: ['', [Validators.required, Validators.maxLength(100)]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
         '',

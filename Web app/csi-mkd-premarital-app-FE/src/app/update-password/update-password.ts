@@ -1,5 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+  FormGroup,
+  ValidationErrors,
+  AbstractControl,
+} from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../api/services';
@@ -15,8 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
-],
+    MatButtonModule,
+  ],
   templateUrl: './update-password.html',
 })
 export class UpdatePassword {
@@ -31,17 +38,37 @@ export class UpdatePassword {
   form: ReturnType<FormBuilder['group']>;
 
   constructor() {
-    this.form = this.fb.group({
-      currentPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
-    });
+    this.form = this.fb.group(
+      {
+        currentPassword: ['', [Validators.required, Validators.minLength(6)]],
+        newPassword: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(
+              /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/
+            ),
+          ],
+        ],
+        confirmPassword: ['', Validators.required],
+      },
+      { validators: this.passwordMatchValidator }
+    );
+  }
+
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const newPassword = control.get('newPassword')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    if (newPassword !== confirmPassword) {
+      return { passwordMismatch: true };
+    }
+    return null;
   }
 
   updatePassword() {
-    if (this.form.invalid) return;
-    if (this.form.value.newPassword !== this.form.value.confirmPassword) {
-      this.error = 'New password and confirm password must match.';
+    if (this.form.invalid) {
+      this.error = 'Please correct the errors before submitting.';
       return;
     }
 

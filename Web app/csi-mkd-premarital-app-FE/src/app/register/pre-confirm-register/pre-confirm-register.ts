@@ -62,12 +62,19 @@ export class PreConfirmRegister {
 
   constructor() {
     this.form = this.fb.group({
-      churchName: ['', Validators.required],
+      churchName: ['', [Validators.required, Validators.maxLength(100)]],
       confirmationDate: ['', Validators.required],
       confirmationTime: ['', Validators.required],
       participants: this.fb.array([
         this.fb.group({
-          name: ['', Validators.required],
+          name: [
+            '',
+            [
+              Validators.required,
+              Validators.maxLength(100),
+              Validators.pattern(/^[a-zA-Z\s]*$/),
+            ],
+          ],
           age: [
             '',
             [Validators.required, Validators.min(1), Validators.max(120)],
@@ -190,7 +197,14 @@ export class PreConfirmRegister {
   addParticipant(): void {
     this.participants().push(
       this.fb.group({
-        name: ['', Validators.required],
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(100),
+            Validators.pattern(/^[a-zA-Z\s]*$/),
+          ],
+        ],
         age: [
           '',
           [Validators.required, Validators.min(1), Validators.max(120)],

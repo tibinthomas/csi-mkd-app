@@ -35,8 +35,15 @@ export class Feedback {
   private readonly feedbackService = inject(FeedbackService);
 
   protected readonly feedbackForm = this.fb.group({
-    sessionTitle: ['', Validators.required],
-    name: ['', Validators.required],
+    sessionTitle: ['', [Validators.required, Validators.maxLength(100)]],
+    name: [
+      '',
+      [
+        Validators.required,
+        Validators.maxLength(100),
+        Validators.pattern(/^[a-zA-Z\s]*$/),
+      ],
+    ],
     email: ['', [Validators.required, Validators.email]],
     date: ['', Validators.required],
     qualityRating: [
@@ -55,9 +62,9 @@ export class Feedback {
       '',
       [Validators.required, Validators.min(1), Validators.max(10)],
     ],
-    valuable: [''],
-    improvements: [''],
-    comments: [''],
+    valuable: ['', Validators.maxLength(500)],
+    improvements: ['', Validators.maxLength(500)],
+    comments: ['', Validators.maxLength(500)],
   });
 
   protected readonly isSubmitting = signal(false);
