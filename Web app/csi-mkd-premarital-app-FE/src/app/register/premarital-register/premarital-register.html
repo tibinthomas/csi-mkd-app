@@ -260,7 +260,7 @@
             aria-describedby="letter-upload-help"
           >
             <mat-icon aria-hidden="true">upload_file</mat-icon>
-            Choose File
+            <span i18n>Choose File</span>
           </button>
           <input
             #letterInput
@@ -300,7 +300,7 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            {{ isSubmitting() ? "Submitting..." : "Register" }}
+            @if (isSubmitting()) {<span i18n>"Submitting..."</span>} @if(!isSubmitting()){<span i18n>"Register"</span>}
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>

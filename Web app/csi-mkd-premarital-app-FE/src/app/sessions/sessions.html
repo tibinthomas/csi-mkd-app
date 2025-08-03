@@ -1,9 +1,13 @@
 <main class="min-h-screen py-30 px-6 bg-white">
   <section class="max-w-4xl mx-auto">
     <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold">Register for a Premarital Session</h1>
+      <h1 class="text-2xl font-bold" i18n>Register for a Premarital Session</h1>
       <button mat-raised-button color="primary" class="font-bold" (click)="toggleAll()">
-        {{ allExpanded() ? "Collapse All" : "Expand All" }}
+        @if ( allExpanded()) {
+        <span i18n>Collapse All</span>
+        } @if ( !allExpanded()) {
+        <span i18n>Expand All</span>
+        }
       </button>
     </div>
     @if(isLoading()) {
@@ -43,7 +47,11 @@
                     [disabled]="!session.IsActive"
                     (click)="registerSession(session)"
                   >
-                    {{ session.IsActive ? "Register" : "Unavailable" }}
+                    @if( session.IsActive) {
+                    <span i18n>Register</span>
+                    } @if(!session.IsActive) {
+                    <span i18n>Unavailable</span>
+                    }
                   </button>
                 </mat-card-actions>
               </mat-card>

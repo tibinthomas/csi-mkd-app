@@ -40,6 +40,7 @@ export class Sessions {
   private readonly sessionConfigService = inject(SessionConfigService);
   protected readonly isLoading = signal(true);
 
+
   private readonly sessions$ = this.sessionConfigService
     .apiSessionconfigGet()
     .pipe(
@@ -85,6 +86,7 @@ export class Sessions {
 
   // Expand/collapse tracking
   expandedYears: WritableSignal<Record<string, boolean>> = signal({});
+
 
   allExpanded = computed(() => {
     const yearMap = this.expandedYears();

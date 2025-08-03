@@ -150,7 +150,10 @@
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2701382886087063861" datatype="html">
+
+
+      
+      <trans-unit id="Experienced Team description" datatype="html">
         <source>Panel of certified psychologists, pastoral counsellors, and clergy.</source>
         <target>സർട്ടിഫൈഡ് സൈക്കോളജിസ്റ്റുകൾ, പാസ്റ്ററൽ കൗൺസിലർമാർ, പുരോഹിതന്മാർ എന്നിവരുടെ പാനൽ.</target>
         <context-group purpose="location">
@@ -1120,6 +1123,18 @@
           <context context-type="linenumber">142,143</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="4813894337483218692" datatype="html">
+        <source>Choose photo</source>
+         <target>ഫോട്ടോ തിരഞ്ഞെടുക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">154,155</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">231,232</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8331505699939849417" datatype="html">
         <source> I would like to attend the counselling course. </source>
         <target>കൗൺസിലിംഗ് കോഴ്സിൽ പങ്കെടുക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു.</target>
@@ -1361,12 +1376,12 @@
           <context context-type="linenumber">3,4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="556033396834595139" datatype="html">
-        <source> Select the type of counselling you’d like to register for. </source>
-        <target>നിങ്ങൾ രജിസ്റ്റർ ചെയ്യാൻ ആഗ്രഹിക്കുന്ന കൗൺസിലിംഗ് ടൈപ്പ് തിരഞ്ഞെടുക്കുക. </target>
+       <trans-unit id="3583904288938276255" datatype="html">
+        <source>Select the type of counselling you’d like to register for.</source>
+         <target>നിങ്ങൾ രജിസ്റ്റർ ചെയ്യാൻ ആഗ്രഹിക്കുന്ന കൗൺസിലിംഗ് ടൈപ്പ് തിരഞ്ഞെടുക്കുക. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.html</context>
-          <context context-type="linenumber">5,6</context>
+          <context context-type="linenumber">4,6</context>
         </context-group>
       </trans-unit>
        <trans-unit id="6911062079921906273" datatype="html">
@@ -1407,6 +1422,326 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.html</context>
           <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5238622114413187924" datatype="html">
+        <source>Premarital Sessions</source>
+        <target>പ്രീമാരിറ്റൽ  സെഷൻസ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">76,77</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">133,135</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="811835437066708749" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-telephone&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Contact</source>
+               <target><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-telephone&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/>കോൺടാക്റ്റ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">146,147</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="6224688768643075871" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-geo-alt&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Visit Us</source>
+               <target><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-geo-alt&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> ഞങ്ങളെ സന്ദർശിക്കൂ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">157,158</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="6918433711869093985" datatype="html">
+        <source>Register for a Premarital Session</source>
+        <target>പ്രീമാരിറ്റൽ  സെഷനായി രജിസ്റ്റർ ചെയ്യുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sessions/sessions.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8088663872040483564" datatype="html">
+        <source>Collapse All</source>
+         <target>ചുരുക്കുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sessions/sessions.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5008745968518267369" datatype="html">
+        <source>Expand All</source>
+         <target>എക്സ്പാന്റ്  ചെയ്യൂ  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sessions/sessions.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="3301086086650990787" datatype="html">
+        <source>Register</source>
+        <target>രജിസ്റ്റർ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">127,129</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sessions/sessions.html</context>
+          <context context-type="linenumber">51,52</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="5643561794785412000" datatype="html">
+        <source>Unavailable</source>
+        <target>ലഭ്യമല്ല</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sessions/sessions.html</context>
+          <context context-type="linenumber">53,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4750994982773921735" datatype="html">
+        <source>&quot;Submitting...&quot;</source>
+         <target>ദയവായി കാത്തിരിക്കുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">303,304</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="3493126540529865490" datatype="html">
+        <source>Submitting...</source>
+        <target> ദയവായി കാത്തിരിക്കുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">193,194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1608093538848361609" datatype="html">
+        <source>Form is being submitted, please wait</source>
+        <target>ദയവായി കാത്തിരിക്കുക   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">200,201</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">145,146</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">306,307</context>
+        </context-group>
+      </trans-unit>
+     
+      <trans-unit id="9148433064982969724" datatype="html">
+        <source>&quot;Register&quot;</source>
+         <target>രെജിസ്റ്റർ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">142,143</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">304,305</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5429481539069429354" datatype="html">
+        <source>Choose File</source>
+        <target> ഫയൽ തിരഞ്ഞെടുക്കുക
+        </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">263,264</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">102,103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1558143461517356117" datatype="html">
+        <source> Meet Our Team </source>
+        <target> ഞങ്ങളുടെ ടീം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/team-members/team-members.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2986049664124147963" datatype="html">
+        <source> With a panel of certified counsellors, psychologists, and clergy dedicated to your holistic healing. </source>
+       <target> നിങ്ങളുടെ സമഗ്രമായ മാറ്റത്തിനായി  സമർപ്പിതരായ സർട്ടിഫൈഡ് കൗൺസിലർമാർ, മനശാസ്ത്രജ്ഞർ, പുരോഹിതന്മാർ എന്നിവർ അടങ്ങിയ  പാനൽ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/team-members/team-members.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7300153235857299511" datatype="html">
+        <source>Pre-Confirmational Counselling</source>
+        <target> പ്രീ-കണ്ഫിര്മേഷണൽ കൗൺസിലിംഗ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4178581730063534025" datatype="html">
+        <source> One-day counselling program for youth preparing for confirmation. </source>
+        <target>സ്ഥിരീകരണത്തിനായി തയ്യാറെടുക്കുന്ന യുവാക്കൾക്കുള്ള ഏകദിന കൗൺസിലിംഗ് പ്രോഗ്രാം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="6934153456217930718" datatype="html">
+        <source> Pre-confirmational Registration Form </source>
+         <target> പ്രീ-കണ്ഫിര്മേഷണൽ രജിസ്ട്രേഷൻ ഫോം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3164346036811171308" datatype="html">
+        <source>Church Name is required.</source>
+ <target> സഭയുടെ പേര് എന്റർ ചെയ്യുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4249875216993513766" datatype="html">
+        <source>Date of Confirmation</source>
+        <target> കൺഫർമേഷൻ തീയതി   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="6831045480210888969" datatype="html">
+        <source>Time of Confirmation</source>
+        <target> കൺഫർമേഷൻ സമയം  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      
+      <trans-unit id="6759873381768320426" datatype="html">
+        <source>Confirmation Date is required.</source>
+        <target> കോണ്ഫിര്മഷൻ തീയതി എന്റർ ചെയ്യുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="582067054439245751" datatype="html">
+        <source>Confirmation Time is required.</source>
+        <target>കോണ്ഫിര്മഷൻ സമയം  എന്റർ ചെയ്യുക   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7177939160690758143" datatype="html">
+        <source>Participant Name</source>
+        <target>പേര്   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="582689454320678395" datatype="html">
+        <source>Participant name is required.</source>
+        <target> പേര് എന്റർ ചെയ്യുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3239959263037445146" datatype="html">
+        <source>Participant Age</source>
+        <target>പ്രായം   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8953989939162364938" datatype="html">
+        <source>Age must be between 1 and 120.</source>
+        <target> പ്രായം എന്റർ ചെയ്യുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="2284928776138616352" datatype="html">
+        <source> Add Participant </source>
+        <target> പാർട്ടിസിപ്പന്റിനെ ചേർക്കുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1913730392619296494" datatype="html">
+        <source>Number of Participants Added: </source>
+        <target>പാർട്ടിസിപ്പന്റ്സിന്റെ എണ്ണം :  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4133994963719668427" datatype="html">
+        <source>No participants added yet.</source>
+        <target> പാർട്ടിസിപ്പന്റ്സിന്റെ എണ്ണം : 0 </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">85,86</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="8185933374950594056" datatype="html">
+        <source>Upload Witness of Vicar</source>
+        <target>വികാരിയുടെ സാക്ഷ്യപത്രം  അപ്‌ലോഡ് ചെയ്യുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">92,93</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">253,254</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3417623008734093570" datatype="html">
+        <source> Please select a document file (PDF, DOC, DOCX) or image containing the witness of vicar </source>
+        <target>വികാരിയുടെ സാക്ഷ്യപത്രം ഡോക്യുമെന്റായോ((PDF, DOC, DOCX)) ഇമേജായോ അപ്‌ലോഡ് ചെയ്യുക   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">114</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">275</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="167227282906727106" datatype="html">
+        <source> I hereby submit with all my consent for the above. </source>
+        <target>മുകളിൽ പറഞ്ഞ കാര്യങ്ങൾ എനിക്ക് പൂർണ സമ്മതമാണ്   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1756429186363781752" datatype="html">
+        <source>You must accept the consent.</source>
+        <target>സമ്മതം അംഗീകരിക്കുക   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
     </body>

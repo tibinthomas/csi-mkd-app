@@ -54,7 +54,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Age</mat-label>
+            <mat-label i18n>Age</mat-label>
             <input matInput type="number" formControlName="age" />
             @if (isInvalid('age')) {
             <mat-error>
@@ -189,7 +189,11 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            {{ isSubmitting() ? "Submitting..." : "Register" }}
+            @if(isSubmitting()){
+            <span i18n>Submitting...</span>
+            } @if(!isSubmitting()){
+            <span i18n>Register</span>
+            }
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>

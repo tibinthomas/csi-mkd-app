@@ -17,7 +17,7 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Date of Confirmation</mat-label>
+            <mat-label i18n>Date of Confirmation</mat-label>
             <input matInput [matDatepicker]="datepicker" formControlName="confirmationDate" [min]="minDate" />
             <mat-datepicker #datepicker />
             <mat-datepicker-toggle [for]="datepicker" matSuffix />
@@ -27,7 +27,7 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Time of Confirmation</mat-label>
+            <mat-label i18n>Time of Confirmation</mat-label>
             <input matInput [matTimepicker]="timepicker" formControlName="confirmationTime" />
             <mat-timepicker #timepicker />
             <mat-timepicker-toggle [for]="timepicker" matSuffix />
@@ -99,7 +99,7 @@
             aria-describedby="letter-upload-help"
           >
             <mat-icon aria-hidden="true">upload_file</mat-icon>
-            Choose File
+            <span i18n> Choose File</span>
           </button>
           <input
             #letterInput
@@ -139,7 +139,7 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            {{ isSubmitting() ? "Submitting..." : "Register" }}
+            @if (isSubmitting()) {<span i18n>"Submitting..."</span>} @if(!isSubmitting()){<span i18n>"Register"</span>}
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>
