@@ -12,6 +12,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
 import {
@@ -54,6 +55,8 @@ import { Router } from '@angular/router';
     MatDialogModule,
     DatePipe,
     MatIcon,
+    RecaptchaModule,
+    RecaptchaFormsModule,
     // AnimateOnScrollDirective,
   ],
   templateUrl: './premarital-register.html',
@@ -160,6 +163,7 @@ export class PremaritalRegister {
       }),
       declaration: [false, Validators.requiredTrue],
       sessionId: ['', Validators.required],
+      recaptcha: ['', Validators.required],
     });
   }
 

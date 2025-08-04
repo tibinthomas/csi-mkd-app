@@ -12,6 +12,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -40,6 +41,8 @@ import { switchMap } from 'rxjs';
     MatInputModule,
     MatDialogModule,
     MatCheckboxModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   templateUrl: './pre-confirm-register.html',
   styleUrl: './pre-confirm-register.scss',
@@ -82,6 +85,7 @@ export class PreConfirmRegister {
         }),
       ]),
       consent: [false, Validators.requiredTrue],
+      recaptcha: ['', Validators.required],
     });
   }
 

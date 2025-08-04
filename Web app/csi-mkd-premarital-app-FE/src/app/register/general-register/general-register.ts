@@ -12,6 +12,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 import { GeneralRegisterService } from '../../../api/services';
 import { AzureUploadService } from '../../../api/services';
 import { MatCardModule } from '@angular/material/card';
@@ -41,6 +42,8 @@ import { emailExistsValidatorFactory } from '../../core/validators/unique-email.
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   templateUrl: './general-register.html',
   styleUrl: './general-register.scss',
@@ -122,6 +125,7 @@ export class GeneralRegister {
       maritalStatus: ['', Validators.required],
       sessionType: ['', Validators.required],
       declaration: [false, Validators.requiredTrue],
+      recaptcha: ['', Validators.required],
     });
   }
 

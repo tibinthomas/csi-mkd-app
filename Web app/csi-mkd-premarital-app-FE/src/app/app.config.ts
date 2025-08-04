@@ -3,7 +3,8 @@ import {
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection, isDevMode,
+  provideZonelessChangeDetection,
+  isDevMode,
 } from '@angular/core';
 import {
   provideRouter,
@@ -19,9 +20,14 @@ import { RateLimitInterceptor } from './core/interceptors/rate-limit-interceptor
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    {
+      provide: RECAPTCHA_V3_SITE_KEY,
+      useValue: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+    },
     provideAnimations(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
@@ -36,10 +42,11 @@ export const appConfig: ApplicationConfig = {
       const apiConfig: ApiConfiguration = inject(ApiConfiguration);
       apiConfig.rootUrl = API_ROOT_URL;
       return Promise.resolve();
-    }), provideServiceWorker('ngsw-worker.js', {
-            enabled: !isDevMode(),
-            registrationStrategy: 'registerWhenStable:30000'
-          }),
+    }),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
     // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     // AuthGuard,
   ],
