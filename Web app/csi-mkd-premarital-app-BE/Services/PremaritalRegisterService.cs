@@ -75,8 +75,8 @@ namespace csi_mkd_premarital_app_BE.Services
             await _repo.AddPremaritalFiles(entity);
 
             return (200, new { message = "Files uploaded!" });
-
         }
+        
         public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(int id, PaymentStatusUpdateDto dto)
             => await _repo.UpdatePaymentStatus(id, dto.PaymentStatus)
                 ? (200, new { message = "Updated successfully" })

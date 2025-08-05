@@ -29,7 +29,7 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
 
     public async Task<bool> CheckEmailExists(string email)
         => await _context.GeneralRegistrations
-            .AnyAsync(r => r.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+                .AnyAsync(r => r.Email.ToLower() == email.ToLower());
 
     public async Task<bool> UpdatePaymentStatus(int id, bool status)
     {

@@ -40,7 +40,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
         public async Task<bool> CheckEmailExists(string email)
             => await _context.PremaritalRegistrations
-                .AnyAsync(r => r.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+                .AnyAsync(r => r.Email.ToLower() == email.ToLower());
 
         public async Task<object> FilterRegistrations(RegistrationFilterDto filter)
         {
