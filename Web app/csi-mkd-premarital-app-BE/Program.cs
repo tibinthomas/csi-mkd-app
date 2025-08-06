@@ -72,6 +72,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowedOrigins", policy =>
     {
         policy.WithOrigins(
+                "https://csimkdcounselling.com",
                 "http://localhost:4200",
                 "https://gray-wave-0441f1a00.2.azurestaticapps.net"
             )
