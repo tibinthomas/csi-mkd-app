@@ -27,6 +27,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public required bool Declaration { get; set; }
         public required int SessionId { get; set; }
         public bool PaymentStatus { get; set; }
+        public required string RecaptchaToken { get; set; } // Added for reCAPTCHA verification
 
     }
 }

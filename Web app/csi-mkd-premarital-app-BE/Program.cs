@@ -116,7 +116,8 @@ builder.Services.AddScoped<IGeneralRegisterService, GeneralRegisterService>();
 builder.Services.AddScoped<IGeneralRegisterRepository, GeneralRegisterRepository>();
 builder.Services.AddScoped<IConfirmationRegisterService, ConfirmationRegisterService>();
 builder.Services.AddScoped<IConfirmationRegisterRepository, ConfirmationRegisterRepository>();
-
+builder.Services.AddHttpClient(); // Required for HttpClientFactory
+builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]

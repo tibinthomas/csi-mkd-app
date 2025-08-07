@@ -10,4 +10,5 @@ public class ConfirmationRegisterDto
     public required string ConfirmationTime { get; set; }
     public List<ParticipantDto> Participants { get; set; } = new();
     public bool Consent { get; set; }
+    public required string RecaptchaToken { get; set; } // Added for reCAPTCHA verification
 }

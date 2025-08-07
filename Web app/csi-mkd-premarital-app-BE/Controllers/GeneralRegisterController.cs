@@ -14,14 +14,22 @@ namespace csi_mkd_premarital_app_BE.Controllers;
 public class GeneralRegisterController : ControllerBase
 {
     private IGeneralRegisterService _service;
-    public GeneralRegisterController(IGeneralRegisterService service)
+
+    private IRecaptchaService _recaptchaService;
+    public GeneralRegisterController(IGeneralRegisterService service, IRecaptchaService recaptchaService)
     {
         _service = service;
+        _recaptchaService = recaptchaService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Register([FromForm] GeneralRegisterDto dto)
     {
+        // Verify reCAPTCHA token
+        if (!await _recaptchaService.VerifyTokenAsync(dto.RecaptchaToken))
+        {
+            return BadRequest(new { Message = "Invalid reCAPTCHA token." });
+        }
         var result = await _service.Register(dto);
 
         return StatusCode(result.StatusCode, result.Data);

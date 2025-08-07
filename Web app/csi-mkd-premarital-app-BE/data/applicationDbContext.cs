@@ -23,6 +23,22 @@ namespace csi_mkd_premarital_app_BE.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+            // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
+
+            // Seed the AdminUser with a hashed password
+            // Note: The password hash below is an example and should be replaced with a secure hash
+            // for your actual application.
+            // The hash below corresponds to the password "admin123" using BCrypt.
+            // You can generate your own hash using BCrypt.Net.BCrypt.HashPassword("your_password_here
+
+            modelBuilder.Entity<AdminUser>().HasData(new AdminUser
+            {
+                Id = 1,
+                Username = "csimkdmarry@gmail.com",
+                PasswordHash = "$2a$11$JyS3ggBufEWrsn/v4PLe/OV/kwnMrD9e6bm0DISNeyHjDqkG/20k2"
+            });
+
+
             modelBuilder.Entity<PremaritalRegistration>()
                 .HasOne(r => r.SessionConfiguration)
                 .WithMany(s => s.PremaritalRegistrations)
