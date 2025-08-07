@@ -12,7 +12,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { GeneralRegisterService } from '../../../api/services';
 import { AzureUploadService } from '../../../api/services';
 import { MatCardModule } from '@angular/material/card';
@@ -42,8 +42,7 @@ import { emailExistsValidatorFactory } from '../../core/validators/unique-email.
     MatButtonModule,
     MatDialogModule,
     MatIconModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
+    NgxCaptchaModule,
   ],
   templateUrl: './general-register.html',
   styleUrl: './general-register.scss',

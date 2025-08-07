@@ -12,7 +12,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
 import {
@@ -55,8 +55,7 @@ import { Router } from '@angular/router';
     MatDialogModule,
     DatePipe,
     MatIcon,
-    RecaptchaModule,
-    RecaptchaFormsModule,
+    NgxCaptchaModule,
     // AnimateOnScrollDirective,
   ],
   templateUrl: './premarital-register.html',
