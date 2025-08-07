@@ -73,7 +73,8 @@
           class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Sessions page"
-          i18n>Premarital Sessions</a
+          i18n
+          >Premarital Sessions</a
         >
       </nav>
 
@@ -106,7 +107,7 @@
 <!-- Mobile Nav Menu -->
 <mat-menu #menu="matMenu" role="menu" aria-label="Mobile navigation menu">
   <a mat-menu-item routerLink="/about" routerLinkActive="bg-rose-50" i18n role="menuitem" aria-label="About us page"
-  >About</a
+    >About</a
   >
   <a
     mat-menu-item
@@ -197,7 +198,9 @@
   >
     <!-- Copyright -->
     <div class="space-y-1">
-      <p>&copy; {{ currentYear }} CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved.</p>
+      <p>
+        &copy; {{ currentYear }} CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved. (v{{ version }})
+      </p>
       <p>
         Developed by
         <a href="#" class="text-rose-600 hover:underline" target="_blank" rel="noopener noreferrer">HomeStack team</a>

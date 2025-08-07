@@ -9,7 +9,7 @@
     "test": "ng test",
     "gen-api": "ng-openapi-gen -c ng-openapi-gen.json",
     "extract-i18n": "ng extract-i18n --output-path src/locale",
-    "build-deploy": "ng build --configuration production && cp -r dist/csi-mkd-counselling/browser/en-US/index.html dist/csi-mkd-counselling/browser && npx swa deploy --env production"
+    "build-deploy": "npm version patch --force && ng build --configuration production && cp -r dist/csi-mkd-counselling/browser/en-US/index.html dist/csi-mkd-counselling/browser && npx swa deploy --env production"
   },
   "private": true,
   "dependencies": {
