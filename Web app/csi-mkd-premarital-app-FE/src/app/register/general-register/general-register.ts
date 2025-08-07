@@ -62,7 +62,11 @@ export class GeneralRegister {
   protected readonly isSubmitting = signal(false);
   protected readonly formSubmitted = signal(false);
   protected readonly photoError = signal('');
+  
+  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
 
+  // siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Example site key, replace with your actual key
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   photoFileName: string | null = '';
   showErrorModal = signal(false);
@@ -161,6 +165,9 @@ export class GeneralRegister {
     }
   }
 
+  handleSuccess(token: string) {
+    this.form.get('recaptcha')?.setValue(token);
+  }
   onSubmit() {
     this.formSubmitted.set(true);
 
@@ -173,9 +180,10 @@ export class GeneralRegister {
       return;
     }
 
-    const photo = this.photoFile()!;
+    this.isSubmitting.set(true);
 
     const raw = this.form.value;
+    const photo = this.photoFile()!;
 
     const body = {
       FirstName: raw.firstName,
@@ -192,13 +200,13 @@ export class GeneralRegister {
       MaritalStatus: raw.maritalStatus,
       SessionType: raw.sessionType,
       Declaration: raw.declaration,
+      RecaptchaToken: raw.recaptcha, // <-- token is here, set automatically by ngx-recaptcha2
     };
-
-    this.isSubmitting.set(true);
 
     this.generalRegisterService.apiGeneralRegisterPost({ body }).subscribe({
       next: (response: any) => {
         const registerId: number = JSON.parse(response).id;
+
         this.azureUploadService
           .apiAzureUploadGenerateSasGet({
             fileName: `general/${registerId}/photo/${photo.name}`,
@@ -211,12 +219,13 @@ export class GeneralRegister {
           )
           .subscribe({
             next: (photoSasUrl) => {
-              const body = {
+              const saveBody = {
                 RegistrationId: registerId,
                 PhotoUrl: photoSasUrl,
               };
+
               this.generalRegisterService
-                .apiGeneralRegisterSavePhotoUrlPost({ body })
+                .apiGeneralRegisterSavePhotoUrlPost({ body: saveBody })
                 .subscribe({
                   next: () => {
                     this.successMessage.set(
@@ -231,19 +240,26 @@ export class GeneralRegister {
                       },
                     });
                     this.resetForm();
-                  },
-                  error: (err) => {
-                    console.error(err);
-                    this.errorMessage.set(
-                      'File Upload failed. Please try again.'
-                    );
-                    this.showErrorModal.set(true);
                     this.isSubmitting.set(false);
                   },
+                  error: (err) => this.handleUploadError(err),
                 });
             },
+            error: (err) => this.handleUploadError(err),
           });
       },
+      error: (err) => {
+        this.errorMessage.set('Registration failed. Please try again.');
+        this.showErrorModal.set(true);
+        this.isSubmitting.set(false);
+      },
     });
+  }
+
+  private handleUploadError(err: any) {
+    console.error('Upload error:', err);
+    this.errorMessage.set('Photo upload failed. Please try again.');
+    this.showErrorModal.set(true);
+    this.isSubmitting.set(false);
   }
 }

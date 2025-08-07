@@ -131,9 +131,13 @@
         </div>
 
         <div class="flex justify-center">
+          <!-- reCAPTCHA v2 Checkbox -->
           <ngx-recaptcha2
             formControlName="recaptcha"
-            siteKey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+            [siteKey]="siteKey"
+            (success)="handleSuccess($event)"
+            theme="light"
+            size="normal"
           ></ngx-recaptcha2>
         </div>
         <div class="flex justify-center">
@@ -145,7 +149,7 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            @if (isSubmitting()) {<span i18n>"Submitting..."</span>} @if(!isSubmitting()){<span i18n>"Register"</span>}
+            @if (isSubmitting()) {<span i18n>Submitting...</span>} @if(!isSubmitting()){<span i18n>Register</span>}
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>
