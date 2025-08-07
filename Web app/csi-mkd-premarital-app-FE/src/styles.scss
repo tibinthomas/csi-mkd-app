@@ -96,14 +96,6 @@ html {
   border-width: 0;
 }
 
-/* Focus Styles */
-:focus-visible {
-  outline: 3px solid #3f51b5; /* Material primary color */
-  outline-offset: 2px;
-  box-shadow: 0 0 0 5px rgba(63, 81, 181, 0.3);
-  border-radius: 4px;
-}
-
 /* High Contrast Mode Adjustments */
 @media (forced-colors: active) {
   .mat-toolbar {
