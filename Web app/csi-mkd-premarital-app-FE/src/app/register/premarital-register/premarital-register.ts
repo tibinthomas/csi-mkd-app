@@ -12,8 +12,6 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
-
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
 import {
   AzureUploadService,
@@ -39,6 +37,7 @@ import { emailDomainValidator } from '../../core/validators/email-domain.validat
 import { FileUploadService } from '../../core/services/file-upload.service';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { Router } from '@angular/router';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-premarital-register',
@@ -55,9 +54,8 @@ import { Router } from '@angular/router';
     MatDialogModule,
     DatePipe,
     MatIcon,
-    RecaptchaModule,
-    RecaptchaFormsModule,
     // AnimateOnScrollDirective,
+    NgxCaptchaModule,
   ],
   templateUrl: './premarital-register.html',
   styleUrl: './premarital-register.scss',
@@ -85,6 +83,9 @@ export class PremaritalRegister {
   protected readonly photoError = signal('');
   protected readonly vicarLetterError = signal('');
   protected readonly minDate = new Date().toISOString().split('T')[0];
+
+  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
+  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;
@@ -246,6 +247,10 @@ export class PremaritalRegister {
     return !!(control && control.invalid && this.formSubmitted());
   }
 
+  handleSuccess(response: string): void {
+    this.form.get('recaptcha')?.setValue(response);
+  }
+
   preventInvalidKeys(event: KeyboardEvent) {
     const invalidKeys = ['e', 'E', '+', '-'];
     if (invalidKeys.includes(event.key)) {
@@ -322,6 +327,7 @@ export class PremaritalRegister {
       Declaration: raw.declaration,
       SessionId: Number(raw.sessionId),
       PaymentStatus: false,
+      RecaptchaToken: raw.recaptcha, // <-- token is here, set automatically by ngx-recaptcha2
     };
 
     this.premaritalRegisterService

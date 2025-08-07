@@ -12,7 +12,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +24,7 @@ import {
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { SuccessDialogComponent } from '../success-dialog';
 import { switchMap } from 'rxjs';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @Component({
   selector: 'app-pre-confirm-register',
@@ -41,8 +41,7 @@ import { switchMap } from 'rxjs';
     MatInputModule,
     MatDialogModule,
     MatCheckboxModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
+    NgxCaptchaModule,
   ],
   templateUrl: './pre-confirm-register.html',
   styleUrl: './pre-confirm-register.scss',
@@ -62,6 +61,9 @@ export class PreConfirmRegister {
   protected readonly minDate = new Date().toISOString().split('T')[0];
   protected readonly vicarLetterFile = signal<File | null>(null);
   protected readonly vicarLetterError = signal<string>('');
+
+  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
 
   constructor() {
     this.form = this.fb.group({
@@ -94,6 +96,10 @@ export class PreConfirmRegister {
     return !!(control && control.invalid && this.formSubmitted());
   }
 
+  handleSuccess(response: string): void {
+    this.form.get('recaptcha')?.setValue(response);
+  }
+
   onSubmit(): void {
     this.formSubmitted.set(true);
     if (this.form.invalid) {
@@ -111,6 +117,7 @@ export class PreConfirmRegister {
         Age: p.age,
       })),
       Consent: raw.consent,
+      RecaptchaToken: raw.recaptcha,
     };
     // Handle form submission logic here
 

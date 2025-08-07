@@ -24,7 +24,7 @@ export class About {
 
   readonly services = [
     {
-      image: 'assets/individual.jpg',
+      image: 'assets/individual.png',
       title: $localize`:@@Individual Counselling:Individual Counselling`,
       description: $localize`:@@Individual Counselling Description:Personal & online sessions for stress, anxiety, grief, and related challenges.`,
     },
@@ -34,28 +34,28 @@ export class About {
       description: $localize`:@@Couple & Family Therapy description:Resolve conflicts and strengthen family relationships with professional guidance.`,
     },
     {
-      image: 'assets/child.jpg',
+      image: 'assets/child.png',
       title: $localize`:@@Child & Adolescent Therapy:Child & Adolescent Therapy`,
       description: $localize`:@@Child & Adolescent Therapy description:Support for behavioral, academic, emotional development, and career guidance.`,
     },
     {
-      image: 'assets/child.jpg',
+      image: 'assets/psydiag.jpg',
       title: $localize`:@@Psychodiagnostics:Psychodiagnostics`,
       description: $localize`:@@Psychodiagnostics description:Assessments for learning difficulties, psychological testing, and career planning.`,
     },
     {
-      image: 'assets/premarital.png',
+      image: 'assets/premarital.jpeg',
       title: $localize`:@@Premarital Counselling:Premarital Counselling`,
       description: $localize`:@@Premarital Counselling description:Three-day residential program to prepare couples for a strong and faithful marriage. `,
     },
 
     {
-      image: 'assets/individual.jpg',
+      image: 'assets/confirm.png',
       title: $localize`:@@Pre-confirmational Counselling:Pre-confirmational Counselling`,
       description: $localize`:@@Pre-confirmational Counselling description: A certified half/one day programme to guide and educate youth preparing for confirmation.`,
     },
     {
-      image: 'assets/individual.jpg',
+      image: 'assets/shape.jpeg',
       title: $localize`:@@School & College Outreach Programmes:School & College Outreach Programmes`,
       subtitle: $localize`:@@School & College Outreach Programmes subtitle:S.H.A.P.E. - Student’s Holistic and Pragmatic Empowerment`,
       description: $localize`:@@School & College Outreach Programmes description:Empowering individuals to ensure holistic wellbeing through counselling and other initiatives.`,
