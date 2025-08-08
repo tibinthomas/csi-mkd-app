@@ -3,7 +3,7 @@
   <section
     class="bg-cover bg-center h-screen flex items-center justify-center relative"
     style="background-image: url('assets/who-we-are.png')"
-    appAnimateOnScroll
+    [appAnimateOnScroll]="'fadeIn'"
   >
     <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70"></div>
     <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white animate-zoom-in">
@@ -23,8 +23,15 @@
   <!-- Who We Are -->
   <section class="py-20 px-6">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-      <img ngSrc="assets/logo.png" width="600" height="400" class="w-full" alt="Who We Are" />
-      <div>
+      <img
+        ngSrc="assets/logo.png"
+        width="600"
+        height="400"
+        class="w-full"
+        alt="Who We Are"
+        [appAnimateOnScroll]="'slideInLeft'"
+      />
+      <div [appAnimateOnScroll]="'slideInRight'">
         <h2 class="text-4xl font-bold mb-4" i18n>Who We Are</h2>
         <p class="text-lg leading-relaxed" i18n>
           With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers
@@ -42,10 +49,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @for (service of services; track service.title) {
-        <mat-card
-          class="flex flex-col h-full shadow-md rounded-xl overflow-hidden animate-fade-slide"
-          appAnimateOnScroll
-        >
+        <mat-card class="flex flex-col h-full shadow-md rounded-xl overflow-hidden" [appAnimateOnScroll]="'slideInUp'">
           <img
             mat-card-image
             [ngSrc]="service.image"
@@ -77,7 +81,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @for (item of reasons; track item.title) {
-        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-white animate-fade-slide" appAnimateOnScroll>
+        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-white" [appAnimateOnScroll]="'fadeIn'">
           <mat-card-header class="pb-2">
             <mat-card-title class="text-xl font-semibold">
               @if (item.link) {

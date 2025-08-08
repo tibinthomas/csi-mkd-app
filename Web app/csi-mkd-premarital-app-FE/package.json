@@ -1,6 +1,6 @@
 {
   "name": "csi-mkd-counselling",
-  "version": "0.0.0",
+  "version": "0.0.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,6 +24,8 @@
     "@angular/router": "^20.1.4",
     "@angular/service-worker": "^20.1.4",
     "@tailwindcss/postcss": "^4.1.10",
+    "@types/animejs": "^3.1.13",
+    "animejs": "^4.1.2",
     "azurite": "^3.34.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",

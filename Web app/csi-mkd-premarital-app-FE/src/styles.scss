@@ -70,8 +70,28 @@ html {
   }
 }
 
-.animate {
+.animate-fadeIn {
   animation: fadeIn 1s ease forwards;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 1s ease forwards;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 1s ease forwards;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 1s ease forwards;
+}
+
+.animate-parallax {
+  transition: transform 0.5s ease-out;
+}
+
+.animate-parallax.is-visible {
+  transform: translateY(-50px);
 }
 
 @keyframes fadeIn {
@@ -79,6 +99,39 @@ html {
     opacity: 0;
   }
   to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
     opacity: 1;
   }
 }
@@ -94,14 +147,6 @@ html {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
-}
-
-/* Focus Styles */
-:focus-visible {
-  outline: 3px solid #3f51b5; /* Material primary color */
-  outline-offset: 2px;
-  box-shadow: 0 0 0 5px rgba(63, 81, 181, 0.3);
-  border-radius: 4px;
 }
 
 /* High Contrast Mode Adjustments */
