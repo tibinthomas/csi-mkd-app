@@ -65,7 +65,14 @@ export class PreConfirmRegister {
 
   constructor() {
     this.form = this.fb.group({
-      churchName: ['', [Validators.required, Validators.maxLength(100)]],
+      churchName: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z0-9\s]*$/),
+        ],
+      ],
       confirmationDate: ['', Validators.required],
       counsellingDate: ['', Validators.required],
       participants: this.fb.array([

@@ -126,12 +126,40 @@ export class PremaritalRegister {
           Validators.pattern(/^[a-zA-Z\s]*$/),
         ],
       ],
-      address: ['', [Validators.required, Validators.maxLength(250)]],
+      address: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(250),
+          Validators.pattern(/^[a-zA-Z0-9\s,.-]*$/),
+        ],
+      ],
       sex: ['', Validators.required],
       age: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
-      education: ['', [Validators.required, Validators.maxLength(100)]],
-      occupation: ['', [Validators.required, Validators.maxLength(100)]],
-      churchName: ['', [Validators.required, Validators.maxLength(100)]],
+      education: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      occupation: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      churchName: [
+        '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z0-9\s]*$/),
+        ],
+      ],
       fianceName: [
         '',
         [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)],
