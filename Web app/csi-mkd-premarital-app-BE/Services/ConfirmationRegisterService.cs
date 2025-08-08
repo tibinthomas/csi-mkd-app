@@ -18,7 +18,7 @@ public class ConfirmationRegisterService : IConfirmationRegisterService
         {
             ChurchName = dto.ChurchName,
             ConfirmationDate = dto.ConfirmationDate,
-            ConfirmationTime = dto.ConfirmationTime,
+            CounsellingDate = dto.CounsellingDate,
             Participants = dto.Participants.Select(p => new Participant
             {
                 Name = p.Name,

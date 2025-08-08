@@ -55,7 +55,7 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
                 r.Id,
                 r.ChurchName,
                 r.ConfirmationDate,
-                r.ConfirmationTime,
+                r.CounsellingDate,
                 Participants = r.Participants.Select(p => new
                 {
                     p.Name,

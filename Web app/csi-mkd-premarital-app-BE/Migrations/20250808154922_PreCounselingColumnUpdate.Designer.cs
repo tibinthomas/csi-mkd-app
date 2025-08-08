@@ -12,8 +12,8 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250801185105_PreConfirmationRegisterUpdated")]
-    partial class PreConfirmationRegisterUpdated
+    [Migration("20250808154922_PreCounselingColumnUpdate")]
+    partial class PreCounselingColumnUpdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,12 +41,11 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<DateTime>("ConfirmationDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("ConfirmationTime")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("Consent")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CounsellingDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("SubmittedDate")
                         .HasColumnType("timestamp with time zone");
@@ -75,6 +74,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<DateTime>("SubmittedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ConfirmationRegistrationId");
@@ -101,6 +103,14 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AdminUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            PasswordHash = "$2a$11$JyS3ggBufEWrsn/v4PLe/OV/kwnMrD9e6bm0DISNeyHjDqkG/20k2",
+                            Username = "csimkdmarry@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.AuditEntry", b =>

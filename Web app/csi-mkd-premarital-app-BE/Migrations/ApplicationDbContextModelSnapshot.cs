@@ -38,12 +38,11 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<DateTime>("ConfirmationDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("ConfirmationTime")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("Consent")
                         .HasColumnType("boolean");
+
+                    b.Property<DateTime>("CounsellingDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("SubmittedDate")
                         .HasColumnType("timestamp with time zone");

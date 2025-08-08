@@ -17,9 +17,10 @@ public class ConfirmationRegistration
     [DataType(DataType.Date)]
     public DateTime ConfirmationDate { get; set; }
 
-    [Required(ErrorMessage = "Confirmation time is required.")]
-    [DataType(DataType.Time)]
-    public required string ConfirmationTime { get; set; }
+    [Required(ErrorMessage = "Counselling date is required.")]
+    [DataType(DataType.Date)]
+    public DateTime CounsellingDate { get; set; }
+
 
     [Required]
     public List<Participant> Participants { get; set; } = new();

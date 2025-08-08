@@ -5,7 +5,7 @@
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     /// <inheritdoc />
-    public partial class PaymentStatusDto : Migration
+    public partial class PreCounselingColumnUpdate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
