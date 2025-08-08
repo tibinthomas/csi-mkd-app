@@ -10,6 +10,7 @@ import {
   provideRouter,
   withHashLocation,
   withViewTransitions,
+  withInMemoryScrolling,
 } from '@angular/router';
 // import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { ApiConfiguration } from '../api/api-configuration';
@@ -32,7 +33,12 @@ export const appConfig: ApplicationConfig = {
       useClass: RateLimitInterceptor,
       multi: true,
     },
-    provideRouter(routes, withHashLocation(), withViewTransitions()),
+    provideRouter(
+      routes,
+      withHashLocation(),
+      withViewTransitions(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+    ),
     provideAppInitializer(() => {
       const apiConfig: ApiConfiguration = inject(ApiConfiguration);
       apiConfig.rootUrl = API_ROOT_URL;
