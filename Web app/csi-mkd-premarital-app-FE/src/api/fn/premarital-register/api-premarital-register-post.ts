@@ -32,6 +32,7 @@ export interface ApiPremaritalRegisterPost$Params {
 'Declaration': boolean;
 'SessionId': number;
 'PaymentStatus'?: boolean;
+'RecaptchaToken': string;
 }
 }
 

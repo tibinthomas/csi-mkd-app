@@ -26,6 +26,7 @@ export interface ApiGeneralRegisterPost$Params {
 'SessionType': string;
 'PaymentStatus'?: boolean;
 'Declaration'?: boolean;
+'RecaptchaToken': string;
 }
 }
 
