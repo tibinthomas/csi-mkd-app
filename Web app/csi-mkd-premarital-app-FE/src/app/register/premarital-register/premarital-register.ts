@@ -34,6 +34,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../success-dialog';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
+import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { Router } from '@angular/router';
@@ -144,6 +145,7 @@ export class PremaritalRegister {
             Validators.required,
             Validators.email,
             emailDomainValidator(),
+            noPlusSignValidator(),
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>

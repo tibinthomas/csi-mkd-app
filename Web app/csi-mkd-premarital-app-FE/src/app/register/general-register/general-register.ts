@@ -28,6 +28,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
+import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
 
 @Component({
   selector: 'app-general-register',
@@ -62,7 +63,7 @@ export class GeneralRegister {
   protected readonly isSubmitting = signal(false);
   protected readonly formSubmitted = signal(false);
   protected readonly photoError = signal('');
-  
+
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
 
@@ -114,6 +115,7 @@ export class GeneralRegister {
             Validators.required,
             Validators.email,
             emailDomainValidator(),
+            noPlusSignValidator(),
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
