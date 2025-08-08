@@ -23,8 +23,9 @@ public class PremaritalRegisterController : ControllerBase
 
         // Verify reCAPTCHA token
         if (!await _recaptcha.VerifyTokenAsync(dto.RecaptchaToken))
-        {            return BadRequest(new { Message = "Invalid reCAPTCHA token." });
-        }   
+        {
+            return BadRequest(new { Message = "Invalid reCAPTCHA token." });
+        }
         var result = await _service.Register(dto);
         return StatusCode(result.StatusCode, result.Data);
     }
@@ -47,6 +48,13 @@ public class PremaritalRegisterController : ControllerBase
     [HttpGet("filter")]
     public async Task<IActionResult> FilteredRegistrations([FromQuery] RegistrationFilterDto filter)
         => Ok(await _service.GetFilteredRegistrations(filter));
+
+    [HttpGet("total")]
+    public async Task<IActionResult> GetTotalRegistrations()
+    {
+        var total = await _service.GetTotalRegistrations();
+        return Ok(new { total });
+    }
 }
 
 

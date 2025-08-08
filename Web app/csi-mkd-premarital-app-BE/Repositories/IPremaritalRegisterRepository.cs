@@ -10,6 +10,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<bool> UpdatePaymentStatus(int id, bool status);
         Task<bool> CheckEmailExists(string email);
         Task<object> FilterRegistrations(RegistrationFilterDto filter);
+        Task<int> GetTotalRegistrations();
+
     }
 }
 

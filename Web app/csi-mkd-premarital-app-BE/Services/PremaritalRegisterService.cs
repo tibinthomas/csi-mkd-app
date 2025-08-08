@@ -76,7 +76,7 @@ namespace csi_mkd_premarital_app_BE.Services
 
             return (200, new { message = "Files uploaded!" });
         }
-        
+
         public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(int id, PaymentStatusUpdateDto dto)
             => await _repo.UpdatePaymentStatus(id, dto.PaymentStatus)
                 ? (200, new { message = "Updated successfully" })
@@ -87,6 +87,11 @@ namespace csi_mkd_premarital_app_BE.Services
 
         public async Task<object> GetFilteredRegistrations(RegistrationFilterDto filter)
             => await _repo.FilterRegistrations(filter);
+
+        public async Task<int> GetTotalRegistrations()
+        {
+            return await _repo.GetTotalRegistrations();
+        }
     }
 
 }

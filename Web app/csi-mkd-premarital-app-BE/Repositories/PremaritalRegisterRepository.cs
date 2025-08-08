@@ -114,6 +114,11 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 items = results
             };
         }
+
+        public async Task<int> GetTotalRegistrations()
+        {
+            return await _context.PremaritalRegistrations.CountAsync();
+        }
     }
 
 }
