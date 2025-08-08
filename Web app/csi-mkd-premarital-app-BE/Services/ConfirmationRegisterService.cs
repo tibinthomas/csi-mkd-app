@@ -53,4 +53,8 @@ public class ConfirmationRegisterService : IConfirmationRegisterService
         return await _repository.FilterRegistrations(filter);
     }
 
+    public async Task<int> GetTotalRegistrations()
+    {
+        return await _repository.GetTotalRegistrations();
+    }
 }

@@ -95,4 +95,9 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
             items = results
         };
     }
+
+    public async Task<int> GetTotalRegistrations()
+    {
+        return await _context.GeneralRegistrations.CountAsync();
+    }
 }

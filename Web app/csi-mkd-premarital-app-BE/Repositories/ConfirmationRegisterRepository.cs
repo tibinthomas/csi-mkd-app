@@ -72,4 +72,9 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
             items = results
         };
     }
+
+    public async Task<int> GetTotalRegistrations()
+    {
+        return await _context.ConfirmationRegistrations.CountAsync();
+    }
 }

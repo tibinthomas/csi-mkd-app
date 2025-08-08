@@ -69,4 +69,9 @@ public class GeneralRegisterService : IGeneralRegisterService
 
     public async Task<object> GetFilteredRegistrations(GeneralRegisterFilterDto filter)
                => await _repo.FilterRegistrations(filter);
+
+    public async Task<int> GetTotalRegistrations()
+    {
+        return await _repo.GetTotalRegistrations();
+    }
 }

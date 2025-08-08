@@ -56,4 +56,11 @@ public class GeneralRegisterController : ControllerBase
     [HttpGet("filter")]
     public async Task<IActionResult> FilteredRegistrations([FromQuery] GeneralRegisterFilterDto filter)
       => Ok(await _service.GetFilteredRegistrations(filter));
+
+    [HttpGet("total")]
+    public async Task<IActionResult> GetTotalRegistrations()
+    {
+        var total = await _service.GetTotalRegistrations();
+        return Ok(new { total });
+    }
 }

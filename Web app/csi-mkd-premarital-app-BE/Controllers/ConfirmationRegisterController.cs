@@ -44,4 +44,11 @@ public class ConfirmationRegisterController : Controller
     [HttpGet("filter")]
     public async Task<IActionResult> FilteredRegistrations([FromQuery] ConfirmationRegisterFilterDto filter)
       => Ok(await _confirmationService.GetFilteredRegistrations(filter));
+
+    [HttpGet("total")]
+    public async Task<IActionResult> GetTotalRegistrations()
+    {
+        var total = await _confirmationService.GetTotalRegistrations();
+        return Ok(new { total });
+    }
 }

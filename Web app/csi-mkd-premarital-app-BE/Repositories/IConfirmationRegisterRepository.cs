@@ -8,6 +8,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<int> AddRegistration(ConfirmationRegistration registration);
         Task AddConfirmationFiles(ConfirmationDocument documents);
         Task<object> FilterRegistrations(ConfirmationRegisterFilterDto filter);
+        Task<int> GetTotalRegistrations();
 
     }
 }
