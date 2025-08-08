@@ -157,6 +157,15 @@ export const routes: Routes = [
             (m) => m.GeneralList
           ),
       },
+      {
+        path: 'pre-confirm-list',
+        title: 'Pre-Confirmation Registrations - CSI MKD Premarital Counsel',
+        data: { description: 'View and manage pre-confirmation registrations.' },
+        loadComponent: () =>
+          import('./admin/pre-confirm-list/pre-confirm-list').then(
+            (m) => m.PreConfirmList
+          ),
+      },
     ],
   },
 

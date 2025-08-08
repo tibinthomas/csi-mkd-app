@@ -4,7 +4,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTimepickerModule } from '@angular/material/timepicker';
 import {
   FormArray,
   FormBuilder,
@@ -36,7 +35,6 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
-    MatTimepickerModule,
     MatButtonModule,
     MatInputModule,
     MatDialogModule,
@@ -69,7 +67,7 @@ export class PreConfirmRegister {
     this.form = this.fb.group({
       churchName: ['', [Validators.required, Validators.maxLength(100)]],
       confirmationDate: ['', Validators.required],
-      confirmationTime: ['', Validators.required],
+      counsellingDate: ['', Validators.required],
       participants: this.fb.array([
         this.fb.group({
           name: [
@@ -111,7 +109,7 @@ export class PreConfirmRegister {
     const body = {
       ChurchName: raw.churchName,
       ConfirmationDate: new Date(raw.confirmationDate).toISOString(),
-      ConfirmationTime: new Date(raw.confirmationTime).toISOString(),
+      CounsellingDate: new Date(raw.counsellingDate).toISOString(),
       Participants: raw.participants.map((p: any) => ({
         Name: p.name,
         Age: p.age,

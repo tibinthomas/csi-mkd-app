@@ -18,21 +18,21 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Confirmation</mat-label>
-            <input matInput [matDatepicker]="datepicker" formControlName="confirmationDate" [min]="minDate" />
-            <mat-datepicker #datepicker />
-            <mat-datepicker-toggle [for]="datepicker" matSuffix />
+            <input matInput [matDatepicker]="confirmationdatepicker" formControlName="confirmationDate" [min]="minDate" />
+            <mat-datepicker #confirmationdatepicker />
+            <mat-datepicker-toggle [for]="confirmationdatepicker" matSuffix />
             @if (isInvalid('confirmationDate')) {
             <mat-error i18n>Confirmation Date is required.</mat-error>
             }
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label i18n>Time of Confirmation</mat-label>
-            <input matInput [matTimepicker]="timepicker" formControlName="confirmationTime" />
-            <mat-timepicker #timepicker />
-            <mat-timepicker-toggle [for]="timepicker" matSuffix />
-            @if (isInvalid('confirmationDate')) {
-            <mat-error i18n>Confirmation Time is required.</mat-error>
+            <mat-label i18n>Date of Preconfirmational Counselling</mat-label>
+            <input matInput [matDatepicker]="counsellingdatepicker" formControlName="counsellingDate" />
+            <mat-datepicker #counsellingdatepicker />
+            <mat-datepicker-toggle [for]="counsellingdatepicker" matSuffix />
+            @if (isInvalid('counsellingDate')) {
+            <mat-error i18n>Preconfirmational Counselling date is required.</mat-error>
             }
           </mat-form-field>
         </div>
