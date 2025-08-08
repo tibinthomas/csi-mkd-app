@@ -21,7 +21,6 @@ public class ConfirmationRegistration
     [DataType(DataType.Date)]
     public DateTime CounsellingDate { get; set; }
 
-
     [Required]
     public List<Participant> Participants { get; set; } = new();
 

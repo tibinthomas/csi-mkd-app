@@ -8,8 +8,11 @@ namespace csi_mkd_premarital_app_BE.Models
     {
 
         public int Id { get; set; }
+        [Required]
         public required string SessionName { get; set; }
+        [Required]
         public DateTime StartDate { get; set; }
+        [Required]
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; } = true;
         public DateTime SubmittedDate { get; set; } = DateTime.UtcNow;
