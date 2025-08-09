@@ -59,7 +59,7 @@
               ],
               "outputHashing": "all",
               "define": {
-                "API_ROOT_URL": "\"https://csi-mkd-premarital-counsel-app-f6c9bqf0cnhparf5.canadacentral-01.azurewebsites.net\""
+                "API_ROOT_URL": "\"https://csi-mid-counselling-web-api.icystone-0eff0e5d.southindia.azurecontainerapps.io\""
               },
               "serviceWorker": "ngsw-config.json"
             },
