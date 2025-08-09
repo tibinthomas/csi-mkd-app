@@ -20,6 +20,14 @@ builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>()
 builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
 builder.Services.AddInMemoryRateLimiting();
 
+builder.Services.AddOutputCache(options =>
+{
+    options.AddBasePolicy(builder => builder.Expire(TimeSpan.FromMinutes(10)));
+    options.AddPolicy("Expire2m", builder => builder.Expire(TimeSpan.FromMinutes(2)));
+    options.AddPolicy("Expire10s", builder => builder.Expire(TimeSpan.FromSeconds(10)));
+    options.AddPolicy("NoCache", builder => builder.NoCache());
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -160,6 +168,8 @@ app.UseIpRateLimiting();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("AllowedOrigins");
+
+app.UseOutputCache();
 
 app.UseAuthentication();
 app.UseAuthorization();
