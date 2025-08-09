@@ -21,6 +21,8 @@ import { apiGeneralRegisterPost } from '../fn/general-register/api-general-regis
 import { ApiGeneralRegisterPost$Params } from '../fn/general-register/api-general-register-post';
 import { apiGeneralRegisterSavePhotoUrlPost } from '../fn/general-register/api-general-register-save-photo-url-post';
 import { ApiGeneralRegisterSavePhotoUrlPost$Params } from '../fn/general-register/api-general-register-save-photo-url-post';
+import { apiGeneralRegisterTotalGet } from '../fn/general-register/api-general-register-total-get';
+import { ApiGeneralRegisterTotalGet$Params } from '../fn/general-register/api-general-register-total-get';
 
 @Injectable({ providedIn: 'root' })
 export class GeneralRegisterService extends BaseService {
@@ -149,6 +151,31 @@ export class GeneralRegisterService extends BaseService {
    */
   apiGeneralRegisterFilterGet(params?: ApiGeneralRegisterFilterGet$Params, context?: HttpContext): Observable<void> {
     return this.apiGeneralRegisterFilterGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralRegisterTotalGet()` */
+  static readonly ApiGeneralRegisterTotalGetPath = '/api/GeneralRegister/total';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralRegisterTotalGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralRegisterTotalGet$Response(params?: ApiGeneralRegisterTotalGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralRegisterTotalGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralRegisterTotalGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralRegisterTotalGet(params?: ApiGeneralRegisterTotalGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralRegisterTotalGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

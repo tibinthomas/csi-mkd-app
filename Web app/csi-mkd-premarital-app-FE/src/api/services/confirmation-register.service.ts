@@ -17,6 +17,8 @@ import { apiConfirmationRegisterPost } from '../fn/confirmation-register/api-con
 import { ApiConfirmationRegisterPost$Params } from '../fn/confirmation-register/api-confirmation-register-post';
 import { apiConfirmationRegisterSaveFileUrlPost } from '../fn/confirmation-register/api-confirmation-register-save-file-url-post';
 import { ApiConfirmationRegisterSaveFileUrlPost$Params } from '../fn/confirmation-register/api-confirmation-register-save-file-url-post';
+import { apiConfirmationRegisterTotalGet } from '../fn/confirmation-register/api-confirmation-register-total-get';
+import { ApiConfirmationRegisterTotalGet$Params } from '../fn/confirmation-register/api-confirmation-register-total-get';
 
 @Injectable({ providedIn: 'root' })
 export class ConfirmationRegisterService extends BaseService {
@@ -95,6 +97,31 @@ export class ConfirmationRegisterService extends BaseService {
    */
   apiConfirmationRegisterFilterGet(params?: ApiConfirmationRegisterFilterGet$Params, context?: HttpContext): Observable<void> {
     return this.apiConfirmationRegisterFilterGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiConfirmationRegisterTotalGet()` */
+  static readonly ApiConfirmationRegisterTotalGetPath = '/api/ConfirmationRegister/total';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConfirmationRegisterTotalGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationRegisterTotalGet$Response(params?: ApiConfirmationRegisterTotalGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiConfirmationRegisterTotalGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiConfirmationRegisterTotalGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationRegisterTotalGet(params?: ApiConfirmationRegisterTotalGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiConfirmationRegisterTotalGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
