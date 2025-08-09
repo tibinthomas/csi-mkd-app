@@ -8,7 +8,7 @@
       "run": "npm start",
       "appDevserverUrl": "http://localhost:4200",
       "appName": "csi-mkd-premarital-app-fe",
-      "resourceGroup": "csi-mkd-premarital-app-fe-rg"
+      "resourceGroup": "csi-mkd-premarital-counsel-app"
     }
   }
 }
