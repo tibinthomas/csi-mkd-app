@@ -8,8 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "gen-api": "ng-openapi-gen -c ng-openapi-gen.json",
-    "extract-i18n": "ng extract-i18n --output-path src/locale",
-    "deploy": "npm version patch --force && ng build --configuration production && cp -r dist/csi-mkd-counselling/browser/en-US/index.html dist/csi-mkd-counselling/browser && bash deploy.sh"
+    "extract-i18n": "ng extract-i18n --output-path src/locale"
   },
   "private": true,
   "dependencies": {
