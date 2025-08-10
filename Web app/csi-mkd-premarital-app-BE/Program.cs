@@ -12,6 +12,9 @@ using csi_mkd_premarital_app_BE.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add Aspire service defaults (telemetry, health checks, service discovery, resilience)
+builder.AddServiceDefaults();
+
 // Add services to the container
 builder.Services.AddOptions();
 builder.Services.AddMemoryCache();
@@ -193,6 +196,8 @@ app.UseOutputCache();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapDefaultEndpoints();
 
 // Map minimal API endpoints
 app.MapAuthEndpoints();
