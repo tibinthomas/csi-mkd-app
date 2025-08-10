@@ -11,17 +11,17 @@
     <mat-nav-list class="flex flex-col justify-between flex-1">
       <!-- Top links -->
       <div>
-        <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="bg-rose-50">Dashboard</a>
-        <a mat-list-item routerLink="/admin/premarital" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
+        <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg">Dashboard</a>
+        <a mat-list-item routerLink="/admin/premarital" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" (click)="toggleSidenav()"
           >Premarital Register List</a
         >
-        <a mat-list-item routerLink="/admin/session-config" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
+        <a mat-list-item routerLink="/admin/session-config" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" (click)="toggleSidenav()"
           >Premarital Session Config</a
         >
-        <a mat-list-item routerLink="/admin/general-list" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
+        <a mat-list-item routerLink="/admin/general-list" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" (click)="toggleSidenav()"
           >General Register List</a
         >
-        <a mat-list-item routerLink="/admin/pre-confirm-list" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
+        <a mat-list-item routerLink="/admin/pre-confirm-list" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" (click)="toggleSidenav()"
           >Pre-Confirm List</a
         >
       </div>
@@ -40,6 +40,7 @@
       </button>
 
       <span class="flex-auto"></span>
+      <app-theme-toggle></app-theme-toggle>
       <app-language-selector></app-language-selector>
     </mat-toolbar>
     <main class="p-4">

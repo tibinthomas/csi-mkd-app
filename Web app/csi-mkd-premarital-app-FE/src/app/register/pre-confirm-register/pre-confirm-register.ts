@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -24,6 +24,7 @@ import { FileUploadService } from '../../core/services/file-upload.service';
 import { SuccessDialogComponent } from '../success-dialog';
 import { switchMap } from 'rxjs';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-pre-confirm-register',
@@ -52,6 +53,7 @@ export class PreConfirmRegister {
   private readonly azureUploadService = inject(AzureUploadService);
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
+  private readonly themeService = inject(ThemeService);
 
   protected readonly form: FormGroup;
   protected readonly formSubmitted = signal(false);
@@ -62,6 +64,7 @@ export class PreConfirmRegister {
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   constructor() {
     this.form = this.fb.group({

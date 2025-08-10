@@ -1,7 +1,7 @@
-<section class="py-10 px-4" role="main" aria-labelledby="form-title">
-  <mat-card class="max-w-4xl mx-auto p-6 mt-20" appAnimateOnScroll>
+<section class="py-10 px-4 theme-transition" role="main" aria-labelledby="form-title">
+  <mat-card class="max-w-4xl mx-auto p-6 mt-20 dark:bg-surface-container theme-transition" appAnimateOnScroll>
     <mat-card-header class="mb-6">
-      <mat-card-title id="form-title" class="text-center text-2xl sm:text-3xl font-bold" i18n>
+      <mat-card-title id="form-title" class="text-center text-2xl sm:text-3xl font-bold text-on-surface theme-transition" i18n>
         Premarital Registration Form
       </mat-card-title>
     </mat-card-header>
@@ -130,8 +130,8 @@
           }
         </mat-form-field>
 
-        <fieldset formGroupName="churchActivities" class="border border-gray-300 rounded-lg p-2">
-          <legend class="font-semibold text-gray-700" i18n>Church Activities</legend>
+        <fieldset formGroupName="churchActivities" class="border border-outline dark:border-outline-variant rounded-lg p-2 theme-transition">
+          <legend class="font-semibold text-on-surface" i18n>Church Activities</legend>
           <div class="flex flex-wrap gap-6 items-center">
             <mat-checkbox formControlName="choirMember">
               <mat-label i18n>Choir Member</mat-label>
@@ -242,7 +242,7 @@
           <div id="photo-upload-help" class="sr-only" i18n>Please select a passport size photo in image format</div>
 
           @if (photoFile()?.name) {
-          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ photoFile()?.name }}</span>
+          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ photoFile()?.name }}</span>
           } @if (photoError()) {
           <mat-error role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
           }
@@ -276,7 +276,7 @@
           </div>
 
           @if (vicarLetterFile()?.name) {
-          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ vicarLetterFile()?.name }}</span>
+          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ vicarLetterFile()?.name }}</span>
           } @if (vicarLetterError()) {
           <mat-error role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
           }
@@ -297,7 +297,7 @@
             formControlName="recaptcha"
             [siteKey]="siteKey"
             (success)="handleSuccess($event)"
-            theme="light"
+            [theme]="recaptchaTheme()"
             size="normal"
           ></ngx-recaptcha2>
         </div>

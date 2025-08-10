@@ -1,6 +1,6 @@
 <header role="banner">
   <mat-toolbar
-    class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-opacity-90"
+    class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-surface/90 dark:bg-surface/90 theme-transition"
   >
     <!-- Left: CSI Logo -->
     <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105 cursor-pointer">
@@ -33,7 +33,7 @@
         <a
           mat-button
           routerLink="/about"
-          routerLinkActive="!bg-rose-100"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
           class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="About us page"
@@ -42,7 +42,7 @@
         <a
           mat-button
           routerLink="/team-members"
-          routerLinkActive="!bg-rose-100"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
           class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Our team members page"
@@ -51,7 +51,7 @@
         <a
           mat-button
           routerLink="/register"
-          routerLinkActive="!bg-rose-100"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
           class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Registration page"
@@ -60,7 +60,7 @@
         <a
           mat-button
           routerLink="/feedback"
-          routerLinkActive="!bg-rose-100"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
           class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Feedback page"
@@ -69,7 +69,7 @@
         <a
           mat-button
           routerLink="/sessions"
-          routerLinkActive="!bg-rose-100"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
           class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
           i18n
           aria-label="Sessions page"
@@ -80,6 +80,9 @@
 
       <!-- Language Selector -->
       <app-language-selector></app-language-selector>
+
+      <!-- Theme Toggle -->
+      <app-theme-toggle></app-theme-toggle>
 
       <!-- Mobile Hamburger -->
       <button
@@ -106,13 +109,13 @@
 
 <!-- Mobile Nav Menu -->
 <mat-menu #menu="matMenu" role="menu" aria-label="Mobile navigation menu">
-  <a mat-menu-item routerLink="/about" routerLinkActive="bg-rose-50" i18n role="menuitem" aria-label="About us page"
+  <a mat-menu-item routerLink="/about" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" i18n role="menuitem" aria-label="About us page"
     >About</a
   >
   <a
     mat-menu-item
     routerLink="/team-members"
-    routerLinkActive="bg-rose-50"
+    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
     i18n
     role="menuitem"
     aria-label="Our team members page"
@@ -121,27 +124,34 @@
   <a
     mat-menu-item
     routerLink="/register"
-    routerLinkActive="bg-rose-50"
+    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
     i18n
     role="menuitem"
     aria-label="Registration page"
     >Register</a
   >
-  <a mat-menu-item routerLink="/feedback" routerLinkActive="bg-rose-50" i18n role="menuitem" aria-label="Feedback page"
+  <a mat-menu-item routerLink="/feedback" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" i18n role="menuitem" aria-label="Feedback page"
     >Feedback</a
   >
-  <a mat-menu-item routerLink="/sessions" routerLinkActive="bg-rose-50" i18n role="menuitem" aria-label="Sessions page"
+  <a mat-menu-item routerLink="/sessions" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" i18n role="menuitem" aria-label="Sessions page"
     >Premarital Sessions</a
   >
+  <mat-divider></mat-divider>
+  <div mat-menu-item disabled class="!opacity-60 !cursor-default text-xs font-medium uppercase tracking-wide">
+    Theme
+  </div>
+  <div mat-menu-item class="!p-2">
+    <app-theme-toggle></app-theme-toggle>
+  </div>
 </mat-menu>
 
 <main role="main" class="animate-fade-in">
   <router-outlet></router-outlet>
 </main>
 <!-- Footer Contact Section -->
-<footer class="bg-gradient-to-br from-rose-50 via-white to-rose-100 mt-20 pt-10 border-t border-gray-200">
+<footer class="bg-surface-container-low dark:bg-surface-container-low mt-20 pt-10 border-t border-outline-variant dark:border-outline-variant theme-transition">
   <!-- Top: Contact + Address + Scripture -->
-  <div class="max-w-7xl mx-auto px-6 grid gap-12 md:grid-cols-3 text-gray-800 text-center md:text-left">
+  <div class="max-w-7xl mx-auto px-6 grid gap-12 md:grid-cols-3 text-on-surface text-center md:text-left theme-transition">
     <!-- Contact Info -->
     <div>
       <h3 class="text-xl font-semibold mb-4" i18n><i class="bi bi-telephone"></i> Contact</h3>
@@ -190,11 +200,11 @@
   </div>
 
   <!-- Divider -->
-  <div class="w-full border-t border-gray-300 mt-10"></div>
+  <div class="w-full border-t border-outline-variant dark:border-outline-variant mt-10 theme-transition"></div>
 
   <!-- Bottom: Copyright & Social -->
   <div
-    class="max-w-7xl mx-auto px-6 py-6 flex flex-col lg:flex-row items-center justify-between text-center lg:text-left text-xs text-gray-700"
+    class="max-w-7xl mx-auto px-6 py-6 flex flex-col lg:flex-row items-center justify-between text-center lg:text-left text-xs text-on-surface-variant theme-transition"
   >
     <!-- Copyright -->
     <div class="space-y-1">

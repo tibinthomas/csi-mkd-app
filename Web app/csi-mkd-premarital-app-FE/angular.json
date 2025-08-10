@@ -69,7 +69,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "define": {
-                "API_ROOT_URL": "\"http://localhost:5177\""
+                "API_ROOT_URL": "\"https://csi-mid-counselling-web-api.icystone-0eff0e5d.southindia.azurecontainerapps.io\""
               }
             }
           },

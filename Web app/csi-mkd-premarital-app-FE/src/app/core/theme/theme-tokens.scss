@@ -1,0 +1,177 @@
+@use '@angular/material' as mat;
+@use './material-theme' as theme;
+
+// CSS Custom Properties for Light Theme
+:root {
+  // Surface colors
+  --md-sys-color-surface: #{mat.get-theme-color(theme.$light-theme, surface)};
+  --md-sys-color-surface-dim: #{mat.get-theme-color(theme.$light-theme, surface-dim)};
+  --md-sys-color-surface-bright: #{mat.get-theme-color(theme.$light-theme, surface-bright)};
+  --md-sys-color-surface-container-lowest: #{mat.get-theme-color(theme.$light-theme, surface-container-lowest)};
+  --md-sys-color-surface-container-low: #{mat.get-theme-color(theme.$light-theme, surface-container-low)};
+  --md-sys-color-surface-container: #{mat.get-theme-color(theme.$light-theme, surface-container)};
+  --md-sys-color-surface-container-high: #{mat.get-theme-color(theme.$light-theme, surface-container-high)};
+  --md-sys-color-surface-container-highest: #{mat.get-theme-color(theme.$light-theme, surface-container-highest)};
+  --md-sys-color-surface-variant: #{mat.get-theme-color(theme.$light-theme, surface-variant)};
+  
+  // On-surface colors
+  --md-sys-color-on-surface: #{mat.get-theme-color(theme.$light-theme, on-surface)};
+  --md-sys-color-on-surface-variant: #{mat.get-theme-color(theme.$light-theme, on-surface-variant)};
+  
+  // Primary colors
+  --md-sys-color-primary: #{mat.get-theme-color(theme.$light-theme, primary)};
+  --md-sys-color-on-primary: #{mat.get-theme-color(theme.$light-theme, on-primary)};
+  --md-sys-color-primary-container: #{mat.get-theme-color(theme.$light-theme, primary-container)};
+  --md-sys-color-on-primary-container: #{mat.get-theme-color(theme.$light-theme, on-primary-container)};
+  
+  // Secondary colors
+  --md-sys-color-secondary: #{mat.get-theme-color(theme.$light-theme, secondary)};
+  --md-sys-color-on-secondary: #{mat.get-theme-color(theme.$light-theme, on-secondary)};
+  --md-sys-color-secondary-container: #{mat.get-theme-color(theme.$light-theme, secondary-container)};
+  --md-sys-color-on-secondary-container: #{mat.get-theme-color(theme.$light-theme, on-secondary-container)};
+  
+  // Tertiary colors
+  --md-sys-color-tertiary: #{mat.get-theme-color(theme.$light-theme, tertiary)};
+  --md-sys-color-on-tertiary: #{mat.get-theme-color(theme.$light-theme, on-tertiary)};
+  --md-sys-color-tertiary-container: #{mat.get-theme-color(theme.$light-theme, tertiary-container)};
+  --md-sys-color-on-tertiary-container: #{mat.get-theme-color(theme.$light-theme, on-tertiary-container)};
+  
+  // Error colors
+  --md-sys-color-error: #{mat.get-theme-color(theme.$light-theme, error)};
+  --md-sys-color-on-error: #{mat.get-theme-color(theme.$light-theme, on-error)};
+  --md-sys-color-error-container: #{mat.get-theme-color(theme.$light-theme, error-container)};
+  --md-sys-color-on-error-container: #{mat.get-theme-color(theme.$light-theme, on-error-container)};
+  
+  // Outline colors
+  --md-sys-color-outline: #{mat.get-theme-color(theme.$light-theme, outline)};
+  --md-sys-color-outline-variant: #{mat.get-theme-color(theme.$light-theme, outline-variant)};
+  
+  // Background colors
+  --md-sys-color-background: #{mat.get-theme-color(theme.$light-theme, background)};
+  --md-sys-color-on-background: #{mat.get-theme-color(theme.$light-theme, on-background)};
+  
+  // Shadow and elevation
+  --md-sys-color-shadow: #{mat.get-theme-color(theme.$light-theme, shadow)};
+  --md-sys-color-scrim: #{mat.get-theme-color(theme.$light-theme, scrim)};
+  --md-sys-color-inverse-surface: #{mat.get-theme-color(theme.$light-theme, inverse-surface)};
+  --md-sys-color-inverse-on-surface: #{mat.get-theme-color(theme.$light-theme, inverse-on-surface)};
+  --md-sys-color-inverse-primary: #{mat.get-theme-color(theme.$light-theme, inverse-primary)};
+}
+
+// CSS Custom Properties for Dark Theme
+:root[data-theme="dark"] {
+  // Surface colors
+  --md-sys-color-surface: #{mat.get-theme-color(theme.$dark-theme, surface)};
+  --md-sys-color-surface-dim: #{mat.get-theme-color(theme.$dark-theme, surface-dim)};
+  --md-sys-color-surface-bright: #{mat.get-theme-color(theme.$dark-theme, surface-bright)};
+  --md-sys-color-surface-container-lowest: #{mat.get-theme-color(theme.$dark-theme, surface-container-lowest)};
+  --md-sys-color-surface-container-low: #{mat.get-theme-color(theme.$dark-theme, surface-container-low)};
+  --md-sys-color-surface-container: #{mat.get-theme-color(theme.$dark-theme, surface-container)};
+  --md-sys-color-surface-container-high: #{mat.get-theme-color(theme.$dark-theme, surface-container-high)};
+  --md-sys-color-surface-container-highest: #{mat.get-theme-color(theme.$dark-theme, surface-container-highest)};
+  --md-sys-color-surface-variant: #{mat.get-theme-color(theme.$dark-theme, surface-variant)};
+  
+  // On-surface colors
+  --md-sys-color-on-surface: #{mat.get-theme-color(theme.$dark-theme, on-surface)};
+  --md-sys-color-on-surface-variant: #{mat.get-theme-color(theme.$dark-theme, on-surface-variant)};
+  
+  // Primary colors
+  --md-sys-color-primary: #{mat.get-theme-color(theme.$dark-theme, primary)};
+  --md-sys-color-on-primary: #{mat.get-theme-color(theme.$dark-theme, on-primary)};
+  --md-sys-color-primary-container: #{mat.get-theme-color(theme.$dark-theme, primary-container)};
+  --md-sys-color-on-primary-container: #{mat.get-theme-color(theme.$dark-theme, on-primary-container)};
+  
+  // Secondary colors
+  --md-sys-color-secondary: #{mat.get-theme-color(theme.$dark-theme, secondary)};
+  --md-sys-color-on-secondary: #{mat.get-theme-color(theme.$dark-theme, on-secondary)};
+  --md-sys-color-secondary-container: #{mat.get-theme-color(theme.$dark-theme, secondary-container)};
+  --md-sys-color-on-secondary-container: #{mat.get-theme-color(theme.$dark-theme, on-secondary-container)};
+  
+  // Tertiary colors
+  --md-sys-color-tertiary: #{mat.get-theme-color(theme.$dark-theme, tertiary)};
+  --md-sys-color-on-tertiary: #{mat.get-theme-color(theme.$dark-theme, on-tertiary)};
+  --md-sys-color-tertiary-container: #{mat.get-theme-color(theme.$dark-theme, tertiary-container)};
+  --md-sys-color-on-tertiary-container: #{mat.get-theme-color(theme.$dark-theme, on-tertiary-container)};
+  
+  // Error colors
+  --md-sys-color-error: #{mat.get-theme-color(theme.$dark-theme, error)};
+  --md-sys-color-on-error: #{mat.get-theme-color(theme.$dark-theme, on-error)};
+  --md-sys-color-error-container: #{mat.get-theme-color(theme.$dark-theme, error-container)};
+  --md-sys-color-on-error-container: #{mat.get-theme-color(theme.$dark-theme, on-error-container)};
+  
+  // Outline colors
+  --md-sys-color-outline: #{mat.get-theme-color(theme.$dark-theme, outline)};
+  --md-sys-color-outline-variant: #{mat.get-theme-color(theme.$dark-theme, outline-variant)};
+  
+  // Background colors
+  --md-sys-color-background: #{mat.get-theme-color(theme.$dark-theme, background)};
+  --md-sys-color-on-background: #{mat.get-theme-color(theme.$dark-theme, on-background)};
+  
+  // Shadow and elevation
+  --md-sys-color-shadow: #{mat.get-theme-color(theme.$dark-theme, shadow)};
+  --md-sys-color-scrim: #{mat.get-theme-color(theme.$dark-theme, scrim)};
+  --md-sys-color-inverse-surface: #{mat.get-theme-color(theme.$dark-theme, inverse-surface)};
+  --md-sys-color-inverse-on-surface: #{mat.get-theme-color(theme.$dark-theme, inverse-on-surface)};
+  --md-sys-color-inverse-primary: #{mat.get-theme-color(theme.$dark-theme, inverse-primary)};
+}
+
+// Utility classes for easy access to theme tokens
+.surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.surface-container {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+}
+
+.surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.primary {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+.primary-container {
+  background-color: var(--md-sys-color-primary-container);
+  color: var(--md-sys-color-on-primary-container);
+}
+
+.secondary {
+  background-color: var(--md-sys-color-secondary);
+  color: var(--md-sys-color-on-secondary);
+}
+
+.secondary-container {
+  background-color: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.error {
+  background-color: var(--md-sys-color-error);
+  color: var(--md-sys-color-on-error);
+}
+
+.error-container {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+
+// Theme transition support
+.theme-transition {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .theme-transition {
+    transition-duration: 0.01ms !important;
+  }
+}

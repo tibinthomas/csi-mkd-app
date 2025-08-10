@@ -21,6 +21,7 @@ import { RateLimitInterceptor } from './core/interceptors/rate-limit-interceptor
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
+import { ThemeService } from './core/services/theme.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,6 +43,11 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       const apiConfig: ApiConfiguration = inject(ApiConfiguration);
       apiConfig.rootUrl = API_ROOT_URL;
+      return Promise.resolve();
+    }),
+    provideAppInitializer(() => {
+      // Initialize theme service to ensure proper theme application on app start
+      inject(ThemeService);
       return Promise.resolve();
     }),
     provideServiceWorker('ngsw-worker.js', {

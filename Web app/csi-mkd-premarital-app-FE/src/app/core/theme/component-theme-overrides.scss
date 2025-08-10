@@ -1,0 +1,259 @@
+// Component Theme Overrides for Dark Mode Compatibility
+// This file contains styling overrides to ensure all components look good in both light and dark themes
+
+// Ensure consistent theming for body and root elements
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+// Force background color application for all themes
+html,
+body {
+  // Light theme defaults
+  background-color: #fff8f8; // Default light background from Material theme
+  color: #201a1b; // Default light text
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+// Dark theme overrides
+:root[data-theme="dark"] html,
+:root[data-theme="dark"] body {
+  background-color: #191113 !important; // Dark background
+  color: #ece0e1 !important; // Dark theme text
+}
+
+// Also apply with CSS custom properties as backup
+html,
+body {
+  background-color: var(--md-sys-color-background, #fff8f8) !important;
+  color: var(--md-sys-color-on-background, #201a1b) !important;
+}
+
+// Ensure Angular root component inherits theme
+app-root {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  min-height: 100vh;
+  display: block;
+}
+
+// Material Form Field Overrides for better dark mode integration
+.mat-mdc-form-field {
+  // Ensure form fields inherit theme colors properly
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: var(--md-sys-color-surface-variant);
+  }
+  
+  .mdc-text-field--outlined:not(.mdc-text-field--disabled) {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: var(--md-sys-color-outline);
+    }
+  }
+  
+  // Input text color
+  .mdc-text-field__input {
+    color: var(--md-sys-color-on-surface);
+    
+    &::placeholder {
+      color: var(--md-sys-color-on-surface-variant);
+      opacity: 0.7;
+    }
+  }
+  
+  // Label colors
+  .mdc-floating-label {
+    color: var(--md-sys-color-on-surface-variant);
+  }
+}
+
+// Material Card Overrides
+.mat-mdc-card {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  
+  .mat-mdc-card-title {
+    color: var(--md-sys-color-on-surface);
+  }
+  
+  .mat-mdc-card-subtitle {
+    color: var(--md-sys-color-on-surface-variant);
+  }
+  
+  .mat-mdc-card-content {
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+// Material Button Overrides for consistent theming
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button {
+  &:not(.mat-primary):not(.mat-accent):not(.mat-warn) {
+    --mdc-text-button-label-text-color: var(--md-sys-color-primary);
+    --mdc-outlined-button-label-text-color: var(--md-sys-color-primary);
+    --mdc-outlined-button-outline-color: var(--md-sys-color-outline);
+  }
+}
+
+// Material Menu Overrides
+.mat-mdc-menu-panel {
+  background-color: var(--md-sys-color-surface-container);
+  
+  .mat-mdc-menu-item {
+    color: var(--md-sys-color-on-surface);
+    
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+    
+    &:focus {
+      background-color: var(--md-sys-color-surface-container-highest);
+    }
+  }
+}
+
+// Material Toolbar Overrides
+.mat-toolbar {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+// Material Expansion Panel Overrides
+.mat-expansion-panel {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+  
+  .mat-expansion-panel-header {
+    color: var(--md-sys-color-on-surface);
+    
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+  }
+  
+  .mat-expansion-panel-content {
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+// Material Sidenav Overrides
+.mat-drawer {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.mat-drawer-container {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+
+// Material List Overrides
+.mat-nav-list {
+  .mat-list-item {
+    color: var(--md-sys-color-on-surface);
+    
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+    
+    &:focus {
+      background-color: var(--md-sys-color-surface-container-highest);
+    }
+  }
+}
+
+// Material Spinner Override
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: var(--md-sys-color-primary);
+}
+
+// Material Dialog Overrides (if used)
+.mat-mdc-dialog-surface {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+// Material Snackbar Overrides (if used)
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--md-sys-color-inverse-surface);
+  --mdc-snackbar-supporting-text-color: var(--md-sys-color-inverse-on-surface);
+}
+
+// Ensure smooth transitions for all Material components
+.mat-mdc-card,
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-outlined-button,
+.mat-mdc-form-field,
+.mat-expansion-panel,
+.mat-toolbar,
+.mat-drawer,
+.mat-nav-list .mat-list-item,
+.mat-mdc-menu-panel .mat-mdc-menu-item {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Custom utility classes for theme-aware components
+.bg-themed-surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.bg-themed-surface-container {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
+}
+
+.bg-themed-surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+}
+
+.text-themed-primary {
+  color: var(--md-sys-color-primary);
+}
+
+.text-themed-on-surface {
+  color: var(--md-sys-color-on-surface);
+}
+
+.text-themed-on-surface-variant {
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.border-themed-outline {
+  border-color: var(--md-sys-color-outline);
+}
+
+.border-themed-outline-variant {
+  border-color: var(--md-sys-color-outline-variant);
+}
+
+// Accessibility improvements for dark mode
+@media (prefers-contrast: high) {
+  :root[data-theme="dark"] {
+    --md-sys-color-primary: #ff8a9b;
+    --md-sys-color-on-primary: #000000;
+    --md-sys-color-surface: #000000;
+    --md-sys-color-on-surface: #ffffff;
+    --md-sys-color-outline: #ffffff;
+  }
+}
+
+// Focus indicators that work well in both themes
+:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+// Ensure proper text selection colors in dark mode
+::selection {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}

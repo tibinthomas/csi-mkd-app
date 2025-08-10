@@ -1,15 +1,31 @@
 @use 'tailwindcss';
 @use './theme-config.scss' as *;
+@use './app/core/theme/theme-tokens.scss' as *;
+@use './app/core/theme/component-theme-overrides.scss' as *;
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Override Tailwind's base styles to use our theme colors */
+@layer base {
+  html {
+    background-color: var(--md-sys-color-background) !important;
+    color: var(--md-sys-color-on-background);
+  }
+  
+  body {
+    background-color: var(--md-sys-color-background) !important;
+    color: var(--md-sys-color-on-background);
+  }
+}
 
 html,
 body {
   height: 100%;
   min-width: 375px;
 }
+
 body {
   margin: 0;
   font-family: 'PT Serif', sans-serif;

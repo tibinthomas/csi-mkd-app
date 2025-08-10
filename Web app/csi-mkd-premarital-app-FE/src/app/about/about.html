@@ -21,7 +21,7 @@
   </section>
 
   <!-- Who We Are -->
-  <section class="py-20 px-6">
+  <section class="py-20 px-6 theme-transition">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
       <img
         ngSrc="assets/logo.png"
@@ -32,8 +32,8 @@
         [appAnimateOnScroll]="'slideInLeft'"
       />
       <div [appAnimateOnScroll]="'slideInRight'">
-        <h2 class="text-4xl font-bold mb-4" i18n>Who We Are</h2>
-        <p class="text-lg leading-relaxed" i18n>
+        <h2 class="text-4xl font-bold mb-4 text-on-background theme-transition" i18n>Who We Are</h2>
+        <p class="text-lg leading-relaxed text-on-surface theme-transition" i18n>
           With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers
           holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided
           by a commitment to mental, emotional, and spiritual well-being.
@@ -43,13 +43,13 @@
   </section>
 
   <!-- Services -->
-  <section class="py-20 px-6">
+  <section class="py-20 px-6 bg-surface-container-low dark:bg-surface-container theme-transition">
     <div class="max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-16" i18n>Our Services</h2>
+      <h2 class="text-4xl font-bold text-center mb-16 text-on-surface theme-transition" i18n>Our Services</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @for (service of services; track service.title) {
-        <mat-card class="flex flex-col h-full shadow-md rounded-xl overflow-hidden" [appAnimateOnScroll]="'slideInUp'">
+        <mat-card class="flex flex-col h-full shadow-md rounded-xl overflow-hidden dark:bg-surface-container-high dark:border dark:border-outline-variant theme-transition" [appAnimateOnScroll]="'slideInUp'">
           <img
             mat-card-image
             [ngSrc]="service.image"
@@ -62,11 +62,11 @@
           <mat-card-header class="pb-0">
             <mat-card-title class="text-xl font-semibold font-bold">{{ service.title }}</mat-card-title>
             @if (service.subtitle) {
-            <mat-card-subtitle class="text-sm text-gray-500">{{ service.subtitle }}</mat-card-subtitle>
+            <mat-card-subtitle class="text-sm text-on-surface-variant">{{ service.subtitle }}</mat-card-subtitle>
             }
           </mat-card-header>
 
-          <mat-card-content class="mt-2 text-sm text-gray-700 flex-1">
+          <mat-card-content class="mt-2 text-sm text-on-surface flex-1">
             <p>{{ service.description }}</p>
           </mat-card-content>
         </mat-card>
@@ -81,14 +81,14 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @for (item of reasons; track item.title) {
-        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-white" [appAnimateOnScroll]="'fadeIn'">
+        <mat-card class="flex flex-col h-full p-4 shadow-md rounded-xl bg-surface-container dark:bg-surface-container-high theme-transition" [appAnimateOnScroll]="'fadeIn'">
           <mat-card-header class="pb-2">
             <mat-card-title class="text-xl font-semibold">
               @if (item.link) {
               <a
                 [routerLink]="item.link"
                 routerLinkActive="underline underline-offset-4"
-                class="hover:text-gray-600 transition-colors duration-200 cursor-pointer"
+                class="hover:text-on-surface-variant transition-colors duration-200 cursor-pointer"
                 >{{ item.title }}</a
               >
               } @else {
@@ -96,7 +96,7 @@
               }
             </mat-card-title>
           </mat-card-header>
-          <mat-card-content class="text-sm text-gray-700">
+          <mat-card-content class="text-sm text-on-surface">
             <p>{{ item.description }}</p>
           </mat-card-content>
         </mat-card>
