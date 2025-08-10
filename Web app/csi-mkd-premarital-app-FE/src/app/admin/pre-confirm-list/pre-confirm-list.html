@@ -39,23 +39,23 @@
           <mat-spinner diameter="50" color="primary"></mat-spinner>
         </div>
         } @else if(registrations().length > 0){
-        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full bg-white">
+        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full bg-white table-fixed">
           <!-- Column Definitions -->
           <ng-container matColumnDef="ChurchName">
             <th mat-header-cell *matHeaderCellDef i18n>Church Name</th>
             <td mat-cell *matCellDef="let reg">{{ reg.ChurchName }}</td>
           </ng-container>
           <ng-container matColumnDef="ConfirmationDate">
-            <th mat-header-cell *matHeaderCellDef i18n>Confirmation Date</th>
+            <th mat-header-cell *matHeaderCellDef class="font-bold" i18n>Confirmation Date</th>
             <td mat-cell *matCellDef="let reg">{{ reg.ConfirmationDate | date : "mediumDate" }}</td>
           </ng-container>
           <ng-container matColumnDef="CounsellingDate">
-            <th mat-header-cell *matHeaderCellDef i18n>Counselling Date</th>
+            <th mat-header-cell *matHeaderCellDef class="font-bold" i18n>Counselling Date</th>
             <td mat-cell *matCellDef="let reg">{{ reg.CounsellingDate }}</td>
           </ng-container>
           <ng-container matColumnDef="ParticipantsCount">
-            <th mat-header-cell *matHeaderCellDef i18n>Participants</th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Participants?.length || 0 }}</td>
+            <th mat-header-cell *matHeaderCellDef class="text-right font-bold" i18n>Participants</th>
+            <td mat-cell *matCellDef="let reg" class="text-right tabular-nums">{{ reg.Participants?.length || 0 }}</td>
           </ng-container>
           <ng-container matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef></th>
@@ -85,11 +85,11 @@
           </ng-container>
 
           <!-- Header and Row Declarations -->
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns" class="[&>th]:font-bold [&>th]:text-gray-700"></tr>
           <tr
             mat-row
             *matRowDef="let row; columns: displayedColumns"
-            class="hover:bg-gray-50 cursor-pointer"
+            class="hover:bg-gray-50 cursor-pointer [&>td]:align-top"
             (click)="toggleRow(row)"
           ></tr>
           <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="h-0"></tr>

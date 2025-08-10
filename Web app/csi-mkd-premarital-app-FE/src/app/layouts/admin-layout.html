@@ -4,7 +4,7 @@
     [mode]="isMobile() ? 'over' : 'side'"
     [opened]="!isMobile() || sidenavOpen()"
     (openedChange)="sidenavOpen.set($event)"
-    class="flex flex-col h-full w-64 border-r border-gray-200 bg-white"
+    class="flex flex-col h-full w-52 md:w-56 lg:w-60 xl:w-64 border-r border-gray-200 bg-white"
   >
     <div class="p-4 text-center border-b">
       <h2 class="text-2xl font-bold text-rose-800">CSI Admin</h2>
