@@ -5,6 +5,8 @@ using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
 using csi_mkd_premarital_app_BE.Models;
 using Microsoft.AspNetCore.OutputCaching;
+using System.Security.Cryptography;
+using System.Text;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -48,13 +50,34 @@ public class ConfirmationRegisterController : Controller
     [HttpGet("filter")]
     [OutputCache(PolicyName = "Expire10s", Tags = ["confirmation-regs"])]
     public async Task<IActionResult> FilteredRegistrations([FromQuery] ConfirmationRegisterFilterDto filter)
-      => Ok(await _confirmationService.GetFilteredRegistrations(filter));
+    {
+        var data = await _confirmationService.GetFilteredRegistrations(filter);
+        var version = $"{filter.Page}:{filter.PageSize}:{filter.Search}";
+        var etag = GenerateETag(version);
+        if (Request.Headers.IfNoneMatch == etag)
+            return StatusCode(304);
+        Response.Headers.ETag = etag;
+        return Ok(data);
+    }
 
     [HttpGet("total")]
     [OutputCache(PolicyName = "Expire10s", Tags = ["confirmation-regs"])]
     public async Task<IActionResult> GetTotalRegistrations()
     {
         var total = await _confirmationService.GetTotalRegistrations();
+        var version = $"{total}";
+        var etag = GenerateETag(version);
+        if (Request.Headers.IfNoneMatch == etag)
+            return StatusCode(304);
+        Response.Headers.ETag = etag;
         return Ok(new { total });
+    }
+
+    private static string GenerateETag(string input)
+    {
+        var bytes = Encoding.UTF8.GetBytes(input);
+        var hash = SHA256.HashData(bytes);
+        var base64 = Convert.ToBase64String(hash);
+        return $"\"{base64}\"";
     }
 }

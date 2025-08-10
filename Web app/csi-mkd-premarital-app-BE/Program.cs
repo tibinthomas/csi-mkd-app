@@ -178,6 +178,8 @@ app.UseClientRateLimiting();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+// Add conditional GET handling for static files (ETag/Last-Modified are on by default). Ensure If-None-Match/If-Modified-Since respected.
+// StaticFileMiddleware already sets ETag/Last-Modified; no extra code needed.
 app.UseCors("AllowedOrigins");
 
 app.UseOutputCache();

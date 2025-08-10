@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace csi_mkd_premarital_app_BE.Controllers;
 
@@ -58,14 +60,35 @@ public class PremaritalRegisterController : ControllerBase
     [HttpGet("filter")]
     [OutputCache(PolicyName = "Expire10s", Tags = ["premarital-regs"])]
     public async Task<IActionResult> FilteredRegistrations([FromQuery] RegistrationFilterDto filter)
-        => Ok(await _service.GetFilteredRegistrations(filter));
+    {
+        var data = await _service.GetFilteredRegistrations(filter);
+        var version = $"{filter.Page}:{filter.PageSize}:{filter.Search}:{filter.UnapprovedOnly}:{filter.ActiveSessionOnly}:{filter.SessionYear}:{filter.SessionName}";
+        var etag = GenerateETag(version);
+        if (Request.Headers.IfNoneMatch == etag)
+            return StatusCode(304);
+        Response.Headers.ETag = etag;
+        return Ok(data);
+    }
 
     [HttpGet("total")]
     [OutputCache(PolicyName = "Expire10s", Tags = ["premarital-regs"])]
     public async Task<IActionResult> GetTotalRegistrations()
     {
         var total = await _service.GetTotalRegistrations();
+        var version = $"{total}";
+        var etag = GenerateETag(version);
+        if (Request.Headers.IfNoneMatch == etag)
+            return StatusCode(304);
+        Response.Headers.ETag = etag;
         return Ok(new { total });
+    }
+
+    private static string GenerateETag(string input)
+    {
+        var bytes = Encoding.UTF8.GetBytes(input);
+        var hash = SHA256.HashData(bytes);
+        var base64 = Convert.ToBase64String(hash);
+        return $"\"{base64}\"";
     }
 }
 

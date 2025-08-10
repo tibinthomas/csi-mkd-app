@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using csi_mkd_premarital_app_BE.Services;
 using csi_mkd_premarital_app_BE.DTOs;
 using Microsoft.AspNetCore.OutputCaching;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace csi_mkd_premarital_app_BE.Controllers;
 
@@ -21,14 +23,29 @@ public class SessionConfigController : ControllerBase
     [HttpGet]
     [OutputCache(PolicyName = "Expire2m", Tags = ["sessions"])]
     public async Task<IActionResult> GetSessions()
-        => Ok(await _service.GetAllSessions());
+    {
+        var sessions = await _service.GetAllSessions();
+        var latest = sessions.Count == 0 ? DateTime.MinValue : sessions.Max(s => s.SubmittedDate);
+        var version = $"{sessions.Count}:{latest.ToUniversalTime():O}";
+        var etag = GenerateETag(version);
+        if (Request.Headers.IfNoneMatch == etag)
+            return StatusCode(304);
+        Response.Headers.ETag = etag;
+        return Ok(sessions);
+    }
 
     [HttpGet("{id}")]
     [OutputCache(PolicyName = "Expire2m", Tags = ["sessions"])]
     public async Task<IActionResult> GetSession(int id)
     {
         var session = await _service.GetSessionById(id);
-        return session == null ? NotFound() : Ok(session);
+        if (session == null) return NotFound();
+        var version = $"{session.Id}:{session.SubmittedDate.ToUniversalTime():O}:{session.IsActive}:{session.SessionName}";
+        var etag = GenerateETag(version);
+        if (Request.Headers.IfNoneMatch == etag)
+            return StatusCode(304);
+        Response.Headers.ETag = etag;
+        return Ok(session);
     }
 
     [HttpPost]
@@ -65,5 +82,22 @@ public class SessionConfigController : ControllerBase
     [HttpGet("sessions")]
     [OutputCache(PolicyName = "Expire2m", Tags = ["sessions"])]
     public async Task<IActionResult> GetSessionsByYear(int year)
-        => Ok(await _service.GetSessionsByYear(year));
+    {
+        var sessions = await _service.GetSessionsByYear(year);
+        var latest = sessions.Count == 0 ? DateTime.MinValue : sessions.Max(s => s.SubmittedDate);
+        var version = $"{year}:{sessions.Count}:{latest.ToUniversalTime():O}";
+        var etag = GenerateETag(version);
+        if (Request.Headers.IfNoneMatch == etag)
+            return StatusCode(304);
+        Response.Headers.ETag = etag;
+        return Ok(sessions);
+    }
+
+    private static string GenerateETag(string input)
+    {
+        var bytes = Encoding.UTF8.GetBytes(input);
+        var hash = SHA256.HashData(bytes);
+        var base64 = Convert.ToBase64String(hash);
+        return $"\"{base64}\""; // quoted strong ETag
+    }
 }

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using csi_mkd_premarital_app_BE.Data;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace csi_mkd_premarital_app_BE.Controllers
 {
@@ -26,6 +28,11 @@ namespace csi_mkd_premarital_app_BE.Controllers
         {
             var config = await _db.EmailConfigs.AsNoTracking().FirstOrDefaultAsync();
             if (config == null) return NotFound();
+            var version = $"{config.SenderEmail}:{config.EmailSubject}:{(config.EmailBodyTemplate?.Length ?? 0)}";
+            var etag = GenerateETag(version);
+            if (Request.Headers.IfNoneMatch == etag)
+                return StatusCode(304);
+            Response.Headers.ETag = etag;
             return Ok(config);
         }
 
@@ -49,6 +56,14 @@ namespace csi_mkd_premarital_app_BE.Controllers
             await _db.SaveChangesAsync();
             await _cache.EvictByTagAsync("email-config", default);
             return Ok("Email config saved successfully.");
+        }
+
+        private static string GenerateETag(string input)
+        {
+            var bytes = Encoding.UTF8.GetBytes(input);
+            var hash = SHA256.HashData(bytes);
+            var base64 = Convert.ToBase64String(hash);
+            return $"\"{base64}\"";
         }
     }
 
