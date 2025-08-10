@@ -12,7 +12,9 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+# Copy project files first to leverage Docker layer caching for restore
 COPY ["csi-mkd-premarital-app-BE.csproj", "."]
+COPY ServiceDefaults/ServiceDefaults.csproj ServiceDefaults/
 RUN dotnet restore "./csi-mkd-premarital-app-BE.csproj"
 COPY . .
 WORKDIR "/src/."
@@ -35,5 +37,8 @@ RUN dotnet publish \
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENV ASPNETCORE_URLS=http://+:8080
+# Defaults friendly for Aspire and reverse proxies. Override at deploy time as needed.
+ENV ASPNETCORE_URLS=http://+:8080 \
+    ASPNETCORE_FORWARDEDHEADERS_ENABLED=true \
+    OTEL_SERVICE_NAME=csi-mkd-premarital-app-BE
 ENTRYPOINT ["./csi-mkd-premarital-app-BE"]

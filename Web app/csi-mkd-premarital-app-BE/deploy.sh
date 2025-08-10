@@ -8,7 +8,8 @@ set -o pipefail
 DOCKER_USER="tibinthomas"
 DOCKER_PAT="REDACTED_DOCKER_PAT"
 IMAGE_NAME="tibinthomas/csi-mkd-counselling-web-api"
-IMAGE_TAG="latest"   # Or set to $(date +%Y%m%d%H%M) for unique tags
+# Aspire orchestrates multi-project; tag by git sha or timestamp for traceability
+IMAGE_TAG="$(git rev-parse --short HEAD 2>/dev/null || date +%Y%m%d%H%M)"
 RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 APP_NAME="csi-mid-counselling-web-api"
 # Use linux/amd64 or linux/arm64 as needed
@@ -85,7 +86,19 @@ echo "🚀 Updating Azure Container App with new image..."
 az containerapp update \
     --name "$APP_NAME" \
     --resource-group "$RESOURCE_GROUP" \
-    --image "$FULL_IMAGE" || {
+    --image "$FULL_IMAGE" \
+    --set-env-vars \
+        ASPNETCORE_URLS="http://+:8080" \
+        OTEL_SERVICE_NAME="csi-mkd-premarital-app-BE" \
+        ConnectionStrings__DefaultConnection="${ConnectionStrings__DefaultConnection}" \
+        JwtSettings__Key="${JwtSettings__Key}" \
+        JwtSettings__Issuer="${JwtSettings__Issuer}" \
+        JwtSettings__Audience="${JwtSettings__Audience}" \
+        SendGrid__ApiKey="${SendGrid__ApiKey}" \
+        AzureBlob__ConnectionString="${AzureBlob__ConnectionString}" \
+        AzureBlob__AccountName="${AzureBlob__AccountName}" \
+        AzureBlob__AccountKey="${AzureBlob__AccountKey}" \
+        GoogleReCaptcha__SecretKey="${GoogleReCaptcha__SecretKey}" || {
         echo "❌ Azure Container App update failed."
         exit 1
     }
