@@ -20,9 +20,20 @@ RUN dotnet build "./csi-mkd-premarital-app-BE.csproj" -c $BUILD_CONFIGURATION -o
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./csi-mkd-premarital-app-BE.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+# Publish as self-contained, single-file, ReadyToRun for linux-x64 by default
+ARG RUNTIME_IDENTIFIER=linux-x64
+RUN dotnet publish \
+    "./csi-mkd-premarital-app-BE.csproj" \
+    -c $BUILD_CONFIGURATION \
+    -r $RUNTIME_IDENTIFIER \
+    -o /app/publish \
+    /p:PublishSingleFile=true \
+    /p:SelfContained=true \
+    /p:PublishReadyToRun=true \
+    /p:TieredPGO=true
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "csi-mkd-premarital-app-BE.dll"]
+ENV ASPNETCORE_URLS=http://+:8080
+ENTRYPOINT ["./csi-mkd-premarital-app-BE"]

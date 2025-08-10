@@ -5,6 +5,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>csi_mkd_premarital_app_BE</RootNamespace>
+    <!-- Enable platform-optimized native-like builds -->
+    <TieredPGO>true</TieredPGO>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <PublishTrimmed>false</PublishTrimmed>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ServerGarbageCollection>true</ServerGarbageCollection>
+    <RuntimeIdentifiers>linux-x64;linux-arm64;osx-arm64;win-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>

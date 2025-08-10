@@ -11,7 +11,11 @@ IMAGE_NAME="tibinthomas/csi-mkd-counselling-web-api"
 IMAGE_TAG="latest"   # Or set to $(date +%Y%m%d%H%M) for unique tags
 RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 APP_NAME="csi-mid-counselling-web-api"
+# Use linux/amd64 or linux/arm64 as needed
 PLATFORM="linux/amd64"
+
+# Runtime identifier to match the container base; keep in sync with Dockerfile ARG
+RUNTIME_IDENTIFIER="linux-x64"
 
 FULL_IMAGE="$IMAGE_NAME:$IMAGE_TAG"
 
@@ -42,9 +46,10 @@ echo "$DOCKER_PAT" | docker login -u "$DOCKER_USER" --password-stdin || {
 # -----------------------
 # BUILD & PUSH
 # -----------------------
-echo "📦 Building and pushing $FULL_IMAGE for $PLATFORM..."
+echo "📦 Building and pushing $FULL_IMAGE for $PLATFORM (RID: $RUNTIME_IDENTIFIER)..."
 docker buildx build \
     --platform "$PLATFORM" \
+    --build-arg RUNTIME_IDENTIFIER="$RUNTIME_IDENTIFIER" \
     -t "$FULL_IMAGE" \
     --push \
     . || { echo "❌ Build & push failed."; exit 1; }
