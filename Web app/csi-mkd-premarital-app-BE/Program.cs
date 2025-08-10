@@ -1,6 +1,7 @@
 using System.Text;
 using AspNetCoreRateLimit;
 using csi_mkd_premarital_app_BE.Data;
+using csi_mkd_premarital_app_BE.Middleware;
 using csi_mkd_premarital_app_BE.Repositories;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,9 +14,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddOptions();
 builder.Services.AddMemoryCache();
+
+// Configure IP rate limiting
 builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
 builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
 builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+
+// Configure client rate limiting
+builder.Services.Configure<ClientRateLimitOptions>(builder.Configuration.GetSection("ClientRateLimiting"));
+builder.Services.AddSingleton<IClientPolicyStore, MemoryCacheClientPolicyStore>();
+
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
 builder.Services.AddInMemoryRateLimiting();
@@ -164,7 +172,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseMiddleware<RateLimitingMiddleware>();
 app.UseIpRateLimiting();
+app.UseClientRateLimiting();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseCors("AllowedOrigins");
