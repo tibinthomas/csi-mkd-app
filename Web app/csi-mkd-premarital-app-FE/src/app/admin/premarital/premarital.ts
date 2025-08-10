@@ -11,7 +11,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -43,7 +43,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
-import { SessionConfigService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/services';
 import { SessionDataService } from '../../core/services/session-data.service';
 import { ApiSessionconfigGet$Params } from '../../../api/fn/session-config/api-sessionconfig-get';
 import { ApiSessionconfigSessionsGet$Params } from '../../../api/fn/session-config/api-sessionconfig-sessions-get';
@@ -92,9 +92,7 @@ import { CreateUpdateSessionDto } from '../../../api/models';
 })
 export class PremaritalComponent {
   private readonly dialog = inject(MatDialog);
-  private readonly premaritalRegisterService = inject(
-    PremaritalRegisterService
-  );
+  private readonly api = inject(ApiService);
   private readonly sessionDataService = inject(SessionDataService);
 
   protected readonly selectedReg = signal<any | null>(null);
@@ -155,8 +153,8 @@ export class PremaritalComponent {
           selectedSession = null;
         }
         this.isLoading.set(true); // start spinner
-        return this.premaritalRegisterService
-          .apiPremaritalRegisterFilterGet({
+        return this.api
+          .apiPremaritalregisterFilterGet({
             Page: (pageIndex as number) + 1,
             PageSize: pageSize as number,
             Search: searchTerm as string,
@@ -292,8 +290,8 @@ export class PremaritalComponent {
           ...reg,
           PaymentStatus: !reg.PaymentStatus,
         };
-        this.premaritalRegisterService
-          .apiPremaritalRegisterIdPaymentstatusPut({
+        this.api
+          .apiPremaritalregisterIdPaymentstatusPut({
             id: reg.Id,
             body: updated,
           })

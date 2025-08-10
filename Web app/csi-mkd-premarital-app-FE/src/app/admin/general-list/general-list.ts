@@ -42,10 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
-import {
-  GeneralRegisterService,
-  SessionConfigService,
-} from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 
 @Component({
   selector: 'app-general-list',
@@ -89,8 +86,7 @@ import {
 })
 export class GeneralList {
   private readonly dialog = inject(MatDialog);
-  private readonly generalRegisterService = inject(GeneralRegisterService);
-  private readonly sessionConfigService = inject(SessionConfigService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -128,8 +124,8 @@ export class GeneralList {
   ).pipe(
     switchMap(([_, pageIndex, pageSize, searchTerm, unapproved]) => {
       this.isLoading.set(true); // start spinner
-      return this.generalRegisterService
-        .apiGeneralRegisterFilterGet({
+      return this.api
+        .apiGeneralregisterFilterGet({
           Page: (pageIndex as number) + 1,
           PageSize: pageSize as number,
           Search: searchTerm as string,
@@ -196,8 +192,8 @@ export class GeneralList {
           ...reg,
           PaymentStatus: !reg.PaymentStatus,
         };
-        this.generalRegisterService
-          .apiGeneralRegisterIdPaymentstatusPut({
+        this.api
+          .apiGeneralregisterIdPaymentstatusPut({
             id: reg.Id,
             body: updated,
           })

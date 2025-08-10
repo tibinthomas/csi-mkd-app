@@ -15,8 +15,7 @@ import {
 } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
-import { GeneralRegisterService } from '../../../api/services';
-import { AzureUploadService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -53,8 +52,7 @@ import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
 })
 export class GeneralRegister {
   private readonly fb = inject(FormBuilder);
-  private readonly generalRegisterService = inject(GeneralRegisterService);
-  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
   private readonly themeService = inject(ThemeService);
@@ -67,8 +65,8 @@ export class GeneralRegister {
   protected readonly formSubmitted = signal(false);
   protected readonly photoError = signal('');
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   // siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Example site key, replace with your actual key
@@ -151,7 +149,7 @@ export class GeneralRegister {
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
-              this.generalRegisterService.apiGeneralRegisterCheckEmailGet({
+              this.api.apiGeneralregisterCheckEmailGet({
                 email,
               })
             ),
@@ -220,29 +218,29 @@ export class GeneralRegister {
     const photo = this.photoFile()!;
 
     const body = {
-      FirstName: raw.firstName,
-      LastName: raw.lastName,
-      FatherName: raw.fatherName,
-      Address: raw.address,
-      Sex: raw.sex,
-      Age: Number(raw.age),
-      Education: raw.education,
-      Occupation: raw.occupation,
-      ChurchName: raw.churchName || undefined,
-      Phone: raw.phone,
-      Email: raw.email,
-      MaritalStatus: raw.maritalStatus,
-      SessionType: raw.sessionType,
-      Declaration: raw.declaration,
-      RecaptchaToken: raw.recaptcha, // <-- token is here, set automatically by ngx-recaptcha2
+      firstName: raw.firstName,
+      lastName: raw.lastName,
+      fatherName: raw.fatherName,
+      address: raw.address,
+      sex: raw.sex,
+      age: Number(raw.age),
+      education: raw.education,
+      occupation: raw.occupation,
+      churchName: raw.churchName || undefined,
+      phone: raw.phone,
+      email: raw.email,
+      maritalStatus: raw.maritalStatus,
+      sessionType: raw.sessionType,
+      declaration: raw.declaration,
+      recaptchaToken: raw.recaptcha,
     };
 
-    this.generalRegisterService.apiGeneralRegisterPost({ body }).subscribe({
+    this.api.apiGeneralregisterPost$FormData({ body }).subscribe({
       next: (response: any) => {
         const registerId: number = JSON.parse(response).id;
 
-        this.azureUploadService
-          .apiAzureUploadGenerateSasGet({
+        this.api
+          .apiAzureuploadGenerateSasGet({
             fileName: `general/${registerId}/photo/${photo.name}`,
             contentType: photo.type,
           })
@@ -254,12 +252,12 @@ export class GeneralRegister {
           .subscribe({
             next: (photoSasUrl) => {
               const saveBody = {
-                RegistrationId: registerId,
-                PhotoUrl: photoSasUrl,
+                registrationId: registerId,
+                photoUrl: photoSasUrl,
               };
 
-              this.generalRegisterService
-                .apiGeneralRegisterSavePhotoUrlPost({ body: saveBody })
+              this.api
+                .apiGeneralregisterSavePhotoUrlPost$FormData({ body: saveBody })
                 .subscribe({
                   next: () => {
                     this.successMessage.set(

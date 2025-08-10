@@ -11,7 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SessionConfigService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/services';
 import { catchError, map, of, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
@@ -37,11 +37,11 @@ export class Sessions {
   private snackBar = inject(MatSnackBar);
   router = inject(Router);
 
-  private readonly sessionConfigService = inject(SessionConfigService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
   protected readonly isLoading = signal(true);
 
 
-  private readonly sessions$ = this.sessionConfigService
+  private readonly sessions$ = this.api
     .apiSessionconfigGet()
     .pipe(
       map((data: any) => {

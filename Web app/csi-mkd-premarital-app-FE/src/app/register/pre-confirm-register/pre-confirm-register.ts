@@ -16,10 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {
-  AzureUploadService,
-  ConfirmationRegisterService,
-} from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { SuccessDialogComponent } from '../success-dialog';
 import { switchMap } from 'rxjs';
@@ -47,10 +44,7 @@ import { ThemeService } from '../../core/services/theme.service';
 })
 export class PreConfirmRegister {
   private readonly fb = inject(FormBuilder);
-  private readonly confirmationRegisterService = inject(
-    ConfirmationRegisterService
-  );
-  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
   private readonly themeService = inject(ThemeService);
@@ -62,8 +56,8 @@ export class PreConfirmRegister {
   protected readonly vicarLetterFile = signal<File | null>(null);
   protected readonly vicarLetterError = signal<string>('');
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   constructor() {
@@ -117,27 +111,27 @@ export class PreConfirmRegister {
     const raw = this.form.value;
 
     const body = {
-      ChurchName: raw.churchName,
-      ConfirmationDate: new Date(raw.confirmationDate).toISOString(),
-      CounsellingDate: new Date(raw.counsellingDate).toISOString(),
-      Participants: raw.participants.map((p: any) => ({
-        Name: p.name,
-        Age: p.age,
+      churchName: raw.churchName,
+      confirmationDate: new Date(raw.confirmationDate).toISOString(),
+      counsellingDate: new Date(raw.counsellingDate).toISOString(),
+      participants: raw.participants.map((p: any) => ({
+        name: p.name,
+        age: p.age,
       })),
-      Consent: raw.consent,
-      RecaptchaToken: raw.recaptcha,
+      consent: raw.consent,
+      recaptchaToken: raw.recaptcha,
     };
     // Handle form submission logic here
 
     const file = this.vicarLetterFile()!;
 
-    this.confirmationRegisterService
-      .apiConfirmationRegisterPost({ body }) // Adjust type as needed
+    this.api
+      .apiConfirmationregisterPost({ body })
       .subscribe({
         next: (response: any) => {
           const registerId = JSON.parse(response).Id;
-          this.azureUploadService
-            .apiAzureUploadGenerateSasGet({
+          this.api
+            .apiAzureuploadGenerateSasGet({
               fileName: `confirmation/${registerId}/witnessofvicar/${file.name}`,
               contentType: file.type,
             })
@@ -148,11 +142,11 @@ export class PreConfirmRegister {
             )
             .subscribe({
               next: (fileSasUrl) => {
-                this.confirmationRegisterService
-                  .apiConfirmationRegisterSaveFileUrlPost({
+                this.api
+                  .apiConfirmationregisterSaveFileUrlPost({
                     body: {
-                      RegistrationId: registerId,
-                      VicarLetterUrl: fileSasUrl,
+                      registrationId: registerId,
+                      vicarLetterUrl: fileSasUrl,
                     },
                   })
                   .subscribe({

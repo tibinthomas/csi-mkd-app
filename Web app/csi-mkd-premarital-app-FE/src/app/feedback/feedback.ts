@@ -11,7 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { FeedbackService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/services';
 import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
@@ -32,7 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 })
 export class Feedback {
   private readonly fb = inject(FormBuilder);
-  private readonly feedbackService = inject(FeedbackService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
 
   protected readonly feedbackForm = this.fb.group({
     sessionTitle: ['', [Validators.required, Validators.maxLength(100)]],
@@ -82,7 +82,7 @@ export class Feedback {
     this.errorMessage.set('');
 
     const payload = this.feedbackForm.value;
-    this.feedbackService.apiFeedbackPost({ body: payload as any }).subscribe({
+    this.api.apiFeedbackPost({ body: payload as any }).subscribe({
       next: () => {
         this.successMessage.set('Feedback submitted successfully!');
         this.feedbackForm.reset();

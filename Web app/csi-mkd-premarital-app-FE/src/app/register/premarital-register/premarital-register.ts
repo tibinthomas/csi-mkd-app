@@ -13,11 +13,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
-import {
-  AzureUploadService,
-  SessionConfigService,
-} from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
@@ -41,6 +37,8 @@ import { FileUploadService } from '../../core/services/file-upload.service';
 import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
+// Aggregated API service used for all backend calls
+import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/services';
 
 @Component({
   selector: 'app-premarital-register',
@@ -69,11 +67,7 @@ export class PremaritalRegister {
   readonly dialog = inject(MatDialog);
   private router = inject(Router);
 
-  private readonly premaritalRegisterService = inject(
-    PremaritalRegisterService
-  );
-  private readonly sessionConfigService = inject(SessionConfigService);
-  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly api = inject(ApiService);
   private readonly fileUploadService = inject(FileUploadService);
   private readonly themeService = inject(ThemeService);
 
@@ -88,8 +82,8 @@ export class PremaritalRegister {
   protected readonly vicarLetterError = signal('');
   protected readonly minDate = new Date().toISOString().split('T')[0];
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
@@ -181,7 +175,7 @@ export class PremaritalRegister {
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
-              this.premaritalRegisterService.apiPremaritalRegisterCheckEmailGet(
+              this.api.apiPremaritalregisterCheckEmailGet(
                 { email }
               )
             ),
@@ -212,7 +206,7 @@ export class PremaritalRegister {
     }
   }
 
-  private readonly sessions$ = this.sessionConfigService
+  private readonly sessions$ = this.api
     .apiSessionconfigGet()
     .pipe(
       map((data: any) => {
@@ -338,43 +332,43 @@ export class PremaritalRegister {
     const letter = this.vicarLetterFile()!;
 
     const body = {
-      FirstName: raw.firstName,
-      LastName: raw.lastName,
-      FatherName: raw.fatherName,
-      Address: raw.address,
-      Sex: raw.sex,
-      Age: Number(raw.age),
-      Education: raw.education,
-      Occupation: raw.occupation,
-      ChurchName: raw.churchName,
-      FianceName: raw.fianceName || undefined,
-      DateOfMarriage: raw.dateOfMarriage
+      firstName: raw.firstName,
+      lastName: raw.lastName,
+      fatherName: raw.fatherName,
+      address: raw.address,
+      sex: raw.sex,
+      age: Number(raw.age),
+      education: raw.education,
+      occupation: raw.occupation,
+      churchName: raw.churchName,
+      fianceName: raw.fianceName || undefined,
+      dateOfMarriage: raw.dateOfMarriage
         ? this.toUtcIsoString(raw.dateOfMarriage)
         : undefined,
-      Phone: raw.phone,
-      Email: raw.email,
-      Days: raw.days,
-      ChoirMember: raw.churchActivities?.choirMember || false,
-      SsTeacher: raw.churchActivities?.ssTeacher || false,
-      YouthFellowship: raw.churchActivities?.youthFellowship || false,
-      Other: raw.churchActivities?.other || undefined,
-      Declaration: raw.declaration,
-      SessionId: Number(raw.sessionId),
-      PaymentStatus: false,
-      RecaptchaToken: raw.recaptcha, // <-- token is here, set automatically by ngx-recaptcha2
+      phone: raw.phone,
+      email: raw.email,
+      days: raw.days,
+      choirMember: raw.churchActivities?.choirMember || false,
+      ssTeacher: raw.churchActivities?.ssTeacher || false,
+      youthFellowship: raw.churchActivities?.youthFellowship || false,
+      other: raw.churchActivities?.other || undefined,
+      declaration: raw.declaration,
+      sessionId: Number(raw.sessionId),
+      paymentStatus: false,
+      recaptchaToken: raw.recaptcha,
     };
 
-    this.premaritalRegisterService
-      .apiPremaritalRegisterPost({ body })
+    this.api
+      .apiPremaritalregisterPost$FormData({ body })
       .subscribe({
         next: (response: any) => {
           const registerId: number = JSON.parse(response).id;
           forkJoin([
-            this.azureUploadService.apiAzureUploadGenerateSasGet({
+            this.api.apiAzureuploadGenerateSasGet({
               fileName: `premarital/${registerId}/photo/${photo.name}`,
               contentType: photo.type,
             }),
-            this.azureUploadService.apiAzureUploadGenerateSasGet({
+            this.api.apiAzureuploadGenerateSasGet({
               fileName: `premarital/${registerId}/vicarletter/${letter.name}`,
               contentType: letter.type,
             }),
@@ -393,12 +387,12 @@ export class PremaritalRegister {
             .subscribe({
               next: ([photoSasUrl, letterSasUrl]) => {
                 const body = {
-                  RegistrationId: registerId,
-                  PhotoUrl: photoSasUrl,
-                  VicarLetterUrl: letterSasUrl,
+                  registrationId: registerId,
+                  photoUrl: photoSasUrl,
+                  vicarLetterUrl: letterSasUrl,
                 };
-                this.premaritalRegisterService
-                  .apiPremaritalRegisterSaveFileUrlsPost({ body })
+                this.api
+                  .apiPremaritalregisterSaveFileUrlsPost$FormData({ body })
                   .subscribe({
                     next: () => {
                       this.successMessage.set(
