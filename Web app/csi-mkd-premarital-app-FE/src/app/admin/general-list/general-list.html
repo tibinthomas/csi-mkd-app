@@ -76,11 +76,11 @@
             <th mat-header-cell *matHeaderCellDef i18n>Photo</th>
             <td mat-cell *matCellDef="let reg">
               <img
-                [ngSrc]="reg.PhotoUrl || 'https://via.placeholder.com/40'"
-                width="40"
-                height="40"
+                [ngSrc]="reg.PhotoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
+                width="38"
+                height="56"
                 alt="Photo of {{ reg.FirstName }}"
-                class="rounded-full object-cover"
+                class="w-14 h-14 rounded-full object-cover border border-outline dark:border-outline-variant"
               />
             </td>
           </ng-container>
@@ -88,23 +88,27 @@
             <th mat-header-cell *matHeaderCellDef i18n>Payment</th>
             <td mat-cell *matCellDef="let reg">
               @if (reg.PaymentStatus === false) {
-              <button mat-flat-button color="accent" (click)="approvePayment(reg); $event.stopPropagation()">
+              <button mat-raised-button color="accent" (click)="approvePayment(reg); $event.stopPropagation()">
                 @if(isApproving() === reg.Id) {
                 <mat-spinner diameter="20"></mat-spinner>
-                } @else {
-                <span i18n>Approve</span>
-                }
+                } @else { <span i18n>Approve</span> }
               </button>
               } @else {
-              <span class="font-semibold text-green-600" i18n>Received</span>
+              <span class="font-medium p-4 text-green-700" i18n>Received</span>
               }
             </td>
           </ng-container>
           <ng-container matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let reg">
-              <button mat-icon-button (click)="toggle(reg); $event.stopPropagation()">
-                <mat-icon>{{ isExpanded(reg) ? "expand_less" : "expand_more" }}</mat-icon>
+              <button
+                mat-icon-button
+                aria-label="expand row"
+                (click)="toggle(reg); $event.stopPropagation()"
+                class="transition-transform duration-200 ease-in-out"
+                [class.rotate-180]="isExpanded(reg)"
+              >
+                <mat-icon>keyboard_arrow_down</mat-icon>
               </button>
             </td>
           </ng-container>
@@ -112,7 +116,10 @@
           <!-- Expanded Content -->
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let reg" [attr.colspan]="11">
-              <div class="p-4 bg-gray-50" [@detailExpand]="expandedElement === reg ? 'expanded' : 'collapsed'">
+              <div
+                class="p-4 text-sm text-on-surface theme-transition"
+                [@detailExpand]="expandedElement === reg ? 'expanded' : 'collapsed'"
+              >
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div><strong i18n>Father's Name:</strong> {{ reg.FatherName }}</div>
                   <div><strong i18n>Address:</strong> {{ reg.Address }}</div>
@@ -124,7 +131,7 @@
             </td>
           </ng-container>
 
-          <!-- Header and Row Declarations -->
+          <!-- Table structure -->
           <tr
             mat-header-row
             *matHeaderRowDef="[
@@ -139,7 +146,6 @@
               'PaymentStatus',
               'expand'
             ]"
-            class="[&>th]:font-bold [&>th]:text-gray-700"
           ></tr>
           <tr
             mat-row
@@ -158,14 +164,15 @@
                 'expand'
               ]
             "
-            class="hover:bg-gray-50 cursor-pointer [&>td]:align-top"
+            class="cursor-pointer"
+            [class.bg-surface-container-high]="isExpanded(reg)"
             (click)="toggle(reg)"
           ></tr>
-          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="h-0"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="!h-0"></tr>
         </table>
         } @else {
-        <div class="text-center text-gray-500 p-8">
-          <p i18n>No registrations found.</p>
+        <div class="text-center text-gray-600 mt-8">
+          <p i18n>No data available</p>
         </div>
         }
         <mat-paginator
@@ -175,7 +182,6 @@
           [pageSizeOptions]="[5, 10, 20]"
           showFirstLastButtons
           (page)="onPageChange($event)"
-          class="bg-white"
         ></mat-paginator>
       </div>
     </mat-card-content>

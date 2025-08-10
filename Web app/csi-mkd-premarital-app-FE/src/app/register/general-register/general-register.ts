@@ -5,6 +5,7 @@ import {
   inject,
   signal,
   ViewChild,
+  computed,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -13,6 +14,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { ThemeService } from '../../core/services/theme.service';
 import { GeneralRegisterService } from '../../../api/services';
 import { AzureUploadService } from '../../../api/services';
 import { MatCardModule } from '@angular/material/card';
@@ -55,6 +57,7 @@ export class GeneralRegister {
   private readonly azureUploadService = inject(AzureUploadService);
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
+  private readonly themeService = inject(ThemeService);
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -66,6 +69,7 @@ export class GeneralRegister {
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   // siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Example site key, replace with your actual key
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;

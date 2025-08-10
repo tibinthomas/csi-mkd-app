@@ -19,7 +19,7 @@ import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 }`,
   template: `
     <h2 mat-dialog-title class="pt-serif-bold">Registration Successful</h2>
-    <mat-dialog-content class="!text-sm text-gray-700 pt-serif-regular">
+    <mat-dialog-content class="!text-sm text-on-surface pt-serif-regular">
       <p>Your registration is complete!</p>
       @if(data.registerType !== 'pre-confirmation') {
       <p>A confirmation email will be sent to your registered email address.</p>

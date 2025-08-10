@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
+import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
 
 @Component({
   selector: 'app-admin-layout',
@@ -26,6 +27,7 @@ import { LanguageSelectorComponent } from '../shared/language-selector/language-
     MatIconModule,
     MatButtonModule,
     LanguageSelectorComponent,
+    ThemeToggle,
   ],
   styleUrl: './admin-layout.scss',
   templateUrl: './admin-layout.html',

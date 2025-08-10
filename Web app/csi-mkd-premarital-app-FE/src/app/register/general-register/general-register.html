@@ -1,5 +1,5 @@
-<section class="py-30 px-4">
-  <mat-card class="max-w-4xl mx-auto p-6">
+<section class="py-30 px-4 theme-transition">
+  <mat-card class="max-w-4xl mx-auto p-6 dark:bg-surface-container theme-transition">
     <mat-card-header class="mb-6">
       <mat-card-title class="text-center text-2xl sm:text-3xl font-bold" i18n>
         General Registration Form
@@ -165,7 +165,7 @@
           <div id="photo-upload-help" class="sr-only" i18n>Please select a passport size photo in image format</div>
 
           @if (photoFileName) {
-          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ photoFileName }}</span>
+          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ photoFileName }}</span>
           } @if (photoError()) {
           <mat-error role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
           }
@@ -186,7 +186,7 @@
             formControlName="recaptcha"
             [siteKey]="siteKey"
             (success)="handleSuccess($event)"
-            theme="light"
+            [theme]="recaptchaTheme()"
             size="normal"
           ></ngx-recaptcha2>
         </div>

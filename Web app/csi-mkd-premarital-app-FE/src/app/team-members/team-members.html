@@ -1,23 +1,23 @@
-<section class="py-30 px-6 bg-white">
+<section class="py-30 px-6 bg-surface dark:bg-surface theme-transition">
   <div class="max-w-6xl mx-auto text-center">
     <h2 class="mb-6 text-2xl font-extrabold tracking-tight font-bold" i18n>Meet Our Team</h2>
-    <p class="mb-12 max-w-2xl mx-auto text-gray-700 text-lg leading-relaxed" i18n>
+    <p class="mb-12 max-w-2xl mx-auto text-on-surface text-lg leading-relaxed theme-transition" i18n>
       With a panel of certified counsellors, psychologists, and clergy dedicated to your holistic healing.
     </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
       @for (member of teamMembers(); track member) {
       <mat-card
-        class="shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 animate-fade-slide"
+        class="elegant-card shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 animate-fade-slide theme-transition"
         appAnimateOnScroll
       >
         <mat-card-header class="flex flex-col items-center text-center px-6 pt-6">
           <!-- <mat-card-title class="">{{ member.name }}</mat-card-title> -->
           <!-- <mat-card-subtitle class="text-gray-600 pb-5">{{ member.qualification }}</mat-card-subtitle> -->
-          <mat-card-subtitle class="text-gray-600 font-bold">{{ member.name }}</mat-card-subtitle>
+          <mat-card-subtitle class="text-on-surface-variant font-bold">{{ member.name }}</mat-card-subtitle>
 
           <mat-card-content>
-            <p class="text-gray-600 text-xs">
+            <p class="text-on-surface-variant text-xs">
               {{ member.qualification }}
             </p>
           </mat-card-content>

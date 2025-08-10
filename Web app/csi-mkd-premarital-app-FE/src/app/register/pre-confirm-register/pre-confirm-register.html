@@ -1,5 +1,5 @@
-<section class="py-30 px-4">
-  <mat-card class="max-w-4xl mx-auto p-6">
+<section class="py-30 px-4 theme-transition">
+  <mat-card class="max-w-4xl mx-auto p-6 dark:bg-surface-container theme-transition">
     <mat-card-header class="mb-6">
       <mat-card-title class="text-center text-2xl sm:text-3xl font-bold" i18n>
         Pre-confirmational Registration Form
@@ -78,7 +78,7 @@
               Add Participant
             </button>
           </div>
-          <div class="text-right text-sm text-gray-600 mb-4">
+          <div class="text-right text-sm text-on-surface-variant mb-4">
             @if (participants().length > 0) {
             <span i18n>Number of Participants Added: </span>{{ participants().length }}
             } @else{
@@ -115,7 +115,7 @@
           </div>
 
           @if (this.vicarLetterFile()?.name) {
-          <span class="text-sm text-gray-600 mt-2 block" aria-live="polite">{{ this.vicarLetterFile()?.name }}</span>
+          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ this.vicarLetterFile()?.name }}</span>
           } @if (vicarLetterError()) {
           <mat-error role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
           }
@@ -136,7 +136,7 @@
             formControlName="recaptcha"
             [siteKey]="siteKey"
             (success)="handleSuccess($event)"
-            theme="light"
+            [theme]="recaptchaTheme()"
             size="normal"
           ></ngx-recaptcha2>
         </div>

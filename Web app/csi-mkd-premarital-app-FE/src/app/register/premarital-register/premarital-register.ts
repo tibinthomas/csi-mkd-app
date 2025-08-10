@@ -5,6 +5,7 @@ import {
   inject,
   signal,
   ViewChild,
+  computed,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -39,6 +40,7 @@ import { FileUploadService } from '../../core/services/file-upload.service';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-premarital-register',
@@ -73,6 +75,7 @@ export class PremaritalRegister {
   private readonly sessionConfigService = inject(SessionConfigService);
   private readonly azureUploadService = inject(AzureUploadService);
   private readonly fileUploadService = inject(FileUploadService);
+  private readonly themeService = inject(ThemeService);
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -87,6 +90,7 @@ export class PremaritalRegister {
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;

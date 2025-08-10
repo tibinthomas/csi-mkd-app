@@ -1,12 +1,17 @@
 @use '@angular/material' as mat;
+@use './app/core/theme/material-theme' as theme;
 
+// Include base theme styles and custom property definitions
+@include mat.core();
+
+// Apply light theme by default
 html {
   color-scheme: light;
-  @include mat.theme(
-    (
-      color: mat.$rose-palette,
-      typography: 'PT Serif',
-      density: 0,
-    )
-  );
+  @include theme.apply-light-theme();
+}
+
+// Apply dark theme when data-theme="dark"
+html[data-theme="dark"] {
+  color-scheme: dark;
+  @include theme.apply-dark-theme();
 }

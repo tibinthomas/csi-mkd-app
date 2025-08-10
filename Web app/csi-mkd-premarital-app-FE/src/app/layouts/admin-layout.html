@@ -10,55 +10,63 @@
       <h2 class="text-2xl font-bold text-rose-800">CSI Admin</h2>
     </div>
 
-    <mat-nav-list class="flex-1 p-2">
-      <a
-        mat-list-item
-        routerLink="/admin/dashboard"
-        routerLinkActive="bg-rose-100 text-rose-800 font-semibold rounded-lg"
-      >
-        <mat-icon class="mr-4">dashboard</mat-icon>
-        <span>Dashboard</span>
-      </a>
-      <a
-        mat-list-item
-        routerLink="/admin/premarital"
-        routerLinkActive="bg-rose-100 text-rose-800 font-semibold rounded-lg"
-      >
-        <mat-icon class="mr-4">people</mat-icon>
-        <span>Premarital Register List</span>
-      </a>
-      <a
-        mat-list-item
-        routerLink="/admin/session-config"
-        routerLinkActive="bg-rose-100 text-rose-800 font-semibold rounded-lg"
-      >
-        <mat-icon class="mr-4">event</mat-icon>
-        <span>Premarital Session Config</span>
-      </a>
-      <a
-        mat-list-item
-        routerLink="/admin/general-list"
-        routerLinkActive="bg-rose-100 text-rose-800 font-semibold rounded-lg"
-      >
-        <mat-icon class="mr-4">list_alt</mat-icon>
-        <span>General Register List</span>
-      </a>
-      <a
-        mat-list-item
-        routerLink="/admin/pre-confirm-list"
-        routerLinkActive="bg-rose-100 text-rose-800 font-semibold rounded-lg"
-      >
-        <mat-icon class="mr-4">check_circle</mat-icon>
-        <span>Pre-Confirm List</span>
-      </a>
-    </mat-nav-list>
+    <mat-nav-list class="flex flex-col justify-between flex-1">
+      <!-- Top links -->
+      <div>
+        <a
+          mat-list-item
+          routerLink="/admin/dashboard"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+        >
+          <mat-icon class="mr-4">dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/premarital"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          (click)="toggleSidenav()"
+        >
+          <mat-icon class="mr-4">people</mat-icon>
+          <span>Premarital Register List</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/session-config"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          (click)="toggleSidenav()"
+        >
+          <mat-icon class="mr-4">event</mat-icon>
+          <span>Premarital Session Config</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/general-list"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          (click)="toggleSidenav()"
+        >
+          <mat-icon class="mr-4">list_alt</mat-icon>
+          <span>General Register List</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/pre-confirm-list"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          (click)="toggleSidenav()"
+        >
+          <mat-icon class="mr-4">check_circle</mat-icon>
+          <span>Pre-Confirm List</span>
+        </a>
+      </div>
 
-    <div class="p-4 border-t">
-      <button mat-stroked-button class="w-full" routerLink="/admin/login">
-        <mat-icon class="mr-2">exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </div>
+      <!-- Logout at the bottom -->
+      <div class="p-4 border-t">
+        <button mat-stroked-button class="w-full" routerLink="/admin/login">
+          <mat-icon class="mr-2">exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
+      </div>
+    </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
@@ -68,6 +76,7 @@
       </button>
       <h1 class="text-xl font-semibold text-gray-800 ml-4">Admin Panel</h1>
       <span class="flex-auto"></span>
+      <app-theme-toggle></app-theme-toggle>
       <app-language-selector></app-language-selector>
     </mat-toolbar>
     <main class="p-6 bg-gray-50">

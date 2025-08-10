@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+
+// Define the light theme using Material Design 3
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$rose-palette,
+  ),
+  typography: (
+    brand-family: 'PT Serif',
+    plain-family: 'PT Serif',
+  ),
+  density: (
+    scale: 0
+  )
+));
+
+// Define the enhanced elegant dark theme using Material Design 3
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$rose-palette,
+  ),
+  typography: (
+    brand-family: 'PT Serif',
+    plain-family: 'PT Serif',
+  ),
+  density: (
+    scale: 0
+  )
+));
+
+// Mixin for applying light theme
+@mixin apply-light-theme() {
+  @include mat.all-component-themes($light-theme);
+}
+
+// Mixin for applying dark theme
+@mixin apply-dark-theme() {
+  @include mat.all-component-themes($dark-theme);
+}
+

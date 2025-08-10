@@ -3,8 +3,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
 import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
+import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import packageInfo from '../../../package.json';
 
@@ -18,7 +20,9 @@ import packageInfo from '../../../package.json';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
+    MatDividerModule,
     LanguageSelectorComponent,
+    ThemeToggle,
     RouterLinkActive,
     MatSelectModule,
   ],
