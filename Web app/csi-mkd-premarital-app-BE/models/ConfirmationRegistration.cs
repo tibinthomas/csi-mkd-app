@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
+using Microsoft.EntityFrameworkCore;
+[Index(nameof(ChurchName))]
+[Index(nameof(SubmittedDate))]
 public class ConfirmationRegistration
 {
     [Key]

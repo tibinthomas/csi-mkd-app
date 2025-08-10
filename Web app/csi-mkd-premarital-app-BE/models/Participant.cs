@@ -1,7 +1,9 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
+[Index(nameof(ConfirmationRegistrationId))]
 public class Participant
 {
     [Key]

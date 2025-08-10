@@ -1,8 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 namespace csi_mkd_premarital_app_BE.Models
 {
+    [Index(nameof(Email))]
+    [Index(nameof(SubmittedAt))]
+    [Index(nameof(PaymentStatus))]
     public class GeneralRegistration
     {
         [Key]
