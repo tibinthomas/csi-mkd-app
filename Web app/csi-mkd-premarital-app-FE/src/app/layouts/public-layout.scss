@@ -1,1 +1,12 @@
 /* Converted to Tailwind CSS */
+
+/* Google Maps iframe dark mode treatment */
+.map-embed iframe {
+  transition: filter 0.3s ease; /* smooth theme switch */
+}
+
+/* Apply a tasteful invert + hue rotate when the app is in dark mode */
+:host-context([data-theme='dark']) .map-embed iframe {
+  filter: invert(90%) hue-rotate(180deg) saturate(0.85) brightness(0.9)
+    contrast(0.9);
+}

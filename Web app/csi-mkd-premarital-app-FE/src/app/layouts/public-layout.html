@@ -109,7 +109,13 @@
 
 <!-- Mobile Nav Menu -->
 <mat-menu #menu="matMenu" role="menu" aria-label="Mobile navigation menu">
-  <a mat-menu-item routerLink="/about" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" i18n role="menuitem" aria-label="About us page"
+  <a
+    mat-menu-item
+    routerLink="/about"
+    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+    i18n
+    role="menuitem"
+    aria-label="About us page"
     >About</a
   >
   <a
@@ -130,10 +136,22 @@
     aria-label="Registration page"
     >Register</a
   >
-  <a mat-menu-item routerLink="/feedback" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" i18n role="menuitem" aria-label="Feedback page"
+  <a
+    mat-menu-item
+    routerLink="/feedback"
+    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+    i18n
+    role="menuitem"
+    aria-label="Feedback page"
     >Feedback</a
   >
-  <a mat-menu-item routerLink="/sessions" routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg" i18n role="menuitem" aria-label="Sessions page"
+  <a
+    mat-menu-item
+    routerLink="/sessions"
+    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+    i18n
+    role="menuitem"
+    aria-label="Sessions page"
     >Premarital Sessions</a
   >
   <mat-divider></mat-divider>
@@ -149,9 +167,13 @@
   <router-outlet></router-outlet>
 </main>
 <!-- Footer Contact Section -->
-<footer class="bg-surface-container-low dark:bg-surface-container-low mt-20 pt-10 border-t border-outline-variant dark:border-outline-variant theme-transition">
+<footer
+  class="bg-surface-container-low dark:bg-surface-container-low mt-20 pt-10 border-t border-outline-variant dark:border-outline-variant theme-transition"
+>
   <!-- Top: Contact + Address + Scripture -->
-  <div class="max-w-7xl mx-auto px-6 grid gap-12 md:grid-cols-3 text-on-surface text-center md:text-left theme-transition">
+  <div
+    class="max-w-7xl mx-auto px-6 grid gap-12 md:grid-cols-3 text-on-surface text-center md:text-left theme-transition"
+  >
     <!-- Contact Info -->
     <div>
       <h3 class="text-xl font-semibold mb-4" i18n><i class="bi bi-telephone"></i> Contact</h3>
@@ -185,7 +207,7 @@
 
   <!-- Google Map -->
   <div class="max-w-5xl mx-auto px-6 mt-12">
-    <div class="rounded-xl overflow-hidden shadow-lg">
+    <div class="rounded-xl overflow-hidden shadow-lg map-embed">
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.9814545776558!2d76.51042919678956!3d9.596864899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b062b0f442475b7%3A0x50451aeaf955cd6f!2sCSI%20Counselling%20Centre!5e0!3m2!1sen!2sca!4v1752345411567!5m2!1sen!2sca"
         width="100%"
