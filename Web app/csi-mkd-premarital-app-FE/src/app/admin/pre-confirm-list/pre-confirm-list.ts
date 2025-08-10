@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 import {
   trigger,
   state,
@@ -42,6 +43,7 @@ import autoTable from 'jspdf-autotable';
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatDividerModule,
+    MatCardModule,
   ],
   animations: [
     trigger('detailExpand', [

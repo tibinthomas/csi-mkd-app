@@ -42,6 +42,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 import { SessionConfigService } from '../../../api/services';
 import { ApiSessionconfigGet$Params } from '../../../api/fn/session-config/api-sessionconfig-get';
 import { ApiSessionconfigSessionsGet$Params } from '../../../api/fn/session-config/api-sessionconfig-sessions-get';
@@ -72,6 +73,7 @@ import { CreateUpdateSessionDto } from '../../../api/models';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatCardModule,
   ],
   animations: [
     trigger('detailExpand', [

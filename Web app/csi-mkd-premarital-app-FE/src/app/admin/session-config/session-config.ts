@@ -27,7 +27,9 @@ import {
   MatDatepickerModule,
 } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { DatePipe, I18nPluralPipe } from '@angular/common';
+import { DatePipe, I18nPluralPipe, NgClass } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SessionFormDialogComponent } from './session-config-form';
 import { formatDate } from '@angular/common';
 import {
@@ -61,6 +63,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDatepicker,
     MatProgressSpinnerModule,
     I18nPluralPipe,
+    MatCardModule,
+    MatTooltipModule,
+    NgClass,
   ],
 })
 export class SessionConfig implements OnInit {
