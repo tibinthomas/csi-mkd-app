@@ -13,42 +13,26 @@
     <mat-nav-list class="flex flex-col justify-between flex-1 mt-4">
       <!-- Top links -->
       <div class="space-y-2">
-        <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="bg-rose-100 text-rose-800 font-semibold">
+        <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="!bg-rose-100 text-rose-800 font-semibold">
           <mat-icon class="mr-3">dashboard</mat-icon>
           <span>Dashboard</span>
         </a>
-        <a
-          mat-list-item
-          routerLink="/admin/premarital"
-          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
-          (click)="toggleSidenav()"
-        >
+        <a mat-list-item routerLink="/admin/premarital" routerLinkActive="!bg-rose-100 text-rose-800 font-semibold">
           <mat-icon class="mr-3">people</mat-icon>
           <span>Premarital Register List</span>
         </a>
-        <a
-          mat-list-item
-          routerLink="/admin/session-config"
-          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
-          (click)="toggleSidenav()"
-        >
+        <a mat-list-item routerLink="/admin/session-config" routerLinkActive="!bg-rose-100 text-rose-800 font-semibold">
           <mat-icon class="mr-3">event</mat-icon>
           <span>Premarital Session Config</span>
         </a>
-        <a
-          mat-list-item
-          routerLink="/admin/general-list"
-          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
-          (click)="toggleSidenav()"
-        >
+        <a mat-list-item routerLink="/admin/general-list" routerLinkActive="!bg-rose-100 text-rose-800 font-semibold">
           <mat-icon class="mr-3">list_alt</mat-icon>
           <span>General Register List</span>
         </a>
         <a
           mat-list-item
           routerLink="/admin/pre-confirm-list"
-          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
-          (click)="toggleSidenav()"
+          routerLinkActive="!bg-rose-100 text-rose-800 font-semibold"
         >
           <mat-icon class="mr-3">check_circle</mat-icon>
           <span>Pre-Confirm List</span>
