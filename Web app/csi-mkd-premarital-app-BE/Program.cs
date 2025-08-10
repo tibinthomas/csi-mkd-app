@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using csi_mkd_premarital_app_BE.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,12 +37,13 @@ builder.Services.AddOutputCache(options =>
     options.AddPolicy("NoCache", builder => builder.NoCache());
 });
 
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-        options.JsonSerializerOptions.WriteIndented = true;
-    });
+// MVC controllers are not used anymore; switching to minimal APIs
+// Keep JSON defaults aligned via System.Text.Json defaults when needed in minimal handlers
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.PropertyNamingPolicy = null;
+    options.SerializerOptions.WriteIndented = true;
+});
 
 if (builder.Environment.IsDevelopment())
 {
@@ -159,6 +161,8 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 // Configure middleware pipeline
@@ -187,7 +191,15 @@ app.UseOutputCache();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllers();
+// Map minimal API endpoints
+app.MapAuthEndpoints();
+app.MapGeneralRegisterEndpoints();
+app.MapPremaritalRegisterEndpoints();
+app.MapConfirmationRegisterEndpoints();
+app.MapSessionConfigEndpoints();
+app.MapEmailConfigEndpoints();
+app.MapFeedbackEndpoints();
+app.MapAzureUploadEndpoints();
 
 // Add health check endpoint
 app.MapGet("/health", () => Results.Ok("Healthy"));
