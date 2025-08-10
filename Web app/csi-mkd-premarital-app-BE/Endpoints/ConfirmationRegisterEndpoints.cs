@@ -1,7 +1,6 @@
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
-using csi_mkd_premarital_app_BE.Utilities;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -36,22 +35,12 @@ public static class ConfirmationRegisterEndpoints
                 Search = req.Query["Search"]
             };
             var data = await service.GetFilteredRegistrations(filter);
-            var version = $"{filter.Page}:{filter.PageSize}:{filter.Search}";
-            var etag = ETagHelper.GenerateETag(version);
-            if (req.Headers["If-None-Match"] == etag)
-                return Results.StatusCode(304);
-            req.HttpContext.Response.Headers["ETag"] = etag;
             return Results.Ok(data);
         }).CacheOutput(p => p.Tag("confirmation-regs").Expire(TimeSpan.FromSeconds(10)));
 
-        group.MapGet("/total", async (IConfirmationRegisterService service, HttpRequest req) =>
+        group.MapGet("/total", async (IConfirmationRegisterService service) =>
         {
             var total = await service.GetTotalRegistrations();
-            var version = $"{total}";
-            var etag = ETagHelper.GenerateETag(version);
-            if (req.Headers["If-None-Match"] == etag)
-                return Results.StatusCode(304);
-            req.HttpContext.Response.Headers["ETag"] = etag;
             return Results.Ok(new { total });
         }).CacheOutput(p => p.Tag("confirmation-regs").Expire(TimeSpan.FromSeconds(10)));
     }

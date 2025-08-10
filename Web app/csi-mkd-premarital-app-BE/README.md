@@ -6,7 +6,7 @@ Key folders:
 
 - `Endpoints/`: Minimal API endpoint mappings (one file per feature)
 - `Services/`, `Repositories/`, `Models/`, `DTOs/`: Domain layers unchanged
-- `Utilities/ETagHelper.cs`: Helper for strong ETag generation
+  // ETag helper removed. We rely on OutputCache for response caching.
 
 To run:
 

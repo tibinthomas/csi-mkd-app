@@ -2,7 +2,6 @@ using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Mvc;
-using csi_mkd_premarital_app_BE.Utilities;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -52,22 +51,12 @@ public static class PremaritalRegisterEndpoints
                 SessionName = req.Query["SessionName"]
             };
             var data = await service.GetFilteredRegistrations(filter);
-            var version = $"{filter.Page}:{filter.PageSize}:{filter.Search}:{filter.UnapprovedOnly}:{filter.ActiveSessionOnly}:{filter.SessionYear}:{filter.SessionName}";
-            var etag = ETagHelper.GenerateETag(version);
-            if (req.Headers["If-None-Match"] == etag)
-                return Results.StatusCode(304);
-            req.HttpContext.Response.Headers["ETag"] = etag;
             return Results.Ok(data);
         }).CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
 
-        group.MapGet("/total", async (IPremaritalRegisterService service, HttpRequest req) =>
+        group.MapGet("/total", async (IPremaritalRegisterService service) =>
         {
             var total = await service.GetTotalRegistrations();
-            var version = $"{total}";
-            var etag = ETagHelper.GenerateETag(version);
-            if (req.Headers["If-None-Match"] == etag)
-                return Results.StatusCode(304);
-            req.HttpContext.Response.Headers["ETag"] = etag;
             return Results.Ok(new { total });
         }).CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
     }
