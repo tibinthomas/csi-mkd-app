@@ -2,7 +2,7 @@
   <mat-card class="rounded-2xl shadow-xl">
     <mat-card-header class="!pb-4">
       <mat-card-title>
-        <h1 class="text-2xl font-bold text-gray-800" i18n>General Registrations</h1>
+        <h1 class="text-2xl font-bold text-on-surface theme-transition" i18n>General Registrations</h1>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
@@ -42,7 +42,7 @@
           <mat-spinner diameter="50" color="primary"></mat-spinner>
         </div>
         } @else if(registrations().length > 0){
-        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full bg-white table-fixed">
+        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full surface-container table-fixed theme-transition">
           <!-- Column Definitions -->
           <ng-container matColumnDef="FirstName">
             <th mat-header-cell *matHeaderCellDef i18n>First Name</th>
@@ -94,7 +94,7 @@
                 } @else { <span i18n>Approve</span> }
               </button>
               } @else {
-              <span class="font-medium p-4 text-green-700" i18n>Received</span>
+              <span class="font-medium p-4 text-green-700 dark:text-green-400 theme-transition" i18n>Received</span>
               }
             </td>
           </ng-container>
@@ -171,7 +171,7 @@
           <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="!h-0"></tr>
         </table>
         } @else {
-        <div class="text-center text-gray-600 mt-8">
+        <div class="text-center text-on-surface-variant mt-8 theme-transition">
           <p i18n>No data available</p>
         </div>
         }
