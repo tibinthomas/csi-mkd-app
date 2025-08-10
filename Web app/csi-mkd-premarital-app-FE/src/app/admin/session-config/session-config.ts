@@ -62,7 +62,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatExpansionPanelDescription,
     MatDatepicker,
     MatProgressSpinnerModule,
-    I18nPluralPipe,
     MatCardModule,
     MatTooltipModule,
     NgClass,
