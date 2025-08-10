@@ -18,6 +18,7 @@ import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './core/auth/token.interceptor';
 import { RateLimitInterceptor } from './core/interceptors/rate-limit-interceptor';
+import { EtagCacheInterceptor } from './core/interceptors/etag-cache.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
@@ -31,6 +32,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RateLimitInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: EtagCacheInterceptor,
       multi: true,
     },
     provideRouter(

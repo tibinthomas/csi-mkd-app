@@ -8,7 +8,7 @@ import {
   computed,
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
@@ -44,6 +44,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { SessionConfigService } from '../../../api/services';
+import { SessionDataService } from '../../core/services/session-data.service';
 import { ApiSessionconfigGet$Params } from '../../../api/fn/session-config/api-sessionconfig-get';
 import { ApiSessionconfigSessionsGet$Params } from '../../../api/fn/session-config/api-sessionconfig-sessions-get';
 import { ApiSessionconfigPost$Params } from '../../../api/fn/session-config/api-sessionconfig-post';
@@ -94,7 +95,7 @@ export class PremaritalComponent {
   private readonly premaritalRegisterService = inject(
     PremaritalRegisterService
   );
-  private readonly sessionConfigService = inject(SessionConfigService);
+  private readonly sessionDataService = inject(SessionDataService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -198,22 +199,7 @@ export class PremaritalComponent {
     initialValue: [],
   });
 
-  private readonly sessions$ = this.sessionConfigService
-    .apiSessionconfigGet()
-    .pipe(
-      map((data: any) => {
-        const parsed = JSON.parse(data);
-        return parsed.map((session: any) => ({
-          ...session,
-        }));
-      }),
-      catchError((err) => {
-        console.error('Error loading sessions:', err);
-        return of([]); // fallback to empty array
-      })
-    );
-
-  protected readonly sessionList = toSignal(this.sessions$, {
+  protected readonly sessionList = toSignal(this.sessionDataService.sessions$, {
     initialValue: [],
   });
 

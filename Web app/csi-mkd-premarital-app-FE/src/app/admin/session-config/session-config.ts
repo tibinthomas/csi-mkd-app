@@ -10,7 +10,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { SessionConfigService } from '../../../api/services';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
+import { SessionDataService } from '../../core/services/session-data.service';
 import {
   MatDialog,
   MatDialogModule,
@@ -78,6 +79,7 @@ export class SessionConfig implements OnInit {
 
   private readonly fb = inject(FormBuilder);
   private readonly sessionConfigService = inject(SessionConfigService);
+  private readonly sessionDataService = inject(SessionDataService);
   private readonly dialog = inject(MatDialog);
 
   protected readonly form = this.fb.group({
@@ -103,33 +105,13 @@ export class SessionConfig implements OnInit {
     other: $localize`:@@multipleSessions: # sessions`,
   };
 
-  private readonly sessionList$ = toObservable(this.refreshTrigger).pipe(
-    switchMap(() =>
-      this.sessionConfigService.apiSessionconfigGet().pipe(
-        map((data: any) => {
-          const parsed = JSON.parse(data);
-          return parsed
-            .map((session: any) => ({
-              ...session,
-            }))
-            .sort((a: any, b: any) => b.Id - a.Id);
-        }),
-        catchError((err) => {
-          console.error('Failed to load sessions', err);
-          alert('Failed to load session configurations.');
-          return of([]);
-        })
-      )
-    )
-  );
-
-  protected readonly sessionList = toSignal(this.sessionList$, {
+  protected readonly sessionList = toSignal(this.sessionDataService.sessions$, {
     initialValue: [],
   });
 
   ngOnInit() {
     this.fetchSessions(this.currentYear());
-    this.refreshTrigger.set(this.refreshTrigger() + 1);
+    this.sessionDataService.refresh();
   }
 
   onYearChange(event: any) {
@@ -192,7 +174,7 @@ export class SessionConfig implements OnInit {
           .apiSessionconfigIdDelete({ id: session.Id })
           .subscribe({
             next: () => {
-              this.refreshTrigger.set(this.refreshTrigger() + 1);
+              this.sessionDataService.refresh();
             },
             error: (err) => {
               const errorMsg =
@@ -230,7 +212,7 @@ export class SessionConfig implements OnInit {
           })
           .subscribe({
             next: () => {
-              this.refreshTrigger.set(this.refreshTrigger() + 1);
+              this.sessionDataService.refresh();
             },
             error: (err) => {
               console.error('Failed to toggle session status', err);
@@ -263,7 +245,7 @@ export class SessionConfig implements OnInit {
         this.sessionConfigService
           .apiSessionconfigPost({ body: session })
           .subscribe({
-            next: () => this.refreshTrigger.set(this.refreshTrigger() + 1),
+            next: () => this.sessionDataService.refresh(),
             error: () =>
               this.dialog.open(AlertDialog, {
                 data: { message: 'Failed to create session' },
@@ -288,7 +270,7 @@ export class SessionConfig implements OnInit {
         this.sessionConfigService
           .apiSessionconfigIdPut({ id: updated.id, body: updated })
           .subscribe({
-            next: () => this.refreshTrigger.set(this.refreshTrigger() + 1),
+            next: () => this.sessionDataService.refresh(),
             error: () =>
               this.dialog.open(AlertDialog, {
                 data: { message: 'Failed to update session' },
