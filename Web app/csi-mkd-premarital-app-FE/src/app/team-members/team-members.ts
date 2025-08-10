@@ -22,7 +22,7 @@ export class TeamMembers {
     { name: 'Rev. Abraham C Prakash', qualification: 'M.A. (couns.), B.D.' },
     {
       name: 'Rev. Jacob Johnson',
-      qualification: 'B.A., B.Sc., M.Sc., B.Th., B.D., M.Th.',
+      qualification: 'B.A., M.A., B.Th., B.D., M.Th., C.P.E.',
     },
     {
       name: 'Rev. Mathew Jillow Ninan',
@@ -37,17 +37,17 @@ export class TeamMembers {
       qualification: 'B.Sc. Psy., M.Sc. Psy., B.D.',
     },
     { name: 'Rev. Alvin M. Sam', qualification: 'M.Sc. Couns Psy., B.D.' },
-    { name: 'Dr. Benjamin George', qualification: 'M.S. ORTHO., D. ORTHO.' },
+    { name: 'Dr. Benjamin George', qualification: 'M.S. ORTHO., Former DMO Kottayam' },
     {
-      name: 'Mrs. Lincy Joseph',
+      name: 'Mrs. Lincy T Varghese',
       qualification:
-        'M.S.W., M.Sc. Psy., M.Sc. Couns. & Psychotherapy, N.L.P. Trainer',
+        'M.S.W., M.Sc. Psy., M.Sc. Couns. & Psychotherapy, N.L.P. Master Trainer, Hypnotherapist',
     },
     { name: 'Adv. Sheeba Tharakan', qualification: 'B.Com., L.L.B.' },
     { name: 'Dr. Anitha Eapen', qualification: 'M.B.B.S., D.G.O.' },
-    { name: 'Mrs. Sofiya Susan Paul', qualification: 'B.Sc. M.Sc. (CP)' },
-    { name: 'Mrs. Aleyamma V. T', qualification: 'M.A., B.Ed., P.G.D.C.A.' },
-    { name: 'Mrs. Susamma P I', qualification: 'B.Sc.,B.Ed.,P.G.D.C.P.C' },
+    { name: 'Mrs. Sofiya Susan Paul', qualification: 'B.Sc. M.Sc. (Couns Psy.)' },
+    { name: 'Mrs. Aleyamma T.V', qualification: 'M.A., B.Ed., D.C.P.C., P.G.D.C.A.' },
+    { name: 'Mrs. Susamma P.I', qualification: 'B.Sc.,B.Ed.,P.G.D.C.P.C' },
     { name: 'Mr. Joji Laji George', qualification: 'B.Sc. (Office Staff)' },
   ]);
 }
