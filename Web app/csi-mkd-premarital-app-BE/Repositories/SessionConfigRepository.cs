@@ -7,6 +7,9 @@ namespace csi_mkd_premarital_app_BE.Repositories;
 public class SessionConfigRepository : ISessionConfigRepository
 {
     private readonly ApplicationDbContext _context;
+    private static readonly Func<ApplicationDbContext, IAsyncEnumerable<SessionConfiguration>> GetAllSessionsCompiled
+        = EF.CompileAsyncQuery((ApplicationDbContext ctx)
+            => ctx.SessionConfigurations.AsNoTracking());
 
     public SessionConfigRepository(ApplicationDbContext context)
     {
@@ -14,7 +17,14 @@ public class SessionConfigRepository : ISessionConfigRepository
     }
 
     public async Task<List<SessionConfiguration>> GetAll()
-        => await _context.SessionConfigurations.AsNoTracking().ToListAsync();
+    {
+        var list = new List<SessionConfiguration>();
+        await foreach (var session in GetAllSessionsCompiled(_context))
+        {
+            list.Add(session);
+        }
+        return list;
+    }
 
     public async Task<SessionConfiguration?> GetById(int id)
         => await _context.SessionConfigurations.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);

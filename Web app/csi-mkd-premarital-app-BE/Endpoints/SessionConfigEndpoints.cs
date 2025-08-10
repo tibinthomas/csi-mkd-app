@@ -21,7 +21,7 @@ public static class SessionConfigEndpoints
                 return Results.StatusCode(304);
             req.HttpContext.Response.Headers["ETag"] = etag;
             return Results.Ok(sessions);
-        }).CacheOutput(p => p.Tag("sessions").Expire(TimeSpan.FromMinutes(2)));
+        }).CacheOutput(p => p.Tag("sessions"));
 
         group.MapGet("/{id:int}", async (int id, ISessionConfigService service, HttpRequest req) =>
         {

@@ -101,8 +101,8 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Configure Database
-builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =>
+// Configure Database with DbContext pooling
+builder.Services.AddDbContextPool<ApplicationDbContext>((serviceProvider, options) =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
         ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -120,10 +120,13 @@ builder.Services.AddDbContext<ApplicationDbContext>((serviceProvider, options) =
         options.EnableSensitiveDataLogging()
                .EnableDetailedErrors();
     }
-});
+
+    // Add EF Core interceptor(s)
+    options.AddInterceptors(serviceProvider.GetRequiredService<AuditSaveChangesInterceptor>());
+}, poolSize: 256);
 
 // Register Services
-builder.Services.AddScoped<AuditSaveChangesInterceptor>();
+builder.Services.AddSingleton<AuditSaveChangesInterceptor>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IPremaritalRegisterService, PremaritalRegisterService>();
 builder.Services.AddScoped<IPremaritalRegisterRepository, PremaritalRegisterRepository>();
