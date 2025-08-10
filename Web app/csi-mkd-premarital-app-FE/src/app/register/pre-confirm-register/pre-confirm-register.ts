@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ElementRef, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -48,6 +48,7 @@ export class PreConfirmRegister {
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
   private readonly themeService = inject(ThemeService);
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
 
   protected readonly form: FormGroup;
   protected readonly formSubmitted = signal(false);
@@ -105,6 +106,8 @@ export class PreConfirmRegister {
   onSubmit(): void {
     this.formSubmitted.set(true);
     if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
     this.isSubmitting.set(true);
@@ -258,5 +261,24 @@ export class PreConfirmRegister {
 
   removeParticipant(index: number): void {
     this.participants().removeAt(index);
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }

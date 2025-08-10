@@ -29,7 +29,6 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
-import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
 
 @Component({
   selector: 'app-general-register',
@@ -71,6 +70,7 @@ export class GeneralRegister {
 
   // siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Example site key, replace with your actual key
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   photoFileName: string | null = '';
   showErrorModal = signal(false);
 
@@ -145,7 +145,6 @@ export class GeneralRegister {
             Validators.required,
             Validators.email,
             emailDomainValidator(),
-            noPlusSignValidator(),
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
@@ -209,6 +208,7 @@ export class GeneralRegister {
 
     if (this.form.invalid || this.photoError()) {
       this.form.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
 
@@ -293,5 +293,24 @@ export class GeneralRegister {
     this.errorMessage.set('Photo upload failed. Please try again.');
     this.showErrorModal.set(true);
     this.isSubmitting.set(false);
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }

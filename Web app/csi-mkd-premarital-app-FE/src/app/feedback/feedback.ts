@@ -3,6 +3,8 @@ import {
   Component,
   inject,
   signal,
+  ElementRef,
+  ViewChild,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,6 +35,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 export class Feedback {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
 
   protected readonly feedbackForm = this.fb.group({
     sessionTitle: ['', [Validators.required, Validators.maxLength(100)]],
@@ -74,6 +77,7 @@ export class Feedback {
   onSubmit() {
     if (this.feedbackForm.invalid) {
       this.feedbackForm.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
 
@@ -96,5 +100,24 @@ export class Feedback {
         this.isSubmitting.set(false);
       },
     });
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }

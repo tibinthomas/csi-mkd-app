@@ -31,7 +31,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../success-dialog';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
-import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { Router } from '@angular/router';
@@ -88,6 +87,7 @@ export class PremaritalRegister {
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   selectedSessionId = signal<number | null>(null);
 
   constructor() {
@@ -171,7 +171,6 @@ export class PremaritalRegister {
             Validators.required,
             Validators.email,
             emailDomainValidator(),
-            noPlusSignValidator(),
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
@@ -321,6 +320,7 @@ export class PremaritalRegister {
 
     if (this.form.invalid || this.photoError() || this.vicarLetterError()) {
       this.form.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
 
@@ -426,5 +426,24 @@ export class PremaritalRegister {
   toUtcIsoString(dateInput: string | Date): string {
     const localDate = new Date(dateInput);
     return localDate.toISOString();
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }
