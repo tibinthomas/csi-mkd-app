@@ -2,6 +2,8 @@
 using csi_mkd_premarital_app_BE.Models;
 using Microsoft.AspNetCore.Mvc;
 using csi_mkd_premarital_app_BE.Data;
+using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.EntityFrameworkCore;
 
 namespace csi_mkd_premarital_app_BE.Controllers
 {
@@ -10,24 +12,27 @@ namespace csi_mkd_premarital_app_BE.Controllers
     public class EmailConfigController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
+        private readonly IOutputCacheStore _cache;
 
-        public EmailConfigController(ApplicationDbContext db)
+        public EmailConfigController(ApplicationDbContext db, IOutputCacheStore cache)
         {
             _db = db;
+            _cache = cache;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        [OutputCache(PolicyName = "Expire2m", Tags = ["email-config"])]
+        public async Task<IActionResult> Get()
         {
-            var config = _db.EmailConfigs.FirstOrDefault();
+            var config = await _db.EmailConfigs.AsNoTracking().FirstOrDefaultAsync();
             if (config == null) return NotFound();
             return Ok(config);
         }
 
         [HttpPost]
-        public IActionResult SaveOrUpdate([FromBody] EmailConfig input)
+        public async Task<IActionResult> SaveOrUpdate([FromBody] EmailConfig input)
         {
-            var existing = _db.EmailConfigs.FirstOrDefault();
+            var existing = await _db.EmailConfigs.FirstOrDefaultAsync();
 
             if (existing != null)
             {
@@ -41,7 +46,8 @@ namespace csi_mkd_premarital_app_BE.Controllers
                 _db.EmailConfigs.Add(input);
             }
 
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
+            await _cache.EvictByTagAsync("email-config", default);
             return Ok("Email config saved successfully.");
         }
     }

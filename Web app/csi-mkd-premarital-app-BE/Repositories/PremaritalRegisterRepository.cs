@@ -45,6 +45,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
         public async Task<object> FilterRegistrations(RegistrationFilterDto filter)
         {
             var query = _context.PremaritalRegistrations
+                .AsNoTracking()
                 .Include(r => r.SessionConfiguration)
                 .Include(r => r.PremaritalDocument)
                 .AsQueryable();

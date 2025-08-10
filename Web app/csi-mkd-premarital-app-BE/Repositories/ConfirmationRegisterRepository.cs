@@ -29,6 +29,7 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
     public async Task<object> FilterRegistrations(ConfirmationRegisterFilterDto filter)
     {
         var query = _context.ConfirmationRegistrations
+            .AsNoTracking()
             .Include(r => r.ConfirmationDocument)
             .Include(r => r.Participants)
             .AsQueryable();

@@ -44,6 +44,7 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
     public async Task<object> FilterRegistrations(GeneralRegisterFilterDto filter)
     {
         var query = _context.GeneralRegistrations
+            .AsNoTracking()
             .Include(r => r.GeneralDocument)
             .AsQueryable();
 

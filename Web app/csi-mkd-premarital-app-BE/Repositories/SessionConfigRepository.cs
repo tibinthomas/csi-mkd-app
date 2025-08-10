@@ -17,7 +17,7 @@ public class SessionConfigRepository : ISessionConfigRepository
         => await _context.SessionConfigurations.AsNoTracking().ToListAsync();
 
     public async Task<SessionConfiguration?> GetById(int id)
-        => await _context.SessionConfigurations.FindAsync(id);
+        => await _context.SessionConfigurations.AsNoTracking().FirstOrDefaultAsync(s => s.Id == id);
 
     public async Task Create(SessionConfiguration session)
     {
@@ -54,6 +54,7 @@ public class SessionConfigRepository : ISessionConfigRepository
 
     public async Task<List<SessionConfiguration>> GetByYear(int year)
         => await _context.SessionConfigurations
+            .AsNoTracking()
             .Where(s => s.StartDate.Year == year)
             .OrderBy(s => s.StartDate)
             .ToListAsync();

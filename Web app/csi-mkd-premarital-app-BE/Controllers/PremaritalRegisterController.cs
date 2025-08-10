@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace csi_mkd_premarital_app_BE.Controllers;
 
@@ -10,11 +11,13 @@ public class PremaritalRegisterController : ControllerBase
 {
     private readonly IPremaritalRegisterService _service;
     private readonly IRecaptchaService _recaptcha;
+    private readonly IOutputCacheStore _cache;
 
-    public PremaritalRegisterController(IPremaritalRegisterService service, IRecaptchaService recaptcha)
+    public PremaritalRegisterController(IPremaritalRegisterService service, IRecaptchaService recaptcha, IOutputCacheStore cache)
     {
         _service = service;
         _recaptcha = recaptcha;
+        _cache = cache;
     }
 
     [HttpPost]
@@ -27,6 +30,7 @@ public class PremaritalRegisterController : ControllerBase
             return BadRequest(new { Message = "Invalid reCAPTCHA token." });
         }
         var result = await _service.Register(dto);
+        await _cache.EvictByTagAsync("premarital-regs", default);
         return StatusCode(result.StatusCode, result.Data);
     }
 
@@ -34,22 +38,30 @@ public class PremaritalRegisterController : ControllerBase
     public async Task<IActionResult> SaveFiles([FromForm] PremaritalDocumentDto dto)
     {
         var result = await _service.SaveFiles(dto);
+        await _cache.EvictByTagAsync("premarital-regs", default);
         return StatusCode(result.StatusCode, result.Data);
     }
 
     [HttpPut("{id}/paymentstatus")]
     public async Task<IActionResult> UpdatePaymentStatus([FromRoute] int id, [FromBody] PaymentStatusUpdateDto dto)
-        => StatusCode((await _service.UpdatePaymentStatus(id, dto)).StatusCode);
+    {
+        var result = await _service.UpdatePaymentStatus(id, dto);
+        await _cache.EvictByTagAsync("premarital-regs", default);
+        return StatusCode(result.StatusCode);
+    }
 
     [HttpGet("check-email")]
+    [OutputCache(PolicyName = "Expire10s", Tags = ["premarital-regs"])]
     public async Task<IActionResult> CheckEmail(string email)
         => Ok(await _service.CheckEmailExists(email));
 
     [HttpGet("filter")]
+    [OutputCache(PolicyName = "Expire10s", Tags = ["premarital-regs"])]
     public async Task<IActionResult> FilteredRegistrations([FromQuery] RegistrationFilterDto filter)
         => Ok(await _service.GetFilteredRegistrations(filter));
 
     [HttpGet("total")]
+    [OutputCache(PolicyName = "Expire10s", Tags = ["premarital-regs"])]
     public async Task<IActionResult> GetTotalRegistrations()
     {
         var total = await _service.GetTotalRegistrations();
