@@ -40,7 +40,7 @@ export class AdminLogin {
   );
 
   protected readonly loginForm = this.fb.group({
-    username: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
