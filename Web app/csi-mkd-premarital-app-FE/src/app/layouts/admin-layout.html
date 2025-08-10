@@ -1,48 +1,80 @@
-<mat-sidenav-container class="h-screen">
+<mat-sidenav-container class="h-screen bg-gray-50">
   <mat-sidenav
     #sidenav
     [mode]="isMobile() ? 'over' : 'side'"
     [opened]="!isMobile() || sidenavOpen()"
     (openedChange)="sidenavOpen.set($event)"
-    class="h-full !w-auto !min-w-[12rem] py-2"
+    class="h-full !w-64 border-r border-gray-200 bg-white"
   >
-    <mat-toolbar color="primary">CSI Admin</mat-toolbar>
+    <div class="p-4 text-center">
+      <h2 class="text-2xl font-bold text-rose-800">CSI Admin</h2>
+    </div>
 
-    <mat-nav-list class="flex flex-col justify-between flex-1">
+    <mat-nav-list class="flex flex-col justify-between flex-1 mt-4">
       <!-- Top links -->
-      <div>
-        <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="bg-rose-50">Dashboard</a>
-        <a mat-list-item routerLink="/admin/premarital" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
-          >Premarital Register List</a
+      <div class="space-y-2">
+        <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="bg-rose-100 text-rose-800 font-semibold">
+          <mat-icon class="mr-3">dashboard</mat-icon>
+          <span>Dashboard</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/premarital"
+          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
+          (click)="toggleSidenav()"
         >
-        <a mat-list-item routerLink="/admin/session-config" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
-          >Premarital Session Config</a
+          <mat-icon class="mr-3">people</mat-icon>
+          <span>Premarital Register List</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/session-config"
+          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
+          (click)="toggleSidenav()"
         >
-        <a mat-list-item routerLink="/admin/general-list" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
-          >General Register List</a
+          <mat-icon class="mr-3">event</mat-icon>
+          <span>Premarital Session Config</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/general-list"
+          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
+          (click)="toggleSidenav()"
         >
-        <a mat-list-item routerLink="/admin/pre-confirm-list" routerLinkActive="bg-rose-50" (click)="toggleSidenav()"
-          >Pre-Confirm List</a
+          <mat-icon class="mr-3">list_alt</mat-icon>
+          <span>General Register List</span>
+        </a>
+        <a
+          mat-list-item
+          routerLink="/admin/pre-confirm-list"
+          routerLinkActive="bg-rose-100 text-rose-800 font-semibold"
+          (click)="toggleSidenav()"
         >
+          <mat-icon class="mr-3">check_circle</mat-icon>
+          <span>Pre-Confirm List</span>
+        </a>
       </div>
 
       <!-- Logout at the bottom -->
-      <div class="flex justify-center pt-10">
-        <button mat-raised-button routerLink="/admin/login">Logout</button>
+      <div class="p-4">
+        <button mat-stroked-button class="w-full" routerLink="/admin/login">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Logout</span>
+        </button>
       </div>
     </mat-nav-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar>
+    <mat-toolbar class="bg-white shadow-sm">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>{{ sidenavOpen() ? "close" : "menu" }}</mat-icon>
       </button>
-
+      <h1 class="text-xl font-semibold text-gray-700 ml-4">Admin Panel</h1>
       <span class="flex-auto"></span>
       <app-language-selector></app-language-selector>
     </mat-toolbar>
-    <main class="p-4">
+    <main class="p-6">
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>
