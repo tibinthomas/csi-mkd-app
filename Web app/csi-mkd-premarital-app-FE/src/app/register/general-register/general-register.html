@@ -10,7 +10,7 @@
         <div class="grid md:grid-cols-3 gap-6">
           <mat-form-field class="w-full">
             <mat-label i18n>First Name</mat-label>
-            <input matInput formControlName="firstName" />
+            <input matInput formControlName="firstName" appNoDigits />
             @if (isInvalid('firstName')) {
             <mat-error i18n>First Name is required.</mat-error>
             }
@@ -18,7 +18,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Last Name</mat-label>
-            <input matInput formControlName="lastName" />
+            <input matInput formControlName="lastName" appNoDigits />
             @if (isInvalid('lastName')) {
             <mat-error i18n>Last Name is required.</mat-error>
             }
@@ -26,7 +26,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Father's Name</mat-label>
-            <input matInput formControlName="fatherName" />
+            <input matInput formControlName="fatherName" appNoDigits />
             @if (isInvalid('fatherName')) {
             <mat-error i18n>Father's Name is required.</mat-error>
             }
@@ -55,7 +55,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Age</mat-label>
-            <input matInput type="number" formControlName="age" />
+            <input matInput type="text" formControlName="age" appOnlyDigits [appOnlyDigitsMax]="3" />
             @if (isInvalid('age')) {
             <mat-error>
               @if (form.get('age')?.errors?.['required']) {
@@ -71,7 +71,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Education</mat-label>
-            <input matInput formControlName="education" />
+           <input matInput formControlName="education" appNoDigits />
             @if (isInvalid('education')) {
             <mat-error>Education field is required.</mat-error>
             }
@@ -80,7 +80,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Occupation</mat-label>
-          <input matInput formControlName="occupation" />
+           <input matInput formControlName="occupation" appNoDigits />
           @if (isInvalid('occupation')) {
           <mat-error>Occupation field is required.</mat-error>
           }
@@ -88,17 +88,28 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Church Name</mat-label>
-          <input matInput formControlName="churchName" />
+           <input matInput formControlName="churchName" appNoDigits />
         </mat-form-field>
 
         <div class="grid md:grid-cols-2 gap-6">
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Phone Number</mat-label>
-            <input matInput formControlName="phone" />
-            @if (isInvalid('phone')) {
-            <mat-error i18n>Phone number is required.</mat-error>
-            }
-          </mat-form-field>
+          <div class="w-full flex gap-2 items-start">
+            <mat-form-field appearance="fill" class="w-32 min-w-28">
+              <mat-label i18n>Code</mat-label>
+              <mat-select formControlName="countryCode">
+                <mat-option value="+91">+91 (IN)</mat-option>
+                <mat-option value="+1">+1 (US)</mat-option>
+                <mat-option value="+44">+44 (UK)</mat-option>
+                <mat-option value="+971">+971 (AE)</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label i18n>Phone Number</mat-label>
+              <input matInput type="text" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
+              @if (isInvalid('phone')) {
+              <mat-error i18n>Phone number is required.</mat-error>
+              }
+            </mat-form-field>
+          </div>
 
           <mat-form-field appearance="fill" class="w-full mb-2">
             <mat-label i18n>Email id</mat-label>

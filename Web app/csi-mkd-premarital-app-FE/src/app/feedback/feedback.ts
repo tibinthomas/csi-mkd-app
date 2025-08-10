@@ -14,7 +14,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { CsiMkdPremaritalAppBeService } from '../../api/services';
+import { NoDigitsDirective } from '../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-feedback',
@@ -30,6 +32,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
+    NoDigitsDirective,
   ],
 })
 export class Feedback {
@@ -73,6 +77,7 @@ export class Feedback {
   protected readonly isSubmitting = signal(false);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
+  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
 
   onSubmit() {
     if (this.feedbackForm.invalid) {
@@ -100,6 +105,41 @@ export class Feedback {
         this.isSubmitting.set(false);
       },
     });
+  }
+
+  hasPendingChanges = (): boolean => {
+    return this.feedbackForm.dirty && !this.isSubmitting();
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
+
+  private getTimezoneDisplay(): string {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offsetMin = new Date().getTimezoneOffset();
+      const sign = offsetMin <= 0 ? '+' : '-';
+      const abs = Math.abs(offsetMin);
+      const hh = Math.floor(abs / 60)
+        .toString()
+        .padStart(2, '0');
+      const mm = (abs % 60).toString().padStart(2, '0');
+      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
+    } catch {
+      return 'Time Zone: UTC';
+    }
   }
 
   private focusFirstInvalidControl(): void {

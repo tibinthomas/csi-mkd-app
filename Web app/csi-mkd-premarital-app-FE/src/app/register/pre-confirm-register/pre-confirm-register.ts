@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
+import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { SuccessDialogComponent } from '../success-dialog';
 import { switchMap } from 'rxjs';
@@ -38,6 +40,8 @@ import { ThemeService } from '../../core/services/theme.service';
     MatDialogModule,
     MatCheckboxModule,
     NgxCaptchaModule,
+    NoDigitsDirective,
+    OnlyDigitsDirective,
   ],
   templateUrl: './pre-confirm-register.html',
   styleUrl: './pre-confirm-register.scss',
@@ -92,6 +96,43 @@ export class PreConfirmRegister {
       consent: [false, Validators.requiredTrue],
       recaptcha: ['', Validators.required],
     });
+  }
+
+  hasPendingChanges = (): boolean => {
+    return this.form.dirty && !this.isSubmitting();
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
+
+  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
+
+  private getTimezoneDisplay(): string {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offsetMin = new Date().getTimezoneOffset();
+      const sign = offsetMin <= 0 ? '+' : '-';
+      const abs = Math.abs(offsetMin);
+      const hh = Math.floor(abs / 60)
+        .toString()
+        .padStart(2, '0');
+      const mm = (abs % 60).toString().padStart(2, '0');
+      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
+    } catch {
+      return 'Time Zone: UTC';
+    }
   }
 
   isInvalid(name: string): boolean {

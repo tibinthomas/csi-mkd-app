@@ -32,6 +32,8 @@ import { SuccessDialogComponent } from '../success-dialog';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
+import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
+import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
@@ -56,6 +58,8 @@ import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/service
     MatIcon,
     // AnimateOnScrollDirective,
     NgxCaptchaModule,
+    NoDigitsDirective,
+    OnlyDigitsDirective,
   ],
   templateUrl: './premarital-register.html',
   styleUrl: './premarital-register.scss',
@@ -163,6 +167,7 @@ export class PremaritalRegister {
         [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)],
       ],
       dateOfMarriage: [''],
+      countryCode: ['+91', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
         '',
@@ -195,15 +200,31 @@ export class PremaritalRegister {
     });
   }
 
+  hasPendingChanges = (): boolean => {
+    return this.form.dirty && !this.isSubmitting();
+  };
+
   ngOnInit() {
     this.sessionList(); // load sessionList()
-
-    // patch value into form if available
     if (this.selectedSessionId()) {
       this.form.patchValue({ sessionId: this.selectedSessionId() });
-      this.form.get('sessionId')?.disable(); // disable dropdown
+      this.form.get('sessionId')?.disable();
     }
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
   }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
+
+  
 
   private readonly sessions$ = this.api
     .apiSessionconfigGet()
@@ -331,7 +352,7 @@ export class PremaritalRegister {
     const photo = this.photoFile()!;
     const letter = this.vicarLetterFile()!;
 
-    const body = {
+      const body = {
       firstName: raw.firstName,
       lastName: raw.lastName,
       fatherName: raw.fatherName,
@@ -345,7 +366,7 @@ export class PremaritalRegister {
       dateOfMarriage: raw.dateOfMarriage
         ? this.toUtcIsoString(raw.dateOfMarriage)
         : undefined,
-      phone: raw.phone,
+      phone: `${raw.countryCode}${raw.phone}`,
       email: raw.email,
       days: raw.days,
       choirMember: raw.churchActivities?.choirMember || false,
@@ -426,6 +447,24 @@ export class PremaritalRegister {
   toUtcIsoString(dateInput: string | Date): string {
     const localDate = new Date(dateInput);
     return localDate.toISOString();
+  }
+
+  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
+
+  private getTimezoneDisplay(): string {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offsetMin = new Date().getTimezoneOffset();
+      const sign = offsetMin <= 0 ? '+' : '-';
+      const abs = Math.abs(offsetMin);
+      const hh = Math.floor(abs / 60)
+        .toString()
+        .padStart(2, '0');
+      const mm = (abs % 60).toString().padStart(2, '0');
+      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
+    } catch {
+      return 'Time Zone: UTC';
+    }
   }
 
   private focusFirstInvalidControl(): void {

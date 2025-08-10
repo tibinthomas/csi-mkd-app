@@ -25,6 +25,7 @@
               aria-required="true"
               aria-describedby="firstName-error"
               autocomplete="given-name"
+              appNoDigits
             />
             @if (isInvalid('firstName')) {
             <mat-error id="firstName-error" i18n>First Name is required.</mat-error>
@@ -39,6 +40,7 @@
               aria-required="true"
               aria-describedby="lastName-error"
               autocomplete="family-name"
+              appNoDigits
             />
             @if (isInvalid('lastName')) {
             <mat-error id="lastName-error" i18n>Last Name is required.</mat-error>
@@ -47,7 +49,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Father's Name</mat-label>
-            <input matInput formControlName="fatherName" aria-required="true" aria-describedby="fatherName-error" />
+            <input matInput formControlName="fatherName" aria-required="true" aria-describedby="fatherName-error" appNoDigits />
             @if (isInvalid('fatherName')) {
             <mat-error id="fatherName-error" i18n>Father's Name is required.</mat-error>
             }
@@ -86,12 +88,14 @@
             <mat-label i18n>Age</mat-label>
             <input
               matInput
-              type="number"
+              type="text"
               formControlName="age"
               aria-required="true"
               aria-describedby="age-error"
               min="1"
               max="120"
+              appOnlyDigits
+              [appOnlyDigitsMax]="3"
             />
             @if (isInvalid('age')) {
             <mat-error id="age-error">
@@ -108,7 +112,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Education</mat-label>
-            <input matInput formControlName="education" aria-required="true" aria-describedby="education-error" />
+           <input matInput formControlName="education" aria-required="true" aria-describedby="education-error" appNoDigits />
             @if (isInvalid('education')) {
             <mat-error id="education-error" i18n>Education field is required.</mat-error>
             }
@@ -117,7 +121,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Occupation</mat-label>
-          <input matInput formControlName="occupation" />
+           <input matInput formControlName="occupation" appNoDigits />
           @if (isInvalid('occupation')) {
           <mat-error i18n>Occupation field is required.</mat-error>
           }
@@ -125,7 +129,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Church Name</mat-label>
-          <input matInput formControlName="churchName" />
+           <input matInput formControlName="churchName" appNoDigits />
           @if (isInvalid('churchName')) {
           <mat-error i18n>Church Name is required.</mat-error>
           }
@@ -153,25 +157,37 @@
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Fiancé/Fiancée Name</mat-label>
-            <input matInput formControlName="fianceName" />
+             <input matInput formControlName="fianceName" appNoDigits />
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Marriage</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="dateOfMarriage" [min]="minDate" />
+            <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
 
         <div class="grid md:grid-cols-2 gap-6">
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Phone Number</mat-label>
-            <input matInput formControlName="phone" />
-            @if (isInvalid('phone')) {
-            <mat-error i18n>Phone number is required.</mat-error>
-            }
-          </mat-form-field>
+          <div class="w-full flex gap-2 items-start">
+            <mat-form-field appearance="fill" class="w-32 min-w-28">
+              <mat-label i18n>Code</mat-label>
+              <mat-select formControlName="countryCode">
+                <mat-option value="+91">+91 (IN)</mat-option>
+                <mat-option value="+1">+1 (US)</mat-option>
+                <mat-option value="+44">+44 (UK)</mat-option>
+                <mat-option value="+971">+971 (AE)</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label i18n>Phone Number</mat-label>
+              <input matInput type="text" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
+              @if (isInvalid('phone')) {
+              <mat-error i18n>Phone number is required.</mat-error>
+              }
+            </mat-form-field>
+          </div>
 
           <mat-form-field appearance="fill" class="w-full mb-2">
             <mat-label i18n>Email id</mat-label>

@@ -10,7 +10,7 @@
         <div class="grid md:grid-cols-3 gap-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Church Name</mat-label>
-            <input matInput formControlName="churchName" />
+            <input matInput formControlName="churchName" appNoDigits />
             @if (isInvalid('churchName')) {
             <mat-error i18n>Church Name is required.</mat-error>
             }
@@ -19,6 +19,7 @@
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Confirmation</mat-label>
             <input matInput [matDatepicker]="confirmationdatepicker" formControlName="confirmationDate" [min]="minDate" />
+            <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #confirmationdatepicker />
             <mat-datepicker-toggle [for]="confirmationdatepicker" matSuffix />
             @if (isInvalid('confirmationDate')) {
@@ -27,8 +28,9 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label i18n>Date of Preconfirmational Counselling</mat-label>
+            <mat-label i18n>Date of Counselling</mat-label>
             <input matInput [matDatepicker]="counsellingdatepicker" formControlName="counsellingDate" />
+            <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #counsellingdatepicker />
             <mat-datepicker-toggle [for]="counsellingdatepicker" matSuffix />
             @if (isInvalid('counsellingDate')) {
@@ -44,7 +46,7 @@
             <!-- Participant Name -->
             <mat-form-field appearance="fill" class="col-span-5">
               <mat-label i18n>Participant Name</mat-label>
-              <input matInput formControlName="name" />
+              <input matInput formControlName="name" appNoDigits />
               @if (isParticipantInvalid(i, 'name')) {
               <mat-error i18n>Participant name is required.</mat-error>
               }
@@ -53,7 +55,7 @@
             <!-- Participant Age -->
             <mat-form-field appearance="fill" class="col-span-5">
               <mat-label i18n>Participant Age</mat-label>
-              <input matInput type="number" formControlName="age" />
+              <input matInput type="text" formControlName="age" appOnlyDigits [appOnlyDigitsMax]="3" />
               @if (isParticipantInvalid(i, 'age')) {
               <mat-error i18n>Age must be between 1 and 120.</mat-error>
               }

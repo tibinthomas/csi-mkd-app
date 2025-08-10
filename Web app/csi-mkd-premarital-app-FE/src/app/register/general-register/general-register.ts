@@ -25,6 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { switchMap } from 'rxjs';
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { SuccessDialogComponent } from '../success-dialog';
+import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
+import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
@@ -44,7 +46,10 @@ import { emailExistsValidatorFactory } from '../../core/validators/unique-email.
     MatDialogModule,
     MatIconModule,
     NgxCaptchaModule,
+    NoDigitsDirective,
+    OnlyDigitsDirective,
   ],
+  hostDirectives: [],
   templateUrl: './general-register.html',
   styleUrl: './general-register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -137,6 +142,7 @@ export class GeneralRegister {
           Validators.pattern(/^[a-zA-Z0-9\s]*$/),
         ],
       ],
+      countryCode: ['+91', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
         '',
@@ -162,6 +168,25 @@ export class GeneralRegister {
       recaptcha: ['', Validators.required],
     });
   }
+
+  hasPendingChanges = (): boolean => {
+    return this.form.dirty && !this.isSubmitting();
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
@@ -217,7 +242,7 @@ export class GeneralRegister {
     const raw = this.form.value;
     const photo = this.photoFile()!;
 
-    const body = {
+      const body = {
       firstName: raw.firstName,
       lastName: raw.lastName,
       fatherName: raw.fatherName,
@@ -227,7 +252,7 @@ export class GeneralRegister {
       education: raw.education,
       occupation: raw.occupation,
       churchName: raw.churchName || undefined,
-      phone: raw.phone,
+      phone: `${raw.countryCode}${raw.phone}`,
       email: raw.email,
       maritalStatus: raw.maritalStatus,
       sessionType: raw.sessionType,
