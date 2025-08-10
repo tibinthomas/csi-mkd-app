@@ -1,19 +1,19 @@
 <h2 mat-dialog-title>{{ isEdit() ? "Edit" : "Add" }} Session</h2>
 
 <mat-dialog-content [formGroup]="form">
-  <mat-form-field class="w-full">
+  <mat-form-field appearance="fill" class="w-full">
     <mat-label i18n>Session Name</mat-label>
     <input matInput formControlName="sessionName" />
   </mat-form-field>
 
-  <mat-form-field class="w-full">
+  <mat-form-field appearance="fill" class="w-full">
     <mat-label i18n>Start Date</mat-label>
     <input matInput [matDatepicker]="startPicker" formControlName="startDate" />
     <mat-datepicker-toggle matSuffix [for]="startPicker" />
     <mat-datepicker #startPicker></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field class="w-full">
+  <mat-form-field appearance="fill" class="w-full">
     <mat-label i18n>End Date</mat-label>
     <input matInput [matDatepicker]="endPicker" formControlName="endDate" />
     <mat-datepicker-toggle matSuffix [for]="endPicker" />

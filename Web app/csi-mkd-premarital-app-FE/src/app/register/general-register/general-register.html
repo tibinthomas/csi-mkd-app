@@ -8,7 +8,7 @@
     <mat-card-content>
       <form #formEl [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
         <div class="grid md:grid-cols-3 gap-6">
-          <mat-form-field class="w-full">
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>First Name</mat-label>
             <input matInput formControlName="firstName" appNoDigits />
             @if (isInvalid('firstName')) {

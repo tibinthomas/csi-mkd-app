@@ -8,15 +8,16 @@
     <mat-card-content>
       <!-- Filter Controls -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <mat-form-field appearance="outline" class="w-full md:col-span-2">
+        <mat-form-field appearance="fill" class="w-full md:col-span-2">
           <mat-label i18n>Search</mat-label>
           <input
             matInput
+            type="text"
             [value]="searchTermInput()"
             (input)="searchTermInput.set($any($event.target).value)"
-            placeholder="Search by church name"
-            i18n-placeholder
+            i18n
           />
+          <mat-hint i18n>Search by church name</mat-hint>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -103,7 +104,7 @@
           ></tr>
 
           <!-- Expanded Row -->
-          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="overflow-hidden"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="!h-0"></tr>
         </table>
 
         <mat-paginator

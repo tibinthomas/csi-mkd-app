@@ -8,33 +8,31 @@
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-        <mat-form-field appearance="outline" class="w-full">
+        <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Username</mat-label>
           <input
             matInput
             formControlName="username"
-            placeholder="Enter your username"
-            i18n-placeholder
             autocomplete="username"
             required
             autofocus
           />
+          <mat-hint i18n>Enter your username</mat-hint>
           @if (loginForm.controls['username'].hasError('required')) {
           <mat-error i18n>Username is required.</mat-error>
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-full">
+        <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Password</mat-label>
           <input
             matInput
             type="password"
             formControlName="password"
-            placeholder="Enter your password"
-            i18n-placeholder
             autocomplete="current-password"
             required
           />
+          <mat-hint i18n>Enter your password</mat-hint>
           @if (loginForm.controls['password'].hasError('required')) {
           <mat-error i18n>Password is required.</mat-error>
           }
