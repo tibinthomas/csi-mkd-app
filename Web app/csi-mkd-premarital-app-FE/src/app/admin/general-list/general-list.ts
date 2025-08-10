@@ -98,7 +98,6 @@ export class GeneralList {
   // This is used in the actual API request (only updated on search click)
   protected readonly searchTerm = signal<string>('');
   protected readonly unapprovedOnly = signal<boolean>(false);
-  protected readonly activeSessionOnly = signal<boolean>(false);
   protected readonly pageIndex = signal<number>(0);
   protected readonly pageSize = signal<number>(10);
   @ViewChild('pdfContent', { static: false })
@@ -119,7 +118,6 @@ export class GeneralList {
       this.pageSize(),
       this.searchTerm(),
       this.unapprovedOnly(),
-      this.activeSessionOnly(),
     ])
   ).pipe(
     switchMap(([_, pageIndex, pageSize, searchTerm, unapproved]) => {
@@ -163,8 +161,13 @@ export class GeneralList {
   clearFilters() {
     this.searchTermInput.set('');
     this.unapprovedOnly.set(false);
-    this.activeSessionOnly.set(false);
     this.searchRegistrations();
+  }
+
+  onUnapprovedChange(checked: boolean) {
+    this.unapprovedOnly.set(checked);
+    this.pageIndex.set(0); // Reset pagination
+    this.filterTrigger.set(this.filterTrigger() + 1); // Trigger new API call
   }
 
   onPageChange(event: any) {
