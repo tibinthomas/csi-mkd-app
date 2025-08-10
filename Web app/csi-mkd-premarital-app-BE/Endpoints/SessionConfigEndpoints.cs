@@ -1,5 +1,6 @@
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.OutputCaching;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
@@ -9,6 +10,7 @@ public static class SessionConfigEndpoints
     public static void MapSessionConfigEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/api/sessionconfig");
+        group.DisableAntiforgery();
 
         group.MapGet("/", async (ISessionConfigService service) =>
         {

@@ -1,6 +1,7 @@
 using System.Text;
 using AspNetCoreRateLimit;
 using csi_mkd_premarital_app_BE.Data;
+using Microsoft.AspNetCore.Antiforgery;
 using csi_mkd_premarital_app_BE.Middleware;
 using csi_mkd_premarital_app_BE.Repositories;
 using csi_mkd_premarital_app_BE.Services;
@@ -169,6 +170,9 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+// Add antiforgery services
+builder.Services.AddAntiforgery();
+
 var app = builder.Build();
 
 // Configure middleware pipeline
@@ -196,6 +200,8 @@ app.UseOutputCache();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseAntiforgery();
 
 app.MapDefaultEndpoints();
 

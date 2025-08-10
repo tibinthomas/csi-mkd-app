@@ -2,6 +2,7 @@ using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -10,6 +11,7 @@ public static class PremaritalRegisterEndpoints
     public static void MapPremaritalRegisterEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/api/premaritalregister");
+        group.DisableAntiforgery();
 
         group.MapPost("/", async ([FromForm] PremaritalRegisterDto dto, IPremaritalRegisterService service, IRecaptchaService recaptcha, IOutputCacheStore cache) =>
         {
