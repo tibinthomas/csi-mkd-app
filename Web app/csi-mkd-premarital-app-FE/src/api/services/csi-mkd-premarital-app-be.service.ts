@@ -11,6 +11,72 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { apiAuthLoginPost } from '../fn/csi-mkd-premarital-app-be/api-auth-login-post';
+import { ApiAuthLoginPost$Params } from '../fn/csi-mkd-premarital-app-be/api-auth-login-post';
+import { apiAuthUpdatePasswordPost } from '../fn/csi-mkd-premarital-app-be/api-auth-update-password-post';
+import { ApiAuthUpdatePasswordPost$Params } from '../fn/csi-mkd-premarital-app-be/api-auth-update-password-post';
+import { apiAzureuploadGenerateSasGet } from '../fn/csi-mkd-premarital-app-be/api-azureupload-generate-sas-get';
+import { ApiAzureuploadGenerateSasGet$Params } from '../fn/csi-mkd-premarital-app-be/api-azureupload-generate-sas-get';
+import { apiConfirmationregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-filter-get';
+import { ApiConfirmationregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-filter-get';
+import { apiConfirmationregisterPost } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-post';
+import { ApiConfirmationregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-post';
+import { apiConfirmationregisterSaveFileUrlPost } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-save-file-url-post';
+import { ApiConfirmationregisterSaveFileUrlPost$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-save-file-url-post';
+import { apiConfirmationregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-total-get';
+import { ApiConfirmationregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-total-get';
+import { apiEmailconfigGet } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-get';
+import { ApiEmailconfigGet$Params } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-get';
+import { apiEmailconfigPost } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-post';
+import { ApiEmailconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-post';
+import { apiFeedbackGet } from '../fn/csi-mkd-premarital-app-be/api-feedback-get';
+import { ApiFeedbackGet$Params } from '../fn/csi-mkd-premarital-app-be/api-feedback-get';
+import { apiFeedbackPost } from '../fn/csi-mkd-premarital-app-be/api-feedback-post';
+import { ApiFeedbackPost$Params } from '../fn/csi-mkd-premarital-app-be/api-feedback-post';
+import { apiGeneralregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-check-email-get';
+import { ApiGeneralregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-check-email-get';
+import { apiGeneralregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
+import { ApiGeneralregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
+import { apiGeneralregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
+import { ApiGeneralregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
+import { apiGeneralregisterPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-form-data';
+import { ApiGeneralregisterPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-form-data';
+import { apiGeneralregisterPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-x-www-form-urlencoded';
+import { ApiGeneralregisterPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-x-www-form-urlencoded';
+import { apiGeneralregisterSavePhotoUrlPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-form-data';
+import { ApiGeneralregisterSavePhotoUrlPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-form-data';
+import { apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-x-www-form-urlencoded';
+import { ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-x-www-form-urlencoded';
+import { apiGeneralregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-total-get';
+import { ApiGeneralregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-total-get';
+import { apiPremaritalregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
+import { ApiPremaritalregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
+import { apiPremaritalregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
+import { ApiPremaritalregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
+import { apiPremaritalregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
+import { ApiPremaritalregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
+import { apiPremaritalregisterPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-form-data';
+import { ApiPremaritalregisterPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-form-data';
+import { apiPremaritalregisterPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-x-www-form-urlencoded';
+import { ApiPremaritalregisterPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-x-www-form-urlencoded';
+import { apiPremaritalregisterSaveFileUrlsPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-form-data';
+import { ApiPremaritalregisterSaveFileUrlsPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-form-data';
+import { apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-x-www-form-urlencoded';
+import { ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-x-www-form-urlencoded';
+import { apiPremaritalregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
+import { ApiPremaritalregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
+import { apiSessionconfigGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-get';
+import { ApiSessionconfigGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-get';
+import { apiSessionconfigIdDelete } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-id-delete';
+import { ApiSessionconfigIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-id-delete';
+import { apiSessionconfigIdGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-id-get';
+import { ApiSessionconfigIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-id-get';
+import { apiSessionconfigIdPut } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-id-put';
+import { ApiSessionconfigIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-id-put';
+import { apiSessionconfigPost } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-post';
+import { ApiSessionconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-post';
+import { apiSessionconfigSessionsGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
+import { ApiSessionconfigSessionsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
 
@@ -41,6 +107,819 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   healthGet(params?: HealthGet$Params, context?: HttpContext): Observable<void> {
     return this.healthGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiAuthLoginPost()` */
+  static readonly ApiAuthLoginPostPath = '/api/auth/login';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAuthLoginPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiAuthLoginPost$Response(params: ApiAuthLoginPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiAuthLoginPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAuthLoginPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiAuthLoginPost(params: ApiAuthLoginPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiAuthLoginPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiAuthUpdatePasswordPost()` */
+  static readonly ApiAuthUpdatePasswordPostPath = '/api/auth/update-password';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAuthUpdatePasswordPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiAuthUpdatePasswordPost$Response(params: ApiAuthUpdatePasswordPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiAuthUpdatePasswordPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAuthUpdatePasswordPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiAuthUpdatePasswordPost(params: ApiAuthUpdatePasswordPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiAuthUpdatePasswordPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralregisterPost()` */
+  static readonly ApiGeneralregisterPostPath = '/api/generalregister';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterPost$FormData()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiGeneralregisterPost$FormData$Response(params?: ApiGeneralregisterPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterPost$FormData(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterPost$FormData$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiGeneralregisterPost$FormData(params?: ApiGeneralregisterPost$FormData$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterPost$FormData$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterPost$XWwwFormUrlencoded()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiGeneralregisterPost$XWwwFormUrlencoded$Response(params?: ApiGeneralregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterPost$XWwwFormUrlencoded$Response()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiGeneralregisterPost$XWwwFormUrlencoded(params?: ApiGeneralregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterPost$XWwwFormUrlencoded$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralregisterSavePhotoUrlPost()` */
+  static readonly ApiGeneralregisterSavePhotoUrlPostPath = '/api/generalregister/save-photo-url';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterSavePhotoUrlPost$FormData()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiGeneralregisterSavePhotoUrlPost$FormData$Response(params?: ApiGeneralregisterSavePhotoUrlPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterSavePhotoUrlPost$FormData(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterSavePhotoUrlPost$FormData$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiGeneralregisterSavePhotoUrlPost$FormData(params?: ApiGeneralregisterSavePhotoUrlPost$FormData$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterSavePhotoUrlPost$FormData$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Response(params?: ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Response()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded(params?: ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralregisterCheckEmailGet()` */
+  static readonly ApiGeneralregisterCheckEmailGetPath = '/api/generalregister/check-email';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterCheckEmailGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterCheckEmailGet$Response(params: ApiGeneralregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterCheckEmailGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterCheckEmailGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterCheckEmailGet(params: ApiGeneralregisterCheckEmailGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterCheckEmailGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralregisterIdPaymentstatusPut()` */
+  static readonly ApiGeneralregisterIdPaymentstatusPutPath = '/api/generalregister/{id}/paymentstatus';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterIdPaymentstatusPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiGeneralregisterIdPaymentstatusPut$Response(params: ApiGeneralregisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterIdPaymentstatusPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterIdPaymentstatusPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiGeneralregisterIdPaymentstatusPut(params: ApiGeneralregisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterIdPaymentstatusPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralregisterFilterGet()` */
+  static readonly ApiGeneralregisterFilterGetPath = '/api/generalregister/filter';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterFilterGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterFilterGet$Response(params?: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterFilterGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterFilterGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterFilterGet(params?: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterFilterGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralregisterTotalGet()` */
+  static readonly ApiGeneralregisterTotalGetPath = '/api/generalregister/total';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterTotalGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterTotalGet$Response(params?: ApiGeneralregisterTotalGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterTotalGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterTotalGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterTotalGet(params?: ApiGeneralregisterTotalGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterTotalGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterPost()` */
+  static readonly ApiPremaritalregisterPostPath = '/api/premaritalregister';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterPost$FormData()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalregisterPost$FormData$Response(params?: ApiPremaritalregisterPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterPost$FormData(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterPost$FormData$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalregisterPost$FormData(params?: ApiPremaritalregisterPost$FormData$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterPost$FormData$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterPost$XWwwFormUrlencoded()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiPremaritalregisterPost$XWwwFormUrlencoded$Response(params?: ApiPremaritalregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterPost$XWwwFormUrlencoded$Response()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiPremaritalregisterPost$XWwwFormUrlencoded(params?: ApiPremaritalregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterPost$XWwwFormUrlencoded$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterSaveFileUrlsPost()` */
+  static readonly ApiPremaritalregisterSaveFileUrlsPostPath = '/api/premaritalregister/save-file-urls';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterSaveFileUrlsPost$FormData()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalregisterSaveFileUrlsPost$FormData$Response(params?: ApiPremaritalregisterSaveFileUrlsPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterSaveFileUrlsPost$FormData(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterSaveFileUrlsPost$FormData$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalregisterSaveFileUrlsPost$FormData(params?: ApiPremaritalregisterSaveFileUrlsPost$FormData$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterSaveFileUrlsPost$FormData$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Response(params?: ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Response()` instead.
+   *
+   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
+   */
+  apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded(params?: ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterIdPaymentstatusPut()` */
+  static readonly ApiPremaritalregisterIdPaymentstatusPutPath = '/api/premaritalregister/{id}/paymentstatus';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterIdPaymentstatusPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterIdPaymentstatusPut$Response(params: ApiPremaritalregisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterIdPaymentstatusPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterIdPaymentstatusPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterIdPaymentstatusPut(params: ApiPremaritalregisterIdPaymentstatusPut$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterIdPaymentstatusPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterCheckEmailGet()` */
+  static readonly ApiPremaritalregisterCheckEmailGetPath = '/api/premaritalregister/check-email';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterCheckEmailGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterCheckEmailGet$Response(params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterCheckEmailGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterCheckEmailGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterCheckEmailGet(params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterCheckEmailGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterFilterGet()` */
+  static readonly ApiPremaritalregisterFilterGetPath = '/api/premaritalregister/filter';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterFilterGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterFilterGet$Response(params?: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterFilterGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterFilterGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterFilterGet(params?: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterFilterGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterTotalGet()` */
+  static readonly ApiPremaritalregisterTotalGetPath = '/api/premaritalregister/total';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterTotalGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterTotalGet$Response(params?: ApiPremaritalregisterTotalGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterTotalGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterTotalGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterTotalGet(params?: ApiPremaritalregisterTotalGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterTotalGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiConfirmationregisterPost()` */
+  static readonly ApiConfirmationregisterPostPath = '/api/confirmationregister';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConfirmationregisterPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiConfirmationregisterPost$Response(params: ApiConfirmationregisterPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiConfirmationregisterPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiConfirmationregisterPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiConfirmationregisterPost(params: ApiConfirmationregisterPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiConfirmationregisterPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiConfirmationregisterSaveFileUrlPost()` */
+  static readonly ApiConfirmationregisterSaveFileUrlPostPath = '/api/confirmationregister/save-file-url';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConfirmationregisterSaveFileUrlPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiConfirmationregisterSaveFileUrlPost$Response(params: ApiConfirmationregisterSaveFileUrlPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiConfirmationregisterSaveFileUrlPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiConfirmationregisterSaveFileUrlPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiConfirmationregisterSaveFileUrlPost(params: ApiConfirmationregisterSaveFileUrlPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiConfirmationregisterSaveFileUrlPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiConfirmationregisterFilterGet()` */
+  static readonly ApiConfirmationregisterFilterGetPath = '/api/confirmationregister/filter';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConfirmationregisterFilterGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationregisterFilterGet$Response(params?: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiConfirmationregisterFilterGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiConfirmationregisterFilterGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationregisterFilterGet(params?: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiConfirmationregisterFilterGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiConfirmationregisterTotalGet()` */
+  static readonly ApiConfirmationregisterTotalGetPath = '/api/confirmationregister/total';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConfirmationregisterTotalGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationregisterTotalGet$Response(params?: ApiConfirmationregisterTotalGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiConfirmationregisterTotalGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiConfirmationregisterTotalGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationregisterTotalGet(params?: ApiConfirmationregisterTotalGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiConfirmationregisterTotalGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigGet()` */
+  static readonly ApiSessionconfigGetPath = '/api/sessionconfig';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigGet$Response(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigGet(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigPost()` */
+  static readonly ApiSessionconfigPostPath = '/api/sessionconfig';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiSessionconfigPost$Response(params: ApiSessionconfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiSessionconfigPost(params: ApiSessionconfigPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigIdGet()` */
+  static readonly ApiSessionconfigIdGetPath = '/api/sessionconfig/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigIdGet$Response(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigIdGet(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigIdPut()` */
+  static readonly ApiSessionconfigIdPutPath = '/api/sessionconfig/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigIdPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiSessionconfigIdPut$Response(params: ApiSessionconfigIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigIdPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigIdPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiSessionconfigIdPut(params: ApiSessionconfigIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigIdPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigIdDelete()` */
+  static readonly ApiSessionconfigIdDeletePath = '/api/sessionconfig/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigIdDelete$Response(params: ApiSessionconfigIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigIdDelete(params: ApiSessionconfigIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigIdDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigSessionsGet()` */
+  static readonly ApiSessionconfigSessionsGetPath = '/api/sessionconfig/sessions';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigSessionsGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigSessionsGet$Response(params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigSessionsGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigSessionsGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigSessionsGet(params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigSessionsGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiEmailconfigGet()` */
+  static readonly ApiEmailconfigGetPath = '/api/emailconfig';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiEmailconfigGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEmailconfigGet$Response(params?: ApiEmailconfigGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiEmailconfigGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiEmailconfigGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiEmailconfigGet(params?: ApiEmailconfigGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiEmailconfigGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiEmailconfigPost()` */
+  static readonly ApiEmailconfigPostPath = '/api/emailconfig';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiEmailconfigPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiEmailconfigPost$Response(params: ApiEmailconfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiEmailconfigPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiEmailconfigPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiEmailconfigPost(params: ApiEmailconfigPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiEmailconfigPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiFeedbackGet()` */
+  static readonly ApiFeedbackGetPath = '/api/feedback';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiFeedbackGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiFeedbackGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiFeedbackGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiFeedbackGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiFeedbackPost()` */
+  static readonly ApiFeedbackPostPath = '/api/feedback';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiFeedbackPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiFeedbackPost$Response(params: ApiFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiFeedbackPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiFeedbackPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiFeedbackPost(params: ApiFeedbackPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiFeedbackPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiAzureuploadGenerateSasGet()` */
+  static readonly ApiAzureuploadGenerateSasGetPath = '/api/azureupload/generate-sas';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAzureuploadGenerateSasGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAzureuploadGenerateSasGet$Response(params: ApiAzureuploadGenerateSasGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiAzureuploadGenerateSasGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAzureuploadGenerateSasGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiAzureuploadGenerateSasGet(params: ApiAzureuploadGenerateSasGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiAzureuploadGenerateSasGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
