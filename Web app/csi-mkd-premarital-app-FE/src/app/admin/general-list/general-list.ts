@@ -42,10 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
-import {
-  GeneralRegisterService,
-  SessionConfigService,
-} from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 
 @Component({
   selector: 'app-general-list',
@@ -89,8 +86,7 @@ import {
 })
 export class GeneralList {
   private readonly dialog = inject(MatDialog);
-  private readonly generalRegisterService = inject(GeneralRegisterService);
-  private readonly sessionConfigService = inject(SessionConfigService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -102,7 +98,6 @@ export class GeneralList {
   // This is used in the actual API request (only updated on search click)
   protected readonly searchTerm = signal<string>('');
   protected readonly unapprovedOnly = signal<boolean>(false);
-  protected readonly activeSessionOnly = signal<boolean>(false);
   protected readonly pageIndex = signal<number>(0);
   protected readonly pageSize = signal<number>(10);
   @ViewChild('pdfContent', { static: false })
@@ -123,13 +118,12 @@ export class GeneralList {
       this.pageSize(),
       this.searchTerm(),
       this.unapprovedOnly(),
-      this.activeSessionOnly(),
     ])
   ).pipe(
     switchMap(([_, pageIndex, pageSize, searchTerm, unapproved]) => {
       this.isLoading.set(true); // start spinner
-      return this.generalRegisterService
-        .apiGeneralRegisterFilterGet({
+      return this.api
+        .apiGeneralregisterFilterGet({
           Page: (pageIndex as number) + 1,
           PageSize: pageSize as number,
           Search: searchTerm as string,
@@ -167,8 +161,13 @@ export class GeneralList {
   clearFilters() {
     this.searchTermInput.set('');
     this.unapprovedOnly.set(false);
-    this.activeSessionOnly.set(false);
     this.searchRegistrations();
+  }
+
+  onUnapprovedChange(checked: boolean) {
+    this.unapprovedOnly.set(checked);
+    this.pageIndex.set(0); // Reset pagination
+    this.filterTrigger.set(this.filterTrigger() + 1); // Trigger new API call
   }
 
   onPageChange(event: any) {
@@ -196,8 +195,8 @@ export class GeneralList {
           ...reg,
           PaymentStatus: !reg.PaymentStatus,
         };
-        this.generalRegisterService
-          .apiGeneralRegisterIdPaymentstatusPut({
+        this.api
+          .apiGeneralregisterIdPaymentstatusPut({
             id: reg.Id,
             body: updated,
           })

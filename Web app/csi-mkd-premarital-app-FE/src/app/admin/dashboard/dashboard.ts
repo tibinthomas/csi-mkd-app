@@ -7,9 +7,7 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
-import { GeneralRegisterService } from '../../../api/services/general-register.service';
-import { ConfirmationRegisterService } from '../../../api/services/confirmation-register.service';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { forkJoin } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 
@@ -21,9 +19,7 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dashboard implements OnInit {
-  private readonly premaritalService = inject(PremaritalRegisterService);
-  private readonly generalService = inject(GeneralRegisterService);
-  private readonly confirmationService = inject(ConfirmationRegisterService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
 
   readonly premaritalCount = signal(0);
   readonly generalCount = signal(0);
@@ -32,9 +28,9 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     forkJoin({
-      premarital: this.premaritalService.apiPremaritalRegisterTotalGet(),
-      general: this.generalService.apiGeneralRegisterTotalGet(),
-      confirmation: this.confirmationService.apiConfirmationRegisterTotalGet(),
+      premarital: this.api.apiPremaritalregisterTotalGet(),
+      general: this.api.apiGeneralregisterTotalGet(),
+      confirmation: this.api.apiConfirmationregisterTotalGet(),
     }).subscribe((results: any) => {
       this.premaritalCount.set(JSON.parse(results.premarital).total);
       this.generalCount.set(JSON.parse(results.general).total);

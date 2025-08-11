@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeedbackService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/services';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 import { MatTableModule } from '@angular/material/table';
@@ -12,7 +12,7 @@ import { MatTableModule } from '@angular/material/table';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedbackList {
-  private readonly feedbackService = inject(FeedbackService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
   displayedColumns: string[] = [
     'sessionTitle',
     'name',
@@ -27,7 +27,7 @@ export class FeedbackList {
     'comments',
   ];
 
-  private readonly feedbacks$ = this.feedbackService.apiFeedbackGet().pipe(
+  private readonly feedbacks$ = this.api.apiFeedbackGet().pipe(
     map((data: any) => {
       return data;
     }),

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/auth.guard';
+import { pendingChangesGuard } from './core/guards/pending-changes.guard';
 
 export const routes: Routes = [
   // Public routes wrapped inside PublicLayout
@@ -27,6 +28,7 @@ export const routes: Routes = [
         },
         loadComponent: () =>
           import('./feedback/feedback').then((m) => m.Feedback),
+        canDeactivate: [pendingChangesGuard],
       },
       {
         path: 'feedback-list',
@@ -60,6 +62,7 @@ export const routes: Routes = [
           import('./register/premarital-register/premarital-register').then(
             (m) => m.PremaritalRegister
           ),
+        canDeactivate: [pendingChangesGuard],
       },
       {
         path: 'register/general-register',
@@ -69,6 +72,7 @@ export const routes: Routes = [
           import('./register/general-register/general-register').then(
             (m) => m.GeneralRegister
           ),
+        canDeactivate: [pendingChangesGuard],
       },
       {
         path: 'register/pre-confirm-register',
@@ -80,6 +84,7 @@ export const routes: Routes = [
           import('./register/pre-confirm-register/pre-confirm-register').then(
             (m) => m.PreConfirmRegister
           ),
+        canDeactivate: [pendingChangesGuard],
       },
       {
         path: 'sessions',

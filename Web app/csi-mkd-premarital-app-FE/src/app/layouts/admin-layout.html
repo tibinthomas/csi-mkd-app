@@ -1,13 +1,13 @@
-<mat-sidenav-container class="h-screen bg-gray-50">
+<mat-sidenav-container class="h-screen surface-container theme-transition">
   <mat-sidenav
     #sidenav
     [mode]="isMobile() ? 'over' : 'side'"
     [opened]="!isMobile() || sidenavOpen()"
     (openedChange)="sidenavOpen.set($event)"
-    class="flex flex-col h-full w-52 md:w-56 lg:w-60 xl:w-64 border-r border-gray-200 bg-white"
+    class="flex flex-col h-full w-52 md:w-56 lg:w-60 xl:w-64 border-r border-outline surface-container-high theme-transition"
   >
-    <div class="p-4 text-center border-b">
-      <h2 class="text-2xl font-bold text-rose-800">CSI Admin</h2>
+    <div class="p-4 text-center border-b border-outline">
+      <h2 class="text-2xl font-bold text-primary theme-transition">CSI Admin</h2>
     </div>
 
     <mat-nav-list class="flex flex-col justify-between flex-1">
@@ -60,7 +60,7 @@
       </div>
 
       <!-- Logout at the bottom -->
-      <div class="p-4 border-t">
+      <div class="p-4 border-t border-outline">
         <button mat-stroked-button class="w-full" routerLink="/admin/login">
           <mat-icon class="mr-2">exit_to_app</mat-icon>
           <span>Logout</span>
@@ -70,16 +70,16 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar class="bg-white shadow-sm">
+    <mat-toolbar class="surface-container-high shadow-sm theme-transition">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>{{ sidenavOpen() ? "close" : "menu" }}</mat-icon>
       </button>
-      <h1 class="text-xl font-semibold text-gray-800 ml-4">Admin Panel</h1>
+      <h1 class="text-xl font-semibold text-on-surface ml-4 theme-transition">Admin Panel</h1>
       <span class="flex-auto"></span>
       <app-theme-toggle></app-theme-toggle>
       <app-language-selector></app-language-selector>
     </mat-toolbar>
-    <main class="p-6 bg-gray-50">
+    <main class="p-6 surface-container theme-transition">
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>

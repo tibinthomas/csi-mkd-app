@@ -2,21 +2,22 @@
   <mat-card class="rounded-2xl shadow-xl">
     <mat-card-header class="!pb-4">
       <mat-card-title>
-        <h1 class="text-2xl font-bold text-gray-800" i18n>Pre-Confirmational Registrations</h1>
+        <h1 class="text-2xl font-bold text-on-surface theme-transition" i18n>Pre-Confirmational Registrations</h1>
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <!-- Filter Controls -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <mat-form-field appearance="outline" class="w-full md:col-span-2">
+        <mat-form-field appearance="fill" class="w-full md:col-span-2">
           <mat-label i18n>Search</mat-label>
           <input
             matInput
+            type="text"
             [value]="searchTermInput()"
             (input)="searchTermInput.set($any($event.target).value)"
-            placeholder="Search by church name"
-            i18n-placeholder
+            i18n
           />
+          <mat-hint i18n>Search by church name</mat-hint>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -39,7 +40,7 @@
           <mat-spinner diameter="50" color="primary"></mat-spinner>
         </div>
         } @else if(registrations().length > 0){
-        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full bg-white table-fixed">
+        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full surface-container table-fixed theme-transition">
           <!-- Column Definitions -->
           <ng-container matColumnDef="ChurchName">
             <th mat-header-cell *matHeaderCellDef i18n>Church Name</th>
@@ -103,7 +104,7 @@
           ></tr>
 
           <!-- Expanded Row -->
-          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="overflow-hidden"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="!h-0"></tr>
         </table>
 
         <mat-paginator
@@ -114,7 +115,7 @@
           showFirstLastButtons
         ></mat-paginator>
         } @else {
-        <div class="text-center text-gray-500 p-8">
+        <div class="text-center text-on-surface-variant p-8 theme-transition">
           <p i18n>No registrations found.</p>
         </div>
         }

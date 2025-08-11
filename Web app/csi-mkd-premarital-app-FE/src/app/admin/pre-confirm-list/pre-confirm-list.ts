@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmationRegisterService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { ConfirmationRegisterDto } from '../../../api/models';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
@@ -68,7 +68,7 @@ export class PreConfirmList implements OnInit {
   protected readonly totalCount = signal(0);
 
   constructor(
-    private confirmationRegisterService: ConfirmationRegisterService,
+    private api: CsiMkdPremaritalAppBeService,
     private snackBar: MatSnackBar
   ) {}
 
@@ -78,8 +78,8 @@ export class PreConfirmList implements OnInit {
 
   loadRegistrations() {
     this.isLoading.set(true);
-    this.confirmationRegisterService
-      .apiConfirmationRegisterFilterGet({
+    this.api
+      .apiConfirmationregisterFilterGet({
         Page: this.pageIndex() + 1,
         PageSize: this.pageSize(),
         Search: this.searchTermInput(),
@@ -210,17 +210,17 @@ export class PreConfirmList implements OnInit {
       ],
     ];
 
-    const data = items.map((reg) => {
-      const participants = (reg.Participants || [])
-        .map((p) => `${p.Name} (Age: ${p.Age})`)
+    const data = items.map((reg: any) => {
+      const participants = (reg.participants || [])
+        .map((p: any) => `${p.name} (Age: ${p.age})`)
         .join('\n');
       return [
-        reg.ChurchName || '',
-        reg.ConfirmationDate
-          ? new Date(reg.ConfirmationDate).toLocaleDateString()
+        reg.churchName || '',
+        reg.confirmationDate
+          ? new Date(reg.confirmationDate).toLocaleDateString()
           : '',
-        reg.CounsellingDate || '',
-        reg.Participants?.length || 0,
+        reg.counsellingDate || '',
+        reg.participants?.length || 0,
         participants,
       ];
     });

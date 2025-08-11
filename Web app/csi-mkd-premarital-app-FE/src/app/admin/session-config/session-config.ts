@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { SessionConfigService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
 import { SessionDataService } from '../../core/services/session-data.service';
@@ -78,7 +78,7 @@ export class SessionConfig implements OnInit {
   ];
 
   private readonly fb = inject(FormBuilder);
-  private readonly sessionConfigService = inject(SessionConfigService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
   private readonly sessionDataService = inject(SessionDataService);
   private readonly dialog = inject(MatDialog);
 
@@ -121,7 +121,7 @@ export class SessionConfig implements OnInit {
   fetchSessions(year: number) {
     this.isLoading.set(true);
 
-    this.sessionConfigService.apiSessionconfigSessionsGet({ year }).subscribe({
+    this.api.apiSessionconfigSessionsGet({ year }).subscribe({
       next: (sessions: any) => {
         this.allSessions.set(sessions);
         this.isLoading.set(false);
@@ -170,7 +170,7 @@ export class SessionConfig implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.sessionConfigService
+        this.api
           .apiSessionconfigIdDelete({ id: session.Id })
           .subscribe({
             next: () => {
@@ -205,7 +205,7 @@ export class SessionConfig implements OnInit {
           ...session,
           isActive: !session.IsActive,
         };
-        this.sessionConfigService
+        this.api
           .apiSessionconfigIdPut({
             id: session.Id,
             body: updatedSession,
@@ -242,7 +242,7 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.sessionConfigService
+        this.api
           .apiSessionconfigPost({ body: session })
           .subscribe({
             next: () => this.sessionDataService.refresh(),
@@ -267,7 +267,7 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.sessionConfigService
+        this.api
           .apiSessionconfigIdPut({ id: updated.id, body: updated })
           .subscribe({
             next: () => this.sessionDataService.refresh(),

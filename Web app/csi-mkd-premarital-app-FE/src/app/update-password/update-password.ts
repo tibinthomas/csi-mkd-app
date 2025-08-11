@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/services';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -29,7 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class UpdatePassword {
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
-  private authService = inject(AuthService);
+  private api = inject(CsiMkdPremaritalAppBeService);
 
   loading = false;
   message = '';
@@ -75,7 +75,7 @@ export class UpdatePassword {
     this.loading = true;
     this.message = '';
     this.error = '';
-    this.authService.apiAuthUpdatePasswordPost(this.form.value).subscribe({
+    this.api.apiAuthUpdatePasswordPost(this.form.value as any).subscribe({
       next: (res: any) => {
         this.message = res.message || 'Password updated successfully.';
         this.loading = false;

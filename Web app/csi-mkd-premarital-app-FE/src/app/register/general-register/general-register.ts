@@ -15,8 +15,7 @@ import {
 } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
-import { GeneralRegisterService } from '../../../api/services';
-import { AzureUploadService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -26,11 +25,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { switchMap } from 'rxjs';
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { SuccessDialogComponent } from '../success-dialog';
+import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
+import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
-import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
 
 @Component({
   selector: 'app-general-register',
@@ -46,15 +46,17 @@ import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
     MatDialogModule,
     MatIconModule,
     NgxCaptchaModule,
+    NoDigitsDirective,
+    OnlyDigitsDirective,
   ],
+  hostDirectives: [],
   templateUrl: './general-register.html',
   styleUrl: './general-register.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GeneralRegister {
   private readonly fb = inject(FormBuilder);
-  private readonly generalRegisterService = inject(GeneralRegisterService);
-  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
   private readonly themeService = inject(ThemeService);
@@ -67,12 +69,13 @@ export class GeneralRegister {
   protected readonly formSubmitted = signal(false);
   protected readonly photoError = signal('');
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   // siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Example site key, replace with your actual key
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   photoFileName: string | null = '';
   showErrorModal = signal(false);
 
@@ -139,6 +142,7 @@ export class GeneralRegister {
           Validators.pattern(/^[a-zA-Z0-9\s]*$/),
         ],
       ],
+      countryCode: ['+91', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
         '',
@@ -147,11 +151,10 @@ export class GeneralRegister {
             Validators.required,
             Validators.email,
             emailDomainValidator(),
-            noPlusSignValidator(),
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
-              this.generalRegisterService.apiGeneralRegisterCheckEmailGet({
+              this.api.apiGeneralregisterCheckEmailGet({
                 email,
               })
             ),
@@ -165,6 +168,25 @@ export class GeneralRegister {
       recaptcha: ['', Validators.required],
     });
   }
+
+  hasPendingChanges = (): boolean => {
+    return this.form.dirty && !this.isSubmitting();
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
@@ -211,6 +233,7 @@ export class GeneralRegister {
 
     if (this.form.invalid || this.photoError()) {
       this.form.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
 
@@ -219,30 +242,30 @@ export class GeneralRegister {
     const raw = this.form.value;
     const photo = this.photoFile()!;
 
-    const body = {
-      FirstName: raw.firstName,
-      LastName: raw.lastName,
-      FatherName: raw.fatherName,
-      Address: raw.address,
-      Sex: raw.sex,
-      Age: Number(raw.age),
-      Education: raw.education,
-      Occupation: raw.occupation,
-      ChurchName: raw.churchName || undefined,
-      Phone: raw.phone,
-      Email: raw.email,
-      MaritalStatus: raw.maritalStatus,
-      SessionType: raw.sessionType,
-      Declaration: raw.declaration,
-      RecaptchaToken: raw.recaptcha, // <-- token is here, set automatically by ngx-recaptcha2
+      const body = {
+      firstName: raw.firstName,
+      lastName: raw.lastName,
+      fatherName: raw.fatherName,
+      address: raw.address,
+      sex: raw.sex,
+      age: Number(raw.age),
+      education: raw.education,
+      occupation: raw.occupation,
+      churchName: raw.churchName || undefined,
+      phone: `${raw.countryCode}${raw.phone}`,
+      email: raw.email,
+      maritalStatus: raw.maritalStatus,
+      sessionType: raw.sessionType,
+      declaration: raw.declaration,
+      recaptchaToken: raw.recaptcha,
     };
 
-    this.generalRegisterService.apiGeneralRegisterPost({ body }).subscribe({
+    this.api.apiGeneralregisterPost$FormData({ body }).subscribe({
       next: (response: any) => {
         const registerId: number = JSON.parse(response).id;
 
-        this.azureUploadService
-          .apiAzureUploadGenerateSasGet({
+        this.api
+          .apiAzureuploadGenerateSasGet({
             fileName: `general/${registerId}/photo/${photo.name}`,
             contentType: photo.type,
           })
@@ -254,12 +277,12 @@ export class GeneralRegister {
           .subscribe({
             next: (photoSasUrl) => {
               const saveBody = {
-                RegistrationId: registerId,
-                PhotoUrl: photoSasUrl,
+                registrationId: registerId,
+                photoUrl: photoSasUrl,
               };
 
-              this.generalRegisterService
-                .apiGeneralRegisterSavePhotoUrlPost({ body: saveBody })
+              this.api
+                .apiGeneralregisterSavePhotoUrlPost$FormData({ body: saveBody })
                 .subscribe({
                   next: () => {
                     this.successMessage.set(
@@ -295,5 +318,24 @@ export class GeneralRegister {
     this.errorMessage.set('Photo upload failed. Please try again.');
     this.showErrorModal.set(true);
     this.isSubmitting.set(false);
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }

@@ -6,16 +6,16 @@
       >
     </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" aria-labelledby="feedback-title" novalidate>
+      <form #formEl [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" aria-labelledby="feedback-title" novalidate>
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Session Title</mat-label>
-          <input matInput formControlName="sessionTitle" aria-required="true" />
+          <input matInput formControlName="sessionTitle" aria-required="true" appNoDigits />
         </mat-form-field>
 
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Your Name</mat-label>
-            <input matInput formControlName="name" aria-required="true" autocomplete="name" />
+            <input matInput formControlName="name" aria-required="true" autocomplete="name" appNoDigits />
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
@@ -30,6 +30,7 @@
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+        <mat-hint class="mb-4">{{ timezoneDisplay }}</mat-hint>
 
         <div class="grid md:grid-cols-2 gap-6" role="group" aria-labelledby="ratings-heading">
           <h3 id="ratings-heading" class="sr-only" i18n>Session Ratings</h3>

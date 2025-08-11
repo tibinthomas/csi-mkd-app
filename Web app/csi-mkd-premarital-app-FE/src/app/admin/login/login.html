@@ -1,40 +1,38 @@
-<section class="bg-gray-100 h-screen flex items-center justify-center" role="main" aria-labelledby="login-title">
+<section class="surface-container h-screen flex items-center justify-center theme-transition" role="main" aria-labelledby="login-title">
   <mat-card class="w-full max-w-md p-8 rounded-2xl shadow-xl">
     <mat-card-content>
       <div class="text-center mb-8">
         <img ngSrc="assets/csi-mkd-logo.png" width="100" height="100" alt="CSI MKD Logo" class="mx-auto" />
-        <h1 id="login-title" class="text-3xl font-bold text-gray-800 mt-4" i18n>Admin Login</h1>
-        <p class="text-gray-500" i18n>Access the dashboard</p>
+        <h1 id="login-title" class="text-3xl font-bold text-on-surface mt-4 theme-transition" i18n>Admin Login</h1>
+        <p class="text-on-surface-variant theme-transition" i18n>Access the dashboard</p>
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
-        <mat-form-field appearance="outline" class="w-full">
+        <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Username</mat-label>
           <input
             matInput
             formControlName="username"
-            placeholder="Enter your username"
-            i18n-placeholder
             autocomplete="username"
             required
             autofocus
           />
+          <mat-hint i18n>Enter your username</mat-hint>
           @if (loginForm.controls['username'].hasError('required')) {
           <mat-error i18n>Username is required.</mat-error>
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-full">
+        <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Password</mat-label>
           <input
             matInput
             type="password"
             formControlName="password"
-            placeholder="Enter your password"
-            i18n-placeholder
             autocomplete="current-password"
             required
           />
+          <mat-hint i18n>Enter your password</mat-hint>
           @if (loginForm.controls['password'].hasError('required')) {
           <mat-error i18n>Password is required.</mat-error>
           }

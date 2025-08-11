@@ -13,11 +13,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { PremaritalRegisterService } from '../../../api/services/premarital-register.service';
-import {
-  AzureUploadService,
-  SessionConfigService,
-} from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
@@ -35,12 +31,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../success-dialog';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
-import { noPlusSignValidator } from '../../core/validators/plus-sign.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
+import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
+import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 // import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
+// Aggregated API service used for all backend calls
+import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/services';
 
 @Component({
   selector: 'app-premarital-register',
@@ -59,6 +58,8 @@ import { ThemeService } from '../../core/services/theme.service';
     MatIcon,
     // AnimateOnScrollDirective,
     NgxCaptchaModule,
+    NoDigitsDirective,
+    OnlyDigitsDirective,
   ],
   templateUrl: './premarital-register.html',
   styleUrl: './premarital-register.scss',
@@ -69,11 +70,7 @@ export class PremaritalRegister {
   readonly dialog = inject(MatDialog);
   private router = inject(Router);
 
-  private readonly premaritalRegisterService = inject(
-    PremaritalRegisterService
-  );
-  private readonly sessionConfigService = inject(SessionConfigService);
-  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly api = inject(ApiService);
   private readonly fileUploadService = inject(FileUploadService);
   private readonly themeService = inject(ThemeService);
 
@@ -88,12 +85,13 @@ export class PremaritalRegister {
   protected readonly vicarLetterError = signal('');
   protected readonly minDate = new Date().toISOString().split('T')[0];
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   selectedSessionId = signal<number | null>(null);
 
   constructor() {
@@ -169,6 +167,7 @@ export class PremaritalRegister {
         [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)],
       ],
       dateOfMarriage: [''],
+      countryCode: ['+91', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
         '',
@@ -177,11 +176,10 @@ export class PremaritalRegister {
             Validators.required,
             Validators.email,
             emailDomainValidator(),
-            noPlusSignValidator(),
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
-              this.premaritalRegisterService.apiPremaritalRegisterCheckEmailGet(
+              this.api.apiPremaritalregisterCheckEmailGet(
                 { email }
               )
             ),
@@ -202,17 +200,32 @@ export class PremaritalRegister {
     });
   }
 
+  hasPendingChanges = (): boolean => {
+    return this.form.dirty && !this.isSubmitting();
+  };
+
   ngOnInit() {
     this.sessionList(); // load sessionList()
-
-    // patch value into form if available
     if (this.selectedSessionId()) {
       this.form.patchValue({ sessionId: this.selectedSessionId() });
-      this.form.get('sessionId')?.disable(); // disable dropdown
     }
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
   }
 
-  private readonly sessions$ = this.sessionConfigService
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
+
+  
+
+  private readonly sessions$ = this.api
     .apiSessionconfigGet()
     .pipe(
       map((data: any) => {
@@ -327,54 +340,55 @@ export class PremaritalRegister {
 
     if (this.form.invalid || this.photoError() || this.vicarLetterError()) {
       this.form.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
 
-    const raw = this.form.getRawValue();
+    const raw = this.form.value();
 
     this.isSubmitting.set(true);
 
     const photo = this.photoFile()!;
     const letter = this.vicarLetterFile()!;
 
-    const body = {
-      FirstName: raw.firstName,
-      LastName: raw.lastName,
-      FatherName: raw.fatherName,
-      Address: raw.address,
-      Sex: raw.sex,
-      Age: Number(raw.age),
-      Education: raw.education,
-      Occupation: raw.occupation,
-      ChurchName: raw.churchName,
-      FianceName: raw.fianceName || undefined,
-      DateOfMarriage: raw.dateOfMarriage
+      const body = {
+      firstName: raw.firstName,
+      lastName: raw.lastName,
+      fatherName: raw.fatherName,
+      address: raw.address,
+      sex: raw.sex,
+      age: Number(raw.age),
+      education: raw.education,
+      occupation: raw.occupation,
+      churchName: raw.churchName,
+      fianceName: raw.fianceName || undefined,
+      dateOfMarriage: raw.dateOfMarriage
         ? this.toUtcIsoString(raw.dateOfMarriage)
         : undefined,
-      Phone: raw.phone,
-      Email: raw.email,
-      Days: raw.days,
-      ChoirMember: raw.churchActivities?.choirMember || false,
-      SsTeacher: raw.churchActivities?.ssTeacher || false,
-      YouthFellowship: raw.churchActivities?.youthFellowship || false,
-      Other: raw.churchActivities?.other || undefined,
-      Declaration: raw.declaration,
-      SessionId: Number(raw.sessionId),
-      PaymentStatus: false,
-      RecaptchaToken: raw.recaptcha, // <-- token is here, set automatically by ngx-recaptcha2
+      phone: `${raw.countryCode}${raw.phone}`,
+      email: raw.email,
+      days: raw.days,
+      choirMember: raw.churchActivities?.choirMember || false,
+      ssTeacher: raw.churchActivities?.ssTeacher || false,
+      youthFellowship: raw.churchActivities?.youthFellowship || false,
+      other: raw.churchActivities?.other || undefined,
+      declaration: raw.declaration,
+      sessionId: Number(raw.sessionId),
+      paymentStatus: false,
+      recaptchaToken: raw.recaptcha,
     };
 
-    this.premaritalRegisterService
-      .apiPremaritalRegisterPost({ body })
+    this.api
+      .apiPremaritalregisterPost$FormData({ body })
       .subscribe({
         next: (response: any) => {
           const registerId: number = JSON.parse(response).id;
           forkJoin([
-            this.azureUploadService.apiAzureUploadGenerateSasGet({
+            this.api.apiAzureuploadGenerateSasGet({
               fileName: `premarital/${registerId}/photo/${photo.name}`,
               contentType: photo.type,
             }),
-            this.azureUploadService.apiAzureUploadGenerateSasGet({
+            this.api.apiAzureuploadGenerateSasGet({
               fileName: `premarital/${registerId}/vicarletter/${letter.name}`,
               contentType: letter.type,
             }),
@@ -393,12 +407,12 @@ export class PremaritalRegister {
             .subscribe({
               next: ([photoSasUrl, letterSasUrl]) => {
                 const body = {
-                  RegistrationId: registerId,
-                  PhotoUrl: photoSasUrl,
-                  VicarLetterUrl: letterSasUrl,
+                  registrationId: registerId,
+                  photoUrl: photoSasUrl,
+                  vicarLetterUrl: letterSasUrl,
                 };
-                this.premaritalRegisterService
-                  .apiPremaritalRegisterSaveFileUrlsPost({ body })
+                this.api
+                  .apiPremaritalregisterSaveFileUrlsPost$FormData({ body })
                   .subscribe({
                     next: () => {
                       this.successMessage.set(
@@ -432,5 +446,42 @@ export class PremaritalRegister {
   toUtcIsoString(dateInput: string | Date): string {
     const localDate = new Date(dateInput);
     return localDate.toISOString();
+  }
+
+  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
+
+  private getTimezoneDisplay(): string {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offsetMin = new Date().getTimezoneOffset();
+      const sign = offsetMin <= 0 ? '+' : '-';
+      const abs = Math.abs(offsetMin);
+      const hh = Math.floor(abs / 60)
+        .toString()
+        .padStart(2, '0');
+      const mm = (abs % 60).toString().padStart(2, '0');
+      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
+    } catch {
+      return 'Time Zone: UTC';
+    }
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }

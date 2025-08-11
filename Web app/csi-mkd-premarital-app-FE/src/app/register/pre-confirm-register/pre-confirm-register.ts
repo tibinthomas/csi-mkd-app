@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ElementRef, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -16,10 +16,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import {
-  AzureUploadService,
-  ConfirmationRegisterService,
-} from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
+import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { SuccessDialogComponent } from '../success-dialog';
 import { switchMap } from 'rxjs';
@@ -41,19 +40,19 @@ import { ThemeService } from '../../core/services/theme.service';
     MatDialogModule,
     MatCheckboxModule,
     NgxCaptchaModule,
+    NoDigitsDirective,
+    OnlyDigitsDirective,
   ],
   templateUrl: './pre-confirm-register.html',
   styleUrl: './pre-confirm-register.scss',
 })
 export class PreConfirmRegister {
   private readonly fb = inject(FormBuilder);
-  private readonly confirmationRegisterService = inject(
-    ConfirmationRegisterService
-  );
-  private readonly azureUploadService = inject(AzureUploadService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
   private readonly themeService = inject(ThemeService);
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
 
   protected readonly form: FormGroup;
   protected readonly formSubmitted = signal(false);
@@ -62,8 +61,8 @@ export class PreConfirmRegister {
   protected readonly vicarLetterFile = signal<File | null>(null);
   protected readonly vicarLetterError = signal<string>('');
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   constructor() {
@@ -99,6 +98,43 @@ export class PreConfirmRegister {
     });
   }
 
+  hasPendingChanges = (): boolean => {
+    return this.form.dirty && !this.isSubmitting();
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
+
+  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
+
+  private getTimezoneDisplay(): string {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offsetMin = new Date().getTimezoneOffset();
+      const sign = offsetMin <= 0 ? '+' : '-';
+      const abs = Math.abs(offsetMin);
+      const hh = Math.floor(abs / 60)
+        .toString()
+        .padStart(2, '0');
+      const mm = (abs % 60).toString().padStart(2, '0');
+      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
+    } catch {
+      return 'Time Zone: UTC';
+    }
+  }
+
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
     return !!(control && control.invalid && this.formSubmitted());
@@ -111,33 +147,35 @@ export class PreConfirmRegister {
   onSubmit(): void {
     this.formSubmitted.set(true);
     if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
     this.isSubmitting.set(true);
     const raw = this.form.value;
 
     const body = {
-      ChurchName: raw.churchName,
-      ConfirmationDate: new Date(raw.confirmationDate).toISOString(),
-      CounsellingDate: new Date(raw.counsellingDate).toISOString(),
-      Participants: raw.participants.map((p: any) => ({
-        Name: p.name,
-        Age: p.age,
+      churchName: raw.churchName,
+      confirmationDate: new Date(raw.confirmationDate).toISOString(),
+      counsellingDate: new Date(raw.counsellingDate).toISOString(),
+      participants: raw.participants.map((p: any) => ({
+        name: p.name,
+        age: p.age,
       })),
-      Consent: raw.consent,
-      RecaptchaToken: raw.recaptcha,
+      consent: raw.consent,
+      recaptchaToken: raw.recaptcha,
     };
     // Handle form submission logic here
 
     const file = this.vicarLetterFile()!;
 
-    this.confirmationRegisterService
-      .apiConfirmationRegisterPost({ body }) // Adjust type as needed
+    this.api
+      .apiConfirmationregisterPost({ body })
       .subscribe({
         next: (response: any) => {
           const registerId = JSON.parse(response).Id;
-          this.azureUploadService
-            .apiAzureUploadGenerateSasGet({
+          this.api
+            .apiAzureuploadGenerateSasGet({
               fileName: `confirmation/${registerId}/witnessofvicar/${file.name}`,
               contentType: file.type,
             })
@@ -148,11 +186,11 @@ export class PreConfirmRegister {
             )
             .subscribe({
               next: (fileSasUrl) => {
-                this.confirmationRegisterService
-                  .apiConfirmationRegisterSaveFileUrlPost({
+                this.api
+                  .apiConfirmationregisterSaveFileUrlPost({
                     body: {
-                      RegistrationId: registerId,
-                      VicarLetterUrl: fileSasUrl,
+                      registrationId: registerId,
+                      vicarLetterUrl: fileSasUrl,
                     },
                   })
                   .subscribe({
@@ -264,5 +302,24 @@ export class PreConfirmRegister {
 
   removeParticipant(index: number): void {
     this.participants().removeAt(index);
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }

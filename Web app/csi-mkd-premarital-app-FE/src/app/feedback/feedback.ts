@@ -3,6 +3,8 @@ import {
   Component,
   inject,
   signal,
+  ElementRef,
+  ViewChild,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,8 +13,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { FeedbackService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/services';
+import { NoDigitsDirective } from '../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-feedback',
@@ -28,11 +32,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSelectModule,
+    NoDigitsDirective,
   ],
 })
 export class Feedback {
   private readonly fb = inject(FormBuilder);
-  private readonly feedbackService = inject(FeedbackService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
+  @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
 
   protected readonly feedbackForm = this.fb.group({
     sessionTitle: ['', [Validators.required, Validators.maxLength(100)]],
@@ -70,10 +77,12 @@ export class Feedback {
   protected readonly isSubmitting = signal(false);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
+  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
 
   onSubmit() {
     if (this.feedbackForm.invalid) {
       this.feedbackForm.markAllAsTouched();
+      this.focusFirstInvalidControl();
       return;
     }
 
@@ -82,7 +91,7 @@ export class Feedback {
     this.errorMessage.set('');
 
     const payload = this.feedbackForm.value;
-    this.feedbackService.apiFeedbackPost({ body: payload as any }).subscribe({
+    this.api.apiFeedbackPost({ body: payload as any }).subscribe({
       next: () => {
         this.successMessage.set('Feedback submitted successfully!');
         this.feedbackForm.reset();
@@ -96,5 +105,59 @@ export class Feedback {
         this.isSubmitting.set(false);
       },
     });
+  }
+
+  hasPendingChanges = (): boolean => {
+    return this.feedbackForm.dirty && !this.isSubmitting();
+  };
+
+  ngOnInit(): void {
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+    if (this.hasPendingChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
+    }
+  };
+
+  private getTimezoneDisplay(): string {
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const offsetMin = new Date().getTimezoneOffset();
+      const sign = offsetMin <= 0 ? '+' : '-';
+      const abs = Math.abs(offsetMin);
+      const hh = Math.floor(abs / 60)
+        .toString()
+        .padStart(2, '0');
+      const mm = (abs % 60).toString().padStart(2, '0');
+      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
+    } catch {
+      return 'Time Zone: UTC';
+    }
+  }
+
+  private focusFirstInvalidControl(): void {
+    try {
+      const formElement = this.formEl?.nativeElement;
+      if (!formElement) return;
+      const firstInvalid: HTMLElement | null = formElement.querySelector(
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+      );
+      if (firstInvalid) {
+        if (typeof (firstInvalid as any).focus === 'function') {
+          (firstInvalid as HTMLElement).focus({ preventScroll: false });
+        } else {
+          firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+    } catch {
+      // no-op
+    }
   }
 }
