@@ -45,8 +45,7 @@ export class Sessions {
     .apiSessionconfigGet()
     .pipe(
       map((data: any) => {
-        const parsed = JSON.parse(data);
-        return parsed.map((session: any) => ({
+        return data.map((session: any) => ({
           ...session,
         }));
       }),
