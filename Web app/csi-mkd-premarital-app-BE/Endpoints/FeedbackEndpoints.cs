@@ -1,6 +1,7 @@
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
+using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ public static class FeedbackEndpoints
         var group = app.MapGroup("/api/feedback");
         group.DisableAntiforgery();
 
-        group.MapPost("/", async (ApplicationDbContext db, IOutputCacheStore cache, SessionFeedbackDto dto) =>
+        group.MapPost("/", async (ApplicationDbContext db, ICacheInvalidationService cacheService, SessionFeedbackDto dto) =>
         {
             var feedback = new SessionFeedback
             {
@@ -34,7 +35,7 @@ public static class FeedbackEndpoints
 
             db.SessionFeedbacks.Add(feedback);
             await db.SaveChangesAsync();
-            await cache.EvictByTagAsync("feedback", default);
+            await cacheService.InvalidateFeedbackCachesAsync();
             return Results.Ok(new { message = "Feedback submitted successfully." });
         });
 

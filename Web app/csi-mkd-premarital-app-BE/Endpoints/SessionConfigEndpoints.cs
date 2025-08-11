@@ -25,27 +25,27 @@ public static class SessionConfigEndpoints
             return Results.Ok(session);
         }).CacheOutput(p => p.Tag("sessions").Expire(TimeSpan.FromMinutes(2)));
 
-        group.MapPost("/", async (CreateUpdateSessionDto dto, ISessionConfigService service, IOutputCacheStore cache) =>
+        group.MapPost("/", async (CreateUpdateSessionDto dto, ISessionConfigService service, ICacheInvalidationService cacheService) =>
         {
             var created = await service.CreateSession(dto);
-            await cache.EvictByTagAsync("sessions", default);
+            await cacheService.InvalidateSessionCachesAsync();
             return Results.Created($"/api/sessionconfig/{created.Id}", created);
         });
 
-        group.MapPut("/{id:int}", async (int id, CreateUpdateSessionDto dto, ISessionConfigService service, IOutputCacheStore cache) =>
+        group.MapPut("/{id:int}", async (int id, CreateUpdateSessionDto dto, ISessionConfigService service, ICacheInvalidationService cacheService) =>
         {
             if (dto.Id != id)
                 return Results.BadRequest(new { message = "ID in URL does not match ID in request body." });
 
             var result = await service.UpdateSession(id, dto);
-            await cache.EvictByTagAsync("sessions", default);
+            await cacheService.InvalidateSessionCachesAsync();
             return result ? Results.NoContent() : Results.Conflict(new { message = "The record was modified by another user. Please reload and try again." });
         });
 
-        group.MapDelete("/{id:int}", async (int id, ISessionConfigService service, IOutputCacheStore cache) =>
+        group.MapDelete("/{id:int}", async (int id, ISessionConfigService service, ICacheInvalidationService cacheService) =>
         {
             var result = await service.DeleteSession(id);
-            await cache.EvictByTagAsync("sessions", default);
+            await cacheService.InvalidateSessionCachesAsync();
             return result ? Results.Ok(new { message = "Session deleted successfully." }) : Results.BadRequest(new { message = "Cannot delete session. It is associated with one or more registrations." });
         });
 

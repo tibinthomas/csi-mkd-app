@@ -12,19 +12,19 @@ public static class ConfirmationRegisterEndpoints
         var group = app.MapGroup("/api/confirmationregister");
         group.DisableAntiforgery();
 
-        group.MapPost("/", async (IConfirmationRegisterService service, IRecaptchaService recaptcha, IOutputCacheStore cache, ConfirmationRegisterDto dto) =>
+        group.MapPost("/", async (IConfirmationRegisterService service, IRecaptchaService recaptcha, ICacheInvalidationService cacheService, ConfirmationRegisterDto dto) =>
         {
             if (!await recaptcha.VerifyTokenAsync(dto.RecaptchaToken))
                 return Results.BadRequest(new { Message = "Invalid reCAPTCHA token." });
             var result = await service.Register(dto);
-            await cache.EvictByTagAsync("confirmation-regs", default);
+            await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         });
 
-        group.MapPost("/save-file-url", async (IConfirmationRegisterService service, IOutputCacheStore cache, ConfirmationDocumentDto dto) =>
+        group.MapPost("/save-file-url", async (IConfirmationRegisterService service, ICacheInvalidationService cacheService, ConfirmationDocumentDto dto) =>
         {
             var result = await service.SaveFiles(dto);
-            await cache.EvictByTagAsync("confirmation-regs", default);
+            await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         });
 

@@ -143,6 +143,9 @@ builder.Services.AddScoped<IConfirmationRegisterService, ConfirmationRegisterSer
 builder.Services.AddScoped<IConfirmationRegisterRepository, ConfirmationRegisterRepository>();
 builder.Services.AddHttpClient(); // Required for HttpClientFactory
 builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
+builder.Services.AddScoped<ICacheInvalidationService, CacheInvalidationService>();
+builder.Services.AddScoped<ICacheHealthService, CacheHealthService>();
+
 // Configure JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]
@@ -197,6 +200,7 @@ app.UseStaticFiles();
 app.UseCors("AllowedOrigins");
 
 app.UseOutputCache();
+app.UseCacheInvalidation();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -214,6 +218,7 @@ app.MapSessionConfigEndpoints();
 app.MapEmailConfigEndpoints();
 app.MapFeedbackEndpoints();
 app.MapAzureUploadEndpoints();
+app.MapCacheManagementEndpoints();
 
 // Add health check endpoint
 app.MapGet("/health", () => Results.Ok("Healthy"));

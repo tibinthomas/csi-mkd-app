@@ -1,5 +1,6 @@
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.Models;
+using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +21,7 @@ public static class EmailConfigEndpoints
             return Results.Ok(config);
         }).CacheOutput(p => p.Tag("email-config").Expire(TimeSpan.FromMinutes(2)));
 
-        group.MapPost("/", async (ApplicationDbContext db, IOutputCacheStore cache, EmailConfig input) =>
+        group.MapPost("/", async (ApplicationDbContext db, ICacheInvalidationService cacheService, EmailConfig input) =>
         {
             var existing = await db.EmailConfigs.FirstOrDefaultAsync();
             if (existing != null)
@@ -36,7 +37,7 @@ public static class EmailConfigEndpoints
             }
 
             await db.SaveChangesAsync();
-            await cache.EvictByTagAsync("email-config", default);
+            await cacheService.InvalidateEmailConfigCachesAsync();
             return Results.Ok("Email config saved successfully.");
         });
     }

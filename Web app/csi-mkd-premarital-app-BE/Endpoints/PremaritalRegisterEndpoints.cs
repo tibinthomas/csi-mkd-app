@@ -13,27 +13,27 @@ public static class PremaritalRegisterEndpoints
         var group = app.MapGroup("/api/premaritalregister");
         group.DisableAntiforgery();
 
-        group.MapPost("/", async ([FromForm] PremaritalRegisterDto dto, IPremaritalRegisterService service, IRecaptchaService recaptcha, IOutputCacheStore cache) =>
+        group.MapPost("/", async ([FromForm] PremaritalRegisterDto dto, IPremaritalRegisterService service, IRecaptchaService recaptcha, ICacheInvalidationService cacheService) =>
         {
             if (!await recaptcha.VerifyTokenAsync(dto.RecaptchaToken))
                 return Results.BadRequest(new { Message = "Invalid reCAPTCHA token." });
 
             var result = await service.Register(dto);
-            await cache.EvictByTagAsync("premarital-regs", default);
+            await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         });
 
-        group.MapPost("/save-file-urls", async ([FromForm] PremaritalDocumentDto dto, IPremaritalRegisterService service, IOutputCacheStore cache) =>
+        group.MapPost("/save-file-urls", async ([FromForm] PremaritalDocumentDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
         {
             var result = await service.SaveFiles(dto);
-            await cache.EvictByTagAsync("premarital-regs", default);
+            await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         });
 
-        group.MapPut("/{id:int}/paymentstatus", async (int id, PaymentStatusUpdateDto dto, IPremaritalRegisterService service, IOutputCacheStore cache) =>
+        group.MapPut("/{id:int}/paymentstatus", async (int id, PaymentStatusUpdateDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
         {
             var result = await service.UpdatePaymentStatus(id, dto);
-            await cache.EvictByTagAsync("premarital-regs", default);
+            await cacheService.InvalidateRegistrationCachesAsync();
             return Results.StatusCode(result.StatusCode);
         });
 
