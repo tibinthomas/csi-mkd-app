@@ -12,7 +12,7 @@ RUN apt-get update \
 # Create a non-root user for runtime
 RUN useradd -m -r -s /usr/sbin/nologin dotnet
 USER dotnet
-EXPOSE 8080 8081
+EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0-bookworm-slim AS build
 ARG BUILD_CONFIGURATION=Release
@@ -27,7 +27,8 @@ RUN dotnet build "./csi-mkd-premarital-app-BE.csproj" -c $BUILD_CONFIGURATION -o
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-# Publish as self-contained, single-file, ReadyToRun for linux-x64 by default
+# Publish as self-contained, single-file, ReadyToRun. Match the target platform via RUNTIME_IDENTIFIER.
+# Defaults to linux-x64; override with --build-arg RUNTIME_IDENTIFIER=linux-arm64 for ARM hosts.
 ARG RUNTIME_IDENTIFIER=linux-x64
 RUN dotnet publish \
     "./csi-mkd-premarital-app-BE.csproj" \

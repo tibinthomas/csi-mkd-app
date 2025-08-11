@@ -193,7 +193,12 @@ app.UseMiddleware<RateLimitingMiddleware>();
 app.UseIpRateLimiting();
 app.UseClientRateLimiting();
 
-app.UseHttpsRedirection();
+// In container/production, we typically run behind a reverse proxy that terminates TLS.
+// Only enable HTTPS redirection for local development where the dev cert is present.
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 app.UseStaticFiles();
 // Add conditional GET handling for static files (ETag/Last-Modified are on by default). Ensure If-None-Match/If-Modified-Since respected.
 // StaticFileMiddleware already sets ETag/Last-Modified; no extra code needed.
