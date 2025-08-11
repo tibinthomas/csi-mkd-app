@@ -5,6 +5,8 @@ using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -37,7 +39,9 @@ public static class FeedbackEndpoints
             await db.SaveChangesAsync();
             await cacheService.InvalidateFeedbackCachesAsync();
             return Results.Ok(new { message = "Feedback submitted successfully." });
-        });
+        })
+        .Accepts<SessionFeedbackDto>("application/json")
+        .Produces(StatusCodes.Status200OK);
 
         group.MapGet("/", async (ApplicationDbContext db) =>
         {
@@ -46,7 +50,9 @@ public static class FeedbackEndpoints
                 .OrderByDescending(f => f.SubmittedAt)
                 .ToListAsync();
             return Results.Ok(allFeedbacks);
-        }).CacheOutput(p => p.Tag("feedback").Expire(TimeSpan.FromMinutes(2)));
+        })
+        .Produces<List<SessionFeedback>>(StatusCodes.Status200OK)
+        .CacheOutput(p => p.Tag("feedback").Expire(TimeSpan.FromMinutes(2)));
     }
 }
 

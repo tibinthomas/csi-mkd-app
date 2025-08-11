@@ -82,8 +82,8 @@ namespace csi_mkd_premarital_app_BE.Services
                 ? (200, new { message = "Updated successfully" })
                 : (500, new { message = "Failed to update" });
 
-        public async Task<object> CheckEmailExists(string email)
-            => new { exists = await _repo.CheckEmailExists(email) };
+        public async Task<bool> CheckEmailExists(string email)
+            => await _repo.CheckEmailExists(email);
 
         public async Task<object> GetFilteredRegistrations(RegistrationFilterDto filter)
             => await _repo.FilterRegistrations(filter);

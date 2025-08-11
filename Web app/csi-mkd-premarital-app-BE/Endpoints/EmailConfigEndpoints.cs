@@ -4,6 +4,8 @@ using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -19,7 +21,10 @@ public static class EmailConfigEndpoints
             var config = await db.EmailConfigs.AsNoTracking().FirstOrDefaultAsync();
             if (config == null) return Results.NotFound();
             return Results.Ok(config);
-        }).CacheOutput(p => p.Tag("email-config").Expire(TimeSpan.FromMinutes(2)));
+        })
+        .Produces<EmailConfig>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound)
+        .CacheOutput(p => p.Tag("email-config").Expire(TimeSpan.FromMinutes(2)));
 
         group.MapPost("/", async (ApplicationDbContext db, ICacheInvalidationService cacheService, EmailConfig input) =>
         {
@@ -39,7 +44,9 @@ public static class EmailConfigEndpoints
             await db.SaveChangesAsync();
             await cacheService.InvalidateEmailConfigCachesAsync();
             return Results.Ok("Email config saved successfully.");
-        });
+        })
+        .Accepts<EmailConfig>("application/json")
+        .Produces(StatusCodes.Status200OK);
     }
 }
 

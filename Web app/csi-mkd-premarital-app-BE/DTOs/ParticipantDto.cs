@@ -6,3 +6,8 @@ public class ParticipantDto
     public int Age { get; set; }
 
 }
+
+public class CheckEmailResponseDto
+{
+    public bool Exists { get; set; }
+}

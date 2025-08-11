@@ -1,5 +1,6 @@
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Http;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -14,7 +15,8 @@ public static class AzureUploadEndpoints
         {
             var url = await blobService.GetUploadSasUrlAsync(fileName, contentType);
             return Results.Ok(new { url });
-        });
+        })
+        .Produces(StatusCodes.Status200OK);
     }
 }
 
