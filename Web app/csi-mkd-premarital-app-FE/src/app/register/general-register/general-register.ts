@@ -71,7 +71,9 @@ export class GeneralRegister {
 
   protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
-  protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
+  protected recaptchaTheme = computed(() =>
+    this.themeService.isDark() ? 'dark' : 'light'
+  );
 
   // siteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Example site key, replace with your actual key
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
@@ -242,7 +244,7 @@ export class GeneralRegister {
     const raw = this.form.value;
     const photo = this.photoFile()!;
 
-      const body = {
+    const body = {
       firstName: raw.firstName,
       lastName: raw.lastName,
       fatherName: raw.fatherName,
@@ -260,7 +262,7 @@ export class GeneralRegister {
       recaptchaToken: raw.recaptcha,
     };
 
-    this.api.apiGeneralregisterPost$FormData({ body }).subscribe({
+    this.api.apiGeneralregisterPost({ body }).subscribe({
       next: (response: any) => {
         const registerId: number = JSON.parse(response).id;
 
@@ -282,7 +284,7 @@ export class GeneralRegister {
               };
 
               this.api
-                .apiGeneralregisterSavePhotoUrlPost$FormData({ body: saveBody })
+                .apiGeneralregisterSavePhotoUrlPost({ body: saveBody })
                 .subscribe({
                   next: () => {
                     this.successMessage.set(

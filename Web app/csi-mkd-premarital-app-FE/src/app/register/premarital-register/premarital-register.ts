@@ -87,7 +87,9 @@ export class PremaritalRegister {
 
   protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
   // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
-  protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
+  protected recaptchaTheme = computed(() =>
+    this.themeService.isDark() ? 'dark' : 'light'
+  );
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;
@@ -179,9 +181,7 @@ export class PremaritalRegister {
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
-              this.api.apiPremaritalregisterCheckEmailGet(
-                { email }
-              )
+              this.api.apiPremaritalregisterCheckEmailGet({ email })
             ),
           ],
           updateOn: 'blur',
@@ -223,24 +223,20 @@ export class PremaritalRegister {
     }
   };
 
-  
-
-  private readonly sessions$ = this.api
-    .apiSessionconfigGet()
-    .pipe(
-      map((data: any) => {
-        const parsed = JSON.parse(data);
-        return parsed.map((session: any) => ({
-          ...session,
-          startDate: session.startDate,
-          endDate: session.endDate,
-        }));
-      }),
-      catchError((err) => {
-        console.error('Error loading sessions:', err);
-        return of([]); // fallback to empty array
-      })
-    );
+  private readonly sessions$ = this.api.apiSessionconfigGet().pipe(
+    map((data: any) => {
+      const parsed = JSON.parse(data);
+      return parsed.map((session: any) => ({
+        ...session,
+        startDate: session.startDate,
+        endDate: session.endDate,
+      }));
+    }),
+    catchError((err) => {
+      console.error('Error loading sessions:', err);
+      return of([]); // fallback to empty array
+    })
+  );
 
   protected readonly sessionList = toSignal(this.sessions$, {
     initialValue: [],
@@ -351,7 +347,7 @@ export class PremaritalRegister {
     const photo = this.photoFile()!;
     const letter = this.vicarLetterFile()!;
 
-      const body = {
+    const body = {
       firstName: raw.firstName,
       lastName: raw.lastName,
       fatherName: raw.fatherName,
@@ -378,69 +374,64 @@ export class PremaritalRegister {
       recaptchaToken: raw.recaptcha,
     };
 
-    this.api
-      .apiPremaritalregisterPost$FormData({ body })
-      .subscribe({
-        next: (response: any) => {
-          const registerId: number = JSON.parse(response).id;
-          forkJoin([
-            this.api.apiAzureuploadGenerateSasGet({
-              fileName: `premarital/${registerId}/photo/${photo.name}`,
-              contentType: photo.type,
-            }),
-            this.api.apiAzureuploadGenerateSasGet({
-              fileName: `premarital/${registerId}/vicarletter/${letter.name}`,
-              contentType: letter.type,
-            }),
-          ])
-            .pipe(
-              switchMap(([photoSasUrl, letterSasUrl]) =>
-                forkJoin([
-                  this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!),
-                  this.fileUploadService.uploadFileToAzure(
-                    letter,
-                    letterSasUrl!
-                  ),
-                ])
-              )
+    this.api.apiPremaritalregisterPost({ body }).subscribe({
+      next: (response: any) => {
+        const registerId: number = JSON.parse(response).id;
+        forkJoin([
+          this.api.apiAzureuploadGenerateSasGet({
+            fileName: `premarital/${registerId}/photo/${photo.name}`,
+            contentType: photo.type,
+          }),
+          this.api.apiAzureuploadGenerateSasGet({
+            fileName: `premarital/${registerId}/vicarletter/${letter.name}`,
+            contentType: letter.type,
+          }),
+        ])
+          .pipe(
+            switchMap(([photoSasUrl, letterSasUrl]) =>
+              forkJoin([
+                this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!),
+                this.fileUploadService.uploadFileToAzure(letter, letterSasUrl!),
+              ])
             )
-            .subscribe({
-              next: ([photoSasUrl, letterSasUrl]) => {
-                const body = {
-                  registrationId: registerId,
-                  photoUrl: photoSasUrl,
-                  vicarLetterUrl: letterSasUrl,
-                };
-                this.api
-                  .apiPremaritalregisterSaveFileUrlsPost$FormData({ body })
-                  .subscribe({
-                    next: () => {
-                      this.successMessage.set(
-                        'Registration submitted successfully!'
-                      );
-                      this.dialog.open(SuccessDialogComponent, {
-                        width: '400px',
-                        disableClose: true,
-                        data: {
-                          message: 'Registration successful!',
-                          registerType: 'premarital',
-                        },
-                      });
-                      this.resetForm();
-                    },
-                    error: (err) => {
-                      console.error(err);
-                      this.errorMessage.set(
-                        'File Upload failed. Please try again.'
-                      );
-                      this.showErrorModal.set(true);
-                      this.isSubmitting.set(false);
-                    },
-                  });
-              },
-            });
-        },
-      });
+          )
+          .subscribe({
+            next: ([photoSasUrl, letterSasUrl]) => {
+              const body = {
+                registrationId: registerId,
+                photoUrl: photoSasUrl,
+                vicarLetterUrl: letterSasUrl,
+              };
+              this.api
+                .apiPremaritalregisterSaveFileUrlsPost({ body })
+                .subscribe({
+                  next: () => {
+                    this.successMessage.set(
+                      'Registration submitted successfully!'
+                    );
+                    this.dialog.open(SuccessDialogComponent, {
+                      width: '400px',
+                      disableClose: true,
+                      data: {
+                        message: 'Registration successful!',
+                        registerType: 'premarital',
+                      },
+                    });
+                    this.resetForm();
+                  },
+                  error: (err) => {
+                    console.error(err);
+                    this.errorMessage.set(
+                      'File Upload failed. Please try again.'
+                    );
+                    this.showErrorModal.set(true);
+                    this.isSubmitting.set(false);
+                  },
+                });
+            },
+          });
+      },
+    });
   }
 
   toUtcIsoString(dateInput: string | Date): string {
