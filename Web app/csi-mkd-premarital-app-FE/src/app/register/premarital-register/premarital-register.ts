@@ -339,7 +339,7 @@ export class PremaritalRegister {
       return;
     }
 
-    const raw = this.form.value();
+    const raw = this.form.value;
 
     this.isSubmitting.set(true);
 
