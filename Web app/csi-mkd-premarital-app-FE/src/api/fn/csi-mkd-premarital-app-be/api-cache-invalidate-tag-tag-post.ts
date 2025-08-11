@@ -8,16 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PremaritalRegisterDto } from '../../models/premarital-register-dto';
 
-export interface ApiPremaritalregisterPost$FormData$Params {
-      body?: PremaritalRegisterDto
+export interface ApiCacheInvalidateTagTagPost$Params {
+  tag: string;
 }
 
-export function apiPremaritalregisterPost$FormData(http: HttpClient, rootUrl: string, params?: ApiPremaritalregisterPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterPost$FormData.PATH, 'post');
+export function apiCacheInvalidateTagTagPost(http: HttpClient, rootUrl: string, params: ApiCacheInvalidateTagTagPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCacheInvalidateTagTagPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'multipart/form-data');
+    rb.path('tag', params.tag, {});
   }
 
   return http.request(
@@ -30,4 +29,4 @@ export function apiPremaritalregisterPost$FormData(http: HttpClient, rootUrl: st
   );
 }
 
-apiPremaritalregisterPost$FormData.PATH = '/api/premaritalregister';
+apiCacheInvalidateTagTagPost.PATH = '/api/cache/invalidate-tag/{tag}';

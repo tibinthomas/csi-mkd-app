@@ -8,16 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { GeneralDocumentDto } from '../../models/general-document-dto';
 
-export interface ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params {
-      body?: GeneralDocumentDto
+export interface ApiCacheInvalidateRegistrationsPost$Params {
 }
 
-export function apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded(http: HttpClient, rootUrl: string, params?: ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded.PATH, 'post');
+export function apiCacheInvalidateRegistrationsPost(http: HttpClient, rootUrl: string, params?: ApiCacheInvalidateRegistrationsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCacheInvalidateRegistrationsPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/x-www-form-urlencoded');
   }
 
   return http.request(
@@ -30,4 +27,4 @@ export function apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded(http: Http
   );
 }
 
-apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded.PATH = '/api/generalregister/save-photo-url';
+apiCacheInvalidateRegistrationsPost.PATH = '/api/cache/invalidate-registrations';

@@ -8,16 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PremaritalDocumentDto } from '../../models/premarital-document-dto';
 
-export interface ApiPremaritalregisterSaveFileUrlsPost$FormData$Params {
-      body?: PremaritalDocumentDto
+export interface ApiCacheInvalidateSessionsPost$Params {
 }
 
-export function apiPremaritalregisterSaveFileUrlsPost$FormData(http: HttpClient, rootUrl: string, params?: ApiPremaritalregisterSaveFileUrlsPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterSaveFileUrlsPost$FormData.PATH, 'post');
+export function apiCacheInvalidateSessionsPost(http: HttpClient, rootUrl: string, params?: ApiCacheInvalidateSessionsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCacheInvalidateSessionsPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
@@ -30,4 +27,4 @@ export function apiPremaritalregisterSaveFileUrlsPost$FormData(http: HttpClient,
   );
 }
 
-apiPremaritalregisterSaveFileUrlsPost$FormData.PATH = '/api/premaritalregister/save-file-urls';
+apiCacheInvalidateSessionsPost.PATH = '/api/cache/invalidate-sessions';

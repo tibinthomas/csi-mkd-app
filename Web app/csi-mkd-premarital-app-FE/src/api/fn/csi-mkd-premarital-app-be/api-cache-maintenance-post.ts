@@ -8,16 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { GeneralDocumentDto } from '../../models/general-document-dto';
 
-export interface ApiGeneralregisterSavePhotoUrlPost$FormData$Params {
-      body?: GeneralDocumentDto
+export interface ApiCacheMaintenancePost$Params {
 }
 
-export function apiGeneralregisterSavePhotoUrlPost$FormData(http: HttpClient, rootUrl: string, params?: ApiGeneralregisterSavePhotoUrlPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiGeneralregisterSavePhotoUrlPost$FormData.PATH, 'post');
+export function apiCacheMaintenancePost(http: HttpClient, rootUrl: string, params?: ApiCacheMaintenancePost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCacheMaintenancePost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
@@ -30,4 +27,4 @@ export function apiGeneralregisterSavePhotoUrlPost$FormData(http: HttpClient, ro
   );
 }
 
-apiGeneralregisterSavePhotoUrlPost$FormData.PATH = '/api/generalregister/save-photo-url';
+apiCacheMaintenancePost.PATH = '/api/cache/maintenance';

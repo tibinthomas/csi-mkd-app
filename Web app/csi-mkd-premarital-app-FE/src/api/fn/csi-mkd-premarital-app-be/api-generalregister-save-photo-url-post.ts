@@ -8,16 +8,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PremaritalRegisterDto } from '../../models/premarital-register-dto';
+import { GeneralDocumentDto } from '../../models/general-document-dto';
 
-export interface ApiPremaritalregisterPost$XWwwFormUrlencoded$Params {
-      body?: PremaritalRegisterDto
+export interface ApiGeneralregisterSavePhotoUrlPost$Params {
+      body?: GeneralDocumentDto
 }
 
-export function apiPremaritalregisterPost$XWwwFormUrlencoded(http: HttpClient, rootUrl: string, params?: ApiPremaritalregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterPost$XWwwFormUrlencoded.PATH, 'post');
+export function apiGeneralregisterSavePhotoUrlPost(http: HttpClient, rootUrl: string, params?: ApiGeneralregisterSavePhotoUrlPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiGeneralregisterSavePhotoUrlPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/x-www-form-urlencoded');
+    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
@@ -30,4 +30,4 @@ export function apiPremaritalregisterPost$XWwwFormUrlencoded(http: HttpClient, r
   );
 }
 
-apiPremaritalregisterPost$XWwwFormUrlencoded.PATH = '/api/premaritalregister';
+apiGeneralregisterSavePhotoUrlPost.PATH = '/api/generalregister/save-photo-url';

@@ -8,23 +8,24 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { CheckEmailResponseDto } from '../../models/check-email-response-dto';
 
 export interface ApiPremaritalregisterCheckEmailGet$Params {
   email: string;
 }
 
-export function apiPremaritalregisterCheckEmailGet(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+export function apiPremaritalregisterCheckEmailGet(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<CheckEmailResponseDto>> {
   const rb = new RequestBuilder(rootUrl, apiPremaritalregisterCheckEmailGet.PATH, 'get');
   if (params) {
     rb.query('email', params.email, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<CheckEmailResponseDto>;
     })
   );
 }

@@ -17,6 +17,22 @@ import { apiAuthUpdatePasswordPost } from '../fn/csi-mkd-premarital-app-be/api-a
 import { ApiAuthUpdatePasswordPost$Params } from '../fn/csi-mkd-premarital-app-be/api-auth-update-password-post';
 import { apiAzureuploadGenerateSasGet } from '../fn/csi-mkd-premarital-app-be/api-azureupload-generate-sas-get';
 import { ApiAzureuploadGenerateSasGet$Params } from '../fn/csi-mkd-premarital-app-be/api-azureupload-generate-sas-get';
+import { apiCacheHealthGet } from '../fn/csi-mkd-premarital-app-be/api-cache-health-get';
+import { ApiCacheHealthGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-health-get';
+import { apiCacheInvalidateAllPost } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-all-post';
+import { ApiCacheInvalidateAllPost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-all-post';
+import { apiCacheInvalidateEmailConfigPost } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-email-config-post';
+import { ApiCacheInvalidateEmailConfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-email-config-post';
+import { apiCacheInvalidateFeedbackPost } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-feedback-post';
+import { ApiCacheInvalidateFeedbackPost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-feedback-post';
+import { apiCacheInvalidateRegistrationsPost } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-registrations-post';
+import { ApiCacheInvalidateRegistrationsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-registrations-post';
+import { apiCacheInvalidateSessionsPost } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-sessions-post';
+import { ApiCacheInvalidateSessionsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-sessions-post';
+import { apiCacheInvalidateTagTagPost } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-tag-tag-post';
+import { ApiCacheInvalidateTagTagPost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-tag-tag-post';
+import { apiCacheMaintenancePost } from '../fn/csi-mkd-premarital-app-be/api-cache-maintenance-post';
+import { ApiCacheMaintenancePost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-maintenance-post';
 import { apiConfirmationregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-filter-get';
 import { ApiConfirmationregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-filter-get';
 import { apiConfirmationregisterPost } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-post';
@@ -39,14 +55,10 @@ import { apiGeneralregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api
 import { ApiGeneralregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
 import { apiGeneralregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
 import { ApiGeneralregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
-import { apiGeneralregisterPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-form-data';
-import { ApiGeneralregisterPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-form-data';
-import { apiGeneralregisterPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-x-www-form-urlencoded';
-import { ApiGeneralregisterPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post-x-www-form-urlencoded';
-import { apiGeneralregisterSavePhotoUrlPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-form-data';
-import { ApiGeneralregisterSavePhotoUrlPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-form-data';
-import { apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-x-www-form-urlencoded';
-import { ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post-x-www-form-urlencoded';
+import { apiGeneralregisterPost } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post';
+import { ApiGeneralregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post';
+import { apiGeneralregisterSavePhotoUrlPost } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post';
+import { ApiGeneralregisterSavePhotoUrlPost$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post';
 import { apiGeneralregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-total-get';
 import { ApiGeneralregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-total-get';
 import { apiPremaritalregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
@@ -55,14 +67,10 @@ import { apiPremaritalregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/
 import { ApiPremaritalregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
 import { apiPremaritalregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
 import { ApiPremaritalregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
-import { apiPremaritalregisterPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-form-data';
-import { ApiPremaritalregisterPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-form-data';
-import { apiPremaritalregisterPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-x-www-form-urlencoded';
-import { ApiPremaritalregisterPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post-x-www-form-urlencoded';
-import { apiPremaritalregisterSaveFileUrlsPost$FormData } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-form-data';
-import { ApiPremaritalregisterSaveFileUrlsPost$FormData$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-form-data';
-import { apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-x-www-form-urlencoded';
-import { ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post-x-www-form-urlencoded';
+import { apiPremaritalregisterPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
+import { ApiPremaritalregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
+import { apiPremaritalregisterSaveFileUrlsPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post';
+import { ApiPremaritalregisterSaveFileUrlsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post';
 import { apiPremaritalregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { ApiPremaritalregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { apiSessionconfigGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-get';
@@ -77,8 +85,12 @@ import { apiSessionconfigPost } from '../fn/csi-mkd-premarital-app-be/api-sessio
 import { ApiSessionconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-post';
 import { apiSessionconfigSessionsGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { ApiSessionconfigSessionsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
+import { CheckEmailResponseDto } from '../models/check-email-response-dto';
+import { EmailConfig } from '../models/email-config';
 import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
+import { SessionConfigurationDto } from '../models/session-configuration-dto';
+import { SessionFeedback } from '../models/session-feedback';
 
 @Injectable({ providedIn: 'root' })
 export class CsiMkdPremaritalAppBeService extends BaseService {
@@ -166,44 +178,22 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiGeneralregisterPost$FormData()` instead.
+   * To access only the response body, use `apiGeneralregisterPost()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralregisterPost$FormData$Response(params?: ApiGeneralregisterPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiGeneralregisterPost$FormData(this.http, this.rootUrl, params, context);
+  apiGeneralregisterPost$Response(params?: ApiGeneralregisterPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiGeneralregisterPost$FormData$Response()` instead.
+   * To access the full response (for headers, for example), `apiGeneralregisterPost$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralregisterPost$FormData(params?: ApiGeneralregisterPost$FormData$Params, context?: HttpContext): Observable<void> {
-    return this.apiGeneralregisterPost$FormData$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiGeneralregisterPost$XWwwFormUrlencoded()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiGeneralregisterPost$XWwwFormUrlencoded$Response(params?: ApiGeneralregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiGeneralregisterPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiGeneralregisterPost$XWwwFormUrlencoded$Response()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiGeneralregisterPost$XWwwFormUrlencoded(params?: ApiGeneralregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
-    return this.apiGeneralregisterPost$XWwwFormUrlencoded$Response(params, context).pipe(
+  apiGeneralregisterPost(params?: ApiGeneralregisterPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
@@ -213,44 +203,22 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiGeneralregisterSavePhotoUrlPost$FormData()` instead.
+   * To access only the response body, use `apiGeneralregisterSavePhotoUrlPost()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralregisterSavePhotoUrlPost$FormData$Response(params?: ApiGeneralregisterSavePhotoUrlPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiGeneralregisterSavePhotoUrlPost$FormData(this.http, this.rootUrl, params, context);
+  apiGeneralregisterSavePhotoUrlPost$Response(params?: ApiGeneralregisterSavePhotoUrlPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterSavePhotoUrlPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiGeneralregisterSavePhotoUrlPost$FormData$Response()` instead.
+   * To access the full response (for headers, for example), `apiGeneralregisterSavePhotoUrlPost$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiGeneralregisterSavePhotoUrlPost$FormData(params?: ApiGeneralregisterSavePhotoUrlPost$FormData$Params, context?: HttpContext): Observable<void> {
-    return this.apiGeneralregisterSavePhotoUrlPost$FormData$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Response(params?: ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Response()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded(params?: ApiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
-    return this.apiGeneralregisterSavePhotoUrlPost$XWwwFormUrlencoded$Response(params, context).pipe(
+  apiGeneralregisterSavePhotoUrlPost(params?: ApiGeneralregisterSavePhotoUrlPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterSavePhotoUrlPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
@@ -264,7 +232,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiGeneralregisterCheckEmailGet$Response(params: ApiGeneralregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiGeneralregisterCheckEmailGet$Response(params: ApiGeneralregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<CheckEmailResponseDto>> {
     return apiGeneralregisterCheckEmailGet(this.http, this.rootUrl, params, context);
   }
 
@@ -274,9 +242,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiGeneralregisterCheckEmailGet(params: ApiGeneralregisterCheckEmailGet$Params, context?: HttpContext): Observable<void> {
+  apiGeneralregisterCheckEmailGet(params: ApiGeneralregisterCheckEmailGet$Params, context?: HttpContext): Observable<CheckEmailResponseDto> {
     return this.apiGeneralregisterCheckEmailGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<CheckEmailResponseDto>): CheckEmailResponseDto => r.body)
     );
   }
 
@@ -314,7 +282,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiGeneralregisterFilterGet$Response(params?: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiGeneralregisterFilterGet$Response(params: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiGeneralregisterFilterGet(this.http, this.rootUrl, params, context);
   }
 
@@ -324,7 +292,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiGeneralregisterFilterGet(params?: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<void> {
+  apiGeneralregisterFilterGet(params: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<void> {
     return this.apiGeneralregisterFilterGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
@@ -360,44 +328,22 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiPremaritalregisterPost$FormData()` instead.
+   * To access only the response body, use `apiPremaritalregisterPost()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiPremaritalregisterPost$FormData$Response(params?: ApiPremaritalregisterPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiPremaritalregisterPost$FormData(this.http, this.rootUrl, params, context);
+  apiPremaritalregisterPost$Response(params?: ApiPremaritalregisterPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiPremaritalregisterPost$FormData$Response()` instead.
+   * To access the full response (for headers, for example), `apiPremaritalregisterPost$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiPremaritalregisterPost$FormData(params?: ApiPremaritalregisterPost$FormData$Params, context?: HttpContext): Observable<void> {
-    return this.apiPremaritalregisterPost$FormData$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiPremaritalregisterPost$XWwwFormUrlencoded()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiPremaritalregisterPost$XWwwFormUrlencoded$Response(params?: ApiPremaritalregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiPremaritalregisterPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiPremaritalregisterPost$XWwwFormUrlencoded$Response()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiPremaritalregisterPost$XWwwFormUrlencoded(params?: ApiPremaritalregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
-    return this.apiPremaritalregisterPost$XWwwFormUrlencoded$Response(params, context).pipe(
+  apiPremaritalregisterPost(params?: ApiPremaritalregisterPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
@@ -407,44 +353,22 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiPremaritalregisterSaveFileUrlsPost$FormData()` instead.
+   * To access only the response body, use `apiPremaritalregisterSaveFileUrlsPost()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiPremaritalregisterSaveFileUrlsPost$FormData$Response(params?: ApiPremaritalregisterSaveFileUrlsPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiPremaritalregisterSaveFileUrlsPost$FormData(this.http, this.rootUrl, params, context);
+  apiPremaritalregisterSaveFileUrlsPost$Response(params?: ApiPremaritalregisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterSaveFileUrlsPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiPremaritalregisterSaveFileUrlsPost$FormData$Response()` instead.
+   * To access the full response (for headers, for example), `apiPremaritalregisterSaveFileUrlsPost$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiPremaritalregisterSaveFileUrlsPost$FormData(params?: ApiPremaritalregisterSaveFileUrlsPost$FormData$Params, context?: HttpContext): Observable<void> {
-    return this.apiPremaritalregisterSaveFileUrlsPost$FormData$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Response(params?: ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Response()` instead.
-   *
-   * This method sends `application/x-www-form-urlencoded` and handles request body of type `application/x-www-form-urlencoded`.
-   */
-  apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded(params?: ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<void> {
-    return this.apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Response(params, context).pipe(
+  apiPremaritalregisterSaveFileUrlsPost(params?: ApiPremaritalregisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterSaveFileUrlsPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
@@ -483,7 +407,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiPremaritalregisterCheckEmailGet$Response(params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiPremaritalregisterCheckEmailGet$Response(params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<StrictHttpResponse<CheckEmailResponseDto>> {
     return apiPremaritalregisterCheckEmailGet(this.http, this.rootUrl, params, context);
   }
 
@@ -493,9 +417,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiPremaritalregisterCheckEmailGet(params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<void> {
+  apiPremaritalregisterCheckEmailGet(params: ApiPremaritalregisterCheckEmailGet$Params, context?: HttpContext): Observable<CheckEmailResponseDto> {
     return this.apiPremaritalregisterCheckEmailGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<CheckEmailResponseDto>): CheckEmailResponseDto => r.body)
     );
   }
 
@@ -508,7 +432,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiPremaritalregisterFilterGet$Response(params?: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiPremaritalregisterFilterGet$Response(params: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiPremaritalregisterFilterGet(this.http, this.rootUrl, params, context);
   }
 
@@ -518,7 +442,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiPremaritalregisterFilterGet(params?: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<void> {
+  apiPremaritalregisterFilterGet(params: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<void> {
     return this.apiPremaritalregisterFilterGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
@@ -608,7 +532,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiConfirmationregisterFilterGet$Response(params?: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiConfirmationregisterFilterGet$Response(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiConfirmationregisterFilterGet(this.http, this.rootUrl, params, context);
   }
 
@@ -618,7 +542,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiConfirmationregisterFilterGet(params?: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<void> {
+  apiConfirmationregisterFilterGet(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<void> {
     return this.apiConfirmationregisterFilterGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
@@ -658,7 +582,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigGet$Response(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiSessionconfigGet$Response(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionConfigurationDto>>> {
     return apiSessionconfigGet(this.http, this.rootUrl, params, context);
   }
 
@@ -668,9 +592,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigGet(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<void> {
+  apiSessionconfigGet(params?: ApiSessionconfigGet$Params, context?: HttpContext): Observable<Array<SessionConfigurationDto>> {
     return this.apiSessionconfigGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<Array<SessionConfigurationDto>>): Array<SessionConfigurationDto> => r.body)
     );
   }
 
@@ -683,7 +607,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  apiSessionconfigPost$Response(params: ApiSessionconfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiSessionconfigPost$Response(params: ApiSessionconfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<SessionConfigurationDto>> {
     return apiSessionconfigPost(this.http, this.rootUrl, params, context);
   }
 
@@ -693,9 +617,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  apiSessionconfigPost(params: ApiSessionconfigPost$Params, context?: HttpContext): Observable<void> {
+  apiSessionconfigPost(params: ApiSessionconfigPost$Params, context?: HttpContext): Observable<SessionConfigurationDto> {
     return this.apiSessionconfigPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<SessionConfigurationDto>): SessionConfigurationDto => r.body)
     );
   }
 
@@ -708,7 +632,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigIdGet$Response(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiSessionconfigIdGet$Response(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<SessionConfigurationDto>> {
     return apiSessionconfigIdGet(this.http, this.rootUrl, params, context);
   }
 
@@ -718,9 +642,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigIdGet(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<void> {
+  apiSessionconfigIdGet(params: ApiSessionconfigIdGet$Params, context?: HttpContext): Observable<SessionConfigurationDto> {
     return this.apiSessionconfigIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<SessionConfigurationDto>): SessionConfigurationDto => r.body)
     );
   }
 
@@ -783,7 +707,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigSessionsGet$Response(params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiSessionconfigSessionsGet$Response(params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionConfigurationDto>>> {
     return apiSessionconfigSessionsGet(this.http, this.rootUrl, params, context);
   }
 
@@ -793,9 +717,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiSessionconfigSessionsGet(params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<void> {
+  apiSessionconfigSessionsGet(params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<Array<SessionConfigurationDto>> {
     return this.apiSessionconfigSessionsGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<Array<SessionConfigurationDto>>): Array<SessionConfigurationDto> => r.body)
     );
   }
 
@@ -808,7 +732,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiEmailconfigGet$Response(params?: ApiEmailconfigGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiEmailconfigGet$Response(params?: ApiEmailconfigGet$Params, context?: HttpContext): Observable<StrictHttpResponse<EmailConfig>> {
     return apiEmailconfigGet(this.http, this.rootUrl, params, context);
   }
 
@@ -818,9 +742,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiEmailconfigGet(params?: ApiEmailconfigGet$Params, context?: HttpContext): Observable<void> {
+  apiEmailconfigGet(params?: ApiEmailconfigGet$Params, context?: HttpContext): Observable<EmailConfig> {
     return this.apiEmailconfigGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<EmailConfig>): EmailConfig => r.body)
     );
   }
 
@@ -858,7 +782,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionFeedback>>> {
     return apiFeedbackGet(this.http, this.rootUrl, params, context);
   }
 
@@ -868,9 +792,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<void> {
+  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<Array<SessionFeedback>> {
     return this.apiFeedbackGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<Array<SessionFeedback>>): Array<SessionFeedback> => r.body)
     );
   }
 
@@ -920,6 +844,206 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiAzureuploadGenerateSasGet(params: ApiAzureuploadGenerateSasGet$Params, context?: HttpContext): Observable<void> {
     return this.apiAzureuploadGenerateSasGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheInvalidateAllPost()` */
+  static readonly ApiCacheInvalidateAllPostPath = '/api/cache/invalidate-all';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheInvalidateAllPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateAllPost$Response(params?: ApiCacheInvalidateAllPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheInvalidateAllPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheInvalidateAllPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateAllPost(params?: ApiCacheInvalidateAllPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheInvalidateAllPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheInvalidateRegistrationsPost()` */
+  static readonly ApiCacheInvalidateRegistrationsPostPath = '/api/cache/invalidate-registrations';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheInvalidateRegistrationsPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateRegistrationsPost$Response(params?: ApiCacheInvalidateRegistrationsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheInvalidateRegistrationsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheInvalidateRegistrationsPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateRegistrationsPost(params?: ApiCacheInvalidateRegistrationsPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheInvalidateRegistrationsPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheInvalidateSessionsPost()` */
+  static readonly ApiCacheInvalidateSessionsPostPath = '/api/cache/invalidate-sessions';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheInvalidateSessionsPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateSessionsPost$Response(params?: ApiCacheInvalidateSessionsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheInvalidateSessionsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheInvalidateSessionsPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateSessionsPost(params?: ApiCacheInvalidateSessionsPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheInvalidateSessionsPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheInvalidateEmailConfigPost()` */
+  static readonly ApiCacheInvalidateEmailConfigPostPath = '/api/cache/invalidate-email-config';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheInvalidateEmailConfigPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateEmailConfigPost$Response(params?: ApiCacheInvalidateEmailConfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheInvalidateEmailConfigPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheInvalidateEmailConfigPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateEmailConfigPost(params?: ApiCacheInvalidateEmailConfigPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheInvalidateEmailConfigPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheInvalidateFeedbackPost()` */
+  static readonly ApiCacheInvalidateFeedbackPostPath = '/api/cache/invalidate-feedback';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheInvalidateFeedbackPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateFeedbackPost$Response(params?: ApiCacheInvalidateFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheInvalidateFeedbackPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheInvalidateFeedbackPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateFeedbackPost(params?: ApiCacheInvalidateFeedbackPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheInvalidateFeedbackPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheInvalidateTagTagPost()` */
+  static readonly ApiCacheInvalidateTagTagPostPath = '/api/cache/invalidate-tag/{tag}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheInvalidateTagTagPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateTagTagPost$Response(params: ApiCacheInvalidateTagTagPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheInvalidateTagTagPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheInvalidateTagTagPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheInvalidateTagTagPost(params: ApiCacheInvalidateTagTagPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheInvalidateTagTagPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheHealthGet()` */
+  static readonly ApiCacheHealthGetPath = '/api/cache/health';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheHealthGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheHealthGet$Response(params?: ApiCacheHealthGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheHealthGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheHealthGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheHealthGet(params?: ApiCacheHealthGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheHealthGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCacheMaintenancePost()` */
+  static readonly ApiCacheMaintenancePostPath = '/api/cache/maintenance';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCacheMaintenancePost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheMaintenancePost$Response(params?: ApiCacheMaintenancePost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCacheMaintenancePost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCacheMaintenancePost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCacheMaintenancePost(params?: ApiCacheMaintenancePost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCacheMaintenancePost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

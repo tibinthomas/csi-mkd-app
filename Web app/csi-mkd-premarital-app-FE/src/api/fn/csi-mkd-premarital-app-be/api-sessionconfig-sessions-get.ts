@@ -8,23 +8,24 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { SessionConfigurationDto } from '../../models/session-configuration-dto';
 
 export interface ApiSessionconfigSessionsGet$Params {
   year: number;
 }
 
-export function apiSessionconfigSessionsGet(http: HttpClient, rootUrl: string, params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+export function apiSessionconfigSessionsGet(http: HttpClient, rootUrl: string, params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionConfigurationDto>>> {
   const rb = new RequestBuilder(rootUrl, apiSessionconfigSessionsGet.PATH, 'get');
   if (params) {
     rb.query('year', params.year, {});
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<Array<SessionConfigurationDto>>;
     })
   );
 }

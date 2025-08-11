@@ -10,14 +10,14 @@ import { RequestBuilder } from '../../request-builder';
 
 import { GeneralRegisterDto } from '../../models/general-register-dto';
 
-export interface ApiGeneralregisterPost$XWwwFormUrlencoded$Params {
+export interface ApiGeneralregisterPost$Params {
       body?: GeneralRegisterDto
 }
 
-export function apiGeneralregisterPost$XWwwFormUrlencoded(http: HttpClient, rootUrl: string, params?: ApiGeneralregisterPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiGeneralregisterPost$XWwwFormUrlencoded.PATH, 'post');
+export function apiGeneralregisterPost(http: HttpClient, rootUrl: string, params?: ApiGeneralregisterPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiGeneralregisterPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/x-www-form-urlencoded');
+    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
@@ -30,4 +30,4 @@ export function apiGeneralregisterPost$XWwwFormUrlencoded(http: HttpClient, root
   );
 }
 
-apiGeneralregisterPost$XWwwFormUrlencoded.PATH = '/api/generalregister';
+apiGeneralregisterPost.PATH = '/api/generalregister';

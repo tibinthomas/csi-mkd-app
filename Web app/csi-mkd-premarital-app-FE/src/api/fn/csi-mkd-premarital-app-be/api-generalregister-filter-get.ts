@@ -10,11 +10,19 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface ApiGeneralregisterFilterGet$Params {
+  Search?: string;
+  UnapprovedOnly?: boolean;
+  Page: number;
+  PageSize: number;
 }
 
-export function apiGeneralregisterFilterGet(http: HttpClient, rootUrl: string, params?: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+export function apiGeneralregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, apiGeneralregisterFilterGet.PATH, 'get');
   if (params) {
+    rb.query('Search', params.Search, {});
+    rb.query('UnapprovedOnly', params.UnapprovedOnly, {});
+    rb.query('Page', params.Page, {});
+    rb.query('PageSize', params.PageSize, {});
   }
 
   return http.request(

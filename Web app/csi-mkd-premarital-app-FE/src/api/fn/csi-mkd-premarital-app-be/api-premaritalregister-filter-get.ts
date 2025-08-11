@@ -10,11 +10,25 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface ApiPremaritalregisterFilterGet$Params {
+  Search?: string;
+  UnapprovedOnly?: boolean;
+  ActiveSessionOnly?: boolean;
+  SessionYear?: number;
+  SessionName?: string;
+  Page: number;
+  PageSize: number;
 }
 
-export function apiPremaritalregisterFilterGet(http: HttpClient, rootUrl: string, params?: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+export function apiPremaritalregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, apiPremaritalregisterFilterGet.PATH, 'get');
   if (params) {
+    rb.query('Search', params.Search, {});
+    rb.query('UnapprovedOnly', params.UnapprovedOnly, {});
+    rb.query('ActiveSessionOnly', params.ActiveSessionOnly, {});
+    rb.query('SessionYear', params.SessionYear, {});
+    rb.query('SessionName', params.SessionName, {});
+    rb.query('Page', params.Page, {});
+    rb.query('PageSize', params.PageSize, {});
   }
 
   return http.request(

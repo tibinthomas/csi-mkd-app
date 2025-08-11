@@ -8,16 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { GeneralRegisterDto } from '../../models/general-register-dto';
 
-export interface ApiGeneralregisterPost$FormData$Params {
-      body?: GeneralRegisterDto
+export interface ApiCacheInvalidateEmailConfigPost$Params {
 }
 
-export function apiGeneralregisterPost$FormData(http: HttpClient, rootUrl: string, params?: ApiGeneralregisterPost$FormData$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiGeneralregisterPost$FormData.PATH, 'post');
+export function apiCacheInvalidateEmailConfigPost(http: HttpClient, rootUrl: string, params?: ApiCacheInvalidateEmailConfigPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCacheInvalidateEmailConfigPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
@@ -30,4 +27,4 @@ export function apiGeneralregisterPost$FormData(http: HttpClient, rootUrl: strin
   );
 }
 
-apiGeneralregisterPost$FormData.PATH = '/api/generalregister';
+apiCacheInvalidateEmailConfigPost.PATH = '/api/cache/invalidate-email-config';

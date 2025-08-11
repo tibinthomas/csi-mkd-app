@@ -9,18 +9,12 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface ApiConfirmationregisterFilterGet$Params {
-  Search?: string;
-  Page: number;
-  PageSize: number;
+export interface ApiCacheInvalidateFeedbackPost$Params {
 }
 
-export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiConfirmationregisterFilterGet.PATH, 'get');
+export function apiCacheInvalidateFeedbackPost(http: HttpClient, rootUrl: string, params?: ApiCacheInvalidateFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCacheInvalidateFeedbackPost.PATH, 'post');
   if (params) {
-    rb.query('Search', params.Search, {});
-    rb.query('Page', params.Page, {});
-    rb.query('PageSize', params.PageSize, {});
   }
 
   return http.request(
@@ -33,4 +27,4 @@ export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: stri
   );
 }
 
-apiConfirmationregisterFilterGet.PATH = '/api/confirmationregister/filter';
+apiCacheInvalidateFeedbackPost.PATH = '/api/cache/invalidate-feedback';

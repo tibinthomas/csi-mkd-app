@@ -10,14 +10,14 @@ import { RequestBuilder } from '../../request-builder';
 
 import { PremaritalDocumentDto } from '../../models/premarital-document-dto';
 
-export interface ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params {
+export interface ApiPremaritalregisterSaveFileUrlsPost$Params {
       body?: PremaritalDocumentDto
 }
 
-export function apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded(http: HttpClient, rootUrl: string, params?: ApiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded.PATH, 'post');
+export function apiPremaritalregisterSaveFileUrlsPost(http: HttpClient, rootUrl: string, params?: ApiPremaritalregisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterSaveFileUrlsPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/x-www-form-urlencoded');
+    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
@@ -30,4 +30,4 @@ export function apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded(http: H
   );
 }
 
-apiPremaritalregisterSaveFileUrlsPost$XWwwFormUrlencoded.PATH = '/api/premaritalregister/save-file-urls';
+apiPremaritalregisterSaveFileUrlsPost.PATH = '/api/premaritalregister/save-file-urls';

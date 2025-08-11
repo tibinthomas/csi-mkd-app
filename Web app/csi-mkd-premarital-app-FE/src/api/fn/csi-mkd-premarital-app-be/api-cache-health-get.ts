@@ -8,24 +8,23 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { SessionFeedback } from '../../models/session-feedback';
 
-export interface ApiFeedbackGet$Params {
+export interface ApiCacheHealthGet$Params {
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionFeedback>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function apiCacheHealthGet(http: HttpClient, rootUrl: string, params?: ApiCacheHealthGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiCacheHealthGet.PATH, 'get');
   if (params) {
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<SessionFeedback>>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+apiCacheHealthGet.PATH = '/api/cache/health';
