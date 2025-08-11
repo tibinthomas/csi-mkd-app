@@ -29,15 +29,11 @@ RUN dotnet build "./csi-mkd-premarital-app-BE.csproj" -c $BUILD_CONFIGURATION -o
 # =========================
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-ARG RUNTIME_IDENTIFIER=linux-x64
 
 RUN dotnet publish \
     "./csi-mkd-premarital-app-BE.csproj" \
     -c $BUILD_CONFIGURATION \
-    -r $RUNTIME_IDENTIFIER \
-    --self-contained true \
     -o /app/publish \
-    /p:PublishSingleFile=true \
     /p:PublishReadyToRun=true \
     /p:StripSymbols=true \
     /p:DebugType=None \
@@ -59,4 +55,4 @@ ENV ASPNETCORE_URLS=http://+:8080 \
     COMPlus_TC_QuickJitForLoops=1 \
     OTEL_SERVICE_NAME=csi-mkd-premarital-app-BE
 
-ENTRYPOINT ["./csi-mkd-premarital-app-BE"]
+ENTRYPOINT ["dotnet", "csi-mkd-premarital-app-BE.dll"]
