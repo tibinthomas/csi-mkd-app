@@ -5,6 +5,7 @@ using csi_mkd_premarital_app_BE.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -13,6 +14,7 @@ public static class AuthEndpoints
     public static void MapAuthEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/api/auth");
+        group.DisableAntiforgery();
 
         group.MapPost("/login", async (ApplicationDbContext db, IConfiguration config, AdminLoginDto dto) =>
         {

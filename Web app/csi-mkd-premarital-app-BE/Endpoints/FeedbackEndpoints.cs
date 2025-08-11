@@ -2,6 +2,7 @@ using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
@@ -11,6 +12,7 @@ public static class FeedbackEndpoints
     public static void MapFeedbackEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/api/feedback");
+        group.DisableAntiforgery();
 
         group.MapPost("/", async (ApplicationDbContext db, IOutputCacheStore cache, SessionFeedbackDto dto) =>
         {

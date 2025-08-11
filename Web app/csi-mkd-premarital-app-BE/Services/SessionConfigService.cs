@@ -27,8 +27,8 @@ public class SessionConfigService : ISessionConfigService
         var session = new SessionConfiguration
         {
             SessionName = dto.SessionName,
-            StartDate = dto.StartDate,
-            EndDate = dto.EndDate,
+            StartDate = DateTime.SpecifyKind(dto.StartDate, DateTimeKind.Utc),
+            EndDate = DateTime.SpecifyKind(dto.EndDate, DateTimeKind.Utc),
             IsActive = dto.IsActive,
             SubmittedDate = DateTime.UtcNow
         };
@@ -42,8 +42,8 @@ public class SessionConfigService : ISessionConfigService
         if (existing == null) return false;
 
         existing.SessionName = dto.SessionName;
-        existing.StartDate = dto.StartDate;
-        existing.EndDate = dto.EndDate;
+        existing.StartDate = DateTime.SpecifyKind(dto.StartDate, DateTimeKind.Utc);
+        existing.EndDate = DateTime.SpecifyKind(dto.EndDate, DateTimeKind.Utc);
         existing.IsActive = dto.IsActive;
         existing.SubmittedDate = DateTime.UtcNow;
 

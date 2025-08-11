@@ -44,7 +44,7 @@ namespace csi_mkd_premarital_app_BE.Services
                 Occupation = dto.Occupation,
                 ChurchName = dto.ChurchName,
                 FianceName = dto.FianceName,
-                DateOfMarriage = dto.DateOfMarriage,
+                DateOfMarriage = dto.DateOfMarriage.HasValue ? DateTime.SpecifyKind(dto.DateOfMarriage.Value, DateTimeKind.Utc) : null,
                 Phone = dto.Phone,
                 Email = dto.Email,
                 Days = dto.Days,

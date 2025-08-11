@@ -1,6 +1,7 @@
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -9,6 +10,7 @@ public static class ConfirmationRegisterEndpoints
     public static void MapConfirmationRegisterEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/api/confirmationregister");
+        group.DisableAntiforgery();
 
         group.MapPost("/", async (IConfirmationRegisterService service, IRecaptchaService recaptcha, IOutputCacheStore cache, ConfirmationRegisterDto dto) =>
         {

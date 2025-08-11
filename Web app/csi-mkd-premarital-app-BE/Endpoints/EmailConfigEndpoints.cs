@@ -1,6 +1,7 @@
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.Models;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.EntityFrameworkCore;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
@@ -10,6 +11,7 @@ public static class EmailConfigEndpoints
     public static void MapEmailConfigEndpoints(this WebApplication app)
     {
         var group = app.MapGroup("/api/emailconfig");
+        group.DisableAntiforgery();
 
         group.MapGet("/", async (ApplicationDbContext db) =>
         {
