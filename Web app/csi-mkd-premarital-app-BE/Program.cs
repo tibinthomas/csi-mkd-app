@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Hosting;
 using csi_mkd_premarital_app_BE.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -227,5 +228,25 @@ app.MapCacheManagementEndpoints();
 
 // Add health check endpoint
 app.MapGet("/health", () => Results.Ok("Healthy"));
+
+// Warm up EF Core model and database connection in the background after startup
+app.Lifetime.ApplicationStarted.Register(() =>
+{
+    _ = Task.Run(async () =>
+    {
+        try
+        {
+            using var scope = app.Services.CreateScope();
+            var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            await db.Database.CanConnectAsync();
+            // Execute a very light query to force model build
+            await db.AdminUsers.AsNoTracking().Select(x => x.Id).Take(1).ToListAsync();
+        }
+        catch
+        {
+            // ignore warmup failures; app can still serve requests
+        }
+    });
+});
 
 app.Run();

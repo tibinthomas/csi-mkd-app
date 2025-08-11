@@ -17,7 +17,10 @@ public static class Extensions
 {
     public static IHostApplicationBuilder AddServiceDefaults(this IHostApplicationBuilder builder)
     {
-        builder.ConfigureOpenTelemetry();
+        if (ShouldEnableOpenTelemetry(builder))
+        {
+            builder.ConfigureOpenTelemetry();
+        }
 
         builder.AddDefaultHealthChecks();
 
@@ -86,6 +89,23 @@ public static class Extensions
         //}
 
         return builder;
+    }
+
+    private static bool ShouldEnableOpenTelemetry(IHostApplicationBuilder builder)
+    {
+        var otlpEndpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
+        if (!string.IsNullOrWhiteSpace(otlpEndpoint))
+        {
+            return true;
+        }
+
+        var flag = builder.Configuration["OpenTelemetry:Enabled"];
+        if (bool.TryParse(flag, out var enabled) && enabled)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public static IHostApplicationBuilder AddDefaultHealthChecks(this IHostApplicationBuilder builder)
