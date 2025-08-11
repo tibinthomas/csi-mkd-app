@@ -228,6 +228,19 @@ app.MapCacheManagementEndpoints();
 
 // Add health check endpoint
 app.MapGet("/health", () => Results.Ok("Healthy"));
+// DB health check endpoint for production diagnostics
+app.MapGet("/health/db", async (ApplicationDbContext db) =>
+{
+    try
+    {
+        var canConnect = await db.Database.CanConnectAsync();
+        return canConnect ? Results.Ok("DB OK") : Results.Problem("DB not reachable");
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem($"DB check failed: {ex.Message}");
+    }
+});
 
 // Warm up EF Core model and database connection in the background after startup
 app.Lifetime.ApplicationStarted.Register(() =>
@@ -242,9 +255,16 @@ app.Lifetime.ApplicationStarted.Register(() =>
             // Execute a very light query to force model build
             await db.AdminUsers.AsNoTracking().Select(x => x.Id).Take(1).ToListAsync();
         }
-        catch
+        catch (Exception ex)
         {
-            // ignore warmup failures; app can still serve requests
+            try
+            {
+                app.Logger.LogError(ex, "Warmup: database connectivity or model build failed");
+            }
+            catch
+            {
+                // ignore logging failure
+            }
         }
     });
 });
