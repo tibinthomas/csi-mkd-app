@@ -225,8 +225,7 @@ export class PremaritalRegister {
 
   private readonly sessions$ = this.api.apiSessionconfigGet().pipe(
     map((data: any) => {
-      const parsed = JSON.parse(data);
-      return parsed.map((session: any) => ({
+      return data.map((session: any) => ({
         ...session,
         startDate: session.startDate,
         endDate: session.endDate,
