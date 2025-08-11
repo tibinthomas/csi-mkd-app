@@ -220,7 +220,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Session</mat-label>
-            <mat-select formControlName="sessionId" [disabled]="selectedSessionId() !== null">
+            <mat-select formControlName="sessionId">
               @for (session of sessionList(); track session) {
               <mat-option [value]="session.Id" [hidden]="!session.IsActive">
                 {{ session.SessionName }} ({{ session.StartDate | date }} - {{ session.EndDate | date }})
@@ -237,7 +237,7 @@
         <div class="mb-6" role="group" aria-labelledby="photo-upload-label">
           <label id="photo-upload-label" class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
           <button
-            mat-raised-button
+            mat-flat-button
             color="primary"
             type="button"
             (click)="photoInput.click()"
@@ -269,7 +269,7 @@
         <div class="mb-6" role="group" aria-labelledby="letter-upload-label">
           <label id="letter-upload-label" class="block font-medium mb-2" i18n>Upload Witness of Vicar</label>
           <button
-            mat-raised-button
+            mat-flat-button
             color="primary"
             type="button"
             (click)="letterInput.click()"
@@ -320,7 +320,7 @@
         </div>
         <div class="mt-6 flex justify-center">
           <button
-            mat-raised-button
+            mat-flat-button
             color="primary"
             type="submit"
             class="font-bold"

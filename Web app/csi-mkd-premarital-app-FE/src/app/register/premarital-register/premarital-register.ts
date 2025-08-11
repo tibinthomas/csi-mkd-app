@@ -208,7 +208,6 @@ export class PremaritalRegister {
     this.sessionList(); // load sessionList()
     if (this.selectedSessionId()) {
       this.form.patchValue({ sessionId: this.selectedSessionId() });
-      this.form.get('sessionId')?.disable();
     }
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   }
@@ -345,7 +344,7 @@ export class PremaritalRegister {
       return;
     }
 
-    const raw = this.form.getRawValue();
+    const raw = this.form.value();
 
     this.isSubmitting.set(true);
 
