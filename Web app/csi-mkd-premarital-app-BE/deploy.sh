@@ -5,20 +5,60 @@ set -o pipefail
 # -----------------------
 # CONFIG
 # -----------------------
+# Static config
 DOCKER_USER="tibinthomas"
-DOCKER_PAT="REDACTED_DOCKER_PAT"
 IMAGE_NAME="tibinthomas/csi-mkd-counselling-web-api"
-# Aspire orchestrates multi-project; tag by git sha or timestamp for traceability
-IMAGE_TAG="$(git rev-parse --short HEAD 2>/dev/null || date +%Y%m%d%H%M)"
 RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 APP_NAME="csi-mid-counselling-web-api"
-# Use linux/amd64 or linux/arm64 as needed
 PLATFORM="linux/amd64"
-
-# Runtime identifier to match the container base; keep in sync with Dockerfile ARG
 RUNTIME_IDENTIFIER="linux-x64"
 
+# Dynamic config
+IMAGE_TAG="$(git rev-parse --short HEAD 2>/dev/null || date +%Y%m%d%H%M)"
 FULL_IMAGE="$IMAGE_NAME:$IMAGE_TAG"
+
+# -----------------------
+# LOAD & VALIDATE SECRETS
+# -----------------------
+# Load environment variables from .env file if it exists
+if [ -f .env ]; then
+    echo "📜 Loading environment variables from .env file..."
+    set -o allexport
+    source .env
+    set +o allexport
+fi
+
+# Validate that required secrets are set
+required_secrets=(
+    "DOCKER_PAT"
+    "ConnectionStrings__DefaultConnection"
+    "JwtSettings__Key"
+    "JwtSettings__Issuer"
+    "JwtSettings__Audience"
+    "SendGrid__ApiKey"
+    "AzureBlob__ConnectionString"
+    "AzureBlob__AccountName"
+    "AzureBlob__AccountKey"
+    "GoogleReCaptcha__SecretKey"
+)
+
+missing_secrets=()
+for secret in "${required_secrets[@]}"; do
+    if [ -z "${!secret}" ]; then
+        missing_secrets+=("$secret")
+    fi
+done
+
+if [ ${#missing_secrets[@]} -ne 0 ]; then
+    echo "❌ Missing required environment variables:"
+    for secret in "${missing_secrets[@]}"; do
+        echo "  - $secret"
+    done
+    echo "👉 Please set them in your environment or in a .env file."
+    exit 1
+fi
+
+echo "✅ All required secrets are present."
 
 # -----------------------
 # CHECK TOOLS
@@ -66,7 +106,7 @@ if ! az account show &>/dev/null; then
 fi
 
 # -----------------------
-# SET REGISTRY CREDS IN AZURE (only needed once)
+# SET REGISTRY CREDS IN AZURE
 # -----------------------
 echo "🔧 Setting Azure Container App registry credentials..."
 az containerapp registry set \

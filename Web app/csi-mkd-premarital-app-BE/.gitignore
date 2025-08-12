@@ -406,3 +406,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 app.zip
+
+# Secret environment variables
+.env
