@@ -77,7 +77,7 @@ export class Feedback {
   protected readonly isSubmitting = signal(false);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
-  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
+  protected readonly timezoneDisplay: string = 'Time Zone: IST (UTC+05:30)';
 
   onSubmit() {
     if (this.feedbackForm.invalid) {
@@ -125,22 +125,6 @@ export class Feedback {
       event.returnValue = '';
     }
   };
-
-  private getTimezoneDisplay(): string {
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const offsetMin = new Date().getTimezoneOffset();
-      const sign = offsetMin <= 0 ? '+' : '-';
-      const abs = Math.abs(offsetMin);
-      const hh = Math.floor(abs / 60)
-        .toString()
-        .padStart(2, '0');
-      const mm = (abs % 60).toString().padStart(2, '0');
-      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
-    } catch {
-      return 'Time Zone: UTC';
-    }
-  }
 
   private focusFirstInvalidControl(): void {
     try {
