@@ -79,7 +79,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar class="surface-container-high shadow-sm theme-transition">
+    <mat-toolbar class="fixed top-0 left-0 right-0 z-50 shadow-sm theme-transition">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>{{ sidenavOpen() ? "close" : "menu" }}</mat-icon>
       </button>
@@ -88,7 +88,7 @@
       <app-theme-toggle></app-theme-toggle>
       <app-language-selector></app-language-selector>
     </mat-toolbar>
-    <main class="p-6 surface-container theme-transition">
+    <main class="p-20 surface-container theme-transition">
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>
