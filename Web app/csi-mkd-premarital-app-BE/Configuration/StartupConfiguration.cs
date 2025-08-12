@@ -7,38 +7,30 @@ public static class StartupConfiguration
 {
     public static void ConfigureStartupTasks(WebApplication app)
     {
-        // Warm up EF Core model and database connection in the background after startup
-        app.Lifetime.ApplicationStarted.Register(() =>
+        // Only warm up in production, skip in development
+        if (!app.Environment.IsDevelopment())
         {
-            _ = Task.Run(async () =>
+            app.Lifetime.ApplicationStarted.Register(() =>
             {
-                try
-                {
-                    using var scope = app.Services.CreateScope();
-                    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    
-                    await db.Database.CanConnectAsync();
-                    
-                    // Execute a very light query to force model build
-                    await db.AdminUsers
-                        .AsNoTracking()
-                        .Select(x => x.Id)
-                        .OrderBy(x => x)
-                        .Take(1)
-                        .ToListAsync();
-                }
-                catch (Exception ex)
+                _ = Task.Run(async () =>
                 {
                     try
                     {
-                        app.Logger.LogError(ex, "Warmup: database connectivity or model build failed");
+                        using var scope = app.Services.CreateScope();
+                        var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                        
+                        // Use a lighter query for warmup
+                        await db.Database.CanConnectAsync();
+                        
+                        // Skip model building warmup in production with compiled models
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        // Ignore logging failure
+                        // Log but don't fail startup
+                        app.Logger.LogWarning(ex, "Database warmup failed, continuing startup");
                     }
-                }
+                });
             });
-        });
+        }
     }
 }

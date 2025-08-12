@@ -27,6 +27,16 @@ public static class ServiceConfiguration
 
         // Configure JSON options
         ConfigureJsonOptions(builder);
+        
+        // Optimize JSON serialization for production
+        if (!builder.Environment.IsDevelopment())
+        {
+            builder.Services.ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.PropertyNamingPolicy = null;
+                options.SerializerOptions.WriteIndented = false; // Faster in production
+            });
+        }
 
         // Configure Swagger (development only)
         if (builder.Environment.IsDevelopment())
@@ -160,15 +170,22 @@ public static class ServiceConfiguration
                     errorCodesToAdd: null);
             });
 
-            if (builder.Environment.IsDevelopment())
+            // Enable compiled models for faster startup (EF Core 9 approach)
+            options.UseModel(ApplicationDbContextModel.Instance);
+
+            // Performance optimizations
+            options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
+            options.EnableDetailedErrors(builder.Environment.IsDevelopment());
+            
+            // Disable change tracking in production for faster startup
+            if (!builder.Environment.IsDevelopment())
             {
-                options.EnableSensitiveDataLogging()
-                       .EnableDetailedErrors();
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             }
 
             // Add EF Core interceptor(s)
             options.AddInterceptors(serviceProvider.GetRequiredService<AuditSaveChangesInterceptor>());
-        }, poolSize: 256);
+        }, poolSize: 128); // Reduced from 256 for consumption plan
     }
 
     private static void RegisterApplicationServices(WebApplicationBuilder builder)

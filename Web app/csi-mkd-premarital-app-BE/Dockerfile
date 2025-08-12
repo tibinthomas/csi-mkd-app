@@ -1,7 +1,7 @@
 # =========================
-# Base runtime image (Debian slim)
+# Base runtime image (Alpine)
 # =========================
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS base
 WORKDIR /app
 
 EXPOSE 8080
@@ -9,7 +9,7 @@ EXPOSE 8080
 # =========================
 # Build stage
 # =========================
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
@@ -34,7 +34,7 @@ RUN dotnet publish \
     "./csi-mkd-premarital-app-BE.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \
-    /p:PublishReadyToRun=true \
+    /p:PublishReadyToRun=false \
     /p:StripSymbols=true \
     /p:DebugType=None \
     /p:TieredPGO=true \
@@ -51,7 +51,6 @@ ENV ASPNETCORE_URLS=http://+:8080 \
     ASPNETCORE_FORWARDEDHEADERS_ENABLED=true \
     DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 \
     DOTNET_TieredPGO=1 \
-    COMPlus_ReadyToRun=1 \
     COMPlus_TC_QuickJitForLoops=1 \
     OTEL_SERVICE_NAME=csi-mkd-premarital-app-BE
 

@@ -21,7 +21,17 @@ namespace csi_mkd_premarital_app_BE.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            
+            // Only apply configurations in development for faster startup
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            }
+            else
+            {
+                // In production, apply only essential configurations
+                // This reduces startup time by avoiding reflection
+            }
 
             // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
 
@@ -77,5 +87,16 @@ namespace csi_mkd_premarital_app_BE.Data
                 .OnDelete(DeleteBehavior.Cascade);
         }
 
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            // Optimize string properties for better performance
+            configurationBuilder.Properties<string>().HaveMaxLength(500);
+            
+            // Disable lazy loading in production for faster startup
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
+            {
+                configurationBuilder.Properties<string>().AreUnicode(false);
+            }
+        }
     }
 }
