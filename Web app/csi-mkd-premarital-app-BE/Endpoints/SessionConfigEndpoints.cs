@@ -71,6 +71,14 @@ public static class SessionConfigEndpoints
         })
         .Produces<List<SessionConfigurationDto>>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("sessions").Expire(TimeSpan.FromMinutes(2)));
+
+        group.MapPost("/deactivate-sessions", async (ISessionConfigService service) =>
+        {
+            await service.DeactivateSessionsStartingIn3DaysAsync();
+            return Results.Ok(new { message = "Sessions starting in 3 days have been deactivated." });
+        })
+        .Produces(StatusCodes.Status200OK);
+
     }
 }
 

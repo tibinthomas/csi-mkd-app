@@ -10,4 +10,7 @@ public interface ISessionConfigRepository
     Task<bool> Update(SessionConfiguration session);
     Task<bool> Delete(int id);
     Task<List<SessionConfiguration>> GetByYear(int year);
+    Task<List<SessionConfiguration>> GetSessionsByStartDateAsync(DateTime startDate);
+    Task UpdateSessionAsync(SessionConfiguration session);
+
 }

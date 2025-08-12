@@ -65,4 +65,16 @@ public class SessionConfigService : ISessionConfigService
         IsActive = s.IsActive,
         SubmittedDate = s.SubmittedDate,
     };
+
+    public async Task DeactivateSessionsStartingIn3DaysAsync()
+    {
+        var targetDate = DateTime.UtcNow.Date.AddDays(3);
+        var sessions = await _repo.GetSessionsByStartDateAsync(targetDate);
+
+        foreach (var session in sessions)
+        {
+            session.IsActive = false;
+            await _repo.UpdateSessionAsync(session);
+        }
+    }
 }
