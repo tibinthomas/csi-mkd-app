@@ -73,6 +73,8 @@ import { apiPremaritalregisterSaveFileUrlsPost } from '../fn/csi-mkd-premarital-
 import { ApiPremaritalregisterSaveFileUrlsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post';
 import { apiPremaritalregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { ApiPremaritalregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
+import { apiSessionconfigDeactivateSessionsPost } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-deactivate-sessions-post';
+import { ApiSessionconfigDeactivateSessionsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-deactivate-sessions-post';
 import { apiSessionconfigGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-get';
 import { ApiSessionconfigGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-get';
 import { apiSessionconfigIdDelete } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-id-delete';
@@ -87,6 +89,8 @@ import { apiSessionconfigSessionsGet } from '../fn/csi-mkd-premarital-app-be/api
 import { ApiSessionconfigSessionsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { CheckEmailResponseDto } from '../models/check-email-response-dto';
 import { EmailConfig } from '../models/email-config';
+import { healthDbGet } from '../fn/csi-mkd-premarital-app-be/health-db-get';
+import { HealthDbGet$Params } from '../fn/csi-mkd-premarital-app-be/health-db-get';
 import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { SessionConfigurationDto } from '../models/session-configuration-dto';
@@ -119,6 +123,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   healthGet(params?: HealthGet$Params, context?: HttpContext): Observable<void> {
     return this.healthGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `healthDbGet()` */
+  static readonly HealthDbGetPath = '/health/db';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `healthDbGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  healthDbGet$Response(params?: HealthDbGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return healthDbGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `healthDbGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  healthDbGet(params?: HealthDbGet$Params, context?: HttpContext): Observable<void> {
+    return this.healthDbGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
@@ -720,6 +749,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
   apiSessionconfigSessionsGet(params: ApiSessionconfigSessionsGet$Params, context?: HttpContext): Observable<Array<SessionConfigurationDto>> {
     return this.apiSessionconfigSessionsGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<SessionConfigurationDto>>): Array<SessionConfigurationDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigDeactivateSessionsPost()` */
+  static readonly ApiSessionconfigDeactivateSessionsPostPath = '/api/sessionconfig/deactivate-sessions';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigDeactivateSessionsPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigDeactivateSessionsPost$Response(params?: ApiSessionconfigDeactivateSessionsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigDeactivateSessionsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigDeactivateSessionsPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigDeactivateSessionsPost(params?: ApiSessionconfigDeactivateSessionsPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigDeactivateSessionsPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

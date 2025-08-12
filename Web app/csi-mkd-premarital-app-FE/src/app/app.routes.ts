@@ -154,6 +154,15 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'deactivate-sessions',
+        title: 'Deactivate Sessions - CSI MKD Premarital Counsel',
+        data: { description: 'Deactivate sessions that will begin in 3 days' },
+        loadComponent: () =>
+          import('./admin/deactivate-sessions/deactivate-sessions').then(
+            (m) => m.DeactivateSessions
+          ),
+      },
+      {
         path: 'general-list',
         title: 'General Registrations - CSI MKD Premarital Counsel',
         data: { description: 'View and manage general registrations.' },
@@ -165,7 +174,9 @@ export const routes: Routes = [
       {
         path: 'pre-confirm-list',
         title: 'Pre-Confirmation Registrations - CSI MKD Premarital Counsel',
-        data: { description: 'View and manage pre-confirmation registrations.' },
+        data: {
+          description: 'View and manage pre-confirmation registrations.',
+        },
         loadComponent: () =>
           import('./admin/pre-confirm-list/pre-confirm-list').then(
             (m) => m.PreConfirmList

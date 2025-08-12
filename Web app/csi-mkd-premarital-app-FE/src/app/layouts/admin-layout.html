@@ -41,6 +41,15 @@
         </a>
         <a
           mat-list-item
+          routerLink="/admin/deactivate-sessions"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          (click)="toggleSidenav()"
+        >
+          <mat-icon class="mr-4">disabled_by_default</mat-icon>
+          <span>Deactivate Sessions</span>
+        </a>
+        <a
+          mat-list-item
           routerLink="/admin/general-list"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
           (click)="toggleSidenav()"

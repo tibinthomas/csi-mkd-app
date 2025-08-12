@@ -1,0 +1,6 @@
+<button mat-flat-button (click)="deactivateSessions()" [disabled]="loading()">
+  {{ loading() ? "Deactivating..." : "Deactivate Sessions Starting in 3 Days" }}
+</button>
+@if(message()){
+<p [class.success]="success()" [class.error]="!success()">{{ message() }}</p>
+}
