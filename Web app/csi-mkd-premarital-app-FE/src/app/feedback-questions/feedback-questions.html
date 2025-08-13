@@ -1,24 +1,62 @@
 <main class="min-h-screen py-30 px-6 theme-transition">
   <div class="max-w-4xl mx-auto text-center">
-    <h1 class="mb-5 text-2xl font-bold tracking-tight font-bold text-on-background theme-transition" i18n>
-      Choose a Form
-    </h1>
+    <h1 class="mb-5 text-2xl font-bold tracking-tight text-on-background theme-transition" i18n>Choose a Form</h1>
     <p class="text-on-surface-variant max-w-xl mx-auto mb-10 theme-transition" i18n>
-      Select the form you'd like to fill out.
+      Please verify your email before selecting a form.
     </p>
 
+    <!-- Email Verification Form -->
+    <form
+      [formGroup]="emailForm"
+      (ngSubmit)="verifyEmail()"
+      class="mb-8 flex flex-col sm:flex-row items-center gap-4 justify-center"
+    >
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-rose-500"
+      />
+      <!-- <mat-form-field appearance="fill" class="w-full sm:w-80">
+        <mat-label i18n>Email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="Enter your email"
+          class="w-full"
+          [ngClass]="{ 'border-red-500': emailControl.invalid && (emailControl.dirty || emailControl.touched) }"
+        />
+      </mat-form-field> -->
+      <button mat-flat-button type="submit" class="cursor-pointer" [disabled]="emailForm.invalid">Verify Email</button>
+    </form>
+
+    <div class="text-red-500 text-sm mb-6">
+      @if (emailControl.invalid && (emailControl.dirty || emailControl.touched)) { @if
+      (emailControl.errors?.['required']) {
+      <div>Email is required.</div>
+      } @if (emailControl.errors?.['email']) {
+      <div>Enter a valid email address.</div>
+      } @if (emailControl.errors?.['notRegistered']) {
+      <div>You must register to access these forms.</div>
+      } @if (emailControl.errors?.['serverError']) {
+      <div>An error occurred while verifying your email. Please try again later.</div>
+      } }
+    </div>
+
+    <!-- Cards -->
     <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
       <!-- Feedback Form Card -->
       <div
-        class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:scale-[1.05] flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary p-6 theme-transition"
-        (click)="goToForm('feedback')"
-        role="button"
+        class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md transition-all duration-300 flex flex-col h-full p-6 theme-transition"
+        [class.pointer-events-none]="!isVerified"
+        [class.opacity-50]="!isVerified"
+        (click)="isVerified && goToForm('feedback')"
         tabindex="0"
-        aria-label="Open Feedback Form"
+        role="button"
+        [attr.aria-disabled]="!isVerified"
       >
-        <!-- Feedback Icon -->
         <svg
-          class="w-10 h-10 mb-4 text-rose-500"
+          class="w-10 h-10 mb-4 text-rose-700"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
@@ -38,15 +76,16 @@
 
       <!-- Questionnaire Form Card -->
       <div
-        class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 hover:scale-[1.05] flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary p-6 theme-transition"
-        (click)="goToForm('questions')"
-        role="button"
+        class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md transition-all duration-300 flex flex-col h-full p-6 theme-transition"
+        [class.pointer-events-none]="!isVerified"
+        [class.opacity-50]="!isVerified"
+        (click)="isVerified && goToForm('questions')"
         tabindex="0"
-        aria-label="Open Questionnaire Form"
+        role="button"
+        [attr.aria-disabled]="!isVerified"
       >
-        <!-- Checklist Icon -->
         <svg
-          class="w-10 h-10 mb-4 text-rose-500"
+          class="w-10 h-10 mb-4 text-rose-700"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
