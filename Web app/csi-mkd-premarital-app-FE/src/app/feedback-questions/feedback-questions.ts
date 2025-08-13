@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -27,7 +32,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class FeedbackQuestions {
   emailForm: FormGroup;
-  isVerified = false;
+  isVerified = signal(false);
   private service = inject(CsiMkdPremaritalAppBeService);
 
   constructor(private fb: FormBuilder, private router: Router) {
@@ -51,20 +56,20 @@ export class FeedbackQuestions {
     this.service
       .apiPremaritalregisterCheckEmailGet({ email: emailValue })
       .subscribe({
-        next: (res) => {
-          if (res) {
-            console.log('Email verified:', res);
-            this.isVerified = true;
+        next: (res: any) => {
+          if (res.Exists) {
+            this.isVerified.set(true);
+            console.log('Email verified successfully.');
             this.emailControl.setErrors(null); // clear any previous errors
           } else {
             console.log('Email not found in registered list.');
-            this.isVerified = false;
+            this.isVerified.set(false);
             this.emailControl.setErrors({ notRegistered: true });
           }
         },
         error: (err) => {
           console.error('Error verifying email:', err);
-          this.isVerified = false;
+          this.isVerified.set(false);
           this.emailControl.setErrors({ serverError: true });
         },
       });

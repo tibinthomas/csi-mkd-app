@@ -48,9 +48,9 @@
       <!-- Feedback Form Card -->
       <div
         class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md transition-all duration-300 flex flex-col h-full p-6 theme-transition"
-        [class.pointer-events-none]="!isVerified"
-        [class.opacity-50]="!isVerified"
-        (click)="isVerified && goToForm('feedback')"
+        [class.pointer-events-none]="!isVerified()"
+        [class.opacity-50]="!isVerified()"
+        (click)="isVerified() && goToForm('feedback')"
         tabindex="0"
         role="button"
         [attr.aria-disabled]="!isVerified"
@@ -77,9 +77,9 @@
       <!-- Questionnaire Form Card -->
       <div
         class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md transition-all duration-300 flex flex-col h-full p-6 theme-transition"
-        [class.pointer-events-none]="!isVerified"
-        [class.opacity-50]="!isVerified"
-        (click)="isVerified && goToForm('questions')"
+        [class.pointer-events-none]="!isVerified()"
+        [class.opacity-50]="!isVerified()"
+        (click)="isVerified() && goToForm('questions')"
         tabindex="0"
         role="button"
         [attr.aria-disabled]="!isVerified"
