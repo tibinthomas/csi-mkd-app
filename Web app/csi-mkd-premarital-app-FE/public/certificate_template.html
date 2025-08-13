@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{CERTIFICATE_TITLE}}</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+
+    .certificate-container {
+      width: 1056px;
+      height: 816px;
+      background: #fff url('{{BACKGROUND_PATTERN_URL}}') no-repeat center;
+      background-size: cover;
+      border: 12px solid #b4975a;
+      padding: 60px;
+      margin: 0 auto;
+      position: relative;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .header {
+      margin-top: 40px;
+    }
+
+    .header .org-name {
+      font-size: 20px;
+      font-weight: bold;
+      color: #7d2c2c;
+      margin-top: 5px;
+    }
+
+    .certificate-title {
+      font-size: 42px;
+      font-weight: bold;
+      color: #7d2c2c;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .description {
+      font-size: 20px;
+      margin-top: 40px;
+      color: #2c1810;
+      font-weight: 600;
+    }
+
+    .recipient-name {
+      font-size: 36px;
+      font-weight: bold;
+      color: #004b2c;
+      text-decoration: underline;
+      margin: 15px 0;
+      display: inline-block;
+    }
+
+    .details {
+      font-size: 18px;
+      width: 80%;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #2c1810;
+      font-weight: 500;
+    }
+
+    .scripture {
+      font-size: 16px;
+      font-style: italic;
+      margin: 25px auto;
+      color: #2c1810;
+      width: 80%;
+      font-weight: 500;
+    }
+
+    .date {
+      font-size: 18px;
+      margin-top: 30px;
+      color: #2c1810;
+      font-weight: 600;
+    }
+
+    .signatures {
+      display: flex;
+      justify-content: space-between;
+      position: absolute;
+      bottom: 80px;
+      width: 85%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .sign-box {
+      text-align: center;
+    }
+
+    .sign-line {
+      border-top: 1px solid #000;
+      width: 220px;
+      margin: 0 auto 5px auto;
+    }
+
+    .signature-name {
+      font-weight: bold;
+      font-size: 16px;
+      color: #2c1810;
+    }
+
+    .signature-title {
+      font-size: 14px;
+      color: #2c1810;
+      font-weight: 500;
+    }
+
+    .logo {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="certificate-container">
+    <img src="{{LOGO_URL}}" alt="Organization Logo" class="logo" style="display: {{LOGO_DISPLAY}};">
+
+    <div class="header">
+      <div class="certificate-title">{{CERTIFICATE_TITLE}}</div>
+      <div class="org-name">{{ORGANIZATION_NAME}}</div>
+    </div>
+
+    <div class="description">This certifies that</div>
+    <div class="recipient-name">{{NAME}}</div>
+
+    <div class="details">{{CERTIFICATE_DESCRIPTION}}</div>
+
+    <div class="scripture">{{SCRIPTURE_VERSE}}</div>
+
+    <div class="date">Completed on <strong>{{DATE}}</strong></div>
+
+    <div class="signatures">
+      <div class="sign-box">
+        <div class="sign-line"></div>
+        <div class="signature-name">{{BISHOP_NAME}}</div>
+        <div class="signature-title">{{BISHOP_TITLE}}</div>
+      </div>
+      <div class="sign-box">
+        <div class="sign-line"></div>
+        <div class="signature-name">{{DIRECTOR_NAME}}</div>
+        <div class="signature-title">{{DIRECTOR_TITLE}}</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

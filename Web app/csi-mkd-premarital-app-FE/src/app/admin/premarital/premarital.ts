@@ -6,7 +6,10 @@ import {
   inject,
   signal,
   computed,
+  AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
 import jsPDF from 'jspdf';
@@ -43,8 +46,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/services';
 import { SessionDataService } from '../../core/services/session-data.service';
+import { CertificateService } from '../../core/services/certificate.service';
 import { ApiSessionconfigGet$Params } from '../../../api/fn/session-config/api-sessionconfig-get';
 import { ApiSessionconfigSessionsGet$Params } from '../../../api/fn/session-config/api-sessionconfig-sessions-get';
 import { ApiSessionconfigPost$Params } from '../../../api/fn/session-config/api-sessionconfig-post';
@@ -75,6 +80,7 @@ import { CreateUpdateSessionDto } from '../../../api/models';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatCardModule,
+    MatTooltipModule,
   ],
   animations: [
     trigger('detailExpand', [
@@ -94,6 +100,7 @@ export class PremaritalComponent {
   private readonly dialog = inject(MatDialog);
   private readonly api = inject(ApiService);
   private readonly sessionDataService = inject(SessionDataService);
+  private readonly certificateService = inject(CertificateService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -421,6 +428,141 @@ export class PremaritalComponent {
 
   clearFilter() {
     this.searchTerm.set('');
+  }
+
+  async generateCertificate(reg: any): Promise<void> {
+    try {
+      const certificateData = {
+        name: `${reg.FirstName} ${reg.LastName}`,
+        completionDate: reg.DateOfMarriage ? new Date(reg.DateOfMarriage) : new Date(),
+        sessionName: reg.SessionName
+      };
+
+      console.log('Generating certificate for:', certificateData);
+      
+      const htmlContent = await this.certificateService.previewCertificate(certificateData);
+      
+      console.log('Generated HTML content length:', htmlContent.length);
+      
+      this.openCertificatePreview(htmlContent, certificateData);
+    } catch (error) {
+      console.error('Error generating certificate:', error);
+      this._snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
+        duration: 5000
+      });
+    }
+  }
+
+  private openCertificatePreview(htmlContent: string, data: any): void {
+    const dialogRef = this.dialog.open(CertificatePreviewDialog, {
+      data: { htmlContent, certificateData: data },
+      width: '95vw',
+      height: '95vh',
+      maxWidth: '1200px',
+      maxHeight: '800px'
+    });
+  }
+}
+
+@Component({
+  selector: 'certificate-preview-dialog',
+  template: `
+    <div class="certificate-preview-container">
+      <div class="dialog-header flex justify-between items-center p-4 border-b">
+        <h2 mat-dialog-title class="m-0">Certificate Preview</h2>
+        <button mat-icon-button mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      
+      <div class="dialog-content p-4">
+        <div class="certificate-frame border rounded-lg overflow-hidden" style="height: 450px; width: 100%; overflow: auto;">
+          <div class="certificate-preview" [innerHTML]="sanitizedHtml" 
+               style="transform: scale(0.5); transform-origin: top left; width: 100%; height: 100%;">
+          </div>
+        </div>
+      </div>
+      
+      <div class="dialog-actions flex justify-center gap-4 p-4 border-t">
+        <button mat-raised-button color="primary" (click)="printCertificate()" [disabled]="isLoading()">
+          @if(isLoading()) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <mat-icon>print</mat-icon>
+          }
+          Print
+        </button>
+        <button mat-raised-button color="accent" (click)="downloadImage()" [disabled]="isLoading()">
+          @if(isLoading()) {
+            <mat-spinner diameter="20"></mat-spinner>
+          } @else {
+            <mat-icon>download</mat-icon>
+          }
+          Download
+        </button>
+        <button mat-button mat-dialog-close [disabled]="isLoading()">Cancel</button>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .certificate-preview-container {
+      max-width: 100%;
+      min-width: 800px;
+    }
+    .certificate-frame {
+      background: #f5f5f5;
+      position: relative;
+    }
+    .certificate-iframe {
+      width: 140% !important;
+      height: 140% !important;
+    }
+  `],
+  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+})
+export class CertificatePreviewDialog {
+  dialogRef = inject<MatDialogRef<CertificatePreviewDialog>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+  private readonly certificateService = inject(CertificateService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly sanitizer = inject(DomSanitizer);
+
+  isLoading = signal(false);
+
+  get sanitizedHtml(): SafeHtml {
+    console.log('Sanitizing HTML content:', this.data.htmlContent.substring(0, 200) + '...');
+    return this.sanitizer.bypassSecurityTrustHtml(this.data.htmlContent);
+  }
+
+  async printCertificate(): Promise<void> {
+    try {
+      this.isLoading.set(true);
+      await this.certificateService.printCertificate(this.data.htmlContent);
+    } catch (error) {
+      console.error('Error printing certificate:', error);
+      this.snackBar.open('Failed to print certificate. Please check if popups are allowed.', 'OK', {
+        duration: 3000
+      });
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
+
+  async downloadImage(): Promise<void> {
+    try {
+      this.isLoading.set(true);
+      await this.certificateService.downloadCertificateAsImage(this.data.certificateData);
+      this.snackBar.open('Certificate downloaded successfully!', 'OK', {
+        duration: 2000
+      });
+    } catch (error) {
+      console.error('Error downloading certificate:', error);
+      this.snackBar.open('Failed to download certificate. Please try again.', 'OK', {
+        duration: 3000
+      });
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 }
 
