@@ -12,9 +12,11 @@ RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 APP_NAME="csi-mid-counselling-web-api"
 PLATFORM="linux/amd64"
 RUNTIME_IDENTIFIER="linux-x64"
+VERSION="v1.0.0" # Semantic version for the application
 
 # Dynamic config
-IMAGE_TAG="$(git rev-parse --short HEAD 2>/dev/null || date +%Y%m%d%H%M)"
+GIT_HASH="$(git rev-parse --short HEAD 2>/dev/null || date +%Y%m%d%H%M)"
+IMAGE_TAG="$VERSION-$GIT_HASH"
 FULL_IMAGE="$IMAGE_NAME:$IMAGE_TAG"
 
 # -----------------------
