@@ -45,10 +45,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/services';
 import { SessionDataService } from '../../core/services/session-data.service';
-import { ApiSessionconfigGet$Params } from '../../../api/fn/session-config/api-sessionconfig-get';
-import { ApiSessionconfigSessionsGet$Params } from '../../../api/fn/session-config/api-sessionconfig-sessions-get';
-import { ApiSessionconfigPost$Params } from '../../../api/fn/session-config/api-sessionconfig-post';
-import { CreateUpdateSessionDto } from '../../../api/models';
 
 @Component({
   selector: 'app-premarital-list',
