@@ -10,6 +10,6 @@ public interface ISessionConfigService
     Task<bool> UpdateSession(int id, CreateUpdateSessionDto dto);
     Task<bool> DeleteSession(int id);
     Task<List<SessionConfigurationDto>> GetSessionsByYear(int year);
-    Task DeactivateSessionsStartingIn3DaysAsync();
-
+    Task DeactivateUpcomingSessionsAsync();
+    Task DeactivatePastSessionsAsync();
 }

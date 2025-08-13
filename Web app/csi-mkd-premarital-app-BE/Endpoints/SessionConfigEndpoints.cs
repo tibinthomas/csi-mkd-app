@@ -74,12 +74,17 @@ public static class SessionConfigEndpoints
 
         group.MapPost("/deactivate-sessions", async (ISessionConfigService service) =>
         {
-            await service.DeactivateSessionsStartingIn3DaysAsync();
+            await service.DeactivateUpcomingSessionsAsync();
             return Results.Ok(new { message = "Sessions starting in 3 days have been deactivated." });
         })
         .Produces(StatusCodes.Status200OK);
 
+        group.MapPost("/deactivate-past-sessions", async (ISessionConfigService service, ICacheInvalidationService cacheService) =>
+        {
+            await service.DeactivatePastSessionsAsync();
+            await cacheService.InvalidateSessionCachesAsync();
+            return Results.Ok(new { message = "Past sessions have been deactivated." });
+        })
+        .Produces(StatusCodes.Status200OK);
     }
 }
-
-

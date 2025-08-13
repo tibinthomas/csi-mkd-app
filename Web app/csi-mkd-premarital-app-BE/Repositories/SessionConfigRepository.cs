@@ -69,16 +69,51 @@ public class SessionConfigRepository : ISessionConfigRepository
             .OrderBy(s => s.StartDate)
             .ToListAsync();
 
-    public async Task<List<SessionConfiguration>> GetSessionsByStartDateAsync(DateTime startDate)
+
+   public async Task<int> DeactivateUpcomingSessionsAsync()
+{
+    var today = DateTime.UtcNow.Date;
+    var threeDaysFromToday = today.AddDays(3);
+
+    var upcomingSessions = await _context.SessionConfigurations
+        .Where(s => s.StartDate.Date >= today 
+                    && s.StartDate.Date <= threeDaysFromToday 
+                    && s.IsActive)
+        .ToListAsync();
+
+    if (upcomingSessions.Count == 0)
     {
-        return await _context.SessionConfigurations
-            .Where(s => s.StartDate.Date == startDate.Date && s.IsActive)
-            .ToListAsync();
+        return 0;
     }
 
-    public async Task UpdateSessionAsync(SessionConfiguration session)
+    foreach (var session in upcomingSessions)
     {
-        _context.SessionConfigurations.Update(session);
-        await _context.SaveChangesAsync();
+        session.IsActive = false;
     }
+
+    _context.SessionConfigurations.UpdateRange(upcomingSessions);
+    return await _context.SaveChangesAsync();
+}
+
+    public async Task<int> DeactivatePastSessionsAsync()
+    {
+        var today = DateTime.UtcNow.Date;
+        var pastSessions = await _context.SessionConfigurations
+            .Where(s => s.StartDate.Date < today && s.IsActive)
+            .ToListAsync();
+
+        if (pastSessions.Count == 0)
+        {
+            return 0;
+        }
+
+        foreach (var session in pastSessions)
+        {
+            session.IsActive = false;
+        }
+
+        _context.SessionConfigurations.UpdateRange(pastSessions);
+        return await _context.SaveChangesAsync();
+    }
+
 }

@@ -66,15 +66,13 @@ public class SessionConfigService : ISessionConfigService
         SubmittedDate = s.SubmittedDate,
     };
 
-    public async Task DeactivateSessionsStartingIn3DaysAsync()
+    public async Task DeactivateUpcomingSessionsAsync()
     {
-        var targetDate = DateTime.UtcNow.Date.AddDays(3);
-        var sessions = await _repo.GetSessionsByStartDateAsync(targetDate);
+        await _repo.DeactivateUpcomingSessionsAsync();
+    }
 
-        foreach (var session in sessions)
-        {
-            session.IsActive = false;
-            await _repo.UpdateSessionAsync(session);
-        }
+    public async Task DeactivatePastSessionsAsync()
+    {
+        await _repo.DeactivatePastSessionsAsync();
     }
 }
