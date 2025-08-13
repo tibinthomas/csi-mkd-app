@@ -68,4 +68,17 @@ public class SessionConfigRepository : ISessionConfigRepository
             .Where(s => s.StartDate.Year == year)
             .OrderBy(s => s.StartDate)
             .ToListAsync();
+
+    public async Task<List<SessionConfiguration>> GetSessionsByStartDateAsync(DateTime startDate)
+    {
+        return await _context.SessionConfigurations
+            .Where(s => s.StartDate.Date == startDate.Date && s.IsActive)
+            .ToListAsync();
+    }
+
+    public async Task UpdateSessionAsync(SessionConfiguration session)
+    {
+        _context.SessionConfigurations.Update(session);
+        await _context.SaveChangesAsync();
+    }
 }
