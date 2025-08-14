@@ -5,7 +5,9 @@ import {
   signal,
   ElementRef,
   ViewChild,
+  OnInit,
 } from '@angular/core';
+import { FeedbackDataService } from '../feedback-data.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +19,8 @@ import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { ClassFeedbackDto } from '../../../api/models';
 
 @Component({
   selector: 'app-feedback',
@@ -33,69 +37,81 @@ import { MatSelectModule } from '@angular/material/select';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    NoDigitsDirective,
+    MatIconModule,
   ],
 })
-export class Feedback {
+export class Feedback implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
+  private readonly feedbackDataService = inject(FeedbackDataService);
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
-  protected readonly sessionTitles = signal<any>([
-    { id: '1', title: 'Session 1: Notion about Marriage Life' },
-    { id: '2', title: 'Session 2: Faith' },
-    { id: '3', title: 'Session 3: Communication' },
-    { id: '4', title: 'Session 4: Family and Parenting' },
-    { id: '5', title: 'Session 5: Know your Partner' },
-    { id: '6', title: 'Session 6: Personality' },
-    { id: '7', title: 'Session 7: Sex and Spirituality' },
-    { id: '8', title: 'Session 8: Addiction' },
-    { id: '9', title: 'Session 9: Law in Marriage' },
-    { id: '10', title: 'Session 10: Emotional Hygiene and Stress' },
-    { id: '11', title: 'Session 11: Management' },
-    { id: '12', title: 'Session 12: Conflict Management' },
-    { id: '13', title: 'Session 13: Pregnancy and Childbirth' },
-    { id: '14', title: 'Session 14: Mens Sexuality' },
-    { id: '15', title: 'Session 15: Sacrementality' },
-    { id: '16', title: 'Session 16: Overall Feedback' },
+  userDetails = { name: '', email: '' };
+
+  ratingLabels: Record<string, string> = {
+    qualityRating: 'Overall Quality',
+    relevanceRating: 'Content Relevance',
+    engagementRating: 'Presenter Engagement',
+    organizationRating: 'Organization',
+  };
+
+  protected readonly classTitles = signal<any>([
+    {
+      id: '1',
+      title:
+        'Class 1: Biblical aspects of Marriage, Faith and Practices of CSI',
+    },
+    { id: '2', title: 'Class 2: Communication' },
+    { id: '3', title: 'Class 3: Family and Parenting' },
+    { id: '4', title: 'Class 4: Know your Partner' },
+    { id: '5', title: 'Class 5: Emotional Hygiene and Stress management ' },
+    { id: '6', title: 'Class 6: Sex and Spirituality' },
+    { id: '7', title: 'Class 7: Addiction' },
+    { id: '8', title: 'Class 8: Law in Marriage' },
+    { id: '9', title: 'Class 9: Personality' },
+    { id: '10', title: 'Class 10: Management' },
+    { id: '11', title: 'Class 11: Conflict Management' },
+    { id: '12', title: 'Class 12: Pregnancy and Childbirth' },
+    { id: '13', title: "Class 13: Men's Sexuality" },
+    {
+      id: '14',
+      title: 'Class 14: Sacrementality in Marriage and marriage rehearsal',
+    },
+    { id: '15', title: 'Class 15: Overall Feedback' },
   ]);
 
   protected readonly feedbackForm = this.fb.group({
-    sessionTitle: ['', [Validators.required, Validators.maxLength(100)]],
-    name: [
-      '',
-      [
-        Validators.required,
-        Validators.maxLength(100),
-        Validators.pattern(/^[a-zA-Z\s]*$/),
-      ],
-    ],
-    email: ['', [Validators.required, Validators.email]],
-    date: ['', Validators.required],
+    classTitle: [null, [Validators.required, Validators.maxLength(100)]], // required
+    date: ['', Validators.required], // required
     qualityRating: [
-      '',
-      [Validators.required, Validators.min(1), Validators.max(10)],
+      null,
+      [Validators.required, Validators.min(1), Validators.max(5)],
     ],
     relevanceRating: [
-      '',
-      [Validators.required, Validators.min(1), Validators.max(10)],
+      null,
+      [Validators.required, Validators.min(1), Validators.max(5)],
     ],
     engagementRating: [
-      '',
-      [Validators.required, Validators.min(1), Validators.max(10)],
+      null,
+      [Validators.required, Validators.min(1), Validators.max(5)],
     ],
     organizationRating: [
-      '',
-      [Validators.required, Validators.min(1), Validators.max(10)],
+      null,
+      [Validators.required, Validators.min(1), Validators.max(5)],
     ],
-    valuable: ['', Validators.maxLength(500)],
-    improvements: ['', Validators.maxLength(500)],
-    comments: ['', Validators.maxLength(500)],
+    valuable: [null, Validators.maxLength(500)], // optional
+    improvements: [null, Validators.maxLength(500)], // optional
+    comments: [null, Validators.maxLength(500)], // optional
+    premaritalRegistrationId: [null], // optional, will be set programmatically
   });
 
   protected readonly isSubmitting = signal(false);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
   protected readonly timezoneDisplay: string = 'Time Zone: IST (UTC+05:30)';
+
+  getFormControl(name: string) {
+    return this.feedbackForm.get(name);
+  }
 
   onSubmit() {
     if (this.feedbackForm.invalid) {
@@ -109,7 +125,7 @@ export class Feedback {
     this.errorMessage.set('');
 
     const payload = this.feedbackForm.value;
-    this.api.apiFeedbackPost({ body: payload as any }).subscribe({
+    this.api.apiFeedbackPost({ body: payload as ClassFeedbackDto }).subscribe({
       next: () => {
         this.successMessage.set('Feedback submitted successfully!');
         this.feedbackForm.reset();
@@ -131,6 +147,16 @@ export class Feedback {
 
   ngOnInit(): void {
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
+    const userDetails = this.feedbackDataService.userDetails();
+    this.userDetails = {
+      name: `${userDetails.FirstName} ${userDetails.LastName}`,
+      email: userDetails.Email,
+    };
+    if (userDetails) {
+      this.feedbackForm.patchValue({
+        premaritalRegistrationId: userDetails.userId,
+      });
+    }
   }
 
   ngOnDestroy(): void {

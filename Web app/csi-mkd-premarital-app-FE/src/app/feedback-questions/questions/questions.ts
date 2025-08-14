@@ -11,6 +11,7 @@ import { MatCardHeader, MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { FeedbackDataService } from '../feedback-data.service';
 
 @Component({
   selector: 'app-questions',
@@ -22,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButton
+    MatButton,
   ],
   templateUrl: './questions.html',
   styleUrl: './questions.scss',
@@ -30,9 +31,12 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class Questions {
   private fb = inject(FormBuilder);
+  private readonly feedbackDataService = inject(FeedbackDataService);
+  userDetails = { name: '', email: '' };
   private submitting = signal(false);
   successMessage = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
+
   questions = [
     {
       label: 'What is your definition of marriage?',
@@ -95,9 +99,7 @@ export class Questions {
 
   form = this.fb.group({
     name: ['', Validators.required],
-    age: [null, [Validators.required, Validators.min(1)]],
-    place: ['', Validators.required],
-    job: ['', Validators.required],
+    email: ['', Validators.required],
     definitionOfMarriage: ['', Validators.required],
     wishesConcerns: ['', Validators.required],
     churchImportance: ['', Validators.required],
@@ -112,6 +114,20 @@ export class Questions {
     relationshipWithParentsInlaws: ['', Validators.required],
     greatestAdjustment: ['', Validators.required],
   });
+
+  ngOnInit(): void {
+    const userDetails = this.feedbackDataService.userDetails();
+    this.userDetails = {
+      name: `${userDetails.FirstName} ${userDetails.LastName}`,
+      email: userDetails.Email,
+    };
+    if (userDetails) {
+      this.form.patchValue({
+        name: `${userDetails.FirstName} ${userDetails.LastName}`,
+        email: userDetails.Email,
+      });
+    }
+  }
 
   isSubmitting() {
     return this.submitting();

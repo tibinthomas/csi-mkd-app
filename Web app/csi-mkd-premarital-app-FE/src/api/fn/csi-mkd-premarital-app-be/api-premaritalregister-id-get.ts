@@ -8,16 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { ClassFeedbackDto } from '../../models/class-feedback-dto';
 
-export interface ApiFeedbackPost$Params {
-      body: ClassFeedbackDto
+export interface ApiPremaritalregisterIdGet$Params {
+  id: number;
 }
 
-export function apiFeedbackPost(http: HttpClient, rootUrl: string, params: ApiFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackPost.PATH, 'post');
+export function apiPremaritalregisterIdGet(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterIdGet.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/json');
+    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -30,4 +29,4 @@ export function apiFeedbackPost(http: HttpClient, rootUrl: string, params: ApiFe
   );
 }
 
-apiFeedbackPost.PATH = '/api/feedback';
+apiPremaritalregisterIdGet.PATH = '/api/premaritalregister/{id}';

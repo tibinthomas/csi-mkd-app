@@ -8,12 +8,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { SessionFeedback } from '../../models/session-feedback';
+import { ClassFeedback } from '../../models/class-feedback';
 
 export interface ApiFeedbackGet$Params {
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionFeedback>>> {
+export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedback>>> {
   const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
   if (params) {
   }
@@ -23,7 +23,7 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<SessionFeedback>>;
+      return r as StrictHttpResponse<Array<ClassFeedback>>;
     })
   );
 }

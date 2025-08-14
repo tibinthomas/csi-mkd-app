@@ -8,37 +8,31 @@
 
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()" aria-labelledby="questions-title" novalidate>
-        <!-- Basic Info -->
-        <div class="grid md:grid-cols-2 gap-6">
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Name</mat-label>
-            <input matInput formControlName="name" aria-required="true" />
-          </mat-form-field>
+        <!-- Static Basic Info -->
+        <div class="grid md:grid-cols-2 gap-6 pb-10">
+          <div class="w-full">
+            <label class="font-medium" i18n>Name : {{ userDetails.name }}</label>
+          </div>
 
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Age</mat-label>
-            <input matInput type="number" formControlName="age" aria-required="true" />
-          </mat-form-field>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-6">
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Place</mat-label>
-            <input matInput formControlName="place" aria-required="true" />
-          </mat-form-field>
-
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Job</mat-label>
-            <input matInput formControlName="job" aria-required="true" />
-          </mat-form-field>
+          <div class="w-full">
+            <label class="font-medium" i18n>Email: {{ userDetails.email }}</label>
+          </div>
         </div>
 
         <!-- Questions -->
         @for (q of questions; track q.controlName; let i = $index) {
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>{{ i + 1 }}. {{ q.label }}</mat-label>
-          <textarea matInput [formControlName]="q.controlName" rows="3" aria-required="true"></textarea>
-        </mat-form-field>
+        <div class="mb-4">
+          <label class="font-medium block mb-1 whitespace-normal"> {{ i + 1 }}. {{ q.label }} </label>
+          <mat-form-field appearance="fill" class="w-full">
+            <textarea
+              matInput
+              [formControlName]="q.controlName"
+              rows="4"
+              class="w-full min-h-[80px] resize-none p-2 border rounded"
+              aria-required="true"
+            ></textarea>
+          </mat-form-field>
+        </div>
         }
 
         <div class="pt-6 flex justify-center">

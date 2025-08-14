@@ -65,6 +65,8 @@ import { apiPremaritalregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app
 import { ApiPremaritalregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
 import { apiPremaritalregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
 import { ApiPremaritalregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
+import { apiPremaritalregisterIdGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-get';
+import { ApiPremaritalregisterIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-get';
 import { apiPremaritalregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
 import { ApiPremaritalregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
 import { apiPremaritalregisterPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
@@ -90,13 +92,13 @@ import { ApiSessionconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api
 import { apiSessionconfigSessionsGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { ApiSessionconfigSessionsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { CheckEmailResponseDto } from '../models/check-email-response-dto';
+import { ClassFeedback } from '../models/class-feedback';
 import { EmailConfig } from '../models/email-config';
 import { healthDbGet } from '../fn/csi-mkd-premarital-app-be/health-db-get';
 import { HealthDbGet$Params } from '../fn/csi-mkd-premarital-app-be/health-db-get';
 import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { SessionConfigurationDto } from '../models/session-configuration-dto';
-import { SessionFeedback } from '../models/session-feedback';
 
 @Injectable({ providedIn: 'root' })
 export class CsiMkdPremaritalAppBeService extends BaseService {
@@ -504,6 +506,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
     );
   }
 
+  /** Path part for operation `apiPremaritalregisterIdGet()` */
+  static readonly ApiPremaritalregisterIdGetPath = '/api/premaritalregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterIdGet$Response(params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterIdGet(params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
   /** Path part for operation `apiConfirmationregisterPost()` */
   static readonly ApiConfirmationregisterPostPath = '/api/confirmationregister';
 
@@ -863,7 +890,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionFeedback>>> {
+  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedback>>> {
     return apiFeedbackGet(this.http, this.rootUrl, params, context);
   }
 
@@ -873,9 +900,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<Array<SessionFeedback>> {
+  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<Array<ClassFeedback>> {
     return this.apiFeedbackGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<SessionFeedback>>): Array<SessionFeedback> => r.body)
+      map((r: StrictHttpResponse<Array<ClassFeedback>>): Array<ClassFeedback> => r.body)
     );
   }
 

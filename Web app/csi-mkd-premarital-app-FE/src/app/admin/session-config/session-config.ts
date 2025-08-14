@@ -170,22 +170,20 @@ export class SessionConfig implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.api
-          .apiSessionconfigIdDelete({ id: session.Id })
-          .subscribe({
-            next: () => {
-              this.sessionDataService.refresh();
-            },
-            error: (err) => {
-              const errorMsg =
-                JSON.parse(err?.error).message ??
-                'Failed to delete session configuration.';
-              console.log(err);
-              this.dialog.open(AlertDialog, {
-                data: { message: errorMsg },
-              });
-            },
-          });
+        this.api.apiSessionconfigIdDelete({ id: session.Id }).subscribe({
+          next: () => {
+            this.sessionDataService.refresh();
+          },
+          error: (err) => {
+            const errorMsg =
+              JSON.parse(err?.error).message ??
+              'Failed to delete session configuration.';
+            console.log(err);
+            this.dialog.open(AlertDialog, {
+              data: { message: errorMsg },
+            });
+          },
+        });
       }
     });
   }
@@ -203,7 +201,7 @@ export class SessionConfig implements OnInit {
       if (result) {
         const updatedSession = {
           ...session,
-          isActive: !session.IsActive,
+          IsActive: !session.IsActive,
         };
         this.api
           .apiSessionconfigIdPut({
@@ -242,15 +240,13 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.api
-          .apiSessionconfigPost({ body: session })
-          .subscribe({
-            next: () => this.sessionDataService.refresh(),
-            error: () =>
-              this.dialog.open(AlertDialog, {
-                data: { message: 'Failed to create session' },
-              }),
-          });
+        this.api.apiSessionconfigPost({ body: session }).subscribe({
+          next: () => this.sessionDataService.refresh(),
+          error: () =>
+            this.dialog.open(AlertDialog, {
+              data: { message: 'Failed to create session' },
+            }),
+        });
       }
     });
   }
@@ -287,8 +283,8 @@ export class SessionConfig implements OnInit {
     <h1 mat-dialog-title>Confirmation</h1>
     <div mat-dialog-content>{{ data.message }}</div>
     <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">No</button>
       <button mat-button [mat-dialog-close]="true">Yes</button>
+      <button mat-button (click)="onNoClick()">No</button>
     </div>
   `,
   imports: [MatDialogModule, MatButtonModule],

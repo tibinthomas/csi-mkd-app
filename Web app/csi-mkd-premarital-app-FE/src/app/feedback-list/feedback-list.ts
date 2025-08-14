@@ -14,7 +14,7 @@ import { MatTableModule } from '@angular/material/table';
 export class FeedbackList {
   private readonly api = inject(CsiMkdPremaritalAppBeService);
   displayedColumns: string[] = [
-    'sessionTitle',
+    'classTitle',
     'name',
     'email',
     'date',

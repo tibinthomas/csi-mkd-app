@@ -4,9 +4,9 @@
   <div class="overflow-x-auto">
     <table mat-table [dataSource]="feedbacks()" class="mat-elevation-z8">
       <!-- Session Title Column -->
-      <ng-container matColumnDef="sessionTitle">
+      <ng-container matColumnDef="classTitle">
         <th mat-header-cell *matHeaderCellDef>Session Title</th>
-        <td mat-cell *matCellDef="let fb">{{ fb.sessionTitle }}</td>
+        <td mat-cell *matCellDef="let fb">{{ fb.classTitle }}</td>
       </ng-container>
 
       <!-- Name Column -->

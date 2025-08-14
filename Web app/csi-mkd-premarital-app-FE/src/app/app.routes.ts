@@ -33,7 +33,7 @@ export const routes: Routes = [
         canDeactivate: [pendingChangesGuard],
       },
       {
-        path: 'feedback',
+        path: 'feedback/:userId',
         title: 'Feedback - CSI MKD Premarital Counsel',
         data: {
           description:
@@ -46,7 +46,7 @@ export const routes: Routes = [
         canDeactivate: [pendingChangesGuard],
       },
       {
-        path: 'questions',
+        path: 'questions/:userId',
         title: 'Questions - CSI MKD Premarital Counsel',
         data: {
           description: 'Provide thoughts on your premarital counselling.',
@@ -180,15 +180,7 @@ export const routes: Routes = [
             (m) => m.SessionConfig
           ),
       },
-      {
-        path: 'deactivate-sessions',
-        title: 'Deactivate Sessions - CSI MKD Premarital Counsel',
-        data: { description: 'Deactivate sessions that will begin in 3 days' },
-        loadComponent: () =>
-          import('./admin/deactivate-sessions/deactivate-sessions').then(
-            (m) => m.DeactivateSessions
-          ),
-      },
+
       {
         path: 'general-list',
         title: 'General Registrations - CSI MKD Premarital Counsel',

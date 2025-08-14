@@ -7,74 +7,61 @@
     </mat-card-header>
     <mat-card-content>
       <form #formEl [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" aria-labelledby="feedback-title" novalidate>
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label i18n>Session Title</mat-label>
-          <mat-select formControlName="sessionTitle">
-            @for (session of sessionTitles(); track session.id) {
-            <mat-option [value]="session.id" [attr.aria-label]="session.title">
-              {{ session.title }}
-            </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        <!-- Static Basic Info -->
+        <div class="grid md:grid-cols-2 gap-6 pb-5">
+          <div class="w-full">
+            <label class="font-medium" i18n>Name : {{ userDetails.name }}</label>
+          </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
+          <div class="w-full">
+            <label class="font-medium" i18n>Email: {{ userDetails.email }}</label>
+          </div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6 pb-5">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Your Name</mat-label>
-            <input matInput formControlName="name" aria-required="true" autocomplete="name" appNoDigits />
+            <mat-label i18n>Counselling Class Name</mat-label>
+            <mat-select formControlName="classTitle">
+              @for (session of classTitles(); track session.id) {
+              <mat-option [value]="session.id" [attr.aria-label]="session.title">
+                {{ session.title }}
+              </mat-option>
+              }
+            </mat-select>
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Your Email</mat-label>
-            <input matInput type="email" formControlName="email" aria-required="true" autocomplete="email" />
+            <mat-label i18n>Date of Class</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-hint>{{ timezoneDisplay }}</mat-hint>
           </mat-form-field>
         </div>
-
-        <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label i18n>Date of Session</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="date" />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <mat-hint>{{ timezoneDisplay }}</mat-hint>
-        </mat-form-field>
-
         <div class="grid md:grid-cols-2 gap-6" role="group" aria-labelledby="ratings-heading">
           <h3 id="ratings-heading" class="sr-only" i18n>Session Ratings</h3>
-          <div role="radiogroup" aria-labelledby="quality-rating-label">
-            <label id="quality-rating-label" class="block mb-2 font-medium" i18n>Overall Quality</label>
-            <mat-radio-group formControlName="qualityRating" aria-required="true">
-              @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
-              <mat-radio-button [value]="n" [aria-label]="'Rate quality as ' + n">{{ n }}</mat-radio-button>
-              }
-            </mat-radio-group>
-          </div>
 
-          <div role="radiogroup" aria-labelledby="relevance-rating-label">
-            <label id="relevance-rating-label" class="block mb-2 font-medium" i18n>Content Relevance</label>
-            <mat-radio-group formControlName="relevanceRating" aria-required="true">
-              @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
-              <mat-radio-button [value]="n" [aria-label]="'Rate relevance as ' + n">{{ n }}</mat-radio-button>
+          @for (rating of ['qualityRating','relevanceRating','engagementRating','organizationRating']; track rating) {
+          <div class="mb-4" role="radiogroup" [attr.aria-labelledby]="rating + '-label'">
+            <label id="{{ rating }}-label" class="block mb-2 font-medium" i18n>
+              {{ ratingLabels[rating] }}
+            </label>
+            <div class="flex gap-1">
+              @for (star of [1,2,3,4,5,]; track star) {
+              <button
+                type="button"
+                (click)="feedbackForm.get(rating)?.setValue(star)"
+                [attr.aria-label]="'Rate ' + ratingLabels[rating] + ' as ' + star"
+                [attr.aria-pressed]="star <= feedbackForm.get(rating)?.value"
+                class="focus:outline-none"
+              >
+                <mat-icon color="warn">
+                  {{ star <= feedbackForm.get(rating)?.value ? "star" : "star_border" }}
+                </mat-icon>
+              </button>
               }
-            </mat-radio-group>
+            </div>
           </div>
-
-          <div role="radiogroup" aria-labelledby="engagement-rating-label">
-            <label id="engagement-rating-label" class="block mb-2 font-medium" i18n>Presenter Engagement</label>
-            <mat-radio-group formControlName="engagementRating" aria-required="true">
-              @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
-              <mat-radio-button [value]="n" [aria-label]="'Rate engagement as ' + n">{{ n }}</mat-radio-button>
-              }
-            </mat-radio-group>
-          </div>
-
-          <div role="radiogroup" aria-labelledby="organization-rating-label">
-            <label id="organization-rating-label" class="block mb-2 font-medium" i18n>Organization</label>
-            <mat-radio-group formControlName="organizationRating" aria-required="true">
-              @for (n of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; track n) {
-              <mat-radio-button [value]="n" [aria-label]="'Rate organization as ' + n">{{ n }}</mat-radio-button>
-              }
-            </mat-radio-group>
-          </div>
+          }
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
