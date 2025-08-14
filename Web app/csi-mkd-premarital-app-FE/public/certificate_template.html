@@ -127,38 +127,33 @@
 </head>
 
 <body>
-
   <div class="certificate-container">
     <img src="{{LOGO_URL}}" alt="Organization Logo" class="logo" style="display: {{LOGO_DISPLAY}};">
-
     <div class="header">
-      <div class="certificate-title">{{CERTIFICATE_TITLE}}</div>
       <div class="org-name">{{ORGANIZATION_NAME}}</div>
+      <div class="org-address">{{ORGANIZATION_ADDRESS}}</div>
     </div>
 
-    <div class="description">This certifies that</div>
+    <div class="certificate-title">{{CERTIFICATE_TITLE}}</div>
+
+    <div class="description">This is to certify that</div>
     <div class="recipient-name">{{NAME}}</div>
 
-    <div class="details">{{CERTIFICATE_DESCRIPTION}}</div>
-
-    <div class="scripture">{{SCRIPTURE_VERSE}}</div>
-
-    <div class="date">Completed on <strong>{{DATE}}</strong></div>
+    <div class="details">
+      of {{CHURCH_NAME}} has attended {{PROGRAM_DURATION}} {{PROGRAM_NAME}} conducted at {{VENUE}} on {{DATES}}.
+    </div>
 
     <div class="signatures">
       <div class="sign-box">
-        <div class="sign-line"></div>
         <div class="signature-name">{{BISHOP_NAME}}</div>
         <div class="signature-title">{{BISHOP_TITLE}}</div>
       </div>
       <div class="sign-box">
-        <div class="sign-line"></div>
         <div class="signature-name">{{DIRECTOR_NAME}}</div>
         <div class="signature-title">{{DIRECTOR_TITLE}}</div>
       </div>
     </div>
   </div>
-
 </body>
 
 </html>

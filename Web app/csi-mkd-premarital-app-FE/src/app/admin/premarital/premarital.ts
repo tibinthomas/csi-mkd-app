@@ -432,10 +432,17 @@ export class PremaritalComponent {
 
   async generateCertificate(reg: any): Promise<void> {
     try {
+      // Parse session dates from reg.Days if available, otherwise use current date
+      const sessionDates = reg.Days && reg.Days.length > 0 
+        ? reg.Days.map((day: string) => new Date(day))
+        : [new Date()];
+
       const certificateData = {
         name: `${reg.FirstName} ${reg.LastName}`,
         completionDate: reg.DateOfMarriage ? new Date(reg.DateOfMarriage) : new Date(),
-        sessionName: reg.SessionName
+        sessionName: reg.SessionName,
+        churchName: reg.ChurchName || 'Unknown Church',
+        dates: sessionDates
       };
 
       console.log('Generating certificate for:', certificateData);
