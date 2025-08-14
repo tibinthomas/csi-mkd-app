@@ -438,7 +438,8 @@ export class PremaritalComponent {
         completionDate: reg.DateOfMarriage ? new Date(reg.DateOfMarriage) : new Date(),
         sessionName: reg.SessionName,
         churchName: reg.ChurchName || 'Unknown Church',
-        dates: sessionDates
+        dates: sessionDates,
+        programDuration: reg.Days || '1 Day' // Use Days field directly from API
       };
 
       console.log('Generating certificate for:', certificateData);

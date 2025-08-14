@@ -9,6 +9,7 @@ export interface CertificateData {
   sessionName?: string;
   churchName: string;
   dates: Date[];
+  programDuration: string;
 }
 
 @Injectable({
@@ -35,19 +36,6 @@ export class CertificateService {
     return `${firstDate} to ${lastDate}`;
   }
 
-  private calculateProgramDuration(dates: Date[]): string {
-    if (dates.length === 0) return '0 days';
-    if (dates.length === 1) return '1 day';
-    
-    const sortedDates = [...dates].sort((a, b) => a.getTime() - b.getTime());
-    const firstDate = sortedDates[0];
-    const lastDate = sortedDates[sortedDates.length - 1];
-    
-    const diffTime = Math.abs(lastDate.getTime() - firstDate.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; // +1 to include both start and end days
-    
-    return `${diffDays} days`;
-  }
 
   private async loadTemplate(): Promise<string> {
     try {
@@ -229,7 +217,6 @@ export class CertificateService {
     const completionDate = data.completionDate || new Date();
     const formattedDate = this.formatDate(completionDate);
     const formattedDates = this.formatDates(data.dates);
-    const programDuration = this.calculateProgramDuration(data.dates);
 
     return template
       .replace(/\{\{CERTIFICATE_TITLE\}\}/g, CERTIFICATE_CONSTANTS.CERTIFICATE_TITLE)
@@ -237,7 +224,7 @@ export class CertificateService {
       .replace(/\{\{ORGANIZATION_ADDRESS\}\}/g, CERTIFICATE_CONSTANTS.ORGANIZATION_ADDRESS)
       .replace(/\{\{NAME\}\}/g, data.name)
       .replace(/\{\{CHURCH_NAME\}\}/g, data.churchName)
-      .replace(/\{\{PROGRAM_DURATION\}\}/g, programDuration)
+      .replace(/\{\{PROGRAM_DURATION\}\}/g, data.programDuration)
       .replace(/\{\{PROGRAM_NAME\}\}/g, CERTIFICATE_CONSTANTS.PROGRAM_NAME)
       .replace(/\{\{VENUE\}\}/g, CERTIFICATE_CONSTANTS.VENUE)
       .replace(/\{\{DATES\}\}/g, formattedDates)
