@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "csi-mkd-counselling": {
+    "fe": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -32,7 +32,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/staticwebapp.config.json",
               {
                 "glob": "**/*",
                 "input": "public"
@@ -62,9 +61,8 @@
               ],
               "outputHashing": "all",
               "define": {
-                "API_ROOT_URL": "\"https://csi-mid-counselling-web-api.icystone-0eff0e5d.southindia.azurecontainerapps.io\""
-              },
-              "serviceWorker": "ngsw-config.json"
+                "API_ROOT_URL": "\"https://csi-mkd-premarital-counsel-app-f6c9bqf0cnhparf5.canadacentral-01.azurewebsites.net\""
+              }
             },
             "development": {
               "optimization": false,
@@ -81,10 +79,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "csi-mkd-counselling:build:production"
+              "buildTarget": "fe:build:production"
             },
             "development": {
-              "buildTarget": "csi-mkd-counselling:build:development"
+              "buildTarget": "fe:build:development"
             }
           },
           "defaultConfiguration": "development"
