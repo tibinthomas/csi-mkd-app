@@ -433,7 +433,7 @@ export class PremaritalComponent {
   async generateCertificate(reg: any): Promise<void> {
     try {
       // Parse session dates from reg.Days if available, otherwise use current date
-      const sessionDates = reg.Days && reg.Days.length > 0 
+      const sessionDates = reg.Days && Array.isArray(reg.Days) && reg.Days.length > 0 
         ? reg.Days.map((day: string) => new Date(day))
         : [new Date()];
 
