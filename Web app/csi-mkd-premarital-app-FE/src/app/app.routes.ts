@@ -20,6 +20,19 @@ export const routes: Routes = [
         loadComponent: () => import('./about/about').then((m) => m.About),
       },
       {
+        path: 'feedback-questions',
+        title: 'Feedback - CSI MKD Premarital Counsel',
+        data: {
+          description:
+            'Provide feedback on your premarital counselling session.',
+        },
+        loadComponent: () =>
+          import('./feedback-questions/feedback-questions').then(
+            (m) => m.FeedbackQuestions
+          ),
+        canDeactivate: [pendingChangesGuard],
+      },
+      {
         path: 'feedback',
         title: 'Feedback - CSI MKD Premarital Counsel',
         data: {
@@ -27,7 +40,21 @@ export const routes: Routes = [
             'Provide feedback on your premarital counselling session.',
         },
         loadComponent: () =>
-          import('./feedback/feedback').then((m) => m.Feedback),
+          import('./feedback-questions/feedback/feedback').then(
+            (m) => m.Feedback
+          ),
+        canDeactivate: [pendingChangesGuard],
+      },
+      {
+        path: 'questions',
+        title: 'Questions - CSI MKD Premarital Counsel',
+        data: {
+          description: 'Provide thoughts on your premarital counselling.',
+        },
+        loadComponent: () =>
+          import('./feedback-questions/questions/questions').then(
+            (m) => m.Questions
+          ),
         canDeactivate: [pendingChangesGuard],
       },
       {
@@ -154,6 +181,15 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'deactivate-sessions',
+        title: 'Deactivate Sessions - CSI MKD Premarital Counsel',
+        data: { description: 'Deactivate sessions that will begin in 3 days' },
+        loadComponent: () =>
+          import('./admin/deactivate-sessions/deactivate-sessions').then(
+            (m) => m.DeactivateSessions
+          ),
+      },
+      {
         path: 'general-list',
         title: 'General Registrations - CSI MKD Premarital Counsel',
         data: { description: 'View and manage general registrations.' },
@@ -165,7 +201,9 @@ export const routes: Routes = [
       {
         path: 'pre-confirm-list',
         title: 'Pre-Confirmation Registrations - CSI MKD Premarital Counsel',
-        data: { description: 'View and manage pre-confirmation registrations.' },
+        data: {
+          description: 'View and manage pre-confirmation registrations.',
+        },
         loadComponent: () =>
           import('./admin/pre-confirm-list/pre-confirm-list').then(
             (m) => m.PreConfirmList

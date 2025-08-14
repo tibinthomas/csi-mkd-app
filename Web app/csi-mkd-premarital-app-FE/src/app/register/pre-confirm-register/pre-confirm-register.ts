@@ -61,8 +61,8 @@ export class PreConfirmRegister {
   protected readonly vicarLetterFile = signal<File | null>(null);
   protected readonly vicarLetterError = signal<string>('');
 
-  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
-  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
 
   constructor() {
@@ -117,23 +117,7 @@ export class PreConfirmRegister {
     }
   };
 
-  protected readonly timezoneDisplay: string = this.getTimezoneDisplay();
-
-  private getTimezoneDisplay(): string {
-    try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const offsetMin = new Date().getTimezoneOffset();
-      const sign = offsetMin <= 0 ? '+' : '-';
-      const abs = Math.abs(offsetMin);
-      const hh = Math.floor(abs / 60)
-        .toString()
-        .padStart(2, '0');
-      const mm = (abs % 60).toString().padStart(2, '0');
-      return `Time Zone: ${tz} (UTC${sign}${hh}:${mm})`;
-    } catch {
-      return 'Time Zone: UTC';
-    }
-  }
+  protected readonly timezoneDisplay: string = 'Time Zone: IST (UTC+05:30)';
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);

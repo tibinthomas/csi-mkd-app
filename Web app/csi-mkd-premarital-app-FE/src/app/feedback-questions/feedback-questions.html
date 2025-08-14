@@ -1,0 +1,109 @@
+<main class="min-h-screen py-30 px-6 theme-transition">
+  <div class="max-w-4xl mx-auto text-center">
+    <h1 class="mb-5 text-2xl font-bold tracking-tight text-on-background theme-transition" i18n>Choose a Form</h1>
+    <p class="text-on-surface-variant max-w-xl mx-auto mb-10 theme-transition" i18n>
+      Please verify your email before selecting a form.
+    </p>
+
+    <!-- Email Verification Form -->
+    <form
+      [formGroup]="emailForm"
+      (ngSubmit)="verifyEmail()"
+      class="mb-8 flex flex-col sm:flex-row items-center gap-4 justify-center"
+    >
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Enter your email"
+        class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-rose-500"
+      />
+      <!-- <mat-form-field appearance="fill" class="w-full sm:w-80">
+        <mat-label i18n>Email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="Enter your email"
+          class="w-full"
+          [ngClass]="{ 'border-red-500': emailControl.invalid && (emailControl.dirty || emailControl.touched) }"
+        />
+      </mat-form-field> -->
+      <button mat-flat-button type="submit" class="cursor-pointer" [disabled]="emailForm.invalid">Verify Email</button>
+    </form>
+
+    <div class="text-red-500 text-sm mb-6">
+      @if (emailControl.invalid && (emailControl.dirty || emailControl.touched)) { @if
+      (emailControl.errors?.['required']) {
+      <div>Email is required.</div>
+      } @if (emailControl.errors?.['email']) {
+      <div>Enter a valid email address.</div>
+      } @if (emailControl.errors?.['notRegistered']) {
+      <div>You must register to access these forms.</div>
+      } @if (emailControl.errors?.['serverError']) {
+      <div>An error occurred while verifying your email. Please try again later.</div>
+      } }
+    </div>
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <!-- Feedback Form Card -->
+      <div
+        class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md transition-all duration-300 flex flex-col h-full p-6 theme-transition"
+        [class.pointer-events-none]="!isVerified()"
+        [class.opacity-50]="!isVerified()"
+        (click)="isVerified() && goToForm('feedback')"
+        tabindex="0"
+        role="button"
+        [attr.aria-disabled]="!isVerified"
+      >
+        <svg
+          class="w-10 h-10 mb-4 text-rose-700"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M7 8h10M7 12h6m-3 8a9 9 0 1 1 4.546-16.764L19 8v7a2 2 0 0 1-2 2H8l-3 3v-3z"
+          ></path>
+        </svg>
+        <h2 class="text-xl font-semibold font-bold mb-2" i18n>Feedback Form</h2>
+        <p class="text-on-surface-variant text-sm mt-auto" i18n>Share your experience and suggestions.</p>
+      </div>
+
+      <!-- Questionnaire Form Card -->
+      <div
+        class="elegant-card elegant-hover-effect cursor-pointer rounded-2xl shadow-md transition-all duration-300 flex flex-col h-full p-6 theme-transition"
+        [class.pointer-events-none]="!isVerified()"
+        [class.opacity-50]="!isVerified()"
+        (click)="isVerified() && goToForm('questions')"
+        tabindex="0"
+        role="button"
+        [attr.aria-disabled]="!isVerified"
+      >
+        <svg
+          class="w-10 h-10 mb-4 text-rose-700"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 12l2 2 4-4M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
+          ></path>
+        </svg>
+        <h2 class="text-xl font-semibold font-bold mb-2" i18n>Questionnaire Form</h2>
+        <p class="text-on-surface-variant text-sm mt-auto" i18n>
+          Share your thoughts and opinions to help us understand participants better.
+        </p>
+      </div>
+    </div>
+  </div>
+</main>

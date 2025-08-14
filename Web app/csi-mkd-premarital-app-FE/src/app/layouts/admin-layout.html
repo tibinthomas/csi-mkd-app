@@ -41,6 +41,15 @@
         </a>
         <a
           mat-list-item
+          routerLink="/admin/deactivate-sessions"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          (click)="toggleSidenav()"
+        >
+          <mat-icon class="mr-4">disabled_by_default</mat-icon>
+          <span>Deactivate Sessions</span>
+        </a>
+        <a
+          mat-list-item
           routerLink="/admin/general-list"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
           (click)="toggleSidenav()"
@@ -70,7 +79,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar class="surface-container-high shadow-sm theme-transition">
+    <mat-toolbar class="fixed top-0 left-0 right-0 z-50 shadow-sm theme-transition">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>{{ sidenavOpen() ? "close" : "menu" }}</mat-icon>
       </button>
@@ -79,7 +88,7 @@
       <app-theme-toggle></app-theme-toggle>
       <app-language-selector></app-language-selector>
     </mat-toolbar>
-    <main class="p-6 surface-container theme-transition">
+    <main class="p-20 surface-container theme-transition">
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>

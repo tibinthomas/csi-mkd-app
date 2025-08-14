@@ -45,14 +45,26 @@ import autoTable from 'jspdf-autotable';
     MatDividerModule,
     MatCardModule,
   ],
+
   animations: [
     trigger('detailExpand', [
       state(
         'collapsed',
-        style({ height: '0px', minHeight: '0', display: 'none' })
+        style({
+          height: '0px',
+          minHeight: '0',
+          display: 'none',
+          opacity: 0,
+        })
       ),
-      state('expanded', style({ height: '*', display: 'table-row' })),
-      transition('expanded <=> collapsed', animate('200ms ease-in-out')),
+      state(
+        'expanded',
+        style({
+          height: '*',
+          opacity: 1,
+        })
+      ),
+      transition('expanded <=> collapsed', animate('300ms ease-in-out')),
     ]),
   ],
 })
