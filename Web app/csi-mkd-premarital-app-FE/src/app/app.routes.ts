@@ -201,6 +201,15 @@ export const routes: Routes = [
             (m) => m.PreConfirmList
           ),
       },
+      {
+        path: 'deactivate-sessions',
+        title: 'Deactivate Sessions - CSI MKD Premarital Counsel',
+        data: { description: 'Deactivate sessions that will begin in 3 days' },
+        loadComponent: () =>
+          import('./admin/deactivate-sessions/deactivate-sessions').then(
+            (m) => m.DeactivateSessions
+          ),
+      },
     ],
   },
 
