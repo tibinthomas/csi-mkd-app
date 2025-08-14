@@ -17,11 +17,11 @@ public static class FeedbackEndpoints
         var group = app.MapGroup("/api/feedback");
         group.DisableAntiforgery();
 
-        group.MapPost("/", async (ApplicationDbContext db, ICacheInvalidationService cacheService, SessionFeedbackDto dto) =>
+        group.MapPost("/", async (ApplicationDbContext db, ICacheInvalidationService cacheService, ClassFeedbackDto dto) =>
         {
-            var feedback = new SessionFeedback
+            var feedback = new ClassFeedback
             {
-                SessionTitle = dto.SessionTitle,
+                ClassTitle = dto.ClassTitle,
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
@@ -35,25 +35,23 @@ public static class FeedbackEndpoints
                 Comments = dto.Comments
             };
 
-            db.SessionFeedbacks.Add(feedback);
+            db.ClassFeedbacks.Add(feedback);
             await db.SaveChangesAsync();
             await cacheService.InvalidateFeedbackCachesAsync();
             return Results.Ok(new { message = "Feedback submitted successfully." });
         })
-        .Accepts<SessionFeedbackDto>("application/json")
+        .Accepts<ClassFeedbackDto>("application/json")
         .Produces(StatusCodes.Status200OK);
 
         group.MapGet("/", async (ApplicationDbContext db) =>
         {
-            var allFeedbacks = await db.SessionFeedbacks
+            var allFeedbacks = await db.ClassFeedbacks
                 .AsNoTracking()
                 .OrderByDescending(f => f.SubmittedAt)
                 .ToListAsync();
             return Results.Ok(allFeedbacks);
         })
-        .Produces<List<SessionFeedback>>(StatusCodes.Status200OK)
+        .Produces<List<ClassFeedback>>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("feedback").Expire(TimeSpan.FromMinutes(2)));
     }
 }
-
-

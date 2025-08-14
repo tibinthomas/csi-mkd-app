@@ -2,12 +2,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace csi_mkd_premarital_app_BE.Models
 {
-    public class SessionFeedback
+    public class ClassFeedback
     {
         public int Id { get; set; }
 
         [Required]
-        public required string SessionTitle { get; set; }
+        public required string ClassTitle { get; set; }
         [Required]
         public required string FirstName { get; set; }
         [Required]

@@ -8,7 +8,7 @@ namespace csi_mkd_premarital_app_BE.Data
     {
         public DbSet<PremaritalRegistration> PremaritalRegistrations => Set<PremaritalRegistration>();
         public DbSet<AuditEntry> AuditEntries => Set<AuditEntry>();
-        public DbSet<SessionFeedback> SessionFeedbacks => Set<SessionFeedback>();
+        public DbSet<ClassFeedback> ClassFeedbacks => Set<ClassFeedback>();
         public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
         public DbSet<SessionConfiguration> SessionConfigurations => Set<SessionConfiguration>();
         public DbSet<EmailConfig> EmailConfigs => Set<EmailConfig>();
@@ -21,7 +21,7 @@ namespace csi_mkd_premarital_app_BE.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             // Only apply configurations in development for faster startup
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
@@ -48,7 +48,27 @@ namespace csi_mkd_premarital_app_BE.Data
                 PasswordHash = "$2a$11$JyS3ggBufEWrsn/v4PLe/OV/kwnMrD9e6bm0DISNeyHjDqkG/20k2"
             });
 
+            modelBuilder.Entity<EmailConfig>().HasData(new EmailConfig
+            {
+                Id = 1,
+                SenderEmail = "teenateena496@gmail.com",
+                SenderPassword = "mrkn army mhov gggo", // consider storing securely or encrypted
+                EmailSubject = "Confirmation: CSI MKD Counselling Session Registration",
+                EmailBodyTemplate = @"<p>Hello {Name},</p>
+                <p>Thank you for registering with us.</p>
+                <p>Your registration for the counselling session has been successfully completed.</p>
+                <p>We look forward to seeing you there.</p>
+                <p>Best regards,<br/>CSI MKD Counselling Team</p>"
+            });
 
+            modelBuilder.Entity<AuditEntry>(b =>
+              {
+                  b.Property(e => e.KeyValues).HasColumnType("text");
+                  b.Property(e => e.OldValues).HasColumnType("text");
+                  b.Property(e => e.NewValues).HasColumnType("text");
+                  b.Property(e => e.UserId).HasColumnType("text");
+              });
+              
             modelBuilder.Entity<PremaritalRegistration>()
                 .HasOne(r => r.SessionConfiguration)
                 .WithMany(s => s.PremaritalRegistrations)
@@ -91,7 +111,7 @@ namespace csi_mkd_premarital_app_BE.Data
         {
             // Optimize string properties for better performance
             configurationBuilder.Properties<string>().HaveMaxLength(500);
-            
+
             // Disable lazy loading in production for faster startup
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") != "Development")
             {

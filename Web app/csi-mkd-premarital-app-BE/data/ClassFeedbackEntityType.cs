@@ -12,13 +12,13 @@ using csi_mkd_premarital_app_BE.Models;
 namespace csi_mkd_premarital_app_BE.Data
 {
     [EntityFrameworkInternal]
-    public partial class SessionFeedbackEntityType
+    public partial class ClassFeedbackEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
-                "csi_mkd_premarital_app_BE.Models.SessionFeedback",
-                typeof(SessionFeedback),
+                "csi_mkd_premarital_app_BE.Models.ClassFeedback",
+                typeof(ClassFeedback),
                 baseEntityType,
                 propertyCount: 14,
                 keyCount: 1);
@@ -26,8 +26,8 @@ namespace csi_mkd_premarital_app_BE.Data
             var id = runtimeEntityType.AddProperty(
                 "Id",
                 typeof(int),
-                propertyInfo: typeof(SessionFeedback).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 sentinel: 0);
@@ -36,8 +36,8 @@ namespace csi_mkd_premarital_app_BE.Data
             var comments = runtimeEntityType.AddProperty(
                 "Comments",
                 typeof(string),
-                propertyInfo: typeof(SessionFeedback).GetProperty("Comments", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<Comments>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("Comments", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<Comments>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true,
                 maxLength: 500);
             comments.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
@@ -45,40 +45,40 @@ namespace csi_mkd_premarital_app_BE.Data
             var date = runtimeEntityType.AddProperty(
                 "Date",
                 typeof(DateTime),
-                propertyInfo: typeof(SessionFeedback).GetProperty("Date", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<Date>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("Date", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<Date>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
             date.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var email = runtimeEntityType.AddProperty(
                 "Email",
                 typeof(string),
-                propertyInfo: typeof(SessionFeedback).GetProperty("Email", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<Email>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("Email", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<Email>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 500);
             email.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var engagementRating = runtimeEntityType.AddProperty(
                 "EngagementRating",
                 typeof(int),
-                propertyInfo: typeof(SessionFeedback).GetProperty("EngagementRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<EngagementRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("EngagementRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<EngagementRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
             engagementRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var firstName = runtimeEntityType.AddProperty(
                 "FirstName",
                 typeof(string),
-                propertyInfo: typeof(SessionFeedback).GetProperty("FirstName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<FirstName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("FirstName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<FirstName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 500);
             firstName.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var improvements = runtimeEntityType.AddProperty(
                 "Improvements",
                 typeof(string),
-                propertyInfo: typeof(SessionFeedback).GetProperty("Improvements", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<Improvements>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("Improvements", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<Improvements>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true,
                 maxLength: 500);
             improvements.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
@@ -86,56 +86,56 @@ namespace csi_mkd_premarital_app_BE.Data
             var lastName = runtimeEntityType.AddProperty(
                 "LastName",
                 typeof(string),
-                propertyInfo: typeof(SessionFeedback).GetProperty("LastName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<LastName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("LastName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<LastName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 500);
             lastName.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var organizationRating = runtimeEntityType.AddProperty(
                 "OrganizationRating",
                 typeof(int),
-                propertyInfo: typeof(SessionFeedback).GetProperty("OrganizationRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<OrganizationRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("OrganizationRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<OrganizationRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
             organizationRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var qualityRating = runtimeEntityType.AddProperty(
                 "QualityRating",
                 typeof(int),
-                propertyInfo: typeof(SessionFeedback).GetProperty("QualityRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<QualityRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("QualityRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<QualityRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
             qualityRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var relevanceRating = runtimeEntityType.AddProperty(
                 "RelevanceRating",
                 typeof(int),
-                propertyInfo: typeof(SessionFeedback).GetProperty("RelevanceRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<RelevanceRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("RelevanceRating", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<RelevanceRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
             relevanceRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var sessionTitle = runtimeEntityType.AddProperty(
                 "SessionTitle",
                 typeof(string),
-                propertyInfo: typeof(SessionFeedback).GetProperty("SessionTitle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<SessionTitle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("SessionTitle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<SessionTitle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 500);
             sessionTitle.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var submittedAt = runtimeEntityType.AddProperty(
                 "SubmittedAt",
                 typeof(DateTime),
-                propertyInfo: typeof(SessionFeedback).GetProperty("SubmittedAt", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<SubmittedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("SubmittedAt", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<SubmittedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
             submittedAt.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var valuable = runtimeEntityType.AddProperty(
                 "Valuable",
                 typeof(string),
-                propertyInfo: typeof(SessionFeedback).GetProperty("Valuable", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(SessionFeedback).GetField("<Valuable>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ClassFeedback).GetProperty("Valuable", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<Valuable>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true,
                 maxLength: 500);
             valuable.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
@@ -152,7 +152,7 @@ namespace csi_mkd_premarital_app_BE.Data
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
             runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
-            runtimeEntityType.AddAnnotation("Relational:TableName", "SessionFeedbacks");
+            runtimeEntityType.AddAnnotation("Relational:TableName", "ClassFeedbacks");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
 

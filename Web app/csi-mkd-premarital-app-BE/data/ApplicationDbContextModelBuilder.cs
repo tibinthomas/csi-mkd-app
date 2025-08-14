@@ -29,7 +29,7 @@ namespace csi_mkd_premarital_app_BE.Data
             var premaritalDocument = PremaritalDocumentEntityType.Create(this);
             var premaritalRegistration = PremaritalRegistrationEntityType.Create(this);
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
-            var sessionFeedback = SessionFeedbackEntityType.Create(this);
+            var classFeedback = ClassFeedbackEntityType.Create(this);
 
             ParticipantEntityType.CreateForeignKey1(participant, confirmationRegistration);
             ConfirmationDocumentEntityType.CreateForeignKey1(confirmationDocument, confirmationRegistration);
@@ -48,7 +48,7 @@ namespace csi_mkd_premarital_app_BE.Data
             PremaritalDocumentEntityType.CreateAnnotations(premaritalDocument);
             PremaritalRegistrationEntityType.CreateAnnotations(premaritalRegistration);
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
-            SessionFeedbackEntityType.CreateAnnotations(sessionFeedback);
+            ClassFeedbackEntityType.CreateAnnotations(classFeedback);
 
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
             AddAnnotation("ProductVersion", "9.0.6");
