@@ -23,5 +23,12 @@
   ],
   "navigationFallback": {
     "rewrite": "index.html"
+  },
+  "mimeTypes": {
+    ".js": "application/javascript",
+    ".css": "text/css",
+    ".json": "application/json",
+    ".html": "text/html",
+    ".svg": "image/svg+xml"
   }
 }
