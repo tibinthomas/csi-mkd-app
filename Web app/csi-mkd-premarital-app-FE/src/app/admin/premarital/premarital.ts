@@ -461,8 +461,9 @@ export class PremaritalComponent {
       data: { htmlContent, certificateData: data },
       width: '95vw',
       height: '95vh',
-      maxWidth: '1200px',
-      maxHeight: '800px'
+      maxWidth: '95vw',
+      maxHeight: '95vh',
+      panelClass: 'full-screen-dialog'
     });
   }
 }
@@ -470,23 +471,23 @@ export class PremaritalComponent {
 @Component({
   selector: 'certificate-preview-dialog',
   template: `
-    <div class="certificate-preview-container">
-      <div class="dialog-header flex justify-between items-center p-4 border-b">
+    <div class="certificate-preview-container h-full flex flex-col">
+      <div class="dialog-header flex justify-between items-center p-4 border-b z-10 bg-background text-on-background">
         <h2 mat-dialog-title class="m-0">Certificate Preview</h2>
         <button mat-icon-button mat-dialog-close>
           <mat-icon>close</mat-icon>
         </button>
       </div>
       
-      <div class="dialog-content p-4">
-        <div class="certificate-frame border rounded-lg overflow-hidden" style="height: 450px; width: 100%; overflow: auto;">
+      <div class="dialog-content flex-1 p-4 flex items-center justify-center overflow-hidden">
+        <div class="certificate-frame w-full h-full flex items-center justify-center">
           <div class="certificate-preview" [innerHTML]="sanitizedHtml" 
-               style="transform: scale(0.5); transform-origin: top left; width: 100%; height: 100%;">
+               style="transform: scale(0.8); transform-origin: center center; max-width: 100%; max-height: 100%;">
           </div>
         </div>
       </div>
       
-      <div class="dialog-actions flex justify-center gap-4 p-4 border-t">
+      <div class="dialog-actions flex justify-center gap-4 p-4 border-t z-10 bg-background text-on-background">
         <button mat-raised-button color="primary" (click)="printCertificate()" [disabled]="isLoading()">
           @if(isLoading()) {
             <mat-spinner diameter="20"></mat-spinner>
@@ -508,17 +509,114 @@ export class PremaritalComponent {
     </div>
   `,
   styles: [`
+    /* Light theme (default) */
     .certificate-preview-container {
-      max-width: 100%;
-      min-width: 800px;
+      height: 100vh;
+      background: #f5f5f5;
+      transition: background-color 0.3s ease;
     }
+    
+    .dialog-header,
+    .dialog-actions {
+      background: #ffffff;
+      color: #000000;
+      border-color: #e0e0e0;
+      transition: all 0.3s ease;
+    }
+    
     .certificate-frame {
       background: #f5f5f5;
-      position: relative;
+      padding: 20px;
+      transition: background-color 0.3s ease;
     }
-    .certificate-iframe {
-      width: 140% !important;
-      height: 140% !important;
+    
+    .certificate-preview {
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: visible;
+      transition: box-shadow 0.3s ease;
+    }
+    
+    /* Dark theme adjustments - using :host-context for better theme detection */
+    :host-context(.theme-dark) .certificate-preview-container {
+      background: #2c2c2c !important;
+    }
+    
+    :host-context(.theme-dark) .dialog-header,
+    :host-context(.theme-dark) .dialog-actions {
+      background: #1e1e1e !important;
+      color: #ffffff !important;
+      border-color: #404040 !important;
+    }
+    
+    :host-context(.theme-dark) .certificate-frame {
+      background: #2c2c2c !important;
+    }
+    
+    :host-context(.theme-dark) .certificate-preview {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+      border: 1px solid #404040 !important;
+    }
+    
+    /* Alternative selector using data-theme attribute */
+    :host-context([data-theme="dark"]) .certificate-preview-container {
+      background: #2c2c2c !important;
+    }
+    
+    :host-context([data-theme="dark"]) .dialog-header,
+    :host-context([data-theme="dark"]) .dialog-actions {
+      background: #1e1e1e !important;
+      color: #ffffff !important;
+      border-color: #404040 !important;
+    }
+    
+    :host-context([data-theme="dark"]) .certificate-frame {
+      background: #2c2c2c !important;
+    }
+    
+    :host-context([data-theme="dark"]) .certificate-preview {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+      border: 1px solid #404040 !important;
+    }
+    
+    /* Full screen dialog overrides */
+    :host ::ng-deep .full-screen-dialog .mat-mdc-dialog-container {
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      height: 100vh !important;
+      width: 100vw !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      background: #ffffff;
+      transition: background-color 0.3s ease;
+    }
+    
+    :host-context(.theme-dark) ::ng-deep .full-screen-dialog .mat-mdc-dialog-container {
+      background: #1e1e1e !important;
+    }
+    
+    :host-context([data-theme="dark"]) ::ng-deep .full-screen-dialog .mat-mdc-dialog-container {
+      background: #1e1e1e !important;
+    }
+    
+    /* Theme-aware border colors */
+    :host ::ng-deep .border-b {
+      border-color: #e0e0e0 !important;
+    }
+    
+    :host ::ng-deep .border-t {
+      border-color: #e0e0e0 !important;
+    }
+    
+    :host-context(.theme-dark) ::ng-deep .border-b,
+    :host-context(.theme-dark) ::ng-deep .border-t {
+      border-color: #404040 !important;
+    }
+    
+    :host-context([data-theme="dark"]) ::ng-deep .border-b,
+    :host-context([data-theme="dark"]) ::ng-deep .border-t {
+      border-color: #404040 !important;
     }
   `],
   imports: [MatDialogModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
