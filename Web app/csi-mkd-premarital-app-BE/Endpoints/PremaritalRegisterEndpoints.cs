@@ -42,8 +42,8 @@ public static class PremaritalRegisterEndpoints
 
         group.MapGet("/check-email", async (IPremaritalRegisterService service, string email) =>
         {
-            var exists = await service.CheckEmailExists(email);
-            return Results.Ok(new CheckEmailResponseDto { Exists = exists });
+            var (exists, userId) = await service.CheckEmailExists(email);
+            return Results.Ok(new CheckEmailResponseDto { Exists = exists, UserId = userId });
         })
         .Produces<CheckEmailResponseDto>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
@@ -61,7 +61,16 @@ public static class PremaritalRegisterEndpoints
             return Results.Ok(new { total });
         })
         .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
+
+        group.MapGet("/{id:int}", async (IPremaritalRegisterService service, int id) =>
+        {
+            var registration = await service.GetRegistrationById(id);
+            if (registration == null)
+            {
+                return Results.NotFound();
+            }
+            return Results.Ok(registration);
+        })
+        .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
     }
 }
-
-

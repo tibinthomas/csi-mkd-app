@@ -82,7 +82,7 @@ namespace csi_mkd_premarital_app_BE.Services
                 ? (200, new { message = "Updated successfully" })
                 : (500, new { message = "Failed to update" });
 
-        public async Task<bool> CheckEmailExists(string email)
+        public async Task<(bool Exists, int? UserId)> CheckEmailExists(string email)
             => await _repo.CheckEmailExists(email);
 
         public async Task<object> GetFilteredRegistrations(RegistrationFilterDto filter)
@@ -91,6 +91,11 @@ namespace csi_mkd_premarital_app_BE.Services
         public async Task<int> GetTotalRegistrations()
         {
             return await _repo.GetTotalRegistrations();
+        }
+
+        public async Task<object?> GetRegistrationById(int id)
+        {
+            return await _repo.GetRegistrationById(id);
         }
     }
 

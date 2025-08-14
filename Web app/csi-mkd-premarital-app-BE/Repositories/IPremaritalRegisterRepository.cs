@@ -8,11 +8,9 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<int> AddRegistration(PremaritalRegistration registration);
         Task AddPremaritalFiles(PremaritalDocument documents);
         Task<bool> UpdatePaymentStatus(int id, bool status);
-        Task<bool> CheckEmailExists(string email);
+        Task<(bool Exists, int? UserId)> CheckEmailExists(string email);
         Task<object> FilterRegistrations(RegistrationFilterDto filter);
         Task<int> GetTotalRegistrations();
-
+        Task<object?> GetRegistrationById(int id);
     }
 }
-
-

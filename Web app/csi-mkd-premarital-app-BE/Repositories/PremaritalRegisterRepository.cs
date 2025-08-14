@@ -1,3 +1,4 @@
+using System.Text.Json;
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
@@ -38,9 +39,13 @@ namespace csi_mkd_premarital_app_BE.Repositories
             return true;
         }
 
-        public async Task<bool> CheckEmailExists(string email)
-            => await _context.PremaritalRegistrations
-                .AnyAsync(r => r.Email.ToLower() == email.ToLower());
+        public async Task<(bool Exists, int? UserId)> CheckEmailExists(string email)
+        {
+            var registration = await _context.PremaritalRegistrations
+                .FirstOrDefaultAsync(r => r.Email.ToLower() == email.ToLower());
+
+            return (registration != null, registration?.Id);
+        }
 
         public async Task<object> FilterRegistrations(RegistrationFilterDto filter)
         {
@@ -119,6 +124,49 @@ namespace csi_mkd_premarital_app_BE.Repositories
         public async Task<int> GetTotalRegistrations()
         {
             return await _context.PremaritalRegistrations.CountAsync();
+        }
+
+        public async Task<object?> GetRegistrationById(int id)
+        {
+            var query = _context.PremaritalRegistrations
+                .AsNoTracking()
+                .Include(r => r.SessionConfiguration)
+                .Include(r => r.PremaritalDocument)
+                .Where(r => r.Id == id);
+
+            var result = await query
+                .Select(r => new
+                {
+                    r.Id,
+                    r.FirstName,
+                    r.LastName,
+                    r.FatherName,
+                    r.Address,
+                    r.Sex,
+                    r.Age,
+                    r.Education,
+                    r.Occupation,
+                    r.ChurchName,
+                    r.FianceName,
+                    r.DateOfMarriage,
+                    r.Phone,
+                    r.Email,
+                    r.Days,
+                    r.ChurchActivitiesJson,
+                    ChoirMember = r.ChurchActivitiesJson != null && r.ChurchActivitiesJson.Contains("ChoirMember"),
+                    SsTeacher = r.ChurchActivitiesJson != null && r.ChurchActivitiesJson.Contains("SsTeacher"),
+                    YouthFellowship = r.ChurchActivitiesJson != null && r.ChurchActivitiesJson.Contains("YouthFellowship"),
+                    Other = r.ChurchActivitiesJson != null && r.ChurchActivitiesJson.Contains("Other"),
+                    r.Declaration,
+                    r.SessionId,
+                    SessionName = r.SessionConfiguration != null ? r.SessionConfiguration.SessionName : null,
+                    PhotoUrl = r.PremaritalDocument != null ? r.PremaritalDocument.PhotoUrl : null,
+                    VicarLetterUrl = r.PremaritalDocument != null ? r.PremaritalDocument.VicarLetterUrl : null,
+                    r.PaymentStatus
+                })
+                .FirstOrDefaultAsync();
+
+            return result;
         }
     }
 
