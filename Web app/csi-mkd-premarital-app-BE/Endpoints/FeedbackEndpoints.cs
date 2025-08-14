@@ -22,9 +22,6 @@ public static class FeedbackEndpoints
             var feedback = new ClassFeedback
             {
                 ClassTitle = dto.ClassTitle,
-                FirstName = dto.FirstName,
-                LastName = dto.LastName,
-                Email = dto.Email,
                 Date = DateTime.SpecifyKind(dto.Date, DateTimeKind.Utc),
                 QualityRating = dto.QualityRating,
                 RelevanceRating = dto.RelevanceRating,
@@ -32,7 +29,8 @@ public static class FeedbackEndpoints
                 OrganizationRating = dto.OrganizationRating,
                 Valuable = dto.Valuable,
                 Improvements = dto.Improvements,
-                Comments = dto.Comments
+                Comments = dto.Comments,
+                PremaritalRegistrationId = dto.PremaritalRegistrationId
             };
 
             db.ClassFeedbacks.Add(feedback);

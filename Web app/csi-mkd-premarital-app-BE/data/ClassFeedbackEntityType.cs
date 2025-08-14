@@ -50,13 +50,12 @@ namespace csi_mkd_premarital_app_BE.Data
                 sentinel: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
             date.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-            var email = runtimeEntityType.AddProperty(
-                "Email",
+            var classTitle = runtimeEntityType.AddProperty(
+                "ClassTitle",
                 typeof(string),
-                propertyInfo: typeof(ClassFeedback).GetProperty("Email", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ClassFeedback).GetField("<Email>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 500);
-            email.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                propertyInfo: typeof(ClassFeedback).GetProperty("ClassTitle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<ClassTitle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            classTitle.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var engagementRating = runtimeEntityType.AddProperty(
                 "EngagementRating",
@@ -66,13 +65,6 @@ namespace csi_mkd_premarital_app_BE.Data
                 sentinel: 0);
             engagementRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-            var firstName = runtimeEntityType.AddProperty(
-                "FirstName",
-                typeof(string),
-                propertyInfo: typeof(ClassFeedback).GetProperty("FirstName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ClassFeedback).GetField("<FirstName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 500);
-            firstName.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var improvements = runtimeEntityType.AddProperty(
                 "Improvements",
@@ -83,13 +75,6 @@ namespace csi_mkd_premarital_app_BE.Data
                 maxLength: 500);
             improvements.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-            var lastName = runtimeEntityType.AddProperty(
-                "LastName",
-                typeof(string),
-                propertyInfo: typeof(ClassFeedback).GetProperty("LastName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ClassFeedback).GetField("<LastName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 500);
-            lastName.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var organizationRating = runtimeEntityType.AddProperty(
                 "OrganizationRating",
@@ -115,13 +100,13 @@ namespace csi_mkd_premarital_app_BE.Data
                 sentinel: 0);
             relevanceRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-            var sessionTitle = runtimeEntityType.AddProperty(
-                "SessionTitle",
-                typeof(string),
-                propertyInfo: typeof(ClassFeedback).GetProperty("SessionTitle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ClassFeedback).GetField("<SessionTitle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 500);
-            sessionTitle.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+            var premaritalRegistrationId = runtimeEntityType.AddProperty(
+                "PremaritalRegistrationId",
+                typeof(int),
+                propertyInfo: typeof(ClassFeedback).GetProperty("PremaritalRegistrationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<PremaritalRegistrationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                sentinel: 0);
+            premaritalRegistrationId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var submittedAt = runtimeEntityType.AddProperty(
                 "SubmittedAt",

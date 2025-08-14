@@ -1,34 +1,30 @@
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace csi_mkd_premarital_app_BE.Models
 {
     public class ClassFeedback
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
         public required string ClassTitle { get; set; }
-        [Required]
-        public required string FirstName { get; set; }
-        [Required]
-        public required string LastName { get; set; }
-        [Required]
-        [EmailAddress]
-        public required string Email { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
 
-        [Required]
-        [Range(1, 5)]
+        [Required, Range(1, 5)]
         public int QualityRating { get; set; }
-        [Required]
-        [Range(1, 5)]
+
+        [Required, Range(1, 5)]
         public int RelevanceRating { get; set; }
-        [Required]
-        [Range(1, 5)]
+
+        [Required, Range(1, 5)]
         public int EngagementRating { get; set; }
-        [Required]
-        [Range(1, 5)]
+
+        [Required, Range(1, 5)]
         public int OrganizationRating { get; set; }
 
         public string? Valuable { get; set; }
@@ -36,7 +32,11 @@ namespace csi_mkd_premarital_app_BE.Models
         public string? Comments { get; set; }
 
         public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
-        // public byte[] RowVersion { get; set; } = default!;
 
+        // Foreign key to PremaritalRegistration
+        [ForeignKey("PremaritalRegistration")]
+        public required int PremaritalRegistrationId { get; set; }
+
+        public PremaritalRegistration? PremaritalRegistration { get; set; }
     }
 }

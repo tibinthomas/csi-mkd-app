@@ -5,9 +5,6 @@ namespace csi_mkd_premarital_app_BE.DTOs
     public class ClassFeedbackDto
     {
         public required string ClassTitle { get; set; }
-        public required string FirstName { get; set; }
-        public required string LastName { get; set; }
-        public required string Email { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
@@ -20,5 +17,6 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public string? Valuable { get; set; }
         public string? Improvements { get; set; }
         public string? Comments { get; set; }
+        public int PremaritalRegistrationId { get; set; }
     }
 }
