@@ -73,6 +73,8 @@ import { apiPremaritalregisterSaveFileUrlsPost } from '../fn/csi-mkd-premarital-
 import { ApiPremaritalregisterSaveFileUrlsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post';
 import { apiPremaritalregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { ApiPremaritalregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
+import { apiSessionconfigDeactivatePastSessionsPost } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-deactivate-past-sessions-post';
+import { ApiSessionconfigDeactivatePastSessionsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-deactivate-past-sessions-post';
 import { apiSessionconfigDeactivateSessionsPost } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-deactivate-sessions-post';
 import { ApiSessionconfigDeactivateSessionsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-deactivate-sessions-post';
 import { apiSessionconfigGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-get';
@@ -773,6 +775,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiSessionconfigDeactivateSessionsPost(params?: ApiSessionconfigDeactivateSessionsPost$Params, context?: HttpContext): Observable<void> {
     return this.apiSessionconfigDeactivateSessionsPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiSessionconfigDeactivatePastSessionsPost()` */
+  static readonly ApiSessionconfigDeactivatePastSessionsPostPath = '/api/sessionconfig/deactivate-past-sessions';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiSessionconfigDeactivatePastSessionsPost()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigDeactivatePastSessionsPost$Response(params?: ApiSessionconfigDeactivatePastSessionsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiSessionconfigDeactivatePastSessionsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiSessionconfigDeactivatePastSessionsPost$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiSessionconfigDeactivatePastSessionsPost(params?: ApiSessionconfigDeactivatePastSessionsPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiSessionconfigDeactivatePastSessionsPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

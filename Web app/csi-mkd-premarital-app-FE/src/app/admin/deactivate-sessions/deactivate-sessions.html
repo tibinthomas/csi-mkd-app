@@ -1,6 +1,55 @@
-<button mat-flat-button (click)="deactivateSessions()" [disabled]="loading()">
-  {{ loading() ? "Deactivating..." : "Deactivate Sessions Starting in 3 Days" }}
-</button>
-@if(message()){
-<p [class.success]="success()" [class.error]="!success()">{{ message() }}</p>
-}
+<div class="max-w-4xl mx-auto py-10 text-center">
+  <!-- Main Heading -->
+  <h1 class="text-2xl font-bold mb-8 text-on-background">Deactivate Sessions</h1>
+
+  <!-- Cards Grid -->
+  <div class="grid gap-8 md:grid-cols-2">
+    <!-- Upcoming Sessions Card -->
+    <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center transition-transform hover:scale-[1.02]">
+      <h3 class="text-lg font-semibold mb-2">Upcoming Sessions (Next 3 Days)</h3>
+      <p class="text-sm text-on-surface-variant mb-4 text-center">
+        Deactivate all sessions scheduled for today and the next 3 days.
+      </p>
+      <button
+        mat-flat-button
+        class="bg-rose-500 hover:bg-rose-600 text-white w-full py-2 rounded-lg transition-colors disabled:opacity-50"
+        (click)="confirmDeactivateUpcoming()"
+        [disabled]="loadingDeactivateUpcoming()"
+      >
+        {{ loadingDeactivateUpcoming() ? "Deactivating..." : "Deactivate Upcoming Sessions" }}
+      </button>
+      @if (messageDeactivateUpcoming()) {
+      <p
+        class="mt-3 text-sm font-medium"
+        [class.text-green-600]="successDeactivateUpcoming()"
+        [class.text-red-600]="!successDeactivateUpcoming()"
+      >
+        {{ messageDeactivateUpcoming() }}
+      </p>
+      }
+    </div>
+
+    <!-- Past Sessions Card -->
+    <div class="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center transition-transform hover:scale-[1.02]">
+      <h3 class="text-lg font-semibold mb-2">Past Sessions</h3>
+      <p class="text-sm text-on-surface-variant mb-4 text-center">Deactivate all sessions that have already ended.</p>
+      <button
+        mat-flat-button
+        class="bg-rose-500 hover:bg-rose-600 text-white w-full py-2 rounded-lg transition-colors disabled:opacity-50"
+        (click)="confirmDeactivatePast()"
+        [disabled]="loadingDeactivatePast()"
+      >
+        {{ loadingDeactivatePast() ? "Deactivating..." : "Deactivate Past Sessions" }}
+      </button>
+      @if (messageDeactivatePast()) {
+      <p
+        class="mt-3 text-sm font-medium"
+        [class.text-green-600]="successDeactivatePast()"
+        [class.text-red-600]="!successDeactivatePast()"
+      >
+        {{ messageDeactivatePast() }}
+      </p>
+      }
+    </div>
+  </div>
+</div>

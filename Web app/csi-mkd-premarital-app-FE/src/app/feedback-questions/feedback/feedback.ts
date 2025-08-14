@@ -13,8 +13,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { CsiMkdPremaritalAppBeService } from '../../api/services';
-import { NoDigitsDirective } from '../shared/directives/no-digits.directive';
+import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -40,6 +40,24 @@ export class Feedback {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
+  protected readonly sessionTitles = signal<any>([
+    { id: '1', title: 'Session 1: Notion about Marriage Life' },
+    { id: '2', title: 'Session 2: Faith' },
+    { id: '3', title: 'Session 3: Communication' },
+    { id: '4', title: 'Session 4: Family and Parenting' },
+    { id: '5', title: 'Session 5: Know your Partner' },
+    { id: '6', title: 'Session 6: Personality' },
+    { id: '7', title: 'Session 7: Sex and Spirituality' },
+    { id: '8', title: 'Session 8: Addiction' },
+    { id: '9', title: 'Session 9: Law in Marriage' },
+    { id: '10', title: 'Session 10: Emotional Hygiene and Stress' },
+    { id: '11', title: 'Session 11: Management' },
+    { id: '12', title: 'Session 12: Conflict Management' },
+    { id: '13', title: 'Session 13: Pregnancy and Childbirth' },
+    { id: '14', title: 'Session 14: Mens Sexuality' },
+    { id: '15', title: 'Session 15: Sacrementality' },
+    { id: '16', title: 'Session 16: Overall Feedback' },
+  ]);
 
   protected readonly feedbackForm = this.fb.group({
     sessionTitle: ['', [Validators.required, Validators.maxLength(100)]],

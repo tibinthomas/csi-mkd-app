@@ -9,7 +9,13 @@
       <form #formEl [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" aria-labelledby="feedback-title" novalidate>
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Session Title</mat-label>
-          <input matInput formControlName="sessionTitle" aria-required="true" appNoDigits />
+          <mat-select formControlName="sessionTitle">
+            @for (session of sessionTitles(); track session.id) {
+            <mat-option [value]="session.id" [attr.aria-label]="session.title">
+              {{ session.title }}
+            </mat-option>
+            }
+          </mat-select>
         </mat-form-field>
 
         <div class="grid md:grid-cols-2 gap-6">
@@ -24,13 +30,13 @@
           </mat-form-field>
         </div>
 
-        <mat-form-field appearance="fill" class="w-full">
+        <mat-form-field appearance="fill" class="w-full mb-4">
           <mat-label i18n>Date of Session</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="date" />
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          <mat-hint>{{ timezoneDisplay }}</mat-hint>
         </mat-form-field>
-        <mat-hint class="mb-4">{{ timezoneDisplay }}</mat-hint>
 
         <div class="grid md:grid-cols-2 gap-6" role="group" aria-labelledby="ratings-heading">
           <h3 id="ratings-heading" class="sr-only" i18n>Session Ratings</h3>
@@ -86,13 +92,12 @@
           <textarea matInput formControlName="comments" rows="3"></textarea>
         </mat-form-field>
 
-        <div class="pt-6">
+        <div class="pt-6 flex justify-center">
           <button
-            mat-raised-button
+            mat-flat-button
             color="primary"
             type="submit"
             [disabled]="isSubmitting()"
-            class="w-full"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
             {{ isSubmitting() ? "Submitting..." : "Submit Feedback" }}

@@ -9,18 +9,12 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface ApiPremaritalRegisterSaveFileUrlsPost$Params {
-      body?: {
-'RegistrationId': number;
-'PhotoUrl': string;
-'VicarLetterUrl': string;
-}
+export interface ApiSessionconfigDeactivatePastSessionsPost$Params {
 }
 
-export function apiPremaritalRegisterSaveFileUrlsPost(http: HttpClient, rootUrl: string, params?: ApiPremaritalRegisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalRegisterSaveFileUrlsPost.PATH, 'post');
+export function apiSessionconfigDeactivatePastSessionsPost(http: HttpClient, rootUrl: string, params?: ApiSessionconfigDeactivatePastSessionsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiSessionconfigDeactivatePastSessionsPost.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
@@ -33,4 +27,4 @@ export function apiPremaritalRegisterSaveFileUrlsPost(http: HttpClient, rootUrl:
   );
 }
 
-apiPremaritalRegisterSaveFileUrlsPost.PATH = '/api/PremaritalRegister/save-file-urls';
+apiSessionconfigDeactivatePastSessionsPost.PATH = '/api/sessionconfig/deactivate-past-sessions';

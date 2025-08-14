@@ -10,29 +10,71 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './deactivate-sessions.scss',
 })
 export class DeactivateSessions {
-  private csiMkdPremaritalAppBeService = inject(CsiMkdPremaritalAppBeService);
+  private service = inject(CsiMkdPremaritalAppBeService);
 
-  loading = signal(false);
-  message = signal('');
-  success = signal(true);
+  // Signals for "3 Days" deactivation
+  loadingDeactivateUpcoming = signal(false);
+  messageDeactivateUpcoming = signal('');
+  successDeactivateUpcoming = signal(false);
 
-  deactivateSessions() {
-    this.loading.set(true);
-    this.message.set('');
+  // Signals for "Past Sessions" deactivation
+  loadingDeactivatePast = signal(false);
+  messageDeactivatePast = signal('');
+  successDeactivatePast = signal(false);
 
-    this.csiMkdPremaritalAppBeService
-      .apiSessionconfigDeactivateSessionsPost()
-      .subscribe({
-        next: () => {
-          this.message.set('Sessions deactivated successfully.');
-          this.success.set(true);
-          this.loading.set(false);
-        },
-        error: () => {
-          this.message.set('Failed to deactivate sessions. Try again later.');
-          this.success.set(false);
-          this.loading.set(false);
-        },
-      });
+  confirmDeactivateUpcoming() {
+    const confirmed = window.confirm(
+      'Are you sure you want to deactivate all sessions scheduled for today and the next 3 days?'
+    );
+    if (confirmed) {
+      this.deactivateUpcomingSessions();
+    }
+  }
+
+  confirmDeactivatePast() {
+    const confirmed = window.confirm(
+      'Are you sure you want to deactivate all past sessions?'
+    );
+    if (confirmed) {
+      this.deactivatePastSessions();
+    }
+  }
+
+  deactivateUpcomingSessions() {
+    this.loadingDeactivateUpcoming.set(true);
+    this.messageDeactivateUpcoming.set('');
+    this.service.apiSessionconfigDeactivateSessionsPost().subscribe({
+      next: () => {
+        this.successDeactivateUpcoming.set(true);
+        this.messageDeactivateUpcoming.set(
+          'All active sessions scheduled to start today or within the next 3 days have been successfully deactivated'
+        );
+      },
+      error: () => {
+        this.successDeactivateUpcoming.set(false);
+        this.messageDeactivateUpcoming.set(
+          'Failed to deactivate sessions starting in 3 days.'
+        );
+      },
+      complete: () => this.loadingDeactivateUpcoming.set(false),
+    });
+  }
+
+  deactivatePastSessions() {
+    this.loadingDeactivatePast.set(true);
+    this.messageDeactivatePast.set('');
+    this.service.apiSessionconfigDeactivatePastSessionsPost().subscribe({
+      next: () => {
+        this.successDeactivatePast.set(true);
+        this.messageDeactivatePast.set(
+          'All past sessions have been deactivated successfully.'
+        );
+      },
+      error: () => {
+        this.successDeactivatePast.set(false);
+        this.messageDeactivatePast.set('Failed to deactivate past sessions.');
+      },
+      complete: () => this.loadingDeactivatePast.set(false),
+    });
   }
 }

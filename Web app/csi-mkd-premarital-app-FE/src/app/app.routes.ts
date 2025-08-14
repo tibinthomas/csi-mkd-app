@@ -20,6 +20,19 @@ export const routes: Routes = [
         loadComponent: () => import('./about/about').then((m) => m.About),
       },
       {
+        path: 'feedback-questions',
+        title: 'Feedback - CSI MKD Premarital Counsel',
+        data: {
+          description:
+            'Provide feedback on your premarital counselling session.',
+        },
+        loadComponent: () =>
+          import('./feedback-questions/feedback-questions').then(
+            (m) => m.FeedbackQuestions
+          ),
+        canDeactivate: [pendingChangesGuard],
+      },
+      {
         path: 'feedback',
         title: 'Feedback - CSI MKD Premarital Counsel',
         data: {
@@ -27,7 +40,21 @@ export const routes: Routes = [
             'Provide feedback on your premarital counselling session.',
         },
         loadComponent: () =>
-          import('./feedback/feedback').then((m) => m.Feedback),
+          import('./feedback-questions/feedback/feedback').then(
+            (m) => m.Feedback
+          ),
+        canDeactivate: [pendingChangesGuard],
+      },
+      {
+        path: 'questions',
+        title: 'Questions - CSI MKD Premarital Counsel',
+        data: {
+          description: 'Provide thoughts on your premarital counselling.',
+        },
+        loadComponent: () =>
+          import('./feedback-questions/questions/questions').then(
+            (m) => m.Questions
+          ),
         canDeactivate: [pendingChangesGuard],
       },
       {
