@@ -32,7 +32,11 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/staticwebapp.config.json",
+              {
+                "glob": "staticwebapp.config.json",
+                "input": "./",
+                "output": "/"
+              },
               {
                 "glob": "**/*",
                 "input": "public"
@@ -42,9 +46,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            "polyfills": ["@angular/localize/init"]
           },
           "configurations": {
             "production": {
@@ -109,9 +111,7 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.scss"
             ],
-            "polyfills": [
-              "@angular/localize/init"
-            ]
+            "polyfills": ["@angular/localize/init"]
           }
         }
       }

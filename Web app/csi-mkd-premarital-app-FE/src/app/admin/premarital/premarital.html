@@ -127,6 +127,26 @@
               }
             </td>
           </ng-container>
+          <ng-container matColumnDef="certificate">
+            <th mat-header-cell *matHeaderCellDef i18n><strong>Certificate</strong></th>
+            <td mat-cell *matCellDef="let reg">
+              @if (reg.PaymentStatus) {
+              <button
+                mat-icon-button
+                aria-label="generate certificate"
+                (click)="generateCertificate(reg); $event.stopPropagation()"
+                matTooltip="Generate Certificate"
+                i18n-matTooltip
+                color="primary"
+              >
+                <mat-icon>print</mat-icon>
+              </button>
+              } @else {
+              <span class="text-gray-400" i18n>Payment Required</span>
+              }
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let reg">
@@ -144,7 +164,7 @@
 
           <!-- Expanded Content -->
           <ng-container matColumnDef="expandedDetail">
-            <td mat-cell *matCellDef="let reg" [attr.colspan]="10">
+            <td mat-cell *matCellDef="let reg" [attr.colspan]="11">
               <div
                 class="p-4 text-sm text-on-surface theme-transition"
                 [@detailExpand]="expandedElement === reg ? 'expanded' : 'collapsed'"
@@ -242,6 +262,7 @@
               'SessionName',
               'Days',
               'PaymentStatus',
+              'certificate',
               'expand'
             ]"
           ></tr>
@@ -259,6 +280,7 @@
                 'SessionName',
                 'Days',
                 'PaymentStatus',
+                'certificate',
                 'expand'
               ]
             "

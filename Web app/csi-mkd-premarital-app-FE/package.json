@@ -1,6 +1,6 @@
 {
   "name": "csi-mkd-counselling",
-  "version": "0.0.43",
+  "version": "0.0.48",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,9 +24,11 @@
     "@angular/service-worker": "^20.1.4",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/animejs": "^3.1.13",
+    "@types/html2pdf.js": "^0.10.0",
     "animejs": "^4.1.2",
     "azurite": "^3.34.0",
     "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "ng-openapi-gen": "^0.53.0",
