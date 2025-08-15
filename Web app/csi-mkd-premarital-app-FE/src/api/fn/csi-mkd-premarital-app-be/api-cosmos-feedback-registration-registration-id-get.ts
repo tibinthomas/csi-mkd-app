@@ -10,12 +10,14 @@ import { RequestBuilder } from '../../request-builder';
 
 import { FeedbackResponseDto } from '../../models/feedback-response-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface ApiCosmosFeedbackRegistrationRegistrationIdGet$Params {
+  registrationId: number;
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function apiCosmosFeedbackRegistrationRegistrationIdGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackRegistrationRegistrationIdGet.PATH, 'get');
   if (params) {
+    rb.path('registrationId', params.registrationId, {});
   }
 
   return http.request(
@@ -28,4 +30,4 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+apiCosmosFeedbackRegistrationRegistrationIdGet.PATH = '/api/cosmos/feedback/registration/{registrationId}';

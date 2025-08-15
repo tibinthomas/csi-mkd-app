@@ -8,24 +8,23 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackResponseDto } from '../../models/feedback-response-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface HealthCosmosGet$Params {
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function healthCosmosGet(http: HttpClient, rootUrl: string, params?: HealthCosmosGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, healthCosmosGet.PATH, 'get');
   if (params) {
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FeedbackResponseDto>>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+healthCosmosGet.PATH = '/health/cosmos';

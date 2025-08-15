@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackResponseDto } from '../../models/feedback-response-dto';
+import { FeedbackAnalyticsDto } from '../../models/feedback-analytics-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface ApiCosmosFeedbackAnalyticsGet$Params {
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function apiCosmosFeedbackAnalyticsGet(http: HttpClient, rootUrl: string, params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackAnalyticsDto>> {
+  const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackAnalyticsGet.PATH, 'get');
   if (params) {
   }
 
@@ -23,9 +23,9 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FeedbackResponseDto>>;
+      return r as StrictHttpResponse<FeedbackAnalyticsDto>;
     })
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+apiCosmosFeedbackAnalyticsGet.PATH = '/api/cosmos/feedback/analytics';

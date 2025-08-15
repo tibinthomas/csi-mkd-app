@@ -10,11 +10,11 @@ import { RequestBuilder } from '../../request-builder';
 
 import { FeedbackResponseDto } from '../../models/feedback-response-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface ApiCosmosFeedbackGet$Params {
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function apiCosmosFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiCosmosFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackGet.PATH, 'get');
   if (params) {
   }
 
@@ -28,4 +28,4 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+apiCosmosFeedbackGet.PATH = '/api/cosmos/feedback';

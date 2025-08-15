@@ -8,14 +8,15 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackResponseDto } from '../../models/feedback-response-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface ApiFeedbackCompletedRegistrationIdGet$Params {
+  registrationId: number;
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function apiFeedbackCompletedRegistrationIdGet(http: HttpClient, rootUrl: string, params: ApiFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {
+  const rb = new RequestBuilder(rootUrl, apiFeedbackCompletedRegistrationIdGet.PATH, 'get');
   if (params) {
+    rb.path('registrationId', params.registrationId, {});
   }
 
   return http.request(
@@ -23,9 +24,9 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FeedbackResponseDto>>;
+      return r as StrictHttpResponse<Array<number>>;
     })
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+apiFeedbackCompletedRegistrationIdGet.PATH = '/api/feedback/completed/{registrationId}';

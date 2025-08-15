@@ -10,12 +10,16 @@ import { RequestBuilder } from '../../request-builder';
 
 import { FeedbackResponseDto } from '../../models/feedback-response-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface ApiCosmosFeedbackDateRangeGet$Params {
+  startDate: string;
+  endDate: string;
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function apiCosmosFeedbackDateRangeGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackDateRangeGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackDateRangeGet.PATH, 'get');
   if (params) {
+    rb.query('startDate', params.startDate, {});
+    rb.query('endDate', params.endDate, {});
   }
 
   return http.request(
@@ -28,4 +32,4 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+apiCosmosFeedbackDateRangeGet.PATH = '/api/cosmos/feedback/date-range';

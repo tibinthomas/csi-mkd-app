@@ -10,12 +10,16 @@ import { RequestBuilder } from '../../request-builder';
 
 import { FeedbackResponseDto } from '../../models/feedback-response-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface ApiCosmosFeedbackIdPartitionKeyGet$Params {
+  id: string;
+  partitionKey: string;
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function apiCosmosFeedbackIdPartitionKeyGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackResponseDto>> {
+  const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackIdPartitionKeyGet.PATH, 'get');
   if (params) {
+    rb.path('id', params.id, {});
+    rb.path('partitionKey', params.partitionKey, {});
   }
 
   return http.request(
@@ -23,9 +27,9 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FeedbackResponseDto>>;
+      return r as StrictHttpResponse<FeedbackResponseDto>;
     })
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+apiCosmosFeedbackIdPartitionKeyGet.PATH = '/api/cosmos/feedback/{id}/{partitionKey}';

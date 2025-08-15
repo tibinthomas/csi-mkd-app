@@ -41,10 +41,30 @@ import { apiConfirmationregisterSaveFileUrlPost } from '../fn/csi-mkd-premarital
 import { ApiConfirmationregisterSaveFileUrlPost$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-save-file-url-post';
 import { apiConfirmationregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-total-get';
 import { ApiConfirmationregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-total-get';
+import { apiCosmosFeedbackAnalyticsGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-analytics-get';
+import { ApiCosmosFeedbackAnalyticsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-analytics-get';
+import { apiCosmosFeedbackClassClassIdGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-class-class-id-get';
+import { ApiCosmosFeedbackClassClassIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-class-class-id-get';
+import { apiCosmosFeedbackCompletedRegistrationIdGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-completed-registration-id-get';
+import { ApiCosmosFeedbackCompletedRegistrationIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-completed-registration-id-get';
+import { apiCosmosFeedbackDateRangeGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-date-range-get';
+import { ApiCosmosFeedbackDateRangeGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-date-range-get';
+import { apiCosmosFeedbackGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-get';
+import { ApiCosmosFeedbackGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-get';
+import { apiCosmosFeedbackIdPartitionKeyGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-id-partition-key-get';
+import { ApiCosmosFeedbackIdPartitionKeyGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-id-partition-key-get';
+import { apiCosmosFeedbackPost } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-post';
+import { ApiCosmosFeedbackPost$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-post';
+import { apiCosmosFeedbackRecentGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-recent-get';
+import { ApiCosmosFeedbackRecentGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-recent-get';
+import { apiCosmosFeedbackRegistrationRegistrationIdGet } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-registration-registration-id-get';
+import { ApiCosmosFeedbackRegistrationRegistrationIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cosmos-feedback-registration-registration-id-get';
 import { apiEmailconfigGet } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-get';
 import { ApiEmailconfigGet$Params } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-get';
 import { apiEmailconfigPost } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-post';
 import { ApiEmailconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-post';
+import { apiFeedbackCompletedRegistrationIdGet } from '../fn/csi-mkd-premarital-app-be/api-feedback-completed-registration-id-get';
+import { ApiFeedbackCompletedRegistrationIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-feedback-completed-registration-id-get';
 import { apiFeedbackGet } from '../fn/csi-mkd-premarital-app-be/api-feedback-get';
 import { ApiFeedbackGet$Params } from '../fn/csi-mkd-premarital-app-be/api-feedback-get';
 import { apiFeedbackPost } from '../fn/csi-mkd-premarital-app-be/api-feedback-post';
@@ -92,8 +112,11 @@ import { ApiSessionconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api
 import { apiSessionconfigSessionsGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { ApiSessionconfigSessionsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { CheckEmailResponseDto } from '../models/check-email-response-dto';
-import { ClassFeedback } from '../models/class-feedback';
 import { EmailConfig } from '../models/email-config';
+import { FeedbackAnalyticsDto } from '../models/feedback-analytics-dto';
+import { FeedbackResponseDto } from '../models/feedback-response-dto';
+import { healthCosmosGet } from '../fn/csi-mkd-premarital-app-be/health-cosmos-get';
+import { HealthCosmosGet$Params } from '../fn/csi-mkd-premarital-app-be/health-cosmos-get';
 import { healthDbGet } from '../fn/csi-mkd-premarital-app-be/health-db-get';
 import { HealthDbGet$Params } from '../fn/csi-mkd-premarital-app-be/health-db-get';
 import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
@@ -152,6 +175,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   healthDbGet(params?: HealthDbGet$Params, context?: HttpContext): Observable<void> {
     return this.healthDbGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `healthCosmosGet()` */
+  static readonly HealthCosmosGetPath = '/health/cosmos';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `healthCosmosGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  healthCosmosGet$Response(params?: HealthCosmosGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return healthCosmosGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `healthCosmosGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  healthCosmosGet(params?: HealthCosmosGet$Params, context?: HttpContext): Observable<void> {
+    return this.healthCosmosGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
@@ -890,7 +938,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedback>>> {
+  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
     return apiFeedbackGet(this.http, this.rootUrl, params, context);
   }
 
@@ -900,9 +948,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<Array<ClassFeedback>> {
+  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
     return this.apiFeedbackGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<ClassFeedback>>): Array<ClassFeedback> => r.body)
+      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
     );
   }
 
@@ -928,6 +976,256 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
   apiFeedbackPost(params: ApiFeedbackPost$Params, context?: HttpContext): Observable<void> {
     return this.apiFeedbackPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiFeedbackCompletedRegistrationIdGet()` */
+  static readonly ApiFeedbackCompletedRegistrationIdGetPath = '/api/feedback/completed/{registrationId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiFeedbackCompletedRegistrationIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiFeedbackCompletedRegistrationIdGet$Response(params: ApiFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {
+    return apiFeedbackCompletedRegistrationIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiFeedbackCompletedRegistrationIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiFeedbackCompletedRegistrationIdGet(params: ApiFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<Array<number>> {
+    return this.apiFeedbackCompletedRegistrationIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<number>>): Array<number> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackGet()` */
+  static readonly ApiCosmosFeedbackGetPath = '/api/cosmos/feedback';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackGet$Response(params?: ApiCosmosFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+    return apiCosmosFeedbackGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackGet(params?: ApiCosmosFeedbackGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+    return this.apiCosmosFeedbackGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackPost()` */
+  static readonly ApiCosmosFeedbackPostPath = '/api/cosmos/feedback';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiCosmosFeedbackPost$Response(params: ApiCosmosFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiCosmosFeedbackPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiCosmosFeedbackPost(params: ApiCosmosFeedbackPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiCosmosFeedbackPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackDateRangeGet()` */
+  static readonly ApiCosmosFeedbackDateRangeGetPath = '/api/cosmos/feedback/date-range';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackDateRangeGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackDateRangeGet$Response(params: ApiCosmosFeedbackDateRangeGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+    return apiCosmosFeedbackDateRangeGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackDateRangeGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackDateRangeGet(params: ApiCosmosFeedbackDateRangeGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+    return this.apiCosmosFeedbackDateRangeGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackRegistrationRegistrationIdGet()` */
+  static readonly ApiCosmosFeedbackRegistrationRegistrationIdGetPath = '/api/cosmos/feedback/registration/{registrationId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackRegistrationRegistrationIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackRegistrationRegistrationIdGet$Response(params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+    return apiCosmosFeedbackRegistrationRegistrationIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackRegistrationRegistrationIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackRegistrationRegistrationIdGet(params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+    return this.apiCosmosFeedbackRegistrationRegistrationIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackCompletedRegistrationIdGet()` */
+  static readonly ApiCosmosFeedbackCompletedRegistrationIdGetPath = '/api/cosmos/feedback/completed/{registrationId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackCompletedRegistrationIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackCompletedRegistrationIdGet$Response(params: ApiCosmosFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {
+    return apiCosmosFeedbackCompletedRegistrationIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackCompletedRegistrationIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackCompletedRegistrationIdGet(params: ApiCosmosFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<Array<number>> {
+    return this.apiCosmosFeedbackCompletedRegistrationIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<number>>): Array<number> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackIdPartitionKeyGet()` */
+  static readonly ApiCosmosFeedbackIdPartitionKeyGetPath = '/api/cosmos/feedback/{id}/{partitionKey}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackIdPartitionKeyGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackIdPartitionKeyGet$Response(params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackResponseDto>> {
+    return apiCosmosFeedbackIdPartitionKeyGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackIdPartitionKeyGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackIdPartitionKeyGet(params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<FeedbackResponseDto> {
+    return this.apiCosmosFeedbackIdPartitionKeyGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<FeedbackResponseDto>): FeedbackResponseDto => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackClassClassIdGet()` */
+  static readonly ApiCosmosFeedbackClassClassIdGetPath = '/api/cosmos/feedback/class/{classId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackClassClassIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackClassClassIdGet$Response(params: ApiCosmosFeedbackClassClassIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+    return apiCosmosFeedbackClassClassIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackClassClassIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackClassClassIdGet(params: ApiCosmosFeedbackClassClassIdGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+    return this.apiCosmosFeedbackClassClassIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackAnalyticsGet()` */
+  static readonly ApiCosmosFeedbackAnalyticsGetPath = '/api/cosmos/feedback/analytics';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackAnalyticsGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackAnalyticsGet$Response(params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackAnalyticsDto>> {
+    return apiCosmosFeedbackAnalyticsGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackAnalyticsGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackAnalyticsGet(params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<FeedbackAnalyticsDto> {
+    return this.apiCosmosFeedbackAnalyticsGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<FeedbackAnalyticsDto>): FeedbackAnalyticsDto => r.body)
+    );
+  }
+
+  /** Path part for operation `apiCosmosFeedbackRecentGet()` */
+  static readonly ApiCosmosFeedbackRecentGetPath = '/api/cosmos/feedback/recent';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiCosmosFeedbackRecentGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackRecentGet$Response(params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+    return apiCosmosFeedbackRecentGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiCosmosFeedbackRecentGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiCosmosFeedbackRecentGet(params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+    return this.apiCosmosFeedbackRecentGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
     );
   }
 
