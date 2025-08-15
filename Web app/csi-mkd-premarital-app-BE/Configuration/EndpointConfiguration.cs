@@ -20,7 +20,6 @@ public static class EndpointConfiguration
         app.MapConfirmationRegisterEndpoints();
         app.MapSessionConfigEndpoints();
         app.MapEmailConfigEndpoints();
-        app.MapFeedbackEndpoints();
         app.MapCosmosDbFeedbackEndpoints();
         app.MapAzureUploadEndpoints();
         app.MapCacheManagementEndpoints();
@@ -29,7 +28,7 @@ public static class EndpointConfiguration
     private static void MapHealthEndpoints(WebApplication app)
     {
         app.MapGet("/health", () => Results.Ok("Healthy"));
-        
+
         app.MapGet("/health/db", async (ApplicationDbContext db) =>
         {
             try

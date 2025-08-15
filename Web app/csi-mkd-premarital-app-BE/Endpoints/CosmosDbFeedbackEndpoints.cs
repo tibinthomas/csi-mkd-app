@@ -19,7 +19,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
             {
                 var userAgent = context.Request.Headers.UserAgent.ToString();
                 var ipAddress = context.Connection.RemoteIpAddress?.ToString();
-                
+
                 await service.SubmitFeedbackAsync(dto, userAgent, ipAddress);
                 return Results.Ok(new { message = "Feedback submitted successfully to Cosmos DB." });
             })
@@ -78,7 +78,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var feedback = await service.GetFeedbackByIdAsync(id, partitionKey);
                 if (feedback == null)
                     return Results.NotFound();
-                
+
                 return Results.Ok(feedback);
             })
             .Produces<FeedbackResponseDto>(StatusCodes.Status200OK)
