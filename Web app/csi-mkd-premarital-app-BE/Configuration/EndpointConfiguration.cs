@@ -21,6 +21,7 @@ public static class EndpointConfiguration
         app.MapSessionConfigEndpoints();
         app.MapEmailConfigEndpoints();
         app.MapFeedbackEndpoints();
+        app.MapCosmosDbFeedbackEndpoints();
         app.MapAzureUploadEndpoints();
         app.MapCacheManagementEndpoints();
     }
@@ -39,6 +40,20 @@ public static class EndpointConfiguration
             catch (Exception ex)
             {
                 return Results.Problem($"DB check failed: {ex.Message}");
+            }
+        });
+
+        app.MapGet("/health/cosmos", async (CosmosDbContext cosmosDb) =>
+        {
+            try
+            {
+                // Test Cosmos DB connection by trying to ensure database exists
+                await cosmosDb.Database.EnsureCreatedAsync();
+                return Results.Ok("Cosmos DB OK");
+            }
+            catch (Exception ex)
+            {
+                return Results.Problem($"Cosmos DB check failed: {ex.Message}");
             }
         });
     }

@@ -246,6 +246,7 @@ public static class ServiceConfiguration
         builder.Services.AddScoped<IConfirmationRegisterRepository, ConfirmationRegisterRepository>();
         builder.Services.AddScoped<ISessionConfigRepository, SessionConfigRepository>();
         builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+        builder.Services.AddScoped<ICosmosDbFeedbackRepository, CosmosDbFeedbackRepository>();
 
         // Business logic services
         builder.Services.AddScoped<IPremaritalRegisterService, PremaritalRegisterService>();
@@ -253,6 +254,7 @@ public static class ServiceConfiguration
         builder.Services.AddScoped<IConfirmationRegisterService, ConfirmationRegisterService>();
         builder.Services.AddScoped<ISessionConfigService, SessionConfigService>();
         builder.Services.AddScoped<IFeedbackService, FeedbackService>();
+        builder.Services.AddScoped<ICosmosDbFeedbackService, CosmosDbFeedbackService>();
         builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
         builder.Services.AddScoped<ICacheInvalidationService, CacheInvalidationService>();
         builder.Services.AddScoped<ICacheHealthService, CacheHealthService>();
