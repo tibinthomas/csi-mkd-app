@@ -1,41 +1,69 @@
-// Component Theme Overrides for Dark Mode Compatibility
-// This file contains styling overrides to ensure all components look good in both light and dark themes
+// =============================================================================
+// Component Theme Overrides for CSI Premarital App
+// =============================================================================
+// Provides comprehensive theming overrides to ensure Material Design components
+// work seamlessly with both light and dark themes using design tokens.
 
-// Ensure consistent theming for body and root elements
+// =============================================================================
+// DESIGN TOKENS & VARIABLES
+// =============================================================================
+
+:root {
+  // Transition timing for smooth theme changes
+  --theme-transition-timing: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Light theme defaults (fallback values)
+  --theme-bg-light: #fff8f8;
+  --theme-text-light: #201a1b;
+  --theme-bg-dark: #191113;
+  --theme-text-dark: #ece0e1;
+}
+
+// =============================================================================
+// ROOT & GLOBAL ELEMENTS
+// =============================================================================
+
 :root[data-theme="dark"] {
   color-scheme: dark;
 }
 
-// Force background color application for all themes
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+// Base styling for html and body
 html,
 body {
-  // Light theme defaults
-  background-color: #fff8f8; // Default light background from Material theme
-  color: #201a1b; // Default light text
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-              color 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  background-color: var(--md-sys-color-background, var(--theme-bg-light));
+  color: var(--md-sys-color-on-background, var(--theme-text-light));
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
+  
+  // Ensure smooth scrolling and proper font rendering
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-// Dark theme overrides
-:root[data-theme="dark"] html,
-:root[data-theme="dark"] body {
-  background-color: #191113 !important; // Dark background
-  color: #ece0e1 !important; // Dark theme text
+// Dark theme specific overrides
+:root[data-theme="dark"] {
+  html,
+  body {
+    background-color: var(--md-sys-color-background, var(--theme-bg-dark));
+    color: var(--md-sys-color-on-background, var(--theme-text-dark));
+  }
 }
 
-// Also apply with CSS custom properties as backup
-html,
-body {
-  background-color: var(--md-sys-color-background, #fff8f8) !important;
-  color: var(--md-sys-color-on-background, #201a1b) !important;
-}
-
-// Ensure Angular root component inherits theme
+// Angular root component
 app-root {
   background-color: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
   min-height: 100vh;
   display: block;
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
 }
 
 // Material Form Field Overrides for better dark mode integration
