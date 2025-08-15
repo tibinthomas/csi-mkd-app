@@ -66,59 +66,89 @@ app-root {
     color var(--theme-transition-timing);
 }
 
-// Material Form Field Overrides for better dark mode integration
+// =============================================================================
+// MATERIAL DESIGN COMPONENT OVERRIDES
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// Form Components
+// -----------------------------------------------------------------------------
+
 .mat-mdc-form-field {
-  // Ensure form fields inherit theme colors properly
+  // Filled text fields
   .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     background-color: var(--md-sys-color-surface-variant);
+    transition: background-color var(--theme-transition-timing);
   }
   
+  // Outlined text fields
   .mdc-text-field--outlined:not(.mdc-text-field--disabled) {
     .mdc-notched-outline__leading,
     .mdc-notched-outline__notch,
     .mdc-notched-outline__trailing {
       border-color: var(--md-sys-color-outline);
+      transition: border-color var(--theme-transition-timing);
     }
   }
   
-  // Input text color
+  // Input styling
   .mdc-text-field__input {
     color: var(--md-sys-color-on-surface);
+    transition: color var(--theme-transition-timing);
     
     &::placeholder {
       color: var(--md-sys-color-on-surface-variant);
       opacity: 0.7;
+      transition: color var(--theme-transition-timing);
     }
   }
   
-  // Label colors
+  // Label styling
   .mdc-floating-label {
     color: var(--md-sys-color-on-surface-variant);
+    transition: color var(--theme-transition-timing);
   }
 }
 
-// Material Card Overrides
+// -----------------------------------------------------------------------------
+// Card Components
+// -----------------------------------------------------------------------------
+
 .mat-mdc-card {
   background-color: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
   
   .mat-mdc-card-title {
     color: var(--md-sys-color-on-surface);
+    transition: color var(--theme-transition-timing);
   }
   
   .mat-mdc-card-subtitle {
     color: var(--md-sys-color-on-surface-variant);
+    transition: color var(--theme-transition-timing);
   }
   
   .mat-mdc-card-content {
     color: var(--md-sys-color-on-surface);
+    transition: color var(--theme-transition-timing);
   }
 }
 
-// Material Button Overrides for consistent theming
+// -----------------------------------------------------------------------------
+// Button Components
+// -----------------------------------------------------------------------------
+
 .mat-mdc-button,
 .mat-mdc-raised-button,
 .mat-mdc-outlined-button {
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing),
+    border-color var(--theme-transition-timing);
+    
   &:not(.mat-primary):not(.mat-accent):not(.mat-warn) {
     --mdc-text-button-label-text-color: var(--md-sys-color-primary);
     --mdc-outlined-button-label-text-color: var(--md-sys-color-primary);
@@ -126,36 +156,98 @@ app-root {
   }
 }
 
-// Material Menu Overrides
-.mat-mdc-menu-panel {
-  background-color: var(--md-sys-color-surface-container);
-  
-  .mat-mdc-menu-item {
+// -----------------------------------------------------------------------------
+// Navigation Components
+// -----------------------------------------------------------------------------
+
+// Toolbar
+.mat-toolbar {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
+}
+
+// Sidenav
+.mat-drawer {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
+}
+
+.mat-drawer-container {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
+}
+
+// Navigation Lists
+.mat-nav-list {
+  .mat-list-item {
     color: var(--md-sys-color-on-surface);
+    transition: 
+      background-color var(--theme-transition-timing),
+      color var(--theme-transition-timing);
     
     &:hover {
       background-color: var(--md-sys-color-surface-container-high);
     }
     
-    &:focus {
+    &:focus,
+    &:focus-visible {
+      background-color: var(--md-sys-color-surface-container-highest);
+      outline: 2px solid var(--md-sys-color-primary);
+      outline-offset: -2px;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Menu Components
+// -----------------------------------------------------------------------------
+
+.mat-mdc-menu-panel {
+  background-color: var(--md-sys-color-surface-container);
+  transition: background-color var(--theme-transition-timing);
+  
+  .mat-mdc-menu-item {
+    color: var(--md-sys-color-on-surface);
+    transition: 
+      background-color var(--theme-transition-timing),
+      color var(--theme-transition-timing);
+    
+    &:hover {
+      background-color: var(--md-sys-color-surface-container-high);
+    }
+    
+    &:focus,
+    &:focus-visible {
       background-color: var(--md-sys-color-surface-container-highest);
     }
   }
 }
 
-// Material Toolbar Overrides
-.mat-toolbar {
-  background-color: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-}
+// -----------------------------------------------------------------------------
+// Expansion Panel Components
+// -----------------------------------------------------------------------------
 
-// Material Expansion Panel Overrides
 .mat-expansion-panel {
   background-color: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
   
   .mat-expansion-panel-header {
     color: var(--md-sys-color-on-surface);
+    transition: 
+      background-color var(--theme-transition-timing),
+      color var(--theme-transition-timing);
     
     &:hover {
       background-color: var(--md-sys-color-surface-container-high);
@@ -164,106 +256,166 @@ app-root {
   
   .mat-expansion-panel-content {
     color: var(--md-sys-color-on-surface);
+    transition: color var(--theme-transition-timing);
   }
 }
 
-// Material Sidenav Overrides
-.mat-drawer {
-  background-color: var(--md-sys-color-surface);
-  color: var(--md-sys-color-on-surface);
-}
+// -----------------------------------------------------------------------------
+// Progress Components
+// -----------------------------------------------------------------------------
 
-.mat-drawer-container {
-  background-color: var(--md-sys-color-background);
-  color: var(--md-sys-color-on-background);
-}
-
-// Material List Overrides
-.mat-nav-list {
-  .mat-list-item {
-    color: var(--md-sys-color-on-surface);
-    
-    &:hover {
-      background-color: var(--md-sys-color-surface-container-high);
-    }
-    
-    &:focus {
-      background-color: var(--md-sys-color-surface-container-highest);
-    }
-  }
-}
-
-// Material Spinner Override
 .mat-mdc-progress-spinner {
   --mdc-circular-progress-active-indicator-color: var(--md-sys-color-primary);
 }
 
-// Material Dialog Overrides (if used)
+// -----------------------------------------------------------------------------
+// Dialog Components
+// -----------------------------------------------------------------------------
+
 .mat-mdc-dialog-surface {
   background-color: var(--md-sys-color-surface-container-high);
   color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
 }
 
-// Material Snackbar Overrides (if used)
+// -----------------------------------------------------------------------------
+// Notification Components
+// -----------------------------------------------------------------------------
+
 .mat-mdc-snack-bar-container {
   --mdc-snackbar-container-color: var(--md-sys-color-inverse-surface);
   --mdc-snackbar-supporting-text-color: var(--md-sys-color-inverse-on-surface);
 }
 
-// Ensure smooth transitions for all Material components
-.mat-mdc-card,
-.mat-mdc-button,
-.mat-mdc-raised-button,
-.mat-mdc-outlined-button,
-.mat-mdc-form-field,
-.mat-expansion-panel,
-.mat-toolbar,
-.mat-drawer,
-.mat-nav-list .mat-list-item,
-.mat-mdc-menu-panel .mat-mdc-menu-item {
-  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
+// =============================================================================
+// UTILITY CLASSES
+// =============================================================================
 
-// Custom utility classes for theme-aware components
+// -----------------------------------------------------------------------------
+// Theme-aware Background Utilities
+// -----------------------------------------------------------------------------
+
 .bg-themed-surface {
   background-color: var(--md-sys-color-surface);
   color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
 }
 
 .bg-themed-surface-container {
   background-color: var(--md-sys-color-surface-container);
   color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
 }
 
 .bg-themed-surface-container-high {
   background-color: var(--md-sys-color-surface-container-high);
   color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
 }
+
+.bg-themed-surface-container-highest {
+  background-color: var(--md-sys-color-surface-container-highest);
+  color: var(--md-sys-color-on-surface);
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing);
+}
+
+// -----------------------------------------------------------------------------
+// Theme-aware Text Utilities
+// -----------------------------------------------------------------------------
 
 .text-themed-primary {
   color: var(--md-sys-color-primary);
+  transition: color var(--theme-transition-timing);
 }
 
 .text-themed-on-surface {
   color: var(--md-sys-color-on-surface);
+  transition: color var(--theme-transition-timing);
 }
 
 .text-themed-on-surface-variant {
   color: var(--md-sys-color-on-surface-variant);
+  transition: color var(--theme-transition-timing);
 }
+
+.text-themed-on-background {
+  color: var(--md-sys-color-on-background);
+  transition: color var(--theme-transition-timing);
+}
+
+.text-themed-secondary {
+  color: var(--md-sys-color-secondary);
+  transition: color var(--theme-transition-timing);
+}
+
+.text-themed-error {
+  color: var(--md-sys-color-error);
+  transition: color var(--theme-transition-timing);
+}
+
+// -----------------------------------------------------------------------------
+// Theme-aware Border Utilities
+// -----------------------------------------------------------------------------
 
 .border-themed-outline {
   border-color: var(--md-sys-color-outline);
+  transition: border-color var(--theme-transition-timing);
 }
 
 .border-themed-outline-variant {
   border-color: var(--md-sys-color-outline-variant);
+  transition: border-color var(--theme-transition-timing);
 }
 
-// Accessibility improvements for dark mode
+.border-themed-primary {
+  border-color: var(--md-sys-color-primary);
+  transition: border-color var(--theme-transition-timing);
+}
+
+// -----------------------------------------------------------------------------
+// Theme Transition Utilities
+// -----------------------------------------------------------------------------
+
+.theme-transition {
+  transition: 
+    background-color var(--theme-transition-timing),
+    color var(--theme-transition-timing),
+    border-color var(--theme-transition-timing),
+    box-shadow var(--theme-transition-timing);
+}
+
+.theme-transition-fast {
+  transition: 
+    background-color calc(var(--theme-transition-timing) / 2),
+    color calc(var(--theme-transition-timing) / 2),
+    border-color calc(var(--theme-transition-timing) / 2);
+}
+
+.theme-transition-slow {
+  transition: 
+    background-color calc(var(--theme-transition-timing) * 2),
+    color calc(var(--theme-transition-timing) * 2),
+    border-color calc(var(--theme-transition-timing) * 2);
+}
+
+// =============================================================================
+// ACCESSIBILITY & USER EXPERIENCE
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// High Contrast Support
+// -----------------------------------------------------------------------------
+
 @media (prefers-contrast: high) {
   :root[data-theme="dark"] {
     --md-sys-color-primary: #ff8a9b;
@@ -271,17 +423,108 @@ app-root {
     --md-sys-color-surface: #000000;
     --md-sys-color-on-surface: #ffffff;
     --md-sys-color-outline: #ffffff;
+    --md-sys-color-outline-variant: #cccccc;
+    
+    // Increase contrast for better visibility
+    --md-sys-color-surface-container: #1a1a1a;
+    --md-sys-color-surface-container-high: #333333;
+    --md-sys-color-surface-container-highest: #4d4d4d;
+  }
+  
+  :root[data-theme="light"] {
+    --md-sys-color-primary: #8b0000;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-surface: #ffffff;
+    --md-sys-color-on-surface: #000000;
+    --md-sys-color-outline: #000000;
+    --md-sys-color-outline-variant: #333333;
   }
 }
 
-// Focus indicators that work well in both themes
+// -----------------------------------------------------------------------------
+// Reduced Motion Support
+// -----------------------------------------------------------------------------
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  :root {
+    --theme-transition-timing: 0.01ms;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Focus Management
+// -----------------------------------------------------------------------------
+
 :focus-visible {
   outline: 2px solid var(--md-sys-color-primary);
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
-// Ensure proper text selection colors in dark mode
+// Remove default focus for mouse users but keep for keyboard users
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// Enhanced focus for interactive elements
+button:focus-visible,
+[role="button"]:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(var(--md-sys-color-primary-rgb), 0.12);
+}
+
+// -----------------------------------------------------------------------------
+// Text Selection
+// -----------------------------------------------------------------------------
+
 ::selection {
   background-color: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
+}
+
+::-moz-selection {
+  background-color: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+}
+
+// -----------------------------------------------------------------------------
+// Scrollbar Theming (Webkit)
+// -----------------------------------------------------------------------------
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--md-sys-color-surface-container-low);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--md-sys-color-outline-variant);
+  border-radius: 4px;
+  
+  &:hover {
+    background: var(--md-sys-color-outline);
+  }
+}
+
+// Firefox scrollbar theming
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--md-sys-color-outline-variant) var(--md-sys-color-surface-container-low);
 }
