@@ -1,10 +1,14 @@
 import {
   Component,
-  ViewChild,
-  AfterViewInit,
+  ChangeDetectionStrategy,
+  viewChild,
   signal,
-  effect,
+  computed,
+  inject,
+  DestroyRef,
+  afterNextRender,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatSidenav } from '@angular/material/sidenav';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,9 +19,14 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
 import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
 
+interface NavigationItem {
+  routerLink: string;
+  icon: string;
+  label: string;
+}
+
 @Component({
   selector: 'app-admin-layout',
-
   imports: [
     RouterOutlet,
     RouterLink,
@@ -31,34 +40,71 @@ import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
   ],
   styleUrl: './admin-layout.scss',
   templateUrl: './admin-layout.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdminLayout implements AfterViewInit {
-  @ViewChild('sidenav') sidenav!: MatSidenav;
+export class AdminLayout {
+  private readonly destroyRef = inject(DestroyRef);
+  
+  readonly sidenav = viewChild.required<MatSidenav>('sidenav');
+  
+  readonly isMobile = signal(false);
+  readonly sidenavOpen = signal(false);
+  
+  readonly navigationItems: NavigationItem[] = [
+    { routerLink: '/admin/dashboard', icon: 'dashboard', label: 'Dashboard' },
+    { routerLink: '/admin/premarital', icon: 'people', label: 'Premarital Register List' },
+    { routerLink: '/admin/session-config', icon: 'event', label: 'Premarital Session Config' },
+    { routerLink: '/admin/deactivate-sessions', icon: 'disabled_by_default', label: 'Deactivate Sessions' },
+    { routerLink: '/admin/general-list', icon: 'list_alt', label: 'General Register List' },
+    { routerLink: '/admin/pre-confirm-list', icon: 'check_circle', label: 'Pre-Confirm List' },
+  ];
 
-  isMobile = signal(window.innerWidth < 768);
-  sidenavOpen = signal(false);
+  readonly sidenavMode = computed(() => this.isMobile() ? 'over' : 'side');
+  readonly sidenavOpened = computed(() => !this.isMobile() || this.sidenavOpen());
+  readonly menuIcon = computed(() => this.sidenavOpen() ? 'close' : 'menu');
 
   constructor() {
-    window.onresize = () => {
-      const mobile = window.innerWidth < 768;
-      this.isMobile.set(mobile);
-
-      // Auto-close the sidenav on resize to mobile
-      if (mobile) {
-        this.sidenavOpen.set(false);
-      } else {
-        this.sidenavOpen.set(true);
-      }
-    };
-  }
-
-  ngAfterViewInit(): void {
-    this.sidenav.openedChange.subscribe((opened) => {
-      this.sidenavOpen.set(opened);
+    this.initializeResponsiveHandler();
+    
+    afterNextRender(() => {
+      this.setupSidenavSubscription();
     });
   }
 
+  private initializeResponsiveHandler(): void {
+    this.updateMobileState();
+    
+    window.addEventListener('resize', () => {
+      this.updateMobileState();
+    });
+  }
+
+  private updateMobileState(): void {
+    const mobile = window.innerWidth < 768;
+    this.isMobile.set(mobile);
+    
+    if (mobile) {
+      this.sidenavOpen.set(false);
+    } else {
+      this.sidenavOpen.set(true);
+    }
+  }
+
+  private setupSidenavSubscription(): void {
+    this.sidenav().openedChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((opened) => {
+        this.sidenavOpen.set(opened);
+      });
+  }
+
   toggleSidenav(): void {
-    this.sidenav.toggle();
+    this.sidenav().toggle();
+  }
+
+  onNavItemClick(): void {
+    if (this.isMobile()) {
+      this.toggleSidenav();
+    }
   }
 }
