@@ -45,7 +45,7 @@ export class App implements OnInit {
       )
       .subscribe(({ title, description }) => {
         if (title && description) {
-          this.seoService.updateMetaTags(title, description);
+          this.seoService.updateMetaTags({ title, description });
         }
       });
   }

@@ -56,9 +56,8 @@ export class AdminLogin {
     this.loading.set(true);
     const { username, password } = this.loginForm.value;
 
-    this.authService.login(username ?? '', password ?? '').subscribe({
+    this.authService.login({ username: username ?? '', password: password ?? '' }).subscribe({
       next: (res) => {
-        this.authService.setToken(res.token);
         this.router.navigate(['/admin/dashboard']);
         this.loading.set(false);
       },
