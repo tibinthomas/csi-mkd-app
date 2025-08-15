@@ -18,7 +18,7 @@ interface Language {
 })
 export class LanguageSelectorComponent {
   languages: Language[] = [
-    { code: 'en-US', name: 'English' },
+    { code: 'en', name: 'English' },
     { code: 'ml', name: 'മലയാളം' },
   ];
 
