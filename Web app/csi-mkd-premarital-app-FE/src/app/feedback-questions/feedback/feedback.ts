@@ -6,6 +6,8 @@ import {
   ElementRef,
   ViewChild,
   OnInit,
+  input,
+  effect,
 } from '@angular/core';
 import { FeedbackDataService } from '../feedback-data.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -20,7 +22,9 @@ import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { ClassFeedbackDto } from '../../../api/models';
+import { ClassFeedbackDto, FeedbackResponseDto } from '../../../api/models';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-feedback',
@@ -46,6 +50,20 @@ export class Feedback implements OnInit {
   private readonly feedbackDataService = inject(FeedbackDataService);
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   userDetails = { name: '', email: '' };
+
+  userId = input<string>();
+  classId = input<string>();
+
+  constructor() {
+    effect(() => {
+      const feedbackData = this.existingFeedbackResource.value();
+      const targetClassId = this.classId();
+
+      if (feedbackData && Array.isArray(feedbackData) && targetClassId) {
+        this.populateFormWithExistingFeedback(feedbackData, targetClassId);
+      }
+    });
+  }
 
   ratingLabels: Record<string, string> = {
     qualityRating: 'Overall Quality',
@@ -109,6 +127,27 @@ export class Feedback implements OnInit {
   protected readonly errorMessage = signal('');
   protected readonly timezoneDisplay: string = 'Time Zone: IST (UTC+05:30)';
 
+  protected readonly completedFeedbackResource = rxResource({
+    params: () => this.userId(),
+    stream: ({ params: userId }) =>
+      userId
+        ? this.api.apiCosmosFeedbackCompletedRegistrationIdGet({
+            registrationId: Number(userId),
+          })
+        : of(null), // Always return an observable
+  });
+
+  protected readonly existingFeedbackResource = rxResource({
+    // params should be a function returning the current value
+    params: () => this.userId(),
+    stream: ({ params: userId }) =>
+      userId
+        ? this.api.apiCosmosFeedbackRegistrationRegistrationIdGet({
+            registrationId: Number(userId),
+          })
+        : of(null), // Use of(null) to return an observable when no userId
+  });
+
   getFormControl(name: string) {
     return this.feedbackForm.get(name);
   }
@@ -161,6 +200,32 @@ export class Feedback implements OnInit {
 
   ngOnDestroy(): void {
     window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  private populateFormWithExistingFeedback(
+    feedbackData: FeedbackResponseDto[],
+    targetClassId: string
+  ): void {
+    const existingFeedback = feedbackData.find(
+      (feedback) => feedback.classId?.toString() === targetClassId
+    );
+
+    if (existingFeedback) {
+      const formData: any = {
+        classTitle: targetClassId,
+        date: existingFeedback.date || '',
+        qualityRating: existingFeedback.ratings?.quality || null,
+        relevanceRating: existingFeedback.ratings?.relevance || null,
+        engagementRating: existingFeedback.ratings?.engagement || null,
+        organizationRating: existingFeedback.ratings?.organization || null,
+        valuable: existingFeedback.textResponses?.valuable || null,
+        improvements: existingFeedback.textResponses?.improvements || null,
+        comments: existingFeedback.textResponses?.comments || null,
+        premaritalRegistrationId: this.userId(),
+      };
+
+      this.feedbackForm.patchValue(formData);
+    }
   }
 
   private beforeUnloadHandler = (event: BeforeUnloadEvent) => {

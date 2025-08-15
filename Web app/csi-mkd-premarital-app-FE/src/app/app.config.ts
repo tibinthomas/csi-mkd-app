@@ -11,6 +11,7 @@ import {
   withHashLocation,
   withViewTransitions,
   withInMemoryScrolling,
+  withComponentInputBinding,
 } from '@angular/router';
 // import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { ApiConfiguration } from '../api/api-configuration';
@@ -44,7 +45,8 @@ export const appConfig: ApplicationConfig = {
       routes,
       withHashLocation(),
       withViewTransitions(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+      withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
+      withComponentInputBinding()
     ),
     provideAppInitializer(() => {
       const apiConfig: ApiConfiguration = inject(ApiConfiguration);
