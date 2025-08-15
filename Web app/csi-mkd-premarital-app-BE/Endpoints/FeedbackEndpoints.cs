@@ -1,55 +1,38 @@
-using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Services;
-using Microsoft.AspNetCore.OutputCaching;
-using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
-namespace csi_mkd_premarital_app_BE.Endpoints;
-
-public static class FeedbackEndpoints
+namespace csi_mkd_premarital_app_BE.Endpoints
 {
-    public static void MapFeedbackEndpoints(this WebApplication app)
+    public static class FeedbackEndpoints
     {
-        var group = app.MapGroup("/api/feedback");
-        group.DisableAntiforgery();
-
-        group.MapPost("/", async (ApplicationDbContext db, ICacheInvalidationService cacheService, ClassFeedbackDto dto) =>
+        public static void MapFeedbackEndpoints(this WebApplication app)
         {
-            var feedback = new ClassFeedback
+            var group = app.MapGroup("/api/feedback");
+            group.DisableAntiforgery();
+
+            group.MapPost("/", async (IFeedbackService service, ClassFeedbackDto dto) =>
             {
-                ClassTitle = dto.ClassTitle,
-                Date = DateTime.SpecifyKind(dto.Date, DateTimeKind.Utc),
-                QualityRating = dto.QualityRating,
-                RelevanceRating = dto.RelevanceRating,
-                EngagementRating = dto.EngagementRating,
-                OrganizationRating = dto.OrganizationRating,
-                Valuable = dto.Valuable,
-                Improvements = dto.Improvements,
-                Comments = dto.Comments,
-                PremaritalRegistrationId = dto.PremaritalRegistrationId
-            };
+                await service.SubmitFeedbackAsync(dto);
+                return Results.Ok(new { message = "Feedback submitted successfully." });
+            })
+            .Accepts<ClassFeedbackDto>("application/json")
+            .Produces(StatusCodes.Status200OK);
 
-            db.ClassFeedbacks.Add(feedback);
-            await db.SaveChangesAsync();
-            await cacheService.InvalidateFeedbackCachesAsync();
-            return Results.Ok(new { message = "Feedback submitted successfully." });
-        })
-        .Accepts<ClassFeedbackDto>("application/json")
-        .Produces(StatusCodes.Status200OK);
+            group.MapGet("/", async (IFeedbackService service) =>
+            {
+                var feedbacks = await service.GetAllFeedbacksAsync();
+                return Results.Ok(feedbacks);
+            })
+            .Produces<List<ClassFeedback>>(StatusCodes.Status200OK)
+            .CacheOutput(p => p.Tag("feedback").Expire(TimeSpan.FromMinutes(2)));
 
-        group.MapGet("/", async (ApplicationDbContext db) =>
-        {
-            var allFeedbacks = await db.ClassFeedbacks
-                .AsNoTracking()
-                .OrderByDescending(f => f.SubmittedAt)
-                .ToListAsync();
-            return Results.Ok(allFeedbacks);
-        })
-        .Produces<List<ClassFeedback>>(StatusCodes.Status200OK)
-        .CacheOutput(p => p.Tag("feedback").Expire(TimeSpan.FromMinutes(2)));
+            group.MapGet("/completed/{registrationId}", async (IFeedbackService service, int registrationId) =>
+            {
+                var titles = await service.GetCompletedClassIdsAsync(registrationId);
+                return Results.Ok(titles);
+            })
+            .Produces<List<string>>(StatusCodes.Status200OK);
+        }
     }
 }

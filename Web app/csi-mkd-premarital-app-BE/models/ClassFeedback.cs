@@ -10,7 +10,7 @@ namespace csi_mkd_premarital_app_BE.Models
         public int Id { get; set; }
 
         [Required]
-        public required string ClassTitle { get; set; }
+        public int ClassId { get; set; }
 
         [Required]
         public DateTime Date { get; set; }

@@ -245,12 +245,14 @@ public static class ServiceConfiguration
         builder.Services.AddScoped<IGeneralRegisterRepository, GeneralRegisterRepository>();
         builder.Services.AddScoped<IConfirmationRegisterRepository, ConfirmationRegisterRepository>();
         builder.Services.AddScoped<ISessionConfigRepository, SessionConfigRepository>();
+        builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
 
         // Business logic services
         builder.Services.AddScoped<IPremaritalRegisterService, PremaritalRegisterService>();
         builder.Services.AddScoped<IGeneralRegisterService, GeneralRegisterService>();
         builder.Services.AddScoped<IConfirmationRegisterService, ConfirmationRegisterService>();
         builder.Services.AddScoped<ISessionConfigService, SessionConfigService>();
+        builder.Services.AddScoped<IFeedbackService, FeedbackService>();
         builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
         builder.Services.AddScoped<ICacheInvalidationService, CacheInvalidationService>();
         builder.Services.AddScoped<ICacheHealthService, CacheHealthService>();
