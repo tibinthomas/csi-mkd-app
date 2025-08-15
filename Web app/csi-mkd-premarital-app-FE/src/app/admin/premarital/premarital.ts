@@ -1,20 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  ViewChild,
   inject,
   signal,
   computed,
-  AfterViewInit,
-  OnDestroy,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
+import { catchError, map, of, switchMap, firstValueFrom } from 'rxjs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -111,8 +106,6 @@ export class PremaritalComponent {
   protected readonly activeSessionOnly = signal<boolean>(false);
   protected readonly pageIndex = signal<number>(0);
   protected readonly pageSize = signal<number>(10);
-  @ViewChild('pdfContent', { static: false })
-  private readonly pdfContent!: ElementRef;
   private readonly filterTrigger = signal(0);
   protected readonly isLoading = signal<boolean>(false);
   // Store selected year
@@ -428,10 +421,50 @@ export class PremaritalComponent {
 
   async generateCertificate(reg: any): Promise<void> {
     try {
-      // Parse session dates from reg.Days if available, otherwise use current date
-      const sessionDates = reg.Days && Array.isArray(reg.Days) && reg.Days.length > 0 
-        ? reg.Days.map((day: string) => new Date(day))
-        : [new Date()];
+      let sessionStartDate: Date | undefined;
+      let sessionEndDate: Date | undefined;
+      let sessionDates: Date[] = [];
+      
+      // Use the SessionId to get session details from API
+      if (reg.SessionId) {
+        try {
+          console.log('Fetching session with ID:', reg.SessionId);
+          const sessionResponse = await firstValueFrom(this.api.apiSessionconfigIdGet({ id: reg.SessionId }));
+          console.log('Session API response:', sessionResponse);
+          
+          if (sessionResponse?.StartDate && sessionResponse?.EndDate) {
+            sessionStartDate = new Date(sessionResponse.StartDate);
+            sessionEndDate = new Date(sessionResponse.EndDate);
+            
+            console.log('Parsed session dates:', { sessionStartDate, sessionEndDate });
+            
+            // Generate all dates between start and end
+            const current = new Date(sessionStartDate);
+            while (current <= sessionEndDate) {
+              sessionDates.push(new Date(current));
+              current.setDate(current.getDate() + 1);
+            }
+            
+            console.log('Generated session dates array:', sessionDates);
+          } else {
+            console.log('Session response missing dates:', { 
+              hasStartDate: !!sessionResponse?.StartDate, 
+              hasEndDate: !!sessionResponse?.EndDate 
+            });
+          }
+        } catch (apiError) {
+          console.warn('Failed to fetch session details:', apiError);
+        }
+      } else {
+        console.log('No SessionId found in registration:', reg);
+      }
+      
+      // Fallback to reg.Days if session API call failed
+      if (sessionDates.length === 0) {
+        sessionDates = reg.Days && Array.isArray(reg.Days) && reg.Days.length > 0 
+          ? reg.Days.map((day: string) => new Date(day))
+          : [new Date()];
+      }
 
       const certificateData = {
         name: `${reg.FirstName} ${reg.LastName}`,
@@ -439,7 +472,9 @@ export class PremaritalComponent {
         sessionName: reg.SessionName,
         churchName: reg.ChurchName || 'Unknown Church',
         dates: sessionDates,
-        programDuration: reg.Days || '1 Day' // Use Days field directly from API
+        programDuration: `${sessionDates.length} Day${sessionDates.length > 1 ? 's' : ''}`,
+        sessionStartDate,
+        sessionEndDate
       };
 
       console.log('Generating certificate for:', certificateData);
@@ -458,7 +493,7 @@ export class PremaritalComponent {
   }
 
   private openCertificatePreview(htmlContent: string, data: any): void {
-    const dialogRef = this.dialog.open(CertificatePreviewDialog, {
+    this.dialog.open(CertificatePreviewDialog, {
       data: { htmlContent, certificateData: data },
       width: '95vw',
       height: '95vh',

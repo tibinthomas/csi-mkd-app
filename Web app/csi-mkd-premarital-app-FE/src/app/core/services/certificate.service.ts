@@ -10,6 +10,8 @@ export interface CertificateData {
   churchName: string;
   dates: Date[];
   programDuration: string;
+  sessionStartDate?: Date;
+  sessionEndDate?: Date;
 }
 
 @Injectable({
@@ -34,6 +36,39 @@ export class CertificateService {
     const lastDate = this.formatDate(sortedDates[sortedDates.length - 1]);
     
     return `${firstDate} to ${lastDate}`;
+  }
+
+  private formatSessionDates(startDate: Date, endDate: Date): string {
+    // Generate comma-separated dates like "07, 08, 09 August 2025"
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    
+    if (start.getTime() === end.getTime()) {
+      // Single day session
+      return start.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      });
+    }
+    
+    const dates: string[] = [];
+    const current = new Date(start);
+    
+    // Get month and year from the end date for consistency
+    const monthYear = end.toLocaleDateString('en-US', {
+      month: 'long',
+      year: 'numeric'
+    });
+    
+    // Generate all dates between start and end
+    while (current <= end) {
+      const dayNumber = current.getDate().toString().padStart(2, '0');
+      dates.push(dayNumber);
+      current.setDate(current.getDate() + 1);
+    }
+    
+    return `${dates.join(', ')} ${monthYear}`;
   }
 
 
@@ -214,9 +249,19 @@ export class CertificateService {
   }
 
   private populateTemplate(template: string, data: CertificateData): string {
-    const completionDate = data.completionDate || new Date();
-    const formattedDate = this.formatDate(completionDate);
-    const formattedDates = this.formatDates(data.dates);
+    
+    // Use session dates if available, otherwise fall back to the dates array
+    const formattedDates = data.sessionStartDate && data.sessionEndDate
+      ? this.formatSessionDates(data.sessionStartDate, data.sessionEndDate)
+      : this.formatDates(data.dates);
+
+    console.log('Certificate data:', {
+      sessionStartDate: data.sessionStartDate,
+      sessionEndDate: data.sessionEndDate,
+      dates: data.dates,
+      formattedDates,
+      hasSessionDates: !!(data.sessionStartDate && data.sessionEndDate)
+    });
 
     return template
       .replace(/\{\{CERTIFICATE_TITLE\}\}/g, CERTIFICATE_CONSTANTS.CERTIFICATE_TITLE)
@@ -229,7 +274,6 @@ export class CertificateService {
       .replace(/\{\{VENUE\}\}/g, CERTIFICATE_CONSTANTS.VENUE)
       .replace(/\{\{DATES\}\}/g, formattedDates)
       .replace(/\{\{CERTIFICATE_DESCRIPTION\}\}/g, CERTIFICATE_CONSTANTS.CERTIFICATE_DESCRIPTION)
-      .replace(/\{\{DATE\}\}/g, formattedDate)
       .replace(/\{\{BISHOP_NAME\}\}/g, CERTIFICATE_CONSTANTS.BISHOP_NAME)
       .replace(/\{\{BISHOP_TITLE\}\}/g, CERTIFICATE_CONSTANTS.BISHOP_TITLE)
       .replace(/\{\{DIRECTOR_NAME\}\}/g, CERTIFICATE_CONSTANTS.DIRECTOR_NAME)
