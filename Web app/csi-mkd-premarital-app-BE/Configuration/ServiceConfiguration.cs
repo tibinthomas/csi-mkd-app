@@ -50,6 +50,9 @@ public static class ServiceConfiguration
         // Configure database
         ConfigureDatabase(builder);
 
+        // Configure Cosmos DB
+        ConfigureCosmosDb(builder);
+
         // Register application services
         RegisterApplicationServices(builder);
 
@@ -186,6 +189,46 @@ public static class ServiceConfiguration
             // Add EF Core interceptor(s)
             options.AddInterceptors(serviceProvider.GetRequiredService<AuditSaveChangesInterceptor>());
         }, poolSize: 128); // Reduced from 256 for consumption plan
+    }
+
+    private static void ConfigureCosmosDb(WebApplicationBuilder builder)
+    {
+        var cosmosConnectionString = builder.Configuration.GetConnectionString("CosmosConnection");
+        var cosmosDbConfig = builder.Configuration.GetSection("CosmosDb");
+        
+        if (!string.IsNullOrEmpty(cosmosConnectionString))
+        {
+            builder.Services.AddDbContext<CosmosDbContext>(options =>
+            {
+                options.UseCosmos(
+                    connectionString: cosmosConnectionString,
+                    databaseName: cosmosDbConfig["DatabaseName"] ?? "csi-mkd-premarital-db",
+                    cosmosOptionsAction: cosmosOptions =>
+                    {
+                        // Configure Cosmos DB specific options
+                        cosmosOptions.ConnectionMode(Microsoft.Azure.Cosmos.ConnectionMode.Direct);
+                        cosmosOptions.MaxRequestsPerTcpConnection(16);
+                        cosmosOptions.MaxTcpConnectionsPerEndpoint(32);
+                        
+                        // Configure region and consistency
+                        cosmosOptions.Region(Microsoft.Azure.Cosmos.Regions.EastUS);
+                        
+                        // Configure request timeout
+                        cosmosOptions.RequestTimeout(TimeSpan.FromSeconds(30));
+
+                        // Content response on write (disable for better performance in production)
+                        var enableContentResponse = cosmosDbConfig.GetValue<bool>("EnableContentResponseOnWrite", false);
+                        if (!enableContentResponse)
+                        {
+                            cosmosOptions.ContentResponseOnWriteEnabled(false);
+                        }
+                    });
+
+                // Enable sensitive data logging only in development
+                options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
+                options.EnableDetailedErrors(builder.Environment.IsDevelopment());
+            });
+        }
     }
 
     private static void RegisterApplicationServices(WebApplicationBuilder builder)

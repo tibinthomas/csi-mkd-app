@@ -34,6 +34,8 @@ fi
 required_secrets=(
     "DOCKER_PAT"
     "ConnectionStrings__DefaultConnection"
+    "ConnectionStrings__CosmosConnection"
+    "CosmosDb__DatabaseName"
     "JwtSettings__Key"
     "JwtSettings__Issuer"
     "JwtSettings__Audience"
@@ -133,6 +135,8 @@ az containerapp update \
         ASPNETCORE_URLS="http://+:8080" \
         OTEL_SERVICE_NAME="csi-mkd-premarital-app-BE" \
         ConnectionStrings__DefaultConnection="${ConnectionStrings__DefaultConnection}" \
+        ConnectionStrings__CosmosConnection="${ConnectionStrings__CosmosConnection}" \
+        CosmosDb__DatabaseName="${CosmosDb__DatabaseName}" \
         JwtSettings__Key="${JwtSettings__Key}" \
         JwtSettings__Issuer="${JwtSettings__Issuer}" \
         JwtSettings__Audience="${JwtSettings__Audience}" \

@@ -21,20 +21,17 @@ dotnet watch run
 
 ### Database Operations
 ```bash
-# Create new migration
+# PostgreSQL (Primary Database)
 dotnet ef migrations add MigrationName
-
-# Update database with latest migrations
 dotnet ef database update
-
-# Remove last migration (if not applied)
 dotnet ef migrations remove
-
-# Generate SQL script
 dotnet ef migrations script
-
-# Generate compiled models for performance (optional)
 dotnet ef dbcontext optimize
+
+# Cosmos DB (NoSQL Database)
+dotnet ef database ensure-created --context CosmosDbContext
+dotnet ef migrations add MigrationName --context CosmosDbContext
+dotnet ef database update --context CosmosDbContext
 ```
 
 ### Testing & Quality
@@ -71,9 +68,13 @@ This is an ASP.NET Core 9.0 minimal API application for CSI MKD Premarital Couns
   - `StartupConfiguration.cs`: Application warmup tasks
 
 ### Data Layer
-- **Entity Framework Core**: PostgreSQL database with Npgsql provider
+- **Entity Framework Core**: Dual database support
+  - **PostgreSQL**: Primary relational database with Npgsql provider
+  - **Azure Cosmos DB**: NoSQL database for analytics and flexible data
 - **Models**: Domain entities in `models/` directory
-- **DbContext**: Located at `data/applicationDbContext.cs`
+- **DbContexts**: 
+  - `data/applicationDbContext.cs` - PostgreSQL context
+  - `data/CosmosDbContext.cs` - Cosmos DB context
 - **Repositories**: Data access layer in `Repositories/`
 - **Migrations**: Database migrations in `Migrations/`
 
@@ -104,7 +105,8 @@ The application implements a sophisticated cache invalidation system:
 - **Azure Blob Storage**: Document and file storage
 - **SendGrid**: Email delivery service
 - **Google reCAPTCHA**: Bot protection
-- **PostgreSQL**: Primary database on Supabase
+- **PostgreSQL**: Primary relational database on Supabase
+- **Azure Cosmos DB**: NoSQL database for analytics and flexible document storage
 
 ### Development Environment
 - **Hot Reload**: Use `dotnet watch run` for development
@@ -115,9 +117,13 @@ The application implements a sophisticated cache invalidation system:
 - **Containerized**: Docker support with multi-stage builds
 - **Azure Container Apps**: Production deployment target
 - **Environment Variables**: Secrets managed via environment variables or `.env` file
+  - Requires both PostgreSQL and Cosmos DB connection strings
+  - Configure `CosmosDb__DatabaseName` for target database
 - **Automated Deployment**: `deploy.sh` script handles full CI/CD pipeline
 
 ### Database Schema
+
+#### PostgreSQL (Primary Database)
 Key entities include:
 - `PremaritalRegistration`: Main registration entity with session foreign key
 - `SessionConfiguration`: Counseling session configurations
@@ -125,6 +131,12 @@ Key entities include:
 - `ClassFeedback`: Session feedback from participants
 - `EmailConfig`: Email template configuration
 - Document entities for file management per registration type
+
+#### Azure Cosmos DB (NoSQL Database)
+- **Setup**: Basic context created, ready for document collections
+- **Configuration**: Optimized for performance with Direct connection mode
+- **Usage**: Suitable for analytics, logs, metrics, and flexible document storage
+- **Partitioning**: Ready to be configured based on specific use cases
 
 ### Security Features
 - JWT authentication for admin endpoints
