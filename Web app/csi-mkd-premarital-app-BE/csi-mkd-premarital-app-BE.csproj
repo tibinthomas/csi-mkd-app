@@ -42,9 +42,7 @@
   <ItemGroup>
     <Compile Remove="AppHost/**/*.cs" />
     <Compile Remove="ServiceDefaults/**/*.cs" />
-    <None Include="AppHost/**/*.cs" />
-    <None Include="ServiceDefaults/**/*.cs" />
-    <None Include="SessionsFunction/**/*.cs" />
+    <Compile Remove="SessionsFunction/**/*.cs" />
   </ItemGroup>
 
 </Project>
