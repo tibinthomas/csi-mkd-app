@@ -13,34 +13,24 @@ import {
   withInMemoryScrolling,
   withComponentInputBinding,
 } from '@angular/router';
-// import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
-import { ApiConfiguration } from '../api/api-configuration';
-import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { tokenInterceptor } from './core/auth/token.interceptor';
-import { RateLimitInterceptor } from './core/interceptors/rate-limit-interceptor';
-import { EtagCacheInterceptor } from './core/interceptors/etag-cache.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
+
+import { ApiConfiguration } from '../api/api-configuration';
+import { routes } from './app.routes';
+import { tokenInterceptor } from './core/auth/token.interceptor';
 import { ThemeService } from './core/services/theme.service';
+import { rateLimitInterceptor } from './core/interceptors/rate-limit-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: RateLimitInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: EtagCacheInterceptor,
-      multi: true,
-    },
+    provideHttpClient(
+      withInterceptors([tokenInterceptor, rateLimitInterceptor])
+    ),
     provideRouter(
       routes,
       withHashLocation(),
@@ -62,7 +52,5 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    // AuthGuard,
   ],
 };
