@@ -11,28 +11,56 @@ namespace csi_mkd_premarital_app_BE.Endpoints
             var group = app.MapGroup("/api/feedback");
             group.DisableAntiforgery();
 
-            group.MapPost("/", async (IFeedbackService service, ClassFeedbackDto dto) =>
+            // Submit feedback (maintain exact same endpoint, now uses Cosmos DB behind the scenes)
+            group.MapPost("/", async (
+                ICosmosDbFeedbackService service, 
+                ClassFeedbackDto dto,
+                HttpContext context) =>
             {
-                await service.SubmitFeedbackAsync(dto);
+                var userAgent = context.Request.Headers.UserAgent.ToString();
+                var ipAddress = context.Connection.RemoteIpAddress?.ToString();
+                
+                var feedbackDocumentDto = new FeedbackDocumentDto
+                {
+                    ClassId = dto.ClassId,
+                    Date = dto.Date,
+                    QualityRating = dto.QualityRating,
+                    RelevanceRating = dto.RelevanceRating,
+                    EngagementRating = dto.EngagementRating,
+                    OrganizationRating = dto.OrganizationRating,
+                    Valuable = dto.Valuable,
+                    Improvements = dto.Improvements,
+                    Comments = dto.Comments,
+                    PremaritalRegistrationId = dto.PremaritalRegistrationId ?? 0,
+                    Source = "web",
+                    Platform = "api"
+                };
+
+                await service.SubmitFeedbackAsync(feedbackDocumentDto, userAgent, ipAddress);
                 return Results.Ok(new { message = "Feedback submitted successfully." });
             })
             .Accepts<ClassFeedbackDto>("application/json")
             .Produces(StatusCodes.Status200OK);
 
-            group.MapGet("/", async (IFeedbackService service) =>
+            // Get all feedback (maintain exact same endpoint, now returns Cosmos DB data)
+            group.MapGet("/", async (ICosmosDbFeedbackService service) =>
             {
                 var feedbacks = await service.GetAllFeedbacksAsync();
                 return Results.Ok(feedbacks);
             })
-            .Produces<List<ClassFeedback>>(StatusCodes.Status200OK)
+            .Produces<List<FeedbackResponseDto>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("feedback").Expire(TimeSpan.FromMinutes(2)));
 
-            group.MapGet("/completed/{registrationId}", async (IFeedbackService service, int registrationId) =>
+            // Get completed class IDs (maintain exact same endpoint)
+            group.MapGet("/completed/{registrationId}", async (
+                ICosmosDbFeedbackService service, 
+                int registrationId) =>
             {
-                var titles = await service.GetCompletedClassIdsAsync(registrationId);
-                return Results.Ok(titles);
+                var classIds = await service.GetCompletedClassIdsAsync(registrationId);
+                return Results.Ok(classIds);
             })
-            .Produces<List<string>>(StatusCodes.Status200OK);
+            .Produces<List<int>>(StatusCodes.Status200OK)
+            .CacheOutput(p => p.Tag("feedback").Expire(TimeSpan.FromMinutes(10)));
         }
     }
 }

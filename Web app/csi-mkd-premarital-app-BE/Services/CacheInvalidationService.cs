@@ -23,6 +23,7 @@ public class CacheInvalidationService : ICacheInvalidationService
         await InvalidateCacheByTagAsync("sessions");
         await InvalidateCacheByTagAsync("email-config");
         await InvalidateCacheByTagAsync("feedback");
+        await InvalidateCacheByTagAsync("feedback-analytics");
         await InvalidateCacheByTagAsync("cosmos-feedback");
         await InvalidateCacheByTagAsync("cosmos-feedback-analytics");
 
@@ -51,6 +52,7 @@ public class CacheInvalidationService : ICacheInvalidationService
     public async Task InvalidateFeedbackCachesAsync()
     {
         await InvalidateCacheByTagAsync("feedback");
+        await InvalidateCacheByTagAsync("feedback-analytics");
         await InvalidateCacheByTagAsync("cosmos-feedback");
         await InvalidateCacheByTagAsync("cosmos-feedback-analytics");
     }

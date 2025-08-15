@@ -4,7 +4,7 @@ using csi_mkd_premarital_app_BE.Repositories;
 
 namespace csi_mkd_premarital_app_BE.Services
 {
-    public class CosmosDbFeedbackService : ICosmosDbFeedbackService
+    public class CosmosDbFeedbackService : ICosmosDbFeedbackService, IFeedbackService
     {
         private readonly ICosmosDbFeedbackRepository _repository;
         private readonly ICacheInvalidationService _cacheService;
@@ -160,5 +160,55 @@ namespace csi_mkd_premarital_app_BE.Services
                 .GroupBy(f => f.Date.ToString("yyyy-MM"))
                 .ToDictionary(g => g.Key, g => g.Count());
         }
+
+        #region IFeedbackService Implementation
+
+        public async Task SubmitFeedbackAsync(ClassFeedbackDto dto)
+        {
+            var feedbackDocumentDto = new FeedbackDocumentDto
+            {
+                ClassId = dto.ClassId,
+                Date = dto.Date,
+                QualityRating = dto.QualityRating,
+                RelevanceRating = dto.RelevanceRating,
+                EngagementRating = dto.EngagementRating,
+                OrganizationRating = dto.OrganizationRating,
+                Valuable = dto.Valuable,
+                Improvements = dto.Improvements,
+                Comments = dto.Comments,
+                PremaritalRegistrationId = dto.PremaritalRegistrationId ?? 0,
+                Source = "web",
+                Platform = "api"
+            };
+
+            await SubmitFeedbackAsync(feedbackDocumentDto);
+        }
+
+        async Task<List<ClassFeedback>> IFeedbackService.GetAllFeedbacksAsync()
+        {
+            var documents = await _repository.GetAllAsync();
+            return documents.Select(MapToClassFeedback).ToList();
+        }
+
+        private static ClassFeedback MapToClassFeedback(FeedbackDocument document)
+        {
+            return new ClassFeedback
+            {
+                Id = int.TryParse(document.id, out int id) ? id : 0,
+                ClassId = document.ClassId,
+                Date = DateTime.SpecifyKind(document.Date, DateTimeKind.Utc),
+                QualityRating = document.Ratings.Quality,
+                RelevanceRating = document.Ratings.Relevance,
+                EngagementRating = document.Ratings.Engagement,
+                OrganizationRating = document.Ratings.Organization,
+                Valuable = document.TextResponses.Valuable,
+                Improvements = document.TextResponses.Improvements,
+                Comments = document.TextResponses.Comments,
+                PremaritalRegistrationId = document.Metadata.PremaritalRegistrationId == 0 ? null : document.Metadata.PremaritalRegistrationId,
+                SubmittedAt = document.SubmittedAt
+            };
+        }
+
+        #endregion
     }
 }
