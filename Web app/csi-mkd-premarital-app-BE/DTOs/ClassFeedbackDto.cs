@@ -4,7 +4,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
 {
     public class ClassFeedbackDto
     {
-        public required string ClassTitle { get; set; }
+        public int ClassId { get; set; }
 
         [Required]
         public DateTime Date { get; set; }

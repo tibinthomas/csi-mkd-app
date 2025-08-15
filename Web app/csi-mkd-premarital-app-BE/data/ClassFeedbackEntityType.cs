@@ -50,12 +50,12 @@ namespace csi_mkd_premarital_app_BE.Data
                 sentinel: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
             date.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-            var classTitle = runtimeEntityType.AddProperty(
-                "ClassTitle",
-                typeof(string),
-                propertyInfo: typeof(ClassFeedback).GetProperty("ClassTitle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ClassFeedback).GetField("<ClassTitle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            classTitle.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+            var classId = runtimeEntityType.AddProperty(
+                "ClassId",
+                typeof(int),
+                propertyInfo: typeof(ClassFeedback).GetProperty("ClassId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<ClassId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            classId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var engagementRating = runtimeEntityType.AddProperty(
                 "EngagementRating",
