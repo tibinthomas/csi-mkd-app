@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
-import { ConfirmationRegisterDto } from '../../../api/models';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
+import { ConfirmationRegisterDto } from '../../../api/api-main-app/models';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';

@@ -4,7 +4,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { PremaritalRegisterDto } from '../../api/models/premarital-register-dto';
 import {
   FormBuilder,
   FormGroup,
@@ -12,7 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CsiMkdPremaritalAppBeService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/api-main-app//services';
 import { FeedbackDataService } from './feedback-data.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

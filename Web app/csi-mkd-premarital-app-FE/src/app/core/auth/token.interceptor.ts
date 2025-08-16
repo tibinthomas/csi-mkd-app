@@ -22,9 +22,11 @@ export const tokenInterceptor: HttpInterceptorFn = (
 
   // Skip token injection for requests with the skip header
   if (req.headers.has('X-Skip-Interceptor')) {
-    return next(req.clone({
-      headers: req.headers.delete('X-Skip-Interceptor'),
-    }));
+    return next(
+      req.clone({
+        headers: req.headers.delete('X-Skip-Interceptor'),
+      })
+    );
   }
 
   // Skip token injection for auth endpoints
@@ -33,8 +35,8 @@ export const tokenInterceptor: HttpInterceptorFn = (
   }
 
   const token = authService.getToken();
-  
-  const authenticatedReq = token 
+
+  const authenticatedReq = token
     ? req.clone({
         headers: req.headers.set('Authorization', `Bearer ${token}`),
       })
@@ -47,7 +49,7 @@ export const tokenInterceptor: HttpInterceptorFn = (
         // Token has expired or is invalid
         authService.logout();
       }
-      
+
       return throwError(() => error);
     })
   );
@@ -58,6 +60,10 @@ export const tokenInterceptor: HttpInterceptorFn = (
  * that shouldn't include authorization headers.
  */
 function isAuthEndpoint(url: string): boolean {
-  const authPaths = ['/api/auth/login', '/api/auth/register', '/api/auth/refresh'];
-  return authPaths.some(path => url.includes(path));
+  const authPaths = [
+    '/api/auth/login',
+    '/api/auth/register',
+    '/api/auth/refresh',
+  ];
+  return authPaths.some((path) => url.includes(path));
 }

@@ -1,4 +1,11 @@
-import { Component, inject, signal, computed, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  computed,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -16,7 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { FileUploadService } from '../../core/services/file-upload.service';
@@ -63,7 +70,9 @@ export class PreConfirmRegister {
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
-  protected recaptchaTheme = computed(() => this.themeService.isDark() ? 'dark' : 'light');
+  protected recaptchaTheme = computed(() =>
+    this.themeService.isDark() ? 'dark' : 'light'
+  );
 
   constructor() {
     this.form = this.fb.group({
@@ -153,61 +162,59 @@ export class PreConfirmRegister {
 
     const file = this.vicarLetterFile()!;
 
-    this.api
-      .apiConfirmationregisterPost({ body })
-      .subscribe({
-        next: (response: any) => {
-          const registerId = JSON.parse(response).Id;
-          this.api
-            .apiAzureuploadGenerateSasGet({
-              fileName: `confirmation/${registerId}/witnessofvicar/${file.name}`,
-              contentType: file.type,
-            })
-            .pipe(
-              switchMap((fileSasUrl) =>
-                this.fileUploadService.uploadFileToAzure(file, fileSasUrl!)
-              )
+    this.api.apiConfirmationregisterPost({ body }).subscribe({
+      next: (response: any) => {
+        const registerId = JSON.parse(response).Id;
+        this.api
+          .apiAzureuploadGenerateSasGet({
+            fileName: `confirmation/${registerId}/witnessofvicar/${file.name}`,
+            contentType: file.type,
+          })
+          .pipe(
+            switchMap((fileSasUrl) =>
+              this.fileUploadService.uploadFileToAzure(file, fileSasUrl!)
             )
-            .subscribe({
-              next: (fileSasUrl) => {
-                this.api
-                  .apiConfirmationregisterSaveFileUrlPost({
-                    body: {
-                      registrationId: registerId,
-                      vicarLetterUrl: fileSasUrl,
-                    },
-                  })
-                  .subscribe({
-                    next: () => {
-                      this.isSubmitting.set(false);
-                      this.dialog.open(SuccessDialogComponent, {
-                        data: {
-                          message: 'Pre-confirmation Registration successful!',
-                          registerType: 'pre-confirmation',
-                        },
-                      });
-                      this.resetForm();
-                    },
-                    error: (error: any) => {
-                      console.error('Error saving file URL:', error);
-                      this.isSubmitting.set(false);
-                      this.vicarLetterError.set('File upload failed.');
-                    },
-                  });
-              },
-              error: (error: any) => {
-                console.error('Error uploading file:', error);
-                this.isSubmitting.set(false);
-                this.vicarLetterError.set('File upload failed.');
-              },
-            });
-        },
-        error: (error: any) => {
-          console.error('Error submitting form:', error);
-          this.isSubmitting.set(false);
-          // Handle error appropriately, e.g., show a message to the user
-        },
-      });
+          )
+          .subscribe({
+            next: (fileSasUrl) => {
+              this.api
+                .apiConfirmationregisterSaveFileUrlPost({
+                  body: {
+                    registrationId: registerId,
+                    vicarLetterUrl: fileSasUrl,
+                  },
+                })
+                .subscribe({
+                  next: () => {
+                    this.isSubmitting.set(false);
+                    this.dialog.open(SuccessDialogComponent, {
+                      data: {
+                        message: 'Pre-confirmation Registration successful!',
+                        registerType: 'pre-confirmation',
+                      },
+                    });
+                    this.resetForm();
+                  },
+                  error: (error: any) => {
+                    console.error('Error saving file URL:', error);
+                    this.isSubmitting.set(false);
+                    this.vicarLetterError.set('File upload failed.');
+                  },
+                });
+            },
+            error: (error: any) => {
+              console.error('Error uploading file:', error);
+              this.isSubmitting.set(false);
+              this.vicarLetterError.set('File upload failed.');
+            },
+          });
+      },
+      error: (error: any) => {
+        console.error('Error submitting form:', error);
+        this.isSubmitting.set(false);
+        // Handle error appropriately, e.g., show a message to the user
+      },
+    });
   }
 
   private resetForm(): void {

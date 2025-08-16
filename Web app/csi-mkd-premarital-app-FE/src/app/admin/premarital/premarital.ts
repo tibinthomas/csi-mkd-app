@@ -42,7 +42,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
 
@@ -424,32 +424,37 @@ export class PremaritalComponent {
       let sessionStartDate: Date | undefined;
       let sessionEndDate: Date | undefined;
       let sessionDates: Date[] = [];
-      
+
       // Use the SessionId to get session details from API
       if (reg.SessionId) {
         try {
           console.log('Fetching session with ID:', reg.SessionId);
-          const sessionResponse = await firstValueFrom(this.api.apiSessionconfigIdGet({ id: reg.SessionId }));
+          const sessionResponse = await firstValueFrom(
+            this.api.apiSessionconfigIdGet({ id: reg.SessionId })
+          );
           console.log('Session API response:', sessionResponse);
-          
-          if (sessionResponse?.StartDate && sessionResponse?.EndDate) {
-            sessionStartDate = new Date(sessionResponse.StartDate);
-            sessionEndDate = new Date(sessionResponse.EndDate);
-            
-            console.log('Parsed session dates:', { sessionStartDate, sessionEndDate });
-            
+
+          if (sessionResponse?.startDate && sessionResponse?.endDate) {
+            sessionStartDate = new Date(sessionResponse.startDate);
+            sessionEndDate = new Date(sessionResponse.endDate);
+
+            console.log('Parsed session dates:', {
+              sessionStartDate,
+              sessionEndDate,
+            });
+
             // Generate all dates between start and end
             const current = new Date(sessionStartDate);
             while (current <= sessionEndDate) {
               sessionDates.push(new Date(current));
               current.setDate(current.getDate() + 1);
             }
-            
+
             console.log('Generated session dates array:', sessionDates);
           } else {
-            console.log('Session response missing dates:', { 
-              hasStartDate: !!sessionResponse?.StartDate, 
-              hasEndDate: !!sessionResponse?.EndDate 
+            console.log('Session response missing dates:', {
+              hasStartDate: !!sessionResponse?.startDate,
+              hasEndDate: !!sessionResponse?.endDate,
             });
           }
         } catch (apiError) {
@@ -458,36 +463,43 @@ export class PremaritalComponent {
       } else {
         console.log('No SessionId found in registration:', reg);
       }
-      
+
       // Fallback to reg.Days if session API call failed
       if (sessionDates.length === 0) {
-        sessionDates = reg.Days && Array.isArray(reg.Days) && reg.Days.length > 0 
-          ? reg.Days.map((day: string) => new Date(day))
-          : [new Date()];
+        sessionDates =
+          reg.Days && Array.isArray(reg.Days) && reg.Days.length > 0
+            ? reg.Days.map((day: string) => new Date(day))
+            : [new Date()];
       }
 
       const certificateData = {
         name: `${reg.FirstName} ${reg.LastName}`,
-        completionDate: reg.DateOfMarriage ? new Date(reg.DateOfMarriage) : new Date(),
+        completionDate: reg.DateOfMarriage
+          ? new Date(reg.DateOfMarriage)
+          : new Date(),
         sessionName: reg.SessionName,
         churchName: reg.ChurchName || 'Unknown Church',
         dates: sessionDates,
-        programDuration: `${sessionDates.length} Day${sessionDates.length > 1 ? 's' : ''}`,
+        programDuration: `${sessionDates.length} Day${
+          sessionDates.length > 1 ? 's' : ''
+        }`,
         sessionStartDate,
-        sessionEndDate
+        sessionEndDate,
       };
 
       console.log('Generating certificate for:', certificateData);
-      
-      const htmlContent = await this.certificateService.previewCertificate(certificateData);
-      
+
+      const htmlContent = await this.certificateService.previewCertificate(
+        certificateData
+      );
+
       console.log('Generated HTML content length:', htmlContent.length);
-      
+
       this.openCertificatePreview(htmlContent, certificateData);
     } catch (error) {
       console.error('Error generating certificate:', error);
       this._snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
-        duration: 5000
+        duration: 5000,
       });
     }
   }
@@ -499,7 +511,7 @@ export class PremaritalComponent {
       height: '95vh',
       maxWidth: '95vw',
       maxHeight: '95vh',
-      panelClass: 'full-screen-dialog'
+      panelClass: 'full-screen-dialog',
     });
   }
 }
@@ -508,154 +520,187 @@ export class PremaritalComponent {
   selector: 'certificate-preview-dialog',
   template: `
     <div class="certificate-preview-container h-full flex flex-col">
-      <div class="dialog-header flex justify-between items-center p-4 border-b z-10 bg-background text-on-background">
+      <div
+        class="dialog-header flex justify-between items-center p-4 border-b z-10 bg-background text-on-background"
+      >
         <h2 mat-dialog-title class="m-0">Certificate Preview</h2>
         <button mat-icon-button mat-dialog-close>
           <mat-icon>close</mat-icon>
         </button>
       </div>
-      
-      <div class="dialog-content flex-1 p-4 flex items-center justify-center overflow-hidden">
-        <div class="certificate-frame w-full h-full flex items-center justify-center">
-          <div class="certificate-preview" [innerHTML]="sanitizedHtml" 
-               style="transform: scale(0.8); transform-origin: center center; max-width: 100%; max-height: 100%;">
-          </div>
+
+      <div
+        class="dialog-content flex-1 p-4 flex items-center justify-center overflow-hidden"
+      >
+        <div
+          class="certificate-frame w-full h-full flex items-center justify-center"
+        >
+          <div
+            class="certificate-preview"
+            [innerHTML]="sanitizedHtml"
+            style="transform: scale(0.8); transform-origin: center center; max-width: 100%; max-height: 100%;"
+          ></div>
         </div>
       </div>
-      
-      <div class="dialog-actions flex justify-center gap-4 p-4 border-t z-10 bg-background text-on-background">
-        <button mat-raised-button color="primary" (click)="printCertificate()" [disabled]="isLoading()">
+
+      <div
+        class="dialog-actions flex justify-center gap-4 p-4 border-t z-10 bg-background text-on-background"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="printCertificate()"
+          [disabled]="isLoading()"
+        >
           @if(isLoading()) {
-            <mat-spinner diameter="20"></mat-spinner>
+          <mat-spinner diameter="20"></mat-spinner>
           } @else {
-            <mat-icon>print</mat-icon>
-          }
-          Print
+          <mat-icon>print</mat-icon>
+          } Print
         </button>
-        <button mat-raised-button color="accent" (click)="downloadImage()" [disabled]="isLoading()">
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="downloadImage()"
+          [disabled]="isLoading()"
+        >
           @if(isLoading()) {
-            <mat-spinner diameter="20"></mat-spinner>
+          <mat-spinner diameter="20"></mat-spinner>
           } @else {
-            <mat-icon>download</mat-icon>
-          }
-          Download
+          <mat-icon>download</mat-icon>
+          } Download
         </button>
-        <button mat-button mat-dialog-close [disabled]="isLoading()">Cancel</button>
+        <button mat-button mat-dialog-close [disabled]="isLoading()">
+          Cancel
+        </button>
       </div>
     </div>
   `,
-  styles: [`
-    /* Light theme (default) */
-    .certificate-preview-container {
-      height: 100vh;
-      background: #f5f5f5;
-      transition: background-color 0.3s ease;
-    }
-    
-    .dialog-header,
-    .dialog-actions {
-      background: #ffffff;
-      color: #000000;
-      border-color: #e0e0e0;
-      transition: all 0.3s ease;
-    }
-    
-    .certificate-frame {
-      background: #f5f5f5;
-      padding: 20px;
-      transition: background-color 0.3s ease;
-    }
-    
-    .certificate-preview {
-      background: white;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      overflow: visible;
-      transition: box-shadow 0.3s ease;
-    }
-    
-    /* Dark theme adjustments - using :host-context for better theme detection */
-    :host-context(.theme-dark) .certificate-preview-container {
-      background: #2c2c2c !important;
-    }
-    
-    :host-context(.theme-dark) .dialog-header,
-    :host-context(.theme-dark) .dialog-actions {
-      background: #1e1e1e !important;
-      color: #ffffff !important;
-      border-color: #404040 !important;
-    }
-    
-    :host-context(.theme-dark) .certificate-frame {
-      background: #2c2c2c !important;
-    }
-    
-    :host-context(.theme-dark) .certificate-preview {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
-      border: 1px solid #404040 !important;
-    }
-    
-    /* Alternative selector using data-theme attribute */
-    :host-context([data-theme="dark"]) .certificate-preview-container {
-      background: #2c2c2c !important;
-    }
-    
-    :host-context([data-theme="dark"]) .dialog-header,
-    :host-context([data-theme="dark"]) .dialog-actions {
-      background: #1e1e1e !important;
-      color: #ffffff !important;
-      border-color: #404040 !important;
-    }
-    
-    :host-context([data-theme="dark"]) .certificate-frame {
-      background: #2c2c2c !important;
-    }
-    
-    :host-context([data-theme="dark"]) .certificate-preview {
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
-      border: 1px solid #404040 !important;
-    }
-    
-    /* Full screen dialog overrides */
-    :host ::ng-deep .full-screen-dialog .mat-mdc-dialog-container {
-      max-width: 100vw !important;
-      max-height: 100vh !important;
-      height: 100vh !important;
-      width: 100vw !important;
-      border-radius: 0 !important;
-      padding: 0 !important;
-      background: #ffffff;
-      transition: background-color 0.3s ease;
-    }
-    
-    :host-context(.theme-dark) ::ng-deep .full-screen-dialog .mat-mdc-dialog-container {
-      background: #1e1e1e !important;
-    }
-    
-    :host-context([data-theme="dark"]) ::ng-deep .full-screen-dialog .mat-mdc-dialog-container {
-      background: #1e1e1e !important;
-    }
-    
-    /* Theme-aware border colors */
-    :host ::ng-deep .border-b {
-      border-color: #e0e0e0 !important;
-    }
-    
-    :host ::ng-deep .border-t {
-      border-color: #e0e0e0 !important;
-    }
-    
-    :host-context(.theme-dark) ::ng-deep .border-b,
-    :host-context(.theme-dark) ::ng-deep .border-t {
-      border-color: #404040 !important;
-    }
-    
-    :host-context([data-theme="dark"]) ::ng-deep .border-b,
-    :host-context([data-theme="dark"]) ::ng-deep .border-t {
-      border-color: #404040 !important;
-    }
-  `],
-  imports: [MatDialogModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+  styles: [
+    `
+      /* Light theme (default) */
+      .certificate-preview-container {
+        height: 100vh;
+        background: #f5f5f5;
+        transition: background-color 0.3s ease;
+      }
+
+      .dialog-header,
+      .dialog-actions {
+        background: #ffffff;
+        color: #000000;
+        border-color: #e0e0e0;
+        transition: all 0.3s ease;
+      }
+
+      .certificate-frame {
+        background: #f5f5f5;
+        padding: 20px;
+        transition: background-color 0.3s ease;
+      }
+
+      .certificate-preview {
+        background: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: visible;
+        transition: box-shadow 0.3s ease;
+      }
+
+      /* Dark theme adjustments - using :host-context for better theme detection */
+      :host-context(.theme-dark) .certificate-preview-container {
+        background: #2c2c2c !important;
+      }
+
+      :host-context(.theme-dark) .dialog-header,
+      :host-context(.theme-dark) .dialog-actions {
+        background: #1e1e1e !important;
+        color: #ffffff !important;
+        border-color: #404040 !important;
+      }
+
+      :host-context(.theme-dark) .certificate-frame {
+        background: #2c2c2c !important;
+      }
+
+      :host-context(.theme-dark) .certificate-preview {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+        border: 1px solid #404040 !important;
+      }
+
+      /* Alternative selector using data-theme attribute */
+      :host-context([data-theme='dark']) .certificate-preview-container {
+        background: #2c2c2c !important;
+      }
+
+      :host-context([data-theme='dark']) .dialog-header,
+      :host-context([data-theme='dark']) .dialog-actions {
+        background: #1e1e1e !important;
+        color: #ffffff !important;
+        border-color: #404040 !important;
+      }
+
+      :host-context([data-theme='dark']) .certificate-frame {
+        background: #2c2c2c !important;
+      }
+
+      :host-context([data-theme='dark']) .certificate-preview {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4) !important;
+        border: 1px solid #404040 !important;
+      }
+
+      /* Full screen dialog overrides */
+      :host ::ng-deep .full-screen-dialog .mat-mdc-dialog-container {
+        max-width: 100vw !important;
+        max-height: 100vh !important;
+        height: 100vh !important;
+        width: 100vw !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        background: #ffffff;
+        transition: background-color 0.3s ease;
+      }
+
+      :host-context(.theme-dark)
+        ::ng-deep
+        .full-screen-dialog
+        .mat-mdc-dialog-container {
+        background: #1e1e1e !important;
+      }
+
+      :host-context([data-theme='dark'])
+        ::ng-deep
+        .full-screen-dialog
+        .mat-mdc-dialog-container {
+        background: #1e1e1e !important;
+      }
+
+      /* Theme-aware border colors */
+      :host ::ng-deep .border-b {
+        border-color: #e0e0e0 !important;
+      }
+
+      :host ::ng-deep .border-t {
+        border-color: #e0e0e0 !important;
+      }
+
+      :host-context(.theme-dark) ::ng-deep .border-b,
+      :host-context(.theme-dark) ::ng-deep .border-t {
+        border-color: #404040 !important;
+      }
+
+      :host-context([data-theme='dark']) ::ng-deep .border-b,
+      :host-context([data-theme='dark']) ::ng-deep .border-t {
+        border-color: #404040 !important;
+      }
+    `,
+  ],
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
 })
 export class CertificatePreviewDialog {
   dialogRef = inject<MatDialogRef<CertificatePreviewDialog>>(MatDialogRef);
@@ -667,7 +712,10 @@ export class CertificatePreviewDialog {
   isLoading = signal(false);
 
   get sanitizedHtml(): SafeHtml {
-    console.log('Sanitizing HTML content:', this.data.htmlContent.substring(0, 200) + '...');
+    console.log(
+      'Sanitizing HTML content:',
+      this.data.htmlContent.substring(0, 200) + '...'
+    );
     return this.sanitizer.bypassSecurityTrustHtml(this.data.htmlContent);
   }
 
@@ -677,9 +725,13 @@ export class CertificatePreviewDialog {
       await this.certificateService.printCertificate(this.data.htmlContent);
     } catch (error) {
       console.error('Error printing certificate:', error);
-      this.snackBar.open('Failed to print certificate. Please check if popups are allowed.', 'OK', {
-        duration: 3000
-      });
+      this.snackBar.open(
+        'Failed to print certificate. Please check if popups are allowed.',
+        'OK',
+        {
+          duration: 3000,
+        }
+      );
     } finally {
       this.isLoading.set(false);
     }
@@ -688,15 +740,21 @@ export class CertificatePreviewDialog {
   async downloadImage(): Promise<void> {
     try {
       this.isLoading.set(true);
-      await this.certificateService.downloadCertificateAsImage(this.data.certificateData);
+      await this.certificateService.downloadCertificateAsImage(
+        this.data.certificateData
+      );
       this.snackBar.open('Certificate downloaded successfully!', 'OK', {
-        duration: 2000
+        duration: 2000,
       });
     } catch (error) {
       console.error('Error downloading certificate:', error);
-      this.snackBar.open('Failed to download certificate. Please try again.', 'OK', {
-        duration: 3000
-      });
+      this.snackBar.open(
+        'Failed to download certificate. Please try again.',
+        'OK',
+        {
+          duration: 3000,
+        }
+      );
     } finally {
       this.isLoading.set(false);
     }

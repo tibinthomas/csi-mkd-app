@@ -15,7 +15,7 @@ import {
 } from '@angular/forms';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

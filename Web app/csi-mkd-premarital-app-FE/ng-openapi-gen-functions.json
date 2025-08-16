@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/ng-openapi-gen/ng-openapi-gen-schema.json",
-  "input": "http://localhost:5177/swagger/v1/swagger.json",
-  "output": "src/api/api-main-app",
+  "input": "http://localhost:7071/api/swagger.json",
+  "output": "src/api/api-functions",
   "ignoreUnusedModels": false,
   "module": false,
   "cleanOutput": true

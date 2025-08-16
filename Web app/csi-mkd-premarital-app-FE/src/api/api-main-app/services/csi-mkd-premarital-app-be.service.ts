@@ -63,12 +63,6 @@ import { apiEmailconfigGet } from '../fn/csi-mkd-premarital-app-be/api-emailconf
 import { ApiEmailconfigGet$Params } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-get';
 import { apiEmailconfigPost } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-post';
 import { ApiEmailconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api-emailconfig-post';
-import { apiFeedbackCompletedRegistrationIdGet } from '../fn/csi-mkd-premarital-app-be/api-feedback-completed-registration-id-get';
-import { ApiFeedbackCompletedRegistrationIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-feedback-completed-registration-id-get';
-import { apiFeedbackGet } from '../fn/csi-mkd-premarital-app-be/api-feedback-get';
-import { ApiFeedbackGet$Params } from '../fn/csi-mkd-premarital-app-be/api-feedback-get';
-import { apiFeedbackPost } from '../fn/csi-mkd-premarital-app-be/api-feedback-post';
-import { ApiFeedbackPost$Params } from '../fn/csi-mkd-premarital-app-be/api-feedback-post';
 import { apiGeneralregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-check-email-get';
 import { ApiGeneralregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-check-email-get';
 import { apiGeneralregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
@@ -926,81 +920,6 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
   apiEmailconfigPost(params: ApiEmailconfigPost$Params, context?: HttpContext): Observable<void> {
     return this.apiEmailconfigPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `apiFeedbackGet()` */
-  static readonly ApiFeedbackGetPath = '/api/feedback';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiFeedbackGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiFeedbackGet$Response(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-    return apiFeedbackGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiFeedbackGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiFeedbackGet(params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
-    return this.apiFeedbackGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
-    );
-  }
-
-  /** Path part for operation `apiFeedbackPost()` */
-  static readonly ApiFeedbackPostPath = '/api/feedback';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiFeedbackPost()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  apiFeedbackPost$Response(params: ApiFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiFeedbackPost(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiFeedbackPost$Response()` instead.
-   *
-   * This method sends `application/json` and handles request body of type `application/json`.
-   */
-  apiFeedbackPost(params: ApiFeedbackPost$Params, context?: HttpContext): Observable<void> {
-    return this.apiFeedbackPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `apiFeedbackCompletedRegistrationIdGet()` */
-  static readonly ApiFeedbackCompletedRegistrationIdGetPath = '/api/feedback/completed/{registrationId}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiFeedbackCompletedRegistrationIdGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiFeedbackCompletedRegistrationIdGet$Response(params: ApiFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {
-    return apiFeedbackCompletedRegistrationIdGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiFeedbackCompletedRegistrationIdGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiFeedbackCompletedRegistrationIdGet(params: ApiFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<Array<number>> {
-    return this.apiFeedbackCompletedRegistrationIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<number>>): Array<number> => r.body)
     );
   }
 

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
 import { SessionDataService } from '../../core/services/session-data.service';

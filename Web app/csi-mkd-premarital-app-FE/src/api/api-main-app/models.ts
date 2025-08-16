@@ -4,7 +4,6 @@
 
 export type { AdminLoginDto } from './models/admin-login-dto';
 export type { CheckEmailResponseDto } from './models/check-email-response-dto';
-export type { ClassFeedbackDto } from './models/class-feedback-dto';
 export type { ConfirmationDocumentDto } from './models/confirmation-document-dto';
 export type { ConfirmationRegisterDto } from './models/confirmation-register-dto';
 export type { CreateUpdateSessionDto } from './models/create-update-session-dto';

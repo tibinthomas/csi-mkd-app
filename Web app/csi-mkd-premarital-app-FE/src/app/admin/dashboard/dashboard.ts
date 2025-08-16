@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { forkJoin } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 

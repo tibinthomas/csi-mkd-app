@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "gen-api": "ng-openapi-gen -c ng-openapi-gen.json",
+    "gen-api-main-app": "ng-openapi-gen -c ng-openapi-gen.json",
+    "gen-api-functions": "ng-openapi-gen -c ng-openapi-gen-functions.json",
+    "gen-api": "npm run gen-api-main-app && npm run gen-api-functions",
     "extract-i18n": "ng extract-i18n --output-path src/locale"
   },
   "private": true,

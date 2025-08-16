@@ -17,7 +17,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
 
-import { ApiConfiguration } from '../api/api-configuration';
+import { ApiConfiguration } from '../api/api-main-app/api-configuration';
 import { routes } from './app.routes';
 import { tokenInterceptor } from './core/auth/token.interceptor';
 import { ThemeService } from './core/services/theme.service';

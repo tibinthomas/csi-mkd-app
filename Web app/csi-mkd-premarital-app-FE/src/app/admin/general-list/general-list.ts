@@ -42,7 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 
 @Component({
   selector: 'app-general-list',

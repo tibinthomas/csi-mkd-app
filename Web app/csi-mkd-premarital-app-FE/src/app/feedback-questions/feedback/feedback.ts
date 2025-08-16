@@ -17,12 +17,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { ClassFeedbackDto, FeedbackResponseDto } from '../../../api/models';
+import {
+  FeedbackResponseDto,
+  FeedbackDocumentDto,
+} from '../../../api/api-main-app/models';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 
@@ -164,7 +167,7 @@ export class Feedback implements OnInit {
     this.errorMessage.set('');
 
     const payload = this.feedbackForm.value;
-    this.api.apiFeedbackPost({ body: payload as ClassFeedbackDto }).subscribe({
+    this.api.apiCosmosFeedbackPost({ body: payload as any }).subscribe({
       next: () => {
         this.successMessage.set('Feedback submitted successfully!');
         this.feedbackForm.reset();

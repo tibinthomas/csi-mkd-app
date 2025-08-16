@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackResponseDto } from '../../models/feedback-response-dto';
+import { SessionConfigurationDto } from '../../models/session-configuration-dto';
 
-export interface ApiFeedbackGet$Params {
+export interface GetAllSessions$Params {
 }
 
-export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackGet.PATH, 'get');
+export function getAllSessions(http: HttpClient, rootUrl: string, params?: GetAllSessions$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionConfigurationDto>>> {
+  const rb = new RequestBuilder(rootUrl, getAllSessions.PATH, 'get');
   if (params) {
   }
 
@@ -23,9 +23,9 @@ export function apiFeedbackGet(http: HttpClient, rootUrl: string, params?: ApiFe
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FeedbackResponseDto>>;
+      return r as StrictHttpResponse<Array<SessionConfigurationDto>>;
     })
   );
 }
 
-apiFeedbackGet.PATH = '/api/feedback';
+getAllSessions.PATH = '/sessions';

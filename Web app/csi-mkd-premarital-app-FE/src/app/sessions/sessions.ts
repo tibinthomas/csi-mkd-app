@@ -11,7 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CsiMkdPremaritalAppBeService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/api-main-app/services';
 import { catchError, map, of, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
@@ -40,22 +40,19 @@ export class Sessions {
   private readonly api = inject(CsiMkdPremaritalAppBeService);
   protected readonly isLoading = signal(true);
 
-
-  private readonly sessions$ = this.api
-    .apiSessionconfigGet()
-    .pipe(
-      map((data: any) => {
-        return data.map((session: any) => ({
-          ...session,
-        }));
-      }),
-      catchError((err) => {
-        this.isLoading.set(false);
-        console.error('Error loading sessions:', err);
-        return of([]); // fallback to empty array
-      }),
-      tap(() => this.isLoading.set(false)) // optional: set true again if reused
-    );
+  private readonly sessions$ = this.api.apiSessionconfigGet().pipe(
+    map((data: any) => {
+      return data.map((session: any) => ({
+        ...session,
+      }));
+    }),
+    catchError((err) => {
+      this.isLoading.set(false);
+      console.error('Error loading sessions:', err);
+      return of([]); // fallback to empty array
+    }),
+    tap(() => this.isLoading.set(false)) // optional: set true again if reused
+  );
 
   protected readonly sessionList = toSignal(this.sessions$, {
     initialValue: [],
@@ -85,7 +82,6 @@ export class Sessions {
 
   // Expand/collapse tracking
   expandedYears: WritableSignal<Record<string, boolean>> = signal({});
-
 
   allExpanded = computed(() => {
     const yearMap = this.expandedYears();

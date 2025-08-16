@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CsiMkdPremaritalAppBeService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/api-main-app/services';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 import { MatTableModule } from '@angular/material/table';
@@ -27,7 +27,7 @@ export class FeedbackList {
     'comments',
   ];
 
-  private readonly feedbacks$ = this.api.apiFeedbackGet().pipe(
+  private readonly feedbacks$ = this.api.apiCosmosFeedbackGet().pipe(
     map((data: any) => {
       return data;
     }),

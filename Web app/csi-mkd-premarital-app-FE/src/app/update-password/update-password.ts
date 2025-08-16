@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
-import { CsiMkdPremaritalAppBeService } from '../../api/services';
+import { CsiMkdPremaritalAppBeService } from '../../api/api-main-app/services';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

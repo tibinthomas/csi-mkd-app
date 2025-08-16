@@ -13,7 +13,6 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
@@ -34,12 +33,10 @@ import { emailDomainValidator } from '../../core/validators/email-domain.validat
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
-// import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
-// Aggregated API service used for all backend calls
-import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/services';
+import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
 
 @Component({
   selector: 'app-premarital-register',

@@ -8,15 +8,20 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { SessionConfigurationDto } from '../../models/session-configuration-dto';
 
-export interface ApiFeedbackCompletedRegistrationIdGet$Params {
-  registrationId: number;
+export interface GetSessionsByYear$Params {
+
+/**
+ * The year to filter sessions by
+ */
+  year: number;
 }
 
-export function apiFeedbackCompletedRegistrationIdGet(http: HttpClient, rootUrl: string, params: ApiFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {
-  const rb = new RequestBuilder(rootUrl, apiFeedbackCompletedRegistrationIdGet.PATH, 'get');
+export function getSessionsByYear(http: HttpClient, rootUrl: string, params: GetSessionsByYear$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<SessionConfigurationDto>>> {
+  const rb = new RequestBuilder(rootUrl, getSessionsByYear.PATH, 'get');
   if (params) {
-    rb.path('registrationId', params.registrationId, {});
+    rb.path('year', params.year, {});
   }
 
   return http.request(
@@ -24,9 +29,9 @@ export function apiFeedbackCompletedRegistrationIdGet(http: HttpClient, rootUrl:
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<number>>;
+      return r as StrictHttpResponse<Array<SessionConfigurationDto>>;
     })
   );
 }
 
-apiFeedbackCompletedRegistrationIdGet.PATH = '/api/feedback/completed/{registrationId}';
+getSessionsByYear.PATH = '/sessions/{year}';

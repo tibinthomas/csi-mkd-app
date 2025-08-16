@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { CsiMkdPremaritalAppBeService } from '../../../api/services';
-import { CreateUpdateSessionDto } from '../../../api/models';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
+import { CreateUpdateSessionDto } from '../../../api/api-main-app/models';
 
 @Injectable({
   providedIn: 'root',
