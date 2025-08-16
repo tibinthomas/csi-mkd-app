@@ -71,7 +71,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Education</mat-label>
-           <input matInput formControlName="education" appNoDigits />
+            <input matInput formControlName="education" appNoDigits />
             @if (isInvalid('education')) {
             <mat-error>Education field is required.</mat-error>
             }
@@ -80,7 +80,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Occupation</mat-label>
-           <input matInput formControlName="occupation" appNoDigits />
+          <input matInput formControlName="occupation" appNoDigits />
           @if (isInvalid('occupation')) {
           <mat-error>Occupation field is required.</mat-error>
           }
@@ -88,7 +88,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Church Name</mat-label>
-           <input matInput formControlName="churchName" appNoDigits />
+          <input matInput formControlName="churchName" appNoDigits />
         </mat-form-field>
 
         <div class="grid md:grid-cols-2 gap-6">
@@ -151,10 +151,10 @@
         </div>
 
         <!-- Upload Photo -->
-        <div class="mb-6" role="group" aria-labelledby="photo-upload-label">
+        <div role="group" aria-labelledby="photo-upload-label">
           <label id="photo-upload-label" class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
           <button
-            mat-flat-button 
+            mat-stroked-button
             color="primary"
             type="button"
             (click)="photoInput.click()"
@@ -162,7 +162,7 @@
             aria-describedby="photo-upload-help"
           >
             <mat-icon aria-hidden="true">upload</mat-icon>
-            <span i18n>Choose photo</span>
+            <span i18n>Choose Photo</span>
           </button>
           <input
             #photoInput
@@ -174,15 +174,16 @@
             aria-describedby="photo-upload-help"
           />
           <div id="photo-upload-help" class="sr-only" i18n>Please select a passport size photo in image format</div>
-
-          @if (photoFileName) {
-          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ photoFileName }}</span>
-          } @if (photoError()) {
-          <mat-error role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
-          }
         </div>
+        @if (photoFileName) {
+        <span class="text-sm text-on-surface-variant block" aria-live="polite">{{ photoFileName }}</span>
+        }@else {
+        <mat-hint class="!text-xs" i18n>Max size 2MB (JPG, PNG)</mat-hint>
+        } @if (photoError()) {
+        <mat-error role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
+        }
 
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-2 mt-6">
           <mat-checkbox formControlName="declaration" i18n>
             I would like to attend the counselling course.
           </mat-checkbox>
@@ -191,7 +192,7 @@
           }
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-start">
           <!-- reCAPTCHA v2 Checkbox -->
           <ngx-recaptcha2
             formControlName="recaptcha"
@@ -210,9 +211,9 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            @if(isSubmitting()){
+            @if (isSubmitting()) {
             <span i18n>Submitting...</span>
-            } @if(!isSubmitting()){
+            } @else {
             <span i18n>Register</span>
             }
           </button>

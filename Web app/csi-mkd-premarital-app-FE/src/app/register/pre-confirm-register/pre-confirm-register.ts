@@ -280,15 +280,18 @@ export class PreConfirmRegister {
     const allowedTypes = [
       'application/pdf',
       'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'image/jpeg',
       'image/png',
     ];
 
     if (file && !allowedTypes.includes(file.type)) {
-      this.vicarLetterError.set('Allowed types: PDF, DOC, JPG, PNG');
+      this.vicarLetterError.set(
+        'Allowed types: PDF, DOC, DOCX, JPG, PNG'
+      );
       this.vicarLetterFile.set(null);
-    } else if (file && file.size > 5 * 1024 * 1024) {
-      this.vicarLetterError.set('File too large. Max size is 5MB.');
+    } else if (file && file.size > 2 * 1024 * 1024) {
+      this.vicarLetterError.set('File too large. Max size is 2MB.');
       this.vicarLetterFile.set(null);
     } else {
       this.vicarLetterFile.set(file);

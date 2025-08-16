@@ -203,6 +203,9 @@ export class GeneralRegister {
     if (file && !file.type.startsWith('image/')) {
       this.photoError.set('Only image files are allowed.');
       this.photoFile.set(null);
+    } else if (file && file.size > 2 * 1024 * 1024) {
+      this.photoError.set('File too large. Max size is 2MB.');
+      this.photoFile.set(null);
     } else {
       this.photoFile.set(file);
       this.photoError.set('');
