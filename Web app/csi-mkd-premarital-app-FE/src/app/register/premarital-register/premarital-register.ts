@@ -28,7 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { SuccessDialogComponent } from '../success-dialog';
+import { SuccessDialog } from '../../shared/success-dialog/success-dialog';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
@@ -408,15 +408,22 @@ export class PremaritalRegister {
                     this.successMessage.set(
                       'Registration submitted successfully!'
                     );
-                    this.dialog.open(SuccessDialogComponent, {
-                      width: '400px',
+                    const dialogRef = this.dialog.open(SuccessDialog, {
+                      // width: '400px',
                       disableClose: true,
                       data: {
-                        message: 'Registration successful!',
-                        registerType: 'premarital',
+                        title: 'Premarital Registration Complete',
+                        messages: [
+                          'Your premarital registration is successfully completed.',
+                        ],
+                        extraMessage:
+                          'A confirmation email has been sent to your registered email address.',
                       },
                     });
-                    this.resetForm();
+                    dialogRef.afterClosed().subscribe(() => {
+                      // Navigate back to previous page
+                      window.history.back();
+                    });
                   },
                   error: (err) => {
                     console.error(err);

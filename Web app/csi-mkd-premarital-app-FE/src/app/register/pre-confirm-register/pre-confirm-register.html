@@ -20,6 +20,7 @@
             <mat-label i18n>Date of Confirmation</mat-label>
             <input
               matInput
+              readonly
               [matDatepicker]="confirmationdatepicker"
               formControlName="confirmationDate"
               [min]="minDate"
@@ -35,7 +36,13 @@
 
           <mat-form-field appearance="fill">
             <mat-label i18n>Date of Counselling</mat-label>
-            <input matInput [matDatepicker]="counsellingdatepicker" formControlName="counsellingDate"  (click)="counsellingdatepicker.open()"/>
+            <input
+              matInput
+              readonly
+              [matDatepicker]="counsellingdatepicker"
+              formControlName="counsellingDate"
+              (click)="counsellingdatepicker.open()"
+            />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #counsellingdatepicker />
             <mat-datepicker-toggle [for]="counsellingdatepicker" matSuffix />

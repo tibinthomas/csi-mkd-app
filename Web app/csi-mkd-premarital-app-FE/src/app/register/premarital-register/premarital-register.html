@@ -1,7 +1,14 @@
 <section class="py-10 px-4 theme-transition" role="main" aria-labelledby="form-title">
-  <mat-card class="elegant-card elegant-surface-elevated max-w-4xl mx-auto p-6 mt-20 theme-transition" appAnimateOnScroll>
+  <mat-card
+    class="elegant-card elegant-surface-elevated max-w-4xl mx-auto p-6 mt-20 theme-transition"
+    appAnimateOnScroll
+  >
     <mat-card-header class="mb-6">
-      <mat-card-title id="form-title" class="text-center text-2xl sm:text-3xl font-bold text-on-surface theme-transition" i18n>
+      <mat-card-title
+        id="form-title"
+        class="text-center text-2xl sm:text-3xl font-bold text-on-surface theme-transition"
+        i18n
+      >
         Premarital Registration Form
       </mat-card-title>
     </mat-card-header>
@@ -49,7 +56,13 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Father's Name</mat-label>
-            <input matInput formControlName="fatherName" aria-required="true" aria-describedby="fatherName-error" appNoDigits />
+            <input
+              matInput
+              formControlName="fatherName"
+              aria-required="true"
+              aria-describedby="fatherName-error"
+              appNoDigits
+            />
             @if (isInvalid('fatherName')) {
             <mat-error id="fatherName-error" i18n>Father's Name is required.</mat-error>
             }
@@ -112,7 +125,13 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Education</mat-label>
-           <input matInput formControlName="education" aria-required="true" aria-describedby="education-error" appNoDigits />
+            <input
+              matInput
+              formControlName="education"
+              aria-required="true"
+              aria-describedby="education-error"
+              appNoDigits
+            />
             @if (isInvalid('education')) {
             <mat-error id="education-error" i18n>Education field is required.</mat-error>
             }
@@ -121,7 +140,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Occupation</mat-label>
-           <input matInput formControlName="occupation" appNoDigits />
+          <input matInput formControlName="occupation" appNoDigits />
           @if (isInvalid('occupation')) {
           <mat-error i18n>Occupation field is required.</mat-error>
           }
@@ -129,13 +148,16 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Church Name</mat-label>
-           <input matInput formControlName="churchName" appNoDigits />
+          <input matInput formControlName="churchName" appNoDigits />
           @if (isInvalid('churchName')) {
           <mat-error i18n>Church Name is required.</mat-error>
           }
         </mat-form-field>
 
-        <fieldset formGroupName="churchActivities" class="border border-outline dark:border-outline-variant rounded-lg p-2 theme-transition">
+        <fieldset
+          formGroupName="churchActivities"
+          class="border border-outline dark:border-outline-variant rounded-lg p-2 theme-transition"
+        >
           <legend class="font-semibold text-on-surface" i18n>Church Activities</legend>
           <div class="flex flex-wrap gap-6 items-center">
             <mat-checkbox formControlName="choirMember">
@@ -157,12 +179,20 @@
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Fiancé/Fiancée Name</mat-label>
-             <input matInput formControlName="fianceName" appNoDigits />
+            <input matInput formControlName="fianceName" appNoDigits />
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Marriage</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dateOfMarriage" [min]="minDate" (click)="picker.open()" />
+            <input
+              matInput
+              readonly
+              [matDatepicker]="picker"
+              formControlName="dateOfMarriage"
+              [min]="minDate"
+              (click)="picker.open()"
+              readonly
+            />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
@@ -293,7 +323,9 @@
           </div>
 
           @if (vicarLetterFile()?.name) {
-          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ vicarLetterFile()?.name }}</span>
+          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{
+            vicarLetterFile()?.name
+          }}</span>
           } @if (vicarLetterError()) {
           <mat-error role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
           }

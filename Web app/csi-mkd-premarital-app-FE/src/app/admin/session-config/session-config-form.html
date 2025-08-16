@@ -8,14 +8,14 @@
 
   <mat-form-field appearance="fill" class="w-full">
     <mat-label i18n>Start Date</mat-label>
-    <input matInput [matDatepicker]="startPicker" formControlName="startDate" (click)="startPicker.open()" />
+    <input matInput readonly [matDatepicker]="startPicker" formControlName="startDate" (click)="startPicker.open()" />
     <mat-datepicker-toggle matSuffix [for]="startPicker" />
     <mat-datepicker #startPicker></mat-datepicker>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="w-full">
     <mat-label i18n>End Date</mat-label>
-    <input matInput [matDatepicker]="endPicker" formControlName="endDate" (click)="endPicker.open()" />
+    <input matInput readonly [matDatepicker]="endPicker" formControlName="endDate" (click)="endPicker.open()" />
     <mat-datepicker-toggle matSuffix [for]="endPicker" />
     <mat-datepicker #endPicker></mat-datepicker>
   </mat-form-field>

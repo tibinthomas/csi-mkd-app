@@ -24,7 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { switchMap } from 'rxjs';
 import { FileUploadService } from '../../core/services/file-upload.service';
-import { SuccessDialogComponent } from '../success-dialog';
+import { SuccessDialog } from '../../shared/success-dialog/success-dialog';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -290,15 +290,21 @@ export class GeneralRegister {
                     this.successMessage.set(
                       'Registration submitted successfully!'
                     );
-                    this.dialog.open(SuccessDialogComponent, {
-                      width: '400px',
+                    const dialogRef = this.dialog.open(SuccessDialog, {
                       disableClose: true,
                       data: {
-                        message: 'Registration successful!',
-                        registerType: 'general',
+                        title: 'Registration Complete',
+                        messages: [
+                          'Your registration is successfully completed.',
+                        ],
+                        extraMessage:
+                          'A confirmation email has been sent to your registered email address.',
                       },
                     });
-                    this.resetForm();
+                    dialogRef.afterClosed().subscribe(() => {
+                      // Navigate back to previous page
+                      window.history.back();
+                    });
                     this.isSubmitting.set(false);
                   },
                   error: (err) => this.handleUploadError(err),
