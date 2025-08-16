@@ -11,20 +11,29 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { SeoService } from './core/services/seo.service';
+import { UpdateService } from './core/services/update.service';
+import { UpdatePromptComponent } from './shared/components/update-prompt/update-prompt.component';
 import { filter, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
-  template: `<router-outlet></router-outlet>`,
+  imports: [RouterOutlet, UpdatePromptComponent],
+  template: `
+    <router-outlet></router-outlet>
+    <app-update-prompt></app-update-prompt>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App implements OnInit {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly seoService = inject(SeoService);
+  private readonly updateService = inject(UpdateService);
 
   ngOnInit(): void {
+    // Initialize update service
+    this.updateService.checkForUpdate();
+
     this.router.events
       .pipe(
         filter(
