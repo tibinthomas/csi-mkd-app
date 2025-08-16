@@ -10,15 +10,22 @@
         }
       </button>
     </div>
-    @if(isLoading()) {
+    @if(sessionsResource.isLoading()) {
     <div class="flex justify-center items-center mt-8">
       <mat-spinner diameter="40" color="primary"></mat-spinner>
     </div>
+    } @else if(sessionsResource.error()) {
+    <div class="text-center mt-8">
+      <p class="text-error">Failed to load sessions. Please try again later.</p>
+      <button mat-raised-button color="primary" (click)="sessionsResource.reload()" class="mt-4">
+        Retry
+      </button>
+    </div>
     } @else {
     <mat-accordion multi>
-      @for (yearGroup of groupedByYear(); track yearGroup.year) {
+      @for (yearGroup of groupedSessions(); track yearGroup.year) {
       <mat-expansion-panel
-        [expanded]="expandedYears()[yearGroup.year]"
+        [expanded]="isYearExpanded(yearGroup.year)"
         class="shadow-none border border-outline dark:border-outline-variant dark:bg-surface-container rounded-xl mb-2 theme-transition"
       >
         <mat-expansion-panel-header (click)="toggleYear(yearGroup.year)">
@@ -30,26 +37,26 @@
           <div>
             <h3 class="text-lg font-semibold mb-2 uppercase">{{ monthGroup.month }}</h3>
             <div class="grid gap-4">
-              @for (session of monthGroup.sessions; track session.Id) {
+              @for (session of monthGroup.sessions; track session.id) {
               <mat-card
                 class="rounded-xl shadow-sm border border-outline dark:border-outline-variant hover:shadow-md transition animate-fade-slide theme-transition"
               >
                 <mat-card-header>
-                  <mat-card-title class="!text-lg font-bold"> {{ session.SessionName }} </mat-card-title>
+                  <mat-card-title class="!text-lg font-bold"> {{ session.sessionName }} </mat-card-title>
                   <mat-card-subtitle class="!text-lg text-on-surface-variant">
-                    {{ session.StartDate | date }} → {{ session.EndDate | date }}
+                    {{ session.startDate | date }} → {{ session.endDate | date }}
                   </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-actions class="flex justify-end">
                   <button
                     mat-flat-button
                     color="primary"
-                    [disabled]="!session.IsActive"
+                    [disabled]="!session.isActive"
                     (click)="registerSession(session)"
                   >
-                    @if( session.IsActive) {
+                    @if( session.isActive) {
                     <span i18n>Register</span>
-                    } @if(!session.IsActive) {
+                    } @if(!session.isActive) {
                     <span i18n>Unavailable</span>
                     }
                   </button>

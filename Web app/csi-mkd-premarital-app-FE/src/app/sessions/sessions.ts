@@ -4,19 +4,18 @@ import {
   computed,
   inject,
   signal,
-  WritableSignal,
+  resource,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CsiMkdPremaritalAppBeService } from '../../api/api-main-app/services';
-import { catchError, map, of, tap } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { SessionsService } from '../../api/api-functions/services';
 import { DatePipe } from '@angular/common';
 import { RouterOutlet, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-sessions',
@@ -27,88 +26,101 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatSnackBarModule,
     DatePipe,
     RouterOutlet,
-    // RouterLink,
     MatProgressSpinnerModule,
   ],
   templateUrl: './sessions.html',
   styleUrl: './sessions.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Sessions {
-  private snackBar = inject(MatSnackBar);
-  router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly router = inject(Router);
+  private readonly api = inject(SessionsService);
 
-  private readonly api = inject(CsiMkdPremaritalAppBeService);
-  protected readonly isLoading = signal(true);
-
-  private readonly sessions$ = this.api.apiSessionconfigGet().pipe(
-    map((data: any) => {
-      return data.map((session: any) => ({
-        ...session,
-      }));
-    }),
-    catchError((err) => {
-      this.isLoading.set(false);
-      console.error('Error loading sessions:', err);
-      return of([]); // fallback to empty array
-    }),
-    tap(() => this.isLoading.set(false)) // optional: set true again if reused
-  );
-
-  protected readonly sessionList = toSignal(this.sessions$, {
-    initialValue: [],
+  // Use resource for better data loading and state management
+  readonly sessionsResource = resource({
+    loader: async () => {
+      try {
+        return await firstValueFrom(this.api.getAllSessions());
+      } catch (error) {
+        console.error('Error loading sessions:', error);
+        this.snackBar.open('Failed to load sessions', 'Close', {
+          duration: 3000,
+        });
+        return [];
+      }
+    },
   });
 
-  // Group sessions by Year -> Month
-  groupedByYear = computed(() => {
-    const groups: Record<string, Record<string, any>> = {};
-    for (const session of this.sessionList()) {
-      const date = new Date(session.StartDate);
+  // Simplified grouping logic using computed
+  readonly groupedSessions = computed(() => {
+    const sessions = this.sessionsResource.value();
+    if (!sessions || !Array.isArray(sessions)) return [];
+
+    const yearGroups = new Map<string, Map<string, any[]>>();
+
+    sessions.forEach((session: any) => {
+      const date = new Date(session?.startDate);
       const year = date.getFullYear().toString();
       const month = date.toLocaleString('default', { month: 'long' });
 
-      groups[year] ??= {};
-      groups[year][month] ??= [];
-      groups[year][month].push(session);
-    }
+      if (!yearGroups.has(year)) {
+        yearGroups.set(year, new Map());
+      }
+      if (!yearGroups.get(year)!.has(month)) {
+        yearGroups.get(year)!.set(month, []);
+      }
+      yearGroups.get(year)!.get(month)!.push(session);
+    });
 
-    return Object.entries(groups).map(([year, monthsMap]) => ({
-      year,
-      months: Object.entries(monthsMap).map(([month, sessions]) => ({
-        month,
-        sessions,
-      })),
-    }));
+    return Array.from(yearGroups.entries())
+      .map(([year, monthsMap]) => ({
+        year,
+        months: Array.from(monthsMap.entries()).map(([month, sessions]) => ({
+          month,
+          sessions,
+        })),
+      }))
+      .sort((a, b) => parseInt(b.year) - parseInt(a.year));
   });
 
-  // Expand/collapse tracking
-  expandedYears: WritableSignal<Record<string, boolean>> = signal({});
+  // Expansion state management
+  readonly expandedYears = signal<Set<string>>(new Set());
 
-  allExpanded = computed(() => {
-    const yearMap = this.expandedYears();
-    if (Object.keys(yearMap).length === 0) return false; // No years to check
-    return Object.values(yearMap).every((v) => v);
+  readonly allExpanded = computed(() => {
+    const expandedSet = this.expandedYears();
+    const availableYears = this.groupedSessions().map((g) => g.year);
+    return (
+      availableYears.length > 0 &&
+      availableYears.every((year) => expandedSet.has(year))
+    );
   });
 
   toggleAll(): void {
-    const state = this.allExpanded() ? false : true;
-    const updated: Record<string, boolean> = {};
-    for (const yearGroup of this.groupedByYear()) {
-      updated[yearGroup.year] = state;
-    }
-    this.expandedYears.set(updated);
+    const shouldExpandAll = !this.allExpanded();
+    const years = this.groupedSessions().map((g) => g.year);
+    this.expandedYears.set(shouldExpandAll ? new Set(years) : new Set());
   }
 
   toggleYear(year: string): void {
-    const current = this.expandedYears();
-    this.expandedYears.set({
-      ...current,
-      [year]: !current[year],
+    this.expandedYears.update((expanded) => {
+      const newSet = new Set(expanded);
+      if (newSet.has(year)) {
+        newSet.delete(year);
+      } else {
+        newSet.add(year);
+      }
+      return newSet;
     });
   }
 
-  registerSession(session: any) {
-    this.router.navigate(['/register/premarital-register', session.Id], {
-      state: { selectedSessionId: session.Id },
+  isYearExpanded(year: string): boolean {
+    return this.expandedYears().has(year);
+  }
+
+  registerSession(session: any): void {
+    this.router.navigate(['/register/premarital-register', session.id], {
+      state: { selectedSessionId: session.id },
     });
   }
 }
