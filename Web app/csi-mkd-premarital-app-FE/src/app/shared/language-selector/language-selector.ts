@@ -37,13 +37,13 @@ export class LanguageSelectorComponent {
 
   changeLanguage(langCode: string): void {
     if (langCode !== this.localeId) {
-      // Get current path without hash
-      const currentPath = this.location.path();
-      
+      // Get current path without hash and remove leading slash
+      const currentPath = this.location.path().replace(/^\//, '');
+
       // Build new URL with the selected locale
       const baseUrl = this.document.location.origin;
-      const newUrl = `${baseUrl}/${langCode}${currentPath}`;
-      
+      const newUrl = `${baseUrl}/${langCode}/${currentPath}`;
+
       // Navigate to the new URL while preserving the current route
       this.document.location.href = newUrl;
     }
