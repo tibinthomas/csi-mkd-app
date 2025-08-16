@@ -18,7 +18,13 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Confirmation</mat-label>
-            <input matInput [matDatepicker]="confirmationdatepicker" formControlName="confirmationDate" [min]="minDate" />
+            <input
+              matInput
+              [matDatepicker]="confirmationdatepicker"
+              formControlName="confirmationDate"
+              [min]="minDate"
+              (click)="confirmationdatepicker.open()"
+            />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #confirmationdatepicker />
             <mat-datepicker-toggle [for]="confirmationdatepicker" matSuffix />
@@ -29,7 +35,7 @@
 
           <mat-form-field appearance="fill">
             <mat-label i18n>Date of Counselling</mat-label>
-            <input matInput [matDatepicker]="counsellingdatepicker" formControlName="counsellingDate" />
+            <input matInput [matDatepicker]="counsellingdatepicker" formControlName="counsellingDate"  (click)="counsellingdatepicker.open()"/>
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #counsellingdatepicker />
             <mat-datepicker-toggle [for]="counsellingdatepicker" matSuffix />
@@ -117,7 +123,9 @@
           </div>
 
           @if (this.vicarLetterFile()?.name) {
-          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ this.vicarLetterFile()?.name }}</span>
+          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{
+            this.vicarLetterFile()?.name
+          }}</span>
           } @if (vicarLetterError()) {
           <mat-error role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
           }

@@ -162,7 +162,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Marriage</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dateOfMarriage" [min]="minDate" />
+            <input matInput [matDatepicker]="picker" formControlName="dateOfMarriage" [min]="minDate" (click)="picker.open()" />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>

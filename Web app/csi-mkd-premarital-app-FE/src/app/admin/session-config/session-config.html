@@ -15,6 +15,7 @@
             [value]="selectedYear()"
             (dateChange)="onYearChange($event)"
             readonly
+            (click)="yearPicker.open()"
           />
           <mat-datepicker-toggle matSuffix [for]="yearPicker" />
           <mat-datepicker #yearPicker startView="multi-year" (yearSelected)="chooseYear($event, yearPicker)" />
