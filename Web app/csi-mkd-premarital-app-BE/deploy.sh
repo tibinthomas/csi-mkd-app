@@ -25,8 +25,8 @@ if [ ! -f "$SCRIPT_DIR/deploy-sessions-function.sh" ]; then
 fi
 
 # Make sure both scripts are executable
-chmod +x "$SCRIPT_DIR/deploy-main-api.sh"
-chmod +x "$SCRIPT_DIR/deploy-sessions-function.sh"
+chmod +x "$SCRIPT_DIR/deploy-main.sh"
+chmod +x "$SCRIPT_DIR/deploy-fn.sh"
 
 # -----------------------
 # DEPLOY MAIN API
