@@ -28,7 +28,10 @@ body {
 
 body {
   margin: 0;
-  font-family: 'PT Serif', sans-serif;
+  font-family: 'PT Serif', 'Noto Serif Malayalam', 'Noto Sans Malayalam', 'Rachana', 'Karthika', 'Malayalam Sangam MN', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* Responsive Typography */
@@ -182,5 +185,29 @@ html {
   .mat-raised-button:focus,
   .mat-icon-button:focus {
     border-color: Highlight;
+  }
+}
+
+/* Malayalam Font Rendering Improvements */
+*[lang="ml"],
+.malayalam-text {
+  font-family: 'Noto Serif Malayalam', 'Noto Sans Malayalam', 'Rachana', 'Karthika', 'Malayalam Sangam MN', 'PT Serif', serif;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -moz-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+/* Ensure proper line height for Malayalam text */
+*[lang="ml"] {
+  line-height: 1.6;
+}
+
+/* Force font fallback for Malayalam Unicode range */
+@supports (font-feature-settings: "kern") {
+  body {
+    font-feature-settings: "kern" 1;
   }
 }
