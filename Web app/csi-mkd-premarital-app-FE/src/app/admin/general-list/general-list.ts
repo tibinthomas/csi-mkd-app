@@ -107,7 +107,7 @@ export class GeneralList {
   readonly isApproving = signal<number | null>(null);
   private _snackBar = inject(MatSnackBar);
 
-  baseApiUrl = API_ROOT_URL;
+  baseApiUrl = API_ROOT_URL_MAIN_APP;
   expandedElement: any = null;
   disableSelect = new FormControl(false);
 

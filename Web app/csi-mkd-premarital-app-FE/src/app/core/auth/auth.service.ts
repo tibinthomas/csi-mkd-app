@@ -28,7 +28,7 @@ interface AuthState {
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
-  private readonly baseUrl = `${API_ROOT_URL}/api/auth`;
+  private readonly baseUrl = `${API_ROOT_URL_MAIN_APP}/api/auth`;
   private readonly tokenKey = 'auth_token';
   private readonly usernameKey = 'auth_username';
 
@@ -49,32 +49,31 @@ export class AuthService {
   login(credentials: LoginCredentials): Observable<LoginResponse> {
     this.updateAuthState({ isLoading: true, error: null });
 
-    return this.http.post<LoginResponse>(
-      `${this.baseUrl}/login`,
-      credentials
-    ).pipe(
-      tap((response) => {
-        this.setTokens(response.token, response.username);
-        this.updateAuthState({
-          isAuthenticated: true,
-          token: response.token,
-          username: response.username,
-          isLoading: false,
-          error: null,
-        });
-      }),
-      catchError((error: HttpErrorResponse) => {
-        const errorMessage = this.extractErrorMessage(error);
-        this.updateAuthState({
-          isAuthenticated: false,
-          token: null,
-          username: null,
-          isLoading: false,
-          error: errorMessage,
-        });
-        return throwError(() => new Error(errorMessage));
-      })
-    );
+    return this.http
+      .post<LoginResponse>(`${this.baseUrl}/login`, credentials)
+      .pipe(
+        tap((response) => {
+          this.setTokens(response.token, response.username);
+          this.updateAuthState({
+            isAuthenticated: true,
+            token: response.token,
+            username: response.username,
+            isLoading: false,
+            error: null,
+          });
+        }),
+        catchError((error: HttpErrorResponse) => {
+          const errorMessage = this.extractErrorMessage(error);
+          this.updateAuthState({
+            isAuthenticated: false,
+            token: null,
+            username: null,
+            isLoading: false,
+            error: errorMessage,
+          });
+          return throwError(() => new Error(errorMessage));
+        })
+      );
   }
 
   logout(): void {
@@ -102,7 +101,7 @@ export class AuthService {
   }
 
   private updateAuthState(updates: Partial<AuthState>): void {
-    this._authState.update(current => ({ ...current, ...updates }));
+    this._authState.update((current) => ({ ...current, ...updates }));
   }
 
   private setTokens(token: string, username: string): void {
@@ -159,7 +158,7 @@ export class AuthService {
     if (error.error?.message) {
       return error.error.message;
     }
-    
+
     switch (error.status) {
       case 401:
         return 'Invalid username or password';

@@ -16,12 +16,10 @@ import {
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
-import {
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE,
-} from '@angular/material/core';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
-import { ApiConfiguration } from '../api/api-main-app/api-configuration';
+import { ApiConfiguration as MainAppApiConfig } from '../api/api-main-app/api-configuration';
+import { ApiConfiguration as FunctionAppApiConfig } from '../api/api-functions/api-configuration';
 import { routes } from './app.routes';
 import { tokenInterceptor } from './core/auth/token.interceptor';
 import { ThemeService } from './core/services/theme.service';
@@ -43,8 +41,11 @@ export const appConfig: ApplicationConfig = {
       withComponentInputBinding()
     ),
     provideAppInitializer(() => {
-      const apiConfig: ApiConfiguration = inject(ApiConfiguration);
-      apiConfig.rootUrl = API_ROOT_URL;
+      const apiConfigMainApp: MainAppApiConfig = inject(MainAppApiConfig);
+      const apiConfigFunctionApp: FunctionAppApiConfig =
+        inject(FunctionAppApiConfig);
+      apiConfigMainApp.rootUrl = API_ROOT_URL_MAIN_APP;
+      apiConfigFunctionApp.rootUrl = API_ROOT_URL_FN_APP;
       return Promise.resolve();
     }),
     provideAppInitializer(() => {
