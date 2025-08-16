@@ -3,7 +3,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
-import { Location } from '@angular/common';
 
 interface Language {
   code: string;
@@ -27,8 +26,7 @@ export class LanguageSelectorComponent {
 
   constructor(
     @Inject(LOCALE_ID) private localeId: string,
-    @Inject(DOCUMENT) private document: Document,
-    private location: Location
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.currentLanguage =
       this.languages.find((lang) => lang.code === this.localeId) ||
@@ -37,12 +35,16 @@ export class LanguageSelectorComponent {
 
   changeLanguage(langCode: string): void {
     if (langCode !== this.localeId) {
-      // Get current path without hash and remove leading slash
-      const currentPath = this.location.path().replace(/^\//, '');
-
-      // Build new URL with the selected locale
+      // Get the current full URL including hash
+      const currentUrl = this.document.location.href;
       const baseUrl = this.document.location.origin;
-      const newUrl = `${baseUrl}/${langCode}/${currentPath}`;
+      
+      // Extract the hash portion (everything after #)
+      const hashIndex = currentUrl.indexOf('#');
+      const hashPortion = hashIndex !== -1 ? currentUrl.substring(hashIndex) : '#/';
+      
+      // Build new URL with the selected locale and preserve the hash
+      const newUrl = `${baseUrl}/${langCode}/${hashPortion}`;
 
       // Navigate to the new URL while preserving the current route
       this.document.location.href = newUrl;
