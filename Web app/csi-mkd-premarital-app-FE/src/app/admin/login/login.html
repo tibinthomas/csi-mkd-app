@@ -1,4 +1,8 @@
-<section class="surface-container h-screen flex items-center justify-center theme-transition" role="main" aria-labelledby="login-title">
+<section
+  class="surface-container h-screen flex flex-col items-center justify-center theme-transition px-4"
+  role="main"
+  aria-labelledby="login-title"
+>
   <mat-card class="w-full max-w-md p-8 rounded-2xl shadow-xl">
     <mat-card-content>
       <div class="text-center mb-8">
@@ -10,13 +14,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Username</mat-label>
-          <input
-            matInput
-            formControlName="username"
-            autocomplete="username"
-            required
-            autofocus
-          />
+          <input matInput formControlName="username" autocomplete="username" required autofocus />
           <mat-hint i18n>Enter your username</mat-hint>
           @if (loginForm.controls['username'].hasError('required')) {
           <mat-error i18n>Username is required.</mat-error>
@@ -25,13 +23,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Password</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="password"
-            autocomplete="current-password"
-            required
-          />
+          <input matInput type="password" formControlName="password" autocomplete="current-password" required />
           <mat-hint i18n>Enter your password</mat-hint>
           @if (loginForm.controls['password'].hasError('required')) {
           <mat-error i18n>Password is required.</mat-error>
@@ -57,4 +49,14 @@
       </form>
     </mat-card-content>
   </mat-card>
+
+  <!-- Elegant link to main site -->
+  <div class="mt-6 text-center">
+    <a routerLink="/about" class="text-primary flex items-center justify-center gap-2 font-medium cursor-pointer">
+      <mat-icon fontIcon="home"></mat-icon>
+      <span i18n>Back to Main Website</span>
+    </a>
+  </div>
 </section>
+
+<router-outlet></router-outlet>
