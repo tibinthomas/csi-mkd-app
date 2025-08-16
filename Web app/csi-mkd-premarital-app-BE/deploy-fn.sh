@@ -17,11 +17,15 @@ RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 # -----------------------
 # LOAD & VALIDATE SECRETS
 # -----------------------
-if [ -f .env ]; then
-    echo "📜 Loading environment variables from .env file..."
+if [ -f SessionsFunction/.env ]; then
+    echo "📜 Loading environment variables from SessionsFunction/.env file..."
     set -o allexport
-    source .env
+    source SessionsFunction/.env
     set +o allexport
+else
+    echo "❌ SessionsFunction/.env file not found."
+    echo "👉 Please create a .env file in the SessionsFunction directory with required environment variables."
+    exit 1
 fi
 
 required_secrets=(
