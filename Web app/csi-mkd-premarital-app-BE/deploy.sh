@@ -3,150 +3,70 @@ set -e
 set -o pipefail
 
 # -----------------------
-# CONFIG
+# Deploy Both Applications
+# Calls individual deployment scripts for Main API and Sessions Function
 # -----------------------
-# Static config
-DOCKER_USER="tibinthomas"
-IMAGE_NAME="tibinthomas/csi-mkd-counselling-web-api"
-RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
-APP_NAME="csi-mid-counselling-web-api"
-PLATFORM="linux/amd64"
-RUNTIME_IDENTIFIER="linux-x64"
-VERSION="v1.0.0" # Semantic version for the application
 
-# Dynamic config
-GIT_HASH="$(git rev-parse --short HEAD 2>/dev/null || date +%Y%m%d%H%M)"
-IMAGE_TAG="$VERSION-$GIT_HASH"
-FULL_IMAGE="$IMAGE_NAME:$IMAGE_TAG"
+echo "🚀 Deploying both Main API and Sessions Function..."
+echo ""
 
-# -----------------------
-# LOAD & VALIDATE SECRETS
-# -----------------------
-# Load environment variables from .env file if it exists
-if [ -f .env ]; then
-    echo "📜 Loading environment variables from .env file..."
-    set -o allexport
-    source .env
-    set +o allexport
-fi
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Validate that required secrets are set
-required_secrets=(
-    "DOCKER_PAT"
-    "ConnectionStrings__DefaultConnection"
-    "ConnectionStrings__CosmosConnection"
-    "CosmosDb__DatabaseName"
-    "JwtSettings__Key"
-    "JwtSettings__Issuer"
-    "JwtSettings__Audience"
-    "SendGrid__ApiKey"
-    "AzureBlob__ConnectionString"
-    "AzureBlob__AccountName"
-    "AzureBlob__AccountKey"
-    "GoogleReCaptcha__SecretKey"
-)
-
-missing_secrets=()
-for secret in "${required_secrets[@]}"; do
-    if [ -z "${!secret}" ]; then
-        missing_secrets+=("$secret")
-    fi
-done
-
-if [ ${#missing_secrets[@]} -ne 0 ]; then
-    echo "❌ Missing required environment variables:"
-    for secret in "${missing_secrets[@]}"; do
-        echo "  - $secret"
-    done
-    echo "👉 Please set them in your environment or in a .env file."
+# Check that both deployment scripts exist
+if [ ! -f "$SCRIPT_DIR/deploy-main-api.sh" ]; then
+    echo "❌ deploy-main-api.sh not found in $SCRIPT_DIR"
     exit 1
 fi
 
-echo "✅ All required secrets are present."
-
-# -----------------------
-# CHECK TOOLS
-# -----------------------
-for cmd in docker az; do
-    if ! command -v "$cmd" &>/dev/null; then
-        echo "❌ Required command '$cmd' not found."
-        exit 1
-    fi
-done
-
-if ! docker buildx version &>/dev/null; then
-    echo "⚠️ Docker Buildx not found. Creating builder..."
-    docker buildx create --use
+if [ ! -f "$SCRIPT_DIR/deploy-sessions-function.sh" ]; then
+    echo "❌ deploy-sessions-function.sh not found in $SCRIPT_DIR"
+    exit 1
 fi
 
+# Make sure both scripts are executable
+chmod +x "$SCRIPT_DIR/deploy-main-api.sh"
+chmod +x "$SCRIPT_DIR/deploy-sessions-function.sh"
+
 # -----------------------
-# DOCKER LOGIN (PAT)
+# DEPLOY MAIN API
 # -----------------------
-echo "🔑 Logging into Docker Hub with PAT..."
-echo "$DOCKER_PAT" | docker login -u "$DOCKER_USER" --password-stdin || {
-    echo "❌ Docker login failed."
+echo "📱 Starting Main API deployment..."
+echo "=================================================="
+"$SCRIPT_DIR/deploy-main-api.sh" || {
+    echo "❌ Main API deployment failed!"
     exit 1
 }
 
-# -----------------------
-# BUILD & PUSH
-# -----------------------
-echo "📦 Building and pushing $FULL_IMAGE for $PLATFORM (RID: $RUNTIME_IDENTIFIER)..."
-docker buildx build \
-    --platform "$PLATFORM" \
-    --build-arg RUNTIME_IDENTIFIER="$RUNTIME_IDENTIFIER" \
-    -t "$FULL_IMAGE" \
-    --push \
-    . || { echo "❌ Build & push failed."; exit 1; }
-
-echo "✅ Image pushed: $FULL_IMAGE"
+echo ""
+echo "✅ Main API deployment completed!"
+echo ""
 
 # -----------------------
-# AZURE LOGIN
+# DEPLOY SESSIONS FUNCTION
 # -----------------------
-if ! az account show &>/dev/null; then
-    echo "🔑 Logging into Azure..."
-    az login || { echo "❌ Azure login failed."; exit 1; }
-fi
+echo "⚡ Starting Sessions Function deployment..."
+echo "=================================================="
+"$SCRIPT_DIR/deploy-sessions-function.sh" || {
+    echo "❌ Sessions Function deployment failed!"
+    exit 1
+}
+
+echo ""
+echo "✅ Sessions Function deployment completed!"
+echo ""
 
 # -----------------------
-# SET REGISTRY CREDS IN AZURE
+# FINAL SUMMARY
 # -----------------------
-echo "🔧 Setting Azure Container App registry credentials..."
-az containerapp registry set \
-    --name "$APP_NAME" \
-    --resource-group "$RESOURCE_GROUP" \
-    --server docker.io \
-    --username "$DOCKER_USER" \
-    --password "$DOCKER_PAT" || {
-        echo "❌ Failed to set registry credentials in Azure."
-        exit 1
-    }
-
-# -----------------------
-# UPDATE AZURE CONTAINER APP
-# -----------------------
-echo "🚀 Updating Azure Container App with new image..."
-az containerapp update \
-    --name "$APP_NAME" \
-    --resource-group "$RESOURCE_GROUP" \
-    --image "$FULL_IMAGE" \
-    --set-env-vars \
-        ASPNETCORE_URLS="http://+:8080" \
-        OTEL_SERVICE_NAME="csi-mkd-premarital-app-BE" \
-        ConnectionStrings__DefaultConnection="${ConnectionStrings__DefaultConnection}" \
-        ConnectionStrings__CosmosConnection="${ConnectionStrings__CosmosConnection}" \
-        CosmosDb__DatabaseName="${CosmosDb__DatabaseName}" \
-        JwtSettings__Key="${JwtSettings__Key}" \
-        JwtSettings__Issuer="${JwtSettings__Issuer}" \
-        JwtSettings__Audience="${JwtSettings__Audience}" \
-        SendGrid__ApiKey="${SendGrid__ApiKey}" \
-        AzureBlob__ConnectionString="${AzureBlob__ConnectionString}" \
-        AzureBlob__AccountName="${AzureBlob__AccountName}" \
-        AzureBlob__AccountKey="${AzureBlob__AccountKey}" \
-        GoogleReCaptcha__SecretKey="${GoogleReCaptcha__SecretKey}" || {
-        echo "❌ Azure Container App update failed."
-        exit 1
-    }
-
-echo "✅ Deployment successful: $FULL_IMAGE is live!"
+echo "🎉 Both applications deployed successfully!"
+echo ""
+echo "📋 Next steps:"
+echo "   • Check both services are running in Azure Portal"
+echo "   • Test Main API Swagger endpoint"
+echo "   • Test Sessions Function endpoints"
+echo "   • Monitor logs for any issues"
+echo ""
+echo "🔧 Individual deployment commands:"
+echo "   Main API only:        ./deploy-main-api.sh"
+echo "   Sessions Function:    ./deploy-sessions-function.sh"
