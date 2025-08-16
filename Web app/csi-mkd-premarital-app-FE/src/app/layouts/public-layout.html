@@ -10,13 +10,14 @@
         class="h-10 sm:h-12 xl:h-15 w-auto aspect-[3/2] max-w-[96px] object-contain"
         role="img"
         routerLink="/about"
+        (dblclick)="goToAdmin()"
       />
     </div>
 
     <!-- Center: Title -->
     <div class="flex-1 text-center hover:scale-101 sm:block cursor-pointer" routerLink="/about">
       <h1
-        class="!text-sm sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-wide transition-opacity duration-500 font-bold"
+        class="!text-sm sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-wide transition-opacity duration-500 !font-bold"
         i18n
       >
         CSI Counselling Centre
@@ -34,7 +35,7 @@
           mat-button
           routerLink="/about"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
           i18n
           aria-label="About us page"
           >About</a
@@ -43,7 +44,7 @@
           mat-button
           routerLink="/team-members"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
           i18n
           aria-label="Our team members page"
           >Our Team</a
@@ -52,7 +53,7 @@
           mat-button
           routerLink="/register"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
           i18n
           aria-label="Registration page"
           >Register</a
@@ -61,7 +62,7 @@
           mat-button
           routerLink="/feedback-questions"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
           i18n
           aria-label="Feedback Questionnaire"
           >Feedback & Questionnaire</a
@@ -70,7 +71,7 @@
           mat-button
           routerLink="/sessions"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
           i18n
           aria-label="Sessions page"
           i18n

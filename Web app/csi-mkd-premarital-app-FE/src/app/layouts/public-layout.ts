@@ -1,10 +1,21 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  inject,
+  ViewChild,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
-import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
+import {
+  RouterLink,
+  RouterOutlet,
+  RouterLinkActive,
+  Router,
+} from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
 import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
 import { MatSelectModule } from '@angular/material/select';
@@ -29,6 +40,8 @@ import packageInfo from '../../../package.json';
   templateUrl: './public-layout.html',
 })
 export class PublicLayout {
+  private router = inject(Router);
+
   menuOpen = false;
   registerDropdownOpen = false;
   currentYear = new Date().getFullYear();
@@ -53,6 +66,10 @@ export class PublicLayout {
   onNavItemClick() {
     this.menuOpen = false;
     this.registerDropdownOpen = false;
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin/login']);
   }
 
   @HostListener('document:click', ['$event'])

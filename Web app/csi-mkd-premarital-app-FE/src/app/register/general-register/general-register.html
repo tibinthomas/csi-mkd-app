@@ -1,7 +1,7 @@
 <section class="py-30 px-4 theme-transition">
   <mat-card class="max-w-4xl mx-auto p-6 dark:bg-surface-container theme-transition">
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl sm:text-3xl font-bold" i18n>
+      <mat-card-title class="text-center text-2xl sm:text-3xl !font-bold" i18n>
         General Registration Form
       </mat-card-title>
     </mat-card-header>
@@ -91,18 +91,21 @@
           <input matInput formControlName="churchName" appNoDigits />
         </mat-form-field>
 
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="w-full flex gap-2 items-start">
-            <mat-form-field appearance="fill" class="w-32 min-w-28">
+        <div class="grid md:grid-cols-2 gap-6 w-full">
+          <div class="flex w-full gap-2 overflow-hidden">
+            <!-- Country Code (1/4 width) -->
+            <mat-form-field appearance="fill" class="flex-[1]">
               <mat-label i18n>Code</mat-label>
               <mat-select formControlName="countryCode">
                 <mat-option value="+91">+91 (IN)</mat-option>
-                <mat-option value="+1">+1 (US)</mat-option>
+                <mat-option value="+1">+1 (US/CA)</mat-option>
                 <mat-option value="+44">+44 (UK)</mat-option>
                 <mat-option value="+971">+971 (AE)</mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field appearance="fill" class="w-full">
+
+            <!-- Phone Number (3/4 width) -->
+            <mat-form-field appearance="fill" class="flex-[3]">
               <mat-label i18n>Phone Number</mat-label>
               <input matInput type="text" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
               @if (isInvalid('phone')) {
@@ -111,6 +114,7 @@
             </mat-form-field>
           </div>
 
+          <!-- Email field full width -->
           <mat-form-field appearance="fill" class="w-full mb-2">
             <mat-label i18n>Email id</mat-label>
             <input matInput type="email" formControlName="email" />
@@ -121,12 +125,12 @@
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
             <mat-error i18n>Invalid email format.</mat-error>
             } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
-            <mat-error i18n>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error>
+            <mat-error i18n> Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed. </mat-error>
             }
           </mat-form-field>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Marital Status</mat-label>
             <mat-select formControlName="maritalStatus">
@@ -154,11 +158,11 @@
         <div role="group" aria-labelledby="photo-upload-label">
           <label id="photo-upload-label" class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
           <button
-            mat-stroked-button
+            mat-raised-button
             color="primary"
             type="button"
             (click)="photoInput.click()"
-            class="font-bold"
+            class="!font-bold"
             aria-describedby="photo-upload-help"
           >
             <mat-icon aria-hidden="true">upload</mat-icon>
@@ -207,7 +211,7 @@
             mat-flat-button
             color="primary"
             type="submit"
-            class="font-bold"
+            class="!font-bold"
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >

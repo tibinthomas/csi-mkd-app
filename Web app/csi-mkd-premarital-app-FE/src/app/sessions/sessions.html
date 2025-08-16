@@ -2,7 +2,7 @@
   <section class="max-w-4xl mx-auto">
     <div class="flex justify-between items-center mb-4">
       <h1 class="text-2xl font-bold text-on-background theme-transition" i18n>Register for a Premarital Session</h1>
-      <button mat-raised-button color="primary" class="font-bold" (click)="toggleAll()">
+      <button mat-raised-button color="primary" class="!font-bold" (click)="toggleAll()">
         @if ( allExpanded()) {
         <span i18n>Collapse All</span>
         } @if ( !allExpanded()) {
@@ -17,9 +17,7 @@
     } @else if(sessionsResource.error()) {
     <div class="text-center mt-8">
       <p class="text-error">Failed to load sessions. Please try again later.</p>
-      <button mat-raised-button color="primary" (click)="sessionsResource.reload()" class="mt-4">
-        Retry
-      </button>
+      <button mat-raised-button color="primary" (click)="sessionsResource.reload()" class="mt-4">Retry</button>
     </div>
     } @else {
     <mat-accordion multi>
@@ -42,7 +40,7 @@
                 class="rounded-xl shadow-sm border border-outline dark:border-outline-variant hover:shadow-md transition animate-fade-slide theme-transition"
               >
                 <mat-card-header>
-                  <mat-card-title class="!text-lg font-bold"> {{ session.sessionName }} </mat-card-title>
+                  <mat-card-title class="!text-lg !font-bold"> {{ session.sessionName }} </mat-card-title>
                   <mat-card-subtitle class="!text-lg text-on-surface-variant">
                     {{ session.startDate | date }} → {{ session.endDate | date }}
                   </mat-card-subtitle>

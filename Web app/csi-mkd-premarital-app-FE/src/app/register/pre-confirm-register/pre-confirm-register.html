@@ -1,7 +1,7 @@
 <section class="py-30 px-4 theme-transition">
   <mat-card class="max-w-4xl mx-auto p-6 dark:bg-surface-container theme-transition">
     <mat-card-header class="mb-6">
-      <mat-card-title class="text-center text-2xl sm:text-3xl font-bold" i18n>
+      <mat-card-title class="text-center text-2xl sm:text-3xl !font-bold" i18n>
         Pre-confirmational Registration Form
       </mat-card-title>
     </mat-card-header>
@@ -89,7 +89,7 @@
           </div>
           }
           <div class="flex justify-end mb-6">
-            <button mat-raised-button type="button" class="font-bold" (click)="addParticipant()" i18n>
+            <button mat-raised-button type="button" class="!font-bold" (click)="addParticipant()" i18n>
               Add Participant
             </button>
           </div>
@@ -106,11 +106,11 @@
         <div class="mb-2" role="group" aria-labelledby="letter-upload-label">
           <label id="letter-upload-label" class="block font-medium mb-2" i18n>Upload Witness of Vicar</label>
           <button
-            mat-stroked-button
+            mat-raised-button
             color="primary"
             type="button"
             (click)="letterInput.click()"
-            class="font-bold"
+            class="!font-bold"
             aria-describedby="letter-upload-help"
           >
             <mat-icon aria-hidden="true">upload_file</mat-icon>
@@ -164,7 +164,7 @@
             mat-flat-button
             color="primary"
             type="submit"
-            class="font-bold"
+            class="!font-bold"
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
