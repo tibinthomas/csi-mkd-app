@@ -27,7 +27,7 @@ import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { FileUploadService } from '../../core/services/file-upload.service';
-import { SuccessDialogComponent } from '../success-dialog';
+import { SuccessDialog } from '../../shared/success-dialog/success-dialog';
 import { switchMap } from 'rxjs';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
@@ -187,13 +187,18 @@ export class PreConfirmRegister {
                 .subscribe({
                   next: () => {
                     this.isSubmitting.set(false);
-                    this.dialog.open(SuccessDialogComponent, {
+                    const dialogRef = this.dialog.open(SuccessDialog, {
                       data: {
-                        message: 'Pre-confirmation Registration successful!',
-                        registerType: 'pre-confirmation',
+                        title: 'Pre-Confirmation Registration Complete',
+                        messages: [
+                          'Your pre-confirmation registration is successfully completed.',
+                        ],
                       },
                     });
-                    this.resetForm();
+                    dialogRef.afterClosed().subscribe(() => {
+                      // Navigate back to previous page
+                      window.history.back();
+                    });
                   },
                   error: (error: any) => {
                     console.error('Error saving file URL:', error);
@@ -275,15 +280,16 @@ export class PreConfirmRegister {
     const allowedTypes = [
       'application/pdf',
       'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'image/jpeg',
       'image/png',
     ];
 
     if (file && !allowedTypes.includes(file.type)) {
-      this.vicarLetterError.set('Allowed types: PDF, DOC, JPG, PNG');
+      this.vicarLetterError.set('Allowed types: PDF, DOC, DOCX, JPG, PNG');
       this.vicarLetterFile.set(null);
-    } else if (file && file.size > 5 * 1024 * 1024) {
-      this.vicarLetterError.set('File too large. Max size is 5MB.');
+    } else if (file && file.size > 2 * 1024 * 1024) {
+      this.vicarLetterError.set('File too large. Max size is 2MB.');
       this.vicarLetterFile.set(null);
     } else {
       this.vicarLetterFile.set(file);

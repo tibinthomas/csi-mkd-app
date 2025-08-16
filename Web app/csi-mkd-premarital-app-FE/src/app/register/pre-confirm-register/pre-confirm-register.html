@@ -18,7 +18,14 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Confirmation</mat-label>
-            <input matInput [matDatepicker]="confirmationdatepicker" formControlName="confirmationDate" [min]="minDate" />
+            <input
+              matInput
+              readonly
+              [matDatepicker]="confirmationdatepicker"
+              formControlName="confirmationDate"
+              [min]="minDate"
+              (click)="confirmationdatepicker.open()"
+            />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #confirmationdatepicker />
             <mat-datepicker-toggle [for]="confirmationdatepicker" matSuffix />
@@ -29,7 +36,13 @@
 
           <mat-form-field appearance="fill">
             <mat-label i18n>Date of Counselling</mat-label>
-            <input matInput [matDatepicker]="counsellingdatepicker" formControlName="counsellingDate" />
+            <input
+              matInput
+              readonly
+              [matDatepicker]="counsellingdatepicker"
+              formControlName="counsellingDate"
+              (click)="counsellingdatepicker.open()"
+            />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #counsellingdatepicker />
             <mat-datepicker-toggle [for]="counsellingdatepicker" matSuffix />
@@ -90,10 +103,10 @@
         </div>
 
         <!-- Upload Vicar Letter -->
-        <div class="mb-6" role="group" aria-labelledby="letter-upload-label">
+        <div class="mb-2" role="group" aria-labelledby="letter-upload-label">
           <label id="letter-upload-label" class="block font-medium mb-2" i18n>Upload Witness of Vicar</label>
           <button
-            mat-flat-button
+            mat-stroked-button
             color="primary"
             type="button"
             (click)="letterInput.click()"
@@ -115,15 +128,19 @@
           <div id="letter-upload-help" class="sr-only" i18n>
             Please select a document file (PDF, DOC, DOCX) or image containing the witness of vicar
           </div>
-
-          @if (this.vicarLetterFile()?.name) {
-          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ this.vicarLetterFile()?.name }}</span>
-          } @if (vicarLetterError()) {
-          <mat-error role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
-          }
         </div>
 
-        <div class="flex items-center gap-2">
+        @if (this.vicarLetterFile()?.name) {
+        <span class="text-sm text-on-surface-variant mt-2 mb-6 block" aria-live="polite">{{
+          this.vicarLetterFile()?.name
+        }}</span>
+        } @else {
+        <mat-hint class="!text-xs" i18n>Max size 2MB (PDF, DOC, DOCX, JPG, PNG)</mat-hint>
+
+        } @if (vicarLetterError()) {
+        <mat-error role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
+        }
+        <div class="flex items-center gap-2 mt-6">
           <mat-checkbox formControlName="consent" i18n>
             I hereby submit with all my consent for the above.
           </mat-checkbox>
@@ -132,7 +149,7 @@
           }
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-start">
           <!-- reCAPTCHA v2 Checkbox -->
           <ngx-recaptcha2
             formControlName="recaptcha"
@@ -151,7 +168,11 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            @if (isSubmitting()) {<span i18n>Submitting...</span>} @if(!isSubmitting()){<span i18n>Register</span>}
+            @if (isSubmitting()) {
+            <span i18n>Submitting...</span>
+            } @else {
+            <span i18n>Register</span>
+            }
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>

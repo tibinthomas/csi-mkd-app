@@ -1,7 +1,14 @@
 <section class="py-10 px-4 theme-transition" role="main" aria-labelledby="form-title">
-  <mat-card class="elegant-card elegant-surface-elevated max-w-4xl mx-auto p-6 mt-20 theme-transition" appAnimateOnScroll>
+  <mat-card
+    class="elegant-card elegant-surface-elevated max-w-4xl mx-auto p-6 mt-20 theme-transition"
+    appAnimateOnScroll
+  >
     <mat-card-header class="mb-6">
-      <mat-card-title id="form-title" class="text-center text-2xl sm:text-3xl font-bold text-on-surface theme-transition" i18n>
+      <mat-card-title
+        id="form-title"
+        class="text-center text-2xl sm:text-3xl font-bold text-on-surface theme-transition"
+        i18n
+      >
         Premarital Registration Form
       </mat-card-title>
     </mat-card-header>
@@ -15,7 +22,7 @@
         aria-labelledby="form-title"
         novalidate
       >
-        <div class="grid md:grid-cols-3 gap-6" role="group" aria-labelledby="personal-info-heading">
+        <div class="grid md:grid-cols-2 gap-6" role="group" aria-labelledby="personal-info-heading">
           <h3 id="personal-info-heading" class="sr-only">Personal Information</h3>
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>First Name</mat-label>
@@ -46,30 +53,7 @@
             <mat-error id="lastName-error" i18n>Last Name is required.</mat-error>
             }
           </mat-form-field>
-
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Father's Name</mat-label>
-            <input matInput formControlName="fatherName" aria-required="true" aria-describedby="fatherName-error" appNoDigits />
-            @if (isInvalid('fatherName')) {
-            <mat-error id="fatherName-error" i18n>Father's Name is required.</mat-error>
-            }
-          </mat-form-field>
         </div>
-
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label i18n>Address</mat-label>
-          <textarea
-            matInput
-            formControlName="address"
-            rows="3"
-            aria-required="true"
-            aria-describedby="address-error"
-            autocomplete="street-address"
-          ></textarea>
-          @if (isInvalid('address')) {
-          <mat-error id="address-error" i18n>Address is required.</mat-error>
-          }
-        </mat-form-field>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6" role="group" aria-labelledby="demographics-heading">
           <h3 id="demographics-heading" class="sr-only">Demographics Information</h3>
@@ -111,31 +95,70 @@
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Father's Name</mat-label>
+            <input
+              matInput
+              formControlName="fatherName"
+              aria-required="true"
+              aria-describedby="fatherName-error"
+              appNoDigits
+            />
+            @if (isInvalid('fatherName')) {
+            <mat-error id="fatherName-error" i18n>Father's Name is required.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" role="group">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Occupation</mat-label>
+            <input matInput formControlName="occupation" appNoDigits />
+            @if (isInvalid('occupation')) {
+            <mat-error i18n>Occupation field is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Education</mat-label>
-           <input matInput formControlName="education" aria-required="true" aria-describedby="education-error" appNoDigits />
+            <input
+              matInput
+              formControlName="education"
+              aria-required="true"
+              aria-describedby="education-error"
+              appNoDigits
+            />
             @if (isInvalid('education')) {
             <mat-error id="education-error" i18n>Education field is required.</mat-error>
             }
           </mat-form-field>
         </div>
-
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label i18n>Occupation</mat-label>
-           <input matInput formControlName="occupation" appNoDigits />
-          @if (isInvalid('occupation')) {
-          <mat-error i18n>Occupation field is required.</mat-error>
+          <mat-label i18n>Address</mat-label>
+          <textarea
+            matInput
+            formControlName="address"
+            rows="3"
+            aria-required="true"
+            aria-describedby="address-error"
+            autocomplete="street-address"
+          ></textarea>
+          @if (isInvalid('address')) {
+          <mat-error id="address-error" i18n>Address is required.</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Church Name</mat-label>
-           <input matInput formControlName="churchName" appNoDigits />
+          <input matInput formControlName="churchName" appNoDigits />
           @if (isInvalid('churchName')) {
           <mat-error i18n>Church Name is required.</mat-error>
           }
         </mat-form-field>
 
-        <fieldset formGroupName="churchActivities" class="border border-outline dark:border-outline-variant rounded-lg p-2 theme-transition">
+        <fieldset
+          formGroupName="churchActivities"
+          class="border border-outline dark:border-outline-variant rounded-lg p-2 theme-transition"
+        >
           <legend class="font-semibold text-on-surface" i18n>Church Activities</legend>
           <div class="flex flex-wrap gap-6 items-center">
             <mat-checkbox formControlName="choirMember">
@@ -157,52 +180,58 @@
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Fiancé/Fiancée Name</mat-label>
-             <input matInput formControlName="fianceName" appNoDigits />
+            <input matInput formControlName="fianceName" appNoDigits />
           </mat-form-field>
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Marriage</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dateOfMarriage" [min]="minDate" />
+            <input
+              matInput
+              readonly
+              [matDatepicker]="picker"
+              formControlName="dateOfMarriage"
+              [min]="minDate"
+              (click)="picker.open()"
+              readonly
+            />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
-          <div class="w-full flex gap-2 items-start">
-            <mat-form-field appearance="fill" class="w-32 min-w-28">
-              <mat-label i18n>Code</mat-label>
-              <mat-select formControlName="countryCode">
-                <mat-option value="+91">+91 (IN)</mat-option>
-                <mat-option value="+1">+1 (US)</mat-option>
-                <mat-option value="+44">+44 (UK)</mat-option>
-                <mat-option value="+971">+971 (AE)</mat-option>
-              </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="fill" class="w-full">
-              <mat-label i18n>Phone Number</mat-label>
-              <input matInput type="text" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
-              @if (isInvalid('phone')) {
-              <mat-error i18n>Phone number is required.</mat-error>
-              }
-            </mat-form-field>
-          </div>
-
-          <mat-form-field appearance="fill" class="w-full mb-2">
-            <mat-label i18n>Email id</mat-label>
-            <input matInput type="email" formControlName="email" />
-            @if (form.get('email')?.touched && form.get('email')?.errors?.['emailTaken']) {
-            <mat-error i18n>This email is already registered.</mat-error>
-            } @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
-            <mat-error i18n>Email is required.</mat-error>
-            } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
-            <mat-error i18n>Invalid email format.</mat-error>
-            } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
-            <mat-error i18n>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error>
+        <div class="w-full flex gap-2 items-start">
+          <mat-form-field appearance="fill" class="w-32 min-w-28">
+            <mat-label i18n>Code</mat-label>
+            <mat-select formControlName="countryCode">
+              <mat-option value="+91">+91 (IN)</mat-option>
+              <mat-option value="+1">+1 (US)</mat-option>
+              <mat-option value="+44">+44 (UK)</mat-option>
+              <mat-option value="+971">+971 (AE)</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Phone Number</mat-label>
+            <input matInput type="text" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
+            @if (isInvalid('phone')) {
+            <mat-error i18n>Phone number is required.</mat-error>
             }
           </mat-form-field>
         </div>
+
+        <mat-form-field appearance="fill" class="w-full mb-2">
+          <mat-label i18n>Email id</mat-label>
+          <input matInput type="email" formControlName="email" />
+          @if (form.get('email')?.touched && form.get('email')?.errors?.['emailTaken']) {
+          <mat-error i18n>This email is already registered.</mat-error>
+          } @if (form.get('email')?.touched && form.get('email')?.errors?.['required']) {
+          <mat-error i18n>Email is required.</mat-error>
+          } @if (form.get('email')?.touched && form.get('email')?.errors?.['email']) {
+          <mat-error i18n>Invalid email format.</mat-error>
+          } @if (form.get('email')?.touched && form.get('email')?.errors?.['invalidDomain']) {
+          <mat-error i18n>Only Gmail, Outlook, Yahoo, Hotmail and popular email providers are allowed.</mat-error>
+          }
+        </mat-form-field>
 
         <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
@@ -233,73 +262,86 @@
           </mat-form-field>
         </div>
 
-        <!-- Upload Photo -->
-        <div class="mb-6" role="group" aria-labelledby="photo-upload-label">
-          <label id="photo-upload-label" class="block font-medium mb-2" i18n>Upload Passport Size Photo</label>
-          <button
-            mat-flat-button
-            color="primary"
-            type="button"
-            (click)="photoInput.click()"
-            class="font-bold"
-            aria-describedby="photo-upload-help"
-          >
-            <mat-icon aria-hidden="true">upload</mat-icon>
-            <span i18n>Choose photo</span>
-          </button>
-          <input
-            #photoInput
-            type="file"
-            accept="image/*"
-            (change)="onFileChange($event, 'photo')"
-            hidden
-            aria-labelledby="photo-upload-label"
-            aria-describedby="photo-upload-help"
-          />
-          <div id="photo-upload-help" class="sr-only" i18n>Please select a passport size photo in image format</div>
+        <div class="grid grid-cols-2 md:grid-cols-2 gap-6" role="group" aria-labelledby="upload-group-label">
+          <!-- Upload Photo -->
+          <div class="flex flex-col gap-2" role="group" aria-labelledby="photo-upload-label">
+            <label id="photo-upload-label" class="font-medium" i18n>Upload Passport Size Photo</label>
+            <div class="flex items-center gap-2">
+              <button
+                mat-stroked-button
+                color="primary"
+                type="button"
+                (click)="photoInput.click()"
+                class="font-bold"
+                aria-describedby="photo-upload-help"
+              >
+                <mat-icon aria-hidden="true">upload</mat-icon>
+                <span i18n>Choose Photo</span>
+              </button>
+            </div>
 
-          @if (photoFile()?.name) {
-          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ photoFile()?.name }}</span>
-          } @if (photoError()) {
-          <mat-error role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
-          }
-        </div>
+            @if(photoFile()?.name){
+            <span class="text-sm text-on-surface-variant overflow-hidden" aria-live="polite">
+              {{ photoFile()?.name }}
+            </span>
+            } @else { <mat-hint class="!text-xs" i18n>Max size 2MB (JPG, PNG)</mat-hint>
+            } @if (photoError() ) {
+            <mat-error role="alert" aria-live="assertive"> {{ photoError() }} </mat-error>}
 
-        <!-- Upload Vicar Letter -->
-        <div class="mb-6" role="group" aria-labelledby="letter-upload-label">
-          <label id="letter-upload-label" class="block font-medium mb-2" i18n>Upload Witness of Vicar</label>
-          <button
-            mat-flat-button
-            color="primary"
-            type="button"
-            (click)="letterInput.click()"
-            class="font-bold"
-            aria-describedby="letter-upload-help"
-          >
-            <mat-icon aria-hidden="true">upload_file</mat-icon>
-            <span i18n>Choose File</span>
-          </button>
-          <input
-            #letterInput
-            type="file"
-            accept=".pdf,.doc,.docx,image/*"
-            (change)="onFileChange($event, 'vicarLetter')"
-            hidden
-            aria-labelledby="letter-upload-label"
-            aria-describedby="letter-upload-help"
-          />
-          <div id="letter-upload-help" class="sr-only" i18n>
-            Please select a document file (PDF, DOC, DOCX) or image containing the witness of vicar
+            <input
+              #photoInput
+              type="file"
+              accept="image/*"
+              (change)="onFileChange($event, 'photo')"
+              hidden
+              aria-labelledby="photo-upload-label"
+              aria-describedby="photo-upload-help"
+            />
           </div>
 
-          @if (vicarLetterFile()?.name) {
-          <span class="text-sm text-on-surface-variant mt-2 block" aria-live="polite">{{ vicarLetterFile()?.name }}</span>
-          } @if (vicarLetterError()) {
-          <mat-error role="alert" aria-live="assertive">{{ vicarLetterError() }}</mat-error>
-          }
+          <!-- Upload Vicar Letter -->
+          <div class="flex flex-col gap-2" role="group" aria-labelledby="letter-upload-label">
+            <label id="letter-upload-label" class="font-medium" i18n>Upload Witness of Vicar</label>
+            <div class="flex items-center gap-2">
+              <button
+                mat-stroked-button
+                color="primary"
+                type="button"
+                (click)="letterInput.click()"
+                class="font-bold"
+                aria-describedby="letter-upload-help"
+              >
+                <mat-icon aria-hidden="true">upload_file</mat-icon>
+                <span i18n>Choose File</span>
+              </button>
+            </div>
+
+            @if (vicarLetterFile()?.name) {
+            <span class="text-sm text-on-surface-variant overflow-hidden" aria-live="polite">
+              {{ vicarLetterFile()?.name }}
+            </span>
+            } @else {
+            <mat-hint class="!text-xs" i18n>Max size 2MB (PDF, DOC, DOCX, JPG, PNG)</mat-hint>
+
+            } @if (vicarLetterError()) {
+            <mat-error role="alert" aria-live="assertive">
+              {{ vicarLetterError() }}
+            </mat-error>
+            }
+
+            <input
+              #letterInput
+              type="file"
+              accept=".pdf,.doc,.docx,image/*"
+              (change)="onFileChange($event, 'vicarLetter')"
+              hidden
+              aria-labelledby="letter-upload-label"
+              aria-describedby="letter-upload-help"
+            />
+          </div>
         </div>
 
-        <div class="flex items-center gap-2" role="group" aria-labelledby="declaration-label">
+        <div class="flex items-center gap-2 mt-6" role="group" aria-labelledby="declaration-label">
           <mat-checkbox formControlName="declaration" aria-required="true" aria-describedby="declaration-error">
             <span id="declaration-label" i18n>I would like to attend the premarital counselling course.</span>
             @if (isInvalid('declaration')) {
@@ -308,7 +350,7 @@
           </mat-checkbox>
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-start">
           <!-- reCAPTCHA v2 Checkbox -->
           <ngx-recaptcha2
             formControlName="recaptcha"
@@ -327,7 +369,11 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            @if (isSubmitting()) {<span i18n>Submitting...</span>} @if(!isSubmitting()){<span i18n>Register</span>}
+            @if (isSubmitting()) {
+            <span i18n>Submitting...</span>
+            } @else {
+            <span i18n>Register</span>
+            }
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>

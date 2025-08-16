@@ -11,10 +11,12 @@
           <mat-label i18n>Filter by Year</mat-label>
           <input
             matInput
+            readonly
             [matDatepicker]="yearPicker"
             [value]="selectedYear()"
             (dateChange)="onYearChange($event)"
             readonly
+            (click)="yearPicker.open()"
           />
           <mat-datepicker-toggle matSuffix [for]="yearPicker" />
           <mat-datepicker #yearPicker startView="multi-year" (yearSelected)="chooseYear($event, yearPicker)" />

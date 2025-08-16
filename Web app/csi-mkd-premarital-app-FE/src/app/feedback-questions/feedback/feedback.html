@@ -31,7 +31,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Date of Class</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="date" />
+            <input matInput readonly [matDatepicker]="picker" formControlName="date" (click)="picker.open()" />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
