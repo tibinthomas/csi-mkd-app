@@ -65,7 +65,7 @@
               "outputHashing": "all",
               "define": {
                 "API_ROOT_URL_MAIN_APP": "\"https://csi-mid-counselling-web-api.icystone-0eff0e5d.southindia.azurecontainerapps.io\"",
-                "API_ROOT_URL_FN_APP": "\"csi-mkd-counselling-be-aghcbue8gucwa7ct.centralindia-01.azurewebsites.net\""
+                "API_ROOT_URL_FN_APP": "\"https://csi-mkd-counselling-be-aghcbue8gucwa7ct.centralindia-01.azurewebsites.net\""
               },
               "serviceWorker": "ngsw-config.json"
             },
