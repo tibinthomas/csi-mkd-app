@@ -3,7 +3,7 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
-    "ConnectionStrings__DefaultConnection": "User Id=postgres.oslqwkmxfzvjdmvtbuxb;Password=Ed/s/wN-$h/iF62;Server=aws-0-ap-south-1.pooler.supabase.com;Port=6543;Database=postgres"
+    "ConnectionStrings__DefaultConnection": "User Id=postgres.oslqwkmxfzvjdmvtbuxb;Password=Ed/s/wN-$h/iF62;Server=aws-0-ap-south-1.pooler.supabase.com;Port=5432;Database=postgres"
   },
   "Host": {
     "LocalHttpPort": 7071,

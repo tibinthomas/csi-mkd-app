@@ -33,7 +33,7 @@ var host = new HostBuilder()
 
         // Add configuration
         var configuration = context.Configuration;
-        
+
         // Add Entity Framework
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<ApplicationDbContext>(options =>
