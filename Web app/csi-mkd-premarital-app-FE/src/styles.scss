@@ -32,6 +32,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Prevent double-tap zoom */
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* Responsive Typography */
@@ -209,5 +217,51 @@ html {
 @supports (font-feature-settings: "kern") {
   body {
     font-feature-settings: "kern" 1;
+  }
+}
+
+/* Re-enable text selection for specific elements */
+input, textarea, .selectable-text, p, h1, h2, h3, h4, h5, h6 {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Additional double-tap zoom prevention */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, .clickable {
+  touch-action: manipulation;
+}
+
+/* Comprehensive touch action controls */
+html {
+  touch-action: manipulation;
+  -ms-touch-action: manipulation;
+}
+
+/* Prevent pinch-to-zoom specifically */
+body {
+  -webkit-user-zoom: fixed;
+  -webkit-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+}
+
+/* Accessibility: Allow zoom for users who need it via assistive technology */
+@media (prefers-reduced-motion: no-preference) and (pointer: coarse) {
+  /* Only disable zoom on touch devices without motion sensitivity */
+  body {
+    touch-action: manipulation;
+  }
+}
+
+/* For users with motion sensitivity, keep standard behavior */
+@media (prefers-reduced-motion: reduce) {
+  body {
+    touch-action: auto;
   }
 }
