@@ -3,7 +3,7 @@
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
-    "ConnectionStrings__DefaultConnection": "User Id=postgres.fdolnszolmihhwnbedkh;Password=REDACTED_POSTGRES_PASSWORD;Server=aws-1-ca-central-1.pooler.supabase.com;Port=5432;Database=postgres"
+    "ConnectionStrings__DefaultConnection": "User Id=postgres;Password=REDACTED_POSTGRES_PASSWORD;Server=db.fdolnszolmihhwnbedkh.supabase.co;Port=5432;Database=postgres;SSL Mode=Require;Trust Server Certificate=true"
   },
   "Host": {
     "LocalHttpPort": 7071,
