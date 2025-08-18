@@ -1,13 +1,101 @@
 {
-  // Use IntelliSense to learn about possible attributes.
-  // Hover to view descriptions of existing attributes.
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+    {
+      "name": ".NET Core Launch (web) - Main API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-main-api",
+      "program": "${workspaceFolder}/bin/Debug/net9.0/osx-arm64/csi-mkd-premarital-app-BE.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
     {
       "name": ".NET Core Attach",
       "type": "coreclr",
       "request": "attach"
+    },
+    {
+      "name": "Launch Aspire AppHost",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-aspire-host",
+      "program": "${workspaceFolder}/AppHost/bin/Debug/net9.0/AppHost.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/AppHost",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s"
+      }
+    },
+    {
+      "name": "Azure Functions Core Tools - Sessions Function",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-sessions-function",
+      "program": "${env:HOME}/.dotnet/tools/func",
+      "args": [
+        "start",
+        "--port",
+        "7071"
+      ],
+      "cwd": "${workspaceFolder}/SessionsFunction",
+      "stopAtEntry": false,
+      "env": {
+        "AZURE_FUNCTIONS_ENVIRONMENT": "Development"
+      }
+    },
+    {
+      "name": "Attach to Azure Functions (Sessions Function)",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}"
+    },
+    {
+      "name": "Debug Sessions Function (.NET Worker Process)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-sessions-function",
+      "program": "${workspaceFolder}/SessionsFunction/bin/Debug/net9.0/SessionsFunction.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/SessionsFunction",
+      "stopAtEntry": false,
+      "env": {
+        "AZURE_FUNCTIONS_ENVIRONMENT": "Development",
+        "AzureWebJobsScriptRoot": "${workspaceFolder}/SessionsFunction",
+        "AzureFunctionsJobHost__Logging__Console__IsEnabled": "true"
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch All Services (Aspire)",
+      "configurations": ["Launch Aspire AppHost"],
+      "stopAll": true
+    },
+    {
+      "name": "Launch Main API + Sessions Function",
+      "configurations": [
+        ".NET Core Launch (web) - Main API",
+        "Azure Functions Core Tools - Sessions Function"
+      ],
+      "stopAll": true
     }
   ]
 }
