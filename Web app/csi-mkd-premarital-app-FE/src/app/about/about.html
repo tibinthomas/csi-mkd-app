@@ -9,16 +9,16 @@
   >
     <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70" aria-hidden="true"></div>
     <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white animate-zoom-in">
-      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow font-bold">
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow">
         {{ heroContent.title }}
       </h1>
       <p class="text-xl italic font-light">{{ heroContent.subtitle }}</p>
       <p class="mt-4 text-sm">{{ heroContent.location }}</p>
       <div class="mt-6">
-        <button 
-          mat-flat-button 
-          class="font-bold hover:scale-103" 
-          color="primary" 
+        <button
+          mat-flat-button
+          class="!font-bold hover:scale-103"
+          color="primary"
           routerLink="/register"
           [attr.aria-label]="sectionTitles.bookAppointment"
         >
@@ -29,26 +29,19 @@
   </section>
 
   <!-- Who We Are -->
-  <section 
-    class="py-20 px-6 theme-transition"
-    role="region"
-    [attr.aria-labelledby]="'who-we-are-heading'"
-  >
+  <section class="py-20 px-6 theme-transition" role="region" [attr.aria-labelledby]="'who-we-are-heading'">
     <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
       <img
         [ngSrc]="whoWeAreContent.image"
-        width="521"
-        height="478"
-        class="w-full"
+        width="260"
+        height="239"
+        class="w-full max-w-sm"
         [alt]="whoWeAreContent.title"
         [appAnimateOnScroll]="'slideInLeft'"
         priority
       />
       <div [appAnimateOnScroll]="'slideInRight'">
-        <h2 
-          id="who-we-are-heading"
-          class="text-4xl font-bold mb-4 text-on-background theme-transition"
-        >
+        <h2 id="who-we-are-heading" class="text-4xl font-bold mb-4 text-on-background theme-transition">
           {{ whoWeAreContent.title }}
         </h2>
         <p class="text-lg leading-relaxed text-on-surface theme-transition">
@@ -59,106 +52,92 @@
   </section>
 
   <!-- Services -->
-  <section 
+  <section
     class="py-20 px-6 bg-surface-container-low dark:bg-surface-container theme-transition"
     role="region"
     [attr.aria-labelledby]="'services-heading'"
   >
     <div class="max-w-6xl mx-auto">
-      <h2 
-        id="services-heading"
-        class="text-4xl font-bold text-center mb-16 text-on-surface theme-transition"
-      >
+      <h2 id="services-heading" class="text-4xl font-bold text-center mb-16 text-on-surface theme-transition">
         {{ sectionTitles.services }}
       </h2>
 
-      <div 
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
-        role="list"
-        aria-label="Services offered"
-      >
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" role="list" aria-label="Services offered">
         @for (service of services; track trackByServiceTitle($index, service)) {
-          <mat-card 
-            class="elegant-card flex flex-col h-full shadow-md rounded-xl overflow-hidden theme-transition" 
-            [appAnimateOnScroll]="'slideInUp'"
-            role="listitem"
-            tabindex="0"
-          >
-            <img
-              mat-card-image
-              [ngSrc]="service.image"
-              width="600"
-              height="337"
-              [alt]="service.title + ' service illustration'"
-              class="h-30 w-full object-cover"
-              loading="lazy"
-            />
+        <mat-card
+          class="elegant-card flex flex-col h-full shadow-md rounded-xl overflow-hidden theme-transition"
+          [appAnimateOnScroll]="'slideInUp'"
+          role="listitem"
+          tabindex="0"
+        >
+          <img
+            mat-card-image
+            [ngSrc]="service.image"
+            width="600"
+            height="337"
+            [alt]="service.title + ' service illustration'"
+            class="h-30 w-full object-cover"
+            loading="lazy"
+          />
 
-            <mat-card-header class="pb-0">
-              <mat-card-title class="text-xl font-semibold font-bold">
-                {{ service.title }}
-              </mat-card-title>
-              @if (service.subtitle) {
-                <mat-card-subtitle class="text-sm text-on-surface-variant">
-                  {{ service.subtitle }}
-                </mat-card-subtitle>
-              }
-            </mat-card-header>
+          <mat-card-header class="pb-0">
+            <mat-card-title class="text-xl font-semibold !font-bold">
+              {{ service.title }}
+            </mat-card-title>
+            @if (service.subtitle) {
+            <mat-card-subtitle class="text-sm text-on-surface-variant">
+              {{ service.subtitle }}
+            </mat-card-subtitle>
+            }
+          </mat-card-header>
 
-            <mat-card-content class="mt-2 text-sm text-on-surface flex-1">
-              <p>{{ service.description }}</p>
-            </mat-card-content>
-          </mat-card>
+          <mat-card-content class="mt-2 text-sm text-on-surface flex-1">
+            <p>{{ service.description }}</p>
+          </mat-card-content>
+        </mat-card>
         }
       </div>
     </div>
   </section>
   <!-- Why Choose Us -->
-  <section 
-    class="py-15 px-6"
-    role="region"
-    [attr.aria-labelledby]="'why-choose-us-heading'"
-  >
+  <section class="py-15 px-6" role="region" [attr.aria-labelledby]="'why-choose-us-heading'">
     <div class="max-w-6xl mx-auto">
-      <h2 
-        id="why-choose-us-heading"
-        class="text-4xl font-bold text-center mb-16"
-      >
+      <h2 id="why-choose-us-heading" class="text-4xl font-bold text-center mb-16">
         {{ sectionTitles.whyChooseUs }}
       </h2>
 
-      <div 
+      <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         role="list"
         aria-label="Reasons to choose our services"
       >
         @for (item of reasons; track trackByReasonTitle($index, item)) {
-          <mat-card 
-            class="elegant-card flex flex-col h-full p-4 shadow-md rounded-xl theme-transition" 
-            [appAnimateOnScroll]="'fadeIn'"
-            role="listitem"
-            tabindex="0"
-          >
-            <mat-card-header class="pb-2">
-              <mat-card-title class="text-xl font-semibold">
-                @if (item.link) {
-                  <a
-                    [routerLink]="item.link"
-                    routerLinkActive="underline underline-offset-4"
-                    class="hover:text-on-surface-variant transition-colors duration-200 cursor-pointer"
-                    [attr.aria-label]="'Learn more about ' + item.title"
-                  >
-                    {{ item.title }}
-                  </a>
-                } @else {
-                  {{ item.title }}
-                }
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content class="text-sm text-on-surface">
-              <p>{{ item.description }}</p>
-            </mat-card-content>
-          </mat-card>
+        <mat-card
+          class="elegant-card flex flex-col h-full p-4 shadow-md rounded-xl theme-transition"
+          [appAnimateOnScroll]="'fadeIn'"
+          role="listitem"
+          tabindex="0"
+        >
+          <mat-card-header class="pb-2">
+            <mat-card-title class="text-xl !font-semibold">
+              @if (item.link) {
+              <a
+                [routerLink]="item.link"
+                routerLinkActive="underline underline-offset-4"
+                class="hover:text-on-surface-variant transition-colors duration-200 cursor-pointer"
+                [attr.aria-label]="'Learn more about ' + item.title"
+              >
+                {{ item.title }}
+              </a>
+              } @else {
+              {{ item.title }}
+              }
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="text-sm text-on-surface">
+            <p>{{ item.description }}</p>
+          </mat-card-content>
+        </mat-card>
         }
       </div>
     </div>

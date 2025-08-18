@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
 import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
+import { AuthService } from '../core/auth/auth.service';
 
 interface NavigationItem {
   routerLink: string;
@@ -44,28 +45,51 @@ interface NavigationItem {
 })
 export class AdminLayout {
   private readonly destroyRef = inject(DestroyRef);
-  
+  private readonly auth = inject(AuthService);
+
   readonly sidenav = viewChild.required<MatSidenav>('sidenav');
-  
+
   readonly isMobile = signal(false);
   readonly sidenavOpen = signal(false);
-  
+
   readonly navigationItems: NavigationItem[] = [
     { routerLink: '/admin/dashboard', icon: 'dashboard', label: 'Dashboard' },
-    { routerLink: '/admin/premarital', icon: 'people', label: 'Premarital Register List' },
-    { routerLink: '/admin/session-config', icon: 'event', label: 'Premarital Session Config' },
-    { routerLink: '/admin/deactivate-sessions', icon: 'disabled_by_default', label: 'Deactivate Sessions' },
-    { routerLink: '/admin/general-list', icon: 'list_alt', label: 'General Register List' },
-    { routerLink: '/admin/pre-confirm-list', icon: 'check_circle', label: 'Pre-Confirm List' },
+    {
+      routerLink: '/admin/premarital',
+      icon: 'people',
+      label: 'Premarital Register List',
+    },
+    {
+      routerLink: '/admin/session-config',
+      icon: 'event',
+      label: 'Premarital Session Config',
+    },
+    {
+      routerLink: '/admin/deactivate-sessions',
+      icon: 'disabled_by_default',
+      label: 'Deactivate Sessions',
+    },
+    {
+      routerLink: '/admin/general-list',
+      icon: 'list_alt',
+      label: 'General Register List',
+    },
+    {
+      routerLink: '/admin/pre-confirm-list',
+      icon: 'check_circle',
+      label: 'Pre-Confirm List',
+    },
   ];
 
-  readonly sidenavMode = computed(() => this.isMobile() ? 'over' : 'side');
-  readonly sidenavOpened = computed(() => !this.isMobile() || this.sidenavOpen());
-  readonly menuIcon = computed(() => this.sidenavOpen() ? 'close' : 'menu');
+  readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));
+  readonly sidenavOpened = computed(
+    () => !this.isMobile() || this.sidenavOpen()
+  );
+  readonly menuIcon = computed(() => (this.sidenavOpen() ? 'close' : 'menu'));
 
   constructor() {
     this.initializeResponsiveHandler();
-    
+
     afterNextRender(() => {
       this.setupSidenavSubscription();
     });
@@ -73,7 +97,7 @@ export class AdminLayout {
 
   private initializeResponsiveHandler(): void {
     this.updateMobileState();
-    
+
     window.addEventListener('resize', () => {
       this.updateMobileState();
     });
@@ -82,7 +106,7 @@ export class AdminLayout {
   private updateMobileState(): void {
     const mobile = window.innerWidth < 768;
     this.isMobile.set(mobile);
-    
+
     if (mobile) {
       this.sidenavOpen.set(false);
     } else {
@@ -91,8 +115,8 @@ export class AdminLayout {
   }
 
   private setupSidenavSubscription(): void {
-    this.sidenav().openedChange
-      .pipe(takeUntilDestroyed(this.destroyRef))
+    this.sidenav()
+      .openedChange.pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((opened) => {
         this.sidenavOpen.set(opened);
       });
@@ -106,5 +130,9 @@ export class AdminLayout {
     if (this.isMobile()) {
       this.toggleSidenav();
     }
+  }
+
+  onLogout(): void {
+    this.auth.logout(); // This clears tokens and navigates to login
   }
 }

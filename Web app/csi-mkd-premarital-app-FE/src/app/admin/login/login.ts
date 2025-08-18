@@ -12,8 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-admin-login',
@@ -26,6 +27,8 @@ import { AuthService } from '../../core/auth/auth.service';
     MatButtonModule,
     MatIconModule,
     NgOptimizedImage,
+    RouterOutlet,
+    RouterLink,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -56,15 +59,17 @@ export class AdminLogin {
     this.loading.set(true);
     const { username, password } = this.loginForm.value;
 
-    this.authService.login({ username: username ?? '', password: password ?? '' }).subscribe({
-      next: (res) => {
-        this.router.navigate(['/admin/dashboard']);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.errorMessage.set('Login failed. Please check your credentials.');
-        this.loading.set(false);
-      },
-    });
+    this.authService
+      .login({ username: username ?? '', password: password ?? '' })
+      .subscribe({
+        next: (res) => {
+          this.router.navigate(['/admin/dashboard']);
+          this.loading.set(false);
+        },
+        error: () => {
+          this.errorMessage.set('Login failed. Please check your credentials.');
+          this.loading.set(false);
+        },
+      });
   }
 }

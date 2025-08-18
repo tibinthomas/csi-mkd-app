@@ -13,20 +13,20 @@
     <mat-nav-list class="flex flex-col justify-between flex-1">
       <div>
         @for (item of navigationItems; track item.routerLink) {
-          <a
-            mat-list-item
-            [routerLink]="item.routerLink"
-            routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-            (click)="onNavItemClick()"
-          >
-            <mat-icon class="mr-4">{{ item.icon }}</mat-icon>
-            <span>{{ item.label }}</span>
-          </a>
+        <a
+          mat-list-item
+          [routerLink]="item.routerLink"
+          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          (click)="onNavItemClick()"
+        >
+          <mat-icon class="mr-4">{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
         }
       </div>
 
       <div class="p-4 border-t border-outline">
-        <button mat-stroked-button class="w-full" routerLink="/admin/login">
+        <button mat-stroked-button class="w-full" (click)="onLogout()">
           <mat-icon class="mr-2">exit_to_app</mat-icon>
           <span>Logout</span>
         </button>
