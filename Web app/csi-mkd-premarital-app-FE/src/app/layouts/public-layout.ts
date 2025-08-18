@@ -19,6 +19,7 @@ import {
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
 import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { DoubleTapDirective } from '../shared/directives/double-tap.directive';
 import packageInfo from '../../../package.json';
 
 @Component({
@@ -36,6 +37,7 @@ import packageInfo from '../../../package.json';
     ThemeToggle,
     RouterLinkActive,
     MatSelectModule,
+    DoubleTapDirective,
   ],
   templateUrl: './public-layout.html',
 })

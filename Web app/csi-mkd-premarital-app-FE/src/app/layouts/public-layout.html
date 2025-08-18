@@ -10,7 +10,8 @@
         class="h-10 sm:h-12 xl:h-15 w-auto aspect-[3/2] max-w-[96px] object-contain"
         role="img"
         routerLink="/about"
-        (dblclick)="goToAdmin()"
+        appDoubleTap
+        (doubleTap)="goToAdmin()"
       />
     </div>
 
