@@ -16,6 +16,12 @@ public static class MiddlewareConfiguration
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "CSI MKD API V1");
                 c.RoutePrefix = "swagger";
             });
+            // Skip HTTPS redirection in development to avoid CORS preflight issues
+            // app.UseHttpsRedirection();
+        }
+        else
+        {
+            // Only use HTTPS redirection in production
             app.UseHttpsRedirection();
         }
 
