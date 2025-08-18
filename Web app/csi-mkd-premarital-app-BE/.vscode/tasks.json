@@ -1,0 +1,225 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-main-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build-aspire-host",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/AppHost/AppHost.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build-sessions-function",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/SessionsFunction/SessionsFunction.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build-service-defaults",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/ServiceDefaults/ServiceDefaults.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build-all",
+      "dependsOrder": "parallel",
+      "dependsOn": [
+        "build-main-api",
+        "build-aspire-host",
+        "build-sessions-function",
+        "build-service-defaults"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "publish-main-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "watch-main-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "watch",
+        "run",
+        "--project",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build",
+      "isBackground": true
+    },
+    {
+      "label": "clean-main-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "clean",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "restore-main-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "restore",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "test",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "test",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.sln",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "test"
+    },
+    {
+      "label": "start-sessions-function",
+      "command": "func",
+      "type": "shell",
+      "args": [
+        "start",
+        "--port",
+        "7071"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/SessionsFunction"
+      },
+      "problemMatcher": [],
+      "group": "build",
+      "isBackground": true
+    },
+    {
+      "label": "install-func-tools",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "tool",
+        "install",
+        "-g",
+        "Microsoft.Azure.Functions.Core.Tools"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "update-func-tools",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "tool",
+        "update",
+        "-g",
+        "Microsoft.Azure.Functions.Core.Tools"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "ef-migrations-add",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "ef",
+        "migrations",
+        "add",
+        "${input:migrationName}",
+        "--project",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "ef-database-update",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "ef",
+        "database",
+        "update",
+        "--project",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "format",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "format",
+        "${workspaceFolder}/csi-mkd-premarital-app-BE.sln"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "migrationName",
+      "description": "Enter the name for the migration",
+      "default": "NewMigration",
+      "type": "promptString"
+    }
+  ]
+}

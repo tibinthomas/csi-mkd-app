@@ -18,5 +18,61 @@
     "titleBar.inactiveBackground": "#42188399",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.color": "#421883"
+  "peacock.color": "#421883",
+  "dotnet.defaultSolution": "csi-mkd-premarital-app-BE.sln",
+  "omnisharp.enableRoslynAnalyzers": true,
+  "omnisharp.enableEditorConfigSupport": true,
+  "omnisharp.enableImportCompletion": true,
+  "omnisharp.organizeImportsOnFormat": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/.vs": true
+  },
+  "search.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/publish": true,
+    "**/.vs": true
+  },
+  "dotnet-test-explorer.testProjectPath": "**/*Tests*.csproj",
+  "dotnet.completion.showCompletionItemsFromUnimportedNamespaces": true,
+  "dotnet.inlayHints.enableInlayHintsForParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForLiteralParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForIndexerParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForObjectCreationParameters": true,
+  "dotnet.inlayHints.enableInlayHintsForOtherParameters": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersWhenArgumentMatchesName": true,
+  "aspire.dashboard.autoOpenBrowser": true,
+  "aspire.dashboard.preferHttps": true,
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "csharp.format.enable": true,
+  "csharp.semanticHighlighting.enabled": true,
+  "csharp.inlayHints.parameters.enabled": true,
+  "csharp.inlayHints.parameters.forLiteralParameters": true,
+  "csharp.inlayHints.parameters.forIndexerParameters": true,
+  "csharp.inlayHints.parameters.forObjectCreationParameters": true,
+  "csharp.inlayHints.parameters.forOtherParameters": true,
+  "csharp.inlayHints.parameters.suppressForParametersThatDifferOnlyBySuffix": true,
+  "csharp.inlayHints.parameters.suppressForParametersThatMatchMethodIntent": true,
+  "csharp.inlayHints.parameters.suppressForParametersThatMatchArgumentName": true,
+  "azure-functions-core-tools.requestTimeout": 120,
+  "azureFunctions.showCoreToolsWarning": false,
+  "azureFunctions.projectLanguage": "C#",
+  "azureFunctions.projectRuntime": "~4",
+  "azureFunctions.deploySubpath": "SessionsFunction/bin/Release/net9.0/publish",
+  "debug.internalConsoleOptions": "openOnSessionStart"
 }
