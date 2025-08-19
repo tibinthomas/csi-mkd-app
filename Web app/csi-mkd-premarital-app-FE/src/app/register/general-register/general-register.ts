@@ -269,7 +269,7 @@ export class GeneralRegister {
 
     this.api.apiGeneralregisterPost({ body }).subscribe({
       next: (response: any) => {
-        const registerId: number = JSON.parse(response).id;
+        const registerId: string = JSON.parse(response).id;
 
         this.api
           .apiAzureuploadGenerateSasGet({

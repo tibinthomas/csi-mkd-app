@@ -265,9 +265,7 @@ export class PremaritalRegister {
       ];
 
       if (file && !allowedTypes.includes(file.type)) {
-        this.vicarLetterError.set(
-          'Allowed types: PDF, DOC, DOCX, JPG, PNG'
-        );
+        this.vicarLetterError.set('Allowed types: PDF, DOC, DOCX, JPG, PNG');
         this.vicarLetterFile.set(null);
       } else if (file && file.size > 2 * 1024 * 1024) {
         this.vicarLetterError.set('File too large. Max size is 2MB.');
@@ -377,7 +375,7 @@ export class PremaritalRegister {
 
     this.api.apiPremaritalregisterPost({ body }).subscribe({
       next: (response: any) => {
-        const registerId: number = JSON.parse(response).id;
+        const registerId: string = JSON.parse(response).id;
         forkJoin([
           this.api.apiAzureuploadGenerateSasGet({
             fileName: `premarital/${registerId}/photo/${photo.name}`,
