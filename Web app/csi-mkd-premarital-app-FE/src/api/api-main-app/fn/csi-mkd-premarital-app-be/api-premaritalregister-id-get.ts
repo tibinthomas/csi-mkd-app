@@ -10,7 +10,7 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface ApiPremaritalregisterIdGet$Params {
-  id: number;
+  id: string;
 }
 
 export function apiPremaritalregisterIdGet(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {

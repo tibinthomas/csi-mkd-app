@@ -11,7 +11,7 @@ import { RequestBuilder } from '../../request-builder';
 import { FeedbackResponseDto } from '../../models/feedback-response-dto';
 
 export interface ApiCosmosFeedbackRegistrationRegistrationIdGet$Params {
-  registrationId: number;
+  registrationId: string;
 }
 
 export function apiCosmosFeedbackRegistrationRegistrationIdGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
