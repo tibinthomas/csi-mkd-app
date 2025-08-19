@@ -1,13 +1,8 @@
 {
-  "tools": [
-    {
-      "name": "get_best_practices",
-      "description": "Provides an Angular coding best practices guide.",
-      "input_schema": {
-        "type": "object",
-        "properties": {},
-        "required": []
-      }
+  "mcpServers": {
+    "angular-cli": {
+      "command": "npx",
+      "args": ["@angular/cli", "mcp"]
     }
-  ]
+  }
 }

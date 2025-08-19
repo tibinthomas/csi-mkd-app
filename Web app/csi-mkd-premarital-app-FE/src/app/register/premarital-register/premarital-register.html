@@ -137,6 +137,7 @@
             aria-required="true"
             aria-describedby="address-error"
             autocomplete="street-address"
+            appSpeechRecognition
           ></textarea>
           @if (isInvalid('address')) {
           <mat-error id="address-error" i18n>Address is required.</mat-error>
