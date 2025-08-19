@@ -29,6 +29,7 @@ import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 
@@ -48,6 +49,7 @@ import { emailExistsValidatorFactory } from '../../core/validators/unique-email.
     NgxCaptchaModule,
     NoDigitsDirective,
     OnlyDigitsDirective,
+    SpeechRecognitionDirective,
   ],
   hostDirectives: [],
   templateUrl: './general-register.html',

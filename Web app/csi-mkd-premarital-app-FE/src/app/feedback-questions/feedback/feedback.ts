@@ -22,6 +22,7 @@ import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import {
   FeedbackResponseDto,
   FeedbackDocumentDto,
@@ -45,6 +46,7 @@ import { of } from 'rxjs';
     MatNativeDateModule,
     MatSelectModule,
     MatIconModule,
+    SpeechRecognitionDirective,
   ],
 })
 export class Feedback implements OnInit {

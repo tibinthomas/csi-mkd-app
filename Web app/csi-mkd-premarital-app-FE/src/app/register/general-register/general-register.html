@@ -35,7 +35,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Address</mat-label>
-          <textarea matInput formControlName="address" rows="3"></textarea>
+          <textarea matInput formControlName="address" rows="3" appSpeechRecognition></textarea>
           @if (isInvalid('address')) {
           <mat-error i18n>Address is required.</mat-error>
           }

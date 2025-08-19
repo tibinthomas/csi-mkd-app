@@ -238,6 +238,140 @@ button, a, .clickable {
   touch-action: manipulation;
 }
 
+/* Speech Recognition Styles */
+.speech-recognition-wrapper {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.speech-button-container {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile/Tablet optimizations */
+@media (max-width: 768px) {
+  .speech-button-container {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+/* Textarea recording state */
+textarea.speech-recording {
+  border-color: var(--md-sys-color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2) !important;
+  background-color: rgba(25, 118, 210, 0.02) !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Mat-form-field speech recognition styles */
+mat-form-field .mat-mdc-form-field-icon-suffix {
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+}
+
+mat-form-field.speech-recording .mat-mdc-text-field-wrapper {
+  border-color: var(--md-sys-color-primary) !important;
+}
+
+mat-form-field.speech-recording .mat-mdc-form-field-focus-overlay {
+  background-color: rgba(25, 118, 210, 0.05) !important;
+}
+
+/* Ensure speech buttons don't interfere with form field layout */
+mat-form-field .mat-mdc-form-field-infix {
+  padding-right: 52px !important;
+}
+
+@media (max-width: 768px) {
+  mat-form-field .mat-mdc-form-field-infix {
+    padding-right: 56px !important;
+  }
+}
+
+/* Standalone textarea with speech recognition */
+textarea[appSpeechRecognition]:not(.mat-mdc-input-element) {
+  padding-right: 52px !important;
+}
+
+@media (max-width: 768px) {
+  textarea[appSpeechRecognition]:not(.mat-mdc-input-element) {
+    padding-right: 56px !important;
+  }
+}
+
+/* Smooth transitions for speech recognition states */
+.speech-recognition-wrapper textarea,
+mat-form-field textarea {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+/* Focus state improvements */
+textarea[appSpeechRecognition]:focus {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 2px;
+}
+
+/* Touch device improvements */
+@media (pointer: coarse) {
+  .speech-recognition-wrapper {
+    /* Ensure touch targets are properly sized */
+    min-height: 44px;
+  }
+  
+  textarea[appSpeechRecognition] {
+    /* Prevent zoom on input focus on mobile Safari */
+    font-size: 16px;
+  }
+}
+
+/* High contrast support for speech recognition */
+@media (forced-colors: active) {
+  textarea.speech-recording {
+    border-color: Highlight !important;
+    background-color: Canvas !important;
+  }
+  
+  .speech-button-container {
+    border: 1px solid ButtonText;
+    border-radius: 4px;
+    background-color: ButtonFace;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .speech-recognition-wrapper textarea,
+  mat-form-field textarea,
+  textarea.speech-recording {
+    transition: none !important;
+  }
+}
+
+/* Right-to-left language support */
+[dir="rtl"] .speech-button-container {
+  right: auto;
+  left: 12px;
+}
+
+[dir="rtl"] mat-form-field .mat-mdc-form-field-infix {
+  padding-right: 16px !important;
+  padding-left: 52px !important;
+}
+
+[dir="rtl"] textarea[appSpeechRecognition]:not(.mat-mdc-input-element) {
+  padding-right: 12px !important;
+  padding-left: 52px !important;
+}
+
 /* Comprehensive touch action controls */
 html {
   touch-action: manipulation;

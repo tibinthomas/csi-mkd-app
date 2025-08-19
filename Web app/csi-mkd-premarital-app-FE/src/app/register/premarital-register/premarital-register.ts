@@ -33,6 +33,7 @@ import { emailDomainValidator } from '../../core/validators/email-domain.validat
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
+import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
@@ -57,6 +58,7 @@ import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-mai
     NgxCaptchaModule,
     NoDigitsDirective,
     OnlyDigitsDirective,
+    SpeechRecognitionDirective,
   ],
   templateUrl: './premarital-register.html',
   styleUrl: './premarital-register.scss',
