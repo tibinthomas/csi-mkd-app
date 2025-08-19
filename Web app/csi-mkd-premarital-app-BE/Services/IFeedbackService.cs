@@ -7,6 +7,6 @@ namespace csi_mkd_premarital_app_BE.Services
     {
         Task SubmitFeedbackAsync(ClassFeedbackDto dto);
         Task<List<ClassFeedback>> GetAllFeedbacksAsync();
-        Task<List<int>> GetCompletedClassIdsAsync(int registrationId);
+        Task<List<int>> GetCompletedClassIdsAsync(Guid registrationId);
     }
 }

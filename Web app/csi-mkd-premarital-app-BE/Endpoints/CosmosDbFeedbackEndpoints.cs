@@ -48,9 +48,9 @@ namespace csi_mkd_premarital_app_BE.Endpoints
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(5)));
 
             // Get feedback by registration ID
-            group.MapGet("/registration/{registrationId:int}", async (
+            group.MapGet("/registration/{registrationId:guid}", async (
                 ICosmosDbFeedbackService service,
-                int registrationId) =>
+                Guid registrationId) =>
             {
                 var feedbacks = await service.GetFeedbacksByRegistrationIdAsync(registrationId);
                 return Results.Ok(feedbacks);
@@ -59,9 +59,9 @@ namespace csi_mkd_premarital_app_BE.Endpoints
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(2)));
 
             // Get completed class IDs for a registration
-            group.MapGet("/completed/{registrationId:int}", async (
+            group.MapGet("/completed/{registrationId:guid}", async (
                 ICosmosDbFeedbackService service,
-                int registrationId) =>
+                Guid registrationId) =>
             {
                 var classIds = await service.GetCompletedClassIdsAsync(registrationId);
                 return Results.Ok(classIds);

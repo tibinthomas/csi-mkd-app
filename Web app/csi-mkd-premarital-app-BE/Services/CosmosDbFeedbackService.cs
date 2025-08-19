@@ -66,13 +66,13 @@ namespace csi_mkd_premarital_app_BE.Services
             return documents.Select(MapToResponseDto).ToList();
         }
 
-        public async Task<List<FeedbackResponseDto>> GetFeedbacksByRegistrationIdAsync(int registrationId)
+        public async Task<List<FeedbackResponseDto>> GetFeedbacksByRegistrationIdAsync(Guid registrationId)
         {
             var documents = await _repository.GetByRegistrationIdAsync(registrationId);
             return documents.Select(MapToResponseDto).ToList();
         }
 
-        public async Task<List<int>> GetCompletedClassIdsAsync(int registrationId)
+        public async Task<List<int>> GetCompletedClassIdsAsync(Guid registrationId)
         {
             return await _repository.GetCompletedClassIdsAsync(registrationId);
         }
@@ -176,7 +176,7 @@ namespace csi_mkd_premarital_app_BE.Services
                 Valuable = dto.Valuable,
                 Improvements = dto.Improvements,
                 Comments = dto.Comments,
-                PremaritalRegistrationId = dto.PremaritalRegistrationId ?? 0,
+                PremaritalRegistrationId = dto.PremaritalRegistrationId ?? Guid.Empty,
                 Source = "web",
                 Platform = "api"
             };
@@ -204,7 +204,7 @@ namespace csi_mkd_premarital_app_BE.Services
                 Valuable = document.TextResponses.Valuable,
                 Improvements = document.TextResponses.Improvements,
                 Comments = document.TextResponses.Comments,
-                PremaritalRegistrationId = document.Metadata.PremaritalRegistrationId == 0 ? null : document.Metadata.PremaritalRegistrationId,
+                PremaritalRegistrationId = document.Metadata.PremaritalRegistrationId == Guid.Empty ? null : document.Metadata.PremaritalRegistrationId,
                 SubmittedAt = document.SubmittedAt
             };
         }

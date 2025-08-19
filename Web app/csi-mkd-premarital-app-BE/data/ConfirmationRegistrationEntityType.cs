@@ -21,18 +21,18 @@ namespace csi_mkd_premarital_app_BE.Data
                 baseEntityType,
                 propertyCount: 6,
                 navigationCount: 2,
-                unnamedIndexCount: 2,
+                unnamedIndexCount: 3,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(int),
+                typeof(Guid),
                 propertyInfo: typeof(ConfirmationRegistration).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ConfirmationRegistration).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                sentinel: 0);
-            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
+            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var churchName = runtimeEntityType.AddProperty(
                 "ChurchName",
@@ -82,6 +82,9 @@ namespace csi_mkd_premarital_app_BE.Data
                 new[] { churchName });
 
             var index0 = runtimeEntityType.AddIndex(
+                new[] { id });
+
+            var index1 = runtimeEntityType.AddIndex(
                 new[] { submittedDate });
 
             return runtimeEntityType;

@@ -5,12 +5,12 @@ namespace csi_mkd_premarital_app_BE.Repositories
 {
     public interface IPremaritalRegisterRepository
     {
-        Task<int> AddRegistration(PremaritalRegistration registration);
+        Task<Guid> AddRegistration(PremaritalRegistration registration);
         Task AddPremaritalFiles(PremaritalDocument documents);
-        Task<bool> UpdatePaymentStatus(int id, bool status);
-        Task<(bool Exists, int? UserId)> CheckEmailExists(string email);
+        Task<bool> UpdatePaymentStatus(Guid id, bool status);
+        Task<(bool Exists, Guid? UserId)> CheckEmailExists(string email);
         Task<object> FilterRegistrations(RegistrationFilterDto filter);
         Task<int> GetTotalRegistrations();
-        Task<object?> GetRegistrationById(int id);
+        Task<object?> GetRegistrationById(Guid id);
     }
 }

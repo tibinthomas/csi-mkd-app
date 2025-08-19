@@ -9,9 +9,8 @@ namespace csi_mkd_premarital_app_BE.Models
     [Index(nameof(IsActive))]
     public class SessionConfiguration
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid Id { get; set; } = Guid.NewGuid();
+
+        public int Id { get; set; }
         [Required]
         public required string SessionName { get; set; }
         [Required]

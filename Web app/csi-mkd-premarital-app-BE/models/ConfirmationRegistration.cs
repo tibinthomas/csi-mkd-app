@@ -5,12 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
 using Microsoft.EntityFrameworkCore;
+[Index(nameof(Id))]
 [Index(nameof(ChurchName))]
 [Index(nameof(SubmittedDate))]
 public class ConfirmationRegistration
 {
     [Key]
-    public int Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required(ErrorMessage = "Church name is required.")]
     [StringLength(100)]

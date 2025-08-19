@@ -4,13 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 namespace csi_mkd_premarital_app_BE.Models
 {
+    [Index(nameof(Id))]
     [Index(nameof(Email))]
     [Index(nameof(SubmittedAt))]
     [Index(nameof(PaymentStatus))]
     public class GeneralRegistration
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required, MaxLength(50)]
         public required string FirstName { get; set; }

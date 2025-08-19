@@ -77,12 +77,12 @@ namespace csi_mkd_premarital_app_BE.Services
             return (200, new { message = "Files uploaded!" });
         }
 
-        public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(int id, PaymentStatusUpdateDto dto)
+        public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(Guid id, PaymentStatusUpdateDto dto)
             => await _repo.UpdatePaymentStatus(id, dto.PaymentStatus)
                 ? (200, new { message = "Updated successfully" })
                 : (500, new { message = "Failed to update" });
 
-        public async Task<(bool Exists, int? UserId)> CheckEmailExists(string email)
+        public async Task<(bool Exists, Guid? UserId)> CheckEmailExists(string email)
             => await _repo.CheckEmailExists(email);
 
         public async Task<object> GetFilteredRegistrations(RegistrationFilterDto filter)
@@ -93,7 +93,7 @@ namespace csi_mkd_premarital_app_BE.Services
             return await _repo.GetTotalRegistrations();
         }
 
-        public async Task<object?> GetRegistrationById(int id)
+        public async Task<object?> GetRegistrationById(Guid id)
         {
             return await _repo.GetRegistrationById(id);
         }

@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreation : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,10 +35,10 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     TableName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     ActionType = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UserId = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    KeyValues = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    OldValues = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    NewValues = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
+                    UserId = table.Column<string>(type: "text", maxLength: 500, nullable: true),
+                    KeyValues = table.Column<string>(type: "text", maxLength: 500, nullable: true),
+                    OldValues = table.Column<string>(type: "text", maxLength: 500, nullable: true),
+                    NewValues = table.Column<string>(type: "text", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,36 +46,10 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClassFeedbacks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ClassTitle = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    Email = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    QualityRating = table.Column<int>(type: "integer", nullable: false),
-                    RelevanceRating = table.Column<int>(type: "integer", nullable: false),
-                    EngagementRating = table.Column<int>(type: "integer", nullable: false),
-                    OrganizationRating = table.Column<int>(type: "integer", nullable: false),
-                    Valuable = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    Improvements = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    Comments = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClassFeedbacks", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ConfirmationRegistrations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ChurchName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     ConfirmationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     CounsellingDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -104,11 +78,43 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FeedbackDocument",
+                columns: table => new
+                {
+                    id = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    PartitionKey = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    ClassId = table.Column<int>(type: "integer", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Ratings_Quality = table.Column<int>(type: "integer", nullable: false, comment: "Rating from 1-5 for content quality"),
+                    Ratings_Relevance = table.Column<int>(type: "integer", nullable: false, comment: "Rating from 1-5 for content relevance"),
+                    Ratings_Engagement = table.Column<int>(type: "integer", nullable: false, comment: "Rating from 1-5 for engagement level"),
+                    Ratings_Organization = table.Column<int>(type: "integer", nullable: false, comment: "Rating from 1-5 for organization quality"),
+                    TextResponses_Valuable = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true, comment: "What was most valuable about the session"),
+                    TextResponses_Improvements = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true, comment: "Suggested improvements for the session"),
+                    TextResponses_Comments = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true, comment: "Additional comments and feedback"),
+                    Metadata_PremaritalRegistrationId = table.Column<Guid>(type: "uuid", nullable: false, comment: "Foreign key to registration in PostgreSQL"),
+                    Metadata_SessionTitle = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    Metadata_InstructorName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Metadata_SessionDuration = table.Column<int>(type: "integer", nullable: true),
+                    Metadata_Location = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    Metadata_UserAgent = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Metadata_IpAddress = table.Column<string>(type: "character varying(45)", maxLength: 45, nullable: false),
+                    Metadata_CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Metadata_Version = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValue: "1.0"),
+                    Metadata_Source = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false, defaultValue: "web"),
+                    Metadata_Platform = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FeedbackDocument", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GeneralRegistrations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     LastName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     FatherName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
@@ -152,7 +158,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 name: "ConfirmationDocuments",
                 columns: table => new
                 {
-                    RegistrationId = table.Column<int>(type: "integer", nullable: false),
+                    RegistrationId = table.Column<Guid>(type: "uuid", nullable: false),
                     VicarLetterUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -171,11 +177,10 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 name: "Participants",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     Age = table.Column<int>(type: "integer", nullable: false),
-                    ConfirmationRegistrationId = table.Column<int>(type: "integer", nullable: false),
+                    ConfirmationRegistrationId = table.Column<Guid>(type: "uuid", nullable: false),
                     SubmittedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -193,7 +198,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 name: "GeneralDocuments",
                 columns: table => new
                 {
-                    RegistrationId = table.Column<int>(type: "integer", nullable: false),
+                    RegistrationId = table.Column<Guid>(type: "uuid", nullable: false),
                     PhotoUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -212,8 +217,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 name: "PremaritalRegistrations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     LastName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     FatherName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
@@ -246,10 +250,38 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClassFeedbacks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ClassId = table.Column<int>(type: "integer", nullable: false),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    QualityRating = table.Column<int>(type: "integer", nullable: false),
+                    RelevanceRating = table.Column<int>(type: "integer", nullable: false),
+                    EngagementRating = table.Column<int>(type: "integer", nullable: false),
+                    OrganizationRating = table.Column<int>(type: "integer", nullable: false),
+                    Valuable = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    Improvements = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    Comments = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PremaritalRegistrationId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClassFeedbacks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ClassFeedbacks_PremaritalRegistrations_PremaritalRegistrati~",
+                        column: x => x.PremaritalRegistrationId,
+                        principalTable: "PremaritalRegistrations",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PremaritalDocuments",
                 columns: table => new
                 {
-                    RegistrationId = table.Column<int>(type: "integer", nullable: false),
+                    RegistrationId = table.Column<Guid>(type: "uuid", nullable: false),
                     PhotoUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     VicarLetterUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     SubmittedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -276,9 +308,19 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 values: new object[] { 1, "<p>Hello {Name},</p>\n                <p>Thank you for registering with us.</p>\n                <p>Your registration for the counselling session has been successfully completed.</p>\n                <p>We look forward to seeing you there.</p>\n                <p>Best regards,<br/>CSI MKD Counselling Team</p>", "Confirmation: CSI MKD Counselling Session Registration", "teenateena496@gmail.com", "mrkn army mhov gggo" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClassFeedbacks_PremaritalRegistrationId",
+                table: "ClassFeedbacks",
+                column: "PremaritalRegistrationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ConfirmationRegistrations_ChurchName",
                 table: "ConfirmationRegistrations",
                 column: "ChurchName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConfirmationRegistrations_Id",
+                table: "ConfirmationRegistrations",
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConfirmationRegistrations_SubmittedDate",
@@ -289,6 +331,11 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 name: "IX_GeneralRegistrations_Email",
                 table: "GeneralRegistrations",
                 column: "Email");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GeneralRegistrations_Id",
+                table: "GeneralRegistrations",
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GeneralRegistrations_PaymentStatus",
@@ -306,9 +353,19 @@ namespace csi_mkd_premarital_app_BE.Migrations
                 column: "ConfirmationRegistrationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Participants_Id",
+                table: "Participants",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PremaritalRegistrations_Email",
                 table: "PremaritalRegistrations",
                 column: "Email");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PremaritalRegistrations_Id",
+                table: "PremaritalRegistrations",
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PremaritalRegistrations_PaymentStatus",
@@ -353,6 +410,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             migrationBuilder.DropTable(
                 name: "EmailConfigs");
+
+            migrationBuilder.DropTable(
+                name: "FeedbackDocument");
 
             migrationBuilder.DropTable(
                 name: "GeneralDocuments");

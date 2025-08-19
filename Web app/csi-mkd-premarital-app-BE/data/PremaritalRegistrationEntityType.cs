@@ -25,18 +25,18 @@ namespace csi_mkd_premarital_app_BE.Data
                 propertyCount: 20,
                 navigationCount: 2,
                 foreignKeyCount: 1,
-                unnamedIndexCount: 4,
+                unnamedIndexCount: 5,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(int),
+                typeof(Guid),
                 propertyInfo: typeof(PremaritalRegistration).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(PremaritalRegistration).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                sentinel: 0);
-            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
+            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var address = runtimeEntityType.AddProperty(
                 "Address",
@@ -199,12 +199,15 @@ namespace csi_mkd_premarital_app_BE.Data
                 new[] { email });
 
             var index0 = runtimeEntityType.AddIndex(
-                new[] { paymentStatus });
+                new[] { id });
 
             var index1 = runtimeEntityType.AddIndex(
-                new[] { sessionId });
+                new[] { paymentStatus });
 
             var index2 = runtimeEntityType.AddIndex(
+                new[] { sessionId });
+
+            var index3 = runtimeEntityType.AddIndex(
                 new[] { submittedAt });
 
             return runtimeEntityType;

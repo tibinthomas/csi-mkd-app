@@ -24,18 +24,18 @@ namespace csi_mkd_premarital_app_BE.Data
                 propertyCount: 5,
                 navigationCount: 1,
                 foreignKeyCount: 1,
-                unnamedIndexCount: 1,
+                unnamedIndexCount: 2,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(int),
+                typeof(Guid),
                 propertyInfo: typeof(Participant).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Participant).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                sentinel: 0);
-            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
+            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var age = runtimeEntityType.AddProperty(
                 "Age",
@@ -47,10 +47,10 @@ namespace csi_mkd_premarital_app_BE.Data
 
             var confirmationRegistrationId = runtimeEntityType.AddProperty(
                 "ConfirmationRegistrationId",
-                typeof(int),
+                typeof(Guid),
                 propertyInfo: typeof(Participant).GetProperty("ConfirmationRegistrationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Participant).GetField("<ConfirmationRegistrationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                sentinel: 0);
+                sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
             confirmationRegistrationId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var name = runtimeEntityType.AddProperty(
@@ -75,6 +75,9 @@ namespace csi_mkd_premarital_app_BE.Data
 
             var index = runtimeEntityType.AddIndex(
                 new[] { confirmationRegistrationId });
+
+            var index0 = runtimeEntityType.AddIndex(
+                new[] { id });
 
             return runtimeEntityType;
         }

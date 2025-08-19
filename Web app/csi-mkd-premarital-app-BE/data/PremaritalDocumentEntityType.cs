@@ -28,11 +28,11 @@ namespace csi_mkd_premarital_app_BE.Data
 
             var registrationId = runtimeEntityType.AddProperty(
                 "RegistrationId",
-                typeof(int),
+                typeof(Guid),
                 propertyInfo: typeof(PremaritalDocument).GetProperty("RegistrationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(PremaritalDocument).GetField("<RegistrationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                sentinel: 0);
+                sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
             registrationId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var photoUrl = runtimeEntityType.AddProperty(

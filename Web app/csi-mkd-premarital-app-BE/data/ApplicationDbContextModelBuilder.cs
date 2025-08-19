@@ -12,7 +12,7 @@ namespace csi_mkd_premarital_app_BE.Data
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("d2d97ac4-769e-4e3a-9479-f6434a9f74c3"), entityTypeCount: 12)
+            : base(skipDetectChanges: false, modelId: new Guid("55f37314-e023-44ff-b7b4-2f972eb9281b"), entityTypeCount: 16)
         {
         }
 
@@ -22,17 +22,25 @@ namespace csi_mkd_premarital_app_BE.Data
             var participant = ParticipantEntityType.Create(this);
             var adminUser = AdminUserEntityType.Create(this);
             var auditEntry = AuditEntryEntityType.Create(this);
+            var classFeedback = ClassFeedbackEntityType.Create(this);
             var confirmationDocument = ConfirmationDocumentEntityType.Create(this);
             var emailConfig = EmailConfigEntityType.Create(this);
+            var feedbackDocument = FeedbackDocumentEntityType.Create(this);
+            var feedbackMetadata = FeedbackMetadataEntityType.Create(this);
+            var feedbackRatings = FeedbackRatingsEntityType.Create(this);
+            var feedbackText = FeedbackTextEntityType.Create(this);
             var generalDocument = GeneralDocumentEntityType.Create(this);
             var generalRegistration = GeneralRegistrationEntityType.Create(this);
             var premaritalDocument = PremaritalDocumentEntityType.Create(this);
             var premaritalRegistration = PremaritalRegistrationEntityType.Create(this);
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
-            var classFeedback = ClassFeedbackEntityType.Create(this);
 
             ParticipantEntityType.CreateForeignKey1(participant, confirmationRegistration);
+            ClassFeedbackEntityType.CreateForeignKey1(classFeedback, premaritalRegistration);
             ConfirmationDocumentEntityType.CreateForeignKey1(confirmationDocument, confirmationRegistration);
+            FeedbackMetadataEntityType.CreateForeignKey1(feedbackMetadata, feedbackDocument);
+            FeedbackRatingsEntityType.CreateForeignKey1(feedbackRatings, feedbackDocument);
+            FeedbackTextEntityType.CreateForeignKey1(feedbackText, feedbackDocument);
             GeneralDocumentEntityType.CreateForeignKey1(generalDocument, generalRegistration);
             PremaritalDocumentEntityType.CreateForeignKey1(premaritalDocument, premaritalRegistration);
             PremaritalRegistrationEntityType.CreateForeignKey1(premaritalRegistration, sessionConfiguration);
@@ -41,17 +49,21 @@ namespace csi_mkd_premarital_app_BE.Data
             ParticipantEntityType.CreateAnnotations(participant);
             AdminUserEntityType.CreateAnnotations(adminUser);
             AuditEntryEntityType.CreateAnnotations(auditEntry);
+            ClassFeedbackEntityType.CreateAnnotations(classFeedback);
             ConfirmationDocumentEntityType.CreateAnnotations(confirmationDocument);
             EmailConfigEntityType.CreateAnnotations(emailConfig);
+            FeedbackDocumentEntityType.CreateAnnotations(feedbackDocument);
+            FeedbackMetadataEntityType.CreateAnnotations(feedbackMetadata);
+            FeedbackRatingsEntityType.CreateAnnotations(feedbackRatings);
+            FeedbackTextEntityType.CreateAnnotations(feedbackText);
             GeneralDocumentEntityType.CreateAnnotations(generalDocument);
             GeneralRegistrationEntityType.CreateAnnotations(generalRegistration);
             PremaritalDocumentEntityType.CreateAnnotations(premaritalDocument);
             PremaritalRegistrationEntityType.CreateAnnotations(premaritalRegistration);
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
-            ClassFeedbackEntityType.CreateAnnotations(classFeedback);
 
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-            AddAnnotation("ProductVersion", "9.0.6");
+            AddAnnotation("ProductVersion", "9.0.8");
             AddAnnotation("Relational:MaxIdentifierLength", 63);
         }
     }

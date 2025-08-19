@@ -20,7 +20,10 @@ namespace csi_mkd_premarital_app_BE.Data
                 "csi_mkd_premarital_app_BE.Models.ClassFeedback",
                 typeof(ClassFeedback),
                 baseEntityType,
-                propertyCount: 14,
+                propertyCount: 12,
+                navigationCount: 1,
+                foreignKeyCount: 1,
+                unnamedIndexCount: 1,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
@@ -32,6 +35,14 @@ namespace csi_mkd_premarital_app_BE.Data
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 sentinel: 0);
             id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+            var classId = runtimeEntityType.AddProperty(
+                "ClassId",
+                typeof(int),
+                propertyInfo: typeof(ClassFeedback).GetProperty("ClassId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<ClassId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                sentinel: 0);
+            classId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var comments = runtimeEntityType.AddProperty(
                 "Comments",
@@ -50,13 +61,6 @@ namespace csi_mkd_premarital_app_BE.Data
                 sentinel: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
             date.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-            var classId = runtimeEntityType.AddProperty(
-                "ClassId",
-                typeof(int),
-                propertyInfo: typeof(ClassFeedback).GetProperty("ClassId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ClassFeedback).GetField("<ClassId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            classId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
-
             var engagementRating = runtimeEntityType.AddProperty(
                 "EngagementRating",
                 typeof(int),
@@ -64,7 +68,6 @@ namespace csi_mkd_premarital_app_BE.Data
                 fieldInfo: typeof(ClassFeedback).GetField("<EngagementRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
             engagementRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
-
 
             var improvements = runtimeEntityType.AddProperty(
                 "Improvements",
@@ -75,7 +78,6 @@ namespace csi_mkd_premarital_app_BE.Data
                 maxLength: 500);
             improvements.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-
             var organizationRating = runtimeEntityType.AddProperty(
                 "OrganizationRating",
                 typeof(int),
@@ -83,6 +85,14 @@ namespace csi_mkd_premarital_app_BE.Data
                 fieldInfo: typeof(ClassFeedback).GetField("<OrganizationRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
             organizationRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+            var premaritalRegistrationId = runtimeEntityType.AddProperty(
+                "PremaritalRegistrationId",
+                typeof(Guid?),
+                propertyInfo: typeof(ClassFeedback).GetProperty("PremaritalRegistrationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<PremaritalRegistrationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+            premaritalRegistrationId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var qualityRating = runtimeEntityType.AddProperty(
                 "QualityRating",
@@ -99,14 +109,6 @@ namespace csi_mkd_premarital_app_BE.Data
                 fieldInfo: typeof(ClassFeedback).GetField("<RelevanceRating>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
             relevanceRating.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
-
-            var premaritalRegistrationId = runtimeEntityType.AddProperty(
-                "PremaritalRegistrationId",
-                typeof(int),
-                propertyInfo: typeof(ClassFeedback).GetProperty("PremaritalRegistrationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ClassFeedback).GetField("<PremaritalRegistrationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                sentinel: 0);
-            premaritalRegistrationId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var submittedAt = runtimeEntityType.AddProperty(
                 "SubmittedAt",
@@ -129,7 +131,26 @@ namespace csi_mkd_premarital_app_BE.Data
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
+            var index = runtimeEntityType.AddIndex(
+                new[] { premaritalRegistrationId });
+
             return runtimeEntityType;
+        }
+
+        public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
+        {
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("PremaritalRegistrationId") },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id") }),
+                principalEntityType);
+
+            var premaritalRegistration = declaringEntityType.AddNavigation("PremaritalRegistration",
+                runtimeForeignKey,
+                onDependent: true,
+                typeof(PremaritalRegistration),
+                propertyInfo: typeof(ClassFeedback).GetProperty("PremaritalRegistration", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ClassFeedback).GetField("<PremaritalRegistration>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            return runtimeForeignKey;
         }
 
         public static void CreateAnnotations(RuntimeEntityType runtimeEntityType)

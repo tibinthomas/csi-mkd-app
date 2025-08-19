@@ -35,7 +35,7 @@ namespace csi_mkd_premarital_app_BE.Models
 
         // Foreign key to PremaritalRegistration
         [ForeignKey("PremaritalRegistration")]
-        public int? PremaritalRegistrationId { get; set; }
+        public Guid? PremaritalRegistrationId { get; set; }
 
         public PremaritalRegistration? PremaritalRegistration { get; set; }
     }

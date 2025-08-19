@@ -7,8 +7,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task AddAsync(FeedbackDocument feedback);
         Task<List<FeedbackDocument>> GetAllAsync();
         Task<List<FeedbackDocument>> GetByDateRangeAsync(DateTime startDate, DateTime endDate);
-        Task<List<FeedbackDocument>> GetByRegistrationIdAsync(int registrationId);
-        Task<List<int>> GetCompletedClassIdsAsync(int registrationId);
+        Task<List<FeedbackDocument>> GetByRegistrationIdAsync(Guid registrationId);
+        Task<List<int>> GetCompletedClassIdsAsync(Guid registrationId);
         Task<FeedbackDocument?> GetByIdAsync(string id, string partitionKey);
         Task<List<FeedbackDocument>> GetByClassIdAsync(int classId);
         Task<Dictionary<int, double>> GetAverageRatingsByClassAsync();

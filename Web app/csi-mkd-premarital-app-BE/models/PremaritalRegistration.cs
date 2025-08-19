@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace csi_mkd_premarital_app_BE.Models
 {
+    [Index(nameof(Id))]
     [Index(nameof(Email))]
     [Index(nameof(SubmittedAt))]
     [Index(nameof(SessionId))]
@@ -12,7 +13,8 @@ namespace csi_mkd_premarital_app_BE.Models
     public class PremaritalRegistration
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required, StringLength(100)]
         public required string FirstName { get; set; }

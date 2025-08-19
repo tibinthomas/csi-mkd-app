@@ -16,7 +16,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
             _context = context;
         }
 
-        public async Task<int> AddRegistration(PremaritalRegistration registration)
+        public async Task<Guid> AddRegistration(PremaritalRegistration registration)
         {
             _context.PremaritalRegistrations.Add(registration);
             await _context.SaveChangesAsync();
@@ -29,7 +29,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> UpdatePaymentStatus(int id, bool status)
+        public async Task<bool> UpdatePaymentStatus(Guid id, bool status)
         {
             var reg = await _context.PremaritalRegistrations.FindAsync(id);
             if (reg is null) return false;
@@ -39,7 +39,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
             return true;
         }
 
-        public async Task<(bool Exists, int? UserId)> CheckEmailExists(string email)
+        public async Task<(bool Exists, Guid? UserId)> CheckEmailExists(string email)
         {
             var registration = await _context.PremaritalRegistrations
                 .FirstOrDefaultAsync(r => r.Email.ToLower() == email.ToLower());
@@ -126,7 +126,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
             return await _context.PremaritalRegistrations.CountAsync();
         }
 
-        public async Task<object?> GetRegistrationById(int id)
+        public async Task<object?> GetRegistrationById(Guid id)
         {
             var query = _context.PremaritalRegistrations
                 .AsNoTracking()

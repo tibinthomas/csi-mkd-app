@@ -49,6 +49,7 @@ namespace csi_mkd_premarital_app_BE.Data
                 nullable: true,
                 maxLength: 500);
             keyValues.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+            keyValues.AddAnnotation("Relational:ColumnType", "text");
 
             var newValues = runtimeEntityType.AddProperty(
                 "NewValues",
@@ -58,6 +59,7 @@ namespace csi_mkd_premarital_app_BE.Data
                 nullable: true,
                 maxLength: 500);
             newValues.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+            newValues.AddAnnotation("Relational:ColumnType", "text");
 
             var oldValues = runtimeEntityType.AddProperty(
                 "OldValues",
@@ -67,6 +69,7 @@ namespace csi_mkd_premarital_app_BE.Data
                 nullable: true,
                 maxLength: 500);
             oldValues.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+            oldValues.AddAnnotation("Relational:ColumnType", "text");
 
             var tableName = runtimeEntityType.AddProperty(
                 "TableName",
@@ -92,6 +95,7 @@ namespace csi_mkd_premarital_app_BE.Data
                 nullable: true,
                 maxLength: 500);
             userId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+            userId.AddAnnotation("Relational:ColumnType", "text");
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });

@@ -41,7 +41,7 @@ public static class GeneralRegisterEndpoints
         .Produces<CheckEmailResponseDto>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("general-regs").Expire(TimeSpan.FromSeconds(10)));
 
-        group.MapPut("/{id:int}/paymentstatus", async (int id, PaymentStatusUpdateDto dto, IGeneralRegisterService service, ICacheInvalidationService cacheService) =>
+        group.MapPut("/{id:guid}/paymentstatus", async (Guid id, PaymentStatusUpdateDto dto, IGeneralRegisterService service, ICacheInvalidationService cacheService) =>
         {
             var result = await service.UpdatePaymentStatus(id, dto);
             await cacheService.InvalidateRegistrationCachesAsync();

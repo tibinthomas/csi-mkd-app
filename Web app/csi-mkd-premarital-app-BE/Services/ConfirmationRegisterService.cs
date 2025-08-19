@@ -28,7 +28,7 @@ public class ConfirmationRegisterService : IConfirmationRegisterService
 
         };
 
-        int id = await _repository.AddRegistration(registration);
+        Guid id = await _repository.AddRegistration(registration);
         return (201, new { Id = id });
     }
 

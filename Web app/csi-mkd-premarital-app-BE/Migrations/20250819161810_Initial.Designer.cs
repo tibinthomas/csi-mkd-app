@@ -13,8 +13,8 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250815065513_MakePremaritalRegistrationIdNullable")]
-    partial class MakePremaritalRegistrationIdNullable
+    [Migration("20250819161810_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,11 +28,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("ConfirmationRegistration", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ChurchName")
                         .IsRequired()
@@ -55,6 +53,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.HasIndex("ChurchName");
 
+                    b.HasIndex("Id");
+
                     b.HasIndex("SubmittedDate");
 
                     b.ToTable("ConfirmationRegistrations");
@@ -62,17 +62,15 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("Participant", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Age")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ConfirmationRegistrationId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("ConfirmationRegistrationId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -85,6 +83,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ConfirmationRegistrationId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Participants");
                 });
@@ -190,8 +190,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<int>("OrganizationRating")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("PremaritalRegistrationId")
-                        .HasColumnType("integer");
+                    b.Property<Guid?>("PremaritalRegistrationId")
+                        .HasColumnType("uuid");
 
                     b.Property<int>("QualityRating")
                         .HasColumnType("integer");
@@ -215,8 +215,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.ConfirmationDocument", b =>
                 {
-                    b.Property<int>("RegistrationId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("RegistrationId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("SubmittedAt")
                         .HasColumnType("timestamp with time zone");
@@ -306,8 +306,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.GeneralDocument", b =>
                 {
-                    b.Property<int>("RegistrationId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("RegistrationId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("PhotoUrl")
                         .IsRequired()
@@ -324,11 +324,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.GeneralRegistration", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -405,6 +403,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
                     b.HasIndex("Email");
 
+                    b.HasIndex("Id");
+
                     b.HasIndex("PaymentStatus");
 
                     b.HasIndex("SubmittedAt");
@@ -414,8 +414,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.PremaritalDocument", b =>
                 {
-                    b.Property<int>("RegistrationId")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("RegistrationId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("PhotoUrl")
                         .IsRequired()
@@ -437,11 +437,9 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.PremaritalRegistration", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -528,6 +526,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Email");
+
+                    b.HasIndex("Id");
 
                     b.HasIndex("PaymentStatus");
 
@@ -632,8 +632,8 @@ namespace csi_mkd_premarital_app_BE.Migrations
                                 .HasMaxLength(100)
                                 .HasColumnType("character varying(100)");
 
-                            b1.Property<int>("PremaritalRegistrationId")
-                                .HasColumnType("integer")
+                            b1.Property<Guid>("PremaritalRegistrationId")
+                                .HasColumnType("uuid")
                                 .HasComment("Foreign key to registration in PostgreSQL");
 
                             b1.Property<int?>("SessionDuration")

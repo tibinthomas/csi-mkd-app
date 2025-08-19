@@ -33,7 +33,7 @@ public static class PremaritalRegisterEndpoints
         })
         .Accepts<PremaritalDocumentDto>("multipart/form-data");
 
-        group.MapPut("/{id:int}/paymentstatus", async (int id, PaymentStatusUpdateDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
+        group.MapPut("/{id:guid}/paymentstatus", async (Guid id, PaymentStatusUpdateDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
         {
             var result = await service.UpdatePaymentStatus(id, dto);
             await cacheService.InvalidateRegistrationCachesAsync();
@@ -62,7 +62,7 @@ public static class PremaritalRegisterEndpoints
         })
         .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
 
-        group.MapGet("/{id:int}", async (IPremaritalRegisterService service, int id) =>
+        group.MapGet("/{id:guid}", async (IPremaritalRegisterService service, Guid id) =>
         {
             var registration = await service.GetRegistrationById(id);
             if (registration == null)

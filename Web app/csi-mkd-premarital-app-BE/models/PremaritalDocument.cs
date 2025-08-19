@@ -7,7 +7,7 @@ namespace csi_mkd_premarital_app_BE.Models
     {
         [Key]
         [ForeignKey("PremaritalRegistration")]
-        public int RegistrationId { get; set; } // Primary Key and FK
+        public Guid RegistrationId { get; set; } // Primary Key and FK
 
         [Required]
         public required string PhotoUrl { get; set; } = string.Empty;

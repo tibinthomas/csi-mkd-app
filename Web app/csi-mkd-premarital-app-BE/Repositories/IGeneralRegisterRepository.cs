@@ -5,10 +5,10 @@ namespace csi_mkd_premarital_app_BE.Repositories
 {
     public interface IGeneralRegisterRepository
     {
-        Task<int> AddRegistration(GeneralRegistration registration);
+        Task<Guid> AddRegistration(GeneralRegistration registration);
         Task AddGeneralFiles(GeneralDocument documents);
         Task<bool> CheckEmailExists(string email);
-        Task<bool> UpdatePaymentStatus(int id, bool status);
+        Task<bool> UpdatePaymentStatus(Guid id, bool status);
         Task<object> FilterRegistrations(GeneralRegisterFilterDto filter);
         Task<int> GetTotalRegistrations();
 

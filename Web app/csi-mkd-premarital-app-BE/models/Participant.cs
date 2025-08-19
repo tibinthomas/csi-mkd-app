@@ -3,11 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
+[Index(nameof(Id))]
 [Index(nameof(ConfirmationRegistrationId))]
 public class Participant
 {
     [Key]
-    public int Id { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required(ErrorMessage = "Name is required.")]
     [StringLength(100)]
@@ -18,7 +20,7 @@ public class Participant
     public int Age { get; set; }
 
     [ForeignKey("ConfirmationRegistration")]
-    public int ConfirmationRegistrationId { get; set; }
+    public Guid ConfirmationRegistrationId { get; set; }
 
     public ConfirmationRegistration? ConfirmationRegistration { get; set; }
 

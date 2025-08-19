@@ -14,7 +14,7 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
         _context = context;
     }
 
-    public async Task<int> AddRegistration(GeneralRegistration registration)
+    public async Task<Guid> AddRegistration(GeneralRegistration registration)
     {
         _context.GeneralRegistrations.Add(registration);
         await _context.SaveChangesAsync();
@@ -31,7 +31,7 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
         => await _context.GeneralRegistrations
                 .AnyAsync(r => r.Email.ToLower() == email.ToLower());
 
-    public async Task<bool> UpdatePaymentStatus(int id, bool status)
+    public async Task<bool> UpdatePaymentStatus(Guid id, bool status)
     {
         var reg = await _context.GeneralRegistrations.FindAsync(id);
         if (reg is null) return false;

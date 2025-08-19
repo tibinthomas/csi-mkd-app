@@ -32,7 +32,7 @@ namespace csi_mkd_premarital_app_BE.Services
         public Task<List<ClassFeedback>> GetAllFeedbacksAsync()
             => repository.GetAllAsync();
 
-        public Task<List<int>> GetCompletedClassIdsAsync(int registrationId)
+        public Task<List<int>> GetCompletedClassIdsAsync(Guid registrationId)
             => repository.GetCompletedClassIdsAsync(registrationId);
 
     }

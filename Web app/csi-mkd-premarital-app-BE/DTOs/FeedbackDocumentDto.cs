@@ -26,7 +26,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public string? Comments { get; set; }
         
         [Required]
-        public int PremaritalRegistrationId { get; set; }
+        public Guid PremaritalRegistrationId { get; set; }
         
         // Optional metadata
         public string? SessionTitle { get; set; }
@@ -68,7 +68,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
 
     public class FeedbackMetadataDto
     {
-        public int PremaritalRegistrationId { get; set; }
+        public Guid PremaritalRegistrationId { get; set; }
         public string? SessionTitle { get; set; }
         public string? InstructorName { get; set; }
         public int? SessionDuration { get; set; }

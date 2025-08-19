@@ -21,7 +21,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<int>> GetCompletedClassIdsAsync(int registrationId)
+        public async Task<List<int>> GetCompletedClassIdsAsync(Guid registrationId)
         {
             return await db.ClassFeedbacks
                 .AsNoTracking()

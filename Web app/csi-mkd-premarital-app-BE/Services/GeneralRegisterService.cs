@@ -62,7 +62,7 @@ public class GeneralRegisterService : IGeneralRegisterService
     public async Task<bool> CheckEmailExists(string email)
           => await _repo.CheckEmailExists(email);
 
-    public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(int id, PaymentStatusUpdateDto dto)
+    public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(Guid id, PaymentStatusUpdateDto dto)
            => await _repo.UpdatePaymentStatus(id, dto.PaymentStatus)
                ? (200, new { message = "Updated successfully" })
                : (500, new { message = "Failed to update" });

@@ -17,6 +17,6 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public string? Valuable { get; set; }
         public string? Improvements { get; set; }
         public string? Comments { get; set; }
-        public int? PremaritalRegistrationId { get; set; }
+        public Guid? PremaritalRegistrationId { get; set; }
     }
 }

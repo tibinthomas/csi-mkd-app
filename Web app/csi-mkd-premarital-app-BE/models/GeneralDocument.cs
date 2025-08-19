@@ -7,7 +7,7 @@ public class GeneralDocument
 {
     [Key]
     [ForeignKey("GeneralRegistration")]
-    public int RegistrationId { get; set; } // Primary Key and FK
+    public Guid RegistrationId { get; set; } // Primary Key and FK
 
     [Required]
     public required string PhotoUrl { get; set; } = string.Empty;

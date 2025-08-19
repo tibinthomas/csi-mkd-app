@@ -22,18 +22,18 @@ namespace csi_mkd_premarital_app_BE.Data
                 baseEntityType,
                 propertyCount: 17,
                 navigationCount: 1,
-                unnamedIndexCount: 3,
+                unnamedIndexCount: 4,
                 keyCount: 1);
 
             var id = runtimeEntityType.AddProperty(
                 "Id",
-                typeof(int),
+                typeof(Guid),
                 propertyInfo: typeof(GeneralRegistration).GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(GeneralRegistration).GetField("<Id>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 valueGenerated: ValueGenerated.OnAdd,
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                sentinel: 0);
-            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
+            id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var address = runtimeEntityType.AddProperty(
                 "Address",
@@ -172,9 +172,12 @@ namespace csi_mkd_premarital_app_BE.Data
                 new[] { email });
 
             var index0 = runtimeEntityType.AddIndex(
-                new[] { paymentStatus });
+                new[] { id });
 
             var index1 = runtimeEntityType.AddIndex(
+                new[] { paymentStatus });
+
+            var index2 = runtimeEntityType.AddIndex(
                 new[] { submittedAt });
 
             return runtimeEntityType;

@@ -13,7 +13,7 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
         _context = context;
     }
 
-    public async Task<int> AddRegistration(ConfirmationRegistration registration)
+    public async Task<Guid> AddRegistration(ConfirmationRegistration registration)
     {
         _context.ConfirmationRegistrations.Add(registration);
         await _context.SaveChangesAsync();
