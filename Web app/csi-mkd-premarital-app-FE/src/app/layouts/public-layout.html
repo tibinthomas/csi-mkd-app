@@ -1,42 +1,54 @@
 <header role="banner">
   <mat-toolbar
-    class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-5 shadow-md backdrop-blur-sm bg-surface/90 dark:bg-surface/90 theme-transition"
+    class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-2 sm:px-4 py-2 sm:py-5 shadow-md backdrop-blur-sm bg-surface/90 dark:bg-surface/90 theme-transition"
   >
-    <!-- Left: CSI Logo -->
-    <div class="flex items-center space-x-2 transition-transform duration-300 hover:scale-105 cursor-pointer">
-      <img
-        src="assets/csi-logo.png"
-        alt="CSI Church of South India Logo"
-        class="h-10 sm:h-12 xl:h-15 w-auto aspect-[3/2] max-w-[96px] object-contain"
-        role="img"
-        routerLink="/about"
-        appDoubleTap
-        (doubleTap)="goToAdmin()"
-      />
+    <!-- Center: CSI Logo + Title + CSI MKD Logo -->
+    <div class="flex-1 lg:flex-auto flex items-center justify-center gap-2 sm:gap-4 lg:gap-6 hover:scale-101 cursor-pointer px-1 sm:px-2" routerLink="/about">
+      <!-- CSI Logo (Left of title) -->
+      <div class="flex items-center transition-transform duration-300 hover:scale-105">
+        <img
+          src="assets/csi-logo.png"
+          alt="CSI Church of South India Logo"
+          class="h-6 sm:h-8 lg:h-10 xl:h-12 w-auto aspect-[3/2] max-w-[40px] sm:max-w-[60px] lg:max-w-[80px] object-contain"
+          role="img"
+          appDoubleTap
+          (doubleTap)="goToAdmin()"
+        />
+      </div>
+      
+      <!-- Title -->
+      <div class="text-center">
+        <h1
+          class="!text-xs sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-tighter sm:tracking-wide transition-opacity duration-500 !font-bold leading-tight"
+          i18n
+        >
+          CSI Counselling Centre
+        </h1>
+        <h2 class="!text-[10px] sm:!text-xs xl:!text-sm uppercase tracking-tighter sm:tracking-wide transition-all duration-500 leading-tight" i18n>
+          Madhya Kerala Diocese
+        </h2>
+      </div>
+      
+      <!-- CSI MKD Logo (Right of title) -->
+      <div class="flex items-center transition-transform duration-300 hover:scale-105">
+        <img
+          src="assets/csi-mkd-logo.png"
+          alt="CSI Madhya Kerala Diocese Logo"
+          class="h-6 sm:h-8 lg:h-10 xl:h-12 w-auto aspect-[3/2] max-w-[40px] sm:max-w-[60px] lg:max-w-[80px] object-contain"
+          role="img"
+        />
+      </div>
     </div>
 
-    <!-- Center: Title -->
-    <div class="flex-1 text-center hover:scale-101 sm:block cursor-pointer" routerLink="/about">
-      <h1
-        class="!text-sm sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-wide transition-opacity duration-500 !font-bold"
-        i18n
-      >
-        CSI Counselling Centre
-      </h1>
-      <h2 class="!text-xs sm:!text-xs xl:!text-sm uppercase tracking-wide transition-all duration-500" i18n>
-        Madhya Kerala Diocese
-      </h2>
-    </div>
-
-    <!-- Right: Nav + Logos + Language + Menu -->
-    <div class="flex items-center space-x-4">
+    <!-- Right: Nav + Language + Menu -->
+    <div class="flex items-center space-x-1 sm:space-x-2 lg:space-x-2 min-[1400px]:space-x-4">
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex space-x-4" role="navigation" aria-label="Main navigation">
+      <nav class="hidden lg:flex space-x-1 min-[1400px]:space-x-4" role="navigation" aria-label="Main navigation">
         <a
           mat-button
           routerLink="/about"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
           i18n
           aria-label="About us page"
           >About</a
@@ -45,7 +57,7 @@
           mat-button
           routerLink="/team-members"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
           i18n
           aria-label="Our team members page"
           >Our Team</a
@@ -54,7 +66,7 @@
           mat-button
           routerLink="/register"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
           i18n
           aria-label="Registration page"
           >Register</a
@@ -63,28 +75,28 @@
           mat-button
           routerLink="/feedback-questions"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
           i18n
           aria-label="Feedback Questionnaire"
-          >Feedback & Questionnaire</a
+          ><span class="min-[1400px]:hidden">Feedback</span><span class="hidden min-[1400px]:inline">Feedback & Questionnaire</span></a
         >
         <a
           mat-button
           routerLink="/sessions"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
           i18n
           aria-label="Sessions page"
           i18n
-          >Premarital Sessions</a
+          ><span class="min-[1400px]:hidden">Sessions</span><span class="hidden min-[1400px]:inline">Premarital Sessions</span></a
         >
       </nav>
 
       <!-- Language Selector -->
-      <app-language-selector></app-language-selector>
+      <app-language-selector class="header-icon-small"></app-language-selector>
 
       <!-- Theme Toggle -->
-      <app-theme-toggle></app-theme-toggle>
+      <app-theme-toggle class="header-icon-small"></app-theme-toggle>
 
       <!-- Mobile Hamburger -->
       <button
@@ -97,14 +109,6 @@
         <mat-icon aria-hidden="true">menu</mat-icon>
       </button>
 
-      <!-- Right Logo -->
-      <!-- <img
-        src="assets/csi-mkd-logo.png"
-        alt="CSI Madhya Kerala Diocese Logo"
-        class="h-10 sm:h-12 xl:h-15 w-auto aspect-[3/2] max-w-[96px] object-contain transition-transform duration-300 hover:scale-105 cursor-pointer"
-        role="img"
-        routerLink="/about"
-      /> -->
     </div>
   </mat-toolbar>
 </header>

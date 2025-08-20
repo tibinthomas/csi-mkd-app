@@ -1,5 +1,22 @@
 /* Converted to Tailwind CSS */
 
+/* Header Icon Size Adjustments */
+.header-icon-small {
+  ::ng-deep .mat-mdc-button,
+  ::ng-deep .mat-mdc-icon-button {
+    min-width: 32px !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 6px !important;
+    
+    .mat-icon {
+      font-size: 18px !important;
+      width: 18px !important;
+      height: 18px !important;
+    }
+  }
+}
+
 /* Google Maps iframe dark mode treatment */
 .map-embed iframe {
   transition: filter 0.3s ease; /* smooth theme switch */
