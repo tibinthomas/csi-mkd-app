@@ -155,10 +155,19 @@ export class SessionConfig implements OnInit {
       grouped[month].push(session);
     });
 
-    return Object.entries(grouped).map(([monthName, sessions]) => ({
-      monthName,
-      sessions,
-    }));
+    return Object.entries(grouped)
+      .map(([monthName, sessions]) => ({
+        monthName,
+        sessions: sessions.sort((a: any, b: any) => 
+          new Date(a.StartDate).getTime() - new Date(b.StartDate).getTime()
+        ),
+        monthDate: new Date(sessions[0].StartDate)
+      }))
+      .sort((a, b) => a.monthDate.getTime() - b.monthDate.getTime())
+      .map(({ monthName, sessions }) => ({
+        monthName,
+        sessions,
+      }));
   });
 
   deleteSession(session: any) {

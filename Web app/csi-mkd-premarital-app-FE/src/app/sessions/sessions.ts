@@ -76,12 +76,21 @@ export class Sessions {
     return Array.from(yearGroups.entries())
       .map(([year, monthsMap]) => ({
         year,
-        months: Array.from(monthsMap.entries()).map(([month, sessions]) => ({
-          month,
-          sessions,
-        })),
+        months: Array.from(monthsMap.entries())
+          .map(([month, sessions]) => ({
+            month,
+            sessions: sessions.sort((a: any, b: any) => 
+              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            ),
+            monthDate: new Date(sessions[0].startDate)
+          }))
+          .sort((a, b) => a.monthDate.getTime() - b.monthDate.getTime())
+          .map(({ month, sessions }) => ({
+            month,
+            sessions,
+          })),
       }))
-      .sort((a, b) => parseInt(b.year) - parseInt(a.year));
+      .sort((a, b) => parseInt(a.year) - parseInt(b.year));
   });
 
   // Expansion state management
