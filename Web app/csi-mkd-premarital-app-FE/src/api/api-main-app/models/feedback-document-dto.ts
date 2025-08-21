@@ -12,7 +12,7 @@ export interface FeedbackDocumentDto {
   location?: string | null;
   organizationRating: number;
   platform?: string | null;
-  premaritalRegistrationId: number;
+  premaritalRegistrationId: string;
   qualityRating: number;
   relevanceRating: number;
   sessionDuration?: number | null;

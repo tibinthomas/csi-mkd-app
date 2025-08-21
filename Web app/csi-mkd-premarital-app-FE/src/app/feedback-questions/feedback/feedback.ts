@@ -137,7 +137,7 @@ export class Feedback implements OnInit {
     stream: ({ params: userId }) =>
       userId
         ? this.api.apiCosmosFeedbackCompletedRegistrationIdGet({
-            registrationId: Number(userId),
+            registrationId: userId,
           })
         : of(null), // Always return an observable
   });
@@ -148,7 +148,7 @@ export class Feedback implements OnInit {
     stream: ({ params: userId }) =>
       userId
         ? this.api.apiCosmosFeedbackRegistrationRegistrationIdGet({
-            registrationId: Number(userId),
+            registrationId: userId,
           })
         : of(null), // Use of(null) to return an observable when no userId
   });

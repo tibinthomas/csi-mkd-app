@@ -11,7 +11,7 @@ import { RequestBuilder } from '../../request-builder';
 import { PaymentStatusUpdateDto } from '../../models/payment-status-update-dto';
 
 export interface ApiPremaritalregisterIdPaymentstatusPut$Params {
-  id: number;
+  id: string;
       body: PaymentStatusUpdateDto
 }
 

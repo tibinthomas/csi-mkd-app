@@ -4,5 +4,5 @@
 
 export interface CheckEmailResponseDto {
   exists?: boolean;
-  userId?: number | null;
+  userId?: string | null;
 }

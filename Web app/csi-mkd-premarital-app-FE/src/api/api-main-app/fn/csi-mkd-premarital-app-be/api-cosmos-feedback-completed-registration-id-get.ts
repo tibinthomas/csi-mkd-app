@@ -10,7 +10,7 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface ApiCosmosFeedbackCompletedRegistrationIdGet$Params {
-  registrationId: number;
+  registrationId: string;
 }
 
 export function apiCosmosFeedbackCompletedRegistrationIdGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<number>>> {

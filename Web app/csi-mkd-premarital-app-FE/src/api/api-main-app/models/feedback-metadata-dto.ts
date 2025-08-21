@@ -7,7 +7,7 @@ export interface FeedbackMetadataDto {
   instructorName?: string | null;
   location?: string | null;
   platform?: string | null;
-  premaritalRegistrationId?: number;
+  premaritalRegistrationId?: string;
   sessionDuration?: number | null;
   sessionTitle?: string | null;
   source?: string | null;

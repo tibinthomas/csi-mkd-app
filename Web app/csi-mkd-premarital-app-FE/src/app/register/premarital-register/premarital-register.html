@@ -69,6 +69,7 @@
             <input
               matInput
               type="text"
+              inputmode="numeric"
               formControlName="age"
               aria-required="true"
               aria-describedby="age-error"
@@ -134,6 +135,9 @@
             matInput
             formControlName="address"
             rows="3"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="3"
+            cdkAutosizeMaxRows="8"
             aria-required="true"
             aria-describedby="address-error"
             autocomplete="street-address"
@@ -209,7 +213,7 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="w-full">
               <mat-label i18n>Phone Number</mat-label>
-              <input matInput type="text" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
+              <input matInput type="text" inputmode="numeric" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
               @if (isInvalid('phone')) {
               <mat-error i18n>Phone number is required.</mat-error>
               }

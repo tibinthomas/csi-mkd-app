@@ -4,5 +4,5 @@
 
 export interface GeneralDocumentDto {
   photoUrl: string;
-  registrationId: number;
+  registrationId: string;
 }

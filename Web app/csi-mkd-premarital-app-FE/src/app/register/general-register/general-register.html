@@ -35,7 +35,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Address</mat-label>
-          <textarea matInput formControlName="address" rows="3" appSpeechRecognition></textarea>
+          <textarea matInput formControlName="address" rows="3" cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="8" appSpeechRecognition></textarea>
           @if (isInvalid('address')) {
           <mat-error i18n>Address is required.</mat-error>
           }
@@ -55,7 +55,7 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Age</mat-label>
-            <input matInput type="text" formControlName="age" appOnlyDigits [appOnlyDigitsMax]="3" />
+            <input matInput type="text" inputmode="numeric" formControlName="age" appOnlyDigits [appOnlyDigitsMax]="3" />
             @if (isInvalid('age')) {
             <mat-error>
               @if (form.get('age')?.errors?.['required']) {
@@ -107,7 +107,7 @@
             <!-- Phone Number (3/4 width) -->
             <mat-form-field appearance="fill" class="flex-[3]">
               <mat-label i18n>Phone Number</mat-label>
-              <input matInput type="text" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
+              <input matInput type="text" inputmode="numeric" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
               @if (isInvalid('phone')) {
               <mat-error i18n>Phone number is required.</mat-error>
               }

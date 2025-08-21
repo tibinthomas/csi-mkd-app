@@ -4,6 +4,6 @@
 
 export interface PremaritalDocumentDto {
   photoUrl: string;
-  registrationId: number;
+  registrationId: string;
   vicarLetterUrl: string;
 }
