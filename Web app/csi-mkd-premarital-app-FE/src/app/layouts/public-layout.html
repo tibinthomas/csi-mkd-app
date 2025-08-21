@@ -2,8 +2,11 @@
   <mat-toolbar
     class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-2 sm:px-4 py-2 sm:py-5 shadow-md backdrop-blur-sm bg-surface/90 dark:bg-surface/90 theme-transition"
   >
-    <!-- Center: CSI Logo + Title + CSI MKD Logo -->
-    <div class="flex-1 lg:flex-auto flex items-center justify-center gap-2 sm:gap-4 lg:gap-6 hover:scale-101 cursor-pointer px-1 sm:px-2" routerLink="/about">
+    <!-- Left: CSI Logo + Title + CSI MKD Logo -->
+    <div
+      class="flex-1 lg:flex-auto flex items-center justify-start gap-2 sm:gap-4 lg:gap-6 hover:scale-101 cursor-pointer px-1 sm:px-2"
+      routerLink="/about"
+    >
       <!-- CSI Logo (Left of title) -->
       <div class="flex items-center transition-transform duration-300 hover:scale-105">
         <img
@@ -15,7 +18,7 @@
           (doubleTap)="goToAdmin()"
         />
       </div>
-      
+
       <!-- Title -->
       <div class="text-center">
         <h1
@@ -24,11 +27,14 @@
         >
           CSI Counselling Centre
         </h1>
-        <h2 class="!text-[10px] sm:!text-xs xl:!text-sm uppercase tracking-tighter sm:tracking-wide transition-all duration-500 leading-tight" i18n>
+        <h2
+          class="!text-[10px] sm:!text-xs xl:!text-sm uppercase tracking-tighter sm:tracking-wide transition-all duration-500 leading-tight"
+          i18n
+        >
           Madhya Kerala Diocese
         </h2>
       </div>
-      
+
       <!-- CSI MKD Logo (Right of title) -->
       <div class="flex items-center transition-transform duration-300 hover:scale-105">
         <img
@@ -51,7 +57,7 @@
           class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
           i18n
           aria-label="About us page"
-          >About</a
+          >About Us</a
         >
         <a
           mat-button
@@ -78,7 +84,7 @@
           class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
           i18n
           aria-label="Feedback Questionnaire"
-          ><span class="min-[1400px]:hidden">Feedback</span><span class="hidden min-[1400px]:inline">Feedback & Questionnaire</span></a
+          ><span>Feedback</span></a
         >
         <a
           mat-button
@@ -88,7 +94,7 @@
           i18n
           aria-label="Sessions page"
           i18n
-          ><span class="min-[1400px]:hidden">Sessions</span><span class="hidden min-[1400px]:inline">Premarital Sessions</span></a
+          ><span>Sessions</span></a
         >
       </nav>
 
@@ -108,7 +114,6 @@
       >
         <mat-icon aria-hidden="true">menu</mat-icon>
       </button>
-
     </div>
   </mat-toolbar>
 </header>
@@ -122,7 +127,7 @@
     i18n
     role="menuitem"
     aria-label="About us page"
-    >About</a
+    >About Us</a
   >
   <a
     mat-menu-item
@@ -149,7 +154,7 @@
     i18n
     role="menuitem"
     aria-label="Feedback page"
-    >Feedback & Questionnaire</a
+    >Feedback</a
   >
   <a
     mat-menu-item
