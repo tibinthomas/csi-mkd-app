@@ -7,37 +7,42 @@
 
       <!-- Subheading -->
       <p class="text-on-surface-variant text-center mb-6" i18n>
-        Enter your email to access Feedback and Questionnaire Forms
+        Enter your registered email to access Feedback and Questionnaire Forms
       </p>
 
       <!-- Email Verification Form -->
       <form
         [formGroup]="emailForm"
         (ngSubmit)="verifyEmail()"
-        class="flex flex-col sm:flex-row items-center gap-4 justify-center"
+        class="space-y-4"
       >
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Enter your email"
-          class="border border-gray-300 rounded-lg px-4 py-2 w-full sm:w-80 focus:outline-none focus:ring-2 focus:ring-rose-500"
-        />
-        <button mat-flat-button type="submit" class="cursor-pointer" [disabled]="emailForm.invalid">
-          Verify Email
-        </button>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label i18n>Email Address</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            aria-required="true"
+            aria-describedby="email-error"
+          />
+          @if (emailForm.get('email')?.touched && emailForm.get('email')?.errors?.['required']) {
+          <mat-error id="email-error" i18n>Email is required.</mat-error>
+          } @if (emailForm.get('email')?.touched && emailForm.get('email')?.errors?.['email']) {
+          <mat-error i18n>Enter a valid email address.</mat-error>
+          } @if (emailForm.get('email')?.errors?.['notRegistered']) {
+          <mat-error i18n>You must register to access these forms.</mat-error>
+          } @if (emailForm.get('email')?.errors?.['serverError']) {
+          <mat-error i18n>An error occurred while verifying your email. Please try again later.</mat-error>
+          }
+        </mat-form-field>
+        <div class="flex justify-center">
+          <button mat-flat-button type="submit" class="cursor-pointer">
+            Verify Email
+          </button>
+        </div>
       </form>
 
-      <!-- Validation Errors -->
-      @if (emailControl.invalid && (emailControl.dirty || emailControl.touched)) { @if
-      (emailControl.errors?.['required']) {
-      <div class="text-red-500 text-sm mt-4">Email is required.</div>
-      } @if (emailControl.errors?.['email']) {
-      <div class="text-red-500 text-sm mt-4">Enter a valid email address.</div>
-      } @if (emailControl.errors?.['notRegistered']) {
-      <div class="text-red-500 text-sm mt-4">You must register to access these forms.</div>
-      } @if (emailControl.errors?.['serverError']) {
-      <div class="text-red-500 text-sm mt-4">An error occurred while verifying your email. Please try again later.</div>
-      } }
     </div>
 
     @if (isLoading()){

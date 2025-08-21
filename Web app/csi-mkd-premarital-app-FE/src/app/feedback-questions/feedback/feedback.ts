@@ -9,7 +9,6 @@ import {
   input,
   effect,
 } from '@angular/core';
-import { FeedbackDataService } from '../feedback-data.service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -18,17 +17,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
-import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import {
   FeedbackResponseDto,
-  FeedbackDocumentDto,
 } from '../../../api/api-main-app/models';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-feedback',
@@ -52,20 +50,41 @@ import { of } from 'rxjs';
 export class Feedback implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
-  private readonly feedbackDataService = inject(FeedbackDataService);
+  private readonly route = inject(ActivatedRoute);
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
-  userDetails = { name: '', email: '' };
+  userDetails = signal<{ name: string; email: string }>({ name: '', email: '' });
 
-  userId = input<string>();
+  userId = signal<string>('');
   classId = input<string>();
 
   constructor() {
+    // Get userId from route params
+    const routeUserId = this.route.snapshot.paramMap.get('userId');
+    if (routeUserId) {
+      this.userId.set(routeUserId);
+    }
+
     effect(() => {
       const feedbackData = this.existingFeedbackResource.value();
       const targetClassId = this.classId();
 
       if (feedbackData && Array.isArray(feedbackData) && targetClassId) {
         this.populateFormWithExistingFeedback(feedbackData, targetClassId);
+      }
+    });
+
+    // Effect to update user details and form when user data loads
+    effect(() => {
+      const userData = this.userDetailsResource.value();
+      if (userData) {
+        const parsedUser = JSON.parse(userData as string);
+        this.userDetails.set({
+          name: `${parsedUser.FirstName} ${parsedUser.LastName}`,
+          email: parsedUser.Email,
+        });
+        this.feedbackForm.patchValue({
+          premaritalRegistrationId: this.userId() || '',
+        });
       }
     });
   }
@@ -124,13 +143,24 @@ export class Feedback implements OnInit {
     valuable: [null, Validators.maxLength(500)], // optional
     improvements: [null, Validators.maxLength(500)], // optional
     comments: [null, Validators.maxLength(500)], // optional
-    premaritalRegistrationId: [null], // optional, will be set programmatically
+    premaritalRegistrationId: [''], // optional, will be set programmatically
   });
 
   protected readonly isSubmitting = signal(false);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
   protected readonly timezoneDisplay: string = 'Time Zone: IST (UTC+05:30)';
+
+  // Resource to fetch user details from the API
+  protected readonly userDetailsResource = rxResource({
+    params: () => this.userId(),
+    stream: ({ params: userId }) =>
+      userId
+        ? this.api.apiPremaritalregisterIdGet({
+            id: userId,
+          })
+        : of(null),
+  });
 
   protected readonly completedFeedbackResource = rxResource({
     params: () => this.userId(),
@@ -191,16 +221,7 @@ export class Feedback implements OnInit {
 
   ngOnInit(): void {
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
-    const userDetails = this.feedbackDataService.userDetails();
-    this.userDetails = {
-      name: `${userDetails.FirstName} ${userDetails.LastName}`,
-      email: userDetails.Email,
-    };
-    if (userDetails) {
-      this.feedbackForm.patchValue({
-        premaritalRegistrationId: userDetails.userId,
-      });
-    }
+    // User details are now handled in the constructor effect
   }
 
   ngOnDestroy(): void {
@@ -226,7 +247,7 @@ export class Feedback implements OnInit {
         valuable: existingFeedback.textResponses?.valuable || null,
         improvements: existingFeedback.textResponses?.improvements || null,
         comments: existingFeedback.textResponses?.comments || null,
-        premaritalRegistrationId: this.userId(),
+        premaritalRegistrationId: this.userId() || '',
       };
 
       this.feedbackForm.patchValue(formData);
@@ -236,8 +257,9 @@ export class Feedback implements OnInit {
   private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
     if (this.hasPendingChanges()) {
       event.preventDefault();
-      event.returnValue = '';
+      return '';
     }
+    return undefined;
   };
 
   private focusFirstInvalidControl(): void {
