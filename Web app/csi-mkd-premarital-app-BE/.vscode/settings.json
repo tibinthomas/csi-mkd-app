@@ -22,8 +22,6 @@
   "dotnet.defaultSolution": "csi-mkd-premarital-app-BE.sln",
   "omnisharp.enableRoslynAnalyzers": true,
   "omnisharp.enableEditorConfigSupport": true,
-  "omnisharp.enableImportCompletion": true,
-  "omnisharp.organizeImportsOnFormat": true,
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
@@ -66,13 +64,14 @@
   "csharp.inlayHints.parameters.forIndexerParameters": true,
   "csharp.inlayHints.parameters.forObjectCreationParameters": true,
   "csharp.inlayHints.parameters.forOtherParameters": true,
-  "csharp.inlayHints.parameters.suppressForParametersThatDifferOnlyBySuffix": true,
-  "csharp.inlayHints.parameters.suppressForParametersThatMatchMethodIntent": true,
-  "csharp.inlayHints.parameters.suppressForParametersThatMatchArgumentName": true,
   "azure-functions-core-tools.requestTimeout": 120,
   "azureFunctions.showCoreToolsWarning": false,
   "azureFunctions.projectLanguage": "C#",
   "azureFunctions.projectRuntime": "~4",
   "azureFunctions.deploySubpath": "SessionsFunction/bin/Release/net9.0/publish",
-  "debug.internalConsoleOptions": "openOnSessionStart"
+  "debug.internalConsoleOptions": "openOnSessionStart",
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatDifferOnlyBySuffix": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchMethodIntent": true,
+  "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchArgumentName": true,
+  "dotnet.formatting.organizeImportsOnFormat": true
 }
