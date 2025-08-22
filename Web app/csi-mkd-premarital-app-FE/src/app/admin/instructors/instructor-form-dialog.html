@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>{{ dialogTitle }}</h1>
+
+<div mat-dialog-content class="min-w-96">
+  <form [formGroup]="form" class="flex flex-col gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label i18n>Instructor Name</mat-label>
+      <input matInput formControlName="name" required />
+      @if (form.get('name')?.invalid && form.get('name')?.touched) {
+      <mat-error>{{ getNameErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label i18n>Qualification</mat-label>
+      <input matInput formControlName="qualification" required />
+      @if (form.get('qualification')?.invalid && form.get('qualification')?.touched) {
+      <mat-error>{{ getQualificationErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions class="flex justify-end gap-2">
+  <button mat-button (click)="onCancel()" type="button">
+    <span i18n>Cancel</span>
+  </button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="form.invalid" type="submit">
+    <span>{{ submitButtonText }}</span>
+  </button>
+</div>

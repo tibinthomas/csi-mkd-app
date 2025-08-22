@@ -75,6 +75,16 @@ import { apiGeneralregisterSavePhotoUrlPost } from '../fn/csi-mkd-premarital-app
 import { ApiGeneralregisterSavePhotoUrlPost$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-save-photo-url-post';
 import { apiGeneralregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-total-get';
 import { ApiGeneralregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-total-get';
+import { apiInstructorsGet } from '../fn/csi-mkd-premarital-app-be/api-instructors-get';
+import { ApiInstructorsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-get';
+import { apiInstructorsIdDelete } from '../fn/csi-mkd-premarital-app-be/api-instructors-id-delete';
+import { ApiInstructorsIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-id-delete';
+import { apiInstructorsIdGet } from '../fn/csi-mkd-premarital-app-be/api-instructors-id-get';
+import { ApiInstructorsIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-id-get';
+import { apiInstructorsIdPut } from '../fn/csi-mkd-premarital-app-be/api-instructors-id-put';
+import { ApiInstructorsIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-id-put';
+import { apiInstructorsPost } from '../fn/csi-mkd-premarital-app-be/api-instructors-post';
+import { ApiInstructorsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-post';
 import { apiPremaritalregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
 import { ApiPremaritalregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
 import { apiPremaritalregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
@@ -115,6 +125,7 @@ import { healthDbGet } from '../fn/csi-mkd-premarital-app-be/health-db-get';
 import { HealthDbGet$Params } from '../fn/csi-mkd-premarital-app-be/health-db-get';
 import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
+import { InstructorDto } from '../models/instructor-dto';
 import { SessionConfigurationDto } from '../models/session-configuration-dto';
 
 @Injectable({ providedIn: 'root' })
@@ -1369,6 +1380,131 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiCacheMaintenancePost(params?: ApiCacheMaintenancePost$Params, context?: HttpContext): Observable<void> {
     return this.apiCacheMaintenancePost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiInstructorsGet()` */
+  static readonly ApiInstructorsGetPath = '/api/instructors';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiInstructorsGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsGet$Response(params?: ApiInstructorsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<InstructorDto>>> {
+    return apiInstructorsGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiInstructorsGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsGet(params?: ApiInstructorsGet$Params, context?: HttpContext): Observable<Array<InstructorDto>> {
+    return this.apiInstructorsGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<InstructorDto>>): Array<InstructorDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `apiInstructorsPost()` */
+  static readonly ApiInstructorsPostPath = '/api/instructors';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiInstructorsPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiInstructorsPost$Response(params: ApiInstructorsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<InstructorDto>> {
+    return apiInstructorsPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiInstructorsPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiInstructorsPost(params: ApiInstructorsPost$Params, context?: HttpContext): Observable<InstructorDto> {
+    return this.apiInstructorsPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<InstructorDto>): InstructorDto => r.body)
+    );
+  }
+
+  /** Path part for operation `apiInstructorsIdGet()` */
+  static readonly ApiInstructorsIdGetPath = '/api/instructors/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiInstructorsIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsIdGet$Response(params: ApiInstructorsIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<InstructorDto>> {
+    return apiInstructorsIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiInstructorsIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsIdGet(params: ApiInstructorsIdGet$Params, context?: HttpContext): Observable<InstructorDto> {
+    return this.apiInstructorsIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<InstructorDto>): InstructorDto => r.body)
+    );
+  }
+
+  /** Path part for operation `apiInstructorsIdPut()` */
+  static readonly ApiInstructorsIdPutPath = '/api/instructors/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiInstructorsIdPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiInstructorsIdPut$Response(params: ApiInstructorsIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiInstructorsIdPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiInstructorsIdPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiInstructorsIdPut(params: ApiInstructorsIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.apiInstructorsIdPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiInstructorsIdDelete()` */
+  static readonly ApiInstructorsIdDeletePath = '/api/instructors/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiInstructorsIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsIdDelete$Response(params: ApiInstructorsIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiInstructorsIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiInstructorsIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsIdDelete(params: ApiInstructorsIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.apiInstructorsIdDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

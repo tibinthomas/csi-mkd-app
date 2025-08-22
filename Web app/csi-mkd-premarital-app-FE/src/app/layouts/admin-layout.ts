@@ -65,6 +65,11 @@ export class AdminLayout {
       label: 'Premarital Session Config',
     },
     {
+      routerLink: '/admin/instructors',
+      icon: 'school',
+      label: 'Instructors',
+    },
+    {
       routerLink: '/admin/deactivate-sessions',
       icon: 'disabled_by_default',
       label: 'Deactivate Sessions',
