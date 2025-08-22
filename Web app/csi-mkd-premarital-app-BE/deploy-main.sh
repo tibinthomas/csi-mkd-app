@@ -16,7 +16,6 @@ IMAGE_NAME="tibinthomas/csi-mkd-counselling-web-api"
 RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 CONTAINER_APP_NAME="csi-mid-counselling-web-api"
 PLATFORM="linux/amd64"
-RUNTIME_IDENTIFIER="linux-x64"
 VERSION="v1.0.0"
 
 # Dynamic config
@@ -81,10 +80,9 @@ done
 echo "🔑 Logging into Docker Hub with PAT..."
 echo "$DOCKER_PAT" | docker login -u "$DOCKER_USER" --password-stdin
 
-echo "📦 Building and pushing $FULL_IMAGE for $PLATFORM (RID: $RUNTIME_IDENTIFIER)..."
+echo "📦 Building and pushing $FULL_IMAGE for $PLATFORM..."
 docker buildx build \
     --platform "$PLATFORM" \
-    --build-arg RUNTIME_IDENTIFIER="$RUNTIME_IDENTIFIER" \
     -t "$FULL_IMAGE" \
     --push \
     . || { echo "❌ Build & push failed."; exit 1; }
@@ -109,7 +107,7 @@ az containerapp update \
     --image "$FULL_IMAGE" \
     --set-env-vars \
         ASPNETCORE_URLS="http://+:8080" \
-        OTEL_SERVICE_NAME="csi-mkd-premarital-app-BE" \
+        DOTNET_RUNNING_IN_CONTAINER=true \
         ConnectionStrings__DefaultConnection="${ConnectionStrings__DefaultConnection}" \
         ConnectionStrings__CosmosConnection="${ConnectionStrings__CosmosConnection}" \
         CosmosDb__DatabaseName="${CosmosDb__DatabaseName}" \

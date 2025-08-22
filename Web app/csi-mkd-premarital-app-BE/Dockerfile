@@ -34,6 +34,9 @@ RUN dotnet publish \
     "./csi-mkd-premarital-app-BE.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \
+    -r linux-x64 \
+    /p:PublishSingleFile=false \
+    /p:SelfContained=false \
     /p:PublishReadyToRun=false \
     /p:StripSymbols=true \
     /p:DebugType=None \

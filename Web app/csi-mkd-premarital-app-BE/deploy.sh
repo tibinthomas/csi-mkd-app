@@ -14,13 +14,13 @@ echo ""
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Check that both deployment scripts exist
-if [ ! -f "$SCRIPT_DIR/deploy-main-api.sh" ]; then
-    echo "❌ deploy-main-api.sh not found in $SCRIPT_DIR"
+if [ ! -f "$SCRIPT_DIR/deploy-main.sh" ]; then
+    echo "❌ deploy-main.sh not found in $SCRIPT_DIR"
     exit 1
 fi
 
-if [ ! -f "$SCRIPT_DIR/deploy-sessions-function.sh" ]; then
-    echo "❌ deploy-sessions-function.sh not found in $SCRIPT_DIR"
+if [ ! -f "$SCRIPT_DIR/deploy-fn.sh" ]; then
+    echo "❌ deploy-fn.sh not found in $SCRIPT_DIR"
     exit 1
 fi
 
@@ -33,7 +33,7 @@ chmod +x "$SCRIPT_DIR/deploy-fn.sh"
 # -----------------------
 echo "📱 Starting Main API deployment..."
 echo "=================================================="
-"$SCRIPT_DIR/deploy-main-api.sh" || {
+"$SCRIPT_DIR/deploy-main.sh" || {
     echo "❌ Main API deployment failed!"
     exit 1
 }
@@ -47,7 +47,7 @@ echo ""
 # -----------------------
 echo "⚡ Starting Sessions Function deployment..."
 echo "=================================================="
-"$SCRIPT_DIR/deploy-sessions-function.sh" || {
+"$SCRIPT_DIR/deploy-fn.sh" || {
     echo "❌ Sessions Function deployment failed!"
     exit 1
 }
@@ -68,5 +68,5 @@ echo "   • Test Sessions Function endpoints"
 echo "   • Monitor logs for any issues"
 echo ""
 echo "🔧 Individual deployment commands:"
-echo "   Main API only:        ./deploy-main-api.sh"
-echo "   Sessions Function:    ./deploy-sessions-function.sh"
+echo "   Main API only:        ./deploy-main.sh"
+echo "   Sessions Function:    ./deploy-fn.sh"
