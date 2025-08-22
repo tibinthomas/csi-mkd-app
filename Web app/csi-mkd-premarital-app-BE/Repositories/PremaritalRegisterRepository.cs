@@ -168,6 +168,26 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
             return result;
         }
+
+        public async Task<bool> DeleteRegistration(Guid id)
+        {
+            var registration = await _context.PremaritalRegistrations
+                .Include(r => r.PremaritalDocument)
+                .FirstOrDefaultAsync(r => r.Id == id);
+            
+            if (registration == null) 
+                return false;
+
+            // Remove associated document if exists
+            if (registration.PremaritalDocument != null)
+            {
+                _context.PremaritalDocuments.Remove(registration.PremaritalDocument);
+            }
+
+            _context.PremaritalRegistrations.Remove(registration);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 
 }

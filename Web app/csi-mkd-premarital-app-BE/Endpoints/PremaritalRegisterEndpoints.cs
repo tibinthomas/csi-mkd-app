@@ -72,5 +72,19 @@ public static class PremaritalRegisterEndpoints
             return Results.Ok(registration);
         })
         .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
+
+        group.MapDelete("/{id:guid}", async (Guid id, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
+        {
+            var result = await service.DeleteRegistration(id);
+            if (!result)
+            {
+                return Results.NotFound(new { message = "Registration not found." });
+            }
+            
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.Ok(new { message = "Registration deleted successfully." });
+        })
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }

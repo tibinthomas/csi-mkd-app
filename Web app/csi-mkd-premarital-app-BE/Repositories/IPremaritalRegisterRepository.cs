@@ -12,5 +12,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<object> FilterRegistrations(RegistrationFilterDto filter);
         Task<int> GetTotalRegistrations();
         Task<object?> GetRegistrationById(Guid id);
+        Task<bool> DeleteRegistration(Guid id);
     }
 }
