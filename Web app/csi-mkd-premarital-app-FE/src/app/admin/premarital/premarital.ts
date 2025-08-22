@@ -95,7 +95,6 @@ export class PremaritalComponent {
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
-  private readonly refreshTrigger = signal(0);
   protected readonly totalCount = signal(0);
   // This one is bound to the input box
   protected readonly searchTermInput = signal<string>('');
@@ -114,6 +113,7 @@ export class PremaritalComponent {
   readonly selectedSession = signal<string | null>(null);
   private lastSelectedYear: number | null = null;
   readonly isApproving = signal<number | null>(null);
+  readonly isDeleting = signal<number | null>(null);
   private _snackBar = inject(MatSnackBar);
 
   baseApiUrl = API_ROOT_URL_MAIN_APP;
@@ -296,7 +296,7 @@ export class PremaritalComponent {
               reg.PaymentStatus = !reg.PaymentStatus;
               this.isApproving.set(null);
 
-              this.refreshTrigger.set(this.refreshTrigger() + 1); // triggers new data from API
+              this.filterTrigger.set(this.filterTrigger() + 1); // triggers new data from API
             },
             error: (err) => {
               this.isApproving.set(null);
@@ -305,6 +305,31 @@ export class PremaritalComponent {
               alert('Failed to update payment status. Please try again.');
             },
           });
+      }
+    });
+  }
+
+  deleteRegistration(reg: any): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
+      data: { name: `${reg.FirstName} ${reg.LastName}` }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.isDeleting.set(reg.Id);
+        
+        this.api.apiPremaritalregisterIdDelete({ id: reg.Id.toString() }).subscribe({
+          next: () => {
+            this.isDeleting.set(null);
+            this._snackBar.open('Registration deleted successfully', 'Close', { duration: 3000 });
+            this.filterTrigger.set(this.filterTrigger() + 1);
+          },
+          error: (err) => {
+            this.isDeleting.set(null);
+            console.error('Delete failed', err);
+            this._snackBar.open('Failed to delete registration. Please try again.', 'Close', { duration: 3000 });
+          }
+        });
       }
     });
   }
@@ -779,6 +804,33 @@ export class CertificatePreviewDialog {
 })
 export class ConfirmationDialog {
   dialogRef = inject<MatDialogRef<ConfirmationDialog>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'delete-confirmation-dialog',
+  template: `
+    <h2 mat-dialog-title>Confirm Deletion</h2>
+    <mat-dialog-content>
+      Are you sure you want to delete the registration for <strong>{{ data.name }}</strong>?
+      <br><br>
+      <span class="text-red-600">This action cannot be undone.</span>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-button (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-raised-button color="warn" (click)="dialogRef.close(true)">
+        Delete
+      </button>
+    </mat-dialog-actions>
+  `,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class DeleteConfirmationDialog {
+  dialogRef = inject<MatDialogRef<DeleteConfirmationDialog>>(MatDialogRef);
   data = inject(MAT_DIALOG_DATA);
 
   onNoClick(): void {
