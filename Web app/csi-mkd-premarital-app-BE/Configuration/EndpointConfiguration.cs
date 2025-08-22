@@ -23,6 +23,7 @@ public static class EndpointConfiguration
         app.MapCosmosDbFeedbackEndpoints();
         app.MapAzureUploadEndpoints();
         app.MapCacheManagementEndpoints();
+        app.MapInstructorEndpoints();
     }
 
     private static void MapHealthEndpoints(WebApplication app)

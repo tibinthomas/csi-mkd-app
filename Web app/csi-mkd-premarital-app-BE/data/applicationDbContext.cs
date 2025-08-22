@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using csi_mkd_premarital_app_BE.Models;
 using System.Reflection;
+using csi_mkd_premarital_app_BE.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace csi_mkd_premarital_app_BE.Data
 {
@@ -18,20 +18,13 @@ namespace csi_mkd_premarital_app_BE.Data
         public DbSet<ConfirmationRegistration> ConfirmationRegistrations => Set<ConfirmationRegistration>();
         public DbSet<ConfirmationDocument> ConfirmationDocuments => Set<ConfirmationDocument>();
         public DbSet<Participant> Participants => Set<Participant>();
+        public DbSet<Instructor> Instructors => Set<Instructor>();
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Only apply configurations in development for faster startup
-            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-            {
-                modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-            }
-            else
-            {
-                // In production, apply only essential configurations
-                // This reduces startup time by avoiding reflection
-            }
+            // Apply all configurations from assembly
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
 
@@ -68,7 +61,7 @@ namespace csi_mkd_premarital_app_BE.Data
                   b.Property(e => e.NewValues).HasColumnType("text");
                   b.Property(e => e.UserId).HasColumnType("text");
               });
-              
+
             modelBuilder.Entity<PremaritalRegistration>()
                 .HasOne(r => r.SessionConfiguration)
                 .WithMany(s => s.PremaritalRegistrations)
@@ -105,6 +98,8 @@ namespace csi_mkd_premarital_app_BE.Data
                 .WithOne(p => p.ConfirmationRegistration)
                 .HasForeignKey(p => p.ConfirmationRegistrationId)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Instructor>().ToTable("Instructors", "public");
+
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

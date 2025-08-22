@@ -26,6 +26,7 @@ public class CacheInvalidationService : ICacheInvalidationService
         await InvalidateCacheByTagAsync("feedback-analytics");
         await InvalidateCacheByTagAsync("cosmos-feedback");
         await InvalidateCacheByTagAsync("cosmos-feedback-analytics");
+        await InvalidateCacheByTagAsync("instructors");
 
         // Invalidate memory cache entries
         _memoryCache.Remove("email-config-cache");
@@ -55,6 +56,11 @@ public class CacheInvalidationService : ICacheInvalidationService
         await InvalidateCacheByTagAsync("feedback-analytics");
         await InvalidateCacheByTagAsync("cosmos-feedback");
         await InvalidateCacheByTagAsync("cosmos-feedback-analytics");
+    }
+
+    public async Task InvalidateInstructorCachesAsync()
+    {
+        await InvalidateCacheByTagAsync("instructors");
     }
 
     public async Task InvalidateCacheByTagAsync(string tag)

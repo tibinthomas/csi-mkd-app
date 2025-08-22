@@ -246,6 +246,7 @@ public static class ServiceConfiguration
         builder.Services.AddScoped<IConfirmationRegisterRepository, ConfirmationRegisterRepository>();
         builder.Services.AddScoped<ISessionConfigRepository, SessionConfigRepository>();
         builder.Services.AddScoped<ICosmosDbFeedbackRepository, CosmosDbFeedbackRepository>();
+        builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
 
         // Business logic services
         builder.Services.AddScoped<IPremaritalRegisterService, PremaritalRegisterService>();
@@ -256,6 +257,7 @@ public static class ServiceConfiguration
         builder.Services.AddScoped<IRecaptchaService, RecaptchaService>();
         builder.Services.AddScoped<ICacheInvalidationService, CacheInvalidationService>();
         builder.Services.AddScoped<ICacheHealthService, CacheHealthService>();
+        builder.Services.AddScoped<IInstructorService, InstructorService>();
     }
 
     private static void ConfigureJwtAuthentication(WebApplicationBuilder builder)

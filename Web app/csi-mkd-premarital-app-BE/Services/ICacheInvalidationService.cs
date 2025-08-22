@@ -30,6 +30,11 @@ public interface ICacheInvalidationService
     Task InvalidateFeedbackCachesAsync();
     
     /// <summary>
+    /// Invalidates instructor caches
+    /// </summary>
+    Task InvalidateInstructorCachesAsync();
+    
+    /// <summary>
     /// Invalidates specific cache tag
     /// </summary>
     Task InvalidateCacheByTagAsync(string tag);

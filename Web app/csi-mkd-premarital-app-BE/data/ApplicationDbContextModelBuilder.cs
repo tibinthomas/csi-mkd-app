@@ -12,7 +12,7 @@ namespace csi_mkd_premarital_app_BE.Data
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("55f37314-e023-44ff-b7b4-2f972eb9281b"), entityTypeCount: 16)
+            : base(skipDetectChanges: false, modelId: new Guid("3058c62b-0170-4e92-bde6-4860cbaa4739"), entityTypeCount: 17)
         {
         }
 
@@ -31,6 +31,7 @@ namespace csi_mkd_premarital_app_BE.Data
             var feedbackText = FeedbackTextEntityType.Create(this);
             var generalDocument = GeneralDocumentEntityType.Create(this);
             var generalRegistration = GeneralRegistrationEntityType.Create(this);
+            var instructor = InstructorEntityType.Create(this);
             var premaritalDocument = PremaritalDocumentEntityType.Create(this);
             var premaritalRegistration = PremaritalRegistrationEntityType.Create(this);
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
@@ -58,6 +59,7 @@ namespace csi_mkd_premarital_app_BE.Data
             FeedbackTextEntityType.CreateAnnotations(feedbackText);
             GeneralDocumentEntityType.CreateAnnotations(generalDocument);
             GeneralRegistrationEntityType.CreateAnnotations(generalRegistration);
+            InstructorEntityType.CreateAnnotations(instructor);
             PremaritalDocumentEntityType.CreateAnnotations(premaritalDocument);
             PremaritalRegistrationEntityType.CreateAnnotations(premaritalRegistration);
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
