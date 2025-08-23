@@ -214,20 +214,6 @@ export class GeneralRegister {
     }
   }
 
-  private resetForm(): void {
-    this.form.reset();
-    this.form.markAsUntouched();
-    this.formSubmitted.set(false);
-    this.isSubmitting.set(false);
-    this.photoFile.set(null);
-    this.photoFileName = '';
-
-    this.photoError.set('');
-    if (this.photoInput) {
-      this.photoInput.nativeElement.value = '';
-    }
-  }
-
   handleSuccess(token: string) {
     this.form.get('recaptcha')?.setValue(token);
   }
@@ -310,7 +296,6 @@ export class GeneralRegister {
                       // Navigate back to previous page
                       window.history.back();
                     });
-                    this.isSubmitting.set(false);
                   },
                   error: (err) => this.handleUploadError(err),
                 });

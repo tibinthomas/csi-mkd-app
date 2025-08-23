@@ -188,9 +188,9 @@ export class GeneralList {
     const dialogRef = this.dialog.open(ConfirmationDialog);
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      this.isApproving.set(reg.Id);
-
       if (confirmed) {
+        this.isApproving.set(reg.Id);
+
         const updated = {
           ...reg,
           PaymentStatus: !reg.PaymentStatus,

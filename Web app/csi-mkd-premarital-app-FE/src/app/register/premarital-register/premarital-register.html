@@ -202,7 +202,7 @@
         </div>
         <div class="grid md:grid-cols-2 gap-6">
           <div class="w-full flex gap-2 items-start overflow-hidden">
-            <mat-form-field appearance="fill" class="w-32 min-w-28">
+            <mat-form-field appearance="fill">
               <mat-label i18n>Code</mat-label>
               <mat-select formControlName="countryCode">
                 <mat-option value="+91">+91 (IN)</mat-option>
@@ -213,7 +213,14 @@
             </mat-form-field>
             <mat-form-field appearance="fill" class="w-full">
               <mat-label i18n>Phone Number</mat-label>
-              <input matInput type="text" inputmode="numeric" formControlName="phone" appOnlyDigits [appOnlyDigitsMax]="10" />
+              <input
+                matInput
+                type="text"
+                inputmode="numeric"
+                formControlName="phone"
+                appOnlyDigits
+                [appOnlyDigitsMax]="10"
+              />
               @if (isInvalid('phone')) {
               <mat-error i18n>Phone number is required.</mat-error>
               }
@@ -263,10 +270,10 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-2 gap-6" role="group" aria-labelledby="upload-group-label">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" role="group" aria-labelledby="upload-group-label">
           <!-- Upload Photo -->
           <div class="flex flex-col gap-2" role="group" aria-labelledby="photo-upload-label">
-            <label id="photo-upload-label" class="font-medium" i18n>Upload Passport Size Photo</label>
+            <label id="photo-upload-label" class="font-medium" i18n>Upload Photo</label>
             <div class="flex items-center gap-2">
               <button
                 mat-raised-button

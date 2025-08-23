@@ -50,6 +50,8 @@ export class SessionFormDialogComponent {
     isActive: [this.data?.session?.IsActive ?? true],
   });
 
+  protected readonly timezoneDisplay: string = 'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
+
   onSubmit() {
     if (this.form.invalid) return;
     this.dialogRef.close(this.form.value);

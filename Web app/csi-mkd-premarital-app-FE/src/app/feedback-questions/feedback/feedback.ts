@@ -149,7 +149,7 @@ export class Feedback implements OnInit {
   protected readonly isSubmitting = signal(false);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
-  protected readonly timezoneDisplay: string = 'Time Zone: IST (UTC+05:30)';
+  protected readonly timezoneDisplay: string = 'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
 
   // Resource to fetch user details from the API
   protected readonly userDetailsResource = rxResource({

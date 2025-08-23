@@ -126,7 +126,7 @@ export class PreConfirmRegister {
     }
   };
 
-  protected readonly timezoneDisplay: string = 'Time Zone: IST (UTC+05:30)';
+  protected readonly timezoneDisplay: string = 'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
@@ -186,7 +186,6 @@ export class PreConfirmRegister {
                 })
                 .subscribe({
                   next: () => {
-                    this.isSubmitting.set(false);
                     const dialogRef = this.dialog.open(SuccessDialog, {
                       data: {
                         title: 'Pre-Confirmation Registration Complete',
@@ -221,28 +220,6 @@ export class PreConfirmRegister {
       },
     });
   }
-
-  private resetForm(): void {
-    this.formSubmitted.set(false);
-    this.isSubmitting.set(false);
-    this.form.markAsUntouched();
-    this.form.markAsPristine();
-    this.form.updateValueAndValidity();
-    this.form.reset();
-    this.vicarLetterFile.set(null);
-    this.vicarLetterError.set('');
-    this.participants().clear();
-    this.participants().push(
-      this.fb.group({
-        name: ['', Validators.required],
-        age: [
-          '',
-          [Validators.required, Validators.min(1), Validators.max(120)],
-        ],
-      })
-    );
-  }
-
   participants(): FormArray {
     return this.form.get('participants') as FormArray;
   }

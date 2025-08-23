@@ -210,6 +210,15 @@ export const routes: Routes = [
             (m) => m.DeactivateSessions
           ),
       },
+      {
+        path: 'instructors',
+        title: 'Instructors Management - CSI MKD Premarital Counsel',
+        data: { description: 'Manage counseling instructors' },
+        loadComponent: () =>
+          import('./admin/instructors/instructors').then(
+            (m) => m.Instructors
+          ),
+      },
     ],
   },
 
