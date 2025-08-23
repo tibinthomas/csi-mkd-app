@@ -7,12 +7,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule],
   template: `
     @if (loadingService.isLoading()) {
-      <div class="loading-overlay">
-        <div class="loading-container">
-          <mat-spinner diameter="40"></mat-spinner>
-          <p class="loading-text">Loading...</p>
-        </div>
+    <div class="loading-overlay">
+      <div class="loading-container">
+        <mat-spinner diameter="40"></mat-spinner>
       </div>
+    </div>
     }
   `,
   styles: `
