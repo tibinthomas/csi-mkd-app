@@ -95,6 +95,8 @@ import { apiPremaritalregisterIdGet } from '../fn/csi-mkd-premarital-app-be/api-
 import { ApiPremaritalregisterIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-get';
 import { apiPremaritalregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
 import { ApiPremaritalregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
+import { apiPremaritalregisterIdPut } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-put';
+import { ApiPremaritalregisterIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-put';
 import { apiPremaritalregisterPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { ApiPremaritalregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { apiPremaritalregisterSaveFileUrlsPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post';
@@ -461,6 +463,81 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
     );
   }
 
+  /** Path part for operation `apiPremaritalregisterIdGet()` */
+  static readonly ApiPremaritalregisterIdGetPath = '/api/premaritalregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterIdGet$Response(params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterIdGet(params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterIdPut()` */
+  static readonly ApiPremaritalregisterIdPutPath = '/api/premaritalregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterIdPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterIdPut$Response(params: ApiPremaritalregisterIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterIdPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterIdPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterIdPut(params: ApiPremaritalregisterIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterIdPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterIdDelete()` */
+  static readonly ApiPremaritalregisterIdDeletePath = '/api/premaritalregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterIdDelete$Response(params: ApiPremaritalregisterIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterIdDelete(params: ApiPremaritalregisterIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterIdDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
   /** Path part for operation `apiPremaritalregisterIdPaymentstatusPut()` */
   static readonly ApiPremaritalregisterIdPaymentstatusPutPath = '/api/premaritalregister/{id}/paymentstatus';
 
@@ -557,56 +634,6 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiPremaritalregisterTotalGet(params?: ApiPremaritalregisterTotalGet$Params, context?: HttpContext): Observable<void> {
     return this.apiPremaritalregisterTotalGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `apiPremaritalregisterIdGet()` */
-  static readonly ApiPremaritalregisterIdGetPath = '/api/premaritalregister/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiPremaritalregisterIdGet()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiPremaritalregisterIdGet$Response(params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiPremaritalregisterIdGet(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiPremaritalregisterIdGet$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiPremaritalregisterIdGet(params: ApiPremaritalregisterIdGet$Params, context?: HttpContext): Observable<void> {
-    return this.apiPremaritalregisterIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
-    );
-  }
-
-  /** Path part for operation `apiPremaritalregisterIdDelete()` */
-  static readonly ApiPremaritalregisterIdDeletePath = '/api/premaritalregister/{id}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiPremaritalregisterIdDelete()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiPremaritalregisterIdDelete$Response(params: ApiPremaritalregisterIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiPremaritalregisterIdDelete(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiPremaritalregisterIdDelete$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  apiPremaritalregisterIdDelete(params: ApiPremaritalregisterIdDelete$Params, context?: HttpContext): Observable<void> {
-    return this.apiPremaritalregisterIdDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

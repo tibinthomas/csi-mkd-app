@@ -25,3 +25,4 @@ export type { PremaritalRegisterDto } from './models/premarital-register-dto';
 export type { SessionConfigurationDto } from './models/session-configuration-dto';
 export type { UpdateInstructorDto } from './models/update-instructor-dto';
 export type { UpdatePasswordDto } from './models/update-password-dto';
+export type { UpdatePremaritalRegisterDto } from './models/update-premarital-register-dto';

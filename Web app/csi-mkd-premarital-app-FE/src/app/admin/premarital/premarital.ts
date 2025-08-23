@@ -22,7 +22,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { FormControl, FormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MatFormField,
   MatFormFieldModule,
@@ -38,13 +38,15 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
+import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
 
 @Component({
   selector: 'app-premarital-list',
@@ -114,6 +116,7 @@ export class PremaritalComponent {
   private lastSelectedYear: number | null = null;
   readonly isApproving = signal<number | null>(null);
   readonly isDeleting = signal<number | null>(null);
+  readonly isEditing = signal<number | null>(null);
   private _snackBar = inject(MatSnackBar);
 
   baseApiUrl = API_ROOT_URL_MAIN_APP;
@@ -328,6 +331,62 @@ export class PremaritalComponent {
             this.isDeleting.set(null);
             console.error('Delete failed', err);
             this._snackBar.open('Failed to delete registration. Please try again.', 'Close', { duration: 3000 });
+          }
+        });
+      }
+    });
+  }
+
+  editRegistration(reg: any): void {
+    const dialogRef = this.dialog.open(EditRegistrationDialog, {
+      data: { registration: { ...reg } },
+      width: '800px',
+      maxWidth: '90vw'
+    });
+
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.isEditing.set(reg.Id);
+        
+        // Transform form data to match UpdatePremaritalRegisterDto
+        const updateData: UpdatePremaritalRegisterDto = {
+          firstName: result.firstName,
+          lastName: result.lastName,
+          sex: result.sex,
+          age: result.age,
+          fatherName: result.fatherName,
+          occupation: result.occupation,
+          education: result.education,
+          address: result.address,
+          churchName: result.churchName,
+          email: result.email,
+          phone: result.phone,
+          fianceName: result.fianceName || null,
+          choirMember: result.choirMember || false,
+          ssTeacher: result.ssTeacher || false,
+          youthFellowship: result.youthFellowship || false,
+          other: result.other || null,
+          // Keep existing values that are not editable in the form
+          dateOfMarriage: reg.DateOfMarriage || null,
+          days: reg.Days || null,
+          declaration: reg.Declaration || true,
+          paymentStatus: reg.PaymentStatus || false,
+          sessionId: reg.SessionId || 0
+        };
+        
+        this.api.apiPremaritalregisterIdPut({ 
+          id: reg.Id.toString(), 
+          body: updateData 
+        }).subscribe({
+          next: () => {
+            this.isEditing.set(null);
+            this._snackBar.open('Registration updated successfully', 'Close', { duration: 3000 });
+            this.filterTrigger.set(this.filterTrigger() + 1);
+          },
+          error: (err) => {
+            this.isEditing.set(null);
+            console.error('Update failed', err);
+            this._snackBar.open('Failed to update registration. Please try again.', 'Close', { duration: 3000 });
           }
         });
       }
@@ -835,5 +894,161 @@ export class DeleteConfirmationDialog {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'edit-registration-dialog',
+  template: `
+    <h2 mat-dialog-title>Edit Registration</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <mat-dialog-content class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required>
+            <mat-error>First Name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" required>
+            <mat-error>Last Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Sex</mat-label>
+            <mat-select formControlName="sex" required>
+              <mat-option value="Male">Male</mat-option>
+              <mat-option value="Female">Female</mat-option>
+            </mat-select>
+            <mat-error>Sex is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Age</mat-label>
+            <input matInput type="number" formControlName="age" required min="1" max="120">
+            <mat-error>Age is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Father's Name</mat-label>
+            <input matInput formControlName="fatherName" required>
+            <mat-error>Father's Name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Occupation</mat-label>
+            <input matInput formControlName="occupation">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Education</mat-label>
+            <input matInput formControlName="education" required>
+            <mat-error>Education is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Address</mat-label>
+          <textarea matInput formControlName="address" rows="3" required></textarea>
+          <mat-error>Address is required</mat-error>
+        </mat-form-field>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Church Name</mat-label>
+            <input matInput formControlName="churchName" required>
+            <mat-error>Church Name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+            <mat-error>Valid email is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Phone</mat-label>
+            <input matInput formControlName="phone" required>
+            <mat-error>Phone is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Fiancé/Fiancée Name</mat-label>
+            <input matInput formControlName="fianceName">
+          </mat-form-field>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+          <mat-checkbox formControlName="choirMember">Choir Member</mat-checkbox>
+          <mat-checkbox formControlName="ssTeacher">S.S. Teacher</mat-checkbox>
+          <mat-checkbox formControlName="youthFellowship">Youth Fellowship</mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Other Activities</mat-label>
+          <input matInput formControlName="other">
+        </mat-form-field>
+      </mat-dialog-content>
+      
+      <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="editForm.invalid">
+          Update
+        </button>
+      </mat-dialog-actions>
+    </form>
+  `,
+  imports: [
+    MatDialogModule, 
+    MatButtonModule, 
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatSelectModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    CommonModule
+  ],
+})
+export class EditRegistrationDialog {
+  dialogRef = inject<MatDialogRef<EditRegistrationDialog>>(MatDialogRef);
+  data = inject(MAT_DIALOG_DATA);
+  private fb = inject(FormBuilder);
+
+  editForm: FormGroup;
+
+  constructor() {
+    const reg = this.data.registration;
+    this.editForm = this.fb.group({
+      firstName: [reg.FirstName || '', Validators.required],
+      lastName: [reg.LastName || '', Validators.required],
+      sex: [reg.Sex || '', Validators.required],
+      age: [reg.Age || '', [Validators.required, Validators.min(1), Validators.max(120)]],
+      fatherName: [reg.FatherName || '', Validators.required],
+      occupation: [reg.Occupation || ''],
+      education: [reg.Education || '', Validators.required],
+      address: [reg.Address || '', Validators.required],
+      churchName: [reg.ChurchName || '', Validators.required],
+      email: [reg.Email || '', [Validators.required, Validators.email]],
+      phone: [reg.Phone || '', Validators.required],
+      fianceName: [reg.FianceName || ''],
+      choirMember: [reg.ChoirMember || false],
+      ssTeacher: [reg.SsTeacher || false],
+      youthFellowship: [reg.YouthFellowship || false],
+      other: [reg.Other || '']
+    });
+  }
+
+  onSubmit(): void {
+    if (this.editForm.valid) {
+      this.dialogRef.close(this.editForm.value);
+    }
   }
 }
