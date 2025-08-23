@@ -300,28 +300,6 @@ export class PremaritalRegister {
     }
   }
 
-  private resetForm(): void {
-    this.form.reset();
-    this.form.markAsUntouched();
-    this.formSubmitted.set(false);
-    this.isSubmitting.set(false);
-
-    this.photoFile.set(null);
-    this.vicarLetterFile.set(null);
-    this.photoError.set('');
-    this.vicarLetterError.set('');
-    this.successMessage.set('');
-    this.errorMessage.set('');
-
-    // Clear file input DOM elements
-    if (this.photoInput) {
-      this.photoInput.nativeElement.value = '';
-    }
-    if (this.letterInput) {
-      this.letterInput.nativeElement.value = '';
-    }
-  }
-
   onSubmit() {
     this.formSubmitted.set(true);
 
