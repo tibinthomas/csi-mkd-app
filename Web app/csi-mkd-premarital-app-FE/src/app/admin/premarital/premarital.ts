@@ -22,7 +22,14 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import {
   MatFormField,
   MatFormFieldModule,
@@ -282,9 +289,9 @@ export class PremaritalComponent {
     const dialogRef = this.dialog.open(ConfirmationDialog);
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      this.isApproving.set(reg.Id);
-
       if (confirmed) {
+        this.isApproving.set(reg.Id);
+
         const updated = {
           ...reg,
           PaymentStatus: !reg.PaymentStatus,
@@ -314,25 +321,35 @@ export class PremaritalComponent {
 
   deleteRegistration(reg: any): void {
     const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
-      data: { name: `${reg.FirstName} ${reg.LastName}` }
+      data: { name: `${reg.FirstName} ${reg.LastName}` },
     });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
         this.isDeleting.set(reg.Id);
-        
-        this.api.apiPremaritalregisterIdDelete({ id: reg.Id.toString() }).subscribe({
-          next: () => {
-            this.isDeleting.set(null);
-            this._snackBar.open('Registration deleted successfully', 'Close', { duration: 3000 });
-            this.filterTrigger.set(this.filterTrigger() + 1);
-          },
-          error: (err) => {
-            this.isDeleting.set(null);
-            console.error('Delete failed', err);
-            this._snackBar.open('Failed to delete registration. Please try again.', 'Close', { duration: 3000 });
-          }
-        });
+
+        this.api
+          .apiPremaritalregisterIdDelete({ id: reg.Id.toString() })
+          .subscribe({
+            next: () => {
+              this.isDeleting.set(null);
+              this._snackBar.open(
+                'Registration deleted successfully',
+                'Close',
+                { duration: 3000 }
+              );
+              this.filterTrigger.set(this.filterTrigger() + 1);
+            },
+            error: (err) => {
+              this.isDeleting.set(null);
+              console.error('Delete failed', err);
+              this._snackBar.open(
+                'Failed to delete registration. Please try again.',
+                'Close',
+                { duration: 3000 }
+              );
+            },
+          });
       }
     });
   }
@@ -341,13 +358,13 @@ export class PremaritalComponent {
     const dialogRef = this.dialog.open(EditRegistrationDialog, {
       data: { registration: { ...reg } },
       width: '800px',
-      maxWidth: '90vw'
+      maxWidth: '90vw',
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
         this.isEditing.set(reg.Id);
-        
+
         // Transform form data to match UpdatePremaritalRegisterDto
         const updateData: UpdatePremaritalRegisterDto = {
           firstName: result.firstName,
@@ -371,24 +388,34 @@ export class PremaritalComponent {
           days: reg.Days || null,
           declaration: reg.Declaration || true,
           paymentStatus: reg.PaymentStatus || false,
-          sessionId: reg.SessionId || 0
+          sessionId: reg.SessionId || 0,
         };
-        
-        this.api.apiPremaritalregisterIdPut({ 
-          id: reg.Id.toString(), 
-          body: updateData 
-        }).subscribe({
-          next: () => {
-            this.isEditing.set(null);
-            this._snackBar.open('Registration updated successfully', 'Close', { duration: 3000 });
-            this.filterTrigger.set(this.filterTrigger() + 1);
-          },
-          error: (err) => {
-            this.isEditing.set(null);
-            console.error('Update failed', err);
-            this._snackBar.open('Failed to update registration. Please try again.', 'Close', { duration: 3000 });
-          }
-        });
+
+        this.api
+          .apiPremaritalregisterIdPut({
+            id: reg.Id.toString(),
+            body: updateData,
+          })
+          .subscribe({
+            next: () => {
+              this.isEditing.set(null);
+              this._snackBar.open(
+                'Registration updated successfully',
+                'Close',
+                { duration: 3000 }
+              );
+              this.filterTrigger.set(this.filterTrigger() + 1);
+            },
+            error: (err) => {
+              this.isEditing.set(null);
+              console.error('Update failed', err);
+              this._snackBar.open(
+                'Failed to update registration. Please try again.',
+                'Close',
+                { duration: 3000 }
+              );
+            },
+          });
       }
     });
   }
@@ -875,8 +902,9 @@ export class ConfirmationDialog {
   template: `
     <h2 mat-dialog-title>Confirm Deletion</h2>
     <mat-dialog-content>
-      Are you sure you want to delete the registration for <strong>{{ data.name }}</strong>?
-      <br><br>
+      Are you sure you want to delete the registration for
+      <strong>{{ data.name }}</strong
+      >? <br /><br />
       <span class="text-red-600">This action cannot be undone.</span>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
@@ -906,13 +934,13 @@ export class DeleteConfirmationDialog {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
             <mat-label>First Name</mat-label>
-            <input matInput formControlName="firstName" required>
+            <input matInput formControlName="firstName" required />
             <mat-error>First Name is required</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Last Name</mat-label>
-            <input matInput formControlName="lastName" required>
+            <input matInput formControlName="lastName" required />
             <mat-error>Last Name is required</mat-error>
           </mat-form-field>
         </div>
@@ -929,13 +957,20 @@ export class DeleteConfirmationDialog {
 
           <mat-form-field appearance="fill">
             <mat-label>Age</mat-label>
-            <input matInput type="number" formControlName="age" required min="1" max="120">
+            <input
+              matInput
+              type="number"
+              formControlName="age"
+              required
+              min="1"
+              max="120"
+            />
             <mat-error>Age is required</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Father's Name</mat-label>
-            <input matInput formControlName="fatherName" required>
+            <input matInput formControlName="fatherName" required />
             <mat-error>Father's Name is required</mat-error>
           </mat-form-field>
         </div>
@@ -943,32 +978,37 @@ export class DeleteConfirmationDialog {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
             <mat-label>Occupation</mat-label>
-            <input matInput formControlName="occupation">
+            <input matInput formControlName="occupation" />
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Education</mat-label>
-            <input matInput formControlName="education" required>
+            <input matInput formControlName="education" required />
             <mat-error>Education is required</mat-error>
           </mat-form-field>
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Address</mat-label>
-          <textarea matInput formControlName="address" rows="3" required></textarea>
+          <textarea
+            matInput
+            formControlName="address"
+            rows="3"
+            required
+          ></textarea>
           <mat-error>Address is required</mat-error>
         </mat-form-field>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
             <mat-label>Church Name</mat-label>
-            <input matInput formControlName="churchName" required>
+            <input matInput formControlName="churchName" required />
             <mat-error>Church Name is required</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email" required>
+            <input matInput type="email" formControlName="email" required />
             <mat-error>Valid email is required</mat-error>
           </mat-form-field>
         </div>
@@ -976,45 +1016,56 @@ export class DeleteConfirmationDialog {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
             <mat-label>Phone</mat-label>
-            <input matInput formControlName="phone" required>
+            <input matInput formControlName="phone" required />
             <mat-error>Phone is required</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Fiancé/Fiancée Name</mat-label>
-            <input matInput formControlName="fianceName">
+            <input matInput formControlName="fianceName" />
           </mat-form-field>
         </div>
 
         <div class="flex flex-wrap gap-4">
-          <mat-checkbox formControlName="choirMember">Choir Member</mat-checkbox>
+          <mat-checkbox formControlName="choirMember"
+            >Choir Member</mat-checkbox
+          >
           <mat-checkbox formControlName="ssTeacher">S.S. Teacher</mat-checkbox>
-          <mat-checkbox formControlName="youthFellowship">Youth Fellowship</mat-checkbox>
+          <mat-checkbox formControlName="youthFellowship"
+            >Youth Fellowship</mat-checkbox
+          >
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Other Activities</mat-label>
-          <input matInput formControlName="other">
+          <input matInput formControlName="other" />
         </mat-form-field>
       </mat-dialog-content>
-      
+
       <mat-dialog-actions align="end">
-        <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
-        <button mat-raised-button color="primary" type="submit" [disabled]="editForm.invalid">
+        <button mat-button type="button" (click)="dialogRef.close()">
+          Cancel
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="editForm.invalid"
+        >
           Update
         </button>
       </mat-dialog-actions>
     </form>
   `,
   imports: [
-    MatDialogModule, 
-    MatButtonModule, 
-    MatFormFieldModule, 
-    MatInputModule, 
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
 })
 export class EditRegistrationDialog {
@@ -1030,7 +1081,10 @@ export class EditRegistrationDialog {
       firstName: [reg.FirstName || '', Validators.required],
       lastName: [reg.LastName || '', Validators.required],
       sex: [reg.Sex || '', Validators.required],
-      age: [reg.Age || '', [Validators.required, Validators.min(1), Validators.max(120)]],
+      age: [
+        reg.Age || '',
+        [Validators.required, Validators.min(1), Validators.max(120)],
+      ],
       fatherName: [reg.FatherName || '', Validators.required],
       occupation: [reg.Occupation || ''],
       education: [reg.Education || '', Validators.required],
@@ -1042,7 +1096,7 @@ export class EditRegistrationDialog {
       choirMember: [reg.ChoirMember || false],
       ssTeacher: [reg.SsTeacher || false],
       youthFellowship: [reg.YouthFellowship || false],
-      other: [reg.Other || '']
+      other: [reg.Other || ''],
     });
   }
 
