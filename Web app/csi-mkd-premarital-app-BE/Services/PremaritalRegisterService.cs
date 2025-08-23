@@ -102,6 +102,11 @@ namespace csi_mkd_premarital_app_BE.Services
         {
             return await _repo.DeleteRegistration(id);
         }
+
+        public async Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto)
+        {
+            return await _repo.UpdateRegistration(id, dto);
+        }
     }
 
 }

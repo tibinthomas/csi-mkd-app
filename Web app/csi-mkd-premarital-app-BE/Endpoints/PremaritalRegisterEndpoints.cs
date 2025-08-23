@@ -33,6 +33,21 @@ public static class PremaritalRegisterEndpoints
         })
         .Accepts<PremaritalDocumentDto>("multipart/form-data");
 
+        group.MapPut("/{id:guid}", async (Guid id, [FromBody] UpdatePremaritalRegisterDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
+        {
+            var result = await service.UpdateRegistration(id, dto);
+            if (!result)
+            {
+                return Results.NotFound(new { message = "Registration not found or update failed." });
+            }
+            
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.NoContent();
+        })
+        .Accepts<UpdatePremaritalRegisterDto>("application/json")
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces(StatusCodes.Status404NotFound);
+
         group.MapPut("/{id:guid}/paymentstatus", async (Guid id, PaymentStatusUpdateDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
         {
             var result = await service.UpdatePaymentStatus(id, dto);

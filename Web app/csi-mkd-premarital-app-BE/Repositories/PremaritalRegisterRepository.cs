@@ -188,6 +188,55 @@ namespace csi_mkd_premarital_app_BE.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto)
+        {
+            var registration = await _context.PremaritalRegistrations.FindAsync(id);
+            if (registration == null)
+                return false;
+
+            // Update all fields
+            registration.FirstName = dto.FirstName;
+            registration.LastName = dto.LastName;
+            registration.FatherName = dto.FatherName;
+            registration.Address = dto.Address;
+            registration.Sex = dto.Sex;
+            registration.Age = dto.Age;
+            registration.Education = dto.Education;
+            registration.Occupation = dto.Occupation;
+            registration.ChurchName = dto.ChurchName;
+            registration.FianceName = dto.FianceName;
+            registration.DateOfMarriage = dto.DateOfMarriage.HasValue 
+                ? DateTime.SpecifyKind(dto.DateOfMarriage.Value, DateTimeKind.Utc) 
+                : null;
+            registration.Phone = dto.Phone;
+            registration.Email = dto.Email;
+            registration.Days = dto.Days;
+            
+            // Update church activities JSON
+            var churchActivities = new
+            {
+                dto.ChoirMember,
+                dto.SsTeacher,
+                dto.YouthFellowship,
+                dto.Other
+            };
+            registration.ChurchActivitiesJson = JsonSerializer.Serialize(churchActivities);
+            
+            registration.Declaration = dto.Declaration;
+            registration.SessionId = dto.SessionId;
+            registration.PaymentStatus = dto.PaymentStatus;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return false;
+            }
+        }
     }
 
 }
