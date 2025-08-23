@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { ConfirmationRegisterDto } from '../../../api/api-main-app/models';
@@ -44,7 +44,9 @@ import autoTable from 'jspdf-autotable';
     MatExpansionModule,
     MatDividerModule,
     MatCardModule,
+    DatePipe,
   ],
+  providers: [DatePipe],
 
   animations: [
     trigger('detailExpand', [
@@ -79,10 +81,9 @@ export class PreConfirmList implements OnInit {
   expandedAll = false;
   protected readonly totalCount = signal(0);
 
-  constructor(
-    private api: CsiMkdPremaritalAppBeService,
-    private snackBar: MatSnackBar
-  ) {}
+  private api = inject(CsiMkdPremaritalAppBeService);
+  private snackBar = inject(MatSnackBar);
+  private datePipe = inject(DatePipe);
 
   ngOnInit() {
     this.loadRegistrations();
@@ -200,6 +201,54 @@ export class PreConfirmList implements OnInit {
   //   window.URL.revokeObjectURL(url);
   // }
 
+  handleDownloadCSV() {
+    const items = this.registrations();
+    if (!items || items.length === 0) {
+      this.snackBar.open('No data available to download.', 'Close', {
+        duration: 3000,
+      });
+      return;
+    }
+
+    const headers = [
+      'Church Name',
+      'Confirmation Date',
+      'Counselling Date',
+      'Participants Count',
+      'Participants',
+    ];
+
+    const rows = items.map((reg: any) => {
+      const participants = (reg.Participants || [])
+        .map((p: any) => `${p.Name} (Age: ${p.Age})`)
+        .join('; ');
+      return [
+        reg.ChurchName || '',
+        reg.ConfirmationDate 
+          ? this.datePipe.transform(reg.ConfirmationDate, 'mediumDate')
+          : '',
+        reg.CounsellingDate
+          ? this.datePipe.transform(reg.CounsellingDate, 'mediumDate') 
+          : '',
+        reg.Participants?.length || 0,
+        `"${participants}"`, // Quotes to handle commas/semicolons
+      ];
+    });
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map((row) => row.join(',')),
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'pre-confirmation-registrations.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
   handleDownload() {
     const items = this.registrations();
 
@@ -216,23 +265,25 @@ export class PreConfirmList implements OnInit {
       [
         'Church Name',
         'Confirmation Date',
-        'Confirmation Time',
+        'Counselling Date',
         'Participants Count',
         'Participants',
       ],
     ];
 
     const data = items.map((reg: any) => {
-      const participants = (reg.participants || [])
-        .map((p: any) => `${p.name} (Age: ${p.age})`)
+      const participants = (reg.Participants || [])
+        .map((p: any) => `${p.Name} (Age: ${p.Age})`)
         .join('\n');
       return [
-        reg.churchName || '',
-        reg.confirmationDate
-          ? new Date(reg.confirmationDate).toLocaleDateString()
+        reg.ChurchName || '',
+        reg.ConfirmationDate
+          ? this.datePipe.transform(reg.ConfirmationDate, 'mediumDate')
           : '',
-        reg.counsellingDate || '',
-        reg.participants?.length || 0,
+        reg.CounsellingDate
+          ? this.datePipe.transform(reg.CounsellingDate, 'mediumDate')
+          : '',
+        reg.Participants?.length || 0,
         participants,
       ];
     });
@@ -245,6 +296,9 @@ export class PreConfirmList implements OnInit {
       styles: { fontSize: 10 },
       headStyles: { fillColor: [63, 81, 181] }, // Indigo header
       margin: { left: 14, right: 14 },
+      columnStyles: {
+        4: { cellWidth: 'wrap' }, // Allow participants column to wrap
+      },
     });
 
     doc.save('pre-confirmation-registrations.pdf');
