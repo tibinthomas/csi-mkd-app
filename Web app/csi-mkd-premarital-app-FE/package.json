@@ -1,15 +1,15 @@
 {
   "name": "csi-mkd-counselling",
-  "version": "0.0.77",
+  "version": "0.0.78",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "gen-api-main-app": "ng-openapi-gen -c ng-openapi-gen.json",
-    "gen-api-functions": "ng-openapi-gen -c ng-openapi-gen-functions.json",
-    "gen-api": "npm run gen-api-main-app && npm run gen-api-functions",
+    "gen-api-main": "ng-openapi-gen -c ng-openapi-gen.json",
+    "gen-api-fn": "ng-openapi-gen -c ng-openapi-gen-functions.json",
+    "gen-api": "npm run gen-api-main && npm run gen-api-fn",
     "extract-i18n": "ng extract-i18n --output-path src/locale"
   },
   "private": true,
