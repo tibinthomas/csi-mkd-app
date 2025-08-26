@@ -16,6 +16,12 @@ export interface HasPendingChanges {
    * If not implemented, a default browser confirm dialog is used.
    */
   confirmNavigation?(): Observable<boolean> | Promise<boolean> | boolean;
+  
+  /**
+   * Optional method called when navigation is cancelled.
+   * Use this to reset loading states or perform cleanup.
+   */
+  onNavigationCancelled?(): void;
 }
 
 /**
@@ -37,13 +43,45 @@ export const pendingChangesGuard: CanDeactivateFn<HasPendingChanges> = (
 
   // Use custom confirmation logic if available
   if (component.confirmNavigation) {
-    return component.confirmNavigation();
+    const result = component.confirmNavigation();
+    
+    // Handle the result to call onNavigationCancelled when needed
+    if (result instanceof Promise) {
+      return result.then((confirmed: boolean) => {
+        if (!confirmed && component.onNavigationCancelled) {
+          component.onNavigationCancelled();
+        }
+        return confirmed;
+      });
+    } else if (result instanceof Observable) {
+      return new Promise((resolve) => {
+        result.subscribe((confirmed: boolean) => {
+          if (!confirmed && component.onNavigationCancelled) {
+            component.onNavigationCancelled();
+          }
+          resolve(confirmed);
+        });
+      });
+    } else {
+      // Synchronous result
+      if (!result && component.onNavigationCancelled) {
+        component.onNavigationCancelled();
+      }
+      return result;
+    }
   }
 
   // Default browser confirmation dialog
-  return confirm(
+  const confirmed = confirm(
     'You have unsaved changes. Are you sure you want to leave this page?'
   );
+  
+  // Call onNavigationCancelled if user cancelled and method exists
+  if (!confirmed && component.onNavigationCancelled) {
+    component.onNavigationCancelled();
+  }
+  
+  return confirmed;
 };
 
 

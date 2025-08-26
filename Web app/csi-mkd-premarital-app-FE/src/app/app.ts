@@ -8,6 +8,8 @@ import {
   ActivatedRoute,
   NavigationEnd,
   NavigationStart,
+  NavigationCancel,
+  NavigationError,
   Router,
   RouterOutlet,
 } from '@angular/router';
@@ -43,7 +45,11 @@ export class App implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.loadingService.show();
-      } else if (event instanceof NavigationEnd) {
+      } else if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
         this.loadingService.hide();
       }
     });
