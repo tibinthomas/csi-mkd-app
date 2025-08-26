@@ -174,7 +174,7 @@ public static class ServiceConfiguration
             });
 
             // Enable compiled models for faster startup (EF Core 9 approach)
-            options.UseModel(ApplicationDbContextModel.Instance);
+            // options.UseModel(ApplicationDbContextModel.Instance); // Commented out until regenerated
 
             // Performance optimizations
             options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());

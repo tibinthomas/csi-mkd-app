@@ -28,6 +28,7 @@ public static class CosmosLimits
     public const int ShortTextMaxLength = 100;
     public const int MediumTextMaxLength = 500;
     public const int LongTextMaxLength = 2000;
+    public const int LargeTextMaxLength = 8000;
     public const int TitleMaxLength = 200;
     public const int NameMaxLength = 100;
     public const int LocationMaxLength = 200;

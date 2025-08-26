@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using csi_mkd_premarital_app_BE.Data;
@@ -12,9 +13,11 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250825201903_UpdateClassFeedbackStructure")]
+    partial class UpdateClassFeedbackStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,26 +164,40 @@ namespace csi_mkd_premarital_app_BE.Migrations
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.ClassFeedback", b =>
                 {
-                    b.Property<string>("id")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(254)
-                        .HasColumnType("character varying(254)");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
-                    b.Property<string>("Feedbacks")
+                    b.Property<string>("FeedbacksJson")
                         .IsRequired()
-                        .HasColumnType("jsonb");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<DateTime?>("LastModifiedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<Guid>("PremaritalRegistrationId")
                         .HasColumnType("uuid");
@@ -188,19 +205,11 @@ namespace csi_mkd_premarital_app_BE.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("id");
-
-                    b.HasIndex("Email");
+                    b.HasKey("Id");
 
                     b.HasIndex("PremaritalRegistrationId");
 
-                    b.HasIndex("UpdatedAt");
-
                     b.ToTable("ClassFeedbacks");
-
-                    b
-                        .HasAnnotation("Cosmos:ContainerName", "ClassFeedbacks")
-                        .HasAnnotation("Cosmos:PartitionKeyNames", new List<string> { "PremaritalRegistrationId" });
                 });
 
             modelBuilder.Entity("csi_mkd_premarital_app_BE.Models.ConfirmationDocument", b =>

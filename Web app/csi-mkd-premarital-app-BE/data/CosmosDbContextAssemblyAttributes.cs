@@ -6,4 +6,4 @@ using csi_mkd_premarital_app_BE.data;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-[assembly: DbContextModel(typeof(ApplicationDbContext), typeof(ApplicationDbContextModel))]
+[assembly: DbContextModel(typeof(CosmosDbContext), typeof(CosmosDbContextModel))]

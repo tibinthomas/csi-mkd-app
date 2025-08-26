@@ -8,15 +8,15 @@ using csi_mkd_premarital_app_BE.Data;
 
 namespace csi_mkd_premarital_app_BE.data
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    public partial class ApplicationDbContextModel : RuntimeModel
+    [DbContext(typeof(CosmosDbContext))]
+    public partial class CosmosDbContextModel : RuntimeModel
     {
         private static readonly bool _useOldBehavior31751 =
             System.AppContext.TryGetSwitch("Microsoft.EntityFrameworkCore.Issue31751", out var enabled31751) && enabled31751;
 
-        static ApplicationDbContextModel()
+        static CosmosDbContextModel()
         {
-            var model = new ApplicationDbContextModel();
+            var model = new CosmosDbContextModel();
 
             if (_useOldBehavior31751)
             {
@@ -35,10 +35,10 @@ namespace csi_mkd_premarital_app_BE.data
             }
 
             model.Customize();
-            _instance = (ApplicationDbContextModel)model.FinalizeModel();
+            _instance = (CosmosDbContextModel)model.FinalizeModel();
         }
 
-        private static ApplicationDbContextModel _instance;
+        private static CosmosDbContextModel _instance;
         public static IModel Instance => _instance;
 
         partial void Initialize();

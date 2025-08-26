@@ -5,14 +5,14 @@ namespace csi_mkd_premarital_app_BE.Services
 {
     public interface ICosmosDbFeedbackService
     {
-        Task SubmitFeedbackAsync(FeedbackDocumentDto dto, string? userAgent = null, string? ipAddress = null);
-        Task<List<FeedbackResponseDto>> GetAllFeedbacksAsync();
-        Task<List<FeedbackResponseDto>> GetFeedbacksByDateRangeAsync(DateTime startDate, DateTime endDate);
-        Task<List<FeedbackResponseDto>> GetFeedbacksByRegistrationIdAsync(Guid registrationId);
+        Task SubmitFeedbackAsync(ClassFeedbackDto dto, string? userAgent = null, string? ipAddress = null);
+        Task<List<ClassFeedbackResponseDto>> GetAllFeedbacksAsync();
+        Task<List<ClassFeedbackResponseDto>> GetFeedbacksByDateRangeAsync(DateTime startDate, DateTime endDate);
+        Task<List<ClassFeedbackResponseDto>> GetFeedbacksByRegistrationIdAsync(Guid registrationId);
         Task<List<int>> GetCompletedClassIdsAsync(Guid registrationId);
-        Task<FeedbackResponseDto?> GetFeedbackByIdAsync(string id, string partitionKey);
-        Task<List<FeedbackResponseDto>> GetFeedbacksByClassIdAsync(int classId);
-        Task<FeedbackAnalyticsDto> GetFeedbackAnalyticsAsync();
-        Task<List<FeedbackResponseDto>> GetRecentFeedbackAsync(int count = 10);
+        Task<ClassFeedbackResponseDto?> GetFeedbackByIdAsync(string id, string partitionKey);
+        Task<List<ClassFeedbackResponseDto>> GetFeedbacksByClassIdAsync(int classId);
+        Task<ClassFeedbackAnalyticsDto> GetFeedbackAnalyticsAsync();
+        Task<List<ClassFeedbackResponseDto>> GetRecentFeedbackAsync(int count = 10);
     }
 }

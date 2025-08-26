@@ -1,7 +1,7 @@
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Data.Configurations;
+using csi_mkd_premarital_app_BE.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace csi_mkd_premarital_app_BE.Data;
 
@@ -12,14 +12,14 @@ namespace csi_mkd_premarital_app_BE.Data;
 public class CosmosDbContext(DbContextOptions<CosmosDbContext> options) : DbContext(options)
 {
     #region DbSets
-    
+
     // Entity DbSets - Add new entities here as needed
-    public DbSet<FeedbackDocument> Feedbacks => Set<FeedbackDocument>();
-    
+    public DbSet<ClassFeedback> ClassFeedbacks => Set<ClassFeedback>();
+
     // Future DbSets can be added here
     // public DbSet<UserActivityDocument> UserActivities => Set<UserActivityDocument>();
     // public DbSet<AnalyticsDocument> Analytics => Set<AnalyticsDocument>();
-    
+
     #endregion
 
     #region Configuration
@@ -27,15 +27,29 @@ public class CosmosDbContext(DbContextOptions<CosmosDbContext> options) : DbCont
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        
-        // Apply all entity configurations from the current assembly
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        // Explicitly ignore entities that should not be in Cosmos DB
+        modelBuilder.Ignore<PremaritalRegistration>();
+        modelBuilder.Ignore<SessionConfiguration>();
+        modelBuilder.Ignore<GeneralRegistration>();
+        modelBuilder.Ignore<ConfirmationRegistration>();
+        modelBuilder.Ignore<AdminUser>();
+        modelBuilder.Ignore<Instructor>();
+        modelBuilder.Ignore<Participant>();
+        modelBuilder.Ignore<AuditEntry>();
+        modelBuilder.Ignore<EmailConfig>();
+        modelBuilder.Ignore<PremaritalDocument>();
+        modelBuilder.Ignore<GeneralDocument>();
+        modelBuilder.Ignore<ConfirmationDocument>();
+
+        // Apply only Cosmos DB specific configurations
+        modelBuilder.ApplyConfiguration(new ClassFeedbackConfiguration());
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         base.ConfigureConventions(configurationBuilder);
-        
+
         ApplyCosmosDbConventions(configurationBuilder);
     }
 
@@ -52,15 +66,15 @@ public class CosmosDbContext(DbContextOptions<CosmosDbContext> options) : DbCont
         // Set default string length to Cosmos DB's practical limit
         configurationBuilder.Properties<string>()
                           .HaveMaxLength(CosmosLimits.DefaultStringMaxLength);
-        
+
         // Configure decimal precision for monetary and rating values
         configurationBuilder.Properties<decimal>()
                           .HavePrecision(CosmosLimits.DecimalPrecision, CosmosLimits.DecimalScale);
-        
+
         // Ensure DateTime properties are handled consistently
         configurationBuilder.Properties<DateTime>()
                           .HaveConversion<DateTime>();
-                          
+
         // Configure nullable DateTime properties
         configurationBuilder.Properties<DateTime?>()
                           .HaveConversion<DateTime?>();

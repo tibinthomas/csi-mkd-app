@@ -17,59 +17,68 @@ namespace csi_mkd_premarital_app_BE.Services
             _cacheService = cacheService;
         }
 
-        public async Task SubmitFeedbackAsync(FeedbackDocumentDto dto, string? userAgent = null, string? ipAddress = null)
+        public async Task SubmitFeedbackAsync(ClassFeedbackDto dto, string? userAgent = null, string? ipAddress = null)
         {
-            var feedbackDocument = new FeedbackDocument
+            // Create a ClassFeedback document for Cosmos DB storage
+            var classFeedback = new ClassFeedback
             {
-                ClassId = dto.ClassId,
-                Date = DateTime.SpecifyKind(dto.Date, DateTimeKind.Utc),
-                Ratings = new FeedbackRatings
-                {
-                    Quality = dto.QualityRating,
-                    Relevance = dto.RelevanceRating,
-                    Engagement = dto.EngagementRating,
-                    Organization = dto.OrganizationRating
-                },
-                TextResponses = new FeedbackText
-                {
-                    Valuable = dto.Valuable,
-                    Improvements = dto.Improvements,
-                    Comments = dto.Comments
-                },
-                Metadata = new FeedbackMetadata
-                {
-                    PremaritalRegistrationId = dto.PremaritalRegistrationId,
-                    SessionTitle = dto.SessionTitle,
-                    InstructorName = dto.InstructorName,
-                    SessionDuration = dto.SessionDuration,
-                    Location = dto.Location,
-                    Source = dto.Source ?? "web",
-                    Platform = dto.Platform ?? string.Empty,
-                    UserAgent = userAgent ?? string.Empty,
-                    IpAddress = ipAddress ?? string.Empty
-                }
+                PremaritalRegistrationId = dto.PremaritalRegistrationId,
+                Email = dto.Email,
+                Name = dto.Name,
+                UpdatedAt = DateTime.UtcNow
             };
 
-            await _repository.AddAsync(feedbackDocument);
+            // Convert DTO feedbacks to model feedback entries
+            foreach (var feedbackEntry in dto.Feedbacks)
+            {
+                var feedbackDetail = new ClassFeedbackDetail
+                {
+                    Date = feedbackEntry.Value.Date,
+                    InstructorId = feedbackEntry.Value.InstructorId,
+                    Ratings = new ClassFeedbackRatings
+                    {
+                        Quality = feedbackEntry.Value.Ratings.Quality,
+                        Relevance = feedbackEntry.Value.Ratings.Relevance,
+                        Engagement = feedbackEntry.Value.Ratings.Engagement,
+                        Organization = feedbackEntry.Value.Ratings.Organization
+                    },
+                    TextResponses = new ClassFeedbackTextResponses
+                    {
+                        Comments = feedbackEntry.Value.TextResponses.Comments,
+                        Improvements = feedbackEntry.Value.TextResponses.Improvements,
+                        Valuable = feedbackEntry.Value.TextResponses.Valuable
+                    }
+                };
+
+                // Add to FeedbackEntries collection
+                classFeedback.FeedbackEntries.Add(new ClassFeedbackEntry
+                {
+                    ClassId = feedbackEntry.Key,
+                    Detail = feedbackDetail
+                });
+            }
+
+            // Store the ClassFeedback document
+            await _repository.AddAsync(classFeedback);
             await _cacheService.InvalidateFeedbackCachesAsync();
         }
 
-        public async Task<List<FeedbackResponseDto>> GetAllFeedbacksAsync()
+        public async Task<List<ClassFeedbackResponseDto>> GetAllFeedbacksAsync()
         {
-            var documents = await _repository.GetAllAsync();
-            return documents.Select(MapToResponseDto).ToList();
+            var feedbacks = await _repository.GetAllAsync();
+            return feedbacks.Select(MapToResponseDto).ToList();
         }
 
-        public async Task<List<FeedbackResponseDto>> GetFeedbacksByDateRangeAsync(DateTime startDate, DateTime endDate)
+        public async Task<List<ClassFeedbackResponseDto>> GetFeedbacksByDateRangeAsync(DateTime startDate, DateTime endDate)
         {
-            var documents = await _repository.GetByDateRangeAsync(startDate, endDate);
-            return documents.Select(MapToResponseDto).ToList();
+            var feedbacks = await _repository.GetByDateRangeAsync(startDate, endDate);
+            return feedbacks.Select(MapToResponseDto).ToList();
         }
 
-        public async Task<List<FeedbackResponseDto>> GetFeedbacksByRegistrationIdAsync(Guid registrationId)
+        public async Task<List<ClassFeedbackResponseDto>> GetFeedbacksByRegistrationIdAsync(Guid registrationId)
         {
-            var documents = await _repository.GetByRegistrationIdAsync(registrationId);
-            return documents.Select(MapToResponseDto).ToList();
+            var feedbacks = await _repository.GetByRegistrationIdAsync(registrationId);
+            return feedbacks.Select(MapToResponseDto).ToList();
         }
 
         public async Task<List<int>> GetCompletedClassIdsAsync(Guid registrationId)
@@ -77,19 +86,19 @@ namespace csi_mkd_premarital_app_BE.Services
             return await _repository.GetCompletedClassIdsAsync(registrationId);
         }
 
-        public async Task<FeedbackResponseDto?> GetFeedbackByIdAsync(string id, string partitionKey)
+        public async Task<ClassFeedbackResponseDto?> GetFeedbackByIdAsync(string id, string partitionKey)
         {
-            var document = await _repository.GetByIdAsync(id, partitionKey);
-            return document != null ? MapToResponseDto(document) : null;
+            var feedback = await _repository.GetByIdAsync(id, partitionKey);
+            return feedback != null ? MapToResponseDto(feedback) : null;
         }
 
-        public async Task<List<FeedbackResponseDto>> GetFeedbacksByClassIdAsync(int classId)
+        public async Task<List<ClassFeedbackResponseDto>> GetFeedbacksByClassIdAsync(int classId)
         {
-            var documents = await _repository.GetByClassIdAsync(classId);
-            return documents.Select(MapToResponseDto).ToList();
+            var feedbacks = await _repository.GetByClassIdAsync(classId);
+            return feedbacks.Select(MapToResponseDto).ToList();
         }
 
-        public async Task<FeedbackAnalyticsDto> GetFeedbackAnalyticsAsync()
+        public async Task<ClassFeedbackAnalyticsDto> GetFeedbackAnalyticsAsync()
         {
             var averageRatingsByClass = await _repository.GetAverageRatingsByClassAsync();
             var totalCount = await _repository.GetFeedbackCountAsync();
@@ -99,114 +108,129 @@ namespace csi_mkd_premarital_app_BE.Services
                 ? averageRatingsByClass.Values.Average() 
                 : 0.0;
 
-            return new FeedbackAnalyticsDto
+            return new ClassFeedbackAnalyticsDto
             {
                 AverageRatingsByClass = averageRatingsByClass,
-                TotalFeedbackCount = totalCount,
+                TotalFeedbackCount = (int)totalCount,
                 OverallAverageRating = overallAverage,
                 RecentFeedback = recentFeedback.Select(MapToResponseDto).ToList(),
                 FeedbackByMonth = GenerateFeedbackByMonth(recentFeedback)
             };
         }
 
-        public async Task<List<FeedbackResponseDto>> GetRecentFeedbackAsync(int count = 10)
+        public async Task<List<ClassFeedbackResponseDto>> GetRecentFeedbackAsync(int count = 10)
         {
-            var documents = await _repository.GetRecentFeedbackAsync(count);
-            return documents.Select(MapToResponseDto).ToList();
+            var feedbacks = await _repository.GetRecentFeedbackAsync(count);
+            return feedbacks.Select(MapToResponseDto).ToList();
         }
 
-        private static FeedbackResponseDto MapToResponseDto(FeedbackDocument document)
+        private static ClassFeedbackResponseDto MapToResponseDto(ClassFeedback classFeedback)
         {
-            return new FeedbackResponseDto
+            // Convert model feedback entries to DTO feedbacks
+            var feedbacksDto = new Dictionary<string, ClassFeedbackDetailDto>();
+            foreach (var entry in classFeedback.FeedbackEntries)
             {
-                Id = document.id,
-                ClassId = document.ClassId,
-                Date = document.Date,
-                SubmittedAt = document.SubmittedAt,
-                Ratings = new FeedbackRatingsDto
+                feedbacksDto[entry.ClassId] = new ClassFeedbackDetailDto
                 {
-                    Quality = document.Ratings.Quality,
-                    Relevance = document.Ratings.Relevance,
-                    Engagement = document.Ratings.Engagement,
-                    Organization = document.Ratings.Organization,
-                    Average = document.Ratings.Average
-                },
-                TextResponses = new FeedbackTextDto
-                {
-                    Valuable = document.TextResponses.Valuable,
-                    Improvements = document.TextResponses.Improvements,
-                    Comments = document.TextResponses.Comments,
-                    TotalCharacters = document.TextResponses.TotalCharacters,
-                    HasDetailedFeedback = document.TextResponses.HasDetailedFeedback
-                },
-                Metadata = new FeedbackMetadataDto
-                {
-                    PremaritalRegistrationId = document.Metadata.PremaritalRegistrationId,
-                    SessionTitle = document.Metadata.SessionTitle,
-                    InstructorName = document.Metadata.InstructorName,
-                    SessionDuration = document.Metadata.SessionDuration,
-                    Location = document.Metadata.Location,
-                    Source = document.Metadata.Source,
-                    Platform = document.Metadata.Platform,
-                    CreatedAt = document.Metadata.CreatedAt,
-                    Version = document.Metadata.Version
-                }
+                    Date = entry.Detail.Date,
+                    InstructorId = entry.Detail.InstructorId,
+                    Ratings = new ClassFeedbackRatingsDto
+                    {
+                        Quality = entry.Detail.Ratings.Quality,
+                        Relevance = entry.Detail.Ratings.Relevance,
+                        Engagement = entry.Detail.Ratings.Engagement,
+                        Organization = entry.Detail.Ratings.Organization
+                    },
+                    TextResponses = new ClassFeedbackTextResponsesDto
+                    {
+                        Comments = entry.Detail.TextResponses.Comments,
+                        Improvements = entry.Detail.TextResponses.Improvements,
+                        Valuable = entry.Detail.TextResponses.Valuable
+                    }
+                };
+            }
+
+            return new ClassFeedbackResponseDto
+            {
+                Id = classFeedback.Id,
+                PremaritalRegistrationId = classFeedback.PremaritalRegistrationId,
+                Email = classFeedback.Email,
+                Name = classFeedback.Name,
+                Feedbacks = feedbacksDto,
+                CreatedAt = classFeedback.CreatedAt,
+                UpdatedAt = classFeedback.UpdatedAt
             };
         }
 
-        private static Dictionary<string, int> GenerateFeedbackByMonth(List<FeedbackDocument> recentFeedback)
+        private static Dictionary<string, int> GenerateFeedbackByMonth(List<ClassFeedback> recentFeedback)
         {
             return recentFeedback
-                .GroupBy(f => f.Date.ToString("yyyy-MM"))
+                .GroupBy(f => f.UpdatedAt.ToString("yyyy-MM"))
                 .ToDictionary(g => g.Key, g => g.Count());
         }
 
         #region IFeedbackService Implementation
 
-        public async Task SubmitFeedbackAsync(ClassFeedbackDto dto)
+        public async Task<ClassFeedbackResponseDto> SubmitFeedbackAsync(ClassFeedbackDto dto)
         {
-            var feedbackDocumentDto = new FeedbackDocumentDto
-            {
-                ClassId = dto.ClassId,
-                Date = dto.Date,
-                QualityRating = dto.QualityRating,
-                RelevanceRating = dto.RelevanceRating,
-                EngagementRating = dto.EngagementRating,
-                OrganizationRating = dto.OrganizationRating,
-                Valuable = dto.Valuable,
-                Improvements = dto.Improvements,
-                Comments = dto.Comments,
-                PremaritalRegistrationId = dto.PremaritalRegistrationId ?? Guid.Empty,
-                Source = "web",
-                Platform = "api"
-            };
+            await SubmitFeedbackAsync(dto, null, null);
 
-            await SubmitFeedbackAsync(feedbackDocumentDto);
+            // Return a simplified response - in a real implementation you'd fetch the saved document
+            return new ClassFeedbackResponseDto
+            {
+                Id = 0, // Cosmos documents don't have int IDs
+                PremaritalRegistrationId = dto.PremaritalRegistrationId,
+                Email = dto.Email,
+                Name = dto.Name,
+                Feedbacks = dto.Feedbacks,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
+            };
         }
 
-        async Task<List<ClassFeedback>> IFeedbackService.GetAllFeedbacksAsync()
+        public async Task<ClassFeedbackResponseDto?> GetUserFeedbackAsync(Guid premaritalRegistrationId)
         {
-            var documents = await _repository.GetAllAsync();
-            return documents.Select(MapToClassFeedback).ToList();
+            var documents = await GetFeedbacksByRegistrationIdAsync(premaritalRegistrationId);
+            if (!documents.Any())
+                return null;
+
+            // Return the first document (assuming one document per user in Cosmos)
+            return documents.First();
         }
 
-        private static ClassFeedback MapToClassFeedback(FeedbackDocument document)
+        public async Task<ClassSpecificFeedbackDto> GetFeedbackForClassAsync(Guid premaritalRegistrationId, int classId)
         {
-            return new ClassFeedback
+            var userFeedback = await GetUserFeedbackAsync(premaritalRegistrationId);
+            
+            if (userFeedback == null || !userFeedback.Feedbacks.ContainsKey(classId.ToString()))
             {
-                Id = int.TryParse(document.id, out int id) ? id : 0,
-                ClassId = document.ClassId,
-                Date = DateTime.SpecifyKind(document.Date, DateTimeKind.Utc),
-                QualityRating = document.Ratings.Quality,
-                RelevanceRating = document.Ratings.Relevance,
-                EngagementRating = document.Ratings.Engagement,
-                OrganizationRating = document.Ratings.Organization,
-                Valuable = document.TextResponses.Valuable,
-                Improvements = document.TextResponses.Improvements,
-                Comments = document.TextResponses.Comments,
-                PremaritalRegistrationId = document.Metadata.PremaritalRegistrationId == Guid.Empty ? null : document.Metadata.PremaritalRegistrationId,
-                SubmittedAt = document.SubmittedAt
+                return new ClassSpecificFeedbackDto
+                {
+                    ClassId = classId,
+                    FeedbackDetail = null,
+                    HasFeedback = false
+                };
+            }
+
+            return new ClassSpecificFeedbackDto
+            {
+                ClassId = classId,
+                FeedbackDetail = userFeedback.Feedbacks[classId.ToString()],
+                HasFeedback = true
             };
+        }
+
+        async Task<List<ClassFeedbackResponseDto>> IFeedbackService.GetAllFeedbacksAsync()
+        {
+            return await GetAllFeedbacksAsync();
+        }
+
+        public async Task<bool> DeleteFeedbackForClassAsync(Guid premaritalRegistrationId, int classId)
+        {
+            // This would require implementing delete functionality in the Cosmos repository
+            // For now, return false as not implemented
+            await Task.CompletedTask;
+            return false;
         }
 
         #endregion

@@ -1,6 +1,7 @@
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace csi_mkd_premarital_app_BE.Endpoints
 {
@@ -14,7 +15,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
             // Submit feedback to Cosmos DB
             group.MapPost("/", async (
                 ICosmosDbFeedbackService service,
-                FeedbackDocumentDto dto,
+                ClassFeedbackDto dto,
                 HttpContext context) =>
             {
                 var userAgent = context.Request.Headers.UserAgent.ToString();
@@ -23,7 +24,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 await service.SubmitFeedbackAsync(dto, userAgent, ipAddress);
                 return Results.Ok(new { message = "Feedback submitted successfully to Cosmos DB." });
             })
-            .Accepts<FeedbackDocumentDto>("application/json")
+            .Accepts<ClassFeedbackDto>("application/json")
             .Produces(StatusCodes.Status200OK);
 
             // Get all feedback
@@ -32,7 +33,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var feedbacks = await service.GetAllFeedbacksAsync();
                 return Results.Ok(feedbacks);
             })
-            .Produces<List<FeedbackResponseDto>>(StatusCodes.Status200OK)
+            .Produces<List<ClassFeedbackResponseDto>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(2)));
 
             // Get feedback by date range
@@ -44,7 +45,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var feedbacks = await service.GetFeedbacksByDateRangeAsync(startDate, endDate);
                 return Results.Ok(feedbacks);
             })
-            .Produces<List<FeedbackResponseDto>>(StatusCodes.Status200OK)
+            .Produces<List<ClassFeedbackResponseDto>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(5)));
 
             // Get feedback by registration ID
@@ -55,7 +56,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var feedbacks = await service.GetFeedbacksByRegistrationIdAsync(registrationId);
                 return Results.Ok(feedbacks);
             })
-            .Produces<List<FeedbackResponseDto>>(StatusCodes.Status200OK)
+            .Produces<List<ClassFeedbackResponseDto>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(2)));
 
             // Get completed class IDs for a registration
@@ -81,7 +82,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
 
                 return Results.Ok(feedback);
             })
-            .Produces<FeedbackResponseDto>(StatusCodes.Status200OK)
+            .Produces<ClassFeedbackResponseDto>(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status404NotFound);
 
             // Get feedback by class ID
@@ -92,7 +93,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var feedbacks = await service.GetFeedbacksByClassIdAsync(classId);
                 return Results.Ok(feedbacks);
             })
-            .Produces<List<FeedbackResponseDto>>(StatusCodes.Status200OK)
+            .Produces<List<ClassFeedbackResponseDto>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(5)));
 
             // Get feedback analytics
@@ -101,7 +102,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var analytics = await service.GetFeedbackAnalyticsAsync();
                 return Results.Ok(analytics);
             })
-            .Produces<FeedbackAnalyticsDto>(StatusCodes.Status200OK)
+            .Produces<ClassFeedbackAnalyticsDto>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback-analytics").Expire(TimeSpan.FromMinutes(10)));
 
             // Get recent feedback
@@ -112,8 +113,26 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var feedbacks = await service.GetRecentFeedbackAsync(count);
                 return Results.Ok(feedbacks);
             })
-            .Produces<List<FeedbackResponseDto>>(StatusCodes.Status200OK)
+            .Produces<List<ClassFeedbackResponseDto>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(2)));
+
+            // Debug endpoint: Get structured feedback data (pretty-printed JSON)
+            group.MapGet("/debug", async (ICosmosDbFeedbackService service) =>
+            {
+                var feedbacks = await service.GetRecentFeedbackAsync(5);
+                
+                // Return with pretty-printed JSON formatting
+                var options = new JsonSerializerOptions
+                {
+                    WriteIndented = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                };
+                
+                return Results.Json(feedbacks, options);
+            })
+            .Produces<List<ClassFeedbackResponseDto>>(StatusCodes.Status200OK)
+            .WithName("GetStructuredFeedbackDebug")
+            .WithSummary("Get feedback data with structured JSON formatting for debugging");
         }
     }
 }

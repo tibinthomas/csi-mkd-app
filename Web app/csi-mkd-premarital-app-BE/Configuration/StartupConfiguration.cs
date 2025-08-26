@@ -7,10 +7,8 @@ public static class StartupConfiguration
 {
     public static void ConfigureStartupTasks(WebApplication app)
     {
-        // Only warm up in production, skip in development
-        if (!app.Environment.IsDevelopment())
-        {
-            app.Lifetime.ApplicationStarted.Register(() =>
+        // Database initialization for all environments
+        app.Lifetime.ApplicationStarted.Register(() =>
             {
                 _ = Task.Run(async () =>
                 {
@@ -18,9 +16,13 @@ public static class StartupConfiguration
                     {
                         using var scope = app.Services.CreateScope();
                         var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                        var cosmosDb = scope.ServiceProvider.GetRequiredService<CosmosDbContext>();
                         
                         // Use a lighter query for warmup
                         await db.Database.CanConnectAsync();
+                        
+                        // Ensure Cosmos DB database and containers are created
+                        await cosmosDb.Database.EnsureCreatedAsync();
                         
                         // Skip model building warmup in production with compiled models
                     }
@@ -31,6 +33,5 @@ public static class StartupConfiguration
                     }
                 });
             });
-        }
     }
 }

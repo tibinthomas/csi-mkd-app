@@ -23,8 +23,12 @@ namespace csi_mkd_premarital_app_BE.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Apply all configurations from assembly
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            // Apply configurations from assembly, but exclude Cosmos-specific ones
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(),
+                t => !t.Name.Contains("Cosmos"));
+            
+            // Apply PostgreSQL-specific ClassFeedback configuration
+            modelBuilder.ApplyConfiguration(new csi_mkd_premarital_app_BE.Data.Configurations.ClassFeedbackPostgresConfiguration());
 
             // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
 

@@ -7,12 +7,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace csi_mkd_premarital_app_BE.Data
+namespace csi_mkd_premarital_app_BE.data
 {
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("3058c62b-0170-4e92-bde6-4860cbaa4739"), entityTypeCount: 17)
+            : base(skipDetectChanges: false, modelId: new Guid("ef1a95a9-e648-43d6-a448-56efbb904406"), entityTypeCount: 21)
         {
         }
 
@@ -23,6 +23,10 @@ namespace csi_mkd_premarital_app_BE.Data
             var adminUser = AdminUserEntityType.Create(this);
             var auditEntry = AuditEntryEntityType.Create(this);
             var classFeedback = ClassFeedbackEntityType.Create(this);
+            var classFeedbackDetail = ClassFeedbackDetailEntityType.Create(this);
+            var classFeedbackEntry = ClassFeedbackEntryEntityType.Create(this);
+            var classFeedbackRatings = ClassFeedbackRatingsEntityType.Create(this);
+            var classFeedbackTextResponses = ClassFeedbackTextResponsesEntityType.Create(this);
             var confirmationDocument = ConfirmationDocumentEntityType.Create(this);
             var emailConfig = EmailConfigEntityType.Create(this);
             var feedbackDocument = FeedbackDocumentEntityType.Create(this);
@@ -37,7 +41,10 @@ namespace csi_mkd_premarital_app_BE.Data
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
 
             ParticipantEntityType.CreateForeignKey1(participant, confirmationRegistration);
-            ClassFeedbackEntityType.CreateForeignKey1(classFeedback, premaritalRegistration);
+            ClassFeedbackDetailEntityType.CreateForeignKey1(classFeedbackDetail, classFeedbackEntry);
+            ClassFeedbackEntryEntityType.CreateForeignKey1(classFeedbackEntry, classFeedback);
+            ClassFeedbackRatingsEntityType.CreateForeignKey1(classFeedbackRatings, classFeedbackDetail);
+            ClassFeedbackTextResponsesEntityType.CreateForeignKey1(classFeedbackTextResponses, classFeedbackDetail);
             ConfirmationDocumentEntityType.CreateForeignKey1(confirmationDocument, confirmationRegistration);
             FeedbackMetadataEntityType.CreateForeignKey1(feedbackMetadata, feedbackDocument);
             FeedbackRatingsEntityType.CreateForeignKey1(feedbackRatings, feedbackDocument);
@@ -51,6 +58,10 @@ namespace csi_mkd_premarital_app_BE.Data
             AdminUserEntityType.CreateAnnotations(adminUser);
             AuditEntryEntityType.CreateAnnotations(auditEntry);
             ClassFeedbackEntityType.CreateAnnotations(classFeedback);
+            ClassFeedbackDetailEntityType.CreateAnnotations(classFeedbackDetail);
+            ClassFeedbackEntryEntityType.CreateAnnotations(classFeedbackEntry);
+            ClassFeedbackRatingsEntityType.CreateAnnotations(classFeedbackRatings);
+            ClassFeedbackTextResponsesEntityType.CreateAnnotations(classFeedbackTextResponses);
             ConfirmationDocumentEntityType.CreateAnnotations(confirmationDocument);
             EmailConfigEntityType.CreateAnnotations(emailConfig);
             FeedbackDocumentEntityType.CreateAnnotations(feedbackDocument);
