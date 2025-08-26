@@ -22,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import {
-  FeedbackResponseDto,
+  ClassFeedbackDto,
+  ClassFeedbackResponseDto,
 } from '../../../api/api-main-app/models';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
@@ -52,10 +53,14 @@ export class Feedback implements OnInit {
   private readonly api = inject(CsiMkdPremaritalAppBeService);
   private readonly route = inject(ActivatedRoute);
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
-  userDetails = signal<{ name: string; email: string }>({ name: '', email: '' });
+  userDetails = signal<{ name: string; email: string }>({
+    name: '',
+    email: '',
+  });
 
   userId = signal<string>('');
   classId = input<string>();
+  instructor = signal<any>([]);
 
   constructor() {
     // Get userId from route params
@@ -64,12 +69,31 @@ export class Feedback implements OnInit {
       this.userId.set(routeUserId);
     }
 
+    // Effect to handle initial class selection and populate existing feedback
     effect(() => {
-      const feedbackData = this.existingFeedbackResource.value();
-      const targetClassId = this.classId();
+      const selectedClassId = this.feedbackForm.get('classTitle')?.value;
+      const userFeedbackArray = this.userFeedbackResource.value();
+      const currentUserId = this.userId();
 
-      if (feedbackData && Array.isArray(feedbackData) && targetClassId) {
-        this.populateFormWithExistingFeedback(feedbackData, targetClassId);
+      if (
+        selectedClassId &&
+        userFeedbackArray &&
+        Array.isArray(userFeedbackArray) &&
+        userFeedbackArray.length > 0 &&
+        currentUserId
+      ) {
+        // Get the first (and likely only) feedback record for this user
+        const userFeedback = userFeedbackArray[0];
+        if (
+          userFeedback &&
+          ((userFeedback as any).PremaritalRegistrationId === currentUserId ||
+            userFeedback.premaritalRegistrationId === currentUserId)
+        ) {
+          this.populateFormWithClassFeedback(
+            userFeedback,
+            selectedClassId.toString()
+          );
+        }
       }
     });
 
@@ -122,34 +146,36 @@ export class Feedback implements OnInit {
   ]);
 
   protected readonly feedbackForm = this.fb.group({
-    classTitle: [null, [Validators.required, Validators.maxLength(100)]], // required
-    date: ['', Validators.required], // required
+    classTitle: [null as number | null, [Validators.required]], // required
+    instructor: [null as number | null, Validators.required],
+    date: [null as string | null, Validators.required], // required
     qualityRating: [
-      null,
+      null as number | null,
       [Validators.required, Validators.min(1), Validators.max(5)],
     ],
     relevanceRating: [
-      null,
+      null as number | null,
       [Validators.required, Validators.min(1), Validators.max(5)],
     ],
     engagementRating: [
-      null,
+      null as number | null,
       [Validators.required, Validators.min(1), Validators.max(5)],
     ],
     organizationRating: [
-      null,
+      null as number | null,
       [Validators.required, Validators.min(1), Validators.max(5)],
     ],
-    valuable: [null, Validators.maxLength(500)], // optional
-    improvements: [null, Validators.maxLength(500)], // optional
-    comments: [null, Validators.maxLength(500)], // optional
-    premaritalRegistrationId: [''], // optional, will be set programmatically
+    valuable: [null as string | null, Validators.maxLength(500)], // optional
+    improvements: [null as string | null, Validators.maxLength(500)], // optional
+    comments: [null as string | null, Validators.maxLength(500)], // optional
+    premaritalRegistrationId: [null as string | null], // optional, will be set programmatically
   });
 
   protected readonly isSubmitting = signal(false);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
-  protected readonly timezoneDisplay: string = 'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
+  protected readonly timezoneDisplay: string =
+    'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
 
   // Resource to fetch user details from the API
   protected readonly userDetailsResource = rxResource({
@@ -172,15 +198,19 @@ export class Feedback implements OnInit {
         : of(null), // Always return an observable
   });
 
-  protected readonly existingFeedbackResource = rxResource({
-    // params should be a function returning the current value
+  // Resource to fetch all user feedback by registration ID
+  protected readonly userFeedbackResource = rxResource({
     params: () => this.userId(),
     stream: ({ params: userId }) =>
       userId
         ? this.api.apiCosmosFeedbackRegistrationRegistrationIdGet({
             registrationId: userId,
           })
-        : of(null), // Use of(null) to return an observable when no userId
+        : of(null),
+  });
+
+  protected readonly instructorListResource: any = rxResource({
+    stream: () => this.api.apiInstructorsGet(),
   });
 
   getFormControl(name: string) {
@@ -198,12 +228,42 @@ export class Feedback implements OnInit {
     this.successMessage.set('');
     this.errorMessage.set('');
 
-    const payload = this.feedbackForm.value;
-    this.api.apiCosmosFeedbackPost({ body: payload as any }).subscribe({
+    const formValue = this.feedbackForm.value;
+    const classId = formValue.classTitle;
+
+    // Create the class feedback payload using the new structure
+    const payload: ClassFeedbackDto = {
+      premaritalRegistrationId: this.userId() || '',
+      name: this.userDetails().name || '',
+      email: this.userDetails().email || '',
+      feedbacks: {
+        [classId!.toString()]: {
+          date: formValue.date || '',
+          instructorId: Number(formValue.instructor),
+          ratings: {
+            quality: Number(formValue.qualityRating),
+            relevance: Number(formValue.relevanceRating),
+            engagement: Number(formValue.engagementRating),
+            organization: Number(formValue.organizationRating),
+          },
+          textResponses: {
+            valuable: formValue.valuable || null,
+            improvements: formValue.improvements || null,
+            comments: formValue.comments || null,
+          },
+        },
+      },
+    };
+
+    this.api.apiCosmosFeedbackPost({ body: payload }).subscribe({
       next: () => {
         this.successMessage.set('Feedback submitted successfully!');
         this.feedbackForm.reset();
         this.isSubmitting.set(false);
+        // Reload the page after successful submission
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500); // Wait 1.5 seconds to show success message
       },
       error: (err) => {
         this.errorMessage.set(
@@ -228,29 +288,81 @@ export class Feedback implements OnInit {
     window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   }
 
-  private populateFormWithExistingFeedback(
-    feedbackData: FeedbackResponseDto[],
+  onClassTitleChange(): void {
+    const selectedClassId = this.feedbackForm.get('classTitle')?.value;
+    const userFeedbackArray = this.userFeedbackResource.value();
+    const currentUserId = this.userId();
+
+    if (
+      selectedClassId &&
+      userFeedbackArray &&
+      Array.isArray(userFeedbackArray) &&
+      userFeedbackArray.length > 0 &&
+      currentUserId
+    ) {
+      // Get the first (and likely only) feedback record for this user
+      const userFeedback = userFeedbackArray[0];
+      if (
+        userFeedback &&
+        ((userFeedback as any).PremaritalRegistrationId === currentUserId ||
+          userFeedback.premaritalRegistrationId === currentUserId)
+      ) {
+        this.populateFormWithClassFeedback(
+          userFeedback,
+          selectedClassId.toString()
+        );
+      } else {
+        // Clear form fields except classTitle and premaritalRegistrationId if no existing feedback
+        this.clearFeedbackFields();
+      }
+    } else {
+      // Clear form fields except classTitle and premaritalRegistrationId if no data
+      this.clearFeedbackFields();
+    }
+  }
+
+  private clearFeedbackFields(): void {
+    this.feedbackForm.patchValue({
+      instructor: null,
+      date: null,
+      qualityRating: null,
+      relevanceRating: null,
+      engagementRating: null,
+      organizationRating: null,
+      valuable: null,
+      improvements: null,
+      comments: null,
+    });
+  }
+
+  private populateFormWithClassFeedback(
+    classFeedback: ClassFeedbackResponseDto,
     targetClassId: string
   ): void {
-    const existingFeedback = feedbackData.find(
-      (feedback) => feedback.classId?.toString() === targetClassId
-    );
+    // Check if the feedback object has the Feedbacks property (capital F) and the target class
+    const feedbacks =
+      classFeedback.feedbacks || (classFeedback as any).Feedbacks;
 
-    if (existingFeedback) {
-      const formData: any = {
-        classTitle: targetClassId,
-        date: existingFeedback.date || '',
-        qualityRating: existingFeedback.ratings?.quality || null,
-        relevanceRating: existingFeedback.ratings?.relevance || null,
-        engagementRating: existingFeedback.ratings?.engagement || null,
-        organizationRating: existingFeedback.ratings?.organization || null,
-        valuable: existingFeedback.textResponses?.valuable || null,
-        improvements: existingFeedback.textResponses?.improvements || null,
-        comments: existingFeedback.textResponses?.comments || null,
-        premaritalRegistrationId: this.userId() || '',
+    if (feedbacks && feedbacks[targetClassId]) {
+      const feedbackDetail = feedbacks[targetClassId];
+
+      const formData = {
+        instructor: feedbackDetail.InstructorId || null,
+        date: feedbackDetail.Date || null,
+        qualityRating: feedbackDetail.Ratings?.Quality || null,
+        relevanceRating: feedbackDetail.Ratings?.Relevance || null,
+        engagementRating: feedbackDetail.Ratings?.Engagement || null,
+        organizationRating: feedbackDetail.Ratings?.Organization || null,
+        valuable: feedbackDetail.TextResponses?.Valuable || null,
+        improvements: feedbackDetail.TextResponses?.Improvements || null,
+        comments: feedbackDetail.TextResponses?.Comments || null,
       };
 
+      // Only update fields that are not currently being edited
       this.feedbackForm.patchValue(formData);
+    } else {
+      // Clear fields if no existing feedback for this class
+      this.clearFeedbackFields();
     }
   }
 

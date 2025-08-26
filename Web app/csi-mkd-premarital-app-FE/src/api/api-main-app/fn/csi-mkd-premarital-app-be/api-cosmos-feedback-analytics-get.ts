@@ -8,12 +8,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackAnalyticsDto } from '../../models/feedback-analytics-dto';
+import { ClassFeedbackAnalyticsDto } from '../../models/class-feedback-analytics-dto';
 
 export interface ApiCosmosFeedbackAnalyticsGet$Params {
 }
 
-export function apiCosmosFeedbackAnalyticsGet(http: HttpClient, rootUrl: string, params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackAnalyticsDto>> {
+export function apiCosmosFeedbackAnalyticsGet(http: HttpClient, rootUrl: string, params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<ClassFeedbackAnalyticsDto>> {
   const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackAnalyticsGet.PATH, 'get');
   if (params) {
   }
@@ -23,7 +23,7 @@ export function apiCosmosFeedbackAnalyticsGet(http: HttpClient, rootUrl: string,
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<FeedbackAnalyticsDto>;
+      return r as StrictHttpResponse<ClassFeedbackAnalyticsDto>;
     })
   );
 }

@@ -4,17 +4,17 @@
 
 export type { AdminLoginDto } from './models/admin-login-dto';
 export type { CheckEmailResponseDto } from './models/check-email-response-dto';
+export type { ClassFeedbackAnalyticsDto } from './models/class-feedback-analytics-dto';
+export type { ClassFeedbackDetailDto } from './models/class-feedback-detail-dto';
+export type { ClassFeedbackDto } from './models/class-feedback-dto';
+export type { ClassFeedbackRatingsDto } from './models/class-feedback-ratings-dto';
+export type { ClassFeedbackResponseDto } from './models/class-feedback-response-dto';
+export type { ClassFeedbackTextResponsesDto } from './models/class-feedback-text-responses-dto';
 export type { ConfirmationDocumentDto } from './models/confirmation-document-dto';
 export type { ConfirmationRegisterDto } from './models/confirmation-register-dto';
 export type { CreateInstructorDto } from './models/create-instructor-dto';
 export type { CreateUpdateSessionDto } from './models/create-update-session-dto';
 export type { EmailConfig } from './models/email-config';
-export type { FeedbackAnalyticsDto } from './models/feedback-analytics-dto';
-export type { FeedbackDocumentDto } from './models/feedback-document-dto';
-export type { FeedbackMetadataDto } from './models/feedback-metadata-dto';
-export type { FeedbackRatingsDto } from './models/feedback-ratings-dto';
-export type { FeedbackResponseDto } from './models/feedback-response-dto';
-export type { FeedbackTextDto } from './models/feedback-text-dto';
 export type { GeneralDocumentDto } from './models/general-document-dto';
 export type { GeneralRegisterDto } from './models/general-register-dto';
 export type { InstructorDto } from './models/instructor-dto';

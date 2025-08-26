@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackResponseDto } from '../../models/feedback-response-dto';
+import { ClassFeedbackResponseDto } from '../../models/class-feedback-response-dto';
 
 export interface ApiCosmosFeedbackRegistrationRegistrationIdGet$Params {
   registrationId: string;
 }
 
-export function apiCosmosFeedbackRegistrationRegistrationIdGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+export function apiCosmosFeedbackRegistrationRegistrationIdGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
   const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackRegistrationRegistrationIdGet.PATH, 'get');
   if (params) {
     rb.path('registrationId', params.registrationId, {});
@@ -25,7 +25,7 @@ export function apiCosmosFeedbackRegistrationRegistrationIdGet(http: HttpClient,
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FeedbackResponseDto>>;
+      return r as StrictHttpResponse<Array<ClassFeedbackResponseDto>>;
     })
   );
 }
