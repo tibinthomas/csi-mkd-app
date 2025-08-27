@@ -8,13 +8,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackResponseDto } from '../../models/feedback-response-dto';
+import { ClassFeedbackResponseDto } from '../../models/class-feedback-response-dto';
 
 export interface ApiCosmosFeedbackRecentGet$Params {
   count?: number;
 }
 
-export function apiCosmosFeedbackRecentGet(http: HttpClient, rootUrl: string, params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+export function apiCosmosFeedbackRecentGet(http: HttpClient, rootUrl: string, params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
   const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackRecentGet.PATH, 'get');
   if (params) {
     rb.query('count', params.count, {});
@@ -25,7 +25,7 @@ export function apiCosmosFeedbackRecentGet(http: HttpClient, rootUrl: string, pa
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<FeedbackResponseDto>>;
+      return r as StrictHttpResponse<Array<ClassFeedbackResponseDto>>;
     })
   );
 }

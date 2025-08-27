@@ -8,14 +8,14 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackResponseDto } from '../../models/feedback-response-dto';
+import { ClassFeedbackResponseDto } from '../../models/class-feedback-response-dto';
 
 export interface ApiCosmosFeedbackIdPartitionKeyGet$Params {
   id: string;
   partitionKey: string;
 }
 
-export function apiCosmosFeedbackIdPartitionKeyGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackResponseDto>> {
+export function apiCosmosFeedbackIdPartitionKeyGet(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<StrictHttpResponse<ClassFeedbackResponseDto>> {
   const rb = new RequestBuilder(rootUrl, apiCosmosFeedbackIdPartitionKeyGet.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {});
@@ -27,7 +27,7 @@ export function apiCosmosFeedbackIdPartitionKeyGet(http: HttpClient, rootUrl: st
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<FeedbackResponseDto>;
+      return r as StrictHttpResponse<ClassFeedbackResponseDto>;
     })
   );
 }

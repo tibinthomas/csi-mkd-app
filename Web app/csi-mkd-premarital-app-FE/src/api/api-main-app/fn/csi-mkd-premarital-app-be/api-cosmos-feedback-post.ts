@@ -8,10 +8,10 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { FeedbackDocumentDto } from '../../models/feedback-document-dto';
+import { ClassFeedbackDto } from '../../models/class-feedback-dto';
 
 export interface ApiCosmosFeedbackPost$Params {
-      body: FeedbackDocumentDto
+      body: ClassFeedbackDto
 }
 
 export function apiCosmosFeedbackPost(http: HttpClient, rootUrl: string, params: ApiCosmosFeedbackPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {

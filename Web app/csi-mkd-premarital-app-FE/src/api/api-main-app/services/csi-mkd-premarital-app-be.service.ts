@@ -120,9 +120,11 @@ import { ApiSessionconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api
 import { apiSessionconfigSessionsGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { ApiSessionconfigSessionsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { CheckEmailResponseDto } from '../models/check-email-response-dto';
+import { ClassFeedbackAnalyticsDto } from '../models/class-feedback-analytics-dto';
+import { ClassFeedbackResponseDto } from '../models/class-feedback-response-dto';
 import { EmailConfig } from '../models/email-config';
-import { FeedbackAnalyticsDto } from '../models/feedback-analytics-dto';
-import { FeedbackResponseDto } from '../models/feedback-response-dto';
+import { getStructuredFeedbackDebug } from '../fn/csi-mkd-premarital-app-be/get-structured-feedback-debug';
+import { GetStructuredFeedbackDebug$Params } from '../fn/csi-mkd-premarital-app-be/get-structured-feedback-debug';
 import { healthCosmosGet } from '../fn/csi-mkd-premarital-app-be/health-cosmos-get';
 import { HealthCosmosGet$Params } from '../fn/csi-mkd-premarital-app-be/health-cosmos-get';
 import { healthDbGet } from '../fn/csi-mkd-premarital-app-be/health-db-get';
@@ -997,7 +999,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackGet$Response(params?: ApiCosmosFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  apiCosmosFeedbackGet$Response(params?: ApiCosmosFeedbackGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
     return apiCosmosFeedbackGet(this.http, this.rootUrl, params, context);
   }
 
@@ -1007,9 +1009,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackGet(params?: ApiCosmosFeedbackGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+  apiCosmosFeedbackGet(params?: ApiCosmosFeedbackGet$Params, context?: HttpContext): Observable<Array<ClassFeedbackResponseDto>> {
     return this.apiCosmosFeedbackGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+      map((r: StrictHttpResponse<Array<ClassFeedbackResponseDto>>): Array<ClassFeedbackResponseDto> => r.body)
     );
   }
 
@@ -1047,7 +1049,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackDateRangeGet$Response(params: ApiCosmosFeedbackDateRangeGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  apiCosmosFeedbackDateRangeGet$Response(params: ApiCosmosFeedbackDateRangeGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
     return apiCosmosFeedbackDateRangeGet(this.http, this.rootUrl, params, context);
   }
 
@@ -1057,9 +1059,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackDateRangeGet(params: ApiCosmosFeedbackDateRangeGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+  apiCosmosFeedbackDateRangeGet(params: ApiCosmosFeedbackDateRangeGet$Params, context?: HttpContext): Observable<Array<ClassFeedbackResponseDto>> {
     return this.apiCosmosFeedbackDateRangeGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+      map((r: StrictHttpResponse<Array<ClassFeedbackResponseDto>>): Array<ClassFeedbackResponseDto> => r.body)
     );
   }
 
@@ -1072,7 +1074,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackRegistrationRegistrationIdGet$Response(params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  apiCosmosFeedbackRegistrationRegistrationIdGet$Response(params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
     return apiCosmosFeedbackRegistrationRegistrationIdGet(this.http, this.rootUrl, params, context);
   }
 
@@ -1082,9 +1084,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackRegistrationRegistrationIdGet(params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+  apiCosmosFeedbackRegistrationRegistrationIdGet(params: ApiCosmosFeedbackRegistrationRegistrationIdGet$Params, context?: HttpContext): Observable<Array<ClassFeedbackResponseDto>> {
     return this.apiCosmosFeedbackRegistrationRegistrationIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+      map((r: StrictHttpResponse<Array<ClassFeedbackResponseDto>>): Array<ClassFeedbackResponseDto> => r.body)
     );
   }
 
@@ -1122,7 +1124,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackIdPartitionKeyGet$Response(params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackResponseDto>> {
+  apiCosmosFeedbackIdPartitionKeyGet$Response(params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<StrictHttpResponse<ClassFeedbackResponseDto>> {
     return apiCosmosFeedbackIdPartitionKeyGet(this.http, this.rootUrl, params, context);
   }
 
@@ -1132,9 +1134,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackIdPartitionKeyGet(params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<FeedbackResponseDto> {
+  apiCosmosFeedbackIdPartitionKeyGet(params: ApiCosmosFeedbackIdPartitionKeyGet$Params, context?: HttpContext): Observable<ClassFeedbackResponseDto> {
     return this.apiCosmosFeedbackIdPartitionKeyGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<FeedbackResponseDto>): FeedbackResponseDto => r.body)
+      map((r: StrictHttpResponse<ClassFeedbackResponseDto>): ClassFeedbackResponseDto => r.body)
     );
   }
 
@@ -1147,7 +1149,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackClassClassIdGet$Response(params: ApiCosmosFeedbackClassClassIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  apiCosmosFeedbackClassClassIdGet$Response(params: ApiCosmosFeedbackClassClassIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
     return apiCosmosFeedbackClassClassIdGet(this.http, this.rootUrl, params, context);
   }
 
@@ -1157,9 +1159,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackClassClassIdGet(params: ApiCosmosFeedbackClassClassIdGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+  apiCosmosFeedbackClassClassIdGet(params: ApiCosmosFeedbackClassClassIdGet$Params, context?: HttpContext): Observable<Array<ClassFeedbackResponseDto>> {
     return this.apiCosmosFeedbackClassClassIdGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+      map((r: StrictHttpResponse<Array<ClassFeedbackResponseDto>>): Array<ClassFeedbackResponseDto> => r.body)
     );
   }
 
@@ -1172,7 +1174,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackAnalyticsGet$Response(params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<FeedbackAnalyticsDto>> {
+  apiCosmosFeedbackAnalyticsGet$Response(params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<ClassFeedbackAnalyticsDto>> {
     return apiCosmosFeedbackAnalyticsGet(this.http, this.rootUrl, params, context);
   }
 
@@ -1182,9 +1184,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackAnalyticsGet(params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<FeedbackAnalyticsDto> {
+  apiCosmosFeedbackAnalyticsGet(params?: ApiCosmosFeedbackAnalyticsGet$Params, context?: HttpContext): Observable<ClassFeedbackAnalyticsDto> {
     return this.apiCosmosFeedbackAnalyticsGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<FeedbackAnalyticsDto>): FeedbackAnalyticsDto => r.body)
+      map((r: StrictHttpResponse<ClassFeedbackAnalyticsDto>): ClassFeedbackAnalyticsDto => r.body)
     );
   }
 
@@ -1197,7 +1199,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackRecentGet$Response(params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<FeedbackResponseDto>>> {
+  apiCosmosFeedbackRecentGet$Response(params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
     return apiCosmosFeedbackRecentGet(this.http, this.rootUrl, params, context);
   }
 
@@ -1207,9 +1209,42 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiCosmosFeedbackRecentGet(params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<Array<FeedbackResponseDto>> {
+  apiCosmosFeedbackRecentGet(params?: ApiCosmosFeedbackRecentGet$Params, context?: HttpContext): Observable<Array<ClassFeedbackResponseDto>> {
     return this.apiCosmosFeedbackRecentGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<FeedbackResponseDto>>): Array<FeedbackResponseDto> => r.body)
+      map((r: StrictHttpResponse<Array<ClassFeedbackResponseDto>>): Array<ClassFeedbackResponseDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `getStructuredFeedbackDebug()` */
+  static readonly GetStructuredFeedbackDebugPath = '/api/cosmos/feedback/debug';
+
+  /**
+   * Get feedback data with structured JSON formatting for debugging.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getStructuredFeedbackDebug()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStructuredFeedbackDebug$Response(params?: GetStructuredFeedbackDebug$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ClassFeedbackResponseDto>>> {
+    return getStructuredFeedbackDebug(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Get feedback data with structured JSON formatting for debugging.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getStructuredFeedbackDebug$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getStructuredFeedbackDebug(params?: GetStructuredFeedbackDebug$Params, context?: HttpContext): Observable<Array<ClassFeedbackResponseDto>> {
+    return this.getStructuredFeedbackDebug$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<ClassFeedbackResponseDto>>): Array<ClassFeedbackResponseDto> => r.body)
     );
   }
 

@@ -15,14 +15,27 @@
             <label class="font-medium" i18n>Email: {{ userDetails().email }}</label>
           </div>
         </div>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label i18n>Counselling Class Name</mat-label>
+          <mat-select formControlName="classTitle" (selectionChange)="onClassTitleChange()">
+            @for (session of classTitles(); track session.id) {
+            <mat-option [value]="session.id" [attr.aria-label]="session.title">
+              {{ session.title }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
         <div class="grid md:grid-cols-2 gap-6 pb-5">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Counselling Class Name</mat-label>
-            <mat-select formControlName="classTitle">
-              @for (session of classTitles(); track session.id) {
-              <mat-option [value]="session.id" [attr.aria-label]="session.title">
-                {{ session.title }}
+            <mat-label i18n>Instructor</mat-label>
+            <mat-select formControlName="instructor">
+              @if (instructorListResource.value()) { @for (instructor of instructorListResource.value(); track
+              instructor.Id) {
+              <mat-option [value]="instructor.Id" [attr.aria-label]="instructor.Name">
+                {{ instructor.Name }}
               </mat-option>
+              } } @else {
+              <mat-option disabled>Loading instructors...</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -62,8 +75,8 @@
           }
         </div>
 
+        <mat-label i18n>What did you find most valuable about this session?</mat-label>
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label i18n>What did you find most valuable about this session?</mat-label>
           <textarea
             matInput
             formControlName="valuable"
@@ -75,9 +88,8 @@
             appSpeechRecognition
           ></textarea>
         </mat-form-field>
-
+        <mat-label i18n>What could have been improved?</mat-label>
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label i18n>What could have been improved?</mat-label>
           <textarea
             matInput
             formControlName="improvements"
@@ -88,9 +100,8 @@
             appSpeechRecognition
           ></textarea>
         </mat-form-field>
-
+        <mat-label i18n>Any other comments or suggestions?</mat-label>
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label i18n>Any other comments or suggestions?</mat-label>
           <textarea
             matInput
             formControlName="comments"
