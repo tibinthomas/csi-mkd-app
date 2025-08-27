@@ -5,6 +5,7 @@ import {
   inject, 
   signal, 
   effect,
+  computed,
   ChangeDetectionStrategy,
   OnDestroy
 } from '@angular/core';
@@ -12,12 +13,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SpeechRecognitionService } from '../../../core/services/speech-recognition.service';
+import { getFeatureFlags } from '../../../config/feature-flags';
 
 @Component({
   selector: 'app-speech-recognition-button',
   template: `
-    <div class="sr-button-container">
-      <button
+    @if (isVoiceInputEnabled()) {
+      <div class="sr-button-container">
+        <button
         mat-icon-button
         type="button"
         [disabled]="isDisabled()"
@@ -65,7 +68,8 @@ import { SpeechRecognitionService } from '../../../core/services/speech-recognit
           <span>Listening... Tap to stop</span>
         </div>
       }
-    </div>
+      </div>
+    }
   `,
   styles: [`
     .sr-button-container {
@@ -354,6 +358,9 @@ export class SpeechRecognitionButtonComponent implements OnDestroy {
 
   // Services
   protected speechService = inject(SpeechRecognitionService);
+
+  // Feature flags
+  protected isVoiceInputEnabled = computed(() => getFeatureFlags().enableVoiceInput);
 
   // Internal state
   private hasTranscript = signal<boolean>(false);
