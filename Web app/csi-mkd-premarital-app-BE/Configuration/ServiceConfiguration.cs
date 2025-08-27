@@ -27,13 +27,14 @@ public static class ServiceConfiguration
 
         // Configure JSON options
         ConfigureJsonOptions(builder);
-        
+
         // Optimize JSON serialization for production
         if (!builder.Environment.IsDevelopment())
         {
             builder.Services.ConfigureHttpJsonOptions(options =>
             {
-                options.SerializerOptions.PropertyNamingPolicy = null;
+                options.SerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+                options.SerializerOptions.DictionaryKeyPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
                 options.SerializerOptions.WriteIndented = false; // Faster in production
             });
         }
@@ -95,7 +96,8 @@ public static class ServiceConfiguration
     {
         builder.Services.ConfigureHttpJsonOptions(options =>
         {
-            options.SerializerOptions.PropertyNamingPolicy = null;
+            options.SerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+            options.SerializerOptions.DictionaryKeyPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
             options.SerializerOptions.WriteIndented = true;
         });
     }
@@ -179,7 +181,7 @@ public static class ServiceConfiguration
             // Performance optimizations
             options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
             options.EnableDetailedErrors(builder.Environment.IsDevelopment());
-            
+
             // Disable change tracking in production for faster startup
             if (!builder.Environment.IsDevelopment())
             {
@@ -195,7 +197,7 @@ public static class ServiceConfiguration
     {
         var cosmosConnectionString = builder.Configuration.GetConnectionString("CosmosConnection");
         var cosmosDbConfig = builder.Configuration.GetSection("CosmosDb");
-        
+
         if (!string.IsNullOrEmpty(cosmosConnectionString))
         {
             builder.Services.AddDbContext<CosmosDbContext>(options =>
@@ -209,10 +211,10 @@ public static class ServiceConfiguration
                         cosmosOptions.ConnectionMode(Microsoft.Azure.Cosmos.ConnectionMode.Direct);
                         cosmosOptions.MaxRequestsPerTcpConnection(16);
                         cosmosOptions.MaxTcpConnectionsPerEndpoint(32);
-                        
+
                         // Configure region and consistency
                         cosmosOptions.Region(Microsoft.Azure.Cosmos.Regions.EastUS);
-                        
+
                         // Configure request timeout
                         cosmosOptions.RequestTimeout(TimeSpan.FromSeconds(30));
 

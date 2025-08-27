@@ -40,8 +40,8 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
             var search = filter.Search.ToLower();
 
             query = query.Where(r =>
-                EF.Functions.Like(r.ChurchName, $"%{search}%") ||
-                r.Participants.Any(p => EF.Functions.Like(p.Name, $"%{search}%")));
+                EF.Functions.ILike(r.ChurchName, $"%{search}%") ||
+                r.Participants.Any(p => EF.Functions.ILike(p.Name, $"%{search}%")));
 
         }
 

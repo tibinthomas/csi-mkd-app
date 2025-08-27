@@ -60,9 +60,9 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 var search = filter.Search.ToLower();
 
                 query = query.Where(r =>
-                    EF.Functions.Like(r.FirstName, $"%{search}%") ||
-                    EF.Functions.Like(r.LastName, $"%{search}%") ||
-                    EF.Functions.Like(r.Email, $"%{search}%"));
+                    EF.Functions.ILike(r.FirstName, $"%{search}%") ||
+                    EF.Functions.ILike(r.LastName, $"%{search}%") ||
+                    EF.Functions.ILike(r.Email, $"%{search}%"));
             }
 
             if (filter.UnapprovedOnly == true)
@@ -174,8 +174,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
             var registration = await _context.PremaritalRegistrations
                 .Include(r => r.PremaritalDocument)
                 .FirstOrDefaultAsync(r => r.Id == id);
-            
-            if (registration == null) 
+
+            if (registration == null)
                 return false;
 
             // Remove associated document if exists
@@ -206,13 +206,13 @@ namespace csi_mkd_premarital_app_BE.Repositories
             registration.Occupation = dto.Occupation;
             registration.ChurchName = dto.ChurchName;
             registration.FianceName = dto.FianceName;
-            registration.DateOfMarriage = dto.DateOfMarriage.HasValue 
-                ? DateTime.SpecifyKind(dto.DateOfMarriage.Value, DateTimeKind.Utc) 
+            registration.DateOfMarriage = dto.DateOfMarriage.HasValue
+                ? DateTime.SpecifyKind(dto.DateOfMarriage.Value, DateTimeKind.Utc)
                 : null;
             registration.Phone = dto.Phone;
             registration.Email = dto.Email;
             registration.Days = dto.Days;
-            
+
             // Update church activities JSON
             var churchActivities = new
             {
@@ -222,7 +222,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 dto.Other
             };
             registration.ChurchActivitiesJson = JsonSerializer.Serialize(churchActivities);
-            
+
             registration.Declaration = dto.Declaration;
             registration.SessionId = dto.SessionId;
             registration.PaymentStatus = dto.PaymentStatus;

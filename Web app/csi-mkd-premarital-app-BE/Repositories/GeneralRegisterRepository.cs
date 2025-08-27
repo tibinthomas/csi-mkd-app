@@ -53,9 +53,9 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
             var search = filter.Search.ToLower();
 
             query = query.Where(r =>
-                EF.Functions.Like(r.FirstName, $"%{search}%") ||
-                EF.Functions.Like(r.LastName, $"%{search}%") ||
-                EF.Functions.Like(r.Email, $"%{search}%"));
+                EF.Functions.ILike(r.FirstName, $"%{search}%") ||
+                EF.Functions.ILike(r.LastName, $"%{search}%") ||
+                EF.Functions.ILike(r.Email, $"%{search}%"));
         }
 
         if (filter.UnapprovedOnly == true)
