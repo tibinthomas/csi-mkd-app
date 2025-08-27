@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { SpeechRecognitionButtonComponent } from '../components/speech-recognition-button/speech-recognition-button';
+import { getFeatureFlags } from '../../config/feature-flags';
 
 @Directive({
   selector: 'textarea[appSpeechRecognition], mat-form-field textarea[appSpeechRecognition]'
@@ -26,7 +27,11 @@ export class SpeechRecognitionDirective implements AfterViewInit, OnDestroy {
   private originalNextSibling: Node | null = null;
 
   ngAfterViewInit(): void {
-    this.setupSpeechRecognition();
+    // Only setup speech recognition if the feature is enabled
+    const featureFlags = getFeatureFlags();
+    if (featureFlags.enableVoiceInput) {
+      this.setupSpeechRecognition();
+    }
   }
 
   ngOnDestroy(): void {
