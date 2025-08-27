@@ -120,13 +120,13 @@ export class Questions {
   ngOnInit(): void {
     const userDetails = this.feedbackDataService.userDetails();
     this.userDetails = {
-      name: `${userDetails.FirstName} ${userDetails.LastName}`,
-      email: userDetails.Email,
+      name: `${userDetails.firstName} ${userDetails.lastName}`,
+      email: userDetails.email,
     };
     if (userDetails) {
       this.form.patchValue({
-        name: `${userDetails.FirstName} ${userDetails.LastName}`,
-        email: userDetails.Email,
+        name: `${userDetails.firstName} ${userDetails.lastName}`,
+        email: userDetails.email,
       });
     }
   }

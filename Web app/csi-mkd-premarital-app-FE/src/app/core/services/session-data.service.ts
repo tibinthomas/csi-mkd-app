@@ -18,7 +18,7 @@ export class SessionDataService {
         this.api.apiSessionconfigGet().pipe(
           map((data: any) => {
             const parsed = typeof data === 'string' ? JSON.parse(data) : data;
-            return (parsed || []).sort((a: any, b: any) => b.Id - a.Id);
+            return (parsed || []).sort((a: any, b: any) => b.id - a.id);
           }),
           catchError((err) => {
             console.error('Failed to load sessions:', err);

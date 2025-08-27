@@ -17,7 +17,7 @@
             (input)="searchTermInput.set($any($event.target).value)"
             i18n
           />
-          <mat-hint i18n>Search by name, email, or phone</mat-hint>
+          <mat-hint i18n>Search by name or email</mat-hint>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -52,39 +52,39 @@
           <!-- Column Definitions -->
           <ng-container matColumnDef="FirstName">
             <th mat-header-cell *matHeaderCellDef i18n><strong>First Name</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.FirstName }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.firstName }}</td>
           </ng-container>
           <ng-container matColumnDef="LastName">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Last Name</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.LastName }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.lastName }}</td>
           </ng-container>
           <ng-container matColumnDef="Sex">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Sex</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Sex }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.sex }}</td>
           </ng-container>
           <ng-container matColumnDef="Age">
             <th mat-header-cell *matHeaderCellDef class="text-right" i18n><strong>Age</strong></th>
-            <td mat-cell *matCellDef="let reg" class="text-right tabular-nums">{{ reg.Age }}</td>
+            <td mat-cell *matCellDef="let reg" class="text-right tabular-nums">{{ reg.age }}</td>
           </ng-container>
           <ng-container matColumnDef="Email">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Email</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Email }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.email }}</td>
           </ng-container>
           <ng-container matColumnDef="Phone">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Phone</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Phone }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.phone }}</td>
           </ng-container>
           <ng-container matColumnDef="SessionType">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Session Type</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.SessionType }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.sessionType }}</td>
           </ng-container>
 
           <ng-container matColumnDef="PaymentStatus">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Payment</strong></th>
             <td mat-cell *matCellDef="let reg">
-              @if (reg.PaymentStatus === false) {
+              @if (reg.paymentStatus === false) {
               <button mat-raised-button color="accent" (click)="approvePayment(reg); $event.stopPropagation()">
-                @if(isApproving() === reg.Id) {
+                @if(isApproving() === reg.id) {
                 <mat-spinner diameter="20"></mat-spinner>
                 } @else { <span i18n>Approve</span> }
               </button>
@@ -119,11 +119,11 @@
                   <!-- Details Section -->
                   <div class="flex-1">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div><strong i18n>Father's Name:</strong> {{ reg.FatherName }}</div>
-                      <div><strong i18n>Address:</strong> {{ reg.Address }}</div>
-                      <div><strong i18n>Education:</strong> {{ reg.Education }}</div>
-                      <div><strong i18n>Occupation:</strong> {{ reg.Occupation }}</div>
-                      <div><strong i18n>Church:</strong> {{ reg.ChurchName }}</div>
+                      <div><strong i18n>Father's Name:</strong> {{ reg.fatherName }}</div>
+                      <div><strong i18n>Address:</strong> {{ reg.address }}</div>
+                      <div><strong i18n>Education:</strong> {{ reg.education }}</div>
+                      <div><strong i18n>Occupation:</strong> {{ reg.occupation }}</div>
+                      <div><strong i18n>Church:</strong> {{ reg.churchName }}</div>
                     </div>
                   </div>
 
@@ -135,10 +135,10 @@
                         class="p-2 border border-outline dark:border-outline-variant rounded-lg bg-surface-container-high dark:bg-surface-container"
                       >
                         <img
-                          [ngSrc]="reg.PhotoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
+                          [ngSrc]="reg.photoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
                           width="100"
                           height="120"
-                          alt="Photo of {{ reg.FirstName }} {{ reg.LastName }}"
+                          alt="Photo of {{ reg.firstName }} {{ reg.lastName }}"
                           class="max-w-full h-auto rounded-lg shadow-sm"
                           priority="low"
                         />

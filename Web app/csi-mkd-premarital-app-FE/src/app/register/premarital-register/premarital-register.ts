@@ -423,7 +423,8 @@ export class PremaritalRegister {
     return localDate.toISOString();
   }
 
-  protected readonly timezoneDisplay: string = 'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
+  protected readonly timezoneDisplay: string =
+    'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
 
   private focusFirstInvalidControl(): void {
     try {

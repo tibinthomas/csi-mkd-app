@@ -10,17 +10,17 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface ApiConfirmationregisterFilterGet$Params {
-  Search?: string;
-  Page: number;
-  PageSize: number;
+  search?: string;
+  page: number;
+  pageSize: number;
 }
 
 export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, apiConfirmationregisterFilterGet.PATH, 'get');
   if (params) {
-    rb.query('Search', params.Search, {});
-    rb.query('Page', params.Page, {});
-    rb.query('PageSize', params.PageSize, {});
+    rb.query('search', params.search, {});
+    rb.query('page', params.page, {});
+    rb.query('pageSize', params.pageSize, {});
   }
 
   return http.request(

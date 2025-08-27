@@ -143,14 +143,14 @@ export class SessionConfig implements OnInit {
   readonly groupedSessions = computed(() => {
     const year = this.selectedYear().getFullYear();
     const sessionsInYear = this.sessionList().filter(
-      (s: any) => new Date(s.StartDate).getFullYear() === year
+      (s: any) => new Date(s.startDate).getFullYear() === year
     );
 
     if (!sessionsInYear.length) return [];
 
     const grouped: Record<string, any[]> = {};
     sessionsInYear.forEach((session: any) => {
-      const month = formatDate(session.StartDate, 'MMMM', 'en-US');
+      const month = formatDate(session.startDate, 'MMMM', 'en-US');
       if (!grouped[month]) grouped[month] = [];
       grouped[month].push(session);
     });
@@ -158,10 +158,11 @@ export class SessionConfig implements OnInit {
     return Object.entries(grouped)
       .map(([monthName, sessions]) => ({
         monthName,
-        sessions: sessions.sort((a: any, b: any) => 
-          new Date(a.StartDate).getTime() - new Date(b.StartDate).getTime()
+        sessions: sessions.sort(
+          (a: any, b: any) =>
+            new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
         ),
-        monthDate: new Date(sessions[0].StartDate)
+        monthDate: new Date(sessions[0].startDate),
       }))
       .sort((a, b) => a.monthDate.getTime() - b.monthDate.getTime())
       .map(({ monthName, sessions }) => ({
@@ -173,13 +174,13 @@ export class SessionConfig implements OnInit {
   deleteSession(session: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        message: `Are you sure you want to delete the session "${session.SessionName}"?`,
+        message: `Are you sure you want to delete the session "${session.sessionName}"?`,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.api.apiSessionconfigIdDelete({ id: session.Id }).subscribe({
+        this.api.apiSessionconfigIdDelete({ id: session.id }).subscribe({
           next: () => {
             this.sessionDataService.refresh();
           },
@@ -200,8 +201,8 @@ export class SessionConfig implements OnInit {
   toggleStatus(session: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        message: `Do you want to make "${session.SessionName}" ${
-          session.IsActive ? 'inactive' : 'active'
+        message: `Do you want to make "${session.sessionName}" ${
+          session.isActive ? 'inactive' : 'active'
         }?`,
       },
     });
@@ -210,11 +211,11 @@ export class SessionConfig implements OnInit {
       if (result) {
         const updatedSession = {
           ...session,
-          IsActive: !session.IsActive,
+          isActive: !session.isActive,
         };
         this.api
           .apiSessionconfigIdPut({
-            id: session.Id,
+            id: session.id,
             body: updatedSession,
           })
           .subscribe({
