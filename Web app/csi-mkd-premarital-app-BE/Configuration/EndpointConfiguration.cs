@@ -21,6 +21,7 @@ public static class EndpointConfiguration
         app.MapSessionConfigEndpoints();
         app.MapEmailConfigEndpoints();
         app.MapCosmosDbFeedbackEndpoints();
+        app.MapQuestionAnswersEndpoints();
         app.MapAzureUploadEndpoints();
         app.MapCacheManagementEndpoints();
         app.MapInstructorEndpoints();

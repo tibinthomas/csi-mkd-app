@@ -15,6 +15,7 @@ public class CosmosDbContext(DbContextOptions<CosmosDbContext> options) : DbCont
 
     // Entity DbSets - Add new entities here as needed
     public DbSet<ClassFeedback> ClassFeedbacks => Set<ClassFeedback>();
+    public DbSet<QuestionAnswers> QuestionAnswers => Set<QuestionAnswers>();
 
     // Future DbSets can be added here
     // public DbSet<UserActivityDocument> UserActivities => Set<UserActivityDocument>();
@@ -44,6 +45,7 @@ public class CosmosDbContext(DbContextOptions<CosmosDbContext> options) : DbCont
 
         // Apply only Cosmos DB specific configurations
         modelBuilder.ApplyConfiguration(new ClassFeedbackConfiguration());
+        modelBuilder.ApplyConfiguration(new QuestionAnswersConfiguration());
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

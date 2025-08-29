@@ -7,6 +7,7 @@ namespace csi_mkd_premarital_app_BE.Data.Configurations;
 public static class CosmosContainers
 {
     public const string Feedbacks = "Feedbacks";
+    public const string QuestionAnswers = "QuestionAnswers";
     
     // Future containers can be added here
     // public const string UserActivities = "UserActivities";
