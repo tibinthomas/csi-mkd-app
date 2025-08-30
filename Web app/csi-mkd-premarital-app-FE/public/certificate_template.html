@@ -1,188 +1,131 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>{{CERTIFICATE_TITLE}}</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <title>Certificate (overlay)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Playfair Display', 'Trajan Pro', 'Times New Roman', serif;
-      margin: 0;
-      padding: 0;
-      background-color: #fff;
-    }
+    /* Container set to 11in x 8.5in aspect ratio (landscape).
+     Width uses pixels for on-screen, but max-width:100% allows responsive scaling. */
+    .certificate {
+      /* tweak these three values to nudge entire rendering */
+      --cert-width: 1100px;
+      /* default on-screen width; change if you need larger */
+      --cert-aspect: calc(11 / 8.5);
+      /* for reference; not directly used */
 
-    .certificate-container {
-      width: 1056px;
-      height: 816px;
-      background: #fff url('{{BACKGROUND_PATTERN_URL}}') no-repeat center;
-      background-size: cover;
-      border: 12px solid #b4975a;
-      padding: 30px;
-      margin: 0 auto;
+      /* Field positions (percentages relative to certificate container).
+       If things are off, change these values only. */
+      --name-left: 32.4%;
+      --name-top: 50.8%;
+      --name-width: 62.1%;
+      --name-size: 32px;
+
+      --church-left: 21.04%;
+      --church-top: 57.27%;
+      --church-width: 72.53%;
+      --church-size: 24px;
+
+      --dates-left: 57.3%;
+      --dates-top: 68.72%;
+      --dates-width: 38.86%;
+      --dates-size: 21px;
+
+      width: var(--cert-width);
+      max-width: 100%;
+      aspect-ratio: 11 / 8.5;
       position: relative;
+      margin: 12px auto;
+      background-image: url('certificate_bg.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      /* stretch to exact aspect, preserving layout */
+      font-family: 'Playfair Display', serif;
+      color: #2b1d14;
       box-sizing: border-box;
-      text-align: center;
     }
 
-    .header {
-      margin-top: 40px;
+    /* overlay fields are positioned using percentages so they scale with the container */
+    .overlay {
+      position: absolute;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      /* safe: user can't accidentally select/move */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .header .org-name {
-      font-size: 36px;
-      font-weight: bold;
-      color: #7d2c2c;
-      margin-top: 8px;
-      font-family: 'Playfair Display', 'Trajan Pro', serif;
-      letter-spacing: 1px;
-    }
-
-    .header .org-address {
-      font-size: 18px;
-      color: #2c1810;
-      margin-top: 4px;
-      font-weight: 400;
-      font-family: 'Playfair Display', 'Times New Roman', serif;
-      letter-spacing: 0.5px;
-    }
-
-    .certificate-title {
-      font-size: 54px;
+    .name {
+      left: var(--name-left);
+      top: var(--name-top);
+      width: var(--name-width);
+      font-size: var(--name-size);
       font-weight: 700;
-      color: #7d2c2c;
-      margin-top: 30px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      font-family: 'Cinzel', 'Trajan Pro', 'Playfair Display', serif;
-      letter-spacing: 3px;
-      text-shadow: 1px 1px 2px rgba(125, 44, 44, 0.1);
+      text-align: left;
+      /* change to center if you want centered text inside dotted line */
+      letter-spacing: 0.6px;
     }
 
-    .description {
-      font-size: 26px;
-      margin-top: 15px;
-      color: #2c1810;
-      font-weight: 500;
-      font-family: 'Playfair Display', 'Times New Roman', serif;
-      font-style: italic;
-      letter-spacing: 0.5px;
-    }
-
-    .recipient-name {
-      font-size: 48px;
-      font-weight: 700;
-      color: #004b2c;
-      margin: 10px 0;
-      display: inline-block;
-      font-family: 'Playfair Display', 'Times New Roman', serif;
-      letter-spacing: 1px;
-      text-decoration-color: #b4975a;
-      text-underline-offset: 8px;
-    }
-
-    .details {
-      font-size: 24px;
-      width: 80%;
-      margin: 20px auto;
-      line-height: 1.7;
-      color: #2c1810;
-      font-weight: 400;
-      font-family: 'Playfair Display', 'Times New Roman', serif;
-      letter-spacing: 0.3px;
-    }
-
-    .scripture {
-      font-size: 16px;
-      font-style: italic;
-      margin: 25px auto;
-      color: #2c1810;
-      width: 80%;
-      font-weight: 500;
-    }
-
-    .date {
-      font-size: 18px;
-      margin-top: 30px;
-      color: #2c1810;
+    .church {
+      left: var(--church-left);
+      top: var(--church-top);
+      width: var(--church-width);
+      font-size: var(--church-size);
       font-weight: 600;
+      text-align: left;
+      letter-spacing: 0.4px;
     }
 
-    .signatures {
+    .dates {
+      left: var(--dates-left);
+      top: var(--dates-top);
+      width: var(--dates-width);
+      font-size: var(--dates-size);
+      font-weight: 600;
+      text-align: left;
+    }
+
+    /* small visual tweak so text shows well on the patterned background */
+    .overlay {
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+      color: #3a2318;
+    }
+
+    /* print rules: print at actual 11in x 8.5in */
+    @page {
+      size: 11in 8.5in;
+      margin: 0;
+    }
+
+    @media print {
+      .certificate {
+        width: 11in;
+        height: 8.5in;
+        background-size: 100% 100%;
+      }
+    }
+
+    /* optional: scale whole certificate for smaller screens */
+    .wrap {
       display: flex;
-      justify-content: space-between;
-      position: absolute;
-      bottom: 70px;
-      width: 85%;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .sign-box {
-      text-align: center;
-    }
-
-    .sign-line {
-      border-top: 1px solid #000;
-      width: 220px;
-      margin: 0 auto 5px auto;
-    }
-
-    .signature-name {
-      font-weight: 600;
-      font-size: 20px;
-      color: #2c1810;
-      font-family: 'Playfair Display', 'Times New Roman', serif;
-      letter-spacing: 0.5px;
-    }
-
-    .signature-title {
-      font-size: 16px;
-      color: #2c1810;
-      font-weight: 400;
-      font-family: 'Playfair Display', 'Times New Roman', serif;
-      font-style: italic;
-      letter-spacing: 0.3px;
-    }
-
-    .logo {
-      position: absolute;
-      top: 50px;
-      left: 30px;
-      height: 100px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8px;
     }
   </style>
 </head>
 
 <body>
-  <div class="certificate-container">
-    <img src="{{LOGO_URL}}" alt="Organization Logo" class="logo" style="display: {{LOGO_DISPLAY}};">
-    <div class="header">
-      <div class="org-name">{{ORGANIZATION_NAME}}</div>
-      <div class="org-address">{{ORGANIZATION_ADDRESS}}</div>
-    </div>
-
-    <div class="certificate-title">{{CERTIFICATE_TITLE}}</div>
-
-    <div class="description">This is to certify that</div>
-    <div class="recipient-name">{{NAME}}</div>
-
-    <div class="details">
-      of {{CHURCH_NAME}} has attended {{PROGRAM_DURATION}} {{PROGRAM_NAME}} conducted at {{VENUE}} on {{DATES}}.
-    </div>
-
-    <div class="signatures">
-      <div class="sign-box">
-        <div class="signature-name">{{BISHOP_NAME}}</div>
-        <div class="signature-title">{{BISHOP_TITLE}}</div>
-      </div>
-      <div class="sign-box">
-        <div class="signature-name">{{DIRECTOR_NAME}}</div>
-        <div class="signature-title">{{DIRECTOR_TITLE}}</div>
-      </div>
+  <div class="wrap">
+    <div class="certificate" role="img" aria-label="certificate background with overlay fields">
+      <!-- Only these placeholders remain; replace server-side or via JS -->
+      <div class="overlay name">{{NAME}}</div>
+      <div class="overlay church">{{CHURCH_NAME}}</div>
+      <div class="overlay dates">{{DATES}}</div>
     </div>
   </div>
 </body>
