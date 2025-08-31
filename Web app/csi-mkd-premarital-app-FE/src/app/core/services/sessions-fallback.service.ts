@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, throwError, timer, race, EMPTY } from 'rxjs';
+import { catchError, map, timeout, switchMap, tap, delay } from 'rxjs/operators';
 import { SessionsService as FunctionsSessionsService } from '../../../api/api-functions/services';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { SessionConfigurationDto } from '../../../api/api-functions/models';
@@ -23,6 +23,9 @@ export class SessionsFallbackService {
   private readonly functionsSessionsService = inject(FunctionsSessionsService);
   private readonly mainAppService = inject(CsiMkdPremaritalAppBeService);
 
+  private readonly FUNCTION_TIMEOUT_MS = 10000; // 10 seconds
+  private readonly WARMUP_DELAY_MS = 5000; // 5 seconds
+
   private mapMainAppToFunctionsModel(session: MainAppSessionConfigurationDto): SessionConfigurationDto {
     return {
       ...session,
@@ -30,10 +33,23 @@ export class SessionsFallbackService {
     };
   }
 
+  private warmupMainApp(): void {
+    // Trigger a lightweight health check to warm up the container
+    this.mainAppService.healthGet().pipe(
+      catchError(() => EMPTY) // Ignore errors, this is just for warmup
+    ).subscribe();
+  }
+
   getAllSessions(): Observable<Array<SessionConfigurationDto>> {
+    // Start container warmup after 5 seconds
+    timer(this.WARMUP_DELAY_MS).pipe(
+      tap(() => this.warmupMainApp())
+    ).subscribe();
+
     return this.functionsSessionsService.getAllSessions().pipe(
+      timeout(this.FUNCTION_TIMEOUT_MS),
       catchError((functionError) => {
-        console.warn('Functions API failed, attempting fallback to main app API:', functionError);
+        console.warn('Functions API failed (timeout or error), using main app API:', functionError);
         
         return this.mainAppService.apiSessionconfigGet().pipe(
           map((sessions) => sessions.map(session => this.mapMainAppToFunctionsModel(session))),
@@ -47,9 +63,15 @@ export class SessionsFallbackService {
   }
 
   getSessionsByYear(year: number): Observable<Array<SessionConfigurationDto>> {
+    // Start container warmup after 5 seconds
+    timer(this.WARMUP_DELAY_MS).pipe(
+      tap(() => this.warmupMainApp())
+    ).subscribe();
+
     return this.functionsSessionsService.getSessionsByYear({ year }).pipe(
+      timeout(this.FUNCTION_TIMEOUT_MS),
       catchError((functionError) => {
-        console.warn('Functions API failed, attempting fallback to main app API:', functionError);
+        console.warn('Functions API failed (timeout or error), using main app API:', functionError);
         
         return this.mainAppService.apiSessionconfigSessionsGet({ year }).pipe(
           map((sessions) => sessions.map(session => this.mapMainAppToFunctionsModel(session))),
