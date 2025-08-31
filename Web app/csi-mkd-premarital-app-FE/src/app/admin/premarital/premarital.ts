@@ -51,6 +51,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
+import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
 import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
@@ -101,6 +102,7 @@ export class PremaritalComponent {
   private readonly api = inject(ApiService);
   private readonly sessionDataService = inject(SessionDataService);
   private readonly certificateService = inject(CertificateService);
+  private readonly sessionsFallbackService = inject(SessionsFallbackService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -541,7 +543,7 @@ export class PremaritalComponent {
         try {
           console.log('Fetching session with ID:', reg.sessionId);
           const sessionResponse = await firstValueFrom(
-            this.api.apiSessionconfigIdGet({ id: reg.sessionId })
+            this.sessionsFallbackService.apiSessionconfigIdGet({ id: reg.sessionId })
           );
           console.log('Session API response:', sessionResponse);
 

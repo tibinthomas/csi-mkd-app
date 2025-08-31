@@ -11,7 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SessionsService } from '../../api/api-functions/services';
+import { SessionsFallbackService } from '../core/services/sessions-fallback.service';
 import { DatePipe } from '@angular/common';
 import { RouterOutlet, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -35,7 +35,7 @@ import { firstValueFrom } from 'rxjs';
 export class Sessions {
   private readonly snackBar = inject(MatSnackBar);
   private readonly router = inject(Router);
-  private readonly api = inject(SessionsService);
+  private readonly api = inject(SessionsFallbackService);
 
   // Use resource for better data loading and state management
   readonly sessionsResource = resource({
