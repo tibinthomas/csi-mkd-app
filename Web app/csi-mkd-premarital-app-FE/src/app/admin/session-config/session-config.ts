@@ -9,6 +9,7 @@ import {
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
+import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
 import { SessionDataService } from '../../core/services/session-data.service';
@@ -79,6 +80,7 @@ export class SessionConfig implements OnInit {
 
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
+  private readonly sessionsFallbackService = inject(SessionsFallbackService);
   private readonly sessionDataService = inject(SessionDataService);
   private readonly dialog = inject(MatDialog);
 
@@ -121,7 +123,7 @@ export class SessionConfig implements OnInit {
   fetchSessions(year: number) {
     this.isLoading.set(true);
 
-    this.api.apiSessionconfigSessionsGet({ year }).subscribe({
+    this.sessionsFallbackService.apiSessionconfigSessionsGet({ year }).subscribe({
       next: (sessions: any) => {
         this.allSessions.set(sessions);
         this.isLoading.set(false);
@@ -180,7 +182,7 @@ export class SessionConfig implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.api.apiSessionconfigIdDelete({ id: session.id }).subscribe({
+        this.sessionsFallbackService.apiSessionconfigIdDelete({ id: session.id }).subscribe({
           next: () => {
             this.sessionDataService.refresh();
           },
@@ -213,7 +215,7 @@ export class SessionConfig implements OnInit {
           ...session,
           isActive: !session.isActive,
         };
-        this.api
+        this.sessionsFallbackService
           .apiSessionconfigIdPut({
             id: session.id,
             body: updatedSession,
@@ -250,7 +252,7 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.api.apiSessionconfigPost({ body: session }).subscribe({
+        this.sessionsFallbackService.apiSessionconfigPost({ body: session }).subscribe({
           next: () => this.sessionDataService.refresh(),
           error: () =>
             this.dialog.open(AlertDialog, {
@@ -273,7 +275,7 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.api
+        this.sessionsFallbackService
           .apiSessionconfigIdPut({ id: updated.id, body: updated })
           .subscribe({
             next: () => this.sessionDataService.refresh(),

@@ -38,6 +38,7 @@ import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
+import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 
 @Component({
   selector: 'app-premarital-register',
@@ -72,6 +73,7 @@ export class PremaritalRegister {
   private readonly api = inject(ApiService);
   private readonly fileUploadService = inject(FileUploadService);
   private readonly themeService = inject(ThemeService);
+  private readonly sessionsFallbackService = inject(SessionsFallbackService);
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -222,7 +224,7 @@ export class PremaritalRegister {
     }
   };
 
-  private readonly sessions$ = this.api.apiSessionconfigGet().pipe(
+  private readonly sessions$ = this.sessionsFallbackService.getAllSessions().pipe(
     map((data: any) => {
       return data.map((session: any) => ({
         ...session,
