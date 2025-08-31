@@ -20,20 +20,23 @@
     </mat-card-content>
   </mat-card>
 
-  @if (feedbackResponse().error) {
+  @if (isLoading()) {
+  <div class="loading-container">
+    <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
+    <p>Loading feedback data...</p>
+  </div>
+  } @else if (error()) {
   <mat-card class="error-card">
     <mat-card-content>
       <div class="error-message">
         <mat-icon color="warn">error</mat-icon>
-        <span>{{ feedbackResponse().error }}</span>
+        <span>{{ error()?.message || 'Failed to load feedback data' }}</span>
       </div>
+      <button mat-button color="primary" (click)="refreshData()" class="mt-2">
+        Try Again
+      </button>
     </mat-card-content>
   </mat-card>
-  } @if (isLoading()) {
-  <div class="loading-container">
-    <mat-spinner></mat-spinner>
-    <p>Loading feedback data...</p>
-  </div>
   } @else {
   <mat-card class="data-card">
     <mat-card-header>

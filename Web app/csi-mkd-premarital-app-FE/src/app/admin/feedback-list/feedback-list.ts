@@ -5,7 +5,7 @@ import {
   signal,
   computed,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toSignal, rxResource } from '@angular/core/rxjs-interop';
 import { catchError, map, of } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
@@ -49,25 +49,29 @@ export class FeedbackList {
   private readonly snackBar = inject(MatSnackBar);
 
   readonly searchTerm = signal('');
-  readonly isLoading = signal(false);
 
-  private readonly feedbackData$ = this.apiService.apiCosmosFeedbackGet().pipe(
-    map((response) => ({ data: response, error: null })),
-    catchError((error) => {
-      console.error('Error fetching feedback:', error);
-      this.snackBar.open('Failed to load feedback data', 'Close', {
-        duration: 3000,
-      });
-      return of({ data: [], error: error.message });
-    })
-  );
-
-  readonly feedbackResponse = toSignal(this.feedbackData$, {
-    initialValue: { data: [], error: null },
+  readonly feedbackResource = rxResource({
+    stream: () => this.apiService.apiCosmosFeedbackGet().pipe(
+      catchError((error) => {
+        console.error('Error fetching feedback:', error);
+        this.snackBar.open('Failed to load feedback data', 'Close', {
+          duration: 3000,
+        });
+        return of([]);
+      })
+    ),
   });
 
+  readonly feedbackData = computed(() => {
+    const data = this.feedbackResource.value();
+    return Array.isArray(data) ? data : [];
+  });
+
+  readonly isLoading = computed(() => this.feedbackResource.isLoading());
+  readonly error = computed(() => this.feedbackResource.error());
+
   readonly filteredFeedback = computed(() => {
-    const feedback = this.feedbackResponse().data;
+    const feedback = this.feedbackData();
     const searchTerm = this.searchTerm().toLowerCase();
 
     if (!searchTerm) {
@@ -130,8 +134,6 @@ export class FeedbackList {
   }
 
   refreshData(): void {
-    this.isLoading.set(true);
-    // The data will refresh automatically due to the observable
-    setTimeout(() => this.isLoading.set(false), 1000);
+    this.feedbackResource.reload();
   }
 }
