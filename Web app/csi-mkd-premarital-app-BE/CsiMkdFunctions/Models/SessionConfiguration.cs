@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
-namespace SessionsFunction.Models
+namespace CsiMkdFunctions.Models
 {
     [Index(nameof(StartDate))]
     [Index(nameof(IsActive))]

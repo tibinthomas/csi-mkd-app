@@ -2,7 +2,7 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Configurations;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.OpenApi.Models;
 
-namespace SessionsFunction
+namespace CsiMkdFunctions
 {
     public class OpenApiConfigurationOptions : DefaultOpenApiConfigurationOptions
     {

@@ -1,8 +1,8 @@
-using SessionsFunction.DTOs;
-using SessionsFunction.Models;
-using SessionsFunction.Repositories;
+using CsiMkdFunctions.DTOs;
+using CsiMkdFunctions.Models;
+using CsiMkdFunctions.Repositories;
 
-namespace SessionsFunction.Services
+namespace CsiMkdFunctions.Services
 {
     public class SessionConfigService : ISessionConfigService
     {

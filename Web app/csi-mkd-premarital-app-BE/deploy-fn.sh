@@ -3,10 +3,10 @@ set -e
 set -o pipefail
 
 # -----------------------
-# Deploy Sessions Function to Azure Functions
+# Deploy CSI MKD Functions to Azure Functions
 # -----------------------
 
-echo "⚡ Deploying Sessions Function to Azure Functions..."
+echo "⚡ Deploying CSI MKD Functions to Azure Functions..."
 
 # -----------------------
 # CONFIG - Update with your Function App name
@@ -17,14 +17,14 @@ RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 # -----------------------
 # LOAD & VALIDATE SECRETS
 # -----------------------
-if [ -f SessionsFunction/.env ]; then
-    echo "📜 Loading environment variables from SessionsFunction/.env file..."
+if [ -f CsiMkdFunctions/.env ]; then
+    echo "📜 Loading environment variables from CsiMkdFunctions/.env file..."
     set -o allexport
-    source SessionsFunction/.env
+    source CsiMkdFunctions/.env
     set +o allexport
 else
-    echo "❌ SessionsFunction/.env file not found."
-    echo "👉 Please create a .env file in the SessionsFunction directory with required environment variables."
+    echo "❌ CsiMkdFunctions/.env file not found."
+    echo "👉 Please create a .env file in the CsiMkdFunctions directory with required environment variables."
     exit 1
 fi
 
@@ -72,8 +72,8 @@ fi
 # -----------------------
 # BUILD & DEPLOY FUNCTION
 # -----------------------
-echo "🏗️ Building Sessions Function..."
-cd SessionsFunction
+echo "🏗️ Building CSI MKD Functions..."
+cd CsiMkdFunctions
 
 # Restore and build
 dotnet restore
@@ -107,10 +107,10 @@ az functionapp config appsettings set \
 FUNCTION_APP_URL=$(az functionapp show --name "$FUNCTION_APP_NAME" --resource-group "$RESOURCE_GROUP" --query "defaultHostName" -o tsv)
 
 echo ""
-echo "✅ Sessions Function deployment successful!"
+echo "✅ CSI MKD Functions deployment successful!"
 echo ""
 echo "📋 Service URL:"
-echo "   Sessions Function: https://$FUNCTION_APP_URL"
+echo "   CSI MKD Functions: https://$FUNCTION_APP_URL"
 echo "   Function API:      https://$FUNCTION_APP_URL/api"
 echo ""
 echo "🔧 Management:"

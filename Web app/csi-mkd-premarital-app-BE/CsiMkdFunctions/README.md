@@ -1,6 +1,6 @@
-# Sessions Azure Function
+# CSI MKD Azure Functions
 
-This Azure Function provides read-only access to session configuration data from the CSI MKD Premarital Counseling system.
+This Azure Function App provides serverless API endpoints for the CSI MKD Premarital Counseling system.
 
 ## Endpoints
 

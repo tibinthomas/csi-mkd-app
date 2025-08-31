@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Remove="AppHost/**/*.cs" />
     <Compile Remove="ServiceDefaults/**/*.cs" />
-    <Compile Remove="SessionsFunction/**/*.cs" />
+    <Compile Remove="CsiMkdFunctions/**/*.cs" />
   </ItemGroup>
 
 </Project>

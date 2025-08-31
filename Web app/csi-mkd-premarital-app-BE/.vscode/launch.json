@@ -55,7 +55,7 @@
         "--port",
         "7071"
       ],
-      "cwd": "${workspaceFolder}/SessionsFunction",
+      "cwd": "${workspaceFolder}/CsiMkdFunctions",
       "stopAtEntry": false,
       "env": {
         "AZURE_FUNCTIONS_ENVIRONMENT": "Development"
@@ -72,13 +72,13 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-sessions-function",
-      "program": "${workspaceFolder}/SessionsFunction/bin/Debug/net9.0/SessionsFunction.dll",
+      "program": "${workspaceFolder}/CsiMkdFunctions/bin/Debug/net9.0/CsiMkdFunctions.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/SessionsFunction",
+      "cwd": "${workspaceFolder}/CsiMkdFunctions",
       "stopAtEntry": false,
       "env": {
         "AZURE_FUNCTIONS_ENVIRONMENT": "Development",
-        "AzureWebJobsScriptRoot": "${workspaceFolder}/SessionsFunction",
+        "AzureWebJobsScriptRoot": "${workspaceFolder}/CsiMkdFunctions",
         "AzureFunctionsJobHost__Logging__Console__IsEnabled": "true"
       }
     }

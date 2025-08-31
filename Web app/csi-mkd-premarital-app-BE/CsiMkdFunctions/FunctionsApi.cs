@@ -4,19 +4,19 @@ using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Attributes;
 using Microsoft.Azure.WebJobs.Extensions.OpenApi.Core.Enums;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using SessionsFunction.DTOs;
-using SessionsFunction.Services;
+using CsiMkdFunctions.DTOs;
+using CsiMkdFunctions.Services;
 using System.Net;
 using System.Text.Json;
 
-namespace SessionsFunction
+namespace CsiMkdFunctions
 {
-    public class SessionsApi
+    public class FunctionsApi
     {
-        private readonly ILogger<SessionsApi> _logger;
+        private readonly ILogger<FunctionsApi> _logger;
         private readonly ISessionConfigService _sessionConfigService;
 
-        public SessionsApi(ILogger<SessionsApi> logger, ISessionConfigService sessionConfigService)
+        public FunctionsApi(ILogger<FunctionsApi> logger, ISessionConfigService sessionConfigService)
         {
             _logger = logger;
             _sessionConfigService = sessionConfigService;

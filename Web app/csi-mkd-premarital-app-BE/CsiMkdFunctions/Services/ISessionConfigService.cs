@@ -1,6 +1,6 @@
-using SessionsFunction.DTOs;
+using CsiMkdFunctions.DTOs;
 
-namespace SessionsFunction.Services
+namespace CsiMkdFunctions.Services
 {
     public interface ISessionConfigService
     {
