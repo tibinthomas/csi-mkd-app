@@ -11,7 +11,7 @@ echo "⚡ Deploying Sessions Function to Azure Functions..."
 # -----------------------
 # CONFIG - Update with your Function App name
 # -----------------------
-FUNCTION_APP_NAME="csi-mkd-counselling-be"
+FUNCTION_APP_NAME="fn-app-csi-mkd-counselling"
 RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 
 # -----------------------
