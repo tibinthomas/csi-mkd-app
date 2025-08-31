@@ -3,8 +3,38 @@
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
     <!--src/app/about -->
-
-
+       <trans-unit id="CSI Counselling Centre Title" datatype="html">
+        <source>CSI Counselling Centre, Kottayam</source>
+        <target> സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ,കോട്ടയം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CSI Counselling Centre Subtitle" datatype="html">
+        <source>Healing Minds. Empowering Lives.</source>
+        <target> മനസ്സിനെ സുഖപ്പെടുത്തുന്നു. ജീവിതങ്ങളെ ശാക്തീകരിക്കുന്നു..</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="CSI Counselling Centre Location" datatype="html">
+        <source>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</source>
+        <target>മദ്ധ്യകേരള മഹായിടവക | സിഎംഎസ് പ്രസ്സ് കോമ്പൗണ്ട്, കോട്ടയം-1</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Book Appointment Button" datatype="html">
+        <source>Book Appointment</source>
+        <target>ബുക്ക് അപ്പോയിൻ്റ്മെൻ്റ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
 
  <trans-unit id="Individual Counselling" datatype="html">
         <source>Individual Counselling</source>
@@ -246,7 +276,7 @@
       </trans-unit>
       <trans-unit id="920281652409261245" datatype="html">
         <source>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</source>
-         <target>മദ്ധ്യ കേരള മഹായിടവക | സിഎംഎസ് പ്രസ്സ് കോമ്പൗണ്ട്, കോട്ടയം-1</target>
+         <target>മദ്ധ്യകേരള മഹായിടവക | സിഎംഎസ് പ്രസ്സ് കോമ്പൗണ്ട്, കോട്ടയം-1</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">14,15</context>
@@ -258,6 +288,23 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Who We Are Title" datatype="html">
+        <source>Who We Are</source>
+        <target>ആരാണ് ഞങ്ങൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Who We Are Description" datatype="html">
+        <source>With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided by a commitment to mental, emotional, and spiritual well-being.</source>
+                 <target>ബിഷപ്പ് റവ. ഡോ. മലയിൽ സാബു കോശി ചെറിയാന്റെ അനുഗ്രഹത്താൽ, സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ കാരുണ്യപൂർണ്ണവും, രഹസ്യാത്മകവും, തെളിവുകൾ അടിസ്ഥാനമാക്കിയുള്ളതുമായ കൗൺസിലിംഗിലൂടെ സമഗ്രമായ രോഗശാന്തി വാഗ്ദാനം ചെയ്യുന്നു. ഞങ്ങളുടെ സേവനങ്ങൾ മാനസികവും വൈകാരികവും ആത്മീയവുമായ ക്ഷേമത്തിനായുള്ള പ്രതിബദ്ധതയാൽ നയിക്കപ്പെടുന്നു.</target>
+
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4428615029049824725" datatype="html">
@@ -284,12 +331,52 @@
           <context context-type="linenumber">45,47</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Our Services Title" datatype="html">
+        <source>Our Services</source>
+         <target>ഞങ്ങളുടെ സേവനങ്ങൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">128</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="7332871512707001452" datatype="html">
         <source>Why Choose Us?</source>
          <target>എന്തുകൊണ്ട് ഞങ്ങൾ?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">77,79</context>
+        </context-group>
+      </trans-unit>
+        <trans-unit id="Why Choose Us Title" datatype="html">
+        <source>Why Choose Us?</source>
+         <target>എന്തുകൊണ്ട് ഞങ്ങൾ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Accessible Services description" datatype="html">
+        <source>Both in-person and online appointments at affordable rates.</source>
+         <target>നേരിട്ടും ഓൺലൈനായുമുള്ള  കൗൺസിലിങ്  അപ്പോയിന്റ്മെന്റുകൾ മിതമായ  നിരക്കിൽ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Community Outreach description" datatype="html">
+        <source>SHAPE programs, leadership workshops, and mental health campaigns.</source>
+         <target>ഷേപ്പ് പ്രോഗ്രാമുകൾ, നേതൃത്വ വർക്ക്‌ഷോപ്പുകൾ, മാനസികാരോഗ്യ കാമ്പെയ്‌നുകൾ.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Safe Environment description" datatype="html">
+        <source>A non-judgmental and peaceful setting for personal growth and healing.</source>
+         <target>വ്യക്തിപരമായ വളർച്ചയ്ക്കും മാനസിക രോഗശാന്തിക്കും വേണ്ടിയുള്ള സുരക്ഷിതവും സമാധാനപരവുമായ ഒരു അന്തരീക്ഷം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
 <trans-unit id="5988282777895538729" datatype="html">
@@ -847,6 +934,31 @@
           <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="3920842889418221736" datatype="html">
+        <source>Submitting your feedback, please wait</source>
+        <target>നിങ്ങളുടെ ഫീഡ്‌ബാക്ക് സമർപ്പിക്കുന്നു, ദയവായി കാത്തിരിക്കുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">127,128</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8799033266509979610" datatype="html">
+        <source> Premarital Counselling Questions Form </source>
+         <target> പ്രീമാരിറ്റൽ കൗൺസിലിംഗ്-  ചോദ്യാവലി </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2005075326748124304" datatype="html">
+        <source>Submitting your responses, please wait</source>
+         <target>നിങ്ങളുടെ പ്രതികരണങ്ങൾ സമർപ്പിക്കുന്നു, ദയവായി കാത്തിരിക്കുക. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">53,54</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="8194145663712994855" datatype="html">
         <source> CSI Counselling Centre </source>
         <target>സി.എസ്.ഐ. കൗൺസിലിംഗ് സെന്റർ </target>
@@ -864,15 +976,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1726363342938046830" datatype="html">
-        <source>About</source>
-        <target>എബൌട്ട്</target>
+        <source>About Us</source>
+        <target>ഞങ്ങളേക്കുറിച്ച്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">37,38</context>
+          <context context-type="linenumber">60</context>
         </context-group>
+        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">84,85</context>
+          <context context-type="linenumber">127,129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1842559488621738609" datatype="html">
@@ -902,10 +1015,6 @@
       <trans-unit id="8429316238784832901" datatype="html">
         <source>Feedback</source>
         <target>ഫീഡ്ബാക്ക് </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">61,62</context>
-        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
           <context context-type="linenumber">87,88</context>
@@ -1368,14 +1477,24 @@
           <context context-type="linenumber">223,224</context>
         </context-group>
       </trans-unit>
-       <trans-unit id="2312868286639432122" datatype="html">
-        <source>Choose a Registration Type</source>
-        <target>രജിസ്ട്രേഷൻ ടൈപ്പ്  തിരഞ്ഞെടുക്കുക </target>
+     
+      <trans-unit id="4289369355874597168" datatype="html">
+        <source>Choose a Registration Type </source>
+         <target>രജിസ്ട്രേഷൻ ടൈപ്പ്  തിരഞ്ഞെടുക്കുക </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/register.html</context>
-          <context context-type="linenumber">3,4</context>
+          <context context-type="linenumber">4,5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2934586685743886245" datatype="html">
+        <source> Select the type of counselling you&apos;d like to register for.</source>
+        <target>നിങ്ങൾ രജിസ്റ്റർ ചെയ്യാൻ ആഗ്രഹിക്കുന്ന കൗൺസിലിംഗ് ടൈപ്പ് തിരഞ്ഞെടുക്കുക. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/register.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+
        <trans-unit id="3583904288938276255" datatype="html">
         <source>Select the type of counselling you’d like to register for.</source>
          <target>നിങ്ങൾ രജിസ്റ്റർ ചെയ്യാൻ ആഗ്രഹിക്കുന്ന കൗൺസിലിംഗ് ടൈപ്പ് തിരഞ്ഞെടുക്കുക. </target>
@@ -1742,6 +1861,158 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
           <context context-type="linenumber">129</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2773833704238419839" datatype="html">
+        <source>Verify Your Email</source>
+        <target>നിങ്ങളുടെ ഇമെയിൽ ഐഡി വെരിഫൈ ചെയ്യുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2350678396642010532" datatype="html">
+        <source> Enter your registered email to access Feedback and Questionnaire Forms </source>
+         <target>ഫീഡ്ബാക്ക്,ചോദ്യാവലി ഫോം എന്നിവ ലഭിക്കുന്നതിനായി രജിസ്റ്റർ ചെയ്ത ഇമെയിൽ ഐഡി എന്റർ ചെയ്യുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4879517228803151475" datatype="html">
+        <source>Email Address</source>
+         <target> ഇമെയിൽ ഐഡി</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8602814243662345124" datatype="html">
+        <source>Email is required.</source>
+         <target> ഇമെയിൽ ഐഡി നൽകുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        </trans-unit>
+         <trans-unit id="2773833704238419839" datatype="html">
+        <source>Verify Your Email</source>
+         <target>നിങ്ങളുടെ ഇമെയിൽ  ഐഡി പരിശോധിക്കുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2350678396642010532" datatype="html">
+        <source> Enter your registered email to access Feedback and Questionnaire Forms </source>
+         <target>ഫീഡ്‌ബാക്കും ചോദ്യാവലി ഫോമുകളും ആക്‌സസ് ചെയ്യാൻ നിങ്ങളുടെ രജിസ്റ്റർ ചെയ്ത  ഇമെയിൽ ഐഡി നൽകുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4879517228803151475" datatype="html">
+        <source>Email Address</source>
+         <target> ഇമെയിൽ ഐഡി  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8602814243662345124" datatype="html">
+        <source>Email is required.</source>
+        <target> ഇമെയിൽ ഐഡി ആവശ്യമാണ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">236</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2112768397949905814" datatype="html">
+        <source>Enter a valid email address.</source>
+        <target> സാധുവായ ഒരു ഇമെയിൽ വിലാസം നൽകുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6215370261980036626" datatype="html">
+        <source>You must register to access these forms.</source>
+        <target> ഈ ഫോമുകൾ ആക്‌സസ് ചെയ്യുന്നതിന് നിങ്ങൾ രജിസ്റ്റർ ചെയ്യുക .</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7038818814162832521" datatype="html">
+        <source>An error occurred while verifying your email. Please try again later.</source>
+         <target> ദയവായി  വീണ്ടും ശ്രമിക്കുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8615626421873627049" datatype="html">
+        <source> Verify Email</source>
+         <target> ഇമെയിൽ ഐഡി നൽകുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3191013675424121575" datatype="html">
+        <source>Choose a Form</source>
+         <target> ഒരു ഫോം തിരഞ്ഞെടുക്കുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3171016311134790650" datatype="html">
+        <source> Please select a form to proceed. </source>
+         <target> തുടരുന്നതിന് ദയവായി ഒരു ഫോം തിരഞ്ഞെടുക്കുക. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4667454119084137505" datatype="html">
+        <source>Feedback Form</source>
+         <target> ഫീഡ്ബാക്ക്  ഫോം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">86,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="874561850457979625" datatype="html">
+        <source>Share your experience and suggestions.</source>
+         <target> നിങ്ങളുടെ അനുഭവങ്ങളും നിർദ്ദേശങ്ങളും പങ്കിടുക. </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">87,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6821951934455090754" datatype="html">
+        <source>Questionnaire Form</source>
+         <target>ചോദ്യാവലി   </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">112,113</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="853710362836148372" datatype="html">
+        <source> Share your thoughts and opinions to help us understand participants better. </source>
+         <target> നിങ്ങളുടെ ചിന്തകളും അഭിപ്രായങ്ങളും പങ്കിടുക </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
     </body>
