@@ -286,13 +286,13 @@ mat-form-field.speech-recording .mat-mdc-form-field-focus-overlay {
   background-color: rgba(25, 118, 210, 0.05) !important;
 }
 
-/* Ensure speech buttons don't interfere with form field layout */
-mat-form-field .mat-mdc-form-field-infix {
+/* Ensure speech buttons don't interfere with form field layout - only for fields with speech recognition */
+mat-form-field:has([appSpeechRecognition]) .mat-mdc-form-field-infix {
   padding-right: 52px !important;
 }
 
 @media (max-width: 768px) {
-  mat-form-field .mat-mdc-form-field-infix {
+  mat-form-field:has([appSpeechRecognition]) .mat-mdc-form-field-infix {
     padding-right: 56px !important;
   }
 }
