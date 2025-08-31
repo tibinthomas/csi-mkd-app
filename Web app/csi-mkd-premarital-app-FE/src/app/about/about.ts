@@ -1,5 +1,10 @@
 import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal, computed } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  computed,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { RouterLink, RouterOutlet } from '@angular/router';
@@ -41,20 +46,20 @@ interface HeroContent {
 })
 export class About {
   private readonly _currentYear = signal(new Date().getFullYear());
-  
+
   readonly currentYear = computed(() => this._currentYear());
-  
+
   readonly heroContent: HeroContent = {
     title: $localize`:@@CSI Counselling Centre Title:CSI Counselling Centre, Kottayam`,
     subtitle: $localize`:@@CSI Counselling Centre Subtitle:Healing Minds. Empowering Lives.`,
     location: $localize`:@@CSI Counselling Centre Location:Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1`,
-    backgroundImage: 'assets/who-we-are.png'
+    backgroundImage: 'assets/who-we-are.png',
   };
 
   readonly whoWeAreContent = {
     title: $localize`:@@Who We Are Title:Who We Are`,
     description: $localize`:@@Who We Are Description:With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided by a commitment to mental, emotional, and spiritual well-being.`,
-    image: 'assets/logo.png'
+    image: 'assets/logo.png',
   };
 
   readonly services: readonly ServiceItem[] = [
@@ -64,7 +69,7 @@ export class About {
       description: $localize`:@@Individual Counselling Description:Personal & online sessions for stress, anxiety, grief, and related challenges.`,
     },
     {
-      image: 'assets/family.jpg',
+      image: 'assets/general.jpg',
       title: $localize`:@@Couple & Family Therapy:Couple & Family Therapy`,
       description: $localize`:@@Couple & Family Therapy description:Resolve conflicts and strengthen family relationships with professional guidance.`,
     },
@@ -127,7 +132,7 @@ export class About {
   readonly sectionTitles = {
     services: $localize`:@@Our Services Title:Our Services`,
     whyChooseUs: $localize`:@@Why Choose Us Title:Why Choose Us?`,
-    bookAppointment: $localize`:@@Book Appointment Button:Book Appointment`
+    bookAppointment: $localize`:@@Book Appointment Button:Book Appointment`,
   };
 
   trackByServiceTitle(_index: number, item: ServiceItem): string {
