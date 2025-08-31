@@ -43,6 +43,9 @@ var host = new HostBuilder()
                 npgsqlOptions.EnableRetryOnFailure(3, TimeSpan.FromSeconds(5), null);
                 npgsqlOptions.CommandTimeout(30);
             });
+            // Enable compiled models for faster startup in production
+            options.UseModel(CsiMkdFunctions.CompiledModels.ApplicationDbContextModel.Instance);
+            
             options.EnableSensitiveDataLogging(false);
             options.EnableServiceProviderCaching();
             options.EnableDetailedErrors(false);
