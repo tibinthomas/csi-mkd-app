@@ -1,24 +1,24 @@
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
+import { SessionsFallbackService } from './sessions-fallback.service';
 import { CreateUpdateSessionDto } from '../../../api/api-main-app/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionDataService {
-  private readonly api = inject(CsiMkdPremaritalAppBeService);
+  private readonly sessionsFallbackService = inject(SessionsFallbackService);
 
   private readonly refreshTrigger = new BehaviorSubject<void>(undefined);
 
   readonly sessions$: Observable<CreateUpdateSessionDto[]> =
     this.refreshTrigger.pipe(
       switchMap(() =>
-        this.api.apiSessionconfigGet().pipe(
+        this.sessionsFallbackService.getAllSessions().pipe(
           map((data: any) => {
             const parsed = typeof data === 'string' ? JSON.parse(data) : data;
-            return (parsed || []).sort((a: any, b: any) => b.Id - a.Id);
+            return (parsed || []).sort((a: any, b: any) => b.id - a.id);
           }),
           catchError((err) => {
             console.error('Failed to load sessions:', err);

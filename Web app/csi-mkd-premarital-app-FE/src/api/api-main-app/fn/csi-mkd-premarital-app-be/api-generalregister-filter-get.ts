@@ -10,19 +10,19 @@ import { RequestBuilder } from '../../request-builder';
 
 
 export interface ApiGeneralregisterFilterGet$Params {
-  Search?: string;
-  UnapprovedOnly?: boolean;
-  Page: number;
-  PageSize: number;
+  search?: string;
+  unapprovedOnly?: boolean;
+  page: number;
+  pageSize: number;
 }
 
 export function apiGeneralregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiGeneralregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, apiGeneralregisterFilterGet.PATH, 'get');
   if (params) {
-    rb.query('Search', params.Search, {});
-    rb.query('UnapprovedOnly', params.UnapprovedOnly, {});
-    rb.query('Page', params.Page, {});
-    rb.query('PageSize', params.PageSize, {});
+    rb.query('search', params.search, {});
+    rb.query('unapprovedOnly', params.unapprovedOnly, {});
+    rb.query('page', params.page, {});
+    rb.query('pageSize', params.pageSize, {});
   }
 
   return http.request(

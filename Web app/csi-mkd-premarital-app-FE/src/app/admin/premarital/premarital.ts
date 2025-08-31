@@ -51,6 +51,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
+import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
 import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
@@ -101,6 +102,7 @@ export class PremaritalComponent {
   private readonly api = inject(ApiService);
   private readonly sessionDataService = inject(SessionDataService);
   private readonly certificateService = inject(CertificateService);
+  private readonly sessionsFallbackService = inject(SessionsFallbackService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -161,13 +163,13 @@ export class PremaritalComponent {
         this.isLoading.set(true); // start spinner
         return this.api
           .apiPremaritalregisterFilterGet({
-            Page: (pageIndex as number) + 1,
-            PageSize: pageSize as number,
-            Search: searchTerm as string,
-            UnapprovedOnly: unapproved as boolean,
-            ActiveSessionOnly: activeSession as boolean,
-            SessionYear: selectedYear as number,
-            SessionName: selectedSession as string,
+            page: (pageIndex as number) + 1,
+            pageSize: pageSize as number,
+            search: searchTerm as string,
+            unapprovedOnly: unapproved as boolean,
+            activeSessionOnly: activeSession as boolean,
+            sessionYear: selectedYear as number,
+            sessionName: selectedSession as string,
           })
           .pipe(
             map((response: any) => {
@@ -177,7 +179,7 @@ export class PremaritalComponent {
               this.isLoading.set(false); // stop spinner
               return (data.items ?? []).map((item: any) => ({
                 ...item,
-                ChurchActivities: JSON.parse(item.ChurchActivitiesJson ?? '{}'),
+                churchActivities: JSON.parse(item.churchActivitiesJson ?? '{}'),
               }));
             }),
             catchError((err) => {
@@ -210,7 +212,7 @@ export class PremaritalComponent {
   readonly sessionYears = computed(() => [
     ...new Set(
       this.sessionList().map((session: any) =>
-        new Date(session.StartDate).getFullYear()
+        new Date(session.startDate).getFullYear()
       )
     ),
   ]);
@@ -219,13 +221,13 @@ export class PremaritalComponent {
     const filtered = this.selectedYear()
       ? this.sessionList().filter(
           (session: any) =>
-            new Date(session.StartDate).getFullYear() === this.selectedYear()
+            new Date(session.startDate).getFullYear() === this.selectedYear()
         )
       : this.sessionList();
 
-    const uniqueSessionNames = new Set(filtered.map((s: any) => s.SessionName));
+    const uniqueSessionNames = new Set(filtered.map((s: any) => s.sessionName));
     return [
-      ...Array.from(uniqueSessionNames).map((name) => ({ SessionName: name })),
+      ...Array.from(uniqueSessionNames).map((name) => ({ sessionName: name })),
     ];
   });
 
@@ -290,20 +292,20 @@ export class PremaritalComponent {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.isApproving.set(reg.Id);
+        this.isApproving.set(reg.id);
 
         const updated = {
           ...reg,
-          PaymentStatus: !reg.PaymentStatus,
+          paymentStatus: !reg.paymentStatus,
         };
         this.api
           .apiPremaritalregisterIdPaymentstatusPut({
-            id: reg.Id,
+            id: reg.id,
             body: updated,
           })
           .subscribe({
             next: () => {
-              reg.PaymentStatus = !reg.PaymentStatus;
+              reg.paymentStatus = !reg.paymentStatus;
               this.isApproving.set(null);
 
               this.filterTrigger.set(this.filterTrigger() + 1); // triggers new data from API
@@ -321,15 +323,15 @@ export class PremaritalComponent {
 
   deleteRegistration(reg: any): void {
     const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
-      data: { name: `${reg.FirstName} ${reg.LastName}` },
+      data: { name: `${reg.firstName} ${reg.lastName}` },
     });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.isDeleting.set(reg.Id);
+        this.isDeleting.set(reg.id);
 
         this.api
-          .apiPremaritalregisterIdDelete({ id: reg.Id.toString() })
+          .apiPremaritalregisterIdDelete({ id: reg.id.toString() })
           .subscribe({
             next: () => {
               this.isDeleting.set(null);
@@ -363,7 +365,7 @@ export class PremaritalComponent {
 
     dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        this.isEditing.set(reg.Id);
+        this.isEditing.set(reg.id);
 
         // Transform form data to match UpdatePremaritalRegisterDto
         const updateData: UpdatePremaritalRegisterDto = {
@@ -379,21 +381,21 @@ export class PremaritalComponent {
           email: result.email,
           phone: result.phone,
           fianceName: result.fianceName || null,
-          choirMember: result.choirMember || false,
-          ssTeacher: result.ssTeacher || false,
-          youthFellowship: result.youthFellowship || false,
-          other: result.other || null,
+          choirMember: result.ChoirMember || false,
+          ssTeacher: result.SsTeacher || false,
+          youthFellowship: result.YouthFellowship || false,
+          other: result.Other || null,
           // Keep existing values that are not editable in the form
-          dateOfMarriage: reg.DateOfMarriage || null,
-          days: reg.Days || null,
-          declaration: reg.Declaration || true,
-          paymentStatus: reg.PaymentStatus || false,
-          sessionId: reg.SessionId || 0,
+          dateOfMarriage: reg.dateOfMarriage || null,
+          days: reg.days || null,
+          declaration: reg.declaration || true,
+          paymentStatus: reg.paymentStatus || false,
+          sessionId: reg.sessionId || 0,
         };
 
         this.api
           .apiPremaritalregisterIdPut({
-            id: reg.Id.toString(),
+            id: reg.id.toString(),
             body: updateData,
           })
           .subscribe({
@@ -448,30 +450,30 @@ export class PremaritalComponent {
           startY: baseY,
           head: [['Field', 'Value']],
           body: [
-            ['Full Name', `${reg.FirstName} ${reg.LastName}`],
-            ['Sex', reg.Sex],
-            ['Age', reg.Age],
-            ['Email', reg.Email],
-            ['Phone', reg.Phone],
-            ['Father Name', reg.FatherName],
-            ['Address', reg.Address],
-            ['Education', reg.Education],
-            ['Occupation', reg.Occupation],
-            ['Church', reg.ChurchName],
-            ['Fiancé Name', reg.FianceName],
-            ['Session Name', reg.SessionName],
-            ['Session Days', reg.Days],
+            ['Full Name', `${reg.firstName} ${reg.lastName}`],
+            ['Sex', reg.sex],
+            ['Age', reg.age],
+            ['Email', reg.email],
+            ['Phone', reg.phone],
+            ['Father Name', reg.fatherName],
+            ['Address', reg.address],
+            ['Education', reg.education],
+            ['Occupation', reg.occupation],
+            ['Church', reg.churchName],
+            ['Fiancé Name', reg.fianceName],
+            ['Session Name', reg.sessionName],
+            ['Session Days', reg.days],
             [
               'Date of Marriage',
-              new Date(reg.DateOfMarriage).toLocaleDateString(),
+              new Date(reg.dateOfMarriage).toLocaleDateString(),
             ],
             [
               'Church Activities',
-              this.getSelectedActivities(reg.ChurchActivities).join(', ') ||
+              this.getSelectedActivities(reg.churchActivities).join(', ') ||
                 'None',
             ],
-            ['Payment Status', reg.PaymentStatus ? 'Received' : 'Pending'],
-            ['Vicar Letter', reg.VicarLetterUrl ? reg.VicarLetterUrl : 'N/A'],
+            ['Payment Status', reg.paymentStatus ? 'Received' : 'Pending'],
+            ['Vicar Letter', reg.vicarLetterUrl ? reg.vicarLetterUrl : 'N/A'],
           ],
           styles: {
             fontSize: 10,
@@ -486,9 +488,9 @@ export class PremaritalComponent {
         });
 
         // Add photo image (if exists)
-        if (reg.PhotoUrl) {
+        if (reg.photoUrl) {
           try {
-            const imageData = await this.getBase64ImageFromUrl(reg.PhotoUrl);
+            const imageData = await this.getBase64ImageFromUrl(reg.photoUrl);
             doc.addImage(imageData, 'JPEG', 400, baseY + 20, 100, 100);
           } catch (e) {
             console.warn('Could not load image', e);
@@ -537,11 +539,11 @@ export class PremaritalComponent {
       let sessionDates: Date[] = [];
 
       // Use the SessionId to get session details from API
-      if (reg.SessionId) {
+      if (reg.sessionId) {
         try {
-          console.log('Fetching session with ID:', reg.SessionId);
+          console.log('Fetching session with ID:', reg.sessionId);
           const sessionResponse = await firstValueFrom(
-            this.api.apiSessionconfigIdGet({ id: reg.SessionId })
+            this.sessionsFallbackService.apiSessionconfigIdGet({ id: reg.sessionId })
           );
           console.log('Session API response:', sessionResponse);
 
@@ -584,12 +586,12 @@ export class PremaritalComponent {
       }
 
       const certificateData = {
-        name: `${reg.FirstName} ${reg.LastName}`,
-        completionDate: reg.DateOfMarriage
-          ? new Date(reg.DateOfMarriage)
+        name: `${reg.firstName} ${reg.lastName}`,
+        completionDate: reg.dateOfMarriage
+          ? new Date(reg.dateOfMarriage)
           : new Date(),
-        sessionName: reg.SessionName,
-        churchName: reg.ChurchName || 'Unknown Church',
+        sessionName: reg.sessionName,
+        churchName: reg.churchName || 'Unknown Church',
         dates: sessionDates,
         programDuration: `${sessionDates.length} Day${
           sessionDates.length > 1 ? 's' : ''
@@ -1078,21 +1080,21 @@ export class EditRegistrationDialog {
   constructor() {
     const reg = this.data.registration;
     this.editForm = this.fb.group({
-      firstName: [reg.FirstName || '', Validators.required],
-      lastName: [reg.LastName || '', Validators.required],
-      sex: [reg.Sex || '', Validators.required],
+      firstName: [reg.firstName || '', Validators.required],
+      lastName: [reg.lastName || '', Validators.required],
+      sex: [reg.sex || '', Validators.required],
       age: [
-        reg.Age || '',
+        reg.age || '',
         [Validators.required, Validators.min(1), Validators.max(120)],
       ],
-      fatherName: [reg.FatherName || '', Validators.required],
-      occupation: [reg.Occupation || ''],
-      education: [reg.Education || '', Validators.required],
-      address: [reg.Address || '', Validators.required],
-      churchName: [reg.ChurchName || '', Validators.required],
-      email: [reg.Email || '', [Validators.required, Validators.email]],
-      phone: [reg.Phone || '', Validators.required],
-      fianceName: [reg.FianceName || ''],
+      fatherName: [reg.fatherName || '', Validators.required],
+      occupation: [reg.occupation || ''],
+      education: [reg.education || '', Validators.required],
+      address: [reg.address || '', Validators.required],
+      churchName: [reg.churchName || '', Validators.required],
+      email: [reg.email || '', [Validators.required, Validators.email]],
+      phone: [reg.phone || '', Validators.required],
+      fianceName: [reg.fianceName || ''],
       choirMember: [reg.ChoirMember || false],
       ssTeacher: [reg.SsTeacher || false],
       youthFellowship: [reg.YouthFellowship || false],

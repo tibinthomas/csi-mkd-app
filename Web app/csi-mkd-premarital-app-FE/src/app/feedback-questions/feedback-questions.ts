@@ -67,13 +67,13 @@ export class FeedbackQuestions {
       .subscribe({
         next: (res: any) => {
           // Check if the response contains valid user details
-          if (res && res.Exists) {
-            this.userId = res?.UserId;
+          if (res && res.exists) {
+            this.userId = res?.userId;
             this.isLoading.set(false);
 
             this.service
               .apiPremaritalregisterIdGet({
-                id: res?.UserId,
+                id: res?.userId,
               })
               .subscribe({
                 next: (userDetails: any) => {

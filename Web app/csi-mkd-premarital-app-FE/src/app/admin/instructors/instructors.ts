@@ -49,8 +49,8 @@ export class Instructors implements OnInit {
 
   readonly sortedInstructors = computed(() => {
     return this.instructors().sort((a, b) => {
-      const idA = (a as any).Id || a.id || 0;
-      const idB = (b as any).Id || b.id || 0;
+      const idA = a.id || 0;
+      const idB = b.id || 0;
       return idA - idB;
     });
   });

@@ -124,10 +124,10 @@ export class GeneralList {
       this.isLoading.set(true); // start spinner
       return this.api
         .apiGeneralregisterFilterGet({
-          Page: (pageIndex as number) + 1,
-          PageSize: pageSize as number,
-          Search: searchTerm as string,
-          UnapprovedOnly: unapproved as boolean,
+          page: (pageIndex as number) + 1,
+          pageSize: pageSize as number,
+          search: searchTerm as string,
+          unapprovedOnly: unapproved as boolean,
         })
         .pipe(
           map((response: any) => {
@@ -189,20 +189,20 @@ export class GeneralList {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.isApproving.set(reg.Id);
+        this.isApproving.set(reg.id);
 
         const updated = {
           ...reg,
-          PaymentStatus: !reg.PaymentStatus,
+          paymentStatus: !reg.paymentStatus,
         };
         this.api
           .apiGeneralregisterIdPaymentstatusPut({
-            id: reg.Id,
+            id: reg.id,
             body: updated,
           })
           .subscribe({
             next: () => {
-              reg.PaymentStatus = !reg.PaymentStatus;
+              reg.paymentStatus = !reg.paymentStatus;
               this.isApproving.set(null);
 
               this.refreshTrigger.set(this.refreshTrigger() + 1); // triggers new data from API
@@ -246,18 +246,18 @@ export class GeneralList {
           startY: baseY,
           head: [['Field', 'Value']],
           body: [
-            ['Full Name', `${reg.FirstName} ${reg.LastName}`],
-            ['Sex', reg.Sex],
-            ['Age', reg.Age],
-            ['Email', reg.Email],
-            ['Phone', reg.Phone],
-            ['Father Name', reg.FatherName],
-            ['Address', reg.Address],
-            ['Education', reg.Education],
-            ['Occupation', reg.Occupation],
-            ['Church', reg.ChurchName],
-            ['Session Type', reg.SessionType],
-            ['Payment Status', reg.PaymentStatus ? 'Received' : 'Pending'],
+            ['Full Name', `${reg.firstName} ${reg.lastName}`],
+            ['Sex', reg.sex],
+            ['Age', reg.age],
+            ['Email', reg.email],
+            ['Phone', reg.phone],
+            ['Father Name', reg.fatherName],
+            ['Address', reg.address],
+            ['Education', reg.education],
+            ['Occupation', reg.occupation],
+            ['Church', reg.churchName],
+            ['Session Type', reg.sessionType],
+            ['Payment Status', reg.paymentStatus ? 'Received' : 'Pending'],
           ],
           styles: {
             fontSize: 10,
@@ -272,9 +272,9 @@ export class GeneralList {
         });
 
         // Add photo image (if exists)
-        if (reg.PhotoUrl) {
+        if (reg.photoUrl) {
           try {
-            const imageData = await this.getBase64ImageFromUrl(reg.PhotoUrl);
+            const imageData = await this.getBase64ImageFromUrl(reg.photoUrl);
             doc.addImage(imageData, 'JPEG', 400, baseY + 20, 100, 100);
           } catch (e) {
             console.warn('Could not load image', e);

@@ -93,9 +93,9 @@ export class PreConfirmList implements OnInit {
     this.isLoading.set(true);
     this.api
       .apiConfirmationregisterFilterGet({
-        Page: this.pageIndex() + 1,
-        PageSize: this.pageSize(),
-        Search: this.searchTermInput(),
+        page: this.pageIndex() + 1,
+        pageSize: this.pageSize(),
+        search: this.searchTermInput(),
       })
       .subscribe({
         next: (responseJson: any) => {
@@ -150,57 +150,6 @@ export class PreConfirmList implements OnInit {
     return this.expandedRow() === reg;
   }
 
-  // handleDownload() {
-  //   // Implement download logic here
-  //   this.snackBar.open('Download functionality not implemented yet.', 'Close', {
-  //     duration: 3000,
-  //   });
-  // }
-
-  // handleDownload() {
-  //   const items = this.registrations();
-  //   if (!items || items.length === 0) {
-  //     this.snackBar.open('No data available to download.', 'Close', {
-  //       duration: 3000,
-  //     });
-  //     return;
-  //   }
-
-  //   const headers = [
-  //     'Church Name',
-  //     'Confirmation Date',
-  //     'Confirmation Time',
-  //     'Participants Count',
-  //     'Participants',
-  //   ];
-
-  //   const rows = items.map((reg) => {
-  //     const participants = (reg.Participants || [])
-  //       .map((p) => `${p.Name} (Age: ${p.Age})`)
-  //       .join('; ');
-  //     return [
-  //       reg.ChurchName || '',
-  //       reg.ConfirmationDate || '',
-  //       reg.ConfirmationTime || '',
-  //       reg.Participants?.length || 0,
-  //       `"${participants}"`, // Quotes to handle commas/semicolons
-  //     ];
-  //   });
-
-  //   const csvContent = [
-  //     headers.join(','),
-  //     ...rows.map((row) => row.join(',')),
-  //   ].join('\n');
-
-  //   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  //   const url = window.URL.createObjectURL(blob);
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = 'pre-confirmation-registrations.csv';
-  //   a.click();
-  //   window.URL.revokeObjectURL(url);
-  // }
-
   handleDownloadCSV() {
     const items = this.registrations();
     if (!items || items.length === 0) {
@@ -219,18 +168,18 @@ export class PreConfirmList implements OnInit {
     ];
 
     const rows = items.map((reg: any) => {
-      const participants = (reg.Participants || [])
-        .map((p: any) => `${p.Name} (Age: ${p.Age})`)
+      const participants = (reg.participants || [])
+        .map((p: any) => `${p.name} (Age: ${p.age})`)
         .join('; ');
       return [
-        reg.ChurchName || '',
-        reg.ConfirmationDate 
-          ? this.datePipe.transform(reg.ConfirmationDate, 'mediumDate')
+        reg.churchName || '',
+        reg.confirmationDate
+          ? this.datePipe.transform(reg.confirmationDate, 'mediumDate')
           : '',
-        reg.CounsellingDate
-          ? this.datePipe.transform(reg.CounsellingDate, 'mediumDate') 
+        reg.counsellingDate
+          ? this.datePipe.transform(reg.counsellingDate, 'mediumDate')
           : '',
-        reg.Participants?.length || 0,
+        reg.participants?.length || 0,
         `"${participants}"`, // Quotes to handle commas/semicolons
       ];
     });
@@ -272,18 +221,18 @@ export class PreConfirmList implements OnInit {
     ];
 
     const data = items.map((reg: any) => {
-      const participants = (reg.Participants || [])
-        .map((p: any) => `${p.Name} (Age: ${p.Age})`)
+      const participants = (reg.participants || [])
+        .map((p: any) => `${p.name} (Age: ${p.age})`)
         .join('\n');
       return [
-        reg.ChurchName || '',
-        reg.ConfirmationDate
-          ? this.datePipe.transform(reg.ConfirmationDate, 'mediumDate')
+        reg.churchName || '',
+        reg.confirmationDate
+          ? this.datePipe.transform(reg.confirmationDate, 'mediumDate')
           : '',
-        reg.CounsellingDate
-          ? this.datePipe.transform(reg.CounsellingDate, 'mediumDate')
+        reg.counsellingDate
+          ? this.datePipe.transform(reg.counsellingDate, 'mediumDate')
           : '',
-        reg.Participants?.length || 0,
+        reg.participants?.length || 0,
         participants,
       ];
     });

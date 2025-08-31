@@ -17,7 +17,7 @@
             (input)="searchTermInput.set($any($event.target).value)"
             i18n
           />
-          <mat-hint i18n>Search by church name</mat-hint>
+          <mat-hint i18n>Search by church name or participant name</mat-hint>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -52,20 +52,20 @@
         >
           <!-- Column Definitions -->
           <ng-container matColumnDef="ChurchName">
-            <th mat-header-cell *matHeaderCellDef i18n><strong>Name</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.ChurchName }}</td>
+            <th mat-header-cell *matHeaderCellDef i18n><strong>Church Name</strong></th>
+            <td mat-cell *matCellDef="let reg">{{ reg.churchName }}</td>
           </ng-container>
           <ng-container matColumnDef="ConfirmationDate">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Confirmation Date</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.ConfirmationDate | date : "mediumDate" }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.confirmationDate | date : "mediumDate" }}</td>
           </ng-container>
           <ng-container matColumnDef="CounsellingDate">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Counselling Date</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.CounsellingDate | date : "mediumDate" }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.counsellingDate | date : "mediumDate" }}</td>
           </ng-container>
           <ng-container matColumnDef="ParticipantsCount">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Participants Count</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Participants?.length || 0 }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.participants?.length || 0 }}</td>
           </ng-container>
           <ng-container matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef></th>
@@ -86,11 +86,11 @@
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let reg" [attr.colspan]="displayedColumns.length">
               <div class="p-4 rounded shadow-inner" [@detailExpand]="expandedRow() === reg ? 'expanded' : 'collapsed'">
-                @if (reg.Participants?.length) {
+                @if (reg.participants?.length) {
                 <h4 class="text-sm mb-2" i18n><strong>Participants</strong></h4>
                 <ul class="list-disc pl-5 space-y-1">
-                  @for (p of reg.Participants; track p) {
-                  <li>{{ p.Name }} – Age: {{ p.Age }}</li>
+                  @for (p of reg.participants; track p) {
+                  <li>{{ p.name }} – Age: {{ p.age }}</li>
                   }
                 </ul>
                 } @else {

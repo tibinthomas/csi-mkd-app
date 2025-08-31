@@ -1,0 +1,152 @@
+<div class="feedback-list-container">
+  <div class="header">
+    <h1>Feedback List</h1>
+    <button mat-raised-button color="primary" (click)="refreshData()">
+      <mat-icon>refresh</mat-icon>
+      Refresh
+    </button>
+  </div>
+
+  <mat-card class="filters-card">
+    <mat-card-header>
+      <mat-card-title>Search & Filters</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="fill" class="search-field">
+        <mat-label>Search by name or email</mat-label>
+        <input matInput [(ngModel)]="searchTerm" (ngModelChange)="searchTerm.set($event)" />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </mat-card-content>
+  </mat-card>
+
+  @if (feedbackResponse().error) {
+  <mat-card class="error-card">
+    <mat-card-content>
+      <div class="error-message">
+        <mat-icon color="warn">error</mat-icon>
+        <span>{{ feedbackResponse().error }}</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  } @if (isLoading()) {
+  <div class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Loading feedback data...</p>
+  </div>
+  } @else {
+  <mat-card class="data-card">
+    <mat-card-header>
+      <mat-card-title> Feedback Responses ({{ filteredFeedback().length }}) </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      @if (filteredFeedback().length === 0) {
+      <div class="no-data">
+        <mat-icon>feedback</mat-icon>
+        <h3>No feedback found</h3>
+        <p>
+          @if (searchTerm()) { No feedback matches your search criteria. } @else { No feedback has been submitted yet. }
+        </p>
+      </div>
+      } @else {
+      <div class="table-container">
+        <table mat-table [dataSource]="filteredFeedback()" class="feedback-table">
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let feedback">
+              {{ feedback.name || "N/A" }}
+            </td>
+          </ng-container>
+
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <td mat-cell *matCellDef="let feedback">
+              {{ feedback.email || "N/A" }}
+            </td>
+          </ng-container>
+
+          <!-- Registration ID Column -->
+          <!-- <ng-container matColumnDef="registrationId">
+            <th mat-header-cell *matHeaderCellDef>Registration ID</th>
+            <td mat-cell *matCellDef="let feedback">
+              <code class="registration-id">
+                {{ feedback.premaritalRegistrationId || "N/A" }}
+              </code>
+            </td>
+          </ng-container> -->
+
+          <!-- Created At Column -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef>Submitted</th>
+            <td mat-cell *matCellDef="let feedback">
+              {{ formatDate(feedback.createdAt) }}
+            </td>
+          </ng-container>
+
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Details</th>
+            <td mat-cell *matCellDef="let feedback">
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ getFeedbackSummary(feedback) }}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+
+                  @if (feedback.feedbacks) {
+                  <div class="feedback-details">
+                    @for (feedbackEntry of getFeedbackEntries(feedback); track feedbackEntry.key) {
+                    <div class="feedback-item">
+                      <h4>{{ feedbackEntry.key }}</h4>
+                      <div class="feedback-content">
+                        <div class="feedback-meta">
+                          <p><strong>Date:</strong> {{ feedbackEntry.value.date | date : "medium" }}</p>
+                          <p><strong>Instructor ID:</strong> {{ feedbackEntry.value.instructorId }}</p>
+                        </div>
+                        @if (feedbackEntry.value.ratings) {
+                        <div class="ratings">
+                          <strong>Ratings:</strong>
+                          @for (rating of getRatingEntries(feedbackEntry.value.ratings); track rating.key) {
+                          <div class="rating-item">
+                            <span>{{ rating.key }}:</span>
+                            <span class="rating-value">{{ rating.value }}/5</span>
+                          </div>
+                          }
+                        </div>
+                        } @if (feedbackEntry.value.textResponses) {
+                        <div class="text-responses">
+                          <strong>Comments:</strong>
+                          @for (response of getTextResponseEntries(feedbackEntry.value.textResponses); track
+                          response.key) {
+                          <div class="text-response">
+                            <em>{{ response.key }}:</em>
+                            <p>{{ response.value || "No response" }}</p>
+                          </div>
+                          }
+                        </div>
+                        }
+                      </div>
+                    </div>
+                    }
+                  </div>
+                  } @else {
+                  <p>No detailed feedback available.</p>
+                  }
+                </mat-expansion-panel>
+              </mat-accordion>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      }
+    </mat-card-content>
+  </mat-card>
+  }
+</div>

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -11,8 +12,13 @@ import { MatCardHeader, MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { ActivatedRoute } from '@angular/router';
 import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
-import { FeedbackDataService } from '../feedback-data.service';
+import { QuestionAnswersService } from '../../../api/api-main-app/services/question-answers.service';
+import { CreateQuestionAnswersDto } from '../../../api/api-main-app/models/create-question-answers-dto';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services/csi-mkd-premarital-app-be.service';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-questions',
@@ -33,8 +39,12 @@ import { FeedbackDataService } from '../feedback-data.service';
 })
 export class Questions {
   private fb = inject(FormBuilder);
-  private readonly feedbackDataService = inject(FeedbackDataService);
-  userDetails = { name: '', email: '' };
+  private readonly route = inject(ActivatedRoute);
+  private readonly questionAnswersService = inject(QuestionAnswersService);
+  private readonly api = inject(CsiMkdPremaritalAppBeService);
+  private userId = signal<string | null>(null);
+  private loadingUserDetails = signal(false);
+  userDetails = signal<{ name: string; email: string } | null>(null);
   private submitting = signal(false);
   successMessage = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
@@ -100,8 +110,6 @@ export class Questions {
   ];
 
   form = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', Validators.required],
     definitionOfMarriage: ['', Validators.required],
     wishesConcerns: ['', Validators.required],
     churchImportance: ['', Validators.required],
@@ -117,22 +125,44 @@ export class Questions {
     greatestAdjustment: ['', Validators.required],
   });
 
-  ngOnInit(): void {
-    const userDetails = this.feedbackDataService.userDetails();
-    this.userDetails = {
-      name: `${userDetails.FirstName} ${userDetails.LastName}`,
-      email: userDetails.Email,
-    };
-    if (userDetails) {
-      this.form.patchValue({
-        name: `${userDetails.FirstName} ${userDetails.LastName}`,
-        email: userDetails.Email,
-      });
-    }
+  constructor() {
+    // Effect to update user details and form when user data loads
+    effect(() => {
+      const userData = this.userDetailsResource.value();
+      if (userData) {
+        const parsedUser = JSON.parse(userData as string);
+        this.userDetails.set({
+          name: `${parsedUser.firstName} ${parsedUser.lastName}`,
+          email: parsedUser.email,
+        });
+      }
+    });
   }
+
+  ngOnInit(): void {
+    // Get userId from route parameters
+    const userId = this.route.snapshot.paramMap.get('userId');
+    this.userId.set(userId);
+
+  }
+
+  // Resource to fetch user details from the API
+  protected readonly userDetailsResource = rxResource({
+    params: () => this.userId(),
+    stream: ({ params: userId }) =>
+      userId
+        ? this.api.apiPremaritalregisterIdGet({
+            id: userId,
+          })
+        : of(null),
+  });
 
   isSubmitting() {
     return this.submitting();
+  }
+
+  isLoadingUserDetails() {
+    return this.loadingUserDetails();
   }
 
   onSubmit() {
@@ -145,20 +175,51 @@ export class Questions {
     this.successMessage.set(null);
     this.errorMessage.set(null);
 
-    // Simulate async save (replace with real API call)
-    setTimeout(() => {
-      if (Math.random() > 0.2) {
-        // success 80% of the time
-        this.successMessage.set(
-          'Your responses have been submitted successfully!'
-        );
-        this.form.reset();
-      } else {
-        this.errorMessage.set(
-          'There was a problem submitting your form. Please try again.'
-        );
-      }
+    const userId = this.userId();
+    if (!userId) {
+      this.errorMessage.set(
+        'User ID not found in route. Please access this form through the proper link.'
+      );
       this.submitting.set(false);
-    }, 1500);
+      return;
+    }
+
+    const formValue = this.form.value;
+    const questionAnswersDto: CreateQuestionAnswersDto = {
+      premaritalRegistrationId: userId,
+      definitionOfMarriage: formValue.definitionOfMarriage || null,
+      wishesConcerns: formValue.wishesConcerns || null,
+      churchImportance: formValue.churchImportance || null,
+      familyBackground: formValue.familyBackground || null,
+      parentsHealthImpact: formValue.parentsHealthImpact || null,
+      eldestYoungestScenario: formValue.eldestYoungestScenario || null,
+      expectationsFromPartner: formValue.expectationsFromPartner || null,
+      understandingAboutSex: formValue.understandingAboutSex || null,
+      fearsAboutMarriage: formValue.fearsAboutMarriage || null,
+      timeWithPartner: formValue.timeWithPartner || null,
+      ageDifferenceImpact: formValue.ageDifferenceImpact || null,
+      relationshipWithParentsInlaws:
+        formValue.relationshipWithParentsInlaws || null,
+      greatestAdjustment: formValue.greatestAdjustment || null,
+    };
+
+    this.questionAnswersService
+      .createQuestionAnswers({ body: questionAnswersDto })
+      .subscribe({
+        next: () => {
+          this.successMessage.set(
+            'Your responses have been submitted successfully!'
+          );
+          this.form.reset();
+          this.submitting.set(false);
+        },
+        error: (error: unknown) => {
+          console.error('Error submitting question answers:', error);
+          this.errorMessage.set(
+            'There was a problem submitting your form. Please try again.'
+          );
+          this.submitting.set(false);
+        },
+      });
   }
 }

@@ -30,9 +30,9 @@
             <mat-label i18n>Instructor</mat-label>
             <mat-select formControlName="instructor">
               @if (instructorListResource.value()) { @for (instructor of instructorListResource.value(); track
-              instructor.Id) {
-              <mat-option [value]="instructor.Id" [attr.aria-label]="instructor.Name">
-                {{ instructor.Name }}
+              instructor.id) {
+              <mat-option [value]="instructor.id" [attr.aria-label]="instructor.name">
+                {{ instructor.name }}
               </mat-option>
               } } @else {
               <mat-option disabled>Loading instructors...</mat-option>

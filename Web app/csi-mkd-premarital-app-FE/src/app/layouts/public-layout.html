@@ -12,7 +12,7 @@
         <img
           src="assets/csi-logo.png"
           alt="CSI Church of South India Logo"
-          class="h-6 sm:h-8 lg:h-10 xl:h-12 w-auto aspect-[3/2] max-w-[40px] sm:max-w-[60px] lg:max-w-[80px] object-contain"
+          class="h-6 sm:h-8 lg:h-8 min-[1120px]:h-10 xl:h-12 w-auto aspect-[3/2] max-w-[40px] sm:max-w-[60px] lg:max-w-[60px] min-[1120px]:max-w-[80px] object-contain"
           role="img"
           appDoubleTap
           (doubleTap)="goToAdmin()"
@@ -22,13 +22,13 @@
       <!-- Title -->
       <div class="text-center">
         <h1
-          class="!text-xs sm:!text-xl lg:!text-lg xl:!text-2xl uppercase tracking-tighter sm:tracking-wide transition-opacity duration-500 !font-bold leading-tight"
+          class="!text-xs sm:!text-xl lg:!text-base min-[1120px]:!text-lg xl:!text-2xl uppercase tracking-tighter sm:tracking-wide transition-opacity duration-500 !font-bold leading-tight"
           i18n
         >
           CSI Counselling Centre
         </h1>
         <h2
-          class="!text-[10px] sm:!text-xs xl:!text-sm uppercase tracking-tighter sm:tracking-wide transition-all duration-500 leading-tight"
+          class="!text-[10px] sm:!text-xs lg:!text-xs min-[1120px]:!text-xs xl:!text-sm uppercase tracking-tighter sm:tracking-wide transition-all duration-500 leading-tight"
           i18n
         >
           Madhya Kerala Diocese
@@ -40,7 +40,7 @@
         <img
           src="assets/csi-mkd-logo.png"
           alt="CSI Madhya Kerala Diocese Logo"
-          class="h-6 sm:h-8 lg:h-10 xl:h-12 w-auto aspect-[3/2] max-w-[40px] sm:max-w-[60px] lg:max-w-[80px] object-contain"
+          class="h-6 sm:h-8 lg:h-8 min-[1120px]:h-10 xl:h-12 w-auto aspect-[3/2] max-w-[40px] sm:max-w-[60px] lg:max-w-[60px] min-[1120px]:max-w-[80px] object-contain"
           role="img"
         />
       </div>
@@ -54,7 +54,7 @@
           mat-button
           routerLink="/about"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-xs min-[1120px]:!text-sm min-[1400px]:!text-base !px-1 min-[1120px]:!px-2 min-[1400px]:!px-4"
           aria-label="About us page"
           ><span i18n>About Us</span></a
         >
@@ -62,7 +62,7 @@
           mat-button
           routerLink="/team-members"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-xs min-[1120px]:!text-sm min-[1400px]:!text-base !px-1 min-[1120px]:!px-2 min-[1400px]:!px-4"
           i18n
           aria-label="Our team members page"
           >Our Team</a
@@ -71,7 +71,7 @@
           mat-button
           routerLink="/register"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-xs min-[1120px]:!text-sm min-[1400px]:!text-base !px-1 min-[1120px]:!px-2 min-[1400px]:!px-4"
           i18n
           aria-label="Registration page"
           >Register</a
@@ -80,7 +80,7 @@
           mat-button
           routerLink="/feedback-questions"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-xs min-[1120px]:!text-sm min-[1400px]:!text-base !px-1 min-[1120px]:!px-2 min-[1400px]:!px-4"
           aria-label="Feedback Questionnaire"
           ><span i18n>Feedback</span></a
         >
@@ -88,7 +88,7 @@
           mat-button
           routerLink="/sessions"
           routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm min-[1400px]:!text-base !px-2 min-[1400px]:!px-4"
+          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-xs min-[1120px]:!text-sm min-[1400px]:!text-base !px-1 min-[1120px]:!px-2 min-[1400px]:!px-4"
           aria-label="Sessions page"
           ><span i18n>Sessions</span></a
         >

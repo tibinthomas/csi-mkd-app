@@ -9,6 +9,7 @@ import {
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
+import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap, shareReplay } from 'rxjs';
 import { SessionDataService } from '../../core/services/session-data.service';
@@ -79,6 +80,7 @@ export class SessionConfig implements OnInit {
 
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
+  private readonly sessionsFallbackService = inject(SessionsFallbackService);
   private readonly sessionDataService = inject(SessionDataService);
   private readonly dialog = inject(MatDialog);
 
@@ -121,7 +123,7 @@ export class SessionConfig implements OnInit {
   fetchSessions(year: number) {
     this.isLoading.set(true);
 
-    this.api.apiSessionconfigSessionsGet({ year }).subscribe({
+    this.sessionsFallbackService.apiSessionconfigSessionsGet({ year }).subscribe({
       next: (sessions: any) => {
         this.allSessions.set(sessions);
         this.isLoading.set(false);
@@ -143,14 +145,14 @@ export class SessionConfig implements OnInit {
   readonly groupedSessions = computed(() => {
     const year = this.selectedYear().getFullYear();
     const sessionsInYear = this.sessionList().filter(
-      (s: any) => new Date(s.StartDate).getFullYear() === year
+      (s: any) => new Date(s.startDate).getFullYear() === year
     );
 
     if (!sessionsInYear.length) return [];
 
     const grouped: Record<string, any[]> = {};
     sessionsInYear.forEach((session: any) => {
-      const month = formatDate(session.StartDate, 'MMMM', 'en-US');
+      const month = formatDate(session.startDate, 'MMMM', 'en-US');
       if (!grouped[month]) grouped[month] = [];
       grouped[month].push(session);
     });
@@ -158,10 +160,11 @@ export class SessionConfig implements OnInit {
     return Object.entries(grouped)
       .map(([monthName, sessions]) => ({
         monthName,
-        sessions: sessions.sort((a: any, b: any) => 
-          new Date(a.StartDate).getTime() - new Date(b.StartDate).getTime()
+        sessions: sessions.sort(
+          (a: any, b: any) =>
+            new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
         ),
-        monthDate: new Date(sessions[0].StartDate)
+        monthDate: new Date(sessions[0].startDate),
       }))
       .sort((a, b) => a.monthDate.getTime() - b.monthDate.getTime())
       .map(({ monthName, sessions }) => ({
@@ -173,13 +176,13 @@ export class SessionConfig implements OnInit {
   deleteSession(session: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        message: `Are you sure you want to delete the session "${session.SessionName}"?`,
+        message: `Are you sure you want to delete the session "${session.sessionName}"?`,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.api.apiSessionconfigIdDelete({ id: session.Id }).subscribe({
+        this.sessionsFallbackService.apiSessionconfigIdDelete({ id: session.id }).subscribe({
           next: () => {
             this.sessionDataService.refresh();
           },
@@ -200,8 +203,8 @@ export class SessionConfig implements OnInit {
   toggleStatus(session: any) {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
-        message: `Do you want to make "${session.SessionName}" ${
-          session.IsActive ? 'inactive' : 'active'
+        message: `Do you want to make "${session.sessionName}" ${
+          session.isActive ? 'inactive' : 'active'
         }?`,
       },
     });
@@ -210,11 +213,11 @@ export class SessionConfig implements OnInit {
       if (result) {
         const updatedSession = {
           ...session,
-          IsActive: !session.IsActive,
+          isActive: !session.isActive,
         };
-        this.api
+        this.sessionsFallbackService
           .apiSessionconfigIdPut({
-            id: session.Id,
+            id: session.id,
             body: updatedSession,
           })
           .subscribe({
@@ -249,7 +252,7 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.api.apiSessionconfigPost({ body: session }).subscribe({
+        this.sessionsFallbackService.apiSessionconfigPost({ body: session }).subscribe({
           next: () => this.sessionDataService.refresh(),
           error: () =>
             this.dialog.open(AlertDialog, {
@@ -272,7 +275,7 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.api
+        this.sessionsFallbackService
           .apiSessionconfigIdPut({ id: updated.id, body: updated })
           .subscribe({
             next: () => this.sessionDataService.refresh(),

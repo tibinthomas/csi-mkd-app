@@ -49,11 +49,11 @@ export class InstructorFormDialogComponent {
 
   readonly form = this.fb.group({
     name: [
-      (this.instructor as any)?.Name || '',
+      (this.instructor as any)?.name || '',
       [Validators.required, Validators.minLength(2)],
     ],
     qualification: [
-      (this.instructor as any)?.Qualification || '',
+      (this.instructor as any)?.qualification || '',
       [Validators.required, Validators.minLength(2)],
     ],
   });

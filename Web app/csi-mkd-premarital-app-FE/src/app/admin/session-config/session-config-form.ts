@@ -40,13 +40,13 @@ export class SessionFormDialogComponent {
   private readonly fb = inject(FormBuilder);
   private readonly data = inject(MAT_DIALOG_DATA);
 
-  protected readonly isEdit = signal(!!this.data?.session?.Id);
+  protected readonly isEdit = signal(!!this.data?.session?.id);
 
   protected readonly form = this.fb.group({
-    id: [this.data?.session?.Id ?? null],
-    sessionName: [this.data?.session?.SessionName ?? '', Validators.required],
-    startDate: [this.data?.session?.StartDate ?? '', Validators.required],
-    endDate: [this.data?.session?.EndDate ?? '', Validators.required],
+    id: [this.data?.session?.id ?? null],
+    sessionName: [this.data?.session?.sessionName ?? '', Validators.required],
+    startDate: [this.data?.session?.startDate ?? '', Validators.required],
+    endDate: [this.data?.session?.endDate ?? '', Validators.required],
     isActive: [this.data?.session?.IsActive ?? true],
   });
 

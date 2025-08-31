@@ -21,7 +21,7 @@
           <mat-label i18n>Session Name</mat-label>
           <mat-select [value]="selectedSession()" (selectionChange)="selectedSession.set($event.value)">
             @for(session of filteredSessionsByYear(); track session) {
-            <mat-option [value]="session.SessionName">{{ session.SessionName }}</mat-option>
+            <mat-option [value]="session.sessionName">{{ session.sessionName }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -35,7 +35,7 @@
             (input)="searchTermInput.set($any($event.target).value)"
             i18n
           />
-          <mat-hint i18n>Search by name, email, or phone</mat-hint>
+          <mat-hint i18n>Search by name or email</mat-hint>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
@@ -81,42 +81,42 @@
           <!-- Column Definitions -->
           <ng-container matColumnDef="FirstName">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Name</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.FirstName }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.firstName }}</td>
           </ng-container>
           <ng-container matColumnDef="LastName">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Last Name</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.LastName }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.lastName }}</td>
           </ng-container>
           <ng-container matColumnDef="Sex">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Sex</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Sex }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.sex }}</td>
           </ng-container>
           <ng-container matColumnDef="Age">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Age</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Age }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.age }}</td>
           </ng-container>
           <ng-container matColumnDef="Email">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Email</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Email }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.email }}</td>
           </ng-container>
           <ng-container matColumnDef="Phone">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Phone</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Phone }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.phone }}</td>
           </ng-container>
           <ng-container matColumnDef="SessionName">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Session</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.SessionName }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.sessionName }}</td>
           </ng-container>
           <ng-container matColumnDef="Days">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Session Days</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.Days }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.days }}</td>
           </ng-container>
           <ng-container matColumnDef="PaymentStatus">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Payment</strong></th>
             <td mat-cell *matCellDef="let reg">
-              @if (reg.PaymentStatus === false) {
+              @if (reg.paymentStatus === false) {
               <button mat-flat-button color="accent" (click)="approvePayment(reg); $event.stopPropagation()">
-                @if(isApproving() === reg.Id) {
+                @if(isApproving() === reg.id) {
                 <mat-spinner diameter="20"></mat-spinner>
                 } @else {
                 <span i18n>Approve</span>
@@ -130,7 +130,7 @@
           <ng-container matColumnDef="certificate">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Certificate</strong></th>
             <td mat-cell *matCellDef="let reg">
-              @if (reg.PaymentStatus) {
+              @if (reg.paymentStatus) {
               <button
                 mat-icon-button
                 aria-label="generate certificate"
@@ -158,9 +158,9 @@
                   matTooltip="Edit Registration"
                   i18n-matTooltip
                   color="primary"
-                  [disabled]="isEditing() === reg.Id"
+                  [disabled]="isEditing() === reg.id"
                 >
-                  @if(isEditing() === reg.Id) {
+                  @if(isEditing() === reg.id) {
                   <mat-spinner diameter="20"></mat-spinner>
                   } @else {
                   <mat-icon>edit</mat-icon>
@@ -173,9 +173,9 @@
                   matTooltip="Delete Registration"
                   i18n-matTooltip
                   color="warn"
-                  [disabled]="isDeleting() === reg.Id"
+                  [disabled]="isDeleting() === reg.id"
                 >
-                  @if(isDeleting() === reg.Id) {
+                  @if(isDeleting() === reg.id) {
                   <mat-spinner diameter="20"></mat-spinner>
                   } @else {
                   <mat-icon>delete</mat-icon>
@@ -210,22 +210,22 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                   <!-- Column 1: Left Details -->
                   <div class="space-y-3">
-                    <div><strong i18n>Father's Name:</strong> {{ reg.FatherName }}</div>
-                    <div><strong i18n>Address:</strong> {{ reg.Address }}</div>
-                    <div><strong i18n>Education:</strong> {{ reg.Education }}</div>
-                    <div><strong i18n>Occupation:</strong> {{ reg.Occupation }}</div>
+                    <div><strong i18n>Father's Name:</strong> {{ reg.fatherName }}</div>
+                    <div><strong i18n>Address:</strong> {{ reg.address }}</div>
+                    <div><strong i18n>Education:</strong> {{ reg.education }}</div>
+                    <div><strong i18n>Occupation:</strong> {{ reg.occupation }}</div>
                   </div>
 
                   <!-- Column 2: Right Details -->
                   <div class="space-y-3">
-                    <div><strong i18n>Church:</strong> {{ reg.ChurchName }}</div>
-                    <div><strong i18n>Fiancé's Name:</strong> {{ reg.FianceName }}</div>
-                    <div><strong i18n>Date of Marriage:</strong> {{ reg.DateOfMarriage | date : "mediumDate" }}</div>
+                    <div><strong i18n>Church:</strong> {{ reg.churchName }}</div>
+                    <div><strong i18n>Fiancé's Name:</strong> {{ reg.fianceName }}</div>
+                    <div><strong i18n>Date of Marriage:</strong> {{ reg.dateOfMarriage | date : "mediumDate" }}</div>
                     <div>
                       <strong i18n>Church Activities:</strong>
-                      @if (hasActivities(reg.ChurchActivities)) {
+                      @if (hasActivities(reg.churchActivities)) {
                       <ul class="list-disc list-inside mt-2">
-                        @for (activity of getSelectedActivities(reg.ChurchActivities); track activity) {
+                        @for (activity of getSelectedActivities(reg.churchActivities); track activity) {
                         <li>{{ activity }}</li>
                         }
                       </ul>
@@ -243,10 +243,10 @@
                         class="p-2 border border-outline dark:border-outline-variant rounded-lg bg-surface-container-high dark:bg-surface-container"
                       >
                         <img
-                          [ngSrc]="reg.PhotoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
+                          [ngSrc]="reg.photoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
                           width="100"
                           height="120"
-                          alt="Photo of {{ reg.FirstName }} {{ reg.LastName }}"
+                          alt="Photo of {{ reg.firstName }} {{ reg.lastName }}"
                           class="max-w-full h-auto rounded-lg shadow-sm"
                           priority="low"
                         />
@@ -257,13 +257,13 @@
                   <!-- Column 4: Vicar Letter -->
                   <div>
                     <h4 class="font-semibold mb-3 text-on-surface theme-transition" i18n>Vicar's Letter</h4>
-                    @if (reg.VicarLetterUrl) {
+                    @if (reg.vicarLetterUrl) {
                     <div class="flex space-y-3">
                       <div
                         class="p-4 border-2 border-dashed border-outline dark:border-outline-variant rounded-lg bg-surface-container-high dark:bg-surface-container text-center"
                       >
                         <a
-                          [href]="reg.VicarLetterUrl"
+                          [href]="reg.vicarLetterUrl"
                           target="_blank"
                           rel="noopener"
                           class="inline-flex items-center px-1 py-2 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-opacity"

@@ -58,13 +58,6 @@ export const routes: Routes = [
         canDeactivate: [pendingChangesGuard],
       },
       {
-        path: 'feedback-list',
-        title: 'Feedback List - CSI MKD Premarital Counsel',
-        data: { description: 'View feedback from past participants.' },
-        loadComponent: () =>
-          import('./feedback-list/feedback-list').then((m) => m.FeedbackList),
-      },
-      {
         path: 'team-members',
         title: 'Our Team - CSI MKD Premarital Counsel',
         data: {
@@ -217,6 +210,15 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./admin/instructors/instructors').then(
             (m) => m.Instructors
+          ),
+      },
+      {
+        path: 'feedback-list',
+        title: 'Feedback List - CSI MKD Premarital Counsel',
+        data: { description: 'View submitted feedback from participants' },
+        loadComponent: () =>
+          import('./admin/feedback-list/feedback-list').then(
+            (m) => m.FeedbackList
           ),
       },
     ],

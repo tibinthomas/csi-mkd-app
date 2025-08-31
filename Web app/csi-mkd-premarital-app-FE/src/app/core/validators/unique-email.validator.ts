@@ -21,7 +21,7 @@ export function emailExistsValidatorFactory(
         checkEmailFn(email).pipe(
           map((res: any) => {
             try {
-              return res.Exists ? { emailTaken: true } : null;
+              return res.exists ? { emailTaken: true } : null;
             } catch (e) {
               console.error('Failed to parse response:', res);
               return null;

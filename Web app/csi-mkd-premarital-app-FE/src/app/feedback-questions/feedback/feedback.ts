@@ -86,8 +86,7 @@ export class Feedback implements OnInit {
         const userFeedback = userFeedbackArray[0];
         if (
           userFeedback &&
-          ((userFeedback as any).PremaritalRegistrationId === currentUserId ||
-            userFeedback.premaritalRegistrationId === currentUserId)
+          userFeedback.premaritalRegistrationId === currentUserId
         ) {
           this.populateFormWithClassFeedback(
             userFeedback,
@@ -103,8 +102,8 @@ export class Feedback implements OnInit {
       if (userData) {
         const parsedUser = JSON.parse(userData as string);
         this.userDetails.set({
-          name: `${parsedUser.FirstName} ${parsedUser.LastName}`,
-          email: parsedUser.Email,
+          name: `${parsedUser.firstName} ${parsedUser.lastName}`,
+          email: parsedUser.email,
         });
         this.feedbackForm.patchValue({
           premaritalRegistrationId: this.userId() || '',
@@ -304,8 +303,7 @@ export class Feedback implements OnInit {
       const userFeedback = userFeedbackArray[0];
       if (
         userFeedback &&
-        ((userFeedback as any).PremaritalRegistrationId === currentUserId ||
-          userFeedback.premaritalRegistrationId === currentUserId)
+        userFeedback.premaritalRegistrationId === currentUserId
       ) {
         this.populateFormWithClassFeedback(
           userFeedback,
@@ -340,22 +338,21 @@ export class Feedback implements OnInit {
     targetClassId: string
   ): void {
     // Check if the feedback object has the Feedbacks property (capital F) and the target class
-    const feedbacks =
-      classFeedback.feedbacks || (classFeedback as any).Feedbacks;
+    const feedbacks = classFeedback.feedbacks;
 
     if (feedbacks && feedbacks[targetClassId]) {
       const feedbackDetail = feedbacks[targetClassId];
 
       const formData = {
-        instructor: feedbackDetail.InstructorId || null,
-        date: feedbackDetail.Date || null,
-        qualityRating: feedbackDetail.Ratings?.Quality || null,
-        relevanceRating: feedbackDetail.Ratings?.Relevance || null,
-        engagementRating: feedbackDetail.Ratings?.Engagement || null,
-        organizationRating: feedbackDetail.Ratings?.Organization || null,
-        valuable: feedbackDetail.TextResponses?.Valuable || null,
-        improvements: feedbackDetail.TextResponses?.Improvements || null,
-        comments: feedbackDetail.TextResponses?.Comments || null,
+        instructor: feedbackDetail.instructorId || null,
+        date: feedbackDetail.date || null,
+        qualityRating: feedbackDetail.ratings?.quality || null,
+        relevanceRating: feedbackDetail.ratings?.relevance || null,
+        engagementRating: feedbackDetail.ratings?.engagement || null,
+        organizationRating: feedbackDetail.ratings?.organization || null,
+        valuable: feedbackDetail.textResponses?.valuable || null,
+        improvements: feedbackDetail.textResponses?.improvements || null,
+        comments: feedbackDetail.textResponses?.comments || null,
       };
 
       // Only update fields that are not currently being edited

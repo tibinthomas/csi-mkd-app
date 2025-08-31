@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
+import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
@@ -11,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class DeactivateSessions {
   private service = inject(CsiMkdPremaritalAppBeService);
+  private sessionsFallbackService = inject(SessionsFallbackService);
 
   // Signals for "3 Days" deactivation
   loadingDeactivateUpcoming = signal(false);
@@ -43,7 +45,7 @@ export class DeactivateSessions {
   deactivateUpcomingSessions() {
     this.loadingDeactivateUpcoming.set(true);
     this.messageDeactivateUpcoming.set('');
-    this.service.apiSessionconfigDeactivateSessionsPost().subscribe({
+    this.sessionsFallbackService.apiSessionconfigDeactivateSessionsPost().subscribe({
       next: () => {
         this.successDeactivateUpcoming.set(true);
         this.messageDeactivateUpcoming.set(
@@ -63,7 +65,7 @@ export class DeactivateSessions {
   deactivatePastSessions() {
     this.loadingDeactivatePast.set(true);
     this.messageDeactivatePast.set('');
-    this.service.apiSessionconfigDeactivatePastSessionsPost().subscribe({
+    this.sessionsFallbackService.apiSessionconfigDeactivatePastSessionsPost().subscribe({
       next: () => {
         this.successDeactivatePast.set(true);
         this.messageDeactivatePast.set(
