@@ -130,7 +130,7 @@ export class PreConfirmRegister {
   };
 
   protected readonly timezoneDisplay: string =
-     $localize`Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
+     $localize`DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);

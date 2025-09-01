@@ -121,7 +121,12 @@
             [disabled]="isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            {{ isSubmitting() ? "Submitting..." : "Submit Feedback" }}
+            @if(isSubmitting()){
+            <span i18n>Submitting...</span>
+
+            }@else{
+            <span i18n>Submit Feedback</span>
+            }
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Submitting your feedback, please wait</div>
