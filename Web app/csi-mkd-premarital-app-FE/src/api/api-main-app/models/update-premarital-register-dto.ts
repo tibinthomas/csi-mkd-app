@@ -7,6 +7,7 @@ export interface UpdatePremaritalRegisterDto {
   age: number;
   choirMember?: boolean | null;
   churchId?: number | null;
+  churchName?: string | null;
   dateOfMarriage?: string | null;
   days: string | null;
   declaration: boolean;

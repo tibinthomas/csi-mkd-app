@@ -231,13 +231,13 @@
         }@else {
         <mat-hint class="!text-xs" i18n>Max size 2MB (JPG, PNG)</mat-hint>
         } @if (photoError()) {
-        <mat-error role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
+        <mat-error class="text-xs" role="alert" aria-live="assertive">{{ photoError() }}</mat-error>
         }
 
-        <div class="flex items-center gap-2 mt-6">
+        <div class="flex flex-col mt-6">
           <mat-checkbox formControlName="declaration" i18n> I would like to attend the counselling. </mat-checkbox>
           @if (isInvalid('declaration')) {
-          <mat-error i18n>You must accept the declaration.</mat-error>
+          <mat-error class="text-xs mt-1" i18n>You must accept the declaration.</mat-error>
           }
         </div>
 

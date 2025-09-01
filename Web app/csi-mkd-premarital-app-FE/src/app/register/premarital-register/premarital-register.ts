@@ -20,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -38,7 +39,10 @@ import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
-import { ChurchDataService, ChurchWithDetails } from '../../core/services/church-data.service';
+import {
+  ChurchDataService,
+  ChurchWithDetails,
+} from '../../core/services/church-data.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 
 @Component({
@@ -50,6 +54,7 @@ import { SessionsFallbackService } from '../../core/services/sessions-fallback.s
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
@@ -102,7 +107,10 @@ export class PremaritalRegister {
   // Church data signals
   protected readonly selectedDistrict = signal<string>('');
   protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
-  protected readonly allLocations = toSignal(this.churchDataService.getAllLocations(), { initialValue: [] });
+  protected readonly allLocations = toSignal(
+    this.churchDataService.getAllLocations(),
+    { initialValue: [] }
+  );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
 
   constructor() {
@@ -165,8 +173,10 @@ export class PremaritalRegister {
           Validators.pattern(/^[a-zA-Z\s]*$/),
         ],
       ],
+      churchMembership: ['', Validators.required],
       churchDistrict: ['', Validators.required],
       churchName: [{ value: '', disabled: true }, Validators.required],
+      manualChurchName: [''],
       fianceName: [
         '',
         [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)],
@@ -201,6 +211,26 @@ export class PremaritalRegister {
       sessionId: ['', Validators.required],
       recaptcha: ['', Validators.required],
     });
+
+    // Handle conditional validation based on churchMembership radio button
+    this.form.get('churchMembership')?.valueChanges.subscribe((membership) => {
+      if (membership === 'not-member') {
+        // If not a member, clear and disable district/church fields, enable manual church name
+        this.form.patchValue({ churchDistrict: '', churchName: '' });
+        this.form.get('churchDistrict')?.clearValidators();
+        this.form.get('churchName')?.clearValidators();
+        this.form.get('manualChurchName')?.setValidators([Validators.required]);
+      } else if (membership === 'member') {
+        // If a member, restore district/church validation, clear manual church name
+        this.form.patchValue({ manualChurchName: '' });
+        this.form.get('churchDistrict')?.setValidators([Validators.required]);
+        this.form.get('churchName')?.setValidators([Validators.required]);
+        this.form.get('manualChurchName')?.clearValidators();
+      }
+      this.form.get('churchDistrict')?.updateValueAndValidity();
+      this.form.get('churchName')?.updateValueAndValidity();
+      this.form.get('manualChurchName')?.updateValueAndValidity();
+    });
   }
 
   hasPendingChanges = (): boolean => {
@@ -226,19 +256,21 @@ export class PremaritalRegister {
     }
   };
 
-  private readonly sessions$ = this.sessionsFallbackService.getAllSessions().pipe(
-    map((data: any) => {
-      return data.map((session: any) => ({
-        ...session,
-        startDate: session.startDate,
-        endDate: session.endDate,
-      }));
-    }),
-    catchError((err) => {
-      console.error('Error loading sessions:', err);
-      return of([]); // fallback to empty array
-    })
-  );
+  private readonly sessions$ = this.sessionsFallbackService
+    .getAllSessions()
+    .pipe(
+      map((data: any) => {
+        return data.map((session: any) => ({
+          ...session,
+          startDate: session.startDate,
+          endDate: session.endDate,
+        }));
+      }),
+      catchError((err) => {
+        console.error('Error loading sessions:', err);
+        return of([]); // fallback to empty array
+      })
+    );
 
   protected readonly sessionList = toSignal(this.sessions$, {
     initialValue: [],
@@ -337,8 +369,18 @@ export class PremaritalRegister {
       age: Number(raw.age),
       education: raw.education,
       occupation: raw.occupation,
-      churchId: this.selectedChurch()?.id || null,
-      priestName: this.selectedChurch()?.priestName || null,
+      churchId:
+        raw.churchMembership === 'not-member'
+          ? null
+          : this.selectedChurch()?.id || null,
+      priestName:
+        raw.churchMembership === 'not-member'
+          ? null
+          : this.selectedChurch()?.priestName || null,
+      churchName:
+        raw.churchMembership === 'not-member'
+          ? raw.manualChurchName
+          : raw.churchName,
       fianceName: raw.fianceName || undefined,
       dateOfMarriage: raw.dateOfMarriage
         ? this.toUtcIsoString(raw.dateOfMarriage)
@@ -396,10 +438,10 @@ export class PremaritalRegister {
                       disableClose: true,
                       data: {
                         title: $localize`Premarital Registration Complete`,
-                        messages: [ $localize`Your premarital registration is successfully completed.`,
+                        messages: [
+                          $localize`Your premarital registration is successfully completed.`,
                         ],
-                        extraMessage:
-                          $localize`A confirmation email has been sent to your registered email address.`,
+                        extraMessage: $localize`A confirmation email has been sent to your registered email address.`,
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {
@@ -427,25 +469,26 @@ export class PremaritalRegister {
     return localDate.toISOString();
   }
 
-  protected readonly timezoneDisplay: string =
-    $localize`DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
+  protected readonly timezoneDisplay: string = $localize`DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
 
   onDistrictChange(district: string): void {
     this.selectedDistrict.set(district);
     this.form.patchValue({ churchName: '' }); // Reset church selection
     this.selectedChurch.set(null); // Reset selected church
-    
+
     if (district) {
       this.form.get('churchName')?.enable(); // Enable church name field
-      this.churchDataService.getChurchesByLocationAndSearch(district).subscribe({
-        next: (churches) => {
-          this.availableChurches.set(churches);
-        },
-        error: (err) => {
-          console.error('Error loading churches:', err);
-          this.availableChurches.set([]);
-        }
-      });
+      this.churchDataService
+        .getChurchesByLocationAndSearch(district)
+        .subscribe({
+          next: (churches) => {
+            this.availableChurches.set(churches);
+          },
+          error: (err) => {
+            console.error('Error loading churches:', err);
+            this.availableChurches.set([]);
+          },
+        });
     } else {
       this.form.get('churchName')?.disable(); // Disable church name field
       this.availableChurches.set([]);
@@ -453,7 +496,7 @@ export class PremaritalRegister {
   }
 
   onChurchChange(churchName: string): void {
-    const church = this.availableChurches().find(c => c.name === churchName);
+    const church = this.availableChurches().find((c) => c.name === churchName);
     this.selectedChurch.set(church || null);
   }
 
