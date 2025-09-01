@@ -52,26 +52,31 @@
         </context-group>
         
       </trans-unit>
-      <trans-unit id="Format" datatype="html">
-        <source>Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)</source>
-        <target>തീയതി ഇന്ത്യൻ സമയത്തിൽ DD/MM/YYYY ഫോർമാറ്റിൽ  ടൈപ്പ് ചെയ്യണം.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/session-config/session-config-form.ts</context>
-          <context context-type="linenumber">53</context>
-        </context-group>
+       <trans-unit id="6987721194801117234" datatype="html">
+        <source>DD/MM/YYYY | Time Zone: IST (UTC+05:30)</source>
+        <target>DD/MM/YYYY ഫോർമാറ്റ്|ഇന്ത്യൻ സമയം</target> 
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
           <context context-type="linenumber">177</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
-          <context context-type="linenumber">130</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">429</context>
+          <context context-type="linenumber">431</context>
+        </context-group>
+<context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">431</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8329077065153211078" datatype="html">
+        <source>Session Configuration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      
+        
 <trans-unit id="3273464993428333177" datatype="html">
         <source>Counselling Class Name</source>
         <target>കൗൺസിലിംഗ് ക്ലാസ്സിൻ്റെ പേര്</target>
