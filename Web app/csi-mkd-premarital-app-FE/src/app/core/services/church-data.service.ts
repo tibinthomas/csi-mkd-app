@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, shareReplay } from 'rxjs';
 
-export interface District {
+export interface Location {
   id: number;
   name: string;
 }
@@ -15,18 +15,18 @@ export interface Priest {
 export interface Church {
   id: number;
   name: string;
-  districtId: number;
+  locationId: number;
   priestId: number;
 }
 
 export interface ChurchData {
-  district: District[];
+  locations: Location[];
   priests: Priest[];
   churches: Church[];
 }
 
 export interface ChurchWithDetails extends Church {
-  districtName: string;
+  locationName: string;
   priestName: string;
 }
 
@@ -42,46 +42,46 @@ export class ChurchDataService {
   /**
    * Get location names based on search word
    * @param searchWord - The search term to filter locations
-   * @returns Observable array of matching district names
+   * @returns Observable array of matching location names
    */
   getLocationsBySearch(searchWord: string): Observable<string[]> {
     return this.churchData$.pipe(
       map(data => {
         if (!searchWord || searchWord.trim() === '') {
-          return data.district.map(d => d.name);
+          return data.locations.map(l => l.name);
         }
         
         const searchTerm = searchWord.toLowerCase().trim();
-        return data.district
-          .filter(district => 
-            district.name.toLowerCase().includes(searchTerm)
+        return data.locations
+          .filter(location => 
+            location.name.toLowerCase().includes(searchTerm)
           )
-          .map(district => district.name);
+          .map(location => location.name);
       })
     );
   }
 
   /**
    * Get churches with priest names based on selected location and search word
-   * @param locationName - The selected location/district name
+   * @param locationName - The selected location name
    * @param searchWord - Optional search term to filter churches
    * @returns Observable array of churches with priest details
    */
   getChurchesByLocationAndSearch(locationName: string, searchWord?: string): Observable<ChurchWithDetails[]> {
     return this.churchData$.pipe(
       map(data => {
-        // Find the district by name
-        const district = data.district.find(d => 
-          d.name.toLowerCase() === locationName.toLowerCase()
+        // Find the location by name
+        const location = data.locations.find(l => 
+          l.name.toLowerCase() === locationName.toLowerCase()
         );
         
-        if (!district) {
+        if (!location) {
           return [];
         }
 
-        // Get churches in the selected district
+        // Get churches in the selected location
         let churches = data.churches.filter(church => 
-          church.districtId === district.id
+          church.locationId === location.id
         );
 
         // Apply search filter if provided
@@ -92,12 +92,12 @@ export class ChurchDataService {
           );
         }
 
-        // Map to include district and priest details
+        // Map to include location and priest details
         return churches.map(church => {
           const priest = data.priests.find(p => p.id === church.priestId);
           return {
             ...church,
-            districtName: district.name,
+            locationName: location.name,
             priestName: priest?.name || 'Unknown Priest'
           };
         });
@@ -106,29 +106,29 @@ export class ChurchDataService {
   }
 
   /**
-   * Get all locations/districts
-   * @returns Observable array of all district names
+   * Get all locations
+   * @returns Observable array of all location names
    */
   getAllLocations(): Observable<string[]> {
     return this.churchData$.pipe(
-      map(data => data.district.map(d => d.name))
+      map(data => data.locations.map(l => l.name))
     );
   }
 
   /**
    * Get all churches with full details
-   * @returns Observable array of all churches with district and priest details
+   * @returns Observable array of all churches with location and priest details
    */
   getAllChurchesWithDetails(): Observable<ChurchWithDetails[]> {
     return this.churchData$.pipe(
       map(data => {
         return data.churches.map(church => {
-          const district = data.district.find(d => d.id === church.districtId);
+          const location = data.locations.find(l => l.id === church.locationId);
           const priest = data.priests.find(p => p.id === church.priestId);
           
           return {
             ...church,
-            districtName: district?.name || 'Unknown District',
+            locationName: location?.name || 'Unknown Location',
             priestName: priest?.name || 'Unknown Priest'
           };
         });
@@ -157,12 +157,12 @@ export class ChurchDataService {
         });
 
         return matchingChurches.map(church => {
-          const district = data.district.find(d => d.id === church.districtId);
+          const location = data.locations.find(l => l.id === church.locationId);
           const priest = data.priests.find(p => p.id === church.priestId);
           
           return {
             ...church,
-            districtName: district?.name || 'Unknown District',
+            locationName: location?.name || 'Unknown Location',
             priestName: priest?.name || 'Unknown Priest'
           };
         });
@@ -211,12 +211,12 @@ export class ChurchDataService {
     const church = churchData.churches.find(c => c.id === churchId);
     if (!church) return null;
     
-    const district = churchData.district.find(d => d.id === church.districtId);
+    const location = churchData.locations.find(l => l.id === church.locationId);
     const priest = churchData.priests.find(p => p.id === church.priestId);
     
     return {
       ...church,
-      districtName: district?.name || 'Unknown District',
+      locationName: location?.name || 'Unknown Location',
       priestName: priest?.name || 'Unknown Priest'
     };
   }
