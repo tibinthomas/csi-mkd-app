@@ -43,7 +43,7 @@ export class TeamMembers {
       qualification:
         'M.S.W., M.Sc. Psy., M.Sc. Couns. & Psychotherapy, N.L.P. Master Trainer, Hypnotherapist',
     },
-    { name: 'Adv. Sheeba Tharakan', qualification: 'B.Com., L.L.B.' },
+    { name: 'Adv. Sheeba Tharakan', qualification: 'B.Com., L.L.B.(Registrar CSI MKD)' },
     { name: 'Dr. Anitha Eapen', qualification: 'M.B.B.S., D.G.O.' },
     { name: 'Mrs. Sofiya Susan Paul', qualification: 'B.Sc. M.Sc. (Couns Psy.)' },
     { name: 'Mrs. Aleyamma T.V', qualification: 'M.A., B.Ed., D.C.P.C., P.G.D.C.A.' },

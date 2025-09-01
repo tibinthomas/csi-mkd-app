@@ -4,10 +4,11 @@
 
 import { ParticipantDto } from '../models/participant-dto';
 export interface ConfirmationRegisterDto {
-  churchName: string | null;
+  churchId?: number | null;
   confirmationDate?: string;
   consent?: boolean;
   counsellingDate?: string;
   participants?: Array<ParticipantDto> | null;
+  priestName?: string | null;
   recaptchaToken: string | null;
 }

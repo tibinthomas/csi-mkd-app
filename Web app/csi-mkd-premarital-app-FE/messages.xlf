@@ -310,8 +310,8 @@
           <context context-type="linenumber">65,66</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6941655717426634641" datatype="html">
-        <source>Search by name, email, or phone</source>
+      <trans-unit id="1630112391999908058" datatype="html">
+        <source>Search by name or email</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
           <context context-type="linenumber">20</context>
@@ -710,8 +710,8 @@
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7762149416996432485" datatype="html">
-        <source>Search by church name</source>
+      <trans-unit id="897935518347914602" datatype="html">
+        <source>Search by church name or participant name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/pre-confirm-list/pre-confirm-list.html</context>
           <context context-type="linenumber">20</context>
@@ -731,15 +731,11 @@
           <context context-type="linenumber">37,38</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7936207317315431198" datatype="html">
-        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Name<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+      <trans-unit id="4762524839245699829" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Church Name<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/pre-confirm-list/pre-confirm-list.html</context>
           <context context-type="linenumber">55,56</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">83,84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7471686370876460656" datatype="html">
@@ -811,6 +807,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
           <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7936207317315431198" datatype="html">
+        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Name<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">83,84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7210903906976990679" datatype="html">
@@ -940,6 +943,25 @@
           <context context-type="linenumber">55,56</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1255315165349573318" datatype="html">
+        <source>Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config-form.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">428</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8329077065153211078" datatype="html">
         <source>Session Configuration</source>
         <context-group purpose="location">
@@ -972,28 +994,28 @@
         <source>No sessions found for <x id="INTERPOLATION" equiv-text="{{ selectedYear().getFullYear() }}"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.html</context>
-          <context context-type="linenumber">106,107</context>
+          <context context-type="linenumber">101,102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noSessions" datatype="html">
         <source>No sessions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.ts</context>
-          <context context-type="linenumber">103</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="oneSession" datatype="html">
         <source>1 session</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="multipleSessions" datatype="html">
         <source> # sessions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/session-config/session-config.ts</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2773833704238419839" datatype="html">
@@ -1014,14 +1036,14 @@
         <source>Email Address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8602814243662345124" datatype="html">
         <source>Email is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
@@ -1036,70 +1058,70 @@
         <source>Enter a valid email address.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6215370261980036626" datatype="html">
         <source>You must register to access these forms.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7038818814162832521" datatype="html">
         <source>An error occurred while verifying your email. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8615626421873627049" datatype="html">
         <source> Verify Email</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">41,42</context>
+          <context context-type="linenumber">37,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3191013675424121575" datatype="html">
         <source>Choose a Form</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">57,58</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3171016311134790650" datatype="html">
         <source> Please select a form to proceed. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">59,60</context>
+          <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4667454119084137505" datatype="html">
         <source>Feedback Form</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">86,87</context>
+          <context context-type="linenumber">81,82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="874561850457979625" datatype="html">
         <source>Share your experience and suggestions.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">87,88</context>
+          <context context-type="linenumber">82,83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6821951934455090754" datatype="html">
         <source>Questionnaire Form</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">112,113</context>
+          <context context-type="linenumber">107,108</context>
         </context-group>
       </trans-unit>
       <trans-unit id="853710362836148372" datatype="html">
         <source> Share your thoughts and opinions to help us understand participants better. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback-questions.html</context>
-          <context context-type="linenumber">114</context>
+          <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
       <trans-unit id="133207310816409726" datatype="html">
@@ -1115,10 +1137,6 @@
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
           <context context-type="linenumber">11,12</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
-          <context context-type="linenumber">14,15</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="5100796254471958859" datatype="html">
         <source>Email: <x id="INTERPOLATION" equiv-text="{{ userDetails().email }}"/></source>
@@ -1128,7 +1146,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
-          <context context-type="linenumber">18,19</context>
+          <context context-type="linenumber">22,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3273464993428333177" datatype="html">
@@ -1194,6 +1212,34 @@
           <context context-type="linenumber">127,128</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3272830838222584108" datatype="html">
+        <source>Overall Quality</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6752807975877546003" datatype="html">
+        <source>Content Relevance</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7239374508943813513" datatype="html">
+        <source>Presenter Engagement</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3076687427621376223" datatype="html">
+        <source>Organization</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8799033266509979610" datatype="html">
         <source> Premarital Counselling Questions Form </source>
         <context-group purpose="location">
@@ -1201,11 +1247,116 @@
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="5722235063735091336" datatype="html">
+        <source>Name: <x id="INTERPOLATION" equiv-text="{{ userDetails()!.name }}"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2005075326748124304" datatype="html">
         <source>Submitting your responses, please wait</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
-          <context context-type="linenumber">53,54</context>
+          <context context-type="linenumber">62,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4825128382204364085" datatype="html">
+        <source>What is your definition of marriage?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1537133198941387172" datatype="html">
+        <source>What wishes and concerns do you have about marriage?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4183871724429478412" datatype="html">
+        <source>“Church is important for marriage.” Why?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4326100852681152434" datatype="html">
+        <source>Describe your family background</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5182473765719927145" datatype="html">
+        <source>How did your parent’s physical and mental health relate to you in growing up?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7424705738155339812" datatype="html">
+        <source>Suppose the woman were the eldest of sisters/brothers and the man was the youngest child in his family and had elder sisters. How will that affect the marriage?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2634016822974343274" datatype="html">
+        <source>What are you expecting from your would-be partner?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5075057904357449033" datatype="html">
+        <source>Your understanding about sex? Who talked with you?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="961888274038869260" datatype="html">
+        <source>What fears/anxieties do you have about marriage?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2714453522287436827" datatype="html">
+        <source>How much time can you spend with your life partner after the marriage?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6944610850215279611" datatype="html">
+        <source>Advantages and disadvantages of the age differences?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2455447811848545912" datatype="html">
+        <source>How would your relationship with your parents and in-laws be during the early years of your marriage?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7818995439793400184" datatype="html">
+        <source>What will be the greatest adjustment when you are in a new home? What is your approach about family prayer and Sunday church service after your marriage?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="327405637155101166" datatype="html">
+        <source>Your responses have been submitted successfully!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">211</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8194145663712994855" datatype="html">
@@ -2062,6 +2213,27 @@
           <context context-type="linenumber">354,355</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7948010322583643082" datatype="html">
+        <source>Premarital Registration Complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">395</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8384961971764017085" datatype="html">
+        <source>Your premarital registration is successfully completed.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">396</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6506836102431790936" datatype="html">
+        <source>A confirmation email has been sent to your registered email address.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">399</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="4289369355874597168" datatype="html">
         <source>Choose a Registration Type </source>
         <context-group purpose="location">
@@ -2144,6 +2316,48 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
           <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7350919090373604527" datatype="html">
+        <source>New Version Available</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="347270922302634994" datatype="html">
+        <source>A new version of the application is ready to install</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8408164162260349678" datatype="html">
+        <source> To ensure you have the latest features and security updates, please update the application now. This will refresh all open tabs. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8677980323352634167" datatype="html">
+        <source> Later</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3155504588637566135" datatype="html">
+        <source>Updating...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7577376774000210911" datatype="html">
+        <source>Update Now</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1558143461517356117" datatype="html">

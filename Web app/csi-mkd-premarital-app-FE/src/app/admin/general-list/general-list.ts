@@ -43,6 +43,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
+import { ChurchDataService } from '../../core/services/church-data.service';
 
 @Component({
   selector: 'app-general-list',
@@ -87,6 +88,7 @@ import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services
 export class GeneralList {
   private readonly dialog = inject(MatDialog);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
+  private readonly churchDataService = inject(ChurchDataService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -106,6 +108,10 @@ export class GeneralList {
   protected readonly isLoading = signal<boolean>(false);
   readonly isApproving = signal<number | null>(null);
   private _snackBar = inject(MatSnackBar);
+
+  protected readonly churchData = toSignal(this.churchDataService.churchData$, {
+    initialValue: null,
+  });
 
   baseApiUrl = API_ROOT_URL_MAIN_APP;
   expandedElement: any = null;
@@ -255,7 +261,7 @@ export class GeneralList {
             ['Address', reg.address],
             ['Education', reg.education],
             ['Occupation', reg.occupation],
-            ['Church', reg.churchName],
+            ['Church', this.getChurchDisplayName(reg.churchId, reg.priestName)],
             ['Session Type', reg.sessionType],
             ['Payment Status', reg.paymentStatus ? 'Received' : 'Pending'],
           ],
@@ -314,6 +320,24 @@ export class GeneralList {
 
   clearFilter() {
     this.searchTerm.set('');
+  }
+
+  getChurchDisplayName(
+    churchId: number | null | undefined,
+    priestName: string | null | undefined
+  ): string {
+    const churchName = this.churchDataService.getChurchNameById(
+      churchId,
+      this.churchData()
+    );
+    return `${churchName}${priestName ? ` (${priestName})` : ''}`;
+  }
+
+  getChurchNameById(churchId: number | null | undefined): string {
+    return this.churchDataService.getChurchNameById(
+      churchId,
+      this.churchData()
+    );
   }
 }
 

@@ -27,6 +27,123 @@
           <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8257879344599120249" datatype="html">
+        <source>Max size 2MB (JPG, PNG)</source>
+        <target>പരമാവധി വലുപ്പം 2MB(JPG,PNG ഫോർമാറ്റ് മാത്രം) </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">185</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">295</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="3437908247863225514" datatype="html">
+        <source>Max size 2MB (PDF, DOC, DOCX, JPG, PNG)</source>
+        <target>പരമാവധി വലുപ്പം 2MB(PDF, DOC, DOCX, JPG, PNG ഫോർമാറ്റിൽ മാത്രം)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">332</context>
+        </context-group>
+        
+      </trans-unit>
+      <trans-unit id="Format" datatype="html">
+        <source>Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)</source>
+        <target>തീയതി ഇന്ത്യൻ സമയത്തിൽ DD/MM/YYYY ഫോർമാറ്റിൽ  ടൈപ്പ് ചെയ്യണം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/session-config/session-config-form.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">429</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="3273464993428333177" datatype="html">
+        <source>Counselling Class Name</source>
+        <target>കൗൺസിലിംഗ് ക്ലാസ്സിൻ്റെ പേര്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="113812946201100817" datatype="html">
+        <source>Instructor</source>
+        <target>ഇൻസ്ട്രക്ടർ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6055582481735394684" datatype="html">
+        <source>Date of Class</source>
+        <target>തീയതി</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="47138771370561683" datatype="html">
+        <source>Session Ratings</source>
+        <target>സെഷൻ റേറ്റിംഗ്  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">52,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7708270344948043036" datatype="html">
+        <source> <x id="INTERPOLATION" equiv-text="{{ ratingLabels[rating] }}"/> </source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">57,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6488186088347933729" datatype="html">
+        <source>What did you find most valuable about this session?</source>
+        <target>ഈ സെഷനിൽ നിങ്ങൾക്ക് ഏറ്റവും വിലപ്പെട്ടതായി തോന്നിയത് എന്താണ്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6225844174314680570" datatype="html">
+        <source>What could have been improved?</source>
+        <target>എന്താണ് മെച്ചപ്പെടുത്താമായിരുന്നത്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3620477072638508381" datatype="html">
+        <source>Any other comments or suggestions?</source>
+        <target>അഭിപ്രായങ്ങളും നിർദ്ദേശങ്ങളും</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3920842889418221736" datatype="html">
+        <source>Submitting your feedback, please wait</source>
+        <target>നിങ്ങളുടെ ഫീഡ്‌ബാക്ക് സമർപ്പിക്കുന്നു, ദയവായി കാത്തിരിക്കുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">127,128</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="Book Appointment Button" datatype="html">
         <source>Book Appointment</source>
         <target>ബുക്ക് അപ്പോയിൻ്റ്മെൻ്റ്</target>
@@ -910,6 +1027,38 @@
           <context context-type="linenumber">61,62</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3272830838222584108" datatype="html">
+        <source>Overall Quality</source>
+         <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6752807975877546003" datatype="html">
+        <source>Content Relevance</source>
+        <target>ഉള്ളടക്കത്തിന്റെ പ്രസക്തി </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">117</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7239374508943813513" datatype="html">
+        <source>Presenter Engagement</source>
+        <target>അവതാരകൻ്റെ ഇടപെടൽ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3076687427621376223" datatype="html">
+        <source>Organization</source>
+        <target>ഓർഗനൈസഷൻ </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">119</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="6488186088347933729" datatype="html">
         <source>What did you find most valuable about this session?</source>
         <target>ഈ സെഷനിൽ നിങ്ങൾക്ക് ഏറ്റവും വിലപ്പെട്ടതായി തോന്നിയത് എന്താണ്? </target>
@@ -975,17 +1124,35 @@
           <context context-type="linenumber">23,24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1726363342938046830" datatype="html">
+
+
+
+ <trans-unit id="5736481176444461852" datatype="html">
         <source>About Us</source>
         <target>ഞങ്ങളേക്കുറിച്ച്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">59</context>
         </context-group>
-        
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">127,129</context>
+          <context context-type="linenumber">125</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="5238622114413187924" datatype="html">
+        <source>Premarital Sessions</source>
+        <target>പ്രീമാരിറ്റൽ  സെഷൻസ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">161,163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="721963055036507192" datatype="html">
+        <source>Sessions</source>
+        <target>സെഷൻസ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1842559488621738609" datatype="html">
@@ -1216,14 +1383,19 @@
           <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6567149713959239561" datatype="html">
+       <trans-unit id="1800141988486847570" datatype="html">
         <source>Upload Photo</source>
         <target>ഫോട്ടോ അപ്‌ലോഡ് ചെയ്യുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
-          <context context-type="linenumber">141,142</context>
+          <context context-type="linenumber">159,160</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">276,277</context>
         </context-group>
       </trans-unit>
+
       <trans-unit id="2560617820933754032" datatype="html">
         <source>Choose Photo</source>
         <target>ഫോട്ടോ തിരഞ്ഞെടുക്കൂ </target>
@@ -2015,6 +2187,207 @@
           <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="4825128382204364085" datatype="html">
+        <source>What is your definition of marriage?</source>
+        <target>വിവാഹത്തെക്കുറിച്ചുള്ള നിങ്ങളുടെ നിർവചനമെന്താണ്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1537133198941387172" datatype="html">
+        <source>What wishes and concerns do you have about marriage?</source>
+        <target>വിവാഹത്തെക്കുറിച്ച് നിങ്ങൾക്ക് എന്തൊക്കെ ആഗ്രഹങ്ങളും ആശങ്കകളുമാണ് ഉള്ളത്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4183871724429478412" datatype="html">
+        <source>“Church is important for marriage.” Why?</source>
+        <target>വിവാഹത്തിന് സഭ  പ്രധാനമാണ്." എന്തുകൊണ്ട്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4326100852681152434" datatype="html">
+        <source>Describe your family background</source>
+        <target>നിങ്ങളുടെ കുടുംബ പശ്ചാത്തലം വിവരിക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5182473765719927145" datatype="html">
+        <source>How did your parent’s physical and mental health relate to you in growing up?</source>
+        <target>നിങ്ങളുടെ മാതാപിതാക്കളുടെ ശാരീരികവും മാനസികവുമായ ആരോഗ്യം നിങ്ങളുടെ വളർച്ചയെ എങ്ങനെ സ്വാധീനിച്ചു?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7424705738155339812" datatype="html">
+        <source>Suppose the woman were the eldest of sisters/brothers and the man was the youngest child in his family and had elder sisters. How will that affect the marriage?</source>
+        <target> വധു തന്റെ സഹോദരങ്ങളിൽ മൂത്തയാളാണെന്നും  വരൻ കുടുംബത്തിലെ ഏറ്റവും ഇളയ കുട്ടിയാണെന്നും മൂത്ത സഹോദരിമാർ ഉണ്ടെന്നും കരുതുക. അത് വിവാഹത്തെ എങ്ങനെ ബാധിക്കും?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2634016822974343274" datatype="html">
+        <source>What are you expecting from your would-be partner?</source>
+        <target>നിങ്ങളുടെ ഭാവി പങ്കാളിയിൽ നിന്ന് നിങ്ങൾ എന്താണ് പ്രതീക്ഷിക്കുന്നത്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5075057904357449033" datatype="html">
+        <source>Your understanding about sex? Who talked with you?</source>
+        <target>ലൈംഗികതയെക്കുറിച്ച് നിങ്ങൾ എന്താണ് മനസ്സിലാക്കുന്നത്? ആരാണ് നിങ്ങളോട് ഇതിനെക്കുറിച്ച് സംസാരിച്ചത്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="961888274038869260" datatype="html">
+        <source>What fears/anxieties do you have about marriage?</source>
+        <target>വിവാഹത്തെക്കുറിച്ച് നിങ്ങൾക്ക് എന്തൊക്കെ ഭയങ്ങളോ/ആശങ്കകളോ ആണ് ഉള്ളത്?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2714453522287436827" datatype="html">
+        <source>How much time can you spend with your life partner after the marriage?</source>
+        <target>വിവാഹശേഷം നിങ്ങളുടെ ജീവിത പങ്കാളിയോടൊപ്പം എത്ര സമയം ചെലവഴിക്കാൻ കഴിയും?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">93</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6944610850215279611" datatype="html">
+        <source>Advantages and disadvantages of the age differences?</source>
+        <target>ഭാര്യാഭർത്താക്കന്മാർ തമ്മിലുള്ള പ്രായവ്യത്യാസത്തിന്റെ ഗുണങ്ങളും ദോഷങ്ങളും?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">97</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2455447811848545912" datatype="html">
+        <source>How would your relationship with your parents and in-laws be during the early years of your marriage?</source>
+        <target>നിങ്ങളുടെ വിവാഹത്തിന്റെ ആദ്യ വർഷങ്ങളിൽ മാതാപിതാക്കളുമായും ഭാര്യാപിതാക്കളുമായും ഉള്ള നിങ്ങളുടെ ബന്ധം എങ്ങനെയായിരിക്കും?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7818995439793400184" datatype="html">
+        <source>What will be the greatest adjustment when you are in a new home? What is your approach about family prayer and Sunday church service after your marriage?</source>
+        <target>നിങ്ങൾ പുതിയ വീട്ടിൽ താമസിക്കുമ്പോൾ ഏറ്റവും വലിയ അഡ്ജസ്റ്മെന്റ്  എന്തായിരിക്കും?"
+"വിവാഹത്തിന് ശേഷം കുടുംബ പ്രാർഥനയുടെയും ഞായറാഴ്ചത്തെ ചര്‍ച്ച് ശുശ്രൂഷയുടെയും കുറിച്ച് നിങ്ങളുടെ സമീപനം എന്താണ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="7948010322583643082" datatype="html">
+        <source>Premarital Registration Complete</source>
+        <target>പ്രീമാരിറ്റൽ  രജിസ്ട്രേഷൻ പൂർത്തിയായിരിക്കുന്നു </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">395</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8384961971764017085" datatype="html">
+        <source>Your premarital registration is successfully completed.</source>
+         <target> പ്രീമാരിറ്റൽ രജിസ്ട്രേഷൻ വിജയകരമായി പൂർത്തിയായിരിക്കുന്നു </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">396</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6506836102431790936" datatype="html">
+        <source>A confirmation email has been sent to your registered email address.</source>
+         <target>നിങ്ങളുടെ രജിസ്റ്റർ ചെയ്ത ഇമെയിൽ വിലാസത്തിലേക്ക് ഒരു സ്ഥിരീകരണ ഇമെയിൽ അയച്ചിട്ടുണ്ട്."</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">399</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7350919090373604527" datatype="html">
+        <source>New Version Available</source>
+         <target>പുതിയ പതിപ്പ് ലഭ്യമാണ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="347270922302634994" datatype="html">
+        <source>A new version of the application is ready to install</source>
+        <target>ആപ്ലിക്കേഷന്റെ പുതിയ പതിപ്പ് ഇൻസ്റ്റാൾ ചെയ്യാൻ ലഭ്യമാണ്.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8408164162260349678" datatype="html">
+        <source> To ensure you have the latest features and security updates, please update the application now. This will refresh all open tabs. </source>
+        <target>ഏറ്റവും പുതിയ സവിശേഷതകളും സുരക്ഷാ അപ്‌ഡേറ്റുകളും നിങ്ങൾക്ക് ലഭിക്കുന്നുണ്ടെന്ന് ഉറപ്പാക്കാൻ, ദയവായി ആപ്ലിക്കേഷൻ ഇപ്പോൾ അപ്‌ഡേറ്റ് ചെയ്യുക.  എല്ലാ തുറന്ന ടാബുകളും റിഫ്രഷ്  ചെയ്യപ്പെടും .</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="8677980323352634167" datatype="html">
+        <source> Later</source>
+        <target>പിന്നീട്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3155504588637566135" datatype="html">
+        <source>Updating...</source>
+        <target>അപ്ഡേറ്റ് ചെയ്യുന്നു...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7577376774000210911" datatype="html">
+        <source>Update Now</source>
+        <target> ഇപ്പോൾ അപ്‌ഡേറ്റ് ചെയ്യുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/update-prompt/update-prompt.component.ts</context>
+          <context context-type="linenumber">54,55</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="8321345780280773002" datatype="html">
+        <source>Father&apos;s Name:</source>
+        <target>പിതാവിന്റെ പേര്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
+          <context context-type="linenumber">122</context>
+        </context-group>
+        </trans-unit>
+        <trans-unit id="4893616715766810081" datatype="html">
+        <source>No data available</source>
+        <target></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
+          <context context-type="linenumber">192,193</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">335,336</context>
+        </context-group>
+      </trans-unit>
+
+
+
+
     </body>
   </file>
 </xliff>

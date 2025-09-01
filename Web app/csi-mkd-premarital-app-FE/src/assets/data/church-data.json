@@ -1,0 +1,17 @@
+{
+  "district": [
+    { "id": 1, "name": "Kochi, Kerala" },
+    { "id": 2, "name": "Thrissur, Kerala" },
+    { "id": 3, "name": "Kottayam, Kerala" }
+  ],
+  "priests": [
+    { "id": 11, "name": "Fr. Joseph Mathew" },
+    { "id": 12, "name": "Fr. Antony Paul" },
+    { "id": 13, "name": "Fr. George Varghese" }
+  ],
+  "churches": [
+    { "id": 101, "name": "St. Mary's Church", "districtId": 1, "priestId": 11 },
+    { "id": 102, "name": "St. Thomas Church", "districtId": 2, "priestId": 12 },
+    { "id": 103, "name": "Sacred Heart Church", "districtId": 3, "priestId": 13 }
+  ]
+}

@@ -55,6 +55,7 @@ import { SessionsFallbackService } from '../../core/services/sessions-fallback.s
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
 import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
+import { ChurchDataService } from '../../core/services/church-data.service';
 
 @Component({
   selector: 'app-premarital-list',
@@ -103,6 +104,7 @@ export class PremaritalComponent {
   private readonly sessionDataService = inject(SessionDataService);
   private readonly certificateService = inject(CertificateService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
+  private readonly churchDataService = inject(ChurchDataService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -127,6 +129,10 @@ export class PremaritalComponent {
   readonly isDeleting = signal<number | null>(null);
   readonly isEditing = signal<number | null>(null);
   private _snackBar = inject(MatSnackBar);
+
+  protected readonly churchData = toSignal(this.churchDataService.churchData$, {
+    initialValue: null,
+  });
 
   baseApiUrl = API_ROOT_URL_MAIN_APP;
   expandedElement: any = null;
@@ -377,7 +383,8 @@ export class PremaritalComponent {
           occupation: result.occupation,
           education: result.education,
           address: result.address,
-          churchName: result.churchName,
+          churchId: result.churchId,
+          priestName: result.priestName,
           email: result.email,
           phone: result.phone,
           fianceName: result.fianceName || null,
@@ -459,7 +466,8 @@ export class PremaritalComponent {
             ['Address', reg.address],
             ['Education', reg.education],
             ['Occupation', reg.occupation],
-            ['Church', reg.churchName],
+            ['Church', this.getChurchNameById(reg.churchId)],
+            ['Priest Name', reg.priestName],
             ['Fiancé Name', reg.fianceName],
             ['Session Name', reg.sessionName],
             ['Session Days', reg.days],
@@ -543,7 +551,9 @@ export class PremaritalComponent {
         try {
           console.log('Fetching session with ID:', reg.sessionId);
           const sessionResponse = await firstValueFrom(
-            this.sessionsFallbackService.apiSessionconfigIdGet({ id: reg.sessionId })
+            this.sessionsFallbackService.apiSessionconfigIdGet({
+              id: reg.sessionId,
+            })
           );
           console.log('Session API response:', sessionResponse);
 
@@ -591,7 +601,8 @@ export class PremaritalComponent {
           ? new Date(reg.dateOfMarriage)
           : new Date(),
         sessionName: reg.sessionName,
-        churchName: reg.churchName || 'Unknown Church',
+        churchName: this.getChurchNameById(reg.churchId),
+        priestName: reg.priestName,
         dates: sessionDates,
         programDuration: `${sessionDates.length} Day${
           sessionDates.length > 1 ? 's' : ''
@@ -626,6 +637,13 @@ export class PremaritalComponent {
       maxHeight: '95vh',
       panelClass: 'full-screen-dialog',
     });
+  }
+
+  getChurchNameById(churchId: number | null | undefined): string {
+    return this.churchDataService.getChurchNameById(
+      churchId,
+      this.churchData()
+    );
   }
 }
 
@@ -1004,7 +1022,7 @@ export class DeleteConfirmationDialog {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
             <mat-label>Church Name</mat-label>
-            <input matInput formControlName="churchName" required />
+            <input matInput formControlName="churchId" type="number" required />
             <mat-error>Church Name is required</mat-error>
           </mat-form-field>
 
@@ -1091,7 +1109,8 @@ export class EditRegistrationDialog {
       occupation: [reg.occupation || ''],
       education: [reg.education || '', Validators.required],
       address: [reg.address || '', Validators.required],
-      churchName: [reg.churchName || '', Validators.required],
+      churchId: [reg.churchId || null, Validators.required],
+      priestName: [reg.priestName || ''],
       email: [reg.email || '', [Validators.required, Validators.email]],
       phone: [reg.phone || '', Validators.required],
       fianceName: [reg.fianceName || ''],
