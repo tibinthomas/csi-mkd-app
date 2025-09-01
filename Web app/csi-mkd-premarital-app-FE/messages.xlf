@@ -1956,7 +1956,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="8331505699939849417" datatype="html">
-        <source> I would like to attend the counselling course. </source>
+        <source> I would like to attend the counselling. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">237</context>
