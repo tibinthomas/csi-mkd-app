@@ -28,7 +28,7 @@ body {
 
 body {
   margin: 0;
-  font-family: 'PT Serif', 'Noto Serif Malayalam', 'Noto Sans Malayalam', 'Rachana', 'Karthika', 'Malayalam Sangam MN', sans-serif;
+  font-family: 'Inter', 'Manjari', 'Chilanka', 'PT Serif', 'Rachana', 'Karthika', 'Malayalam Sangam MN', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -199,7 +199,7 @@ html {
 /* Malayalam Font Rendering Improvements */
 *[lang="ml"],
 .malayalam-text {
-  font-family: 'Noto Serif Malayalam', 'Noto Sans Malayalam', 'Rachana', 'Karthika', 'Malayalam Sangam MN', 'PT Serif', serif;
+  font-family: 'Manjari', 'Chilanka', 'Inter', 'Rachana', 'Karthika', 'Malayalam Sangam MN', 'PT Serif', serif;
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   -moz-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
