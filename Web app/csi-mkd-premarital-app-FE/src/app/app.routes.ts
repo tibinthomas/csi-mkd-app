@@ -221,6 +221,15 @@ export const routes: Routes = [
             (m) => m.FeedbackList
           ),
       },
+      {
+        path: 'question-answers-list',
+        title: 'Question Answers List - CSI MKD Premarital Counsel',
+        data: { description: 'View submitted question answers from participants' },
+        loadComponent: () =>
+          import('./admin/question-answers-list/question-answers-list').then(
+            (m) => m.QuestionAnswersList
+          ),
+      },
     ],
   },
 

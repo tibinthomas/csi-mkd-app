@@ -6,7 +6,7 @@ export interface PremaritalRegisterDto {
   address: string | null;
   age: number;
   choirMember?: boolean | null;
-  churchName: string | null;
+  churchId?: number | null;
   dateOfMarriage?: string | null;
   days: string | null;
   declaration: boolean;
@@ -20,6 +20,7 @@ export interface PremaritalRegisterDto {
   other?: string | null;
   paymentStatus?: boolean;
   phone: string | null;
+  priestName?: string | null;
   recaptchaToken: string | null;
   sessionId: number;
   sex: string | null;

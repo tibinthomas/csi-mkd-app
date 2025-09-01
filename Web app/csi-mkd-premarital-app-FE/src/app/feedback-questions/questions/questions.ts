@@ -143,7 +143,6 @@ export class Questions {
     // Get userId from route parameters
     const userId = this.route.snapshot.paramMap.get('userId');
     this.userId.set(userId);
-
   }
 
   // Resource to fetch user details from the API
@@ -213,7 +212,7 @@ export class Questions {
           this.form.reset();
           this.submitting.set(false);
         },
-        error: (error: unknown) => {
+        error: (error) => {
           console.error('Error submitting question answers:', error);
           this.errorMessage.set(
             'There was a problem submitting your form. Please try again.'

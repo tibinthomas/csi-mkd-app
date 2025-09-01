@@ -13,12 +13,12 @@
         #formEl
         [formGroup]="form"
         (ngSubmit)="onSubmit()"
-        class="space-y-2"
+        class="space-y-6"
         role="form"
         aria-labelledby="form-title"
         novalidate
       >
-        <div class="grid md:grid-cols-2 gap-6" role="group" aria-labelledby="personal-info-heading">
+        <div class="grid md:grid-cols-2 gap-2" role="group" aria-labelledby="personal-info-heading">
           <h3 id="personal-info-heading" class="sr-only">Personal Information</h3>
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>First Name</mat-label>
@@ -51,7 +51,7 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" role="group" aria-labelledby="demographics-heading">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-2" role="group" aria-labelledby="demographics-heading">
           <h3 id="demographics-heading" class="sr-only">Demographics Information</h3>
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Sex</mat-label>
@@ -106,7 +106,7 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" role="group">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2" role="group">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Occupation</mat-label>
             <input matInput formControlName="occupation" appNoDigits />
@@ -148,20 +148,42 @@
           }
         </mat-form-field>
 
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label i18n>Church Name</mat-label>
-          <input matInput formControlName="churchName" appNoDigits />
-          @if (isInvalid('churchName')) {
-          <mat-error i18n>Church Name is required.</mat-error>
-          }
-        </mat-form-field>
+        <div class="grid md:grid-cols-2 gap-2">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Church District</mat-label>
+            <mat-select formControlName="churchDistrict" (selectionChange)="onDistrictChange($event.value)">
+              @for (location of allLocations(); track location) {
+              <mat-option [value]="location">{{ location }}</mat-option>
+              }
+            </mat-select>
+            @if (isInvalid('churchDistrict')) {
+            <mat-error i18n>Church District is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Church Name</mat-label>
+            <mat-select
+              formControlName="churchName"
+              [disabled]="!selectedDistrict()"
+              (selectionChange)="onChurchChange($event.value)"
+            >
+              @for (church of availableChurches(); track church.id) {
+              <mat-option [value]="church.name">{{ church.name }} ({{ church.priestName }})</mat-option>
+              }
+            </mat-select>
+            @if (isInvalid('churchName')) {
+            <mat-error i18n>Church Name is required.</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
         <fieldset
           formGroupName="churchActivities"
           class="border border-outline dark:border-outline-variant rounded-lg p-2 theme-transition"
         >
           <legend class="font-semibold text-on-surface" i18n>Church Activities</legend>
-          <div class="flex flex-wrap gap-6 items-center">
+          <div class="flex flex-wrap gap-2 items-center">
             <mat-checkbox formControlName="choirMember">
               <mat-label i18n>Choir Member</mat-label>
             </mat-checkbox>
@@ -178,7 +200,7 @@
           </div>
         </fieldset>
 
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-2 gap-2">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Fiancé/Fiancée Name</mat-label>
             <input matInput formControlName="fianceName" appNoDigits />
@@ -200,7 +222,8 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
         </div>
-        <div class="grid md:grid-cols-2 gap-6">
+
+        <div class="grid md:grid-cols-2 gap-2" role="group" aria-labelledby="contact-info-heading">
           <div class="w-full flex gap-2 items-start overflow-hidden">
             <mat-form-field appearance="fill">
               <mat-label i18n>Code</mat-label>
@@ -227,7 +250,7 @@
             </mat-form-field>
           </div>
 
-          <mat-form-field appearance="fill" class="w-full mb-2">
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Email id</mat-label>
             <input matInput type="email" formControlName="email" />
             @if (form.get('email')?.touched && form.get('email')?.errors?.['emailTaken']) {
@@ -241,7 +264,7 @@
             }
           </mat-form-field>
         </div>
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-2 gap-2">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>No.of days</mat-label>
             <mat-select formControlName="days">
@@ -270,7 +293,7 @@
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" role="group" aria-labelledby="upload-group-label">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-2" role="group" aria-labelledby="upload-group-label">
           <!-- Upload Photo -->
           <div class="flex flex-col gap-2" role="group" aria-labelledby="photo-upload-label">
             <label id="photo-upload-label" class="font-medium" i18n>Upload Photo</label>

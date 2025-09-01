@@ -123,7 +123,8 @@
                       <div><strong i18n>Address:</strong> {{ reg.address }}</div>
                       <div><strong i18n>Education:</strong> {{ reg.education }}</div>
                       <div><strong i18n>Occupation:</strong> {{ reg.occupation }}</div>
-                      <div><strong i18n>Church:</strong> {{ reg.churchName }}</div>
+                      <div><strong i18n>Church:</strong> {{ getChurchNameById(reg.churchId) }}</div>
+                      <div><strong i18n>Priest Name:</strong> {{ reg.priestName }}</div>
                     </div>
                   </div>
 

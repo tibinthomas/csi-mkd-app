@@ -5,7 +5,52 @@
       "headers": {
         "Cache-Control": "no-cache, no-store, must-revalidate",
         "Pragma": "no-cache",
+        "Expires": "0",
+        "X-Content-Type-Options": "nosniff"
+      }
+    },
+    {
+      "route": "/*.html",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
         "Expires": "0"
+      }
+    },
+    {
+      "route": "/ngsw-worker.js",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
+      }
+    },
+    {
+      "route": "/ngsw.json",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
+      }
+    },
+    {
+      "route": "/manifest.webmanifest",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0"
+      }
+    },
+    {
+      "route": "/*.js",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    },
+    {
+      "route": "/*.css",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
       }
     },
     {
@@ -13,22 +58,23 @@
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
       }
-    },
-    {
-      "route": "/*.html",
-      "headers": {
-        "Cache-Control": "no-cache, no-store, must-revalidate"
-      }
     }
   ],
   "navigationFallback": {
-    "rewrite": "index.html"
+    "rewrite": "/index.html"
+  },
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "X-XSS-Protection": "1; mode=block",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
   },
   "mimeTypes": {
     ".js": "application/javascript",
     ".css": "text/css",
     ".json": "application/json",
     ".html": "text/html",
-    ".svg": "image/svg+xml"
+    ".svg": "image/svg+xml",
+    ".webmanifest": "application/manifest+json"
   }
 }

@@ -21,7 +21,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -35,11 +34,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       gap: 16px;
     }
 
-    .loading-text {
-      margin: 0;
-      font-size: 14px;
-      color: #666;
-      font-weight: 500;
+    /* Ensure spinner is visible in both light and dark themes */
+    :host ::ng-deep .mat-mdc-progress-spinner circle {
+      stroke: var(--md-sys-color-primary) !important;
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,

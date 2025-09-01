@@ -1,0 +1,81 @@
+<div class="container mx-auto p-4 max-w-7xl">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-on-surface">Question Answers Management</h1>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="refreshData()"
+      [disabled]="isLoading()"
+      class="flex items-center gap-2"
+    >
+      <mat-icon>refresh</mat-icon>
+      Refresh
+    </button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex justify-center items-center py-12">
+      <mat-progress-spinner diameter="50" mode="indeterminate"></mat-progress-spinner>
+    </div>
+  } @else if (error()) {
+    <mat-card class="error-card bg-error-container text-on-error-container">
+      <mat-card-header>
+        <mat-icon class="text-error">error</mat-icon>
+        <span class="ml-2 font-semibold">Error Loading Data</span>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ error()?.message || 'An unexpected error occurred' }}</p>
+        <button mat-button color="primary" (click)="refreshData()" class="mt-2">
+          Try Again
+        </button>
+      </mat-card-content>
+    </mat-card>
+  } @else if (questionAnswers().length === 0) {
+    <mat-card class="text-center py-12">
+      <mat-card-content>
+        <mat-icon class="text-6xl text-on-surface-variant mb-4">quiz</mat-icon>
+        <h3 class="text-xl font-semibold mb-2">No Question Answers Found</h3>
+        <p class="text-on-surface-variant">No participants have submitted their question answers yet.</p>
+      </mat-card-content>
+    </mat-card>
+  } @else {
+    <div class="space-y-4">
+      @for (response of questionAnswers(); track response.id) {
+        <mat-card class="overflow-hidden">
+          <mat-card-header class="bg-surface-container">
+            <mat-card-title class="flex items-center justify-between w-full">
+              <div class="flex items-center gap-2">
+                <mat-icon>person</mat-icon>
+                <span>Registration ID: {{ response.premaritalRegistrationId }}</span>
+              </div>
+              <div class="text-sm text-on-surface-variant">
+                @if (response.submittedAt) {
+                  Submitted: {{ response.submittedAt | date:'short' }}
+                }
+              </div>
+            </mat-card-title>
+          </mat-card-header>
+
+          <mat-card-content class="p-0">
+            <mat-accordion>
+              @for (question of questions; track question.key) {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="text-sm font-medium">
+                      {{ question.label }}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="p-4 bg-surface-container-low">
+                    <div class="whitespace-pre-wrap text-sm leading-relaxed">
+                      {{ getAnswerValue(response, question.key) }}
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              }
+            </mat-accordion>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+  }
+</div>

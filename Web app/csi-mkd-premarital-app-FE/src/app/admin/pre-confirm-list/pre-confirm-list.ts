@@ -24,6 +24,8 @@ import {
 } from '@angular/animations';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { ChurchDataService } from '../../core/services/church-data.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-pre-confirm-list',
@@ -84,6 +86,11 @@ export class PreConfirmList implements OnInit {
   private api = inject(CsiMkdPremaritalAppBeService);
   private snackBar = inject(MatSnackBar);
   private datePipe = inject(DatePipe);
+  private readonly churchDataService = inject(ChurchDataService);
+
+  protected readonly churchData = toSignal(this.churchDataService.churchData$, {
+    initialValue: null,
+  });
 
   ngOnInit() {
     this.loadRegistrations();
@@ -133,6 +140,7 @@ export class PreConfirmList implements OnInit {
   }
   displayedColumns = [
     'ChurchName',
+    'PriestName',
     'ConfirmationDate',
     'CounsellingDate',
     'ParticipantsCount',
@@ -161,6 +169,7 @@ export class PreConfirmList implements OnInit {
 
     const headers = [
       'Church Name',
+      'Priest Name',
       'Confirmation Date',
       'Counselling Date',
       'Participants Count',
@@ -172,7 +181,8 @@ export class PreConfirmList implements OnInit {
         .map((p: any) => `${p.name} (Age: ${p.age})`)
         .join('; ');
       return [
-        reg.churchName || '',
+        this.getChurchNameById(reg.churchId),
+        reg.priestName || '',
         reg.confirmationDate
           ? this.datePipe.transform(reg.confirmationDate, 'mediumDate')
           : '',
@@ -213,6 +223,7 @@ export class PreConfirmList implements OnInit {
     const headers = [
       [
         'Church Name',
+        'Priest Name',
         'Confirmation Date',
         'Counselling Date',
         'Participants Count',
@@ -225,7 +236,8 @@ export class PreConfirmList implements OnInit {
         .map((p: any) => `${p.name} (Age: ${p.age})`)
         .join('\n');
       return [
-        reg.churchName || '',
+        this.getChurchNameById(reg.churchId),
+        reg.priestName,
         reg.confirmationDate
           ? this.datePipe.transform(reg.confirmationDate, 'mediumDate')
           : '',
@@ -251,5 +263,12 @@ export class PreConfirmList implements OnInit {
     });
 
     doc.save('pre-confirmation-registrations.pdf');
+  }
+
+  getChurchNameById(churchId: number | null | undefined): string {
+    return this.churchDataService.getChurchNameById(
+      churchId,
+      this.churchData()
+    );
   }
 }

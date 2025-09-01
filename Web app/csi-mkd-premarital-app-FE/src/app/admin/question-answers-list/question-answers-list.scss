@@ -1,0 +1,23 @@
+.error-card {
+  border-left: 4px solid rgb(var(--md-sys-color-error));
+}
+
+.mat-expansion-panel-header {
+  transition: all 0.2s ease;
+}
+
+.mat-expansion-panel-header:hover {
+  background-color: rgb(var(--md-sys-color-surface-container));
+}
+
+.mat-expansion-panel-body {
+  padding: 0 !important;
+}
+
+mat-card-header {
+  padding: 16px 24px !important;
+}
+
+.container {
+  min-height: calc(100vh - 160px);
+}

@@ -13,6 +13,7 @@ export class UpdateService {
 
   private readonly STORAGE_KEY = 'app-update-notification';
   private readonly CHANNEL_NAME = 'app-update-channel';
+  private readonly VERSION_CHECK_KEY = 'app-version-check';
   private broadcastChannel?: BroadcastChannel;
 
   constructor() {
@@ -33,10 +34,10 @@ export class UpdateService {
         this.notifyOtherTabs();
       });
 
-    // Check for updates periodically 4 times a day in equal interval
+    // Check for updates more frequently - every 30 minutes
     setInterval(() => {
       this.checkForUpdate();
-    }, 6 * 60 * 60 * 1000); // 6 hours interval
+    }, 30 * 60 * 1000); // 30 minutes interval
 
     // Check for updates when the app becomes visible (user switches back to tab)
     document.addEventListener('visibilitychange', () => {
@@ -44,6 +45,22 @@ export class UpdateService {
         this.checkForUpdate();
       }
     });
+
+    // Check for updates when the app comes back online
+    window.addEventListener('online', () => {
+      this.checkForUpdate();
+    });
+
+    // Check for updates when the window regains focus
+    window.addEventListener('focus', () => {
+      this.checkForUpdate();
+    });
+
+    // Initial check after 10 seconds to allow app to fully load
+    setTimeout(() => {
+      this.checkForUpdate();
+      this.checkVersionStaleness();
+    }, 10000);
   }
 
   private initializeBroadcastChannel(): void {
@@ -99,16 +116,139 @@ export class UpdateService {
         this.broadcastChannel.postMessage({ type: 'UPDATE_APPLIED' });
       }
 
+      // Clear all caches before applying update
+      await this.clearAllCaches();
+
       await this.swUpdate.activateUpdate();
 
-      window.location.reload();
+      // Force reload with cache busting
+      this.forceReloadWithCacheBusting();
     } catch (error) {
       console.error('Error applying update:', error);
-      this.isUpdating.set(false);
+      // Even if update fails, try to clear cache and reload
+      await this.clearAllCaches();
+      this.forceReloadWithCacheBusting();
     }
   }
 
   dismissUpdate(): void {
     this.updateAvailable.set(false);
+  }
+
+  private async clearAllCaches(): Promise<void> {
+    try {
+      // Clear all browser caches (most important for Safari)
+      const cacheNames = await caches.keys();
+      await Promise.all(
+        cacheNames.map(cacheName => caches.delete(cacheName))
+      );
+
+      // Clear localStorage and sessionStorage
+      localStorage.clear();
+      sessionStorage.clear();
+
+      console.log('All caches cleared successfully');
+    } catch (error) {
+      console.warn('Failed to clear some caches:', error);
+    }
+  }
+
+  private forceReloadWithCacheBusting(): void {
+    // Multiple cache-busting strategies for maximum effectiveness
+    const timestamp = Date.now();
+    const randomId = Math.random().toString(36).substring(7);
+    
+    // Method 1: Add timestamp and random ID to URL
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('v', timestamp.toString());
+    currentUrl.searchParams.set('r', randomId);
+    
+    // Method 2: Force full page reload bypassing cache
+    try {
+      // Try location.replace first (no browser history)
+      window.location.replace(currentUrl.toString());
+    } catch (error) {
+      // Fallback to location.href
+      window.location.href = currentUrl.toString();
+    }
+  }
+
+  // Emergency cache clear method (can be called manually)
+  async forceClearAndReload(): Promise<void> {
+    console.log('Force clearing all caches and reloading...');
+    await this.clearAllCaches();
+    
+    // Additional aggressive cache clearing for stubborn browsers
+    if ('serviceWorker' in navigator) {
+      try {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(registrations.map(registration => registration.unregister()));
+        console.log('All service workers unregistered');
+      } catch (error) {
+        console.warn('Failed to unregister service workers:', error);
+      }
+    }
+    
+    this.forceReloadWithCacheBusting();
+  }
+
+  // Method to manually check for updates and clear cache if needed
+  async manualUpdateCheck(): Promise<boolean> {
+    try {
+      const updateAvailable = await this.swUpdate.checkForUpdate();
+      if (!updateAvailable) {
+        // Even if no update, clear cache if requested
+        const clearCache = confirm('No updates available. Would you like to clear cache and reload anyway?');
+        if (clearCache) {
+          await this.forceClearAndReload();
+        }
+      }
+      return updateAvailable;
+    } catch (error) {
+      console.error('Manual update check failed:', error);
+      return false;
+    }
+  }
+
+  private checkVersionStaleness(): void {
+    const now = Date.now();
+    const lastCheck = localStorage.getItem(this.VERSION_CHECK_KEY);
+    
+    // Store current time for version checking
+    localStorage.setItem(this.VERSION_CHECK_KEY, now.toString());
+    
+    if (lastCheck) {
+      const timeSinceLastCheck = now - parseInt(lastCheck);
+      const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+      
+      // If app hasn't been updated in 24 hours, force check
+      if (timeSinceLastCheck > maxAge) {
+        console.log('App may be stale, forcing update check');
+        this.checkForUpdate();
+        
+        // After 48 hours without update, be more aggressive
+        if (timeSinceLastCheck > 2 * maxAge) {
+          console.log('App is very stale, considering cache clear');
+          setTimeout(() => {
+            if (!this.updateAvailable()) {
+              const forceRefresh = confirm(
+                'The app hasn\'t been updated in a while. Would you like to refresh to ensure you have the latest version?'
+              );
+              if (forceRefresh) {
+                this.forceClearAndReload();
+              }
+            }
+          }, 5000);
+        }
+      }
+    }
+  }
+
+  // Get app version info (useful for debugging)
+  getVersionInfo(): { lastCheck: string | null, currentTime: string } {
+    return {
+      lastCheck: localStorage.getItem(this.VERSION_CHECK_KEY),
+      currentTime: Date.now().toString()
+    };
   }
 }

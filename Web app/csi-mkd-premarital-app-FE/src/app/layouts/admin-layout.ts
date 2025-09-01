@@ -89,6 +89,11 @@ export class AdminLayout {
       icon: 'feedback',
       label: 'Feedback List',
     },
+    {
+      routerLink: '/admin/question-answers-list',
+      icon: 'quiz',
+      label: 'Question Answers',
+    },
   ];
 
   readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));
