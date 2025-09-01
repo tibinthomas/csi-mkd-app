@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\csi-mkd-premarital-app-BE.csproj" />
-    <ProjectReference Include="..\SessionsFunction\SessionsFunction.csproj" />
+    <ProjectReference Include="..\CsiMkdFunctions\CsiMkdFunctions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -175,8 +175,11 @@ public static class ServiceConfiguration
                     errorCodesToAdd: null);
             });
 
-            // Enable compiled models for faster startup (EF Core 9 approach)
-            // options.UseModel(ApplicationDbContextModel.Instance); // Commented out until regenerated
+            // Enable compiled models for faster startup in production (EF Core 9 approach)
+            if (!builder.Environment.IsDevelopment())
+            {
+                options.UseModel(CompiledModels.ApplicationDbContextModel.Instance);
+            }
 
             // Performance optimizations
             options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
@@ -225,6 +228,12 @@ public static class ServiceConfiguration
                             cosmosOptions.ContentResponseOnWriteEnabled(false);
                         }
                     });
+
+                // Enable compiled models for faster startup in production
+                if (!builder.Environment.IsDevelopment())
+                {
+                    options.UseModel(CompiledModels.Cosmos.CosmosDbContextModel.Instance);
+                }
 
                 // Enable sensitive data logging only in development
                 options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());

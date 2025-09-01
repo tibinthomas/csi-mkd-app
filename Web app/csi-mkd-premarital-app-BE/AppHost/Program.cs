@@ -4,8 +4,8 @@ var builder = DistributedApplication.CreateBuilder(args);
 var mainApi = builder.AddProject("main-api", "../csi-mkd-premarital-app-BE.csproj")
     .WithExternalHttpEndpoints();
 
-// Add the Sessions Function project  
-var sessionsFunction = builder.AddProject("sessions-function", "../SessionsFunction/SessionsFunction.csproj")
+// Add the CSI MKD Functions project  
+var csiMkdFunctions = builder.AddProject("csi-mkd-functions", "../CsiMkdFunctions/CsiMkdFunctions.csproj")
     .WithExternalHttpEndpoints();
 
 var app = builder.Build();

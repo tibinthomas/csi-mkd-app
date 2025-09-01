@@ -33,7 +33,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/SessionsFunction/SessionsFunction.csproj",
+        "${workspaceFolder}/CsiMkdFunctions/CsiMkdFunctions.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -141,7 +141,7 @@
         "7071"
       ],
       "options": {
-        "cwd": "${workspaceFolder}/SessionsFunction"
+        "cwd": "${workspaceFolder}/CsiMkdFunctions"
       },
       "problemMatcher": [],
       "group": "build",

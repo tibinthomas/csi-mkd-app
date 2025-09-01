@@ -1,6 +1,6 @@
-using SessionsFunction.Models;
+using CsiMkdFunctions.Models;
 
-namespace SessionsFunction.Repositories
+namespace CsiMkdFunctions.Repositories
 {
     public interface ISessionConfigRepository
     {

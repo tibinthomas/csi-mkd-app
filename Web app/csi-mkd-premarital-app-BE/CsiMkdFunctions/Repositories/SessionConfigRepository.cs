@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using SessionsFunction.Data;
-using SessionsFunction.Models;
+using CsiMkdFunctions.Data;
+using CsiMkdFunctions.Models;
 
-namespace SessionsFunction.Repositories
+namespace CsiMkdFunctions.Repositories
 {
     public class SessionConfigRepository : ISessionConfigRepository
     {

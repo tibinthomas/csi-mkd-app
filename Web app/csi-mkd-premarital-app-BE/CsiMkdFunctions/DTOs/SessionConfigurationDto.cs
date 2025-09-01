@@ -1,6 +1,6 @@
 using System;
 
-namespace SessionsFunction.DTOs
+namespace CsiMkdFunctions.DTOs
 {
     public class SessionConfigurationDto
     {

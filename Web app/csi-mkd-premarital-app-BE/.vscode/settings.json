@@ -68,7 +68,7 @@
   "azureFunctions.showCoreToolsWarning": false,
   "azureFunctions.projectLanguage": "C#",
   "azureFunctions.projectRuntime": "~4",
-  "azureFunctions.deploySubpath": "SessionsFunction/bin/Release/net9.0/publish",
+  "azureFunctions.deploySubpath": "CsiMkdFunctions/bin/Release/net9.0/publish",
   "debug.internalConsoleOptions": "openOnSessionStart",
   "dotnet.inlayHints.suppressInlayHintsForParametersThatDifferOnlyBySuffix": true,
   "dotnet.inlayHints.suppressInlayHintsForParametersThatMatchMethodIntent": true,

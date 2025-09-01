@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using SessionsFunction.Models;
+using CsiMkdFunctions.Models;
 
-namespace SessionsFunction.Data
+namespace CsiMkdFunctions.Data
 {
     public class ApplicationDbContext : DbContext
     {
