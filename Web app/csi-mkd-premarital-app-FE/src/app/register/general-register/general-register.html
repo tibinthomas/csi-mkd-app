@@ -121,10 +121,12 @@
               (selectionChange)="onChurchChange($event.value)"
             >
               @for (church of availableChurches(); track church.id) {
-              <mat-option [value]="church.name">{{ church.name }} ({{ church.priestName }})</mat-option>
+              <mat-option [value]="church.name">{{ church.name }}</mat-option>
               }
             </mat-select>
-            @if (isInvalid('churchName')) {
+            @if (selectedChurch()?.priestName) {
+            <mat-hint>Priest: {{ selectedChurch()?.priestName }}</mat-hint>
+            } @if (isInvalid('churchName')) {
             <mat-error i18n>Church Name is required.</mat-error>
             }
           </mat-form-field>
