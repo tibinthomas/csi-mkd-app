@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace csi_mkd_premarital_app_BE.DTOs
 {
     public class GeneralRegisterDto
@@ -10,7 +12,9 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public int Age { get; set; }
         public required string Education { get; set; }
         public required string Occupation { get; set; }
-        public string? ChurchName { get; set; }
+        [Range(1, 300)]
+        public int? ChurchId { get; set; }
+        public string? PriestName { get; set; }
         public required string Phone { get; set; }
         public required string Email { get; set; }
         public required string MaritalStatus { get; set; }

@@ -9,7 +9,7 @@ using csi_mkd_premarital_app_BE.Models;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace csi_mkd_premarital_app_BE.data
+namespace csi_mkd_premarital_app_BE.CompiledModels
 {
     [EntityFrameworkInternal]
     public partial class EmailConfigEntityType

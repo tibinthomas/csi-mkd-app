@@ -16,7 +16,8 @@ public class ConfirmationRegisterService : IConfirmationRegisterService
         // Logic to register confirmation
         var registration = new ConfirmationRegistration
         {
-            ChurchName = dto.ChurchName,
+            ChurchId = dto.ChurchId,
+            PriestName = dto.PriestName,
             ConfirmationDate = DateTime.SpecifyKind(dto.ConfirmationDate, DateTimeKind.Utc),
             CounsellingDate = DateTime.SpecifyKind(dto.CounsellingDate, DateTimeKind.Utc),
             Participants = dto.Participants.Select(p => new Participant

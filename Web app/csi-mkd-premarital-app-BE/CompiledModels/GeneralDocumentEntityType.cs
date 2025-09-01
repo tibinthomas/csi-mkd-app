@@ -10,16 +10,16 @@ using csi_mkd_premarital_app_BE.Models;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace csi_mkd_premarital_app_BE.data
+namespace csi_mkd_premarital_app_BE.CompiledModels
 {
     [EntityFrameworkInternal]
-    public partial class ConfirmationDocumentEntityType
+    public partial class GeneralDocumentEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
-                "csi_mkd_premarital_app_BE.Models.ConfirmationDocument",
-                typeof(ConfirmationDocument),
+                "csi_mkd_premarital_app_BE.Models.GeneralDocument",
+                typeof(GeneralDocument),
                 baseEntityType,
                 propertyCount: 3,
                 navigationCount: 1,
@@ -29,27 +29,27 @@ namespace csi_mkd_premarital_app_BE.data
             var registrationId = runtimeEntityType.AddProperty(
                 "RegistrationId",
                 typeof(Guid),
-                propertyInfo: typeof(ConfirmationDocument).GetProperty("RegistrationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ConfirmationDocument).GetField("<RegistrationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(GeneralDocument).GetProperty("RegistrationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(GeneralDocument).GetField("<RegistrationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
             registrationId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
+            var photoUrl = runtimeEntityType.AddProperty(
+                "PhotoUrl",
+                typeof(string),
+                propertyInfo: typeof(GeneralDocument).GetProperty("PhotoUrl", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(GeneralDocument).GetField("<PhotoUrl>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 500);
+            photoUrl.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
             var submittedAt = runtimeEntityType.AddProperty(
                 "SubmittedAt",
                 typeof(DateTime),
-                propertyInfo: typeof(ConfirmationDocument).GetProperty("SubmittedAt", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ConfirmationDocument).GetField("<SubmittedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(GeneralDocument).GetProperty("SubmittedAt", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(GeneralDocument).GetField("<SubmittedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
             submittedAt.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
-
-            var vicarLetterUrl = runtimeEntityType.AddProperty(
-                "VicarLetterUrl",
-                typeof(string),
-                propertyInfo: typeof(ConfirmationDocument).GetProperty("VicarLetterUrl", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ConfirmationDocument).GetField("<VicarLetterUrl>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 500);
-            vicarLetterUrl.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var key = runtimeEntityType.AddKey(
                 new[] { registrationId });
@@ -65,22 +65,21 @@ namespace csi_mkd_premarital_app_BE.data
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.Cascade,
                 unique: true,
-                required: true,
-                requiredDependent: true);
+                required: true);
 
-            var confirmationRegistration = declaringEntityType.AddNavigation("ConfirmationRegistration",
+            var generalRegistration = declaringEntityType.AddNavigation("GeneralRegistration",
                 runtimeForeignKey,
                 onDependent: true,
-                typeof(ConfirmationRegistration),
-                propertyInfo: typeof(ConfirmationDocument).GetProperty("ConfirmationRegistration", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ConfirmationDocument).GetField("<ConfirmationRegistration>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(GeneralRegistration),
+                propertyInfo: typeof(GeneralDocument).GetProperty("GeneralRegistration", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(GeneralDocument).GetField("<GeneralRegistration>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
-            var confirmationDocument = principalEntityType.AddNavigation("ConfirmationDocument",
+            var generalDocument = principalEntityType.AddNavigation("GeneralDocument",
                 runtimeForeignKey,
                 onDependent: false,
-                typeof(ConfirmationDocument),
-                propertyInfo: typeof(ConfirmationRegistration).GetProperty("ConfirmationDocument", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ConfirmationRegistration).GetField("<ConfirmationDocument>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(GeneralDocument),
+                propertyInfo: typeof(GeneralRegistration).GetProperty("GeneralDocument", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(GeneralRegistration).GetField("<GeneralDocument>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }
@@ -90,7 +89,7 @@ namespace csi_mkd_premarital_app_BE.data
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
             runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
-            runtimeEntityType.AddAnnotation("Relational:TableName", "ConfirmationDocuments");
+            runtimeEntityType.AddAnnotation("Relational:TableName", "GeneralDocuments");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
 

@@ -8,7 +8,6 @@ namespace csi_mkd_premarital_app_BE.Data
     {
         public DbSet<PremaritalRegistration> PremaritalRegistrations => Set<PremaritalRegistration>();
         public DbSet<AuditEntry> AuditEntries => Set<AuditEntry>();
-        public DbSet<ClassFeedback> ClassFeedbacks => Set<ClassFeedback>();
         public DbSet<AdminUser> AdminUsers => Set<AdminUser>();
         public DbSet<SessionConfiguration> SessionConfigurations => Set<SessionConfiguration>();
         public DbSet<EmailConfig> EmailConfigs => Set<EmailConfig>();
@@ -27,8 +26,6 @@ namespace csi_mkd_premarital_app_BE.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(),
                 t => !t.Name.Contains("Cosmos"));
             
-            // Apply PostgreSQL-specific ClassFeedback configuration
-            modelBuilder.ApplyConfiguration(new csi_mkd_premarital_app_BE.Data.Configurations.ClassFeedbackPostgresConfiguration());
 
             // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
 

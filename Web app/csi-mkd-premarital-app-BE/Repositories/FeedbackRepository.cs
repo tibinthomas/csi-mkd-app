@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace csi_mkd_premarital_app_BE.Repositories
 {
 
-    public class FeedbackRepository(ApplicationDbContext db) : IFeedbackRepository
+    public class FeedbackRepository(CosmosDbContext db) : IFeedbackRepository
     {
         public async Task<ClassFeedback?> GetByPremaritalRegistrationIdAsync(Guid premaritalRegistrationId)
         {

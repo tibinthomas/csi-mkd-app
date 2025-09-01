@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 namespace csi_mkd_premarital_app_BE.DTOs
 {
     public class UpdatePremaritalRegisterDto
@@ -12,7 +12,9 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public required int Age { get; set; }
         public required string Education { get; set; }
         public required string Occupation { get; set; }
-        public required string ChurchName { get; set; }
+        [Range(1, 300)]
+        public int? ChurchId { get; set; }
+        public string? PriestName { get; set; }
         public string? FianceName { get; set; }
         public DateTime? DateOfMarriage { get; set; }
         public required string Phone { get; set; }
@@ -40,7 +42,8 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public required int Age { get; set; }
         public required string Education { get; set; }
         public required string Occupation { get; set; }
-        public required string ChurchName { get; set; }
+        public int? ChurchId { get; set; }
+        public string? PriestName { get; set; }
         public string? FianceName { get; set; }
         public DateTime? DateOfMarriage { get; set; }
         public required string Phone { get; set; }

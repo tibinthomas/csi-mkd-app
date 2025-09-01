@@ -40,7 +40,6 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
             var search = filter.Search.ToLower();
 
             query = query.Where(r =>
-                EF.Functions.ILike(r.ChurchName, $"%{search}%") ||
                 r.Participants.Any(p => EF.Functions.ILike(p.Name, $"%{search}%")));
 
         }
@@ -54,7 +53,8 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
             .Select(r => new
             {
                 r.Id,
-                r.ChurchName,
+                r.ChurchId,
+                r.PriestName,
                 r.ConfirmationDate,
                 r.CounsellingDate,
                 Participants = r.Participants.Select(p => new

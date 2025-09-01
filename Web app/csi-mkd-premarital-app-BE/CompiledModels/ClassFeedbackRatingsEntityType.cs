@@ -4,13 +4,13 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Newtonsoft.Json.Linq;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using csi_mkd_premarital_app_BE.Models;
 
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace csi_mkd_premarital_app_BE.data
+namespace csi_mkd_premarital_app_BE.CompiledModels
 {
     [EntityFrameworkInternal]
     public partial class ClassFeedbackRatingsEntityType
@@ -21,7 +21,7 @@ namespace csi_mkd_premarital_app_BE.data
                 "csi_mkd_premarital_app_BE.Models.ClassFeedbackRatings",
                 typeof(ClassFeedbackRatings),
                 baseEntityType,
-                propertyCount: 8,
+                propertyCount: 6,
                 foreignKeyCount: 1,
                 keyCount: 1);
 
@@ -29,19 +29,15 @@ namespace csi_mkd_premarital_app_BE.data
                 "ClassFeedbackDetailClassFeedbackEntryClassFeedbackid",
                 typeof(string),
                 afterSaveBehavior: PropertySaveBehavior.Throw,
-                maxLength: 4000);
-
-            var classFeedbackDetailClassFeedbackEntryClassFeedbackPremaritalRegistrationId = runtimeEntityType.AddProperty(
-                "ClassFeedbackDetailClassFeedbackEntryClassFeedbackPremaritalRegistrationId",
-                typeof(Guid),
-                afterSaveBehavior: PropertySaveBehavior.Throw);
-            classFeedbackDetailClassFeedbackEntryClassFeedbackPremaritalRegistrationId.SetSentinelFromProviderValue("00000000-0000-0000-0000-000000000000");
+                maxLength: 500);
+            classFeedbackDetailClassFeedbackEntryClassFeedbackid.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var classFeedbackDetailClassFeedbackEntryId = runtimeEntityType.AddProperty(
                 "ClassFeedbackDetailClassFeedbackEntryId",
                 typeof(int),
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 sentinel: 0);
+            classFeedbackDetailClassFeedbackEntryId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var engagement = runtimeEntityType.AddProperty(
                 "Engagement",
@@ -49,6 +45,7 @@ namespace csi_mkd_premarital_app_BE.data
                 propertyInfo: typeof(ClassFeedbackRatings).GetProperty("Engagement", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ClassFeedbackRatings).GetField("<Engagement>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
+            engagement.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var organization = runtimeEntityType.AddProperty(
                 "Organization",
@@ -56,6 +53,7 @@ namespace csi_mkd_premarital_app_BE.data
                 propertyInfo: typeof(ClassFeedbackRatings).GetProperty("Organization", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ClassFeedbackRatings).GetField("<Organization>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
+            organization.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var quality = runtimeEntityType.AddProperty(
                 "Quality",
@@ -63,6 +61,7 @@ namespace csi_mkd_premarital_app_BE.data
                 propertyInfo: typeof(ClassFeedbackRatings).GetProperty("Quality", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ClassFeedbackRatings).GetField("<Quality>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
+            quality.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var relevance = runtimeEntityType.AddProperty(
                 "Relevance",
@@ -70,18 +69,10 @@ namespace csi_mkd_premarital_app_BE.data
                 propertyInfo: typeof(ClassFeedbackRatings).GetProperty("Relevance", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ClassFeedbackRatings).GetField("<Relevance>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 sentinel: 0);
-
-            var __jObject = runtimeEntityType.AddProperty(
-                "__jObject",
-                typeof(JObject),
-                nullable: true,
-                valueGenerated: ValueGenerated.OnAddOrUpdate,
-                beforeSaveBehavior: PropertySaveBehavior.Ignore,
-                afterSaveBehavior: PropertySaveBehavior.Ignore);
-            __jObject.AddAnnotation("Cosmos:PropertyName", "");
+            relevance.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var key = runtimeEntityType.AddKey(
-                new[] { classFeedbackDetailClassFeedbackEntryClassFeedbackid, classFeedbackDetailClassFeedbackEntryClassFeedbackPremaritalRegistrationId, classFeedbackDetailClassFeedbackEntryId });
+                new[] { classFeedbackDetailClassFeedbackEntryClassFeedbackid, classFeedbackDetailClassFeedbackEntryId });
             runtimeEntityType.SetPrimaryKey(key);
 
             return runtimeEntityType;
@@ -89,8 +80,8 @@ namespace csi_mkd_premarital_app_BE.data
 
         public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
         {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ClassFeedbackDetailClassFeedbackEntryClassFeedbackid"), declaringEntityType.FindProperty("ClassFeedbackDetailClassFeedbackEntryClassFeedbackPremaritalRegistrationId"), declaringEntityType.FindProperty("ClassFeedbackDetailClassFeedbackEntryId") },
-                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("ClassFeedbackEntryClassFeedbackid"), principalEntityType.FindProperty("ClassFeedbackEntryClassFeedbackPremaritalRegistrationId"), principalEntityType.FindProperty("ClassFeedbackEntryId") }),
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ClassFeedbackDetailClassFeedbackEntryClassFeedbackid"), declaringEntityType.FindProperty("ClassFeedbackDetailClassFeedbackEntryId") },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("ClassFeedbackEntryClassFeedbackid"), principalEntityType.FindProperty("ClassFeedbackEntryId") }),
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.Cascade,
                 unique: true,
@@ -111,6 +102,12 @@ namespace csi_mkd_premarital_app_BE.data
 
         public static void CreateAnnotations(RuntimeEntityType runtimeEntityType)
         {
+            runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
+            runtimeEntityType.AddAnnotation("Relational:Schema", null);
+            runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
+            runtimeEntityType.AddAnnotation("Relational:TableName", "ClassFeedbackEntry");
+            runtimeEntityType.AddAnnotation("Relational:ViewName", null);
+            runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
 
             Customize(runtimeEntityType);
         }

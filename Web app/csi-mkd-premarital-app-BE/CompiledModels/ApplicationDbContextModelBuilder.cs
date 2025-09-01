@@ -7,12 +7,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace csi_mkd_premarital_app_BE.data
+namespace csi_mkd_premarital_app_BE.CompiledModels
 {
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("ef1a95a9-e648-43d6-a448-56efbb904406"), entityTypeCount: 21)
+            : base(skipDetectChanges: false, modelId: new Guid("0fd4373d-3024-4f1a-8e11-07b974627ec3"), entityTypeCount: 22)
         {
         }
 
@@ -38,6 +38,7 @@ namespace csi_mkd_premarital_app_BE.data
             var instructor = InstructorEntityType.Create(this);
             var premaritalDocument = PremaritalDocumentEntityType.Create(this);
             var premaritalRegistration = PremaritalRegistrationEntityType.Create(this);
+            var questionAnswers = QuestionAnswersEntityType.Create(this);
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
 
             ParticipantEntityType.CreateForeignKey1(participant, confirmationRegistration);
@@ -73,6 +74,7 @@ namespace csi_mkd_premarital_app_BE.data
             InstructorEntityType.CreateAnnotations(instructor);
             PremaritalDocumentEntityType.CreateAnnotations(premaritalDocument);
             PremaritalRegistrationEntityType.CreateAnnotations(premaritalRegistration);
+            QuestionAnswersEntityType.CreateAnnotations(questionAnswers);
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
 
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);

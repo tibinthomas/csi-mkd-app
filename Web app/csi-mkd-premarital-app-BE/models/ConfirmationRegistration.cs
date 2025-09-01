@@ -6,7 +6,7 @@ using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
 using Microsoft.EntityFrameworkCore;
 [Index(nameof(Id))]
-[Index(nameof(ChurchName))]
+[Index(nameof(ChurchId))]
 [Index(nameof(SubmittedDate))]
 public class ConfirmationRegistration
 {
@@ -14,9 +14,11 @@ public class ConfirmationRegistration
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    [Required(ErrorMessage = "Church name is required.")]
+    [Range(1, 300)]
+    public int? ChurchId { get; set; }
+
     [StringLength(100)]
-    public required string ChurchName { get; set; }
+    public string? PriestName { get; set; }
 
     [Required(ErrorMessage = "Confirmation date is required.")]
     [DataType(DataType.Date)]

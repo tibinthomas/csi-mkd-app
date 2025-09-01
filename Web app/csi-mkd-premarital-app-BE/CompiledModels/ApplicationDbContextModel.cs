@@ -6,7 +6,7 @@ using csi_mkd_premarital_app_BE.Data;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace csi_mkd_premarital_app_BE.data
+namespace csi_mkd_premarital_app_BE.CompiledModels
 {
     [DbContext(typeof(ApplicationDbContext))]
     public partial class ApplicationDbContextModel : RuntimeModel

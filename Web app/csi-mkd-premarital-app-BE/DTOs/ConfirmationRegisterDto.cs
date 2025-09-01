@@ -5,7 +5,9 @@ using csi_mkd_premarital_app_BE.Models;
 
 public class ConfirmationRegisterDto
 {
-    public required string ChurchName { get; set; }
+    [Range(1, 300)]
+    public int? ChurchId { get; set; }
+    public string? PriestName { get; set; }
     public DateTime ConfirmationDate { get; set; }
     public DateTime CounsellingDate { get; set; }
     public List<ParticipantDto> Participants { get; set; } = new();

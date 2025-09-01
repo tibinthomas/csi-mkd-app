@@ -1,9 +1,9 @@
+using System.Text.Json;
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Repositories;
 using Microsoft.AspNetCore.Hosting;
-using System.Text.Json;
 
 namespace csi_mkd_premarital_app_BE.Services
 {
@@ -42,7 +42,8 @@ namespace csi_mkd_premarital_app_BE.Services
                 Age = dto.Age,
                 Education = dto.Education,
                 Occupation = dto.Occupation,
-                ChurchName = dto.ChurchName,
+                ChurchId = dto.ChurchId,
+                PriestName = dto.PriestName,
                 FianceName = dto.FianceName,
                 DateOfMarriage = dto.DateOfMarriage.HasValue ? DateTime.SpecifyKind(dto.DateOfMarriage.Value, DateTimeKind.Utc) : null,
                 Phone = dto.Phone,

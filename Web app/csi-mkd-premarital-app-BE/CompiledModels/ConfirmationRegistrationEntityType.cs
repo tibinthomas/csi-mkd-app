@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 #pragma warning disable 219, 612, 618
 #nullable disable
 
-namespace csi_mkd_premarital_app_BE.data
+namespace csi_mkd_premarital_app_BE.CompiledModels
 {
     [EntityFrameworkInternal]
     public partial class ConfirmationRegistrationEntityType
@@ -19,7 +19,7 @@ namespace csi_mkd_premarital_app_BE.data
                 "ConfirmationRegistration",
                 typeof(ConfirmationRegistration),
                 baseEntityType,
-                propertyCount: 6,
+                propertyCount: 7,
                 navigationCount: 2,
                 unnamedIndexCount: 3,
                 keyCount: 1);
@@ -34,13 +34,13 @@ namespace csi_mkd_premarital_app_BE.data
                 sentinel: new Guid("00000000-0000-0000-0000-000000000000"));
             id.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
-            var churchName = runtimeEntityType.AddProperty(
-                "ChurchName",
-                typeof(string),
-                propertyInfo: typeof(ConfirmationRegistration).GetProperty("ChurchName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ConfirmationRegistration).GetField("<ChurchName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 500);
-            churchName.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+            var churchId = runtimeEntityType.AddProperty(
+                "ChurchId",
+                typeof(int?),
+                propertyInfo: typeof(ConfirmationRegistration).GetProperty("ChurchId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ConfirmationRegistration).GetField("<ChurchId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+            churchId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var confirmationDate = runtimeEntityType.AddProperty(
                 "ConfirmationDate",
@@ -66,6 +66,15 @@ namespace csi_mkd_premarital_app_BE.data
                 sentinel: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
             counsellingDate.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
+            var priestName = runtimeEntityType.AddProperty(
+                "PriestName",
+                typeof(string),
+                propertyInfo: typeof(ConfirmationRegistration).GetProperty("PriestName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ConfirmationRegistration).GetField("<PriestName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
+                maxLength: 500);
+            priestName.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
             var submittedDate = runtimeEntityType.AddProperty(
                 "SubmittedDate",
                 typeof(DateTime),
@@ -79,7 +88,7 @@ namespace csi_mkd_premarital_app_BE.data
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
-                new[] { churchName });
+                new[] { churchId });
 
             var index0 = runtimeEntityType.AddIndex(
                 new[] { id });

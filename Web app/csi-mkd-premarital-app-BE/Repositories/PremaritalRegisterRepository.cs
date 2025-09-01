@@ -98,7 +98,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.Age,
                     r.Education,
                     r.Occupation,
-                    r.ChurchName,
+                    r.ChurchId,
+                    r.PriestName,
                     r.FianceName,
                     r.DateOfMarriage,
                     r.Phone,
@@ -146,7 +147,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.Age,
                     r.Education,
                     r.Occupation,
-                    r.ChurchName,
+                    r.ChurchId,
+                    r.PriestName,
                     r.FianceName,
                     r.DateOfMarriage,
                     r.Phone,
@@ -204,7 +206,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
             registration.Age = dto.Age;
             registration.Education = dto.Education;
             registration.Occupation = dto.Occupation;
-            registration.ChurchName = dto.ChurchName;
+            registration.ChurchId = dto.ChurchId;
+            registration.PriestName = dto.PriestName;
             registration.FianceName = dto.FianceName;
             registration.DateOfMarriage = dto.DateOfMarriage.HasValue
                 ? DateTime.SpecifyKind(dto.DateOfMarriage.Value, DateTimeKind.Utc)

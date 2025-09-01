@@ -38,7 +38,11 @@ namespace csi_mkd_premarital_app_BE.Models
         [Required]
         public required string Occupation { get; set; }
 
-        public string? ChurchName { get; set; }
+        [Range(1, 300)]
+        public int? ChurchId { get; set; }
+
+        [StringLength(100)]
+        public string? PriestName { get; set; }
 
         [Required, RegularExpression(@"^\d{10}$")]
         public required string Phone { get; set; }

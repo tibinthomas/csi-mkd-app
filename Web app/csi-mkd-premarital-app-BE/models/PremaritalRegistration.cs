@@ -40,8 +40,11 @@ namespace csi_mkd_premarital_app_BE.Models
         [Required, StringLength(100)]
         public required string Occupation { get; set; }
 
-        [Required, StringLength(150)]
-        public required string ChurchName { get; set; }
+        [Range(1, 300)]
+        public int? ChurchId { get; set; }
+
+        [StringLength(100)]
+        public string? PriestName { get; set; }
 
         [StringLength(150)]
         public string? FianceName { get; set; }
