@@ -99,6 +99,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.Education,
                     r.Occupation,
                     r.ChurchId,
+                    r.ChurchName,
                     r.PriestName,
                     r.FianceName,
                     r.DateOfMarriage,
@@ -148,6 +149,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.Education,
                     r.Occupation,
                     r.ChurchId,
+                    r.ChurchName,
                     r.PriestName,
                     r.FianceName,
                     r.DateOfMarriage,
@@ -207,6 +209,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
             registration.Education = dto.Education;
             registration.Occupation = dto.Occupation;
             registration.ChurchId = dto.ChurchId;
+            registration.ChurchName = dto.ChurchName;
             registration.PriestName = dto.PriestName;
             registration.FianceName = dto.FianceName;
             registration.DateOfMarriage = dto.DateOfMarriage.HasValue

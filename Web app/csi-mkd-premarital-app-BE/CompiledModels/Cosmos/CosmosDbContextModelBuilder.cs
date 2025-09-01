@@ -11,7 +11,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels.Cosmos
     public partial class CosmosDbContextModel
     {
         private CosmosDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("8ce71f2f-082d-4f8d-9d7b-12340d168a67"), entityTypeCount: 6)
+            : base(skipDetectChanges: false, modelId: new Guid("83f7eb2a-0785-49eb-a236-e9250d7dcf1d"), entityTypeCount: 6)
         {
         }
 

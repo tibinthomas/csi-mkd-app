@@ -12,7 +12,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("0fd4373d-3024-4f1a-8e11-07b974627ec3"), entityTypeCount: 22)
+            : base(skipDetectChanges: false, modelId: new Guid("bf45a897-01bb-4974-bbcd-132ccea0fc0c"), entityTypeCount: 12)
         {
         }
 
@@ -22,34 +22,17 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
             var participant = ParticipantEntityType.Create(this);
             var adminUser = AdminUserEntityType.Create(this);
             var auditEntry = AuditEntryEntityType.Create(this);
-            var classFeedback = ClassFeedbackEntityType.Create(this);
-            var classFeedbackDetail = ClassFeedbackDetailEntityType.Create(this);
-            var classFeedbackEntry = ClassFeedbackEntryEntityType.Create(this);
-            var classFeedbackRatings = ClassFeedbackRatingsEntityType.Create(this);
-            var classFeedbackTextResponses = ClassFeedbackTextResponsesEntityType.Create(this);
             var confirmationDocument = ConfirmationDocumentEntityType.Create(this);
             var emailConfig = EmailConfigEntityType.Create(this);
-            var feedbackDocument = FeedbackDocumentEntityType.Create(this);
-            var feedbackMetadata = FeedbackMetadataEntityType.Create(this);
-            var feedbackRatings = FeedbackRatingsEntityType.Create(this);
-            var feedbackText = FeedbackTextEntityType.Create(this);
             var generalDocument = GeneralDocumentEntityType.Create(this);
             var generalRegistration = GeneralRegistrationEntityType.Create(this);
             var instructor = InstructorEntityType.Create(this);
             var premaritalDocument = PremaritalDocumentEntityType.Create(this);
             var premaritalRegistration = PremaritalRegistrationEntityType.Create(this);
-            var questionAnswers = QuestionAnswersEntityType.Create(this);
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
 
             ParticipantEntityType.CreateForeignKey1(participant, confirmationRegistration);
-            ClassFeedbackDetailEntityType.CreateForeignKey1(classFeedbackDetail, classFeedbackEntry);
-            ClassFeedbackEntryEntityType.CreateForeignKey1(classFeedbackEntry, classFeedback);
-            ClassFeedbackRatingsEntityType.CreateForeignKey1(classFeedbackRatings, classFeedbackDetail);
-            ClassFeedbackTextResponsesEntityType.CreateForeignKey1(classFeedbackTextResponses, classFeedbackDetail);
             ConfirmationDocumentEntityType.CreateForeignKey1(confirmationDocument, confirmationRegistration);
-            FeedbackMetadataEntityType.CreateForeignKey1(feedbackMetadata, feedbackDocument);
-            FeedbackRatingsEntityType.CreateForeignKey1(feedbackRatings, feedbackDocument);
-            FeedbackTextEntityType.CreateForeignKey1(feedbackText, feedbackDocument);
             GeneralDocumentEntityType.CreateForeignKey1(generalDocument, generalRegistration);
             PremaritalDocumentEntityType.CreateForeignKey1(premaritalDocument, premaritalRegistration);
             PremaritalRegistrationEntityType.CreateForeignKey1(premaritalRegistration, sessionConfiguration);
@@ -58,23 +41,13 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
             ParticipantEntityType.CreateAnnotations(participant);
             AdminUserEntityType.CreateAnnotations(adminUser);
             AuditEntryEntityType.CreateAnnotations(auditEntry);
-            ClassFeedbackEntityType.CreateAnnotations(classFeedback);
-            ClassFeedbackDetailEntityType.CreateAnnotations(classFeedbackDetail);
-            ClassFeedbackEntryEntityType.CreateAnnotations(classFeedbackEntry);
-            ClassFeedbackRatingsEntityType.CreateAnnotations(classFeedbackRatings);
-            ClassFeedbackTextResponsesEntityType.CreateAnnotations(classFeedbackTextResponses);
             ConfirmationDocumentEntityType.CreateAnnotations(confirmationDocument);
             EmailConfigEntityType.CreateAnnotations(emailConfig);
-            FeedbackDocumentEntityType.CreateAnnotations(feedbackDocument);
-            FeedbackMetadataEntityType.CreateAnnotations(feedbackMetadata);
-            FeedbackRatingsEntityType.CreateAnnotations(feedbackRatings);
-            FeedbackTextEntityType.CreateAnnotations(feedbackText);
             GeneralDocumentEntityType.CreateAnnotations(generalDocument);
             GeneralRegistrationEntityType.CreateAnnotations(generalRegistration);
             InstructorEntityType.CreateAnnotations(instructor);
             PremaritalDocumentEntityType.CreateAnnotations(premaritalDocument);
             PremaritalRegistrationEntityType.CreateAnnotations(premaritalRegistration);
-            QuestionAnswersEntityType.CreateAnnotations(questionAnswers);
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
 
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);

@@ -43,6 +43,7 @@ namespace csi_mkd_premarital_app_BE.Services
                 Education = dto.Education,
                 Occupation = dto.Occupation,
                 ChurchId = dto.ChurchId,
+                ChurchName = dto.ChurchName,
                 PriestName = dto.PriestName,
                 FianceName = dto.FianceName,
                 DateOfMarriage = dto.DateOfMarriage.HasValue ? DateTime.SpecifyKind(dto.DateOfMarriage.Value, DateTimeKind.Utc) : null,

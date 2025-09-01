@@ -22,7 +22,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
                 "csi_mkd_premarital_app_BE.Models.PremaritalRegistration",
                 typeof(PremaritalRegistration),
                 baseEntityType,
-                propertyCount: 21,
+                propertyCount: 22,
                 navigationCount: 2,
                 foreignKeyCount: 1,
                 unnamedIndexCount: 5,
@@ -69,6 +69,15 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
                 fieldInfo: typeof(PremaritalRegistration).GetField("<ChurchId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
             churchId.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+
+            var churchName = runtimeEntityType.AddProperty(
+                "ChurchName",
+                typeof(string),
+                propertyInfo: typeof(PremaritalRegistration).GetProperty("ChurchName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(PremaritalRegistration).GetField("<ChurchName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
+                maxLength: 500);
+            churchName.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
             var dateOfMarriage = runtimeEntityType.AddProperty(
                 "DateOfMarriage",

@@ -44,6 +44,9 @@ namespace csi_mkd_premarital_app_BE.Models
         public int? ChurchId { get; set; }
 
         [StringLength(100)]
+        public string? ChurchName { get; set; }
+
+        [StringLength(100)]
         public string? PriestName { get; set; }
 
         [StringLength(150)]

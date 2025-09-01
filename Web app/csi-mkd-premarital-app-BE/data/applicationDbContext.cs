@@ -25,6 +25,10 @@ namespace csi_mkd_premarital_app_BE.Data
             // Apply configurations from assembly, but exclude Cosmos-specific ones
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly(),
                 t => !t.Name.Contains("Cosmos"));
+
+            // Ignore models that are only used in CosmosDbContext
+            modelBuilder.Ignore<ClassFeedback>();
+            modelBuilder.Ignore<QuestionAnswers>();
             
 
             // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");

@@ -14,6 +14,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public required string Occupation { get; set; }
         [Range(1, 300)]
         public int? ChurchId { get; set; }
+        public string? ChurchName { get; set; }
         public string? PriestName { get; set; }
         public string? FianceName { get; set; }
         public DateTime? DateOfMarriage { get; set; }
@@ -43,6 +44,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
         public required string Education { get; set; }
         public required string Occupation { get; set; }
         public int? ChurchId { get; set; }
+        public string? ChurchName { get; set; }
         public string? PriestName { get; set; }
         public string? FianceName { get; set; }
         public DateTime? DateOfMarriage { get; set; }
