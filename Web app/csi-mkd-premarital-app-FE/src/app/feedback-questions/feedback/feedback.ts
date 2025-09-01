@@ -113,10 +113,10 @@ export class Feedback implements OnInit {
   }
 
   ratingLabels: Record<string, string> = {
-    qualityRating: 'Overall Quality',
-    relevanceRating: 'Content Relevance',
-    engagementRating: 'Presenter Engagement',
-    organizationRating: 'Organization',
+    qualityRating: $localize`Overall Quality`,
+    relevanceRating:  $localize`Content Relevance`,
+    engagementRating:  $localize`Presenter Engagement`,
+    organizationRating:  $localize`Organization`,
   };
 
   protected readonly classTitles = signal<any>([
@@ -174,7 +174,7 @@ export class Feedback implements OnInit {
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
   protected readonly timezoneDisplay: string =
-    'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
+     $localize`Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
 
   // Resource to fetch user details from the API
   protected readonly userDetailsResource = rxResource({

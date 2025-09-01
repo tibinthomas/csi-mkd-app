@@ -392,12 +392,11 @@ export class PremaritalRegister {
                       // width: '400px',
                       disableClose: true,
                       data: {
-                        title: 'Premarital Registration Complete',
-                        messages: [
-                          'Your premarital registration is successfully completed.',
+                        title: $localize`Premarital Registration Complete`,
+                        messages: [ $localize`Your premarital registration is successfully completed.`,
                         ],
                         extraMessage:
-                          'A confirmation email has been sent to your registered email address.',
+                          $localize`A confirmation email has been sent to your registered email address.`,
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {
@@ -426,7 +425,7 @@ export class PremaritalRegister {
   }
 
   protected readonly timezoneDisplay: string =
-    'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
+    $localize`Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
 
   private focusFirstInvalidControl(): void {
     try {

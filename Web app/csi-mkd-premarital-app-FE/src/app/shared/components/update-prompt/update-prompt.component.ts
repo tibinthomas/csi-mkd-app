@@ -23,14 +23,14 @@ import { UpdateService } from '../../../core/services/update.service';
           <mat-icon mat-card-avatar color="primary" class="transform scale-110"
             >system_update</mat-icon
           >
-          <mat-card-title>New Version Available</mat-card-title>
+          <mat-card-title><span i18n>New Version Available</span></mat-card-title>
           <mat-card-subtitle>
-            A new version of the application is ready to install
+          <span i18n>A new version of the application is ready to install</span>  
           </mat-card-subtitle>
         </mat-card-header>
 
         <mat-card-content>
-          <p class="my-4 leading-relaxed">
+          <p class="my-4 leading-relaxed" i18n>
             To ensure you have the latest features and security updates, please
             update the application now. This will refresh all open tabs.
           </p>
@@ -42,7 +42,7 @@ import { UpdateService } from '../../../core/services/update.service';
             (click)="updateService.dismissUpdate()"
             [disabled]="updateService.isUpdating()"
           >
-            Later
+           <span i18n> Later</span>
           </button>
           <button
             mat-raised-button
@@ -51,7 +51,7 @@ import { UpdateService } from '../../../core/services/update.service';
             [disabled]="updateService.isUpdating()"
             class="flex items-center"
           >
-            @if (updateService.isUpdating()) { Updating... } @else { Update Now
+            @if (updateService.isUpdating()) {<span i18n>Updating...</span>  } @else { <span i18n>Update Now</span>
             }
           </button>
         </mat-card-actions>
