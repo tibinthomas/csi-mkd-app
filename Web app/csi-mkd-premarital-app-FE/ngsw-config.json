@@ -5,6 +5,7 @@
     {
       "name": "app",
       "installMode": "prefetch",
+      "updateMode": "prefetch",
       "resources": {
         "files": [
           "/favicon.ico",
@@ -26,5 +27,10 @@
         ]
       }
     }
-  ]
+  ],
+  "appData": {
+    "version": "0.0.93",
+    "timestamp": "{{BUILD_TIMESTAMP}}"
+  },
+  "navigationUrls": ["/**", "!/**/*.*", "!/**/*__*", "!/**/*__*/**"]
 }
