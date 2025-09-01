@@ -31,6 +31,8 @@ import { SuccessDialog } from '../../shared/success-dialog/success-dialog';
 import { switchMap } from 'rxjs';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
+import { ChurchDataService, ChurchWithDetails } from '../../core/services/church-data.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-pre-confirm-register',
@@ -59,6 +61,7 @@ export class PreConfirmRegister {
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
   private readonly themeService = inject(ThemeService);
+  private readonly churchDataService = inject(ChurchDataService);
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
 
   protected readonly form: FormGroup;
@@ -68,6 +71,12 @@ export class PreConfirmRegister {
   protected readonly vicarLetterFile = signal<File | null>(null);
   protected readonly vicarLetterError = signal<string>('');
 
+  // Church data signals
+  protected readonly selectedDistrict = signal<string>('');
+  protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
+  protected readonly allLocations = toSignal(this.churchDataService.getAllLocations(), { initialValue: [] });
+  protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
+
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() =>
@@ -76,14 +85,8 @@ export class PreConfirmRegister {
 
   constructor() {
     this.form = this.fb.group({
-      churchName: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z0-9\s]*$/),
-        ],
-      ],
+      churchDistrict: ['', Validators.required],
+      churchName: [{ value: '', disabled: true }, Validators.required],
       confirmationDate: ['', Validators.required],
       counsellingDate: ['', Validators.required],
       participants: this.fb.array([
@@ -127,7 +130,7 @@ export class PreConfirmRegister {
   };
 
   protected readonly timezoneDisplay: string =
-    'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
+     $localize`Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
@@ -148,8 +151,10 @@ export class PreConfirmRegister {
     this.isSubmitting.set(true);
     const raw = this.form.value;
 
+    const selectedChurch = this.selectedChurch();
     const body = {
-      churchName: raw.churchName,
+      churchId: selectedChurch?.id || null,
+      priestName: selectedChurch?.priestName || null,
       confirmationDate: new Date(raw.confirmationDate).toISOString(),
       counsellingDate: new Date(raw.counsellingDate).toISOString(),
       participants: raw.participants.map((p: any) => ({
@@ -277,6 +282,33 @@ export class PreConfirmRegister {
 
   removeParticipant(index: number): void {
     this.participants().removeAt(index);
+  }
+
+  onDistrictChange(district: string): void {
+    this.selectedDistrict.set(district);
+    this.form.patchValue({ churchName: '' }); // Reset church selection
+    this.selectedChurch.set(null); // Reset selected church
+    
+    if (district) {
+      this.form.get('churchName')?.enable(); // Enable church name field
+      this.churchDataService.getChurchesByLocationAndSearch(district).subscribe({
+        next: (churches) => {
+          this.availableChurches.set(churches);
+        },
+        error: (err) => {
+          console.error('Error loading churches:', err);
+          this.availableChurches.set([]);
+        }
+      });
+    } else {
+      this.form.get('churchName')?.disable(); // Disable church name field
+      this.availableChurches.set([]);
+    }
+  }
+
+  onChurchChange(churchName: string): void {
+    const church = this.availableChurches().find(c => c.name === churchName);
+    this.selectedChurch.set(church || null);
   }
 
   private focusFirstInvalidControl(): void {

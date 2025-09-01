@@ -51,60 +51,60 @@ export class Questions {
 
   questions = [
     {
-      label: 'What is your definition of marriage?',
+      label: $localize`What is your definition of marriage?`,
       controlName: 'definitionOfMarriage',
     },
     {
-      label: 'What wishes and concerns do you have about marriage?',
+      label:  $localize`What wishes and concerns do you have about marriage?`,
       controlName: 'wishesConcerns',
     },
     {
-      label: '“Church is important for marriage.” Why?',
+      label:  $localize`“Church is important for marriage.” Why?`,
       controlName: 'churchImportance',
     },
     {
-      label: 'Describe your family background',
+      label:  $localize`Describe your family background`,
       controlName: 'familyBackground',
     },
     {
       label:
-        'How did your parent’s physical and mental health relate to you in growing up?',
+         $localize`How did your parent’s physical and mental health relate to you in growing up?`,
       controlName: 'parentsHealthImpact',
     },
     {
       label:
-        'Suppose the woman were the eldest of sisters/brothers and the man was the youngest child in his family and had elder sisters. How will that affect the marriage?',
+         $localize`Suppose the woman were the eldest of sisters/brothers and the man was the youngest child in his family and had elder sisters. How will that affect the marriage?`,
       controlName: 'eldestYoungestScenario',
     },
     {
-      label: 'What are you expecting from your would-be partner?',
+      label:  $localize`What are you expecting from your would-be partner?`,
       controlName: 'expectationsFromPartner',
     },
     {
-      label: 'Your understanding about sex? Who talked with you?',
+      label:  $localize`Your understanding about sex? Who talked with you?`,
       controlName: 'understandingAboutSex',
     },
     {
-      label: 'What fears/anxieties do you have about marriage?',
+      label:  $localize`What fears/anxieties do you have about marriage?`,
       controlName: 'fearsAboutMarriage',
     },
     {
       label:
-        'How much time can you spend with your life partner after the marriage?',
+         $localize`How much time can you spend with your life partner after the marriage?`,
       controlName: 'timeWithPartner',
     },
     {
-      label: 'Advantages and disadvantages of the age differences?',
+      label:  $localize`Advantages and disadvantages of the age differences?`,
       controlName: 'ageDifferenceImpact',
     },
     {
       label:
-        'How would your relationship with your parents and in-laws be during the early years of your marriage?',
+        $localize`How would your relationship with your parents and in-laws be during the early years of your marriage?`,
       controlName: 'relationshipWithParentsInlaws',
     },
     {
       label:
-        'What will be the greatest adjustment when you are in a new home? What is your approach about family prayer and Sunday church service after your marriage?',
+        $localize`What will be the greatest adjustment when you are in a new home? What is your approach about family prayer and Sunday church service after your marriage?`,
       controlName: 'greatestAdjustment',
     },
   ];
@@ -207,7 +207,7 @@ export class Questions {
       .subscribe({
         next: () => {
           this.successMessage.set(
-            'Your responses have been submitted successfully!'
+            $localize`Your responses have been submitted successfully!`
           );
           this.form.reset();
           this.submitting.set(false);

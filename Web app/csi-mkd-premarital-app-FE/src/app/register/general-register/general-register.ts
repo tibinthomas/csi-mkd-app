@@ -32,6 +32,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
+import {
+  ChurchDataService,
+  ChurchWithDetails,
+} from '../../core/services/church-data.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-general-register',
@@ -62,6 +67,7 @@ export class GeneralRegister {
   private readonly fileUploadService = inject(FileUploadService);
   readonly dialog = inject(MatDialog);
   private readonly themeService = inject(ThemeService);
+  private readonly churchDataService = inject(ChurchDataService);
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -82,6 +88,15 @@ export class GeneralRegister {
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   photoFileName: string | null = '';
   showErrorModal = signal(false);
+
+  // Church data signals
+  protected readonly selectedDistrict = signal<string>('');
+  protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
+  protected readonly allLocations = toSignal(
+    this.churchDataService.getAllLocations(),
+    { initialValue: [] }
+  );
+  protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
 
   constructor() {
     this.form = this.fb.group({
@@ -138,14 +153,8 @@ export class GeneralRegister {
           Validators.pattern(/^[a-zA-Z\s]*$/),
         ],
       ],
-      churchName: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z0-9\s]*$/),
-        ],
-      ],
+      churchDistrict: ['', Validators.required],
+      churchName: [{ value: '', disabled: true }, Validators.required],
       countryCode: ['+91', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
@@ -244,7 +253,8 @@ export class GeneralRegister {
       age: Number(raw.age),
       education: raw.education,
       occupation: raw.occupation,
-      churchName: raw.churchName || undefined,
+      churchId: this.selectedChurch()?.id || null,
+      priestName: this.selectedChurch()?.priestName || null,
       phone: `${raw.countryCode}${raw.phone}`,
       email: raw.email,
       maritalStatus: raw.maritalStatus,
@@ -316,6 +326,35 @@ export class GeneralRegister {
     this.errorMessage.set('Photo upload failed. Please try again.');
     this.showErrorModal.set(true);
     this.isSubmitting.set(false);
+  }
+
+  onDistrictChange(district: string): void {
+    this.selectedDistrict.set(district);
+    this.form.patchValue({ churchName: '' }); // Reset church selection
+    this.selectedChurch.set(null); // Reset selected church
+
+    if (district) {
+      this.form.get('churchName')?.enable(); // Enable church name field
+      this.churchDataService
+        .getChurchesByLocationAndSearch(district)
+        .subscribe({
+          next: (churches) => {
+            this.availableChurches.set(churches);
+          },
+          error: (err) => {
+            console.error('Error loading churches:', err);
+            this.availableChurches.set([]);
+          },
+        });
+    } else {
+      this.form.get('churchName')?.disable(); // Disable church name field
+      this.availableChurches.set([]);
+    }
+  }
+
+  onChurchChange(churchName: string): void {
+    const church = this.availableChurches().find((c) => c.name === churchName);
+    this.selectedChurch.set(church || null);
   }
 
   private focusFirstInvalidControl(): void {
