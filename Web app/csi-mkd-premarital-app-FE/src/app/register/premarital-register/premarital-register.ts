@@ -38,6 +38,7 @@ import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
+import { ChurchDataService, ChurchWithDetails } from '../../core/services/church-data.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 
 @Component({
@@ -73,6 +74,7 @@ export class PremaritalRegister {
   private readonly api = inject(ApiService);
   private readonly fileUploadService = inject(FileUploadService);
   private readonly themeService = inject(ThemeService);
+  private readonly churchDataService = inject(ChurchDataService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
 
   protected readonly form: FormGroup;
@@ -96,6 +98,12 @@ export class PremaritalRegister {
   @ViewChild('letterInput') letterInput!: ElementRef<HTMLInputElement>;
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   selectedSessionId = signal<number | null>(null);
+
+  // Church data signals
+  protected readonly selectedDistrict = signal<string>('');
+  protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
+  protected readonly allLocations = toSignal(this.churchDataService.getAllLocations(), { initialValue: [] });
+  protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
 
   constructor() {
     const navState = this.router.getCurrentNavigation()?.extras.state;
@@ -157,14 +165,8 @@ export class PremaritalRegister {
           Validators.pattern(/^[a-zA-Z\s]*$/),
         ],
       ],
-      churchName: [
-        '',
-        [
-          Validators.required,
-          Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z0-9\s]*$/),
-        ],
-      ],
+      churchDistrict: ['', Validators.required],
+      churchName: [{ value: '', disabled: true }, Validators.required],
       fianceName: [
         '',
         [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)],
@@ -335,7 +337,8 @@ export class PremaritalRegister {
       age: Number(raw.age),
       education: raw.education,
       occupation: raw.occupation,
-      churchName: raw.churchName,
+      churchId: this.selectedChurch()?.id || null,
+      priestName: this.selectedChurch()?.priestName || null,
       fianceName: raw.fianceName || undefined,
       dateOfMarriage: raw.dateOfMarriage
         ? this.toUtcIsoString(raw.dateOfMarriage)
@@ -427,6 +430,33 @@ export class PremaritalRegister {
 
   protected readonly timezoneDisplay: string =
     'Format: DD/MM/YYYY | Time Zone: IST (UTC+05:30)';
+
+  onDistrictChange(district: string): void {
+    this.selectedDistrict.set(district);
+    this.form.patchValue({ churchName: '' }); // Reset church selection
+    this.selectedChurch.set(null); // Reset selected church
+    
+    if (district) {
+      this.form.get('churchName')?.enable(); // Enable church name field
+      this.churchDataService.getChurchesByLocationAndSearch(district).subscribe({
+        next: (churches) => {
+          this.availableChurches.set(churches);
+        },
+        error: (err) => {
+          console.error('Error loading churches:', err);
+          this.availableChurches.set([]);
+        }
+      });
+    } else {
+      this.form.get('churchName')?.disable(); // Disable church name field
+      this.availableChurches.set([]);
+    }
+  }
+
+  onChurchChange(churchName: string): void {
+    const church = this.availableChurches().find(c => c.name === churchName);
+    this.selectedChurch.set(church || null);
+  }
 
   private focusFirstInvalidControl(): void {
     try {

@@ -5,7 +5,7 @@
 export interface GeneralRegisterDto {
   address: string | null;
   age?: number;
-  churchName?: string | null;
+  churchId?: number | null;
   declaration?: boolean;
   education: string | null;
   email: string | null;
@@ -16,6 +16,7 @@ export interface GeneralRegisterDto {
   occupation: string | null;
   paymentStatus?: boolean;
   phone: string | null;
+  priestName?: string | null;
   recaptchaToken: string | null;
   sessionType: string | null;
   sex: string | null;
