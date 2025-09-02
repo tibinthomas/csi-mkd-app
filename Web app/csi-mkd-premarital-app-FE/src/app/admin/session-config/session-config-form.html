@@ -24,8 +24,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-button type="button" (click)="close()" i18n>Cancel</button>
-  <button mat-raised-button color="primary" type="button" [disabled]="form.invalid" (click)="onSubmit()">
+  <button mat-flat-button color="primary" type="button" [disabled]="form.invalid" (click)="onSubmit()">
     {{ isEdit() ? "Update" : "Create" }}
   </button>
+  <button mat-stroked-button type="button" (click)="close()" i18n>Cancel</button>
 </mat-dialog-actions>

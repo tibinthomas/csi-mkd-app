@@ -47,6 +47,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatNativeDateModule,
+  provideNativeDateAdapter,
+} from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -55,7 +60,11 @@ import { SessionsFallbackService } from '../../core/services/sessions-fallback.s
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
 import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
-import { ChurchDataService } from '../../core/services/church-data.service';
+import {
+  ChurchDataService,
+  ChurchWithDetails,
+} from '../../core/services/church-data.service';
+import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 
 @Component({
   selector: 'app-premarital-list',
@@ -81,6 +90,9 @@ import { ChurchDataService } from '../../core/services/church-data.service';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatRadioModule,
     MatCardModule,
     MatTooltipModule,
   ],
@@ -384,6 +396,7 @@ export class PremaritalComponent {
           education: result.education,
           address: result.address,
           churchId: result.churchId,
+          churchName: result.churchName,
           priestName: result.priestName,
           email: result.email,
           phone: result.phone,
@@ -392,12 +405,13 @@ export class PremaritalComponent {
           ssTeacher: result.SsTeacher || false,
           youthFellowship: result.YouthFellowship || false,
           other: result.Other || null,
-          // Keep existing values that are not editable in the form
-          dateOfMarriage: reg.dateOfMarriage || null,
-          days: reg.days || null,
-          declaration: reg.declaration || true,
+          dateOfMarriage: result.dateOfMarriage
+            ? new Date(result.dateOfMarriage).toISOString()
+            : reg.dateOfMarriage || null,
+          days: result.days || reg.days || null,
+          declaration: result.declaration || true,
           paymentStatus: reg.paymentStatus || false,
-          sessionId: reg.sessionId || 0,
+          sessionId: result.sessionId || reg.sessionId || 0,
         };
 
         this.api
@@ -701,7 +715,7 @@ export class PremaritalComponent {
           <mat-icon>download</mat-icon>
           } Download
         </button>
-        <button mat-button mat-dialog-close [disabled]="isLoading()">
+        <button mat-stroked-button mat-dialog-close [disabled]="isLoading()">
           Cancel
         </button>
       </div>
@@ -900,9 +914,11 @@ export class CertificatePreviewDialog {
       >Are you sure you want to approve this payment?</mat-dialog-content
     >
     <mat-dialog-actions align="end">
-      <button mat-button (click)="dialogRef.close(false)">Cancel</button>
-      <button mat-raised-button color="primary" (click)="dialogRef.close(true)">
+      <button mat-flat-button color="primary" (click)="dialogRef.close(true)">
         Approve
+      </button>
+      <button mat-stroked-button (click)="dialogRef.close(false)">
+        Cancel
       </button>
     </mat-dialog-actions>
   `,
@@ -928,7 +944,9 @@ export class ConfirmationDialog {
       <span class="text-red-600">This action cannot be undone.</span>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-button (click)="dialogRef.close(false)">Cancel</button>
+      <button mat-stroked-button (click)="dialogRef.close(false)">
+        Cancel
+      </button>
       <button mat-raised-button color="warn" (click)="dialogRef.close(true)">
         Delete
       </button>
@@ -965,7 +983,24 @@ export class DeleteConfirmationDialog {
           </mat-form-field>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Father's Name</mat-label>
+          <input matInput formControlName="fatherName" required />
+          <mat-error>Father's Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Address</mat-label>
+          <textarea
+            matInput
+            formControlName="address"
+            rows="3"
+            required
+          ></textarea>
+          <mat-error>Address is required</mat-error>
+        </mat-form-field>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
             <mat-label>Sex</mat-label>
             <mat-select formControlName="sex" required>
@@ -987,87 +1022,171 @@ export class DeleteConfirmationDialog {
             />
             <mat-error>Age is required</mat-error>
           </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Father's Name</mat-label>
-            <input matInput formControlName="fatherName" required />
-            <mat-error>Father's Name is required</mat-error>
-          </mat-form-field>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <mat-form-field appearance="fill">
-            <mat-label>Occupation</mat-label>
-            <input matInput formControlName="occupation" />
-          </mat-form-field>
-
           <mat-form-field appearance="fill">
             <mat-label>Education</mat-label>
             <input matInput formControlName="education" required />
             <mat-error>Education is required</mat-error>
           </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Occupation</mat-label>
+            <input matInput formControlName="occupation" required />
+            <mat-error>Occupation is required</mat-error>
+          </mat-form-field>
         </div>
 
+        <div class="space-y-4">
+          <h3 class="text-lg font-medium">Church Membership</h3>
+          <mat-radio-group
+            formControlName="churchMembership"
+            class="flex flex-col space-y-2"
+          >
+            <mat-radio-button value="member">CSI Member</mat-radio-button>
+            <mat-radio-button value="not-member"
+              >Non-CSI Member</mat-radio-button
+            >
+          </mat-radio-group>
+          @if (editForm.get('churchMembership')?.hasError('required') &&
+          editForm.get('churchMembership')?.touched) {
+          <mat-error>Please select church membership status</mat-error>
+          }
+        </div>
+
+        @if (editForm.get('churchMembership')?.value === 'member') {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill">
+            <mat-label>Church District</mat-label>
+            <mat-select
+              formControlName="churchDistrict"
+              (selectionChange)="onDistrictChange($event.value)"
+            >
+              @for (location of allLocations(); track location) {
+              <mat-option [value]="location">{{ location }}</mat-option>
+              }
+            </mat-select>
+            <mat-error>Church District is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Church Name</mat-label>
+            <mat-select
+              formControlName="churchName"
+              (selectionChange)="onChurchChange($event.value)"
+            >
+              @for (church of availableChurches(); track church.id) {
+              <mat-option [value]="church.name">{{ church.name }}</mat-option>
+              }
+            </mat-select>
+            <mat-error>Church Name is required</mat-error>
+          </mat-form-field>
+        </div>
+        } @if (editForm.get('churchMembership')?.value === 'not-member') {
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Address</mat-label>
-          <textarea
+          <mat-label>Church Name</mat-label>
+          <input matInput formControlName="manualChurchName" required />
+          <mat-error>Church Name is required</mat-error>
+        </mat-form-field>
+        }
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Fiancé/Fiancée Name</mat-label>
+          <input matInput formControlName="fianceName" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Date of Marriage</mat-label>
+          <input
             matInput
-            formControlName="address"
-            rows="3"
-            required
-          ></textarea>
-          <mat-error>Address is required</mat-error>
+            readonly
+            [matDatepicker]="marriagePicker"
+            formControlName="dateOfMarriage"
+            [min]="minDate"
+            (click)="marriagePicker.open()"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="marriagePicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #marriagePicker></mat-datepicker>
         </mat-form-field>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
-            <mat-label>Church Name</mat-label>
-            <input matInput formControlName="churchId" type="number" required />
-            <mat-error>Church Name is required</mat-error>
+            <mat-label>Country Code</mat-label>
+            <mat-select formControlName="countryCode">
+              <mat-option value="+91">+91 (India)</mat-option>
+              <mat-option value="+1">+1 (US/Canada)</mat-option>
+              <mat-option value="+44">+44 (UK)</mat-option>
+              <mat-option value="+971">+971 (UAE)</mat-option>
+            </mat-select>
+            <mat-error>Country Code is required</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
-            <mat-label>Email</mat-label>
-            <input matInput type="email" formControlName="email" required />
-            <mat-error>Valid email is required</mat-error>
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phone" required maxlength="10" />
+            <mat-error>Valid 10-digit phone number is required</mat-error>
           </mat-form-field>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <mat-form-field appearance="fill">
-            <mat-label>Phone</mat-label>
-            <input matInput formControlName="phone" required />
-            <mat-error>Phone is required</mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="fill">
-            <mat-label>Fiancé/Fiancée Name</mat-label>
-            <input matInput formControlName="fianceName" />
-          </mat-form-field>
-        </div>
-
-        <div class="flex flex-wrap gap-4">
-          <mat-checkbox formControlName="choirMember"
-            >Choir Member</mat-checkbox
-          >
-          <mat-checkbox formControlName="ssTeacher">S.S. Teacher</mat-checkbox>
-          <mat-checkbox formControlName="youthFellowship"
-            >Youth Fellowship</mat-checkbox
-          >
         </div>
 
         <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Other Activities</mat-label>
-          <input matInput formControlName="other" />
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" required />
+          <mat-error>Valid email is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>No.of days</mat-label>
+          <mat-select formControlName="days">
+            <mat-option value="1 Day (Only with the Bishop's permission)"
+              >1 Day (Only with the Bishop's permission)</mat-option
+            >
+            <mat-option value="3 Days">3 Days</mat-option>
+          </mat-select>
+          <mat-error>Please select the number of days.</mat-error>
+        </mat-form-field>
+
+        <div class="space-y-4" formGroupName="churchActivities">
+          <h3 class="text-lg font-medium">Church Activities</h3>
+          <div class="flex flex-wrap gap-4">
+            <mat-checkbox formControlName="choirMember"
+              >Choir Member</mat-checkbox
+            >
+            <mat-checkbox formControlName="ssTeacher"
+              >S.S. Teacher</mat-checkbox
+            >
+            <mat-checkbox formControlName="youthFellowship"
+              >Youth Fellowship</mat-checkbox
+            >
+          </div>
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Other Activities</mat-label>
+            <input matInput formControlName="other" />
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Session</mat-label>
+          <mat-select formControlName="sessionId">
+            @for (session of sessionList(); track session.id) {
+            <mat-option [value]="session.id">{{
+              session.sessionName
+            }}</mat-option>
+            }
+          </mat-select>
+          <mat-error>Session is required</mat-error>
         </mat-form-field>
       </mat-dialog-content>
 
       <mat-dialog-actions align="end">
-        <button mat-button type="button" (click)="dialogRef.close()">
+        <button mat-stroked-button type="button" (click)="dialogRef.close()">
           Cancel
         </button>
         <button
-          mat-raised-button
+          mat-flat-button
           color="primary"
           type="submit"
           [disabled]="editForm.invalid"
@@ -1084,46 +1203,281 @@ export class DeleteConfirmationDialog {
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
     CommonModule,
   ],
+  providers: [provideNativeDateAdapter()],
 })
 export class EditRegistrationDialog {
   dialogRef = inject<MatDialogRef<EditRegistrationDialog>>(MatDialogRef);
   data = inject(MAT_DIALOG_DATA);
   private fb = inject(FormBuilder);
+  private churchDataService = inject(ChurchDataService);
+  private sessionsFallbackService = inject(SessionsFallbackService);
 
   editForm: FormGroup;
+  protected readonly minDate = new Date();
+
+  // Church data signals
+  protected readonly selectedDistrict = signal<string>('');
+  protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
+  protected readonly allLocations = toSignal(
+    this.churchDataService.getAllLocations(),
+    { initialValue: [] }
+  );
+  protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
+
+  // Session data
+  private readonly sessions$ = this.sessionsFallbackService
+    .getAllSessions()
+    .pipe(
+      map((data: any) => {
+        return data
+          .map((session: any) => ({
+            ...session,
+            startDate: session.startDate,
+            endDate: session.endDate,
+          }))
+          .sort((a: any, b: any) => {
+            // Sort by startDate in ascending order
+            return (
+              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            );
+          });
+      }),
+      catchError((err) => {
+        console.error('Error loading sessions:', err);
+        return of([]);
+      })
+    );
+
+  protected readonly sessionList = toSignal(this.sessions$, {
+    initialValue: [],
+  });
 
   constructor() {
     const reg = this.data.registration;
+
+    // Parse phone number to extract country code and phone
+    const phoneMatch = reg.phone?.match(/^(\+\d+)(\d{10})$/);
+    const countryCode = phoneMatch ? phoneMatch[1] : '+91';
+    const phoneNumber = phoneMatch
+      ? phoneMatch[2]
+      : reg.phone?.replace(/^\+\d+/, '') || '';
+
+    // Determine church membership based on churchId
+    const churchMembership = reg.churchId ? 'member' : 'not-member';
+
     this.editForm = this.fb.group({
-      firstName: [reg.firstName || '', Validators.required],
-      lastName: [reg.lastName || '', Validators.required],
+      firstName: [
+        reg.firstName || '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      lastName: [
+        reg.lastName || '',
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(50),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      fatherName: [
+        reg.fatherName || '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      address: [
+        reg.address || '',
+        [
+          Validators.required,
+          Validators.maxLength(250),
+          Validators.pattern(/^[a-zA-Z0-9\s,.-]*$/),
+        ],
+      ],
       sex: [reg.sex || '', Validators.required],
       age: [
         reg.age || '',
         [Validators.required, Validators.min(1), Validators.max(120)],
       ],
-      fatherName: [reg.fatherName || '', Validators.required],
-      occupation: [reg.occupation || ''],
-      education: [reg.education || '', Validators.required],
-      address: [reg.address || '', Validators.required],
-      churchId: [reg.churchId || null, Validators.required],
-      priestName: [reg.priestName || ''],
-      email: [reg.email || '', [Validators.required, Validators.email]],
-      phone: [reg.phone || '', Validators.required],
-      fianceName: [reg.fianceName || ''],
-      choirMember: [reg.ChoirMember || false],
-      ssTeacher: [reg.SsTeacher || false],
-      youthFellowship: [reg.YouthFellowship || false],
-      other: [reg.Other || ''],
+      education: [
+        reg.education || '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      occupation: [
+        reg.occupation || '',
+        [
+          Validators.required,
+          Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-Z\s]*$/),
+        ],
+      ],
+      churchMembership: [churchMembership, Validators.required],
+      churchDistrict: [reg.churchDistrict || ''],
+      churchName: [reg.churchName || ''],
+      manualChurchName: [reg.churchName && !reg.churchId ? reg.churchName : ''],
+      fianceName: [
+        reg.fianceName || '',
+        [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)],
+      ],
+      dateOfMarriage: [
+        reg.dateOfMarriage ? new Date(reg.dateOfMarriage) : null,
+      ],
+      countryCode: [countryCode, Validators.required],
+      phone: [
+        phoneNumber,
+        [Validators.required, Validators.pattern(/^\d{10}$/)],
+      ],
+      email: [
+        reg.email || '',
+        [Validators.required, Validators.email, emailDomainValidator()],
+      ],
+      days: [reg.days || '', Validators.required],
+      churchActivities: this.fb.group({
+        choirMember: [reg.churchActivities?.ChoirMember || false],
+        ssTeacher: [reg.churchActivities?.SsTeacher || false],
+        youthFellowship: [reg.churchActivities?.YouthFellowship || false],
+        other: [reg.churchActivities?.Other || ''],
+      }),
+      declaration: [true, Validators.requiredTrue],
+      sessionId: [reg.sessionId || '', Validators.required],
     });
+
+    // Set up church membership validation logic
+    this.setupChurchMembershipValidation();
+
+    // Initialize church data if user is a member
+    if (churchMembership === 'member') {
+      this.initializeChurchData(reg);
+    }
+  }
+
+  private setupChurchMembershipValidation(): void {
+    this.editForm
+      .get('churchMembership')
+      ?.valueChanges.subscribe((membership) => {
+        if (membership === 'not-member') {
+          this.editForm.patchValue({ churchDistrict: '', churchName: '' });
+          this.editForm.get('churchDistrict')?.clearValidators();
+          this.editForm.get('churchName')?.clearValidators();
+          this.editForm
+            .get('manualChurchName')
+            ?.setValidators([Validators.required]);
+        } else if (membership === 'member') {
+          this.editForm.patchValue({ manualChurchName: '' });
+          this.editForm
+            .get('churchDistrict')
+            ?.setValidators([Validators.required]);
+          this.editForm.get('churchName')?.setValidators([Validators.required]);
+          this.editForm.get('manualChurchName')?.clearValidators();
+        }
+        this.editForm.get('churchDistrict')?.updateValueAndValidity();
+        this.editForm.get('churchName')?.updateValueAndValidity();
+        this.editForm.get('manualChurchName')?.updateValueAndValidity();
+      });
+  }
+
+  private initializeChurchData(reg: any): void {
+    // If we have church data, try to find and set the district
+    if (reg.churchId) {
+      this.churchDataService.getAllLocations().subscribe((locations) => {
+        // Find which district this church belongs to
+        for (const location of locations) {
+          this.churchDataService
+            .getChurchesByLocationAndSearch(location)
+            .subscribe((churches) => {
+              const church = churches.find((c) => c.id === reg.churchId);
+              if (church) {
+                this.selectedDistrict.set(location);
+                this.availableChurches.set(churches);
+                this.selectedChurch.set(church);
+                this.editForm.patchValue({
+                  churchDistrict: location,
+                  churchName: church.name,
+                });
+              }
+            });
+        }
+      });
+    }
+  }
+
+  onDistrictChange(district: string): void {
+    this.selectedDistrict.set(district);
+    this.editForm.patchValue({ churchName: '' });
+    this.selectedChurch.set(null);
+
+    if (district) {
+      this.churchDataService
+        .getChurchesByLocationAndSearch(district)
+        .subscribe({
+          next: (churches) => {
+            this.availableChurches.set(churches);
+          },
+          error: (err) => {
+            console.error('Error loading churches:', err);
+            this.availableChurches.set([]);
+          },
+        });
+    } else {
+      this.availableChurches.set([]);
+    }
+  }
+
+  onChurchChange(churchName: string): void {
+    const church = this.availableChurches().find((c) => c.name === churchName);
+    this.selectedChurch.set(church || null);
   }
 
   onSubmit(): void {
     if (this.editForm.valid) {
-      this.dialogRef.close(this.editForm.value);
+      const formValue = this.editForm.value;
+
+      // Combine country code and phone for submission
+      const phone = `${formValue.countryCode}${formValue.phone}`;
+
+      const result = {
+        ...formValue,
+        phone,
+        churchId:
+          formValue.churchMembership === 'member'
+            ? this.selectedChurch()?.id
+            : null,
+        priestName:
+          formValue.churchMembership === 'member'
+            ? this.selectedChurch()?.priestName
+            : null,
+        churchName:
+          formValue.churchMembership === 'member'
+            ? formValue.churchName
+            : formValue.manualChurchName,
+        dateOfMarriage: formValue.dateOfMarriage
+          ? formValue.dateOfMarriage
+          : null,
+        // Map church activities to the expected format
+        ChoirMember: formValue.churchActivities?.choirMember || false,
+        SsTeacher: formValue.churchActivities?.ssTeacher || false,
+        YouthFellowship: formValue.churchActivities?.youthFellowship || false,
+        Other: formValue.churchActivities?.other || '',
+      };
+
+      this.dialogRef.close(result);
     }
   }
 }

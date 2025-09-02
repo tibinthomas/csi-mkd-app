@@ -123,16 +123,18 @@ export class SessionConfig implements OnInit {
   fetchSessions(year: number) {
     this.isLoading.set(true);
 
-    this.sessionsFallbackService.apiSessionconfigSessionsGet({ year }).subscribe({
-      next: (sessions: any) => {
-        this.allSessions.set(sessions);
-        this.isLoading.set(false);
-      },
-      error: (err) => {
-        console.error('Failed to load sessions', err),
+    this.sessionsFallbackService
+      .apiSessionconfigSessionsGet({ year })
+      .subscribe({
+        next: (sessions: any) => {
+          this.allSessions.set(sessions);
           this.isLoading.set(false);
-      },
-    });
+        },
+        error: (err) => {
+          console.error('Failed to load sessions', err),
+            this.isLoading.set(false);
+        },
+      });
   }
 
   chooseYear(normalizedYear: Date, datepicker: MatDatepicker<Date>) {
@@ -182,20 +184,22 @@ export class SessionConfig implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.sessionsFallbackService.apiSessionconfigIdDelete({ id: session.id }).subscribe({
-          next: () => {
-            this.sessionDataService.refresh();
-          },
-          error: (err) => {
-            const errorMsg =
-              JSON.parse(err?.error).message ??
-              'Failed to delete session configuration.';
-            console.log(err);
-            this.dialog.open(AlertDialog, {
-              data: { message: errorMsg },
-            });
-          },
-        });
+        this.sessionsFallbackService
+          .apiSessionconfigIdDelete({ id: session.id })
+          .subscribe({
+            next: () => {
+              this.sessionDataService.refresh();
+            },
+            error: (err) => {
+              const errorMsg =
+                JSON.parse(err?.error).message ??
+                'Failed to delete session configuration.';
+              console.log(err);
+              this.dialog.open(AlertDialog, {
+                data: { message: errorMsg },
+              });
+            },
+          });
       }
     });
   }
@@ -252,13 +256,15 @@ export class SessionConfig implements OnInit {
           startDate: this.toUtcIsoString(result.startDate),
           endDate: this.toUtcIsoString(result.endDate),
         };
-        this.sessionsFallbackService.apiSessionconfigPost({ body: session }).subscribe({
-          next: () => this.sessionDataService.refresh(),
-          error: () =>
-            this.dialog.open(AlertDialog, {
-              data: { message: 'Failed to create session' },
-            }),
-        });
+        this.sessionsFallbackService
+          .apiSessionconfigPost({ body: session })
+          .subscribe({
+            next: () => this.sessionDataService.refresh(),
+            error: () =>
+              this.dialog.open(AlertDialog, {
+                data: { message: 'Failed to create session' },
+              }),
+          });
       }
     });
   }
@@ -295,8 +301,8 @@ export class SessionConfig implements OnInit {
     <h1 mat-dialog-title>Confirmation</h1>
     <div mat-dialog-content>{{ data.message }}</div>
     <div mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="true">Yes</button>
-      <button mat-button (click)="onNoClick()">No</button>
+      <button mat-flat-button [mat-dialog-close]="true">Yes</button>
+      <button mat-stroked-button (click)="onNoClick()">No</button>
     </div>
   `,
   imports: [MatDialogModule, MatButtonModule],

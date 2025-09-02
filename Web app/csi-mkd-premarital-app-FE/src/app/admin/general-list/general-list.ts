@@ -349,9 +349,11 @@ export class GeneralList {
       >Are you sure you want to approve this payment?</mat-dialog-content
     >
     <mat-dialog-actions align="end">
-      <button mat-button (click)="dialogRef.close(false)">Cancel</button>
-      <button mat-raised-button color="primary" (click)="dialogRef.close(true)">
+      <button mat-flat-button color="primary" (click)="dialogRef.close(true)">
         Approve
+      </button>
+      <button mat-stroked-button (click)="dialogRef.close(false)">
+        Cancel
       </button>
     </mat-dialog-actions>
   `,
