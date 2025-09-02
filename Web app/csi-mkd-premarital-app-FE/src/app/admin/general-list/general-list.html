@@ -31,7 +31,7 @@
         <mat-checkbox [checked]="unapprovedOnly()" (change)="onUnapprovedChange($event.checked)" i18n>
           Show Unapproved Payments Only
         </mat-checkbox>
-        <button mat-stroked-button color="accent" (click)="handleDownload()">
+        <button mat-raised-button color="accent" (click)="handleDownload()">
           <mat-icon>download</mat-icon>
           <span i18n>Download Full List</span>
         </button>
@@ -83,7 +83,7 @@
             <th mat-header-cell *matHeaderCellDef i18n><strong>Payment</strong></th>
             <td mat-cell *matCellDef="let reg">
               @if (reg.paymentStatus === false) {
-              <button mat-raised-button color="accent" (click)="approvePayment(reg); $event.stopPropagation()">
+              <button mat-flat-button color="accent" (click)="approvePayment(reg); $event.stopPropagation()">
                 @if(isApproving() === reg.id) {
                 <mat-spinner diameter="20"></mat-spinner>
                 } @else { <span i18n>Approve</span> }

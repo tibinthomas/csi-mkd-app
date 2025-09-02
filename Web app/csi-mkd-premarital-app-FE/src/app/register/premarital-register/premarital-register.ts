@@ -264,7 +264,10 @@ export class PremaritalRegister {
           ...session,
           startDate: session.startDate,
           endDate: session.endDate,
-        }));
+        })).sort((a: any, b: any) => {
+          // Sort by startDate in ascending order
+          return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+        });
       }),
       catchError((err) => {
         console.error('Error loading sessions:', err);

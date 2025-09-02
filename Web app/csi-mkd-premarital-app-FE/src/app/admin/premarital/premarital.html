@@ -218,7 +218,7 @@
 
                   <!-- Column 2: Right Details -->
                   <div class="space-y-3">
-                    <div><strong i18n>Church:</strong> {{ getChurchNameById(reg.churchId) }}</div>
+                    <div><strong i18n>Church:</strong> {{ reg.churchName || getChurchNameById(reg.churchId) }}</div>
                     <div><strong i18n>Priest Name:</strong> {{ reg.priestName }}</div>
                     <div><strong i18n>Fiancé's Name:</strong> {{ reg.fianceName }}</div>
                     <div><strong i18n>Date of Marriage:</strong> {{ reg.dateOfMarriage | date : "mediumDate" }}</div>

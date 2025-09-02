@@ -179,8 +179,8 @@ export class Instructors implements OnInit {
     <h1 mat-dialog-title>Confirmation</h1>
     <div mat-dialog-content>{{ data.message }}</div>
     <div mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="true">Yes</button>
-      <button mat-button [mat-dialog-close]="false">No</button>
+      <button mat-flat-button [mat-dialog-close]="true">Yes</button>
+      <button mat-stroked-button [mat-dialog-close]="false">No</button>
     </div>
   `,
   imports: [MatDialogModule, MatButtonModule],

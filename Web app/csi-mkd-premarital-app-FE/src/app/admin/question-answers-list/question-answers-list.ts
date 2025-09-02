@@ -16,8 +16,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { QuestionAnswersService } from '../../../api/api-main-app/services/question-answers.service';
 import { QuestionAnswersResponseDto } from '../../../api/api-main-app/models/question-answers-response-dto';
+import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services/csi-mkd-premarital-app-be.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
+import { switchMap, of, map } from 'rxjs';
 
 @Component({
   selector: 'app-question-answers-list',
@@ -39,9 +41,60 @@ import { DatePipe } from '@angular/common';
 })
 export class QuestionAnswersList {
   private readonly questionAnswersService = inject(QuestionAnswersService);
+  private readonly apiService = inject(CsiMkdPremaritalAppBeService);
+  private readonly registrationCache = new Map<string, { name: string; email: string }>();
 
   readonly questionAnswersResource = rxResource({
-    stream: () => this.questionAnswersService.getAllQuestionAnswers(),
+    stream: () => this.questionAnswersService.getAllQuestionAnswers().pipe(
+      switchMap((questionAnswers) => {
+        if (!questionAnswers || questionAnswers.length === 0) {
+          return of([]);
+        }
+        
+        // Get all unique registration IDs that we don't have cached
+        const uncachedIds = questionAnswers
+          .map(qa => qa.premaritalRegistrationId)
+          .filter(id => !this.registrationCache.has(id));
+        
+        if (uncachedIds.length === 0) {
+          // All data is cached, return enhanced question answers immediately
+          return of(questionAnswers.map(qa => ({
+            ...qa,
+            participantName: this.registrationCache.get(qa.premaritalRegistrationId)?.name || 'Unknown',
+            participantEmail: this.registrationCache.get(qa.premaritalRegistrationId)?.email || 'Unknown',
+          })));
+        }
+        
+        // Fetch all registrations to get name and email data
+        return this.apiService.apiPremaritalregisterFilterGet({
+          page: 1,
+          pageSize: 1000,
+          search: '',
+          unapprovedOnly: false,
+          activeSessionOnly: false,
+        }).pipe(
+          map((response: any) => {
+            const data = typeof response === 'string' ? JSON.parse(response) : response;
+            const registrations = data.items || [];
+            
+            // Cache the registration data
+            registrations.forEach((reg: any) => {
+              this.registrationCache.set(reg.id.toString(), {
+                name: `${reg.firstName} ${reg.lastName}`,
+                email: reg.email,
+              });
+            });
+            
+            // Return enhanced question answers
+            return questionAnswers.map(qa => ({
+              ...qa,
+              participantName: this.registrationCache.get(qa.premaritalRegistrationId)?.name || 'Unknown',
+              participantEmail: this.registrationCache.get(qa.premaritalRegistrationId)?.email || 'Unknown',
+            }));
+          })
+        );
+      })
+    ),
   });
 
   readonly questionAnswers = computed(() => {
