@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-feedback-questions',
@@ -28,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
+    MatCardModule,
   ],
   templateUrl: './feedback-questions.html',
   styleUrl: './feedback-questions.scss',
