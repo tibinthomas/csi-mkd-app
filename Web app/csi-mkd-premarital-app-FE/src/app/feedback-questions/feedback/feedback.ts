@@ -28,6 +28,7 @@ import {
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import classListData from './class-list.json';
 
 @Component({
   selector: 'app-feedback',
@@ -119,30 +120,7 @@ export class Feedback implements OnInit {
     organizationRating:  $localize`Organization`,
   };
 
-  protected readonly classTitles = signal<any>([
-    {
-      id: '1',
-      title:
-        'Class 1: Biblical aspects of Marriage, Faith and Practices of CSI',
-    },
-    { id: '2', title: 'Class 2: Communication' },
-    { id: '3', title: 'Class 3: Family and Parenting' },
-    { id: '4', title: 'Class 4: Know your Partner' },
-    { id: '5', title: 'Class 5: Emotional Hygiene and Stress management ' },
-    { id: '6', title: 'Class 6: Sex and Spirituality' },
-    { id: '7', title: 'Class 7: Addiction' },
-    { id: '8', title: 'Class 8: Law in Marriage' },
-    { id: '9', title: 'Class 9: Personality' },
-    { id: '10', title: 'Class 10: Management' },
-    { id: '11', title: 'Class 11: Conflict Management' },
-    { id: '12', title: 'Class 12: Pregnancy and Childbirth' },
-    { id: '13', title: "Class 13: Men's Sexuality" },
-    {
-      id: '14',
-      title: 'Class 14: Sacrementality in Marriage and marriage rehearsal',
-    },
-    { id: '15', title: 'Class 15: Overall Feedback' },
-  ]);
+  protected readonly classTitles = signal<any>(classListData);
 
   protected readonly feedbackForm = this.fb.group({
     classTitle: [null as number | null, [Validators.required]], // required

@@ -123,6 +123,8 @@ import { CheckEmailResponseDto } from '../models/check-email-response-dto';
 import { ClassFeedbackAnalyticsDto } from '../models/class-feedback-analytics-dto';
 import { ClassFeedbackResponseDto } from '../models/class-feedback-response-dto';
 import { EmailConfig } from '../models/email-config';
+import { getFeedbackEntriesCountByRegistrationId } from '../fn/csi-mkd-premarital-app-be/get-feedback-entries-count-by-registration-id';
+import { GetFeedbackEntriesCountByRegistrationId$Params } from '../fn/csi-mkd-premarital-app-be/get-feedback-entries-count-by-registration-id';
 import { getStructuredFeedbackDebug } from '../fn/csi-mkd-premarital-app-be/get-structured-feedback-debug';
 import { GetStructuredFeedbackDebug$Params } from '../fn/csi-mkd-premarital-app-be/get-structured-feedback-debug';
 import { healthCosmosGet } from '../fn/csi-mkd-premarital-app-be/health-cosmos-get';
@@ -1112,6 +1114,39 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
   apiCosmosFeedbackCompletedRegistrationIdGet(params: ApiCosmosFeedbackCompletedRegistrationIdGet$Params, context?: HttpContext): Observable<Array<number>> {
     return this.apiCosmosFeedbackCompletedRegistrationIdGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<number>>): Array<number> => r.body)
+    );
+  }
+
+  /** Path part for operation `getFeedbackEntriesCountByRegistrationId()` */
+  static readonly GetFeedbackEntriesCountByRegistrationIdPath = '/api/cosmos/feedback/count/{registrationId}';
+
+  /**
+   * Get the total count of feedback entries for a specific premarital registration ID.
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getFeedbackEntriesCountByRegistrationId()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getFeedbackEntriesCountByRegistrationId$Response(params: GetFeedbackEntriesCountByRegistrationId$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+    return getFeedbackEntriesCountByRegistrationId(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Get the total count of feedback entries for a specific premarital registration ID.
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getFeedbackEntriesCountByRegistrationId$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getFeedbackEntriesCountByRegistrationId(params: GetFeedbackEntriesCountByRegistrationId$Params, context?: HttpContext): Observable<any> {
+    return this.getFeedbackEntriesCountByRegistrationId$Response(params, context).pipe(
+      map((r: StrictHttpResponse<any>): any => r.body)
     );
   }
 
