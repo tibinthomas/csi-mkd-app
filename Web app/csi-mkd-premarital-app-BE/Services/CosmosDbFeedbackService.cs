@@ -124,6 +124,11 @@ namespace csi_mkd_premarital_app_BE.Services
             return feedbacks.Select(MapToResponseDto).ToList();
         }
 
+        public async Task<int> GetFeedbackEntriesCountByRegistrationIdAsync(Guid registrationId)
+        {
+            return await _repository.GetFeedbackEntriesCountByRegistrationIdAsync(registrationId);
+        }
+
         private static ClassFeedbackResponseDto MapToResponseDto(ClassFeedback classFeedback)
         {
             // Convert model feedback entries to DTO feedbacks

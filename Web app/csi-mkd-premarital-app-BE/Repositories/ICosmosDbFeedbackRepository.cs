@@ -14,5 +14,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<Dictionary<int, double>> GetAverageRatingsByClassAsync();
         Task<long> GetFeedbackCountAsync();
         Task<List<ClassFeedback>> GetRecentFeedbackAsync(int count = 10);
+        Task<int> GetFeedbackEntriesCountByRegistrationIdAsync(Guid registrationId);
     }
 }

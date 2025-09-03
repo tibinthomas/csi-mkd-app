@@ -14,5 +14,6 @@ namespace csi_mkd_premarital_app_BE.Services
         Task<List<ClassFeedbackResponseDto>> GetFeedbacksByClassIdAsync(int classId);
         Task<ClassFeedbackAnalyticsDto> GetFeedbackAnalyticsAsync();
         Task<List<ClassFeedbackResponseDto>> GetRecentFeedbackAsync(int count = 10);
+        Task<int> GetFeedbackEntriesCountByRegistrationIdAsync(Guid registrationId);
     }
 }

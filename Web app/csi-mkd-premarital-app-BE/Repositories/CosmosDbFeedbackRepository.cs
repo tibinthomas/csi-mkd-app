@@ -167,5 +167,16 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 .Take(count)
                 .ToListAsync();
         }
+
+        public async Task<int> GetFeedbackEntriesCountByRegistrationIdAsync(Guid registrationId)
+        {
+            var feedbacks = await _context.ClassFeedbacks
+                .AsNoTracking()
+                .Where(f => f.PremaritalRegistrationId == registrationId)
+                .Select(f => f.FeedbackEntries)
+                .ToListAsync();
+
+            return feedbacks.Sum(entries => entries.Count);
+        }
     }
 }

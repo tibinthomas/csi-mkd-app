@@ -70,6 +70,19 @@ namespace csi_mkd_premarital_app_BE.Endpoints
             .Produces<List<int>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(10)));
 
+            // Get feedback entries count by registration ID
+            group.MapGet("/count/{registrationId:guid}", async (
+                ICosmosDbFeedbackService service,
+                Guid registrationId) =>
+            {
+                var count = await service.GetFeedbackEntriesCountByRegistrationIdAsync(registrationId);
+                return Results.Ok(new { count });
+            })
+            .Produces<object>(StatusCodes.Status200OK)
+            .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(10)))
+            .WithName("GetFeedbackEntriesCountByRegistrationId")
+            .WithSummary("Get the total count of feedback entries for a specific premarital registration ID");
+
             // Get feedback by specific ID
             group.MapGet("/{id}/{partitionKey}", async (
                 ICosmosDbFeedbackService service,
