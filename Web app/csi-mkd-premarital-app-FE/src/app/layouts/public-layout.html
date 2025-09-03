@@ -4,7 +4,7 @@
   >
     <!-- Left: CSI Logo + Title + CSI MKD Logo -->
     <div
-      class="flex-1 lg:flex-auto flex items-center justify-start gap-4 hover:scale-101 cursor-pointer px-2"
+      class="flex-1 lg:flex-auto flex items-center justify-center lg:justify-start gap-4 hover:scale-101 cursor-pointer px-2"
       routerLink="/about"
     >
       <!-- CSI Logo (Left of title) -->
@@ -91,80 +91,141 @@
         >
       </nav>
 
-      <!-- Language Selector -->
-      <app-language-selector class="header-icon-small"></app-language-selector>
-
-      <!-- Theme Toggle -->
-      <app-theme-toggle class="header-icon-small"></app-theme-toggle>
+      <!-- Desktop Action Icons -->
+      <div class="hidden lg:flex items-center space-x-3">
+        <app-language-selector class="header-icon-small"></app-language-selector>
+        <app-theme-toggle class="header-icon-small"></app-theme-toggle>
+      </div>
 
       <!-- Mobile Hamburger -->
       <button
-        [matMenuTriggerFor]="menu"
+        (click)="toggleMobileMenu()"
         class="lg:hidden active:animate-bounce"
         aria-label="Open navigation menu"
-        aria-expanded="false"
+        [attr.aria-expanded]="mobileMenuOpen()"
         aria-haspopup="true"
       >
-        <mat-icon aria-hidden="true">menu</mat-icon>
+        <mat-icon aria-hidden="true">{{ mobileMenuOpen() ? "close" : "menu" }}</mat-icon>
       </button>
     </div>
   </mat-toolbar>
 </header>
 
-<!-- Mobile Nav Menu -->
-<mat-menu #menu="matMenu" role="menu" aria-label="Mobile navigation menu">
-  <a
-    mat-menu-item
-    routerLink="/about"
-    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-    role="menuitem"
-    aria-label="About us page"
-    ><span i18n>About Us</span></a
-  >
-  <a
-    mat-menu-item
-    routerLink="/team-members"
-    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-    i18n
-    role="menuitem"
-    aria-label="Our team members page"
-    >Our Team</a
-  >
-  <a
-    mat-menu-item
-    routerLink="/register"
-    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-    i18n
-    role="menuitem"
-    aria-label="Registration page"
-    >Register</a
-  >
-  <a
-    mat-menu-item
-    routerLink="/feedback-questions"
-    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-    i18n
-    role="menuitem"
-    aria-label="Feedback page"
-    >Feedback</a
-  >
-  <a
-    mat-menu-item
-    routerLink="/sessions"
-    routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-    i18n
-    role="menuitem"
-    aria-label="Sessions page"
-    >Premarital Sessions</a
-  >
-  <!-- <mat-divider></mat-divider>
-  <div mat-menu-item disabled class="!opacity-60 !cursor-default text-xs font-medium uppercase tracking-wide">
-    Theme
+<!-- Mobile Overlay Menu -->
+@if (mobileMenuOpen()) {
+<div
+  class="lg:hidden fixed inset-0 z-40 mobile-menu-overlay overflow-y-auto theme-transition"
+  (click)="closeMobileMenu()"
+>
+  <!-- Header -->
+  <div class="p-4 pt-16">
+    <h3 class="text-sm pt-5 font-semibold text-rose-700 dark:text-gray-400 uppercase tracking-wide theme-transition">
+      Menu
+    </h3>
   </div>
-  <div mat-menu-item class="!p-2">
-    <app-theme-toggle></app-theme-toggle>
-  </div> -->
-</mat-menu>
+
+  <!-- Navigation Links -->
+  <nav role="navigation" aria-label="Mobile navigation" class="p-4 space-y-2" (click)="$event.stopPropagation()">
+    <a
+      routerLink="/about"
+      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      (click)="closeMobileMenu()"
+      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+      aria-label="About us page"
+    >
+      <mat-icon
+        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
+        >info</mat-icon
+      >
+      <span class="text-lg font-medium" i18n>About Us</span>
+    </a>
+
+    <a
+      routerLink="/team-members"
+      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      (click)="closeMobileMenu()"
+      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+      aria-label="Our team members page"
+    >
+      <mat-icon
+        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
+        >group</mat-icon
+      >
+      <span class="text-lg font-medium" i18n>Our Team</span>
+    </a>
+
+    <a
+      routerLink="/register"
+      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      (click)="closeMobileMenu()"
+      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+    >
+      <mat-icon
+        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
+        >app_registration</mat-icon
+      >
+      <span class="text-lg font-medium" i18n>Register</span>
+    </a>
+
+    <a
+      routerLink="/feedback-questions"
+      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      (click)="closeMobileMenu()"
+      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+    >
+      <mat-icon
+        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
+        >feedback</mat-icon
+      >
+      <span class="text-lg font-medium" i18n>Feedback</span>
+    </a>
+
+    <a
+      routerLink="/sessions"
+      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      (click)="closeMobileMenu()"
+      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+    >
+      <mat-icon
+        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
+        >calendar_month</mat-icon
+      >
+      <span class="text-lg font-medium" i18n>Sessions</span>
+    </a>
+  </nav>
+
+  <div class="mx-4 my-4 border-t border-rose-200 dark:border-gray-700 theme-transition"></div>
+
+  <!-- Settings Section -->
+  <div class="p-4 space-y-3" (click)="$event.stopPropagation()">
+    <h3 class="text-sm font-semibold text-rose-700 dark:text-gray-400 uppercase tracking-wide theme-transition">
+      Settings
+    </h3>
+
+    <!-- Language Selector -->
+    <div
+      class="flex items-center justify-between p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-colors theme-transition"
+    >
+      <div class="flex items-center">
+        <mat-icon class="mr-3 text-rose-600 dark:text-gray-400 theme-transition">language</mat-icon>
+        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition">Language</span>
+      </div>
+      <app-language-selector class="header-icon-small"></app-language-selector>
+    </div>
+
+    <!-- Theme Toggle -->
+    <div
+      class="flex items-center justify-between p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-colors theme-transition"
+    >
+      <div class="flex items-center">
+        <mat-icon class="mr-3 text-rose-600 dark:text-gray-400 theme-transition">palette</mat-icon>
+        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition">Theme</span>
+      </div>
+      <app-theme-toggle class="header-icon-small"></app-theme-toggle>
+    </div>
+  </div>
+</div>
+}
 
 <main role="main" class="animate-fade-in">
   <router-outlet></router-outlet>

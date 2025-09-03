@@ -27,3 +27,62 @@
   filter: invert(90%) hue-rotate(180deg) saturate(0.85) brightness(0.9)
     contrast(0.9);
 }
+
+/* Mobile Menu Overlay Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile menu container animation */
+.mobile-menu-overlay {
+  animation: fadeIn 0.3s ease-out;
+  background-color: rgb(255 241 242) !important; /* rose-50 for light theme */
+  
+  /* Light theme text colors */
+  h2, span, .mat-icon {
+    color: rgb(17 24 39) !important; /* gray-900 for text */
+  }
+}
+
+/* Dark theme override */
+:host-context([data-theme='dark']) .mobile-menu-overlay {
+  background-color: rgb(17 24 39) !important; /* gray-900 for dark theme */
+  
+  /* Dark theme text colors */
+  h2, span, .mat-icon {
+    color: white !important;
+  }
+}
+
+/* Active navigation item border fixes */
+.mobile-menu-overlay {
+  /* Light theme - force dark border for active items */
+  a[routerlinkactive] {
+    border-color: rgb(17 24 39) !important; /* black border in light theme */
+  }
+}
+
+:host-context([data-theme='dark']) .mobile-menu-overlay {
+  /* Dark theme - keep white border for active items */
+  a[routerlinkactive] {
+    border-color: white !important; /* white border in dark theme */
+  }
+}
+
+.mobile-menu-panel {
+  animation: slideInRight 0.3s ease-out;
+}
