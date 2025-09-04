@@ -56,6 +56,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
+import { QuestionAnswersService } from '../../../api/api-main-app/services/question-answers.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
@@ -65,6 +66,7 @@ import {
   ChurchWithDetails,
 } from '../../core/services/church-data.service';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
+import classListData from '../../feedback-questions/feedback/class-list.json';
 
 @Component({
   selector: 'app-premarital-list',
@@ -113,6 +115,7 @@ import { emailDomainValidator } from '../../core/validators/email-domain.validat
 export class PremaritalComponent {
   private readonly dialog = inject(MatDialog);
   private readonly api = inject(ApiService);
+  private readonly questionAnswersService = inject(QuestionAnswersService);
   private readonly sessionDataService = inject(SessionDataService);
   private readonly certificateService = inject(CertificateService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
@@ -140,6 +143,17 @@ export class PremaritalComponent {
   readonly isApproving = signal<number | null>(null);
   readonly isDeleting = signal<number | null>(null);
   readonly isEditing = signal<number | null>(null);
+  readonly isLoadingFeedback = signal<number | null>(null);
+  readonly isLoadingQuestionAnswer = signal<number | null>(null);
+
+  // Status caches for performance
+  protected readonly questionAnswerStatusCache = signal<Map<string, boolean>>(
+    new Map()
+  );
+  protected readonly feedbackStatusCache = signal<
+    Map<string, { completed: number; total: number }>
+  >(new Map());
+
   private _snackBar = inject(MatSnackBar);
 
   protected readonly churchData = toSignal(this.churchDataService.churchData$, {
@@ -658,6 +672,124 @@ export class PremaritalComponent {
       churchId,
       this.churchData()
     );
+  }
+
+  getFeedbackStatus(
+    registrationId: string
+  ): { completed: number; total: number } | null {
+    return this.feedbackStatusCache().get(registrationId) || null;
+  }
+
+  getFeedbackStatusDisplay(registrationId: string): string {
+    const status = this.getFeedbackStatus(registrationId);
+    return status ? `${status.completed}/${status.total}` : '...';
+  }
+
+  viewFeedbackStatus(reg: any): void {
+    const registrationId = reg.id.toString();
+
+    // Don't fetch if already cached
+    if (this.feedbackStatusCache().get(registrationId)) {
+      return;
+    }
+
+    this.fetchFeedbackStatus(reg);
+  }
+
+  refreshFeedbackStatus(reg: any): void {
+    const registrationId = reg.id.toString();
+    
+    // Remove from cache to force refresh
+    const newCache = new Map(this.feedbackStatusCache());
+    newCache.delete(registrationId);
+    this.feedbackStatusCache.set(newCache);
+    
+    this.fetchFeedbackStatus(reg);
+  }
+
+  private fetchFeedbackStatus(reg: any): void {
+    const registrationId = reg.id.toString();
+    
+    this.isLoadingFeedback.set(reg.id);
+
+    // Get total count from class list
+    const totalFeedbacks = classListData.length;
+
+    this.api
+      .getFeedbackEntriesCountByRegistrationId({ registrationId })
+      .subscribe({
+        next: (response: any) => {
+          const data =
+            typeof response === 'string' ? JSON.parse(response) : response;
+          const completedFeedbacks = data.count || 0;
+
+          const newCache = new Map(this.feedbackStatusCache());
+          newCache.set(registrationId, {
+            completed: completedFeedbacks,
+            total: totalFeedbacks,
+          });
+          this.feedbackStatusCache.set(newCache);
+          this.isLoadingFeedback.set(null);
+        },
+        error: () => {
+          const newCache = new Map(this.feedbackStatusCache());
+          newCache.set(registrationId, { completed: 0, total: totalFeedbacks });
+          this.feedbackStatusCache.set(newCache);
+          this.isLoadingFeedback.set(null);
+        },
+      });
+  }
+
+  getQuestionAnswerStatusFromCache(registrationId: string): boolean | null {
+    const cached = this.questionAnswerStatusCache().get(registrationId);
+    return cached !== undefined ? cached : null;
+  }
+
+  viewQuestionAnswerStatus(reg: any): void {
+    const registrationId = reg.id.toString();
+
+    // Don't fetch if already cached
+    if (this.questionAnswerStatusCache().get(registrationId) !== undefined) {
+      return;
+    }
+
+    this.fetchQuestionAnswerStatus(reg);
+  }
+
+  refreshQuestionAnswerStatus(reg: any): void {
+    const registrationId = reg.id.toString();
+    
+    // Remove from cache to force refresh
+    const newCache = new Map(this.questionAnswerStatusCache());
+    newCache.delete(registrationId);
+    this.questionAnswerStatusCache.set(newCache);
+    
+    this.fetchQuestionAnswerStatus(reg);
+  }
+
+  private fetchQuestionAnswerStatus(reg: any): void {
+    const registrationId = reg.id.toString();
+    
+    this.isLoadingQuestionAnswer.set(reg.id);
+
+    this.questionAnswersService
+      .getQuestionAnswersByRegistrationId({ registrationId })
+      .subscribe({
+        next: (response: any) => {
+          // If response exists and has data, consider it completed
+          const exists = response && (response.id || response.premaritalRegistrationId);
+          const newCache = new Map(this.questionAnswerStatusCache());
+          newCache.set(registrationId, exists);
+          this.questionAnswerStatusCache.set(newCache);
+          this.isLoadingQuestionAnswer.set(null);
+        },
+        error: () => {
+          const newCache = new Map(this.questionAnswerStatusCache());
+          newCache.set(registrationId, false);
+          this.questionAnswerStatusCache.set(newCache);
+          this.isLoadingQuestionAnswer.set(null);
+        },
+      });
   }
 }
 

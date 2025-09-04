@@ -5,7 +5,7 @@
     <!--src/app/about -->
        <trans-unit id="CSI Counselling Centre Title" datatype="html">
         <source>CSI Counselling Centre, Kottayam</source>
-        <target> സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ,കോട്ടയം</target>
+        <target> സി.എസ്.ഐ കൗൺസിലിംഗ് സെന്റർ,കോട്ടയം</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.ts</context>
           <context context-type="linenumber">48</context>
@@ -21,7 +21,7 @@
       </trans-unit>
       <trans-unit id="CSI Counselling Centre Location" datatype="html">
         <source>Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1</source>
-        <target>മദ്ധ്യകേരള മഹായിടവക | സിഎംഎസ് പ്രസ്സ് കോമ്പൗണ്ട്, കോട്ടയം-1</target>
+        <target>മദ്ധ്യകേരള മഹായിടവക | സി.എം.എസ് പ്രസ്സ് കോമ്പൗണ്ട്, കോട്ടയം-1</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.ts</context>
           <context context-type="linenumber">50</context>
@@ -382,7 +382,7 @@
       </trans-unit>
      <trans-unit id="470633038250390923" datatype="html">
         <source> CSI Counselling Centre, Kottayam </source>
-         <target>സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ,കോട്ടയം </target>
+         <target>സി.എസ്.ഐ കൗൺസിലിംഗ് സെന്റർ,കോട്ടയം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">11,12</context>
@@ -422,7 +422,7 @@
       </trans-unit>
       <trans-unit id="Who We Are Description" datatype="html">
         <source>With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided by a commitment to mental, emotional, and spiritual well-being.</source>
-                 <target>ബിഷപ്പ് റവ. ഡോ. മലയിൽ സാബു കോശി ചെറിയാന്റെ അനുഗ്രഹത്താൽ, സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ കാരുണ്യപൂർണ്ണവും, രഹസ്യാത്മകവും, തെളിവുകൾ അടിസ്ഥാനമാക്കിയുള്ളതുമായ കൗൺസിലിംഗിലൂടെ സമഗ്രമായ രോഗശാന്തി വാഗ്ദാനം ചെയ്യുന്നു. ഞങ്ങളുടെ സേവനങ്ങൾ മാനസികവും വൈകാരികവും ആത്മീയവുമായ ക്ഷേമത്തിനായുള്ള പ്രതിബദ്ധതയാൽ നയിക്കപ്പെടുന്നു.</target>
+                 <target>ബിഷപ്പ് റവ. ഡോ. മലയിൽ സാബു കോശി ചെറിയാന്റെ അനുഗ്രഹത്താൽ, സി.എസ്.ഐ കൗൺസിലിംഗ് സെന്റർ കാരുണ്യപൂർണ്ണവും, രഹസ്യാത്മകവും, തെളിവുകൾ അടിസ്ഥാനമാക്കിയുള്ളതുമായ കൗൺസിലിംഗിലൂടെ സമഗ്രമായ രോഗശാന്തി വാഗ്ദാനം ചെയ്യുന്നു. ഞങ്ങളുടെ സേവനങ്ങൾ മാനസികവും വൈകാരികവും ആത്മീയവുമായ ക്ഷേമത്തിനായുള്ള പ്രതിബദ്ധതയാൽ നയിക്കപ്പെടുന്നു.</target>
 
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.ts</context>
@@ -439,7 +439,7 @@
       </trans-unit>
       <trans-unit id="1279138299250820254" datatype="html">
         <source> With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided by a commitment to mental, emotional, and spiritual well-being. </source>
-         <target>ബിഷപ്പ് റവ. ഡോ. മലയിൽ സാബു കോശി ചെറിയാന്റെ അനുഗ്രഹത്താൽ, സിഎസ്ഐ കൗൺസിലിംഗ് സെന്റർ കാരുണ്യപൂർണ്ണവും, രഹസ്യാത്മകവും, തെളിവുകൾ അടിസ്ഥാനമാക്കിയുള്ളതുമായ കൗൺസിലിംഗിലൂടെ സമഗ്രമായ രോഗശാന്തി വാഗ്ദാനം ചെയ്യുന്നു. ഞങ്ങളുടെ സേവനങ്ങൾ മാനസികവും വൈകാരികവും ആത്മീയവുമായ ക്ഷേമത്തിനായുള്ള പ്രതിബദ്ധതയാൽ നയിക്കപ്പെടുന്നു.</target>
+         <target>ബിഷപ്പ് റവ. ഡോ. മലയിൽ സാബു കോശി ചെറിയാന്റെ അനുഗ്രഹത്താൽ, സി.എസ്.ഐ കൗൺസിലിംഗ് സെന്റർ കാരുണ്യപൂർണ്ണവും, രഹസ്യാത്മകവും, തെളിവുകൾ അടിസ്ഥാനമാക്കിയുള്ളതുമായ കൗൺസിലിംഗിലൂടെ സമഗ്രമായ രോഗശാന്തി വാഗ്ദാനം ചെയ്യുന്നു. ഞങ്ങളുടെ സേവനങ്ങൾ മാനസികവും വൈകാരികവും ആത്മീയവുമായ ക്ഷേമത്തിനായുള്ള പ്രതിബദ്ധതയാൽ നയിക്കപ്പെടുന്നു.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
           <context context-type="linenumber">34,36</context>
@@ -1134,7 +1134,7 @@
 
  <trans-unit id="5736481176444461852" datatype="html">
         <source>About Us</source>
-        <target>ഞങ്ങളേക്കുറിച്ച്</target>
+        <target>അബൗട്ട്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
           <context context-type="linenumber">59</context>
@@ -1174,7 +1174,7 @@
       </trans-unit>
       <trans-unit id="3301086086650990787" datatype="html">
         <source>Register</source>
-        <target>രജിസ്റ്റർ ചെയ്യുക</target>
+        <target>രജിസ്റ്റർ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
           <context context-type="linenumber">53,54</context>
@@ -1758,7 +1758,7 @@
       </trans-unit>
        <trans-unit id="6918433711869093985" datatype="html">
         <source>Register for a Premarital Session</source>
-        <target>പ്രീമാരിറ്റൽ  സെഷനായി രജിസ്റ്റർ ചെയ്യുക</target>
+        <target>പ്രീമാരിറ്റൽ സെഷനായി രജിസ്റ്റർ ചെയ്യുക</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
           <context context-type="linenumber">4,5</context>
