@@ -29,7 +29,7 @@ namespace csi_mkd_premarital_app_BE.Data
             // Ignore models that are only used in CosmosDbContext
             modelBuilder.Ignore<ClassFeedback>();
             modelBuilder.Ignore<QuestionAnswers>();
-            
+
 
             // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
 
@@ -49,8 +49,8 @@ namespace csi_mkd_premarital_app_BE.Data
             modelBuilder.Entity<EmailConfig>().HasData(new EmailConfig
             {
                 Id = 1,
-                SenderEmail = "teenateena496@gmail.com",
-                SenderPassword = "mrkn army mhov gggo", // consider storing securely or encrypted
+                SenderEmail = "csimkdmarry@gmail.com",
+                SenderPassword = "chvj gmhp bzov tllv", // consider storing securely or encrypted
                 EmailSubject = "Confirmation: CSI MKD Counselling Session Registration",
                 EmailBodyTemplate = @"<p>Hello {Name},</p>
                 <p>Thank you for registering with us.</p>
