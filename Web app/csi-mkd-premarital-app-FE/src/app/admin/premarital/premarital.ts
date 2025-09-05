@@ -4,6 +4,7 @@ import {
   inject,
   signal,
   computed,
+  OnInit,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -812,11 +813,24 @@ export class PremaritalComponent {
         <div
           class="certificate-frame w-full h-full flex items-center justify-center"
         >
-          <div
-            class="certificate-preview"
-            [innerHTML]="sanitizedHtml"
-            style="transform: scale(0.8); transform-origin: center center; max-width: 100%; max-height: 100%;"
-          ></div>
+          @if (isLoading()) {
+            <div class="flex items-center justify-center">
+              <mat-spinner diameter="50"></mat-spinner>
+            </div>
+          } @else if (previewImageUrl()) {
+            <img
+              [src]="previewImageUrl()"
+              alt="Certificate Preview"
+              class="certificate-preview max-w-full max-h-full object-contain"
+              style="transform: scale(0.8); transform-origin: center center;"
+            />
+          } @else {
+            <div
+              class="certificate-preview"
+              [innerHTML]="sanitizedHtml"
+              style="transform: scale(0.8); transform-origin: center center; max-width: 100%; max-height: 100%;"
+            ></div>
+          }
         </div>
       </div>
 
@@ -979,7 +993,7 @@ export class PremaritalComponent {
     MatProgressSpinnerModule,
   ],
 })
-export class CertificatePreviewDialog {
+export class CertificatePreviewDialog implements OnInit {
   dialogRef = inject<MatDialogRef<CertificatePreviewDialog>>(MatDialogRef);
   data = inject(MAT_DIALOG_DATA);
   private readonly certificateService = inject(CertificateService);
@@ -987,6 +1001,25 @@ export class CertificatePreviewDialog {
   private readonly sanitizer = inject(DomSanitizer);
 
   isLoading = signal(false);
+  previewImageUrl = signal<string>('');
+
+  ngOnInit() {
+    this.generatePreviewImage();
+  }
+
+  async generatePreviewImage(): Promise<void> {
+    try {
+      this.isLoading.set(true);
+      const imageUrl = await this.certificateService.generateCertificateImage(this.data.htmlContent, true);
+      this.previewImageUrl.set(imageUrl);
+    } catch (error) {
+      console.error('Error generating preview image:', error);
+      // Fallback to HTML if image generation fails
+      this.previewImageUrl.set('');
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
 
   get sanitizedHtml(): SafeHtml {
     console.log(
