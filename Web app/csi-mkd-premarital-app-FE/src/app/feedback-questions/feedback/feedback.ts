@@ -27,7 +27,9 @@ import {
 } from '../../../api/api-main-app/models';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { shareReplay } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import classListData from './class-list.json';
 
 @Component({
@@ -53,6 +55,8 @@ export class Feedback implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(CsiMkdPremaritalAppBeService);
   private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   userDetails = signal<{ name: string; email: string }>({
     name: '',
@@ -115,9 +119,9 @@ export class Feedback implements OnInit {
 
   ratingLabels: Record<string, string> = {
     qualityRating: $localize`Overall Quality`,
-    relevanceRating:  $localize`Content Relevance`,
-    engagementRating:  $localize`Presenter Engagement`,
-    organizationRating:  $localize`Organization`,
+    relevanceRating: $localize`Content Relevance`,
+    engagementRating: $localize`Presenter Engagement`,
+    organizationRating: $localize`Organization`,
   };
 
   protected readonly classTitles = signal<any>(classListData);
@@ -149,10 +153,7 @@ export class Feedback implements OnInit {
   });
 
   protected readonly isSubmitting = signal(false);
-  protected readonly successMessage = signal('');
-  protected readonly errorMessage = signal('');
-  protected readonly timezoneDisplay: string =
-     $localize`DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
+  protected readonly timezoneDisplay: string = $localize`DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
 
   // Resource to fetch user details from the API
   protected readonly userDetailsResource = rxResource({
@@ -161,7 +162,7 @@ export class Feedback implements OnInit {
       userId
         ? this.api.apiPremaritalregisterIdGet({
             id: userId,
-          })
+          }).pipe(shareReplay(1))
         : of(null),
   });
 
@@ -171,7 +172,7 @@ export class Feedback implements OnInit {
       userId
         ? this.api.apiCosmosFeedbackCompletedRegistrationIdGet({
             registrationId: userId,
-          })
+          }).pipe(shareReplay(1))
         : of(null), // Always return an observable
   });
 
@@ -182,12 +183,12 @@ export class Feedback implements OnInit {
       userId
         ? this.api.apiCosmosFeedbackRegistrationRegistrationIdGet({
             registrationId: userId,
-          })
+          }).pipe(shareReplay(1))
         : of(null),
   });
 
   protected readonly instructorListResource: any = rxResource({
-    stream: () => this.api.apiInstructorsGet(),
+    stream: () => this.api.apiInstructorsGet().pipe(shareReplay(1)),
   });
 
   getFormControl(name: string) {
@@ -202,8 +203,6 @@ export class Feedback implements OnInit {
     }
 
     this.isSubmitting.set(true);
-    this.successMessage.set('');
-    this.errorMessage.set('');
 
     const formValue = this.feedbackForm.value;
     const classId = formValue.classTitle;
@@ -234,17 +233,30 @@ export class Feedback implements OnInit {
 
     this.api.apiCosmosFeedbackPost({ body: payload }).subscribe({
       next: () => {
-        this.successMessage.set('Feedback submitted successfully!');
-        this.feedbackForm.reset();
-        this.isSubmitting.set(false);
-        // Reload the page after successful submission
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500); // Wait 1.5 seconds to show success message
+        // Navigate to the same route to refresh the page
+        this.router
+          .navigateByUrl('/', { skipLocationChange: true })
+          .then(() => {
+            this.router.navigate([
+              this.route.snapshot.url.map((segment) => segment.path).join('/'),
+            ]);
+
+            this.snackBar.open('Feedback submitted successfully!', 'Close', {
+              duration: 5000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom',
+            });
+          });
       },
       error: (err) => {
-        this.errorMessage.set(
-          'Failed to submit feedback. Please try again later.'
+        this.snackBar.open(
+          'Failed to submit feedback. Please try again later.',
+          'Close',
+          {
+            duration: 5000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+          }
         );
         console.error(err);
         this.isSubmitting.set(false);
