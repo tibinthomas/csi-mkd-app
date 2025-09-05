@@ -857,7 +857,7 @@ export class PremaritalComponent {
     `
       /* Light theme (default) */
       .certificate-preview-container {
-        height: 100vh;
+        height: 95vh;
         background: #f5f5f5;
         transition: background-color 0.3s ease;
       }
