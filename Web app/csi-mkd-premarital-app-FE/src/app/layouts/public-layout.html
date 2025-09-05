@@ -120,7 +120,7 @@
   <!-- Header -->
   <div class="p-4 pt-16">
     <h3 class="text-sm pt-5 font-semibold text-rose-700 dark:text-gray-400 uppercase tracking-wide theme-transition">
-      Menu
+      <span i18n>Menu</span>
     </h3>
   </div>
 
@@ -199,7 +199,7 @@
   <!-- Settings Section -->
   <div class="p-4 space-y-3" (click)="$event.stopPropagation()">
     <h3 class="text-sm font-semibold text-rose-700 dark:text-gray-400 uppercase tracking-wide theme-transition">
-      Settings
+      <span i18n>Settings</span>
     </h3>
 
     <!-- Language Selector -->
@@ -208,7 +208,7 @@
     >
       <div class="flex items-center">
         <mat-icon class="mr-3 text-rose-600 dark:text-gray-400 theme-transition">language</mat-icon>
-        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition">Language</span>
+        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition" i18n>Language</span>
       </div>
       <app-language-selector class="header-icon-small"></app-language-selector>
     </div>
@@ -219,7 +219,7 @@
     >
       <div class="flex items-center">
         <mat-icon class="mr-3 text-rose-600 dark:text-gray-400 theme-transition">palette</mat-icon>
-        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition">Theme</span>
+        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition" i18n>Theme</span>
       </div>
       <app-theme-toggle class="header-icon-small"></app-theme-toggle>
     </div>

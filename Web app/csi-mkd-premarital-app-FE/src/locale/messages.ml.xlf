@@ -1112,7 +1112,58 @@
           <context context-type="linenumber">53,54</context>
         </context-group>
       </trans-unit>
-      
+      <trans-unit id="2102825898069375693" datatype="html">
+        <source>Menu</source>
+         <target>മെനു</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">123,124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4930506384627295710" datatype="html">
+        <source>Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">202,203</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2826581353496868063" datatype="html">
+        <source>Language</source>
+         <target>ഭാഷ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">211,212</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7103588127254721505" datatype="html">
+        <source>Theme</source>
+        <target>തീം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">222,223</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="811835437066708749" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-telephone&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Contact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">243,244</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8345044020671605638" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-calendar-week&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Mon – Sat | 9:00 AM – 6:00 PM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">248,250</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6224688768643075871" datatype="html">
+        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-geo-alt&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Visit Us</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">254,255</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8194145663712994855" datatype="html">
         <source> CSI Counselling Centre </source>
         <target>സി.എസ്.ഐ. കൗൺസിലിംഗ് സെന്റർ </target>
@@ -2482,6 +2533,51 @@
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
+<trans-unit id="413116577994876478" datatype="html">
+        <source>Light</source>
+        <target>ലൈറ്റ് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/theme-toggle/theme-toggle.ts</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3892161059518616136" datatype="html">
+        <source>Dark</source>
+        <target>ഡാർക്ക് </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/theme-toggle/theme-toggle.ts</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="29832309535656200" datatype="html">
+        <source>System</source>
+        <target>സിസ്റ്റം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/theme-toggle/theme-toggle.ts</context>
+          <context context-type="linenumber">55,56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1562556410626843645" datatype="html">
+        <source>Name : <x id="INTERPOLATION" equiv-text="{{ userDetails().name }}"/></source>
+        <target>പേര് : <x id="INTERPOLATION" equiv-text="{{ userDetails().name }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5100796254471958859" datatype="html">
+        <source>Email: <x id="INTERPOLATION" equiv-text="{{ userDetails().email }}"/></source>
+        <target> ഇമെയിൽ  : <x id="INTERPOLATION" equiv-text="{{ userDetails().email }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      
       <trans-unit id="8088663872040483564" datatype="html">
         <source>Collapse All</source>
         <target>ചുരുക്കുക</target>

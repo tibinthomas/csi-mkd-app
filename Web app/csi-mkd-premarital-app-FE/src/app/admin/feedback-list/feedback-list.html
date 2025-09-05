@@ -30,11 +30,9 @@
     <mat-card-content>
       <div class="error-message">
         <mat-icon color="warn">error</mat-icon>
-        <span>{{ error()?.message || 'Failed to load feedback data' }}</span>
+        <span>{{ error()?.message || "Failed to load feedback data" }}</span>
       </div>
-      <button mat-button color="primary" (click)="refreshData()" class="mt-2">
-        Try Again
-      </button>
+      <button mat-button color="primary" (click)="refreshData()" class="mt-2">Try Again</button>
     </mat-card-content>
   </mat-card>
   } @else {
@@ -56,7 +54,7 @@
         <table mat-table [dataSource]="filteredFeedback()" class="feedback-table">
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <th mat-header-cell *matHeaderCellDef><span i18n>Name</span></th>
             <td mat-cell *matCellDef="let feedback">
               {{ feedback.name || "N/A" }}
             </td>
@@ -64,7 +62,7 @@
 
           <!-- Email Column -->
           <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef>Email</th>
+            <th mat-header-cell *matHeaderCellDef><span i18n>Email</span></th>
             <td mat-cell *matCellDef="let feedback">
               {{ feedback.email || "N/A" }}
             </td>

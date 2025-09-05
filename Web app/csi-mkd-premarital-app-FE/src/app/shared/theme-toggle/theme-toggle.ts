@@ -32,7 +32,7 @@ import { ThemeService, ThemeType } from '../../core/services/theme.service';
         role="menuitemradio"
         [attr.aria-checked]="themeService.theme() === 'light'">
         <mat-icon>light_mode</mat-icon>
-        <span>Light</span>
+        <span i18n>Light</span>
       </button>
       
       <button 
@@ -42,7 +42,7 @@ import { ThemeService, ThemeType } from '../../core/services/theme.service';
         role="menuitemradio"
         [attr.aria-checked]="themeService.theme() === 'dark'">
         <mat-icon>dark_mode</mat-icon>
-        <span>Dark</span>
+        <span i18n>Dark</span>
       </button>
       
       <button 
@@ -52,7 +52,7 @@ import { ThemeService, ThemeType } from '../../core/services/theme.service';
         role="menuitemradio"
         [attr.aria-checked]="themeService.theme() === 'system'">
         <mat-icon>brightness_auto</mat-icon>
-        <span>System</span>
+        <span i18n>System</span>
       </button>
     </mat-menu>
   `,
