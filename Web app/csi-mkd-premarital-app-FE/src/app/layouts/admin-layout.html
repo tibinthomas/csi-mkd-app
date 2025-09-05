@@ -4,7 +4,8 @@
     [mode]="sidenavMode()"
     [opened]="sidenavOpened()"
     (openedChange)="sidenavOpen.set($event)"
-    class="flex flex-col h-full w-52 md:w-56 lg:w-60 xl:w-64 border-r border-outline surface-container-high theme-transition"
+    class="theme-transition"
+    style="width: fit-content !important;"
   >
     <div class="p-4 text-center border-b border-outline">
       <h2 class="text-2xl font-bold text-primary theme-transition">CSI Admin</h2>
