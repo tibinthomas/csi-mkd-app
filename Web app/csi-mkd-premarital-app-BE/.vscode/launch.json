@@ -6,7 +6,7 @@
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-main-api",
-      "program": "${workspaceFolder}/bin/Debug/net9.0/osx-arm64/csi-mkd-premarital-app-BE.dll",
+      "program": "${workspaceFolder}/bin/Debug/net9.0/csi-mkd-premarital-app-BE.dll",
       "args": [],
       "cwd": "${workspaceFolder}",
       "stopAtEntry": false,
@@ -50,11 +50,7 @@
       "request": "launch",
       "preLaunchTask": "build-sessions-function",
       "program": "${env:HOME}/.dotnet/tools/func",
-      "args": [
-        "start",
-        "--port",
-        "7071"
-      ],
+      "args": ["start", "--port", "7071"],
       "cwd": "${workspaceFolder}/CsiMkdFunctions",
       "stopAtEntry": false,
       "env": {
