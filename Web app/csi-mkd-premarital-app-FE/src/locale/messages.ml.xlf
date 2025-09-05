@@ -1000,38 +1000,7 @@
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3272830838222584108" datatype="html">
-        <source>Overall Quality</source>
-        <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
-          <context context-type="linenumber">34,35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6752807975877546003" datatype="html">
-        <source>Content Relevance</source>
-        <target>ഉള്ളടക്കത്തിന്റെ പ്രസക്തി </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
-          <context context-type="linenumber">43,44</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7239374508943813513" datatype="html">
-        <source>Presenter Engagement</source>
-        <target>അവതാരകൻ്റെ ഇടപെടൽ</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
-          <context context-type="linenumber">52,53</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3076687427621376223" datatype="html">
-        <source>Organization</source>
-        <target>ഓർഗനൈസഷൻ </target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/feedback/feedback.html</context>
-          <context context-type="linenumber">61,62</context>
-        </context-group>
-      </trans-unit>
+     
       <trans-unit id="3272830838222584108" datatype="html">
         <source>Overall Quality</source>
          <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
@@ -1180,7 +1149,30 @@
           <context context-type="linenumber">23,24</context>
         </context-group>
       </trans-unit>
-
+<trans-unit id="1129867821224400562" datatype="html">
+        <source>CSI MKD Membership</source>
+        <target>മദ്ധ്യകേരള മഹായിടവക അംഗത്വം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">150,151</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6642159603116713386" datatype="html">
+        <source>Member of CSI MKD</source>
+         <target>മദ്ധ്യകേരള മഹായിടവക അംഗം </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">153,154</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1550665105151339783" datatype="html">
+        <source>Not member of CSI MKD</source>
+         <target>മദ്ധ്യകേരള മഹായിടവക അംഗമല്ല</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">156,157</context>
+        </context-group>
+      </trans-unit>
 
 
  <trans-unit id="5736481176444461852" datatype="html">
@@ -1710,10 +1702,9 @@
         <target>പ്രീമാരിറ്റൽ കൗൺസിലിംഗ് കോഴ്‌സിൽ പങ്കെടുക്കാൻ ഞാൻ ആഗ്രഹിക്കുന്നു. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
-          <context context-type="linenumber">223,224</context>
+          <context context-type="linenumber">402,403</context>
         </context-group>
       </trans-unit>
-     
       <trans-unit id="4289369355874597168" datatype="html">
         <source>Choose a Registration Type </source>
          <target>രജിസ്ട്രേഷൻ ടൈപ്പ്  തിരഞ്ഞെടുക്കുക </target>
