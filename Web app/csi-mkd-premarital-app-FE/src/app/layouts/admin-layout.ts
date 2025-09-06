@@ -85,16 +85,6 @@ export class AdminLayout {
       icon: 'check_circle',
       label: 'Pre-Confirm List',
     },
-    {
-      routerLink: '/admin/feedback-list',
-      icon: 'feedback',
-      label: 'Feedback List',
-    },
-    {
-      routerLink: '/admin/question-answers-list',
-      icon: 'quiz',
-      label: 'Question Answers',
-    },
   ];
 
   readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));

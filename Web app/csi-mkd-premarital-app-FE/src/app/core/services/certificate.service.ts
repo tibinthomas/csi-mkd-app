@@ -310,7 +310,7 @@ export class CertificateService {
       },
       jsPDF: { 
         unit: 'in', 
-        format: 'a4', 
+        format: 'letter', 
         orientation: 'landscape' 
       }
     };
@@ -346,7 +346,7 @@ export class CertificateService {
     document.body.removeChild(link);
   }
 
-  async generateCertificateImage(htmlContent: string): Promise<string> {
+  async generateCertificateImage(htmlContent: string, isPreview = false, isPrint = false): Promise<string> {
     return new Promise((resolve, reject) => {
       // Create a temporary container
       const tempContainer = document.createElement('div');
@@ -360,7 +360,7 @@ export class CertificateService {
       document.body.appendChild(tempContainer);
       
       // Find the certificate container
-      const certificateElement = tempContainer.querySelector('.certificate-container') as HTMLElement;
+      const certificateElement = tempContainer.querySelector('.certificate') as HTMLElement;
       
       if (!certificateElement) {
         document.body.removeChild(tempContainer);
@@ -368,27 +368,63 @@ export class CertificateService {
         return;
       }
       
-      // Use html2canvas to convert to image
-      html2canvas(certificateElement, {
-        scale: 2,
-        useCORS: true,
-        allowTaint: true,
-        backgroundColor: '#ffffff',
-        width: 1056,
-        height: 816
-      }).then((canvas) => {
-        document.body.removeChild(tempContainer);
-        resolve(canvas.toDataURL('image/png', 1.0));
-      }).catch((error) => {
-        document.body.removeChild(tempContainer);
-        reject(error);
-      });
+      // Apply CSS overrides
+      const style = document.createElement('style');
+      let styleContent = '';
+      
+      // For printing, remove background image and adjust positioning
+      if (isPrint) {
+        styleContent = `
+          .certificate {
+            background-image: none !important;
+          }
+        `;
+      }
+      
+      if (styleContent) {
+        style.textContent = styleContent;
+        tempContainer.appendChild(style);
+      }
+      
+      // Force layout recalculation and wait for fonts
+      certificateElement.offsetHeight;
+      
+      const captureImage = () => {
+        // Use html2canvas to convert to image
+        html2canvas(certificateElement, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          width: 1056,
+          height: 816,
+          scrollX: 0,
+          scrollY: 0
+        }).then((canvas) => {
+          document.body.removeChild(tempContainer);
+          resolve(canvas.toDataURL('image/png', 1.0));
+        }).catch((error) => {
+          document.body.removeChild(tempContainer);
+          reject(error);
+        });
+      };
+      
+      // Wait for fonts to be ready before capturing
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          setTimeout(captureImage, 100);
+        }).catch(() => {
+          setTimeout(captureImage, 500);
+        });
+      } else {
+        setTimeout(captureImage, 500);
+      }
     });
   }
 
   async printCertificate(htmlContent: string): Promise<void> {
     try {
-      const imageDataUrl = await this.generateCertificateImage(htmlContent);
+      const imageDataUrl = await this.generateCertificateImage(htmlContent, false, true);
       
       const printWindow = window.open('', '_blank', 'width=1300,height=1000,scrollbars=yes,resizable=yes');
       if (!printWindow) {
@@ -448,7 +484,7 @@ export class CertificateService {
               }
               
               @page {
-                size: A4 landscape;
+                size: letter landscape;
                 margin: 10mm;
               }
               

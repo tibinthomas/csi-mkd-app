@@ -4,6 +4,7 @@ import {
   inject,
   signal,
   computed,
+  OnInit,
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
@@ -67,6 +68,14 @@ import {
 } from '../../core/services/church-data.service';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import classListData from '../../feedback-questions/feedback/class-list.json';
+import {
+  FeedbackModalComponent,
+  type FeedbackModalData,
+} from './feedback-modal.component';
+import {
+  QuestionsModalComponent,
+  type QuestionsModalData,
+} from './questions-modal.component';
 
 @Component({
   selector: 'app-premarital-list',
@@ -97,6 +106,7 @@ import classListData from '../../feedback-questions/feedback/class-list.json';
     MatRadioModule,
     MatCardModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
   animations: [
     trigger('detailExpand', [
@@ -696,20 +706,71 @@ export class PremaritalComponent {
     this.fetchFeedbackStatus(reg);
   }
 
+  async viewFeedbackDetails(reg: any): Promise<void> {
+    const registrationId = reg.id.toString();
+    this.isLoadingFeedback.set(reg.id);
+
+    try {
+      // Fetch detailed feedback data from API - similar to feedback list
+      const feedbacks = await firstValueFrom(
+        this.api
+          .apiCosmosFeedbackRegistrationRegistrationIdGet({
+            registrationId: registrationId,
+          })
+          .pipe(
+            catchError((err) => {
+              console.error('Error fetching feedback data:', err);
+              this._snackBar.open('Failed to load feedback details', 'Close', {
+                duration: 3000,
+              });
+              return of([]);
+            })
+          )
+      );
+
+      // Check if feedback data exists and has feedbacks property
+      if (!feedbacks.length || !feedbacks[0]?.feedbacks) {
+        this._snackBar.open('No feedback data found for this user', 'Close', {
+          duration: 3000,
+        });
+        return;
+      }
+
+      // Open dialog with feedback data using the new modal component
+      this.dialog.open(FeedbackModalComponent, {
+        maxWidth: '1600px',
+        maxHeight: '95vh',
+        panelClass: 'large-dialog',
+        data: {
+          user: reg,
+          feedbackData: feedbacks[0],
+          feedbacks: feedbacks[0].feedbacks,
+        } as FeedbackModalData,
+      });
+    } catch (error) {
+      console.error('Error loading feedback details:', error);
+      this._snackBar.open('Error loading feedback details', 'Close', {
+        duration: 3000,
+      });
+    } finally {
+      this.isLoadingFeedback.set(null);
+    }
+  }
+
   refreshFeedbackStatus(reg: any): void {
     const registrationId = reg.id.toString();
-    
+
     // Remove from cache to force refresh
     const newCache = new Map(this.feedbackStatusCache());
     newCache.delete(registrationId);
     this.feedbackStatusCache.set(newCache);
-    
+
     this.fetchFeedbackStatus(reg);
   }
 
   private fetchFeedbackStatus(reg: any): void {
     const registrationId = reg.id.toString();
-    
+
     this.isLoadingFeedback.set(reg.id);
 
     // Get total count from class list
@@ -758,18 +819,18 @@ export class PremaritalComponent {
 
   refreshQuestionAnswerStatus(reg: any): void {
     const registrationId = reg.id.toString();
-    
+
     // Remove from cache to force refresh
     const newCache = new Map(this.questionAnswerStatusCache());
     newCache.delete(registrationId);
     this.questionAnswerStatusCache.set(newCache);
-    
+
     this.fetchQuestionAnswerStatus(reg);
   }
 
   private fetchQuestionAnswerStatus(reg: any): void {
     const registrationId = reg.id.toString();
-    
+
     this.isLoadingQuestionAnswer.set(reg.id);
 
     this.questionAnswersService
@@ -777,7 +838,8 @@ export class PremaritalComponent {
       .subscribe({
         next: (response: any) => {
           // If response exists and has data, consider it completed
-          const exists = response && (response.id || response.premaritalRegistrationId);
+          const exists =
+            response && (response.id || response.premaritalRegistrationId);
           const newCache = new Map(this.questionAnswerStatusCache());
           newCache.set(registrationId, exists);
           this.questionAnswerStatusCache.set(newCache);
@@ -790,6 +852,54 @@ export class PremaritalComponent {
           this.isLoadingQuestionAnswer.set(null);
         },
       });
+  }
+
+  async viewQuestionAnswerDetails(reg: any): Promise<void> {
+    const registrationId = reg.id.toString();
+    this.isLoadingQuestionAnswer.set(reg.id);
+
+    try {
+      // Fetch question answer data from API
+      const questionAnswers = await firstValueFrom(
+        this.questionAnswersService
+          .getQuestionAnswersByRegistrationId({
+            registrationId: registrationId,
+          })
+          .pipe(
+            catchError((err) => {
+              console.error('Error fetching question answer data:', err);
+              return of(null);
+            })
+          )
+      );
+
+      // Check if question answers exist
+      if (!questionAnswers) {
+        this._snackBar.open(
+          'No question answers found for this user',
+          'Close',
+          {
+            duration: 3000,
+          }
+        );
+        return;
+      }
+
+      // Open dialog with question answer data using the new modal component
+      this.dialog.open(QuestionsModalComponent, {
+        maxWidth: '1600px',
+        maxHeight: '95vh',
+        panelClass: 'large-dialog',
+        data: {
+          user: reg,
+          questionAnswers: questionAnswers,
+        } as QuestionsModalData,
+      });
+    } catch (error) {
+      console.error('Error loading question answer details:', error);
+    } finally {
+      this.isLoadingQuestionAnswer.set(null);
+    }
   }
 }
 
@@ -812,11 +922,24 @@ export class PremaritalComponent {
         <div
           class="certificate-frame w-full h-full flex items-center justify-center"
         >
+          @if (isLoading()) {
+          <div class="flex items-center justify-center">
+            <mat-spinner diameter="50"></mat-spinner>
+          </div>
+          } @else if (previewImageUrl()) {
+          <img
+            [src]="previewImageUrl()"
+            alt="Certificate Preview"
+            class="certificate-preview max-w-full max-h-full object-contain"
+            style="transform: scale(0.8); transform-origin: center center;"
+          />
+          } @else {
           <div
             class="certificate-preview"
             [innerHTML]="sanitizedHtml"
             style="transform: scale(0.8); transform-origin: center center; max-width: 100%; max-height: 100%;"
           ></div>
+          }
         </div>
       </div>
 
@@ -857,7 +980,7 @@ export class PremaritalComponent {
     `
       /* Light theme (default) */
       .certificate-preview-container {
-        height: 100vh;
+        height: 95vh;
         background: #f5f5f5;
         transition: background-color 0.3s ease;
       }
@@ -979,7 +1102,7 @@ export class PremaritalComponent {
     MatProgressSpinnerModule,
   ],
 })
-export class CertificatePreviewDialog {
+export class CertificatePreviewDialog implements OnInit {
   dialogRef = inject<MatDialogRef<CertificatePreviewDialog>>(MatDialogRef);
   data = inject(MAT_DIALOG_DATA);
   private readonly certificateService = inject(CertificateService);
@@ -987,6 +1110,28 @@ export class CertificatePreviewDialog {
   private readonly sanitizer = inject(DomSanitizer);
 
   isLoading = signal(false);
+  previewImageUrl = signal<string>('');
+
+  ngOnInit() {
+    this.generatePreviewImage();
+  }
+
+  async generatePreviewImage(): Promise<void> {
+    try {
+      this.isLoading.set(true);
+      const imageUrl = await this.certificateService.generateCertificateImage(
+        this.data.htmlContent,
+        true
+      );
+      this.previewImageUrl.set(imageUrl);
+    } catch (error) {
+      console.error('Error generating preview image:', error);
+      // Fallback to HTML if image generation fails
+      this.previewImageUrl.set('');
+    } finally {
+      this.isLoading.set(false);
+    }
+  }
 
   get sanitizedHtml(): SafeHtml {
     console.log(
@@ -1079,7 +1224,7 @@ export class ConfirmationDialog {
       <button mat-stroked-button (click)="dialogRef.close(false)">
         Cancel
       </button>
-      <button mat-raised-button color="warn" (click)="dialogRef.close(true)">
+      <button mat-flat-button color="warn" (click)="dialogRef.close(true)">
         Delete
       </button>
     </mat-dialog-actions>

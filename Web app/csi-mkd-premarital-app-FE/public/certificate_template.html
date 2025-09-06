@@ -10,25 +10,25 @@
      Width uses pixels for on-screen, but max-width:100% allows responsive scaling. */
     .certificate {
       /* tweak these three values to nudge entire rendering */
-      --cert-width: 1100px;
+      --cert-width: 1056px;
       /* default on-screen width; change if you need larger */
       --cert-aspect: calc(11 / 8.5);
       /* for reference; not directly used */
 
       /* Field positions (percentages relative to certificate container).
        If things are off, change these values only. */
-      --name-left: 32.4%;
-      --name-top: 50.4%;
+      --name-left: 19%;
+      --name-top: 49.2%;
       --name-width: 62.1%;
       --name-size: 32px;
 
       --church-left: 18.04%;
-      --church-top: 57.27%;
+      --church-top: 56.27%;
       --church-width: 72.53%;
       --church-size: 24px;
 
       --dates-left: 47.3%;
-      --dates-top: 68.72%;
+      --dates-top: 67.82%;
       --dates-width: 38.86%;
       --dates-size: 21px;
 
@@ -51,12 +51,14 @@
     .overlay {
       position: absolute;
       white-space: nowrap;
-      overflow: hidden;
       text-overflow: ellipsis;
       pointer-events: none;
       /* safe: user can't accidentally select/move */
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      line-height: 1.3 !important;
+      height: auto !important;
+      overflow: visible !important;
     }
 
     .name {
@@ -65,7 +67,7 @@
       width: var(--name-width);
       font-size: var(--name-size);
       font-weight: 700;
-      text-align: left;
+      text-align: center;
       /* change to center if you want centered text inside dotted line */
       letter-spacing: 0.6px;
     }
@@ -91,8 +93,8 @@
 
     /* small visual tweak so text shows well on the patterned background */
     .overlay {
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-      color: #3a2318;
+      /* text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+      color: #3a2318; */
     }
 
     /* print rules: print at actual 11in x 8.5in */
@@ -111,6 +113,7 @@
 
     /* optional: scale whole certificate for smaller screens */
     .wrap {
+      width: var(--cert-width);
       display: flex;
       justify-content: center;
       align-items: flex-start;
