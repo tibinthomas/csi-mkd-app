@@ -9,4 +9,5 @@ public interface IInstructorService
     Task<InstructorDto> CreateInstructor(CreateInstructorDto dto);
     Task<bool> UpdateInstructor(int id, UpdateInstructorDto dto);
     Task<bool> DeleteInstructor(int id);
+    Task<List<InstructorRatingDto>> GetInstructorsWithRatings();
 }

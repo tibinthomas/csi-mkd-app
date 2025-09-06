@@ -21,6 +21,14 @@ public static class InstructorEndpoints
         .Produces<List<InstructorDto>>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("instructors"));
 
+        group.MapGet("/ratings", async (IInstructorService service) =>
+        {
+            var instructorsWithRatings = await service.GetInstructorsWithRatings();
+            return Results.Ok(instructorsWithRatings);
+        })
+        .Produces<List<InstructorRatingDto>>(StatusCodes.Status200OK)
+        .CacheOutput(p => p.Tag("instructors", "feedback").Expire(TimeSpan.FromMinutes(5)));
+
         group.MapGet("/{id:int}", async (int id, IInstructorService service) =>
         {
             var instructor = await service.GetInstructorById(id);

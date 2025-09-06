@@ -257,6 +257,7 @@ public static class ServiceConfiguration
         builder.Services.AddScoped<IConfirmationRegisterRepository, ConfirmationRegisterRepository>();
         builder.Services.AddScoped<ISessionConfigRepository, SessionConfigRepository>();
         builder.Services.AddScoped<ICosmosDbFeedbackRepository, CosmosDbFeedbackRepository>();
+        builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
         builder.Services.AddScoped<IQuestionAnswersRepository, QuestionAnswersRepository>();
         builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
 
