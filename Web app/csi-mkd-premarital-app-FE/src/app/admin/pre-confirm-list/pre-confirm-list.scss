@@ -10,3 +10,38 @@
 .shadow-inner {
   background-color: var(--mat-surface-container-low);
 }
+
+// Modern Angular animations using animate.enter and animate.leave
+.slideDown {
+  animation: slideDown 300ms ease-in-out;
+}
+
+.slideUp {
+  animation: slideUp 300ms ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}

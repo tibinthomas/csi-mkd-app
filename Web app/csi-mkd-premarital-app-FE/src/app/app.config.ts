@@ -14,7 +14,6 @@ import {
   withComponentInputBinding,
 } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
@@ -27,7 +26,6 @@ import { rateLimitInterceptor } from './core/interceptors/rate-limit-interceptor
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAnimations(),
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideHttpClient(

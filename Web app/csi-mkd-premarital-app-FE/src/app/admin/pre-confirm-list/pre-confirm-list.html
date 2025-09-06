@@ -89,18 +89,20 @@
           <!-- Expanded Detail Row -->
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let reg" [attr.colspan]="displayedColumns.length">
-              <div class="p-4 rounded shadow-inner" [@detailExpand]="expandedRow() === reg ? 'expanded' : 'collapsed'">
-                @if (reg.participants?.length) {
-                <h4 class="text-sm mb-2" i18n><strong>Participants</strong></h4>
-                <ul class="list-disc pl-5 space-y-1">
-                  @for (p of reg.participants; track p) {
-                  <li>{{ p.name }} – Age: {{ p.age }}</li>
+              @if (expandedRow() === reg) {
+                <div class="p-4 rounded shadow-inner" animate.enter="slideDown" animate.leave="slideUp">
+                  @if (reg.participants?.length) {
+                  <h4 class="text-sm mb-2" i18n><strong>Participants</strong></h4>
+                  <ul class="list-disc pl-5 space-y-1">
+                    @for (p of reg.participants; track p) {
+                    <li>{{ p.name }} – Age: {{ p.age }}</li>
+                    }
+                  </ul>
+                  } @else {
+                  <p i18n>No participants found.</p>
                   }
-                </ul>
-                } @else {
-                <p i18n>No participants found.</p>
-                }
-              </div>
+                </div>
+              }
             </td>
           </ng-container>
 

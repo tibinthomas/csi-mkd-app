@@ -15,13 +15,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ChurchDataService } from '../../core/services/church-data.service';
@@ -50,27 +43,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
   ],
   providers: [DatePipe],
 
-  animations: [
-    trigger('detailExpand', [
-      state(
-        'collapsed',
-        style({
-          height: '0px',
-          minHeight: '0',
-          display: 'none',
-          opacity: 0,
-        })
-      ),
-      state(
-        'expanded',
-        style({
-          height: '*',
-          opacity: 1,
-        })
-      ),
-      transition('expanded <=> collapsed', animate('300ms ease-in-out')),
-    ]),
-  ],
 })
 export class PreConfirmList implements OnInit {
   registrations = signal<ConfirmationRegisterDto[]>([]);

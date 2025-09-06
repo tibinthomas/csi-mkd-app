@@ -111,43 +111,46 @@
           <!-- Expanded Content -->
           <ng-container matColumnDef="expandedDetail">
             <td mat-cell *matCellDef="let reg" [attr.colspan]="10">
-              <div
-                class="p-4 text-sm text-on-surface theme-transition"
-                [@detailExpand]="expandedElement === reg ? 'expanded' : 'collapsed'"
-              >
-                <div class="flex flex-col md:flex-row gap-6">
-                  <!-- Details Section -->
-                  <div class="flex-1">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div><strong i18n>Father's Name:</strong> {{ reg.fatherName }}</div>
-                      <div><strong i18n>Address:</strong> {{ reg.address }}</div>
-                      <div><strong i18n>Education:</strong> {{ reg.education }}</div>
-                      <div><strong i18n>Occupation:</strong> {{ reg.occupation }}</div>
-                      <div><strong i18n>Church:</strong> {{ getChurchNameById(reg.churchId) }}</div>
-                      <div><strong i18n>Priest Name:</strong> {{ reg.priestName }}</div>
+              @if (expandedElement === reg) {
+                <div
+                  class="p-4 text-sm text-on-surface theme-transition"
+                  animate.enter="slideDown"
+                  animate.leave="slideUp"
+                >
+                  <div class="flex flex-col md:flex-row gap-6">
+                    <!-- Details Section -->
+                    <div class="flex-1">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div><strong i18n>Father's Name:</strong> {{ reg.fatherName }}</div>
+                        <div><strong i18n>Address:</strong> {{ reg.address }}</div>
+                        <div><strong i18n>Education:</strong> {{ reg.education }}</div>
+                        <div><strong i18n>Occupation:</strong> {{ reg.occupation }}</div>
+                        <div><strong i18n>Church:</strong> {{ getChurchNameById(reg.churchId) }}</div>
+                        <div><strong i18n>Priest Name:</strong> {{ reg.priestName }}</div>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- Photo Display Section -->
-                  <div class="md:w-32 flex-shrink-0">
-                    <h4 class="font-semibold mb-3 text-on-surface theme-transition" i18n>Photo</h4>
-                    <div class="flex">
-                      <div
-                        class="p-2 border border-outline dark:border-outline-variant rounded-lg bg-surface-container-high dark:bg-surface-container"
-                      >
-                        <img
-                          [ngSrc]="reg.photoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
-                          width="100"
-                          height="120"
-                          alt="Photo of {{ reg.firstName }} {{ reg.lastName }}"
-                          class="max-w-full h-auto rounded-lg shadow-sm"
-                          priority="low"
-                        />
+                    <!-- Photo Display Section -->
+                    <div class="md:w-32 flex-shrink-0">
+                      <h4 class="font-semibold mb-3 text-on-surface theme-transition" i18n>Photo</h4>
+                      <div class="flex">
+                        <div
+                          class="p-2 border border-outline dark:border-outline-variant rounded-lg bg-surface-container-high dark:bg-surface-container"
+                        >
+                          <img
+                            [ngSrc]="reg.photoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
+                            width="100"
+                            height="120"
+                            alt="Photo of {{ reg.firstName }} {{ reg.lastName }}"
+                            class="max-w-full h-auto rounded-lg shadow-sm"
+                            priority="low"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              }
             </td>
           </ng-container>
 
