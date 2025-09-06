@@ -257,42 +257,9 @@ export class CertificateService {
     });
 
     return template
-      .replace(
-        /\{\{CERTIFICATE_TITLE\}\}/g,
-        CERTIFICATE_CONSTANTS.CERTIFICATE_TITLE
-      )
-      .replace(
-        /\{\{ORGANIZATION_NAME\}\}/g,
-        CERTIFICATE_CONSTANTS.ORGANIZATION_NAME
-      )
-      .replace(
-        /\{\{ORGANIZATION_ADDRESS\}\}/g,
-        CERTIFICATE_CONSTANTS.ORGANIZATION_ADDRESS
-      )
-      .replace(/\{\{NAME\}\}/g, data.name)
-      .replace(/\{\{CHURCH_NAME\}\}/g, data.churchName)
-      .replace(/\{\{PROGRAM_DURATION\}\}/g, data.programDuration)
-      .replace(/\{\{PROGRAM_NAME\}\}/g, CERTIFICATE_CONSTANTS.PROGRAM_NAME)
-      .replace(/\{\{VENUE\}\}/g, CERTIFICATE_CONSTANTS.VENUE)
-      .replace(/\{\{DATES\}\}/g, formattedDates)
-      .replace(
-        /\{\{CERTIFICATE_DESCRIPTION\}\}/g,
-        CERTIFICATE_CONSTANTS.CERTIFICATE_DESCRIPTION
-      )
-      .replace(/\{\{BISHOP_NAME\}\}/g, CERTIFICATE_CONSTANTS.BISHOP_NAME)
-      .replace(/\{\{BISHOP_TITLE\}\}/g, CERTIFICATE_CONSTANTS.BISHOP_TITLE)
-      .replace(/\{\{DIRECTOR_NAME\}\}/g, CERTIFICATE_CONSTANTS.DIRECTOR_NAME)
-      .replace(/\{\{DIRECTOR_TITLE\}\}/g, CERTIFICATE_CONSTANTS.DIRECTOR_TITLE)
-      .replace(
-        /\{\{SCRIPTURE_VERSE\}\}/g,
-        CERTIFICATE_CONSTANTS.SCRIPTURE_VERSE
-      )
-      .replace(/\{\{LOGO_URL\}\}/g, CERTIFICATE_CONSTANTS.LOGO_URL)
-      .replace(
-        /\{\{BACKGROUND_PATTERN_URL\}\}/g,
-        CERTIFICATE_CONSTANTS.BACKGROUND_URL
-      )
-      .replace(/\{\{LOGO_DISPLAY\}\}/g, 'block');
+      .replace(/\{\{\s*NAME\s*\}\}/g, data.name)
+      .replace(/\{\{\s*CHURCH_NAME\s*\}\}/g, data.churchName)
+      .replace(/\{\{\s*DATES\s*\}\}/g, formattedDates);
   }
 
   async generateCertificateHTML(data: CertificateData): Promise<string> {
