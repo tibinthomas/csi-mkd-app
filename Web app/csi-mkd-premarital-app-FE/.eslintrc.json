@@ -84,7 +84,14 @@
         "prefer-spread": "off",
         "custom-rules/avoid-src-imports": "error",
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "warn"
+        "@typescript-eslint/no-unused-vars": "warn",
+        "no-console": "error"
+      }
+    },
+    {
+      "files": ["**/console-detection.service.ts"],
+      "rules": {
+        "no-console": "off"
       }
     },
     {

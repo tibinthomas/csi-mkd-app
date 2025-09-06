@@ -50,7 +50,6 @@ export class SessionsFallbackService {
       tap(() => {
         if (!warmupTriggered) {
           warmupTriggered = true;
-          console.log('Functions API taking longer than 5s, warming up main app...');
           this.warmupMainApp();
         }
       })

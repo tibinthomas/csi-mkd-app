@@ -567,22 +567,16 @@ export class PremaritalComponent {
       // Use the SessionId to get session details from API
       if (reg.sessionId) {
         try {
-          console.log('Fetching session with ID:', reg.sessionId);
           const sessionResponse = await firstValueFrom(
             this.sessionsFallbackService.apiSessionconfigIdGet({
               id: reg.sessionId,
             })
           );
-          console.log('Session API response:', sessionResponse);
 
           if (sessionResponse?.startDate && sessionResponse?.endDate) {
             sessionStartDate = new Date(sessionResponse.startDate);
             sessionEndDate = new Date(sessionResponse.endDate);
 
-            console.log('Parsed session dates:', {
-              sessionStartDate,
-              sessionEndDate,
-            });
 
             // Generate all dates between start and end
             const current = new Date(sessionStartDate);
@@ -591,18 +585,12 @@ export class PremaritalComponent {
               current.setDate(current.getDate() + 1);
             }
 
-            console.log('Generated session dates array:', sessionDates);
           } else {
-            console.log('Session response missing dates:', {
-              hasStartDate: !!sessionResponse?.startDate,
-              hasEndDate: !!sessionResponse?.endDate,
-            });
           }
         } catch (apiError) {
           console.warn('Failed to fetch session details:', apiError);
         }
       } else {
-        console.log('No SessionId found in registration:', reg);
       }
 
       // Fallback to reg.Days if session API call failed

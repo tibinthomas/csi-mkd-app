@@ -248,13 +248,6 @@ export class CertificateService {
         ? this.formatSessionDates(data.sessionStartDate, data.sessionEndDate)
         : this.formatDates(data.dates);
 
-    console.log('Certificate data:', {
-      sessionStartDate: data.sessionStartDate,
-      sessionEndDate: data.sessionEndDate,
-      dates: data.dates,
-      formattedDates,
-      hasSessionDates: !!(data.sessionStartDate && data.sessionEndDate),
-    });
 
     return template
       .replace(/\{\{\s*NAME\s*\}\}/g, data.name)
@@ -264,15 +257,7 @@ export class CertificateService {
 
   async generateCertificateHTML(data: CertificateData): Promise<string> {
     const template = await this.loadTemplate();
-    console.log('Loaded template length:', template.length);
-    console.log('Template preview:', template.substring(0, 300) + '...');
-
     const populatedTemplate = this.populateTemplate(template, data);
-    console.log('Populated template length:', populatedTemplate.length);
-    console.log(
-      'Populated template preview:',
-      populatedTemplate.substring(0, 500) + '...'
-    );
 
     return populatedTemplate;
   }
@@ -677,12 +662,10 @@ export class CertificateService {
   private triggerPrint(printWindow: Window): void {
     setTimeout(() => {
       printWindow.focus();
-      console.log('Triggering print dialog...');
       printWindow.print();
 
       // Handle print completion
       printWindow.onafterprint = () => {
-        console.log('Print dialog closed');
         printWindow.close();
       };
 

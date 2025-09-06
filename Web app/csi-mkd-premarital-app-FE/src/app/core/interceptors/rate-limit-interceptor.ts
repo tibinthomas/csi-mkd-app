@@ -34,7 +34,6 @@ export const rateLimitInterceptor: HttpInterceptorFn = (
         delayWhen((error: HttpErrorResponse, retryIndex) => {
           if (error.status === 429 && retryIndex < DEFAULT_CONFIG.maxRetries) {
             const delay = calculateRetryDelay(retryIndex);
-            logRateLimitRetry(req, retryIndex + 1, delay);
             return timer(delay);
           }
           // Re-throw error if not 429 or max retries exceeded
@@ -92,11 +91,3 @@ function handleRateLimitError(error: HttpErrorResponse, req: HttpRequest<unknown
   }
 }
 
-/**
- * Logs retry attempts for rate limited requests.
- */
-function logRateLimitRetry(req: HttpRequest<unknown>, attempt: number, delay: number): void {
-  console.info(
-    `[RateLimit] Retrying ${req.method} ${req.url} (attempt ${attempt}/${DEFAULT_CONFIG.maxRetries}) in ${delay}ms`
-  );
-}

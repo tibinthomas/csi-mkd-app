@@ -16,6 +16,7 @@ import {
 import { SeoService } from './core/services/seo.service';
 import { UpdateService } from './core/services/update.service';
 import { LoadingService } from './core/services/loading.service';
+import { ConsoleDetectionService } from './core/services/console-detection.service';
 import { UpdatePromptComponent } from './shared/components/update-prompt/update-prompt.component';
 import { GlobalLoaderComponent } from './shared/components/global-loader/global-loader.component';
 import { filter, map, switchMap } from 'rxjs';
@@ -36,10 +37,14 @@ export class App implements OnInit {
   private readonly seoService = inject(SeoService);
   private readonly updateService = inject(UpdateService);
   private readonly loadingService = inject(LoadingService);
+  private readonly consoleDetectionService = inject(ConsoleDetectionService);
 
   ngOnInit(): void {
     // Initialize update service
     this.updateService.checkForUpdate();
+
+    // Initialize console detection for developers
+    this.consoleDetectionService.initializeConsoleDetection();
 
     // Handle loading state for route navigation
     this.router.events.subscribe((event) => {

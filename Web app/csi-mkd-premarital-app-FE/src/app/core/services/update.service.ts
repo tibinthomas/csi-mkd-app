@@ -147,7 +147,6 @@ export class UpdateService {
       localStorage.clear();
       sessionStorage.clear();
 
-      console.log('All caches cleared successfully');
     } catch (error) {
       console.warn('Failed to clear some caches:', error);
     }
@@ -175,7 +174,6 @@ export class UpdateService {
 
   // Emergency cache clear method (can be called manually)
   async forceClearAndReload(): Promise<void> {
-    console.log('Force clearing all caches and reloading...');
     await this.clearAllCaches();
     
     // Additional aggressive cache clearing for stubborn browsers
@@ -183,7 +181,6 @@ export class UpdateService {
       try {
         const registrations = await navigator.serviceWorker.getRegistrations();
         await Promise.all(registrations.map(registration => registration.unregister()));
-        console.log('All service workers unregistered');
       } catch (error) {
         console.warn('Failed to unregister service workers:', error);
       }
@@ -223,12 +220,10 @@ export class UpdateService {
       
       // If app hasn't been updated in 24 hours, force check
       if (timeSinceLastCheck > maxAge) {
-        console.log('App may be stale, forcing update check');
         this.checkForUpdate();
         
         // After 48 hours without update, be more aggressive
         if (timeSinceLastCheck > 2 * maxAge) {
-          console.log('App is very stale, considering cache clear');
           setTimeout(() => {
             if (!this.updateAvailable()) {
               const forceRefresh = confirm(

@@ -84,7 +84,6 @@ export class FeedbackQuestions {
                     userId: this.userId,
                   });
                   this.isVerified.set(true);
-                  console.log('Email verified successfully.');
                   this.emailControl.setErrors(null); // clear any previous errors
                 },
                 error: (err) => {
@@ -95,7 +94,6 @@ export class FeedbackQuestions {
                 },
               });
           } else {
-            console.log('Email not found in registered list.');
             this.isVerified.set(false);
             this.isLoading.set(false);
             this.feedbackDataService.userDetails.set(null);

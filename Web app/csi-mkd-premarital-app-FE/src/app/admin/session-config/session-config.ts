@@ -194,7 +194,6 @@ export class SessionConfig implements OnInit {
               const errorMsg =
                 JSON.parse(err?.error).message ??
                 'Failed to delete session configuration.';
-              console.log(err);
               this.dialog.open(AlertDialog, {
                 data: { message: errorMsg },
               });
