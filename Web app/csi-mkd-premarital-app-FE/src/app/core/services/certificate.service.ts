@@ -15,26 +15,25 @@ export interface CertificateData {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CertificateService {
-
   private formatDate(date: Date): string {
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
   }
 
   private formatDates(dates: Date[]): string {
     if (dates.length === 0) return '';
     if (dates.length === 1) return this.formatDate(dates[0]);
-    
+
     const sortedDates = [...dates].sort((a, b) => a.getTime() - b.getTime());
     const firstDate = this.formatDate(sortedDates[0]);
     const lastDate = this.formatDate(sortedDates[sortedDates.length - 1]);
-    
+
     return `${firstDate} to ${lastDate}`;
   }
 
@@ -42,35 +41,34 @@ export class CertificateService {
     // Generate comma-separated dates like "07, 08, 09 August 2025"
     const start = new Date(startDate);
     const end = new Date(endDate);
-    
+
     if (start.getTime() === end.getTime()) {
       // Single day session
       return start.toLocaleDateString('en-US', {
         day: '2-digit',
         month: 'long',
-        year: 'numeric'
+        year: 'numeric',
       });
     }
-    
+
     const dates: string[] = [];
     const current = new Date(start);
-    
+
     // Get month and year from the end date for consistency
     const monthYear = end.toLocaleDateString('en-US', {
       month: 'long',
-      year: 'numeric'
+      year: 'numeric',
     });
-    
+
     // Generate all dates between start and end
     while (current <= end) {
       const dayNumber = current.getDate().toString().padStart(2, '0');
       dates.push(dayNumber);
       current.setDate(current.getDate() + 1);
     }
-    
+
     return `${dates.join(', ')} ${monthYear}`;
   }
-
 
   private async loadTemplate(): Promise<string> {
     try {
@@ -134,7 +132,7 @@ export class CertificateService {
       aspect-ratio: 11 / 8.5;
       position: relative;
       margin: 0 auto;
-      background-image: url('certificate_bg.png');
+      background-image: url('assets/certificate_bg.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100% 100%;
@@ -244,38 +242,56 @@ export class CertificateService {
   }
 
   private populateTemplate(template: string, data: CertificateData): string {
-    
     // Use session dates if available, otherwise fall back to the dates array
-    const formattedDates = data.sessionStartDate && data.sessionEndDate
-      ? this.formatSessionDates(data.sessionStartDate, data.sessionEndDate)
-      : this.formatDates(data.dates);
+    const formattedDates =
+      data.sessionStartDate && data.sessionEndDate
+        ? this.formatSessionDates(data.sessionStartDate, data.sessionEndDate)
+        : this.formatDates(data.dates);
 
     console.log('Certificate data:', {
       sessionStartDate: data.sessionStartDate,
       sessionEndDate: data.sessionEndDate,
       dates: data.dates,
       formattedDates,
-      hasSessionDates: !!(data.sessionStartDate && data.sessionEndDate)
+      hasSessionDates: !!(data.sessionStartDate && data.sessionEndDate),
     });
 
     return template
-      .replace(/\{\{CERTIFICATE_TITLE\}\}/g, CERTIFICATE_CONSTANTS.CERTIFICATE_TITLE)
-      .replace(/\{\{ORGANIZATION_NAME\}\}/g, CERTIFICATE_CONSTANTS.ORGANIZATION_NAME)
-      .replace(/\{\{ORGANIZATION_ADDRESS\}\}/g, CERTIFICATE_CONSTANTS.ORGANIZATION_ADDRESS)
+      .replace(
+        /\{\{CERTIFICATE_TITLE\}\}/g,
+        CERTIFICATE_CONSTANTS.CERTIFICATE_TITLE
+      )
+      .replace(
+        /\{\{ORGANIZATION_NAME\}\}/g,
+        CERTIFICATE_CONSTANTS.ORGANIZATION_NAME
+      )
+      .replace(
+        /\{\{ORGANIZATION_ADDRESS\}\}/g,
+        CERTIFICATE_CONSTANTS.ORGANIZATION_ADDRESS
+      )
       .replace(/\{\{NAME\}\}/g, data.name)
       .replace(/\{\{CHURCH_NAME\}\}/g, data.churchName)
       .replace(/\{\{PROGRAM_DURATION\}\}/g, data.programDuration)
       .replace(/\{\{PROGRAM_NAME\}\}/g, CERTIFICATE_CONSTANTS.PROGRAM_NAME)
       .replace(/\{\{VENUE\}\}/g, CERTIFICATE_CONSTANTS.VENUE)
       .replace(/\{\{DATES\}\}/g, formattedDates)
-      .replace(/\{\{CERTIFICATE_DESCRIPTION\}\}/g, CERTIFICATE_CONSTANTS.CERTIFICATE_DESCRIPTION)
+      .replace(
+        /\{\{CERTIFICATE_DESCRIPTION\}\}/g,
+        CERTIFICATE_CONSTANTS.CERTIFICATE_DESCRIPTION
+      )
       .replace(/\{\{BISHOP_NAME\}\}/g, CERTIFICATE_CONSTANTS.BISHOP_NAME)
       .replace(/\{\{BISHOP_TITLE\}\}/g, CERTIFICATE_CONSTANTS.BISHOP_TITLE)
       .replace(/\{\{DIRECTOR_NAME\}\}/g, CERTIFICATE_CONSTANTS.DIRECTOR_NAME)
       .replace(/\{\{DIRECTOR_TITLE\}\}/g, CERTIFICATE_CONSTANTS.DIRECTOR_TITLE)
-      .replace(/\{\{SCRIPTURE_VERSE\}\}/g, CERTIFICATE_CONSTANTS.SCRIPTURE_VERSE)
+      .replace(
+        /\{\{SCRIPTURE_VERSE\}\}/g,
+        CERTIFICATE_CONSTANTS.SCRIPTURE_VERSE
+      )
       .replace(/\{\{LOGO_URL\}\}/g, CERTIFICATE_CONSTANTS.LOGO_URL)
-      .replace(/\{\{BACKGROUND_PATTERN_URL\}\}/g, CERTIFICATE_CONSTANTS.BACKGROUND_URL)
+      .replace(
+        /\{\{BACKGROUND_PATTERN_URL\}\}/g,
+        CERTIFICATE_CONSTANTS.BACKGROUND_URL
+      )
       .replace(/\{\{LOGO_DISPLAY\}\}/g, 'block');
   }
 
@@ -283,31 +299,36 @@ export class CertificateService {
     const template = await this.loadTemplate();
     console.log('Loaded template length:', template.length);
     console.log('Template preview:', template.substring(0, 300) + '...');
-    
+
     const populatedTemplate = this.populateTemplate(template, data);
     console.log('Populated template length:', populatedTemplate.length);
-    console.log('Populated template preview:', populatedTemplate.substring(0, 500) + '...');
-    
+    console.log(
+      'Populated template preview:',
+      populatedTemplate.substring(0, 500) + '...'
+    );
+
     return populatedTemplate;
   }
 
   async generateCertificatePDF(data: CertificateData): Promise<Blob> {
     const htmlContent = await this.generateCertificateHTML(data);
-    
+
     const options = {
       margin: 0,
-      filename: `certificate-${data.name.replace(/\s+/g, '-').toLowerCase()}.pdf`,
+      filename: `certificate-${data.name
+        .replace(/\s+/g, '-')
+        .toLowerCase()}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { 
+      html2canvas: {
         scale: 2,
         useCORS: true,
-        allowTaint: true
+        allowTaint: true,
       },
-      jsPDF: { 
-        unit: 'in', 
-        format: 'letter', 
-        orientation: 'landscape' 
-      }
+      jsPDF: {
+        unit: 'in',
+        format: 'letter',
+        orientation: 'landscape',
+      },
     };
 
     return html2pdf().set(options).from(htmlContent).outputPdf('blob');
@@ -322,7 +343,9 @@ export class CertificateService {
     const url = URL.createObjectURL(pdfBlob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `certificate-${data.name.replace(/\s+/g, '-').toLowerCase()}.pdf`;
+    link.download = `certificate-${data.name
+      .replace(/\s+/g, '-')
+      .toLowerCase()}.pdf`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -332,21 +355,28 @@ export class CertificateService {
   async downloadCertificateAsImage(data: CertificateData): Promise<void> {
     const htmlContent = await this.generateCertificateHTML(data);
     const imageDataUrl = await this.generateCertificateImage(htmlContent);
-    
+
     const link = document.createElement('a');
     link.href = imageDataUrl;
-    link.download = `certificate-${data.name.replace(/\s+/g, '-').toLowerCase()}.png`;
+    link.download = `certificate-${data.name
+      .replace(/\s+/g, '-')
+      .toLowerCase()}.png`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   }
 
-  async generateCertificateImage(htmlContent: string, isPreview = false, isPrint = false): Promise<string> {
+  async generateCertificateImage(
+    htmlContent: string,
+    isPreview = false,
+    isPrint = false
+  ): Promise<string> {
     return new Promise((resolve, reject) => {
       // Check if this is a full HTML document or just a fragment
-      const isFullDocument = htmlContent.trim().toLowerCase().startsWith('<!doctype html') || 
-                             htmlContent.trim().toLowerCase().startsWith('<html');
-      
+      const isFullDocument =
+        htmlContent.trim().toLowerCase().startsWith('<!doctype html') ||
+        htmlContent.trim().toLowerCase().startsWith('<html');
+
       if (isFullDocument) {
         // For full HTML documents, create an iframe to properly handle styles and structure
         const iframe = document.createElement('iframe');
@@ -356,19 +386,21 @@ export class CertificateService {
         iframe.style.width = '1056px';
         iframe.style.height = '816px';
         iframe.style.border = 'none';
-        
+
         document.body.appendChild(iframe);
-        
+
         if (!iframe.contentDocument) {
           document.body.removeChild(iframe);
-          reject(new Error('Unable to create iframe for certificate rendering'));
+          reject(
+            new Error('Unable to create iframe for certificate rendering')
+          );
           return;
         }
-        
+
         iframe.contentDocument.open();
         iframe.contentDocument.write(htmlContent);
         iframe.contentDocument.close();
-        
+
         // Wait for the iframe to load
         const handleLoad = () => {
           try {
@@ -377,18 +409,24 @@ export class CertificateService {
               reject(new Error('Iframe content not available'));
               return;
             }
-            
-            let certificateElement = iframe.contentDocument.querySelector('.certificate') as HTMLElement;
+
+            let certificateElement = iframe.contentDocument.querySelector(
+              '.certificate'
+            ) as HTMLElement;
             if (!certificateElement) {
-              certificateElement = iframe.contentDocument.querySelector('.certificate-container') as HTMLElement;
+              certificateElement = iframe.contentDocument.querySelector(
+                '.certificate-container'
+              ) as HTMLElement;
             }
-            
+
             if (!certificateElement) {
               document.body.removeChild(iframe);
-              reject(new Error('Certificate container not found in loaded document'));
+              reject(
+                new Error('Certificate container not found in loaded document')
+              );
               return;
             }
-            
+
             // Apply CSS overrides for printing
             if (isPrint) {
               const style = document.createElement('style');
@@ -399,10 +437,10 @@ export class CertificateService {
               `;
               iframe.contentDocument.head.appendChild(style);
             }
-            
+
             // Force layout recalculation and wait for fonts
             certificateElement.offsetHeight;
-            
+
             const captureImage = () => {
               // Use html2canvas to convert to image
               html2canvas(certificateElement, {
@@ -417,24 +455,28 @@ export class CertificateService {
                 x: 0,
                 y: 0,
                 foreignObjectRendering: false,
-                removeContainer: true
-              }).then((canvas) => {
-                document.body.removeChild(iframe);
-                resolve(canvas.toDataURL('image/png', 1.0));
-              }).catch((error) => {
-                document.body.removeChild(iframe);
-                reject(error);
-              });
+                removeContainer: true,
+              })
+                .then((canvas) => {
+                  document.body.removeChild(iframe);
+                  resolve(canvas.toDataURL('image/png', 1.0));
+                })
+                .catch((error) => {
+                  document.body.removeChild(iframe);
+                  reject(error);
+                });
             };
-            
+
             // Wait for fonts to be ready before capturing
             const fontsReady = iframe.contentDocument?.fonts?.ready;
             if (fontsReady) {
-              fontsReady.then(() => {
-                setTimeout(captureImage, 100);
-              }).catch(() => {
-                setTimeout(captureImage, 500);
-              });
+              fontsReady
+                .then(() => {
+                  setTimeout(captureImage, 100);
+                })
+                .catch(() => {
+                  setTimeout(captureImage, 500);
+                });
             } else {
               setTimeout(captureImage, 500);
             }
@@ -443,7 +485,7 @@ export class CertificateService {
             reject(error);
           }
         };
-        
+
         iframe.onload = handleLoad;
         // Fallback timeout
         setTimeout(() => {
@@ -451,7 +493,6 @@ export class CertificateService {
             handleLoad();
           }
         }, 1000);
-        
       } else {
         // Handle HTML fragments as before
         const tempContainer = document.createElement('div');
@@ -460,18 +501,20 @@ export class CertificateService {
         tempContainer.style.left = '-9999px';
         tempContainer.style.top = '-9999px';
         tempContainer.style.width = '1056px';
-        tempContainer.style.height = '816px'; 
-        
+        tempContainer.style.height = '816px';
+
         document.body.appendChild(tempContainer);
-        
-        let certificateElement = tempContainer.querySelector('.certificate') as HTMLElement;
+
+        let certificateElement = tempContainer.querySelector(
+          '.certificate'
+        ) as HTMLElement;
 
         if (!certificateElement) {
           document.body.removeChild(tempContainer);
           reject(new Error('Certificate container not found'));
           return;
         }
-        
+
         // Apply CSS overrides for printing
         if (isPrint) {
           const style = document.createElement('style');
@@ -482,10 +525,10 @@ export class CertificateService {
           `;
           tempContainer.appendChild(style);
         }
-        
+
         // Force layout recalculation and wait for fonts
         certificateElement.offsetHeight;
-        
+
         const captureImage = () => {
           // Use html2canvas to convert to image
           html2canvas(certificateElement, {
@@ -500,23 +543,27 @@ export class CertificateService {
             x: 0,
             y: 0,
             foreignObjectRendering: false,
-            removeContainer: true
-          }).then((canvas) => {
-            document.body.removeChild(tempContainer);
-            resolve(canvas.toDataURL('image/png', 1.0));
-          }).catch((error) => {
-            document.body.removeChild(tempContainer);
-            reject(error);
-          });
+            removeContainer: true,
+          })
+            .then((canvas) => {
+              document.body.removeChild(tempContainer);
+              resolve(canvas.toDataURL('image/png', 1.0));
+            })
+            .catch((error) => {
+              document.body.removeChild(tempContainer);
+              reject(error);
+            });
         };
-        
+
         // Wait for fonts to be ready before capturing
         if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(() => {
-            setTimeout(captureImage, 100);
-          }).catch(() => {
-            setTimeout(captureImage, 500);
-          });
+          document.fonts.ready
+            .then(() => {
+              setTimeout(captureImage, 100);
+            })
+            .catch(() => {
+              setTimeout(captureImage, 500);
+            });
         } else {
           setTimeout(captureImage, 500);
         }
@@ -526,13 +573,23 @@ export class CertificateService {
 
   async printCertificate(htmlContent: string): Promise<void> {
     try {
-      const imageDataUrl = await this.generateCertificateImage(htmlContent, false, true);
-      
-      const printWindow = window.open('', '_blank', 'width=1300,height=1000,scrollbars=yes,resizable=yes');
+      const imageDataUrl = await this.generateCertificateImage(
+        htmlContent,
+        false,
+        true
+      );
+
+      const printWindow = window.open(
+        '',
+        '_blank',
+        'width=1300,height=1000,scrollbars=yes,resizable=yes'
+      );
       if (!printWindow) {
-        throw new Error('Could not open print window. Please allow popups for this site.');
+        throw new Error(
+          'Could not open print window. Please allow popups for this site.'
+        );
       }
-      
+
       const printHTML = `
         <!DOCTYPE html>
         <html>
@@ -618,10 +675,10 @@ export class CertificateService {
         </body>
         </html>
       `;
-      
+
       printWindow.document.write(printHTML);
       printWindow.document.close();
-      
+
       // Wait for content to load
       printWindow.onload = () => {
         const img = printWindow.document.querySelector('img');
@@ -655,13 +712,13 @@ export class CertificateService {
       printWindow.focus();
       console.log('Triggering print dialog...');
       printWindow.print();
-      
+
       // Handle print completion
       printWindow.onafterprint = () => {
         console.log('Print dialog closed');
         printWindow.close();
       };
-      
+
       // Fallback to close window if onafterprint doesn't work
       setTimeout(() => {
         if (!printWindow.closed) {
