@@ -55,6 +55,7 @@ import { SessionsFallbackService } from '../../core/services/sessions-fallback.s
 import { SessionDataService } from '../../core/services/session-data.service';
 import { CertificateService } from '../../core/services/certificate.service';
 import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
+import { PaymentStatusUpdateDto } from '../../../api/api-main-app/models/payment-status-update-dto';
 import {
   ChurchDataService,
   ChurchWithDetails,
@@ -316,14 +317,13 @@ export class PremaritalComponent {
       if (confirmed) {
         this.isApproving.set(reg.id);
 
-        const updated = {
-          ...reg,
+        const paymentStatusUpdate: PaymentStatusUpdateDto = {
           paymentStatus: !reg.paymentStatus,
         };
         this.api
           .apiPremaritalregisterIdPaymentstatusPut({
-            id: reg.id,
-            body: updated,
+            id: reg.id.toString(),
+            body: paymentStatusUpdate,
           })
           .subscribe({
             next: () => {
@@ -577,14 +577,12 @@ export class PremaritalComponent {
             sessionStartDate = new Date(sessionResponse.startDate);
             sessionEndDate = new Date(sessionResponse.endDate);
 
-
             // Generate all dates between start and end
             const current = new Date(sessionStartDate);
             while (current <= sessionEndDate) {
               sessionDates.push(new Date(current));
               current.setDate(current.getDate() + 1);
             }
-
           } else {
           }
         } catch (apiError) {
