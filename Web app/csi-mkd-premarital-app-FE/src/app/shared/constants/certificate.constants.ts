@@ -8,10 +8,12 @@ export const CERTIFICATE_CONSTANTS = {
   ORGANIZATION_ADDRESS: 'C.M.S. PRESS COMPOUND, CHALUKUNNU, KOTTAYAM',
   VENUE: 'C.S.I. Counselling Centre, Kottayam',
   PROGRAM_NAME: 'premarital awareness programme',
-  SCRIPTURE_VERSE: 'Therefore what God has joined together, let no one separate. — Mark 10:9',
+  SCRIPTURE_VERSE:
+    'Therefore what God has joined together, let no one separate. — Mark 10:9',
   PATH_NAME: 'Premarital Counseling Program',
-  CERTIFICATE_DESCRIPTION: 'has successfully completed the Premarital Counseling Program',
+  CERTIFICATE_DESCRIPTION:
+    'has successfully completed the Premarital Counseling Program',
   LOGO_URL: '/logo.png',
-  BACKGROUND_URL: '/certificate_bg.png',
-  TEMPLATE_URL: '/certificate_template.html'
+  BACKGROUND_URL: 'assets/certificate_bg.png',
+  TEMPLATE_URL: 'assets/certificate_template.html',
 } as const;
