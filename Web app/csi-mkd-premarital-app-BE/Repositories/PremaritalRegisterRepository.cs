@@ -34,6 +34,8 @@ namespace csi_mkd_premarital_app_BE.Repositories
             var reg = await _context.PremaritalRegistrations.FindAsync(id);
             if (reg is null) return false;
 
+            // Explicitly track the entity since global NoTracking is enabled
+            _context.Entry(reg).State = EntityState.Modified;
             reg.PaymentStatus = status;
             await _context.SaveChangesAsync();
             return true;
@@ -198,6 +200,9 @@ namespace csi_mkd_premarital_app_BE.Repositories
             var registration = await _context.PremaritalRegistrations.FindAsync(id);
             if (registration == null)
                 return false;
+
+            // Explicitly track the entity since global NoTracking is enabled
+            _context.Entry(registration).State = EntityState.Modified;
 
             // Update all fields
             registration.FirstName = dto.FirstName;
