@@ -44,12 +44,19 @@ export class Instructors implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
 
-  readonly displayedColumns = ['name', 'qualification', 'averageRating', 'totalFeedback', 'actions'];
+  readonly displayedColumns = computed(() => {
+    const baseColumns = ['name', 'qualification', 'actions'];
+    if (this.ratingsVisible()) {
+      return ['name', 'qualification', 'averageRating', 'totalFeedback', 'actions'];
+    }
+    return baseColumns;
+  });
   readonly instructors = signal<InstructorDto[]>([]);
   readonly instructorRatings = signal<InstructorRatingDto[]>([]);
   readonly isLoading = signal(false);
   readonly isLoadingRatings = signal(false);
   readonly error = signal<string | null>(null);
+  readonly ratingsVisible = signal(false);
 
   readonly sortedInstructors = computed(() => {
     return this.instructors().sort((a, b) => {
@@ -67,7 +74,6 @@ export class Instructors implements OnInit {
 
   ngOnInit() {
     this.loadInstructors();
-    this.loadInstructorRatings();
   }
 
   loadInstructors() {
@@ -88,6 +94,13 @@ export class Instructors implements OnInit {
         });
       },
     });
+  }
+
+  toggleRatings() {
+    if (!this.ratingsVisible()) {
+      this.loadInstructorRatings();
+    }
+    this.ratingsVisible.update(visible => !visible);
   }
 
   loadInstructorRatings() {
@@ -156,7 +169,9 @@ export class Instructors implements OnInit {
     this.api.apiInstructorsPost({ body: instructorData }).subscribe({
       next: () => {
         this.loadInstructors();
-        this.loadInstructorRatings();
+        if (this.ratingsVisible()) {
+          this.loadInstructorRatings();
+        }
         this.snackBar.open('Instructor created successfully', 'Close', {
           duration: 3000,
         });
@@ -176,7 +191,9 @@ export class Instructors implements OnInit {
       .subscribe({
         next: () => {
           this.loadInstructors();
-          this.loadInstructorRatings();
+          if (this.ratingsVisible()) {
+            this.loadInstructorRatings();
+          }
           this.snackBar.open('Instructor updated successfully', 'Close', {
             duration: 3000,
           });
@@ -194,7 +211,9 @@ export class Instructors implements OnInit {
     this.api.apiInstructorsIdDelete({ id }).subscribe({
       next: () => {
         this.loadInstructors();
-        this.loadInstructorRatings();
+        if (this.ratingsVisible()) {
+          this.loadInstructorRatings();
+        }
         this.snackBar.open('Instructor deleted successfully', 'Close', {
           duration: 3000,
         });
