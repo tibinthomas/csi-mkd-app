@@ -4,8 +4,16 @@
 <head>
   <meta charset="utf-8" />
   <title>Certificate (overlay)</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
   <style>
+    /* Reset default styles to eliminate white space */
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: transparent;
+    }
+
     /* Container set to 11in x 8.5in aspect ratio (landscape).
      Width uses pixels for on-screen, but max-width:100% allows responsive scaling. */
     .certificate {
@@ -18,19 +26,19 @@
       /* Field positions (percentages relative to certificate container).
        If things are off, change these values only. */
       --name-left: 19%;
-      --name-top: 49.2%;
+      --name-top: 47.7%;
       --name-width: 62.1%;
-      --name-size: 32px;
+      --name-size: 36px;
 
       --church-left: 18.04%;
-      --church-top: 56.27%;
+      --church-top: 54.77%;
       --church-width: 72.53%;
-      --church-size: 24px;
+      --church-size: 28px;
 
       --dates-left: 47.3%;
-      --dates-top: 67.82%;
+      --dates-top: 66.72%;
       --dates-width: 38.86%;
-      --dates-size: 21px;
+      --dates-size: 24px;
 
       width: var(--cert-width);
       max-width: 100%;
@@ -66,10 +74,14 @@
       top: var(--name-top);
       width: var(--name-width);
       font-size: var(--name-size);
-      font-weight: 700;
+      font-weight: 400;
       text-align: center;
       /* change to center if you want centered text inside dotted line */
-      letter-spacing: 0.6px;
+      letter-spacing: 2px;
+      font-family: 'Pinyon Script', cursive;
+      color: #2d1b12;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15), 0.5px 0.5px 1px rgba(45, 27, 18, 0.1);
+      filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.08));
     }
 
     .church {
@@ -77,9 +89,13 @@
       top: var(--church-top);
       width: var(--church-width);
       font-size: var(--church-size);
-      font-weight: 600;
+      font-weight: 400;
       text-align: left;
-      letter-spacing: 0.4px;
+      letter-spacing: 1.5px;
+      font-family: 'Pinyon Script', cursive;
+      color: #2d1b12;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.12), 0.5px 0.5px 1px rgba(45, 27, 18, 0.08);
+      filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.06));
     }
 
     .dates {
@@ -87,14 +103,19 @@
       top: var(--dates-top);
       width: var(--dates-width);
       font-size: var(--dates-size);
-      font-weight: 600;
+      font-weight: 400;
       text-align: left;
+      letter-spacing: 1.2px;
+      font-family: 'Pinyon Script', cursive;
+      color: #2d1b12;
+      text-shadow: 0.8px 0.8px 1.5px rgba(0, 0, 0, 0.1), 0.3px 0.3px 0.8px rgba(45, 27, 18, 0.06);
+      filter: drop-shadow(0 0.3px 0.8px rgba(0, 0, 0, 0.05));
     }
 
     /* small visual tweak so text shows well on the patterned background */
     .overlay {
       /* text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
-      color: #3a2318; */
+      color: #2d1b12; */
     }
 
     /* print rules: print at actual 11in x 8.5in */
@@ -109,14 +130,24 @@
         height: 8.5in;
         background-size: 100% 100%;
       }
+
+      /* Remove shadows and effects for print */
+      .name, .church, .dates {
+        text-shadow: none !important;
+        filter: none !important;
+      }
     }
 
     /* optional: scale whole certificate for smaller screens */
     .wrap {
       width: var(--cert-width);
+      height: calc(var(--cert-width) / var(--cert-aspect));
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
   </style>
 </head>
