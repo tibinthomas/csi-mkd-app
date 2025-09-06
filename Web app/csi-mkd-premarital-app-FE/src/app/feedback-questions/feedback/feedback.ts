@@ -118,10 +118,10 @@ export class Feedback implements OnInit {
   }
 
   ratingLabels: Record<string, string> = {
-    qualityRating: $localize`Overall Quality`,
-    relevanceRating: $localize`Content Relevance`,
-    engagementRating: $localize`Presenter Engagement`,
-    organizationRating: $localize`Organization`,
+    qualityRating: $localize`:@@overallQuality:Overall Quality`,
+    relevanceRating: $localize`:@@contentRelevance:Content Relevance`,
+    engagementRating: $localize`:@@presenterEngagement:Presenter Engagement`,
+    organizationRating: $localize`:@@organization:Organization`,
   };
 
   protected readonly classTitles = signal<any>(classListData);
@@ -160,9 +160,11 @@ export class Feedback implements OnInit {
     params: () => this.userId(),
     stream: ({ params: userId }) =>
       userId
-        ? this.api.apiPremaritalregisterIdGet({
-            id: userId,
-          }).pipe(shareReplay(1))
+        ? this.api
+            .apiPremaritalregisterIdGet({
+              id: userId,
+            })
+            .pipe(shareReplay(1))
         : of(null),
   });
 
@@ -170,9 +172,11 @@ export class Feedback implements OnInit {
     params: () => this.userId(),
     stream: ({ params: userId }) =>
       userId
-        ? this.api.apiCosmosFeedbackCompletedRegistrationIdGet({
-            registrationId: userId,
-          }).pipe(shareReplay(1))
+        ? this.api
+            .apiCosmosFeedbackCompletedRegistrationIdGet({
+              registrationId: userId,
+            })
+            .pipe(shareReplay(1))
         : of(null), // Always return an observable
   });
 
@@ -181,9 +185,11 @@ export class Feedback implements OnInit {
     params: () => this.userId(),
     stream: ({ params: userId }) =>
       userId
-        ? this.api.apiCosmosFeedbackRegistrationRegistrationIdGet({
-            registrationId: userId,
-          }).pipe(shareReplay(1))
+        ? this.api
+            .apiCosmosFeedbackRegistrationRegistrationIdGet({
+              registrationId: userId,
+            })
+            .pipe(shareReplay(1))
         : of(null),
   });
 
@@ -241,11 +247,15 @@ export class Feedback implements OnInit {
               this.route.snapshot.url.map((segment) => segment.path).join('/'),
             ]);
 
-            this.snackBar.open($localize`Feedback submitted successfully!`, 'Close', {
-              duration: 5000,
-              horizontalPosition: 'right',
-              verticalPosition: 'bottom',
-            });
+            this.snackBar.open(
+              $localize`Feedback submitted successfully!`,
+              'Close',
+              {
+                duration: 5000,
+                horizontalPosition: 'right',
+                verticalPosition: 'bottom',
+              }
+            );
           });
       },
       error: (err) => {

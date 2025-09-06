@@ -1008,16 +1008,17 @@
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
-     
-      <trans-unit id="3272830838222584108" datatype="html">
+
+
+     <trans-unit id="overallQuality" datatype="html">
         <source>Overall Quality</source>
-         <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
+        <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
           <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6752807975877546003" datatype="html">
+      <trans-unit id="contentRelevance" datatype="html">
         <source>Content Relevance</source>
         <target>ഉള്ളടക്കത്തിന്റെ പ്രസക്തി </target>
         <context-group purpose="location">
@@ -1025,7 +1026,7 @@
           <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7239374508943813513" datatype="html">
+      <trans-unit id="presenterEngagement" datatype="html">
         <source>Presenter Engagement</source>
         <target>അവതാരകൻ്റെ ഇടപെടൽ</target>
         <context-group purpose="location">
@@ -1033,7 +1034,7 @@
           <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3076687427621376223" datatype="html">
+      <trans-unit id="organization" datatype="html">
         <source>Organization</source>
         <target>ഓർഗനൈസഷൻ </target>
         <context-group purpose="location">
