@@ -41,6 +41,49 @@
             <td mat-cell *matCellDef="let instructor">{{ instructor.qualification }}</td>
           </ng-container>
 
+          <ng-container matColumnDef="averageRating">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold" i18n>Average Rating</th>
+            <td mat-cell *matCellDef="let instructor">
+              @if (getRatingForInstructor(instructor.id!); as rating) {
+                <div class="flex items-center gap-2">
+                  <span class="font-medium text-lg">{{ rating.averageRating | number:'1.1-2' }}</span>
+                  <div class="flex text-yellow-500">
+                    @for (star of [1,2,3,4,5]; track star) {
+                      @if (star <= (rating.averageRating || 0)) {
+                        <mat-icon class="text-base">star</mat-icon>
+                      } @else if (star - 0.5 <= (rating.averageRating || 0)) {
+                        <mat-icon class="text-base">star_half</mat-icon>
+                      } @else {
+                        <mat-icon class="text-base">star_border</mat-icon>
+                      }
+                    }
+                  </div>
+                </div>
+                <div class="text-xs text-on-surface-variant mt-1" 
+                     [matTooltip]="'Quality: ' + (rating.ratingBreakdown?.averageQuality | number:'1.1-2') + 
+                                  ', Relevance: ' + (rating.ratingBreakdown?.averageRelevance | number:'1.1-2') + 
+                                  ', Engagement: ' + (rating.ratingBreakdown?.averageEngagement | number:'1.1-2') + 
+                                  ', Organization: ' + (rating.ratingBreakdown?.averageOrganization | number:'1.1-2')">
+                  View Breakdown
+                </div>
+              } @else {
+                <span class="text-on-surface-variant text-sm" i18n>No ratings yet</span>
+              }
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="totalFeedback">
+            <th mat-header-cell *matHeaderCellDef class="font-semibold" i18n>Feedback Count</th>
+            <td mat-cell *matCellDef="let instructor">
+              @if (getRatingForInstructor(instructor.id!); as rating) {
+                <span class="font-medium">{{ rating.totalFeedbackCount }}</span>
+                <span class="text-xs text-on-surface-variant ml-1" i18n>reviews</span>
+              } @else {
+                <span class="text-on-surface-variant text-sm">0</span>
+              }
+            </td>
+          </ng-container>
+
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef class="font-semibold" i18n>Actions</th>
             <td mat-cell *matCellDef="let instructor">

@@ -20,6 +20,8 @@ export type { GeneralDocumentDto } from './models/general-document-dto';
 export type { GeneralRegisterDto } from './models/general-register-dto';
 export type { HttpValidationProblemDetails } from './models/http-validation-problem-details';
 export type { InstructorDto } from './models/instructor-dto';
+export type { InstructorRatingBreakdownDto } from './models/instructor-rating-breakdown-dto';
+export type { InstructorRatingDto } from './models/instructor-rating-dto';
 export type { ParticipantDto } from './models/participant-dto';
 export type { PaymentStatusUpdateDto } from './models/payment-status-update-dto';
 export type { PremaritalDocumentDto } from './models/premarital-document-dto';

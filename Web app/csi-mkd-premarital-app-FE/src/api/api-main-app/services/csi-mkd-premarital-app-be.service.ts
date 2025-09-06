@@ -85,6 +85,8 @@ import { apiInstructorsIdPut } from '../fn/csi-mkd-premarital-app-be/api-instruc
 import { ApiInstructorsIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-id-put';
 import { apiInstructorsPost } from '../fn/csi-mkd-premarital-app-be/api-instructors-post';
 import { ApiInstructorsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-post';
+import { apiInstructorsRatingsGet } from '../fn/csi-mkd-premarital-app-be/api-instructors-ratings-get';
+import { ApiInstructorsRatingsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-ratings-get';
 import { apiPremaritalregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
 import { ApiPremaritalregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
 import { apiPremaritalregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
@@ -134,6 +136,7 @@ import { HealthDbGet$Params } from '../fn/csi-mkd-premarital-app-be/health-db-ge
 import { healthGet } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { InstructorDto } from '../models/instructor-dto';
+import { InstructorRatingDto } from '../models/instructor-rating-dto';
 import { SessionConfigurationDto } from '../models/session-configuration-dto';
 
 @Injectable({ providedIn: 'root' })
@@ -1555,6 +1558,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
   apiInstructorsPost(params: ApiInstructorsPost$Params, context?: HttpContext): Observable<InstructorDto> {
     return this.apiInstructorsPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<InstructorDto>): InstructorDto => r.body)
+    );
+  }
+
+  /** Path part for operation `apiInstructorsRatingsGet()` */
+  static readonly ApiInstructorsRatingsGetPath = '/api/instructors/ratings';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiInstructorsRatingsGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsRatingsGet$Response(params?: ApiInstructorsRatingsGet$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<InstructorRatingDto>>> {
+    return apiInstructorsRatingsGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiInstructorsRatingsGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiInstructorsRatingsGet(params?: ApiInstructorsRatingsGet$Params, context?: HttpContext): Observable<Array<InstructorRatingDto>> {
+    return this.apiInstructorsRatingsGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<InstructorRatingDto>>): Array<InstructorRatingDto> => r.body)
     );
   }
 

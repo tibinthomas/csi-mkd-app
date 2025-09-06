@@ -16,8 +16,9 @@ import {
 } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DecimalPipe } from '@angular/common';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
-import { InstructorDto } from '../../../api/api-main-app/models';
+import { InstructorDto, InstructorRatingDto } from '../../../api/api-main-app/models';
 import { InstructorFormDialogComponent } from './instructor-form-dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OnInit } from '@angular/core';
@@ -35,6 +36,7 @@ import { OnInit } from '@angular/core';
     MatDialogModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
+    DecimalPipe,
   ],
 })
 export class Instructors implements OnInit {
@@ -42,9 +44,11 @@ export class Instructors implements OnInit {
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
 
-  readonly displayedColumns = ['name', 'qualification', 'actions'];
+  readonly displayedColumns = ['name', 'qualification', 'averageRating', 'totalFeedback', 'actions'];
   readonly instructors = signal<InstructorDto[]>([]);
+  readonly instructorRatings = signal<InstructorRatingDto[]>([]);
   readonly isLoading = signal(false);
+  readonly isLoadingRatings = signal(false);
   readonly error = signal<string | null>(null);
 
   readonly sortedInstructors = computed(() => {
@@ -55,8 +59,15 @@ export class Instructors implements OnInit {
     });
   });
 
+  readonly sortedInstructorRatings = computed(() => {
+    return this.instructorRatings().sort((a, b) => {
+      return (b.averageRating || 0) - (a.averageRating || 0);
+    });
+  });
+
   ngOnInit() {
     this.loadInstructors();
+    this.loadInstructorRatings();
   }
 
   loadInstructors() {
@@ -74,6 +85,24 @@ export class Instructors implements OnInit {
         this.isLoading.set(false);
         this.snackBar.open('Failed to load instructors', 'Close', {
           duration: 5000,
+        });
+      },
+    });
+  }
+
+  loadInstructorRatings() {
+    this.isLoadingRatings.set(true);
+
+    this.api.apiInstructorsRatingsGet().subscribe({
+      next: (ratings) => {
+        this.instructorRatings.set(ratings || []);
+        this.isLoadingRatings.set(false);
+      },
+      error: (err) => {
+        console.error('Failed to load instructor ratings', err);
+        this.isLoadingRatings.set(false);
+        this.snackBar.open('Failed to load instructor ratings', 'Close', {
+          duration: 3000,
         });
       },
     });
@@ -119,10 +148,15 @@ export class Instructors implements OnInit {
     });
   }
 
+  getRatingForInstructor(instructorId: number): InstructorRatingDto | null {
+    return this.instructorRatings().find(r => r.instructorId === instructorId) || null;
+  }
+
   private createInstructor(instructorData: any) {
     this.api.apiInstructorsPost({ body: instructorData }).subscribe({
       next: () => {
         this.loadInstructors();
+        this.loadInstructorRatings();
         this.snackBar.open('Instructor created successfully', 'Close', {
           duration: 3000,
         });
@@ -142,6 +176,7 @@ export class Instructors implements OnInit {
       .subscribe({
         next: () => {
           this.loadInstructors();
+          this.loadInstructorRatings();
           this.snackBar.open('Instructor updated successfully', 'Close', {
             duration: 3000,
           });
@@ -159,6 +194,7 @@ export class Instructors implements OnInit {
     this.api.apiInstructorsIdDelete({ id }).subscribe({
       next: () => {
         this.loadInstructors();
+        this.loadInstructorRatings();
         this.snackBar.open('Instructor deleted successfully', 'Close', {
           duration: 3000,
         });
