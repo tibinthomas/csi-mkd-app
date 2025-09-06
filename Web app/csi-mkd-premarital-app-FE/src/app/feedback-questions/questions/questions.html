@@ -11,20 +11,20 @@
         <!-- User Details -->
         <div class="grid md:grid-cols-2 gap-6 pb-10">
           @if (isLoadingUserDetails()) {
-            <div class="w-full col-span-2">
-              <label class="font-medium">Loading user details...</label>
-            </div>
+          <div class="w-full col-span-2">
+            <label class="font-medium">Loading user details...</label>
+          </div>
           } @else if (userDetails()) {
-            <div class="w-full">
-              <label class="font-medium" i18n>Name: {{ userDetails()!.name }}</label>
-            </div>
-            <div class="w-full">
-              <label class="font-medium" i18n>Email: {{ userDetails()!.email }}</label>
-            </div>
+          <div class="w-full">
+            <label class="font-medium" i18n>Name: {{ userDetails()!.name }}</label>
+          </div>
+          <div class="w-full">
+            <label class="font-medium" i18n>Email: {{ userDetails()!.email }}</label>
+          </div>
           } @else {
-            <div class="w-full col-span-2">
-              <label class="font-medium">User details not available</label>
-            </div>
+          <div class="w-full col-span-2">
+            <label class="font-medium">User details not available</label>
+          </div>
           }
         </div>
 
@@ -56,7 +56,7 @@
             [disabled]="form.invalid || isSubmitting()"
             [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
           >
-            {{ isSubmitting() ? "Submitting..." : "Submit" }}
+            @if (isSubmitting()) { <span i18n>Submitting...</span>} @else{<span i18n>Submit</span>}
           </button>
           @if (isSubmitting()) {
           <div id="submit-status" class="sr-only" aria-live="polite" i18n>Submitting your responses, please wait</div>

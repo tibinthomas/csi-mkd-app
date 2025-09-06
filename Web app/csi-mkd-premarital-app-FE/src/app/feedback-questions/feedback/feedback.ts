@@ -241,7 +241,7 @@ export class Feedback implements OnInit {
               this.route.snapshot.url.map((segment) => segment.path).join('/'),
             ]);
 
-            this.snackBar.open('Feedback submitted successfully!', 'Close', {
+            this.snackBar.open($localize`Feedback submitted successfully!`, 'Close', {
               duration: 5000,
               horizontalPosition: 'right',
               verticalPosition: 'bottom',

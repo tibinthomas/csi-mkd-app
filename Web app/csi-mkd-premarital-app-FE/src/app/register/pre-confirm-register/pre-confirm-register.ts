@@ -194,9 +194,9 @@ export class PreConfirmRegister {
                   next: () => {
                     const dialogRef = this.dialog.open(SuccessDialog, {
                       data: {
-                        title: 'Pre-Confirmation Registration Complete',
+                        title: $localize`Pre-Confirmation Registration Complete`,
                         messages: [
-                          'Your pre-confirmation registration is successfully completed.',
+                          $localize`Your pre-confirmation registration is successfully completed.`,
                         ],
                       },
                     });

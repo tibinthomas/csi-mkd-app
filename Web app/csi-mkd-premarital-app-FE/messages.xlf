@@ -382,6 +382,10 @@
           <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
           <context context-type="linenumber">54,55</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="7082826917135979458" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Last Name<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
@@ -422,20 +426,12 @@
           <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
           <context context-type="linenumber">70,71</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">99,100</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="847842500563801996" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Phone<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
           <context context-type="linenumber">74,75</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">103,104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5686597120091969499" datatype="html">
@@ -453,7 +449,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">115,116</context>
+          <context context-type="linenumber">103,104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3821661153451769620" datatype="html">
@@ -464,7 +460,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">122,123</context>
+          <context context-type="linenumber">110,111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8691920320483720007" datatype="html">
@@ -475,7 +471,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">126,127</context>
+          <context context-type="linenumber">114,115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8321345780280773002" datatype="html">
@@ -486,7 +482,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">307</context>
+          <context context-type="linenumber">298</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5025457187887640726" datatype="html">
@@ -497,7 +493,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">308</context>
+          <context context-type="linenumber">299</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3516497080568132461" datatype="html">
@@ -508,7 +504,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">309</context>
+          <context context-type="linenumber">300</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1658311170791450631" datatype="html">
@@ -519,7 +515,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">310</context>
+          <context context-type="linenumber">301</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3137853939815525350" datatype="html">
@@ -530,7 +526,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">315</context>
+          <context context-type="linenumber">306</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1685862327782046733" datatype="html">
@@ -541,7 +537,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">316</context>
+          <context context-type="linenumber">307</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5750485945694679561" datatype="html">
@@ -552,7 +548,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">335,336</context>
+          <context context-type="linenumber">326,327</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4893616715766810081" datatype="html">
@@ -563,7 +559,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">434,435</context>
+          <context context-type="linenumber">406,407</context>
         </context-group>
       </trans-unit>
       <trans-unit id="370711479257073703" datatype="html">
@@ -838,144 +834,144 @@
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7936207317315431198" datatype="html">
-        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Name<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">83,84</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="7210903906976990679" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Session<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">107,108</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7317452390224431869" datatype="html">
-        <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Session Days<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">111,112</context>
+          <context context-type="linenumber">99,100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="524213042620763077" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Certificate<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">131,132</context>
+          <context context-type="linenumber">119,120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1550256450775998994" datatype="html">
         <source>Generate Certificate</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">138,139</context>
+          <context context-type="linenumber">126,127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1333353801406606457" datatype="html">
         <source>Payment Required</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">145,146</context>
+          <context context-type="linenumber">133,134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8561767776402943958" datatype="html">
         <source>Refresh feedback status</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">168,169</context>
+          <context context-type="linenumber">156,157</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9097976812409156345" datatype="html">
         <source>View feedback status</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">184,185</context>
+          <context context-type="linenumber">172,173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7502623154624324901" datatype="html">
         <source>Refresh Q&amp;A status</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">214,215</context>
+          <context context-type="linenumber">202,203</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1852179910141245823" datatype="html">
         <source>View Q&amp;A status</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">230,231</context>
+          <context context-type="linenumber">218,219</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8000466141792513827" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>Actions<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">245,246</context>
+          <context context-type="linenumber">233,234</context>
         </context-group>
       </trans-unit>
       <trans-unit id="136103351121970628" datatype="html">
         <source>Edit Registration</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">252,253</context>
+          <context context-type="linenumber">240,241</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5082517976855223846" datatype="html">
         <source>Delete Registration</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">267,268</context>
+          <context context-type="linenumber">255,256</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6631334172623029500" datatype="html">
+        <source>Email:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">295</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4378227938065070603" datatype="html">
+        <source>Phone:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">296</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6152024450746766925" datatype="html">
+        <source>Session Days:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">297</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1797706607469391935" datatype="html">
         <source>Fiancé&apos;s Name:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">317</context>
+          <context context-type="linenumber">308</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1366865666437993427" datatype="html">
         <source>Date of Marriage:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">318</context>
+          <context context-type="linenumber">309</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9130470748661769218" datatype="html">
         <source>Church Activities:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">320,321</context>
+          <context context-type="linenumber">311,312</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4347415165036700652" datatype="html">
         <source>No activities listed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">328,329</context>
+          <context context-type="linenumber">319,320</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3193764125791084606" datatype="html">
         <source>Vicar&apos;s Letter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">354,355</context>
+          <context context-type="linenumber">348,349</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="2388272801059451263" datatype="html">
-        <source>Document Available</source>
+      <trans-unit id="670906300672775611" datatype="html">
+        <source>No letter uploaded</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">367,368</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6324528015939649455" datatype="html">
-        <source>No document uploaded</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">376,377</context>
+          <context context-type="linenumber">353,354</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3604386807230411192" datatype="html">
@@ -1008,7 +1004,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">156</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
@@ -1269,6 +1265,10 @@
           <context context-type="linenumber">125,127</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">264,265</context>
         </context-group>
@@ -1299,28 +1299,35 @@
         <source>Overall Quality</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6752807975877546003" datatype="html">
         <source>Content Relevance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7239374508943813513" datatype="html">
         <source>Presenter Engagement</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3076687427621376223" datatype="html">
         <source>Organization</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2444137575425457513" datatype="html">
+        <source>Feedback submitted successfully!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">244</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8799033266509979610" datatype="html">
@@ -1335,6 +1342,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
           <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="935187492052582731" datatype="html">
+        <source>Submit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">59,60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2005075326748124304" datatype="html">
@@ -1502,7 +1516,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
-          <context context-type="linenumber">58,59</context>
+          <context context-type="linenumber">59,60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8429316238784832901" datatype="html">
@@ -1555,11 +1569,11 @@
           <context context-type="linenumber">222,223</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="811835437066708749" datatype="html">
-        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-telephone&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Contact</source>
+      <trans-unit id="1005841233134050264" datatype="html">
+        <source> Contact</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">243,244</context>
+          <context context-type="linenumber">243</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8345044020671605638" datatype="html">
@@ -1569,11 +1583,11 @@
           <context context-type="linenumber">248,250</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6224688768643075871" datatype="html">
-        <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-geo-alt&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Visit Us</source>
+      <trans-unit id="6685758014797560182" datatype="html">
+        <source>Visit Us</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">254,255</context>
+          <context context-type="linenumber">254</context>
         </context-group>
       </trans-unit>
       <trans-unit id="15139457058898869" datatype="html">
@@ -2056,6 +2070,31 @@
           <context context-type="linenumber">438,439</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7592595057355029376" datatype="html">
+        <source>Registration Complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.ts</context>
+          <context context-type="linenumber">297</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4953164506502232456" datatype="html">
+        <source>Your registration is successfully completed.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.ts</context>
+          <context context-type="linenumber">299</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6506836102431790936" datatype="html">
+        <source>A confirmation email has been sent to your registered email address.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.ts</context>
+          <context context-type="linenumber">302</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">447</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="6934153456217930718" datatype="html">
         <source> Pre-confirmational Registration Form </source>
         <context-group purpose="location">
@@ -2188,6 +2227,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
           <context context-type="linenumber">179</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1662619179927972646" datatype="html">
+        <source>Pre-Confirmation Registration Complete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
+          <context context-type="linenumber">197</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="107504608993292284" datatype="html">
+        <source>Your pre-confirmation registration is successfully completed.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
+          <context context-type="linenumber">199</context>
         </context-group>
       </trans-unit>
       <trans-unit id="172699377993238502" datatype="html">
@@ -2393,13 +2446,6 @@
           <context context-type="linenumber">445</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6506836102431790936" datatype="html">
-        <source>A confirmation email has been sent to your registered email address.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">447</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="4289369355874597168" datatype="html">
         <source>Choose a Registration Type </source>
         <context-group purpose="location">
@@ -2456,32 +2502,39 @@
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8167827234133288733" datatype="html">
-        <source> Register for a Premarital Session (All Dates are in IST) </source>
+      <trans-unit id="6918433711869093985" datatype="html">
+        <source>Register for a Premarital Session</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
           <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5677468441705562547" datatype="html">
+        <source>(All dates are in IST)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/sessions/sessions.html</context>
+          <context context-type="linenumber">6,7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8088663872040483564" datatype="html">
         <source>Collapse All</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
-          <context context-type="linenumber">9,10</context>
+          <context context-type="linenumber">10,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5008745968518267369" datatype="html">
         <source>Expand All</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
-          <context context-type="linenumber">11,12</context>
+          <context context-type="linenumber">12,13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5643561794785412000" datatype="html">
         <source>Unavailable</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
-          <context context-type="linenumber">60,61</context>
+          <context context-type="linenumber">61,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7350919090373604527" datatype="html">

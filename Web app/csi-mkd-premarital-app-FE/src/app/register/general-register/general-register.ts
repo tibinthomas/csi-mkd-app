@@ -294,12 +294,12 @@ export class GeneralRegister {
                     const dialogRef = this.dialog.open(SuccessDialog, {
                       disableClose: true,
                       data: {
-                        title: 'Registration Complete',
+                        title: $localize`Registration Complete`,
                         messages: [
-                          'Your registration is successfully completed.',
+                          $localize`Your registration is successfully completed.`,
                         ],
                         extraMessage:
-                          'A confirmation email has been sent to your registered email address.',
+                          $localize`A confirmation email has been sent to your registered email address.`,
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {

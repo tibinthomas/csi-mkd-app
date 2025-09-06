@@ -509,6 +509,14 @@
           <context context-type="linenumber">113,114</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6685758014797560182" datatype="html">
+        <source>Visit Us</source>
+         <target>ഞങ്ങളെ സന്ദർശിക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">254</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="15139457058898869" datatype="html">
         <source>CSI Counselling Centre</source>
         <target>സി.എസ്.ഐ. കൗൺസിലിംഗ് സെന്റർ</target>
@@ -1006,7 +1014,7 @@
          <target>മൊത്തത്തിലുള്ള ഗുണനിലവാരം </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">121</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6752807975877546003" datatype="html">
@@ -1014,7 +1022,7 @@
         <target>ഉള്ളടക്കത്തിന്റെ പ്രസക്തി </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7239374508943813513" datatype="html">
@@ -1022,7 +1030,7 @@
         <target>അവതാരകൻ്റെ ഇടപെടൽ</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3076687427621376223" datatype="html">
@@ -1030,7 +1038,7 @@
         <target>ഓർഗനൈസഷൻ </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6488186088347933729" datatype="html">
@@ -1790,6 +1798,14 @@
           <context context-type="linenumber">146,147</context>
         </context-group>
       </trans-unit>
+       <trans-unit id="1005841233134050264" datatype="html">
+        <source> Contact</source>
+         <target>ഫോൺ നമ്പർ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">243</context>
+        </context-group>
+      </trans-unit>
        <trans-unit id="6224688768643075871" datatype="html">
         <source><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-geo-alt&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> Visit Us</source>
                <target><x id="START_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;i class=&quot;bi bi-geo-alt&quot;&gt;"/><x id="CLOSE_ITALIC_TEXT" ctype="x-i" equiv-text="&lt;/i&gt;"/> ഞങ്ങളെ സന്ദർശിക്കൂ</target>
@@ -1866,7 +1882,30 @@
           <context context-type="linenumber">193,194</context>
         </context-group>
       </trans-unit>
-
+  <trans-unit id="3493126540529865490" datatype="html">
+        <source>Submitting...</source>
+        <target>സമർപ്പിക്കുന്നു... ദയവായി കാത്തിരിക്കുക  </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.html</context>
+          <context context-type="linenumber">125,127</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">264,265</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
+          <context context-type="linenumber">203,204</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">432,433</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3493126540529865490" datatype="html">
         <source>Submitting...</source>
         <target>സമർപ്പിക്കുന്നു...ദയവായി കാത്തിരിക്കുക </target>
@@ -1969,6 +2008,7 @@
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
+      
       <trans-unit id="3164346036811171308" datatype="html">
         <source>Church Name is required.</source>
  <target> സഭയുടെ പേര് എന്റർ ചെയ്യുക  </target>
@@ -2361,8 +2401,8 @@
       </trans-unit>
       <trans-unit id="7818995439793400184" datatype="html">
         <source>What will be the greatest adjustment when you are in a new home? What is your approach about family prayer and Sunday church service after your marriage?</source>
-        <target>നിങ്ങൾ പുതിയ വീട്ടിൽ താമസിക്കുമ്പോൾ ഏറ്റവും വലിയ അഡ്ജസ്റ്മെന്റ്  എന്തായിരിക്കും?"
-"വിവാഹത്തിന് ശേഷം കുടുംബ പ്രാർഥനയുടെയും ഞായറാഴ്ചത്തെ ചര്‍ച്ച് ശുശ്രൂഷയുടെയും കുറിച്ച് നിങ്ങളുടെ സമീപനം എന്താണ്</target>
+        <target>നിങ്ങൾ പുതിയ വീട്ടിൽ താമസിക്കുമ്പോൾ ഏറ്റവും വലിയ അഡ്ജസ്റ്മെന്റ്  എന്തായിരിക്കും?
+വിവാഹത്തിന് ശേഷം കുടുംബ പ്രാർഥനയുടെയും ഞായറാഴ്ചത്തെ ചര്‍ച്ച് ശുശ്രൂഷയുടെയും കുറിച്ച് നിങ്ങളുടെ സമീപനം എന്താണ്</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
           <context context-type="linenumber">107</context>
@@ -2392,6 +2432,51 @@
           <context context-type="linenumber">399</context>
         </context-group>
       </trans-unit>
+ <trans-unit id="7592595057355029376" datatype="html">
+        <source>Registration Complete</source>
+        <target>രജിസ്ട്രേഷൻ പൂർത്തിയായി</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.ts</context>
+          <context context-type="linenumber">297</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4953164506502232456" datatype="html">
+        <source>Your registration is successfully completed.</source>
+        <target>നിങ്ങളുടെ രജിസ്ട്രേഷൻ വിജയകരമായി പൂർത്തിയായി.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.ts</context>
+          <context context-type="linenumber">299</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6506836102431790936" datatype="html">
+        <source>A confirmation email has been sent to your registered email address.</source>
+        <target>നിങ്ങളുടെ രജിസ്റ്റർ ചെയ്ത ഇമെയിൽ വിലാസത്തിലേക്ക് ഒരു സ്ഥിരീകരണ ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.ts</context>
+          <context context-type="linenumber">302</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">447</context>
+        </context-group>
+      </trans-unit>
+       <trans-unit id="1662619179927972646" datatype="html">
+        <source>Pre-Confirmation Registration Complete</source>
+        <target>പ്രീ-കൺഫർമേഷൻ രജിസ്ട്രേഷൻ പൂർത്തിയായി</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
+          <context context-type="linenumber">197</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="107504608993292284" datatype="html">
+        <source>Your pre-confirmation registration is successfully completed.</source>
+        <target>നിങ്ങളുടെ പ്രീ-സ്ഥിരീകരണ രജിസ്ട്രേഷൻ വിജയകരമായി പൂർത്തിയായി.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
+          <context context-type="linenumber">199</context>
+        </context-group>
+      </trans-unit>
+
       <trans-unit id="7350919090373604527" datatype="html">
         <source>New Version Available</source>
          <target>പുതിയ പതിപ്പ് ലഭ്യമാണ്</target>
@@ -2450,6 +2535,7 @@
         </trans-unit>
         <trans-unit id="4893616715766810081" datatype="html">
         <source>No data available</source>
+        <target></target>
         <target></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
@@ -2524,6 +2610,14 @@
           <context context-type="linenumber">5,6</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2444137575425457513" datatype="html">
+        <source>Feedback submitted successfully!</source>
+        <target>ഫീഡ്‌ബാക്ക് വിജയകരമായി സമർപ്പിച്ചു!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/feedback/feedback.ts</context>
+          <context context-type="linenumber">244</context>
+        </context-group>
+      </trans-unit>
 <trans-unit id="413116577994876478" datatype="html">
         <source>Light</source>
         <target>ലൈറ്റ് </target>
@@ -2569,6 +2663,77 @@
         </context-group>
       </trans-unit>
       
+      <trans-unit id="1921409629392815194" datatype="html">
+        <source>You must accept the declaration.</source>
+         <target>നിങ്ങൾ പ്രഖ്യാപനം അംഗീകരിക്കണം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">240</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="2803955181732804479" datatype="html">
+        <source> I would like to attend the counselling. </source>
+        <target>ഞാൻ കൗൺസിലിംഗിൽ പങ്കെടുക്കാൻ ആഗ്രഹിക്കുന്നു </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">238</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="8858598317653238886" datatype="html">
+        <source> I would like to attend the premarital counselling course. </source>
+       <target>ഞാൻ പ്രീമാരിറ്റൽ കൗൺസിലിംഗിൽ പങ്കെടുക്കാൻ ആഗ്രഹിക്കുന്നു </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">402,403</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1467227821862300667" datatype="html">
+        <source> You must accept the declaration. </source>
+         <target>നിങ്ങൾ പ്രഖ്യാപനം അംഗീകരിക്കണം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">407</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="327405637155101166" datatype="html">
+        <source>Your responses have been submitted successfully!</source>
+        <target>നിങ്ങളുടെ പ്രതികരണങ്ങൾ വിജയകരമായി സമർപ്പിച്ചു!</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.ts</context>
+          <context context-type="linenumber">210</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="1685862327782046733" datatype="html">
+        <source>Priest Name:</source>
+        <target>ഇടവകവികാരി </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/general-list/general-list.html</context>
+          <context context-type="linenumber">127</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">307</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="8949409568181516097" datatype="html">
+        <source>Please select a passport size photo in image format</source>
+        <target>ഇമേജ് ഫോർമാറ്റിലുള്ള ഒരു പാസ്‌പോർട്ട് സൈസ് ഫോട്ടോ തിരഞ്ഞെടുക്കുക.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">227,228</context>
+        </context-group>
+      </trans-unit>
+<trans-unit id="935187492052582731" datatype="html">
+        <source>Submit</source>
+        <target>സമർപ്പിക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/feedback-questions/questions/questions.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+
+
+
       <trans-unit id="8088663872040483564" datatype="html">
         <source>Collapse All</source>
         <target>ചുരുക്കുക</target>
