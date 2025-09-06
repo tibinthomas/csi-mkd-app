@@ -87,164 +87,159 @@ export class CertificateService {
   }
 
   private getFallbackTemplate(): string {
-    return `<!DOCTYPE html>
+    return `<!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>{{CERTIFICATE_TITLE}}</title>
+  <meta charset="utf-8" />
+  <title>Certificate (overlay)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Times New Roman', serif;
+    /* Reset default styles to eliminate white space */
+    html, body {
       margin: 0;
       padding: 0;
-      background-color: #fff;
+      overflow: hidden;
+      background: transparent;
     }
 
-    .certificate-container {
-      width: 1056px;
-      height: 816px;
-      background: #fff url('{{BACKGROUND_PATTERN_URL}}') no-repeat center;
-      background-size: cover;
-      border: 12px solid #b4975a;
-      padding: 60px;
-      margin: 0 auto;
+    /* Container set to 11in x 8.5in aspect ratio (landscape).
+     Width uses pixels for on-screen, but max-width:100% allows responsive scaling. */
+    .certificate {
+      /* tweak these three values to nudge entire rendering */
+      --cert-width: 1056px;
+      /* default on-screen width; change if you need larger */
+      --cert-aspect: calc(11 / 8.5);
+      /* for reference; not directly used */
+
+      /* Field positions (percentages relative to certificate container).
+       If things are off, change these values only. */
+      --name-left: 19%;
+      --name-top: 47.7%;
+      --name-width: 62.1%;
+      --name-size: 36px;
+
+      --church-left: 18.04%;
+      --church-top: 54.77%;
+      --church-width: 72.53%;
+      --church-size: 28px;
+
+      --dates-left: 47.3%;
+      --dates-top: 66.72%;
+      --dates-width: 38.86%;
+      --dates-size: 24px;
+
+      width: var(--cert-width);
+      max-width: 100%;
+      aspect-ratio: 11 / 8.5;
       position: relative;
-      box-sizing: border-box;
-      text-align: center;
-    }
-
-    .header {
-      margin-top: 40px;
-    }
-
-    .header .org-name {
-      font-size: 20px;
-      font-weight: bold;
-      color: #7d2c2c;
-      margin-top: 5px;
-    }
-
-    .certificate-title {
-      font-size: 42px;
-      font-weight: bold;
-      color: #7d2c2c;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-
-    .description {
-      font-size: 20px;
-      margin-top: 40px;
-      color: #2c1810;
-      font-weight: 600;
-    }
-
-    .recipient-name {
-      font-size: 36px;
-      font-weight: bold;
-      color: #004b2c;
-      text-decoration: underline;
-      margin: 15px 0;
-      display: inline-block;
-    }
-
-    .details {
-      font-size: 18px;
-      width: 80%;
       margin: 0 auto;
-      line-height: 1.6;
-      color: #2c1810;
-      font-weight: 500;
+      background-image: url('certificate_bg.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+      /* stretch to exact aspect, preserving layout */
+      font-family: 'Playfair Display', serif;
+      color: #000000;
+      box-sizing: border-box;
     }
 
-    .scripture {
-      font-size: 16px;
-      font-style: italic;
-      margin: 25px auto;
-      color: #2c1810;
-      width: 80%;
-      font-weight: 500;
-    }
-
-    .date {
-      font-size: 18px;
-      margin-top: 30px;
-      color: #2c1810;
-      font-weight: 600;
-    }
-
-    .signatures {
-      display: flex;
-      justify-content: space-between;
+    /* overlay fields are positioned using percentages so they scale with the container */
+    .overlay {
       position: absolute;
-      bottom: 80px;
-      width: 85%;
-      left: 50%;
-      transform: translateX(-50%);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      pointer-events: none;
+      /* safe: user can't accidentally select/move */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.3 !important;
+      height: auto !important;
+      overflow: visible !important;
     }
 
-    .sign-box {
+    .name {
+      left: var(--name-left);
+      top: var(--name-top);
+      width: var(--name-width);
+      font-size: var(--name-size);
+      font-weight: 400;
       text-align: center;
+      /* change to center if you want centered text inside dotted line */
+      letter-spacing: 2px;
+      font-family: 'Pinyon Script', cursive;
+      color: #2d1b12;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15), 0.5px 0.5px 1px rgba(45, 27, 18, 0.1);
+      filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.08));
     }
 
-    .sign-line {
-      border-top: 1px solid #000;
-      width: 220px;
-      margin: 0 auto 5px auto;
+    .church {
+      left: var(--church-left);
+      top: var(--church-top);
+      width: var(--church-width);
+      font-size: var(--church-size);
+      font-weight: 400;
+      text-align: left;
+      letter-spacing: 1.5px;
+      font-family: 'Pinyon Script', cursive;
+      color: #2d1b12;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.12), 0.5px 0.5px 1px rgba(45, 27, 18, 0.08);
+      filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.06));
     }
 
-    .signature-name {
-      font-weight: bold;
-      font-size: 16px;
-      color: #2c1810;
+    .dates {
+      left: var(--dates-left);
+      top: var(--dates-top);
+      width: var(--dates-width);
+      font-size: var(--dates-size);
+      font-weight: 400;
+      text-align: left;
+      letter-spacing: 1.2px;
+      font-family: 'Pinyon Script', cursive;
+      color: #2d1b12;
+      text-shadow: 0.8px 0.8px 1.5px rgba(0, 0, 0, 0.1), 0.3px 0.3px 0.8px rgba(45, 27, 18, 0.06);
+      filter: drop-shadow(0 0.3px 0.8px rgba(0, 0, 0, 0.05));
     }
 
-    .signature-title {
-      font-size: 14px;
-      color: #2c1810;
-      font-weight: 500;
+    /* print rules: print at actual 11in x 8.5in */
+    @page {
+      size: 11in 8.5in;
+      margin: 0;
     }
 
-    .logo {
-      position: absolute;
-      top: 30px;
-      left: 30px;
-      height: 100px;
+    @media print {
+      .certificate {
+        width: 11in;
+        height: 8.5in;
+        background-size: 100% 100%;
+      }
+    }
+
+    /* optional: scale whole certificate for smaller screens */
+    .wrap {
+      width: var(--cert-width);
+      height: calc(var(--cert-width) / var(--cert-aspect));
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
   </style>
 </head>
+
 <body>
-  <div class="certificate-container">
-    <img src="{{LOGO_URL}}" alt="Organization Logo" class="logo" style="display: {{LOGO_DISPLAY}};">
-
-    <div class="header">
-      <div class="certificate-title">{{CERTIFICATE_TITLE}}</div>
-      <div class="org-name">{{ORGANIZATION_NAME}}</div>
-    </div>
-
-    <div class="description">This certifies that</div>
-    <div class="recipient-name">{{NAME}}</div>
-
-    <div class="details">{{CERTIFICATE_DESCRIPTION}}</div>
-
-    <div class="scripture">{{SCRIPTURE_VERSE}}</div>
-
-    <div class="date">Completed on <strong>{{DATE}}</strong></div>
-
-    <div class="signatures">
-      <div class="sign-box">
-        <div class="sign-line"></div>
-        <div class="signature-name">{{BISHOP_NAME}}</div>
-        <div class="signature-title">{{BISHOP_TITLE}}</div>
-      </div>
-      <div class="sign-box">
-        <div class="sign-line"></div>
-        <div class="signature-name">{{DIRECTOR_NAME}}</div>
-        <div class="signature-title">{{DIRECTOR_TITLE}}</div>
-      </div>
+  <div class="wrap">
+    <div class="certificate" role="img" aria-label="certificate background with overlay fields">
+      <!-- Only these placeholders remain; replace server-side or via JS -->
+      <div class="overlay name">{{NAME}}</div>
+      <div class="overlay church">{{CHURCH_NAME}}</div>
+      <div class="overlay dates">{{DATES}}</div>
     </div>
   </div>
 </body>
+
 </html>`;
   }
 
@@ -348,76 +343,183 @@ export class CertificateService {
 
   async generateCertificateImage(htmlContent: string, isPreview = false, isPrint = false): Promise<string> {
     return new Promise((resolve, reject) => {
-      // Create a temporary container
-      const tempContainer = document.createElement('div');
-      tempContainer.innerHTML = htmlContent;
-      tempContainer.style.position = 'absolute';
-      tempContainer.style.left = '-9999px';
-      tempContainer.style.top = '-9999px';
-      tempContainer.style.width = '1056px';
-      tempContainer.style.height = '816px';
+      // Check if this is a full HTML document or just a fragment
+      const isFullDocument = htmlContent.trim().toLowerCase().startsWith('<!doctype html') || 
+                             htmlContent.trim().toLowerCase().startsWith('<html');
       
-      document.body.appendChild(tempContainer);
-      
-      // Find the certificate container
-      const certificateElement = tempContainer.querySelector('.certificate') as HTMLElement;
-      
-      if (!certificateElement) {
-        document.body.removeChild(tempContainer);
-        reject(new Error('Certificate container not found'));
-        return;
-      }
-      
-      // Apply CSS overrides
-      const style = document.createElement('style');
-      let styleContent = '';
-      
-      // For printing, remove background image and adjust positioning
-      if (isPrint) {
-        styleContent = `
-          .certificate {
-            background-image: none !important;
+      if (isFullDocument) {
+        // For full HTML documents, create an iframe to properly handle styles and structure
+        const iframe = document.createElement('iframe');
+        iframe.style.position = 'absolute';
+        iframe.style.left = '-9999px';
+        iframe.style.top = '-9999px';
+        iframe.style.width = '1056px';
+        iframe.style.height = '816px';
+        iframe.style.border = 'none';
+        
+        document.body.appendChild(iframe);
+        
+        if (!iframe.contentDocument) {
+          document.body.removeChild(iframe);
+          reject(new Error('Unable to create iframe for certificate rendering'));
+          return;
+        }
+        
+        iframe.contentDocument.open();
+        iframe.contentDocument.write(htmlContent);
+        iframe.contentDocument.close();
+        
+        // Wait for the iframe to load
+        const handleLoad = () => {
+          try {
+            if (!iframe.contentDocument) {
+              document.body.removeChild(iframe);
+              reject(new Error('Iframe content not available'));
+              return;
+            }
+            
+            let certificateElement = iframe.contentDocument.querySelector('.certificate') as HTMLElement;
+            if (!certificateElement) {
+              certificateElement = iframe.contentDocument.querySelector('.certificate-container') as HTMLElement;
+            }
+            
+            if (!certificateElement) {
+              document.body.removeChild(iframe);
+              reject(new Error('Certificate container not found in loaded document'));
+              return;
+            }
+            
+            // Apply CSS overrides for printing
+            if (isPrint) {
+              const style = document.createElement('style');
+              style.textContent = `
+                .certificate {
+                  background-image: none !important;
+                }
+              `;
+              iframe.contentDocument.head.appendChild(style);
+            }
+            
+            // Force layout recalculation and wait for fonts
+            certificateElement.offsetHeight;
+            
+            const captureImage = () => {
+              // Use html2canvas to convert to image
+              html2canvas(certificateElement, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null,
+                width: 1056,
+                height: 816,
+                scrollX: 0,
+                scrollY: 0,
+                x: 0,
+                y: 0,
+                foreignObjectRendering: false,
+                removeContainer: true
+              }).then((canvas) => {
+                document.body.removeChild(iframe);
+                resolve(canvas.toDataURL('image/png', 1.0));
+              }).catch((error) => {
+                document.body.removeChild(iframe);
+                reject(error);
+              });
+            };
+            
+            // Wait for fonts to be ready before capturing
+            const fontsReady = iframe.contentDocument?.fonts?.ready;
+            if (fontsReady) {
+              fontsReady.then(() => {
+                setTimeout(captureImage, 100);
+              }).catch(() => {
+                setTimeout(captureImage, 500);
+              });
+            } else {
+              setTimeout(captureImage, 500);
+            }
+          } catch (error) {
+            document.body.removeChild(iframe);
+            reject(error);
           }
-        `;
-      }
-      
-      if (styleContent) {
-        style.textContent = styleContent;
-        tempContainer.appendChild(style);
-      }
-      
-      // Force layout recalculation and wait for fonts
-      certificateElement.offsetHeight;
-      
-      const captureImage = () => {
-        // Use html2canvas to convert to image
-        html2canvas(certificateElement, {
-          scale: 2,
-          useCORS: true,
-          allowTaint: true,
-          backgroundColor: '#ffffff',
-          width: 1056,
-          height: 816,
-          scrollX: 0,
-          scrollY: 0
-        }).then((canvas) => {
-          document.body.removeChild(tempContainer);
-          resolve(canvas.toDataURL('image/png', 1.0));
-        }).catch((error) => {
-          document.body.removeChild(tempContainer);
-          reject(error);
-        });
-      };
-      
-      // Wait for fonts to be ready before capturing
-      if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => {
-          setTimeout(captureImage, 100);
-        }).catch(() => {
-          setTimeout(captureImage, 500);
-        });
+        };
+        
+        iframe.onload = handleLoad;
+        // Fallback timeout
+        setTimeout(() => {
+          if (iframe.parentNode) {
+            handleLoad();
+          }
+        }, 1000);
+        
       } else {
-        setTimeout(captureImage, 500);
+        // Handle HTML fragments as before
+        const tempContainer = document.createElement('div');
+        tempContainer.innerHTML = htmlContent;
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
+        tempContainer.style.width = '1056px';
+        tempContainer.style.height = '816px'; 
+        
+        document.body.appendChild(tempContainer);
+        
+        let certificateElement = tempContainer.querySelector('.certificate') as HTMLElement;
+
+        if (!certificateElement) {
+          document.body.removeChild(tempContainer);
+          reject(new Error('Certificate container not found'));
+          return;
+        }
+        
+        // Apply CSS overrides for printing
+        if (isPrint) {
+          const style = document.createElement('style');
+          style.textContent = `
+            .certificate {
+              background-image: none !important;
+            }
+          `;
+          tempContainer.appendChild(style);
+        }
+        
+        // Force layout recalculation and wait for fonts
+        certificateElement.offsetHeight;
+        
+        const captureImage = () => {
+          // Use html2canvas to convert to image
+          html2canvas(certificateElement, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: null,
+            width: 1056,
+            height: 816,
+            scrollX: 0,
+            scrollY: 0,
+            x: 0,
+            y: 0,
+            foreignObjectRendering: false,
+            removeContainer: true
+          }).then((canvas) => {
+            document.body.removeChild(tempContainer);
+            resolve(canvas.toDataURL('image/png', 1.0));
+          }).catch((error) => {
+            document.body.removeChild(tempContainer);
+            reject(error);
+          });
+        };
+        
+        // Wait for fonts to be ready before capturing
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(() => {
+            setTimeout(captureImage, 100);
+          }).catch(() => {
+            setTimeout(captureImage, 500);
+          });
+        } else {
+          setTimeout(captureImage, 500);
+        }
       }
     });
   }
