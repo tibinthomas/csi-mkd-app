@@ -45,7 +45,8 @@
                 <mat-card-header>
                   <mat-card-title class="!text-lg !font-bold"> {{ session.sessionName }} </mat-card-title>
                   <mat-card-subtitle class="!text-lg text-on-surface-variant">
-                    {{ session.startDate | date }} → {{ session.endDate | date }}
+                    {{ session.startDate | date : "MMM d, y" : "+5:30" }} →
+                    {{ session.endDate | date : "MMM d, y" : "+5:30" }}
                   </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-actions class="flex justify-end">
