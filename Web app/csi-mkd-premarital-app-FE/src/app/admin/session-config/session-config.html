@@ -49,11 +49,11 @@
             </ng-container>
             <ng-container matColumnDef="startDate">
               <th mat-header-cell *matHeaderCellDef i18n>Start Date</th>
-              <td mat-cell *matCellDef="let session">{{ session.startDate | date : "mediumDate" }}</td>
+              <td mat-cell *matCellDef="let session">{{ session.startDate | date : "MMM d, y" : "+5:30" }}</td>
             </ng-container>
             <ng-container matColumnDef="endDate">
               <th mat-header-cell *matHeaderCellDef i18n>End Date</th>
-              <td mat-cell *matCellDef="let session">{{ session.endDate | date : "mediumDate" }}</td>
+              <td mat-cell *matCellDef="let session">{{ session.endDate | date : "MMM d, y" : "+5:30" }}</td>
             </ng-container>
             <ng-container matColumnDef="isActive">
               <th mat-header-cell *matHeaderCellDef i18n>Status</th>

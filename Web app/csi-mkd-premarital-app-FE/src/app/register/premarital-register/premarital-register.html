@@ -308,10 +308,13 @@
             <mat-select formControlName="sessionId">
               @for (session of sessionList(); track session) {
               <mat-option [value]="session.id" [hidden]="!session.isActive">
-                {{ session.sessionName }} ({{ session.startDate | date }} - {{ session.endDate | date }})
+                {{ session.sessionName }} ({{ session.startDate | date : "MMM d, y" : "+5:30" }} -
+                {{ session.endDate | date : "MMM d, y" : "+5:30" }})
               </mat-option>
               }
             </mat-select>
+            <mat-hint class="!text-xs" i18n>All dates are in IST</mat-hint>
+
             @if (isInvalid('sessionId')) {
             <mat-error i18n>Please select a session.</mat-error>
             }
