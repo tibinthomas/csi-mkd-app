@@ -61,11 +61,11 @@
           </ng-container>
           <ng-container matColumnDef="ConfirmationDate">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Confirmation Date</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.confirmationDate | date : "mediumDate" }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.confirmationDate | date : "MMM d, y" : "+5:30" }}</td>
           </ng-container>
           <ng-container matColumnDef="CounsellingDate">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Counselling Date</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.counsellingDate | date : "mediumDate" }}</td>
+            <td mat-cell *matCellDef="let reg">{{ reg.counsellingDate | date : "MMM d, y" : "+5:30" }}</td>
           </ng-container>
           <ng-container matColumnDef="ParticipantsCount">
             <th mat-header-cell *matHeaderCellDef i18n><strong>Participants Count</strong></th>

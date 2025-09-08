@@ -105,7 +105,7 @@
                       <h4>{{ feedbackEntry.key }}</h4>
                       <div class="feedback-content">
                         <div class="feedback-meta">
-                          <p><strong>Date:</strong> {{ feedbackEntry.value.date | date : "medium" }}</p>
+                          <p><strong>Date:</strong> {{ feedbackEntry.value.date | date : "MMM d, y" : "+5:30" }}</p>
                           <p><strong>Instructor ID:</strong> {{ feedbackEntry.value.instructorId }}</p>
                         </div>
                         @if (feedbackEntry.value.ratings) {
