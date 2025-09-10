@@ -91,7 +91,7 @@ export interface FeedbackModalData {
                       >Date:</label
                     >
                     <p class="text-sm">
-                      {{ feedbackEntry.date | date : 'medium' }}
+                      {{ feedbackEntry.date | date : 'MMM d, y' : '+5:30' }}
                     </p>
                   </div>
                   <div>

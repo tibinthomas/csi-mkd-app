@@ -55,7 +55,7 @@
               </div>
               <div class="text-sm text-on-surface-variant">
                 @if (response.submittedAt) {
-                  Submitted: {{ response.submittedAt | date:'short' }}
+                  Submitted: {{ response.submittedAt | date : "MMM d, y" : "+5:30" }}
                 }
               </div>
             </mat-card-title>
