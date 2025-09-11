@@ -35,6 +35,7 @@ import { FileUploadService } from '../../core/services/file-upload.service';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
+import { InformedConsentComponent } from '../../shared/informed-consent/informed-consent';
 import { Router } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
@@ -66,6 +67,7 @@ import { SessionsFallbackService } from '../../core/services/sessions-fallback.s
     NoDigitsDirective,
     OnlyDigitsDirective,
     SpeechRecognitionDirective,
+    InformedConsentComponent,
   ],
   templateUrl: './premarital-register.html',
   styleUrl: './premarital-register.scss',
@@ -91,6 +93,7 @@ export class PremaritalRegister {
   protected readonly formSubmitted = signal(false);
   protected readonly photoError = signal('');
   protected readonly vicarLetterError = signal('');
+  protected readonly informedConsentTouched = signal(false);
   protected readonly minDate = new Date().toISOString().split('T')[0];
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
@@ -208,6 +211,7 @@ export class PremaritalRegister {
         other: [''],
       }),
       declaration: [false, Validators.requiredTrue],
+      informedConsent: [false, Validators.requiredTrue],
       sessionId: ['', Validators.required],
       recaptcha: ['', Validators.required],
     });
@@ -325,11 +329,19 @@ export class PremaritalRegister {
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
+    if (name === 'informedConsent') {
+      return !!(control && control.invalid && this.formSubmitted());
+    }
     return !!(control && control.invalid && this.formSubmitted());
   }
 
   handleSuccess(response: string): void {
     this.form.get('recaptcha')?.setValue(response);
+  }
+
+  onInformedConsentChange(agreed: boolean): void {
+    this.informedConsentTouched.set(true);
+    this.form.get('informedConsent')?.setValue(agreed);
   }
 
   preventInvalidKeys(event: KeyboardEvent) {

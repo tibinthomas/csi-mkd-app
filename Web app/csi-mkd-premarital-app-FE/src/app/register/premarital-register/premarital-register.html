@@ -412,6 +412,21 @@
           }
         </div>
 
+        <!-- Informed Consent Agreement -->
+        <div class="mt-4">
+          <app-informed-consent
+            [agreed]="form.get('informedConsent')?.value || false"
+            (agreementChange)="onInformedConsentChange($event)"
+          >
+          </app-informed-consent>
+
+          @if (isInvalid('informedConsent')) {
+          <mat-error class="text-xs mt-1" role="alert" i18n>
+            You must read and agree to the Informed Consent and Counseling Agreement.
+          </mat-error>
+          }
+        </div>
+
         <div class="flex justify-start">
           <!-- reCAPTCHA v2 Checkbox -->
           <ngx-recaptcha2
