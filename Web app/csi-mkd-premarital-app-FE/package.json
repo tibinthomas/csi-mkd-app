@@ -1,6 +1,6 @@
 {
   "name": "csi-mkd-counselling",
-  "version": "0.0.113",
+  "version": "0.0.120",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -24,6 +24,7 @@
     "@angular/platform-browser": "^20.2.4",
     "@angular/router": "^20.2.4",
     "@angular/service-worker": "^20.2.4",
+    "@microsoft/applicationinsights-web": "^3.3.9",
     "@tailwindcss/postcss": "^4.1.10",
     "@types/animejs": "^3.1.13",
     "@types/html2pdf.js": "^0.10.0",
