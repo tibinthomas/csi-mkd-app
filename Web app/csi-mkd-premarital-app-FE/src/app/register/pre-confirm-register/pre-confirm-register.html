@@ -33,8 +33,7 @@
             </mat-select>
             @if (selectedChurch()?.priestName) {
             <mat-hint>Priest: {{ selectedChurch()?.priestName }}</mat-hint>
-            }
-            @if (isInvalid('churchName')) {
+            } @if (isInvalid('churchName')) {
             <mat-error i18n>Church Name is required.</mat-error>
             }
           </mat-form-field>
@@ -66,6 +65,7 @@
               [matDatepicker]="counsellingdatepicker"
               formControlName="counsellingDate"
               (click)="counsellingdatepicker.open()"
+              [min]="minDate"
             />
             <mat-hint>{{ timezoneDisplay }}</mat-hint>
             <mat-datepicker #counsellingdatepicker />

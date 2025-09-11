@@ -66,6 +66,7 @@ export class Feedback implements OnInit {
   userId = signal<string>('');
   classId = input<string>();
   instructor = signal<any>([]);
+  today = new Date(); // current date
 
   constructor() {
     // Get userId from route params
