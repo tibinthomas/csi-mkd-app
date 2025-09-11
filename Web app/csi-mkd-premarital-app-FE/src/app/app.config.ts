@@ -5,6 +5,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
   isDevMode,
+  ErrorHandler,
 } from '@angular/core';
 import {
   provideRouter,
@@ -23,6 +24,8 @@ import { routes } from './app.routes';
 import { tokenInterceptor } from './core/auth/token.interceptor';
 import { ThemeService } from './core/services/theme.service';
 import { AnalyticsService } from './core/services/analytics.service';
+import { NavigationAnalyticsService } from './core/services/navigation-analytics.service';
+import { GlobalErrorHandlerService } from './core/services/global-error-handler.service';
 import { rateLimitInterceptor } from './core/interceptors/rate-limit-interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -57,6 +60,13 @@ export const appConfig: ApplicationConfig = {
       inject(AnalyticsService);
       return Promise.resolve();
     }),
+    provideAppInitializer(() => {
+      // Initialize navigation analytics for route tracking
+      const navigationAnalytics = inject(NavigationAnalyticsService);
+      navigationAnalytics.initialize();
+      return Promise.resolve();
+    }),
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerImmediately',
