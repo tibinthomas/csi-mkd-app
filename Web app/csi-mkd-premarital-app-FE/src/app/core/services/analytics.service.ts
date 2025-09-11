@@ -14,10 +14,8 @@ enum SeverityLevel {
 })
 export class AnalyticsService {
   private appInsights: ApplicationInsights | null = null;
-  private consentGiven = false;
 
   constructor() {
-    this.checkConsent();
     this.initializeAppInsights();
   }
 
@@ -52,30 +50,9 @@ export class AnalyticsService {
     }
   }
 
-  /**
-   * Check user consent status
-   */
-  private checkConsent(): void {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      try {
-        const consent = localStorage.getItem('csi-analytics-consent');
-        this.consentGiven = consent === 'true';
-      } catch (error) {
-        console.warn('Failed to check analytics consent:', error);
-        this.consentGiven = false;
-      }
-    }
-  }
 
   /**
-   * Set user consent for analytics
-   */
-  setConsentStatus(consent: boolean): void {
-    this.consentGiven = consent;
-  }
-
-  /**
-   * Track custom events (only if consent given)
+   * Track custom events
    */
   trackEvent(
     name: string,
@@ -83,9 +60,8 @@ export class AnalyticsService {
     measurements?: { [key: string]: number }
   ): void {
     if (
-      this.consentGiven &&
       this.appInsights &&
-(globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
+      (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
     ) {
       this.appInsights.trackEvent({ 
         name, 
@@ -96,13 +72,12 @@ export class AnalyticsService {
   }
 
   /**
-   * Track page views (only if consent given)
+   * Track page views
    */
   trackPageView(name?: string, properties?: { [key: string]: any }): void {
     if (
-      this.consentGiven &&
       this.appInsights &&
-(globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
+      (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
     ) {
       if (name || properties) {
         this.appInsights.trackPageView({ 
@@ -116,13 +91,12 @@ export class AnalyticsService {
   }
 
   /**
-   * Track exceptions (only if consent given)
+   * Track exceptions
    */
   trackException(error: Error, properties?: { [key: string]: any }): void {
     if (
-      this.consentGiven &&
       this.appInsights &&
-(globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
+      (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
     ) {
       this.appInsights.trackException(
         {
