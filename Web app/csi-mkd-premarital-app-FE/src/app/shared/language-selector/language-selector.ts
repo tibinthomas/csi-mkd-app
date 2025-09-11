@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { SwUpdate } from '@angular/service-worker';
+import { AnalyticsService } from '../../core/services/analytics.service';
 
 interface Language {
   code: string;
@@ -25,6 +26,7 @@ export class LanguageSelectorComponent {
 
   currentLanguage: Language;
   private swUpdate = inject(SwUpdate);
+  private analytics = inject(AnalyticsService);
 
   constructor(
     @Inject(LOCALE_ID) private localeId: string,
@@ -37,6 +39,10 @@ export class LanguageSelectorComponent {
 
   async changeLanguage(langCode: string): Promise<void> {
     if (langCode !== this.localeId) {
+      // Track language change
+      const previousLanguage = this.currentLanguage.name;
+      const newLanguage = this.languages.find(lang => lang.code === langCode)?.name || langCode;
+      this.analytics.trackLanguageChange(newLanguage, previousLanguage);
       try {
         // Clear service worker cache to force fresh content
         if (this.swUpdate.isEnabled && 'caches' in window) {

@@ -22,6 +22,7 @@ import { ApiConfiguration as FunctionAppApiConfig } from '../api/api-functions/a
 import { routes } from './app.routes';
 import { tokenInterceptor } from './core/auth/token.interceptor';
 import { ThemeService } from './core/services/theme.service';
+import { AnalyticsService } from './core/services/analytics.service';
 import { rateLimitInterceptor } from './core/interceptors/rate-limit-interceptor';
 
 export const appConfig: ApplicationConfig = {
@@ -49,6 +50,11 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       // Initialize theme service to ensure proper theme application on app start
       inject(ThemeService);
+      return Promise.resolve();
+    }),
+    provideAppInitializer(() => {
+      // Initialize analytics service for application monitoring
+      inject(AnalyticsService);
       return Promise.resolve();
     }),
     provideServiceWorker('ngsw-worker.js', {

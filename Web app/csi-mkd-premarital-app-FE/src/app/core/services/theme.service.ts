@@ -1,5 +1,6 @@
 import { Injectable, signal, computed, effect, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { AnalyticsService } from './analytics.service';
 
 export type ThemeType = 'light' | 'dark' | 'system';
 export type EffectiveTheme = 'light' | 'dark';
@@ -10,6 +11,7 @@ export type EffectiveTheme = 'light' | 'dark';
 export class ThemeService {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly isBrowser = isPlatformBrowser(this.platformId);
+  private readonly analytics = inject(AnalyticsService);
   
   private readonly _theme = signal<ThemeType>('system');
   private readonly _effectiveTheme = signal<EffectiveTheme>('light');
@@ -47,11 +49,17 @@ export class ThemeService {
   }
   
   setTheme(theme: ThemeType): void {
+    const previousTheme = this._theme();
     this._isTransitioning.set(true);
     this._theme.set(theme);
     
     if (this.isBrowser) {
       this.saveThemePreference(theme);
+      
+      // Track theme change
+      if (previousTheme !== theme) {
+        this.analytics.trackThemeChange(theme, previousTheme);
+      }
       
       // Reset transition flag after animation completes
       setTimeout(() => this._isTransitioning.set(false), 300);
