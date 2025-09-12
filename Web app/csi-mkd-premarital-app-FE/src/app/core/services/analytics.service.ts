@@ -21,10 +21,12 @@ export class AnalyticsService {
 
   private initializeAppInsights(): void {
     try {
-      const connectionString = (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING;
-      
+      const connectionString = APPLICATION_INSIGHTS_CONNECTION_STRING;
+
       if (!connectionString) {
-        console.error('Application Insights initialization failed: Connection string is not configured or empty');
+        console.error(
+          'Application Insights initialization failed: Connection string is not configured or empty'
+        );
         this.appInsights = null;
         return;
       }
@@ -52,13 +54,14 @@ export class AnalyticsService {
 
       // Add connection monitoring
       this.monitorAppInsightsConnection();
-      
     } catch (error) {
       console.error('Application Insights initialization failed:', {
         error: error,
         message: error instanceof Error ? error.message : 'Unknown error',
         stack: error instanceof Error ? error.stack : undefined,
-        connectionString: (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING ? 'Present' : 'Missing'
+        connectionString: APPLICATION_INSIGHTS_CONNECTION_STRING
+          ? 'Present'
+          : 'Missing',
       });
       this.appInsights = null;
     }
@@ -70,7 +73,9 @@ export class AnalyticsService {
     // Monitor telemetry pipeline for connection issues
     this.appInsights.addTelemetryInitializer((envelope: any) => {
       if (!envelope) {
-        console.error('Application Insights: Telemetry envelope is null or undefined');
+        console.error(
+          'Application Insights: Telemetry envelope is null or undefined'
+        );
         return false;
       }
       return true;
@@ -82,17 +87,17 @@ export class AnalyticsService {
         // Test connection by sending a minimal telemetry item
         this.appInsights?.trackEvent({
           name: 'AppInsights Connection Test',
-          properties: { timestamp: new Date().toISOString() }
+          properties: { timestamp: new Date().toISOString() },
         });
       } catch (error) {
         console.error('Application Insights connection test failed:', {
           error: error,
-          message: error instanceof Error ? error.message : 'Connection test error'
+          message:
+            error instanceof Error ? error.message : 'Connection test error',
         });
       }
     }, 1000);
   }
-
 
   /**
    * Track custom events
@@ -102,25 +107,24 @@ export class AnalyticsService {
     properties?: { [key: string]: any },
     measurements?: { [key: string]: number }
   ): void {
-    if (
-      this.appInsights &&
-      (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
-    ) {
+    if (this.appInsights && APPLICATION_INSIGHTS_CONNECTION_STRING) {
       try {
-        this.appInsights.trackEvent({ 
-          name, 
-          properties, 
-          measurements 
+        this.appInsights.trackEvent({
+          name,
+          properties,
+          measurements,
         });
       } catch (error) {
         console.error('Application Insights trackEvent failed:', {
           eventName: name,
           error: error,
-          message: error instanceof Error ? error.message : 'Unknown error'
+          message: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     } else if (!this.appInsights) {
-      console.error('Application Insights trackEvent failed: Service not initialized');
+      console.error(
+        'Application Insights trackEvent failed: Service not initialized'
+      );
     }
   }
 
@@ -128,15 +132,12 @@ export class AnalyticsService {
    * Track page views
    */
   trackPageView(name?: string, properties?: { [key: string]: any }): void {
-    if (
-      this.appInsights &&
-      (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
-    ) {
+    if (this.appInsights && APPLICATION_INSIGHTS_CONNECTION_STRING) {
       try {
         if (name || properties) {
-          this.appInsights.trackPageView({ 
-            name, 
-            properties 
+          this.appInsights.trackPageView({
+            name,
+            properties,
           });
         } else {
           this.appInsights.trackPageView();
@@ -145,11 +146,13 @@ export class AnalyticsService {
         console.error('Application Insights trackPageView failed:', {
           pageName: name,
           error: error,
-          message: error instanceof Error ? error.message : 'Unknown error'
+          message: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     } else if (!this.appInsights) {
-      console.error('Application Insights trackPageView failed: Service not initialized');
+      console.error(
+        'Application Insights trackPageView failed: Service not initialized'
+      );
     }
   }
 
@@ -157,10 +160,7 @@ export class AnalyticsService {
    * Track exceptions
    */
   trackException(error: Error, properties?: { [key: string]: any }): void {
-    if (
-      this.appInsights &&
-      (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING
-    ) {
+    if (this.appInsights && APPLICATION_INSIGHTS_CONNECTION_STRING) {
       try {
         this.appInsights.trackException(
           {
@@ -173,11 +173,17 @@ export class AnalyticsService {
         console.error('Application Insights trackException failed:', {
           originalError: error.message,
           trackingError: trackingError,
-          message: trackingError instanceof Error ? trackingError.message : 'Unknown error'
+          message:
+            trackingError instanceof Error
+              ? trackingError.message
+              : 'Unknown error',
         });
       }
     } else if (!this.appInsights) {
-      console.error('Application Insights trackException failed: Service not initialized - Original error:', error.message);
+      console.error(
+        'Application Insights trackException failed: Service not initialized - Original error:',
+        error.message
+      );
     }
   }
 
@@ -227,7 +233,7 @@ export class AnalyticsService {
     value: number,
     properties?: { [key: string]: any }
   ): void {
-    if (this.appInsights && (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING) {
+    if (this.appInsights && APPLICATION_INSIGHTS_CONNECTION_STRING) {
       try {
         this.appInsights.trackMetric({ name, average: value }, properties);
       } catch (error) {
@@ -235,11 +241,13 @@ export class AnalyticsService {
           metricName: name,
           metricValue: value,
           error: error,
-          message: error instanceof Error ? error.message : 'Unknown error'
+          message: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     } else if (!this.appInsights) {
-      console.error('Application Insights trackMetric failed: Service not initialized');
+      console.error(
+        'Application Insights trackMetric failed: Service not initialized'
+      );
     }
   }
 
@@ -247,7 +255,7 @@ export class AnalyticsService {
    * Set user context
    */
   setUser(userId: string, properties?: { [key: string]: any }): void {
-    if (this.appInsights && (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING) {
+    if (this.appInsights && APPLICATION_INSIGHTS_CONNECTION_STRING) {
       try {
         this.appInsights.setAuthenticatedUserContext(userId, undefined, true);
         if (properties) {
@@ -262,11 +270,13 @@ export class AnalyticsService {
         console.error('Application Insights setUser failed:', {
           userId: userId,
           error: error,
-          message: error instanceof Error ? error.message : 'Unknown error'
+          message: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     } else if (!this.appInsights) {
-      console.error('Application Insights setUser failed: Service not initialized');
+      console.error(
+        'Application Insights setUser failed: Service not initialized'
+      );
     }
   }
 
@@ -274,17 +284,19 @@ export class AnalyticsService {
    * Clear user context
    */
   clearUser(): void {
-    if (this.appInsights && (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING) {
+    if (this.appInsights && APPLICATION_INSIGHTS_CONNECTION_STRING) {
       try {
         this.appInsights.clearAuthenticatedUserContext();
       } catch (error) {
         console.error('Application Insights clearUser failed:', {
           error: error,
-          message: error instanceof Error ? error.message : 'Unknown error'
+          message: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     } else if (!this.appInsights) {
-      console.error('Application Insights clearUser failed: Service not initialized');
+      console.error(
+        'Application Insights clearUser failed: Service not initialized'
+      );
     }
   }
 
@@ -292,17 +304,19 @@ export class AnalyticsService {
    * Flush telemetry (force send)
    */
   flush(): void {
-    if (this.appInsights && (globalThis as any).APPLICATION_INSIGHTS_CONNECTION_STRING) {
+    if (this.appInsights && APPLICATION_INSIGHTS_CONNECTION_STRING) {
       try {
         this.appInsights.flush();
       } catch (error) {
         console.error('Application Insights flush failed:', {
           error: error,
-          message: error instanceof Error ? error.message : 'Unknown error'
+          message: error instanceof Error ? error.message : 'Unknown error',
         });
       }
     } else if (!this.appInsights) {
-      console.error('Application Insights flush failed: Service not initialized');
+      console.error(
+        'Application Insights flush failed: Service not initialized'
+      );
     }
   }
 }
