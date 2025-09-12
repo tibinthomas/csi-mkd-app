@@ -415,12 +415,8 @@ export class InformedConsentDialogComponent {
   imports: [MatDialogModule],
   template: `
     <div class="consent-link-section">
-      <a
-        href="#"
-        (click)="openConsentDialog($event)"
-        class="consent-link"
-      >
-        Read Informed Consent and Counselling Agreement
+      <a href="#" (click)="openConsentDialog($event)" class="consent-link">
+        Read and Accept Informed Consent and Counselling Agreement
       </a>
     </div>
   `,

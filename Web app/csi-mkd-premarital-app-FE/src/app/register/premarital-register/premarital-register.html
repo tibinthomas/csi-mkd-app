@@ -186,7 +186,7 @@
               <mat-option [value]="church.name">{{ church.name }}</mat-option>
               }
             </mat-select>
-            @if (selectedChurch()?.priestName) {
+            @if (selectedChurch()?.priestName && selectedChurch()?.priestName?.trim() && selectedChurch()?.priestName?.toLowerCase() !== 'unknown priest') {
             <mat-hint>Priest: {{ selectedChurch()?.priestName }}</mat-hint>
             } @if (isInvalid('churchName')) {
             <mat-error i18n>Church Name is required.</mat-error>
