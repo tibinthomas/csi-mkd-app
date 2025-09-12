@@ -96,8 +96,8 @@ export class PremaritalRegister {
   protected readonly informedConsentTouched = signal(false);
   protected readonly minDate = new Date().toISOString().split('T')[0];
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() =>
     this.themeService.isDark() ? 'dark' : 'light'
   );
@@ -264,14 +264,18 @@ export class PremaritalRegister {
     .getAllSessions()
     .pipe(
       map((data: any) => {
-        return data.map((session: any) => ({
-          ...session,
-          startDate: session.startDate,
-          endDate: session.endDate,
-        })).sort((a: any, b: any) => {
-          // Sort by startDate in ascending order
-          return new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
-        });
+        return data
+          .map((session: any) => ({
+            ...session,
+            startDate: session.startDate,
+            endDate: session.endDate,
+          }))
+          .sort((a: any, b: any) => {
+            // Sort by startDate in ascending order
+            return (
+              new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+            );
+          });
       }),
       catchError((err) => {
         console.error('Error loading sessions:', err);
