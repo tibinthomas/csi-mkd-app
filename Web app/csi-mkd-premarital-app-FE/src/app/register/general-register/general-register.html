@@ -241,6 +241,16 @@
           }
         </div>
 
+        <div class="flex flex-col mt-4">
+          <app-counseling-consent
+            [agreed]="form.get('counselingConsent')?.value || false"
+            (agreementChange)="onCounselingConsentChange($event)"
+          ></app-counseling-consent>
+          @if (isInvalid('counselingConsent')) {
+          <mat-error class="text-xs mt-1" i18n>You must read and agree to the Informed Consent and Counseling Agreement.</mat-error>
+          }
+        </div>
+
         <div class="flex justify-start">
           <!-- reCAPTCHA v2 Checkbox -->
           <ngx-recaptcha2
