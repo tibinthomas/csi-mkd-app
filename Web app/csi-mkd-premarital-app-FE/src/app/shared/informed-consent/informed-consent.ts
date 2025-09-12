@@ -142,126 +142,13 @@ import { FormsModule } from '@angular/forms';
             being willing to explore difficult topics honestly with your
             partner.
           </p>
-        </section>
 
-        <!-- General Counseling Section -->
-        <section class="consent-section">
-          <h4>Informed Consent and Intake Form</h4>
+          <h5>Consent and Agreement</h5>
           <p>
-            Please read through the following informed consent agreement. In
-            general, what are listed below are the responsibilities and
-            obligations of your therapist, and also some expectations of you as
-            the client. This document also contains important information about
-            our professional services and business policies.
-          </p>
-
-          <h5>Psychotherapy</h5>
-          <ul>
-            <li>
-              <strong>Voluntary Participation:</strong> All clients voluntarily
-              agree to treatment, and accordingly may terminate if they wish to
-              do so.
-            </li>
-            <li>
-              <strong>Client Involvement:</strong> All clients are expected to
-              show up to appointments on time, be prepared to focus on and
-              discuss therapy goals and issues, and will not attend while under
-              the influence of non-prescribed and/or illicit drugs, or alcohol.
-            </li>
-            <li>
-              <strong>Guarantees:</strong> The majority of people do get better
-              in therapy and accordingly, your therapist makes NO guarantee of
-              results.
-            </li>
-            <li>
-              <strong>Risks of Therapy:</strong> Just as medications sometimes
-              cause unexpected side effects, counselling can stimulate painful
-              memories, unanticipated changes in your life, and uncomfortable
-              feelings like sadness, guilt, anger, frustration, loneliness, and
-              helplessness.
-            </li>
-            <li>
-              <strong>Benefits of Therapy:</strong> The benefits of therapy can
-              include: a higher level of functional coping, solutions to
-              specific problems, new insights into self, more effective means of
-              communicating in relationships, symptomatic relief, and improved
-              self-esteem.
-            </li>
-          </ul>
-
-          <h5>Confidentiality</h5>
-          <p>
-            <strong>Confidentiality and Privilege:</strong> The information and
-            content shared in therapy will remain confidential, except as noted
-            in the exceptions to confidentiality.
-          </p>
-          <p>
-            <strong>Exceptions to Confidentiality and Privilege:</strong> Your
-            therapist is legally obligated to violate confidentiality under the
-            following circumstances:
-          </p>
-          <ul>
-            <li>
-              When the therapist has reason to suspect that the client has been,
-              or is currently, involved in the abuse or neglect of a child
-            </li>
-            <li>
-              When the therapist has reason to suspect that the client has been,
-              or is currently, involved, in the abuse or neglect of vulnerable
-              adults
-            </li>
-            <li>If a client is pregnant and taking street drugs</li>
-            <li>
-              If the client reports sexual misconduct by another counsellor
-            </li>
-            <li>
-              If a client is a serious danger to themselves, i.e., if suicidal
-            </li>
-            <li>
-              If a client is a serious danger to someone else, i.e., if
-              homicidal
-            </li>
-            <li>If the courts order copies of records</li>
-          </ul>
-
-          <h5>Sessions Policy</h5>
-          <ul>
-            <li>
-              <strong>Meetings:</strong> Once we have agreed to work together,
-              we will usually schedule one appointment every 1-2 weeks at a time
-              we can agree upon.
-            </li>
-            <li>
-              <strong>Length of Therapy:</strong> The session length typically
-              is 45 minutes. Occasionally sessions may run as long as 55-60
-              minutes.
-            </li>
-            <li>
-              <strong>Cancellation, No Show or Late Arrival:</strong> In
-              general, all clients must provide the therapist with a minimum of
-              24 hours notice in the event of a cancellation.
-            </li>
-          </ul>
-
-          <h5>Financial Agreement and Terms</h5>
-          <ul>
-            <li>
-              <strong>Billing and Payments:</strong> You will be expected to pay
-              for each session at the beginning of our meetings.
-            </li>
-            <li>
-              <strong>Copays & Co-insurance:</strong> My signature below
-              indicates that I understand and agree to pay for any copays at the
-              beginning of my session on the date it is provided.
-            </li>
-          </ul>
-
-          <h5>Research</h5>
-          <p>
-            You may choose to participate in our Research Program. Your personal
-            health information will be anonymized, meaning your identity will be
-            removed. This anonymized data will be used for research purposes
-            only.
+            I hereby make my full consent that I have read and fully understand 
+            the information provided in this consent form. I voluntarily agree 
+            to participate in the premarital counseling camp and commit to the 
+            policies and responsibilities outlined above.
           </p>
         </section>
 
