@@ -1,632 +1,718 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>CSI_MKD_Premarital_App_User_Guide</title>
-  <style>
-html {
-color: #1a1a1a;
-background-color: #fdfdfd;
-}
-body {
-margin: 0 auto;
-max-width: 36em;
-padding-left: 50px;
-padding-right: 50px;
-padding-top: 50px;
-padding-bottom: 50px;
-hyphens: auto;
-overflow-wrap: break-word;
-text-rendering: optimizeLegibility;
-font-kerning: normal;
-}
-@media (max-width: 600px) {
-body {
-font-size: 0.9em;
-padding: 12px;
-}
-h1 {
-font-size: 1.8em;
-}
-}
-@media print {
-html {
-background-color: white;
-}
-body {
-background-color: transparent;
-color: black;
-font-size: 12pt;
-}
-p, h2, h3 {
-orphans: 3;
-widows: 3;
-}
-h2, h3, h4 {
-page-break-after: avoid;
-}
-}
-p {
-margin: 1em 0;
-}
-a {
-color: #1a1a1a;
-}
-a:visited {
-color: #1a1a1a;
-}
-img {
-max-width: 100%;
-}
-svg {
-height: auto;
-max-width: 100%;
-}
-h1, h2, h3, h4, h5, h6 {
-margin-top: 1.4em;
-}
-h5, h6 {
-font-size: 1em;
-font-style: italic;
-}
-h6 {
-font-weight: normal;
-}
-ol, ul {
-padding-left: 1.7em;
-margin-top: 1em;
-}
-li > ol, li > ul {
-margin-top: 0;
-}
-blockquote {
-margin: 1em 0 1em 1.7em;
-padding-left: 1em;
-border-left: 2px solid #e6e6e6;
-color: #606060;
-}
-code {
-font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-font-size: 85%;
-margin: 0;
-hyphens: manual;
-}
-pre {
-margin: 1em 0;
-overflow: auto;
-}
-pre code {
-padding: 0;
-overflow: visible;
-overflow-wrap: normal;
-}
-.sourceCode {
-background-color: transparent;
-overflow: visible;
-}
-hr {
-border: none;
-border-top: 1px solid #1a1a1a;
-height: 1px;
-margin: 1em 0;
-}
-table {
-margin: 1em 0;
-border-collapse: collapse;
-width: 100%;
-overflow-x: auto;
-display: block;
-font-variant-numeric: lining-nums tabular-nums;
-}
-table caption {
-margin-bottom: 0.75em;
-}
-tbody {
-margin-top: 0.5em;
-border-top: 1px solid #1a1a1a;
-border-bottom: 1px solid #1a1a1a;
-}
-th {
-border-top: 1px solid #1a1a1a;
-padding: 0.25em 0.5em 0.25em 0.5em;
-}
-td {
-padding: 0.125em 0.5em 0.25em 0.5em;
-}
-header {
-margin-bottom: 4em;
-text-align: center;
-}
-#TOC li {
-list-style: none;
-}
-#TOC ul {
-padding-left: 1.3em;
-}
-#TOC > ul {
-padding-left: 0;
-}
-#TOC a:not(:hover) {
-text-decoration: none;
-}
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <title>CSI_MKD_Premarital_App_User_Guide</title>
+    <style>
+      html {
+        color: #1a1a1a;
+        background-color: #fdfdfd;
+      }
+      body {
+        margin: 0 auto;
+        max-width: 36em;
+        padding-left: 50px;
+        padding-right: 50px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        font-kerning: normal;
+      }
+      @media (max-width: 600px) {
+        body {
+          font-size: 0.9em;
+          padding: 12px;
+        }
+        h1 {
+          font-size: 1.8em;
+        }
+      }
+      @media print {
+        html {
+          background-color: white;
+        }
+        body {
+          background-color: transparent;
+          color: black;
+          font-size: 12pt;
+        }
+        p,
+        h2,
+        h3 {
+          orphans: 3;
+          widows: 3;
+        }
+        h2,
+        h3,
+        h4 {
+          page-break-after: avoid;
+        }
+      }
+      p {
+        margin: 1em 0;
+      }
+      a {
+        color: #1a1a1a;
+      }
+      a:visited {
+        color: #1a1a1a;
+      }
+      img {
+        max-width: 100%;
+      }
+      svg {
+        height: auto;
+        max-width: 100%;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        margin-top: 1.4em;
+      }
+      h5,
+      h6 {
+        font-size: 1em;
+        font-style: italic;
+      }
+      h6 {
+        font-weight: normal;
+      }
+      ol,
+      ul {
+        padding-left: 1.7em;
+        margin-top: 1em;
+      }
+      li > ol,
+      li > ul {
+        margin-top: 0;
+      }
+      blockquote {
+        margin: 1em 0 1em 1.7em;
+        padding-left: 1em;
+        border-left: 2px solid #e6e6e6;
+        color: #606060;
+      }
+      code {
+        font-family: Menlo, Monaco, Consolas, "Lucida Console", monospace;
+        font-size: 85%;
+        margin: 0;
+        hyphens: manual;
+      }
+      pre {
+        margin: 1em 0;
+        overflow: auto;
+      }
+      pre code {
+        padding: 0;
+        overflow: visible;
+        overflow-wrap: normal;
+      }
+      .sourceCode {
+        background-color: transparent;
+        overflow: visible;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid #1a1a1a;
+        height: 1px;
+        margin: 1em 0;
+      }
+      table {
+        margin: 1em 0;
+        border-collapse: collapse;
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+        font-variant-numeric: lining-nums tabular-nums;
+      }
+      table caption {
+        margin-bottom: 0.75em;
+      }
+      tbody {
+        margin-top: 0.5em;
+        border-top: 1px solid #1a1a1a;
+        border-bottom: 1px solid #1a1a1a;
+      }
+      th {
+        border-top: 1px solid #1a1a1a;
+        padding: 0.25em 0.5em 0.25em 0.5em;
+      }
+      td {
+        padding: 0.125em 0.5em 0.25em 0.5em;
+      }
+      header {
+        margin-bottom: 4em;
+        text-align: center;
+      }
+      #TOC li {
+        list-style: none;
+      }
+      #TOC ul {
+        padding-left: 1.3em;
+      }
+      #TOC > ul {
+        padding-left: 0;
+      }
+      #TOC a:not(:hover) {
+        text-decoration: none;
+      }
+      code {
+        white-space: pre-wrap;
+      }
+      span.smallcaps {
+        font-variant: small-caps;
+      }
+      div.columns {
+        display: flex;
+        gap: min(4vw, 1.5em);
+      }
+      div.column {
+        flex: auto;
+        overflow-x: auto;
+      }
+      div.hanging-indent {
+        margin-left: 1.5em;
+        text-indent: -1.5em;
+      }
 
-ul.task-list[class]{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-font-size: inherit;
-width: 0.8em;
-margin: 0 0.8em 0.2em -1.6em;
-vertical-align: middle;
-}
-.display.math{display: block; text-align: center; margin: 0.5rem auto;}
-</style>
-</head>
-<body>
-<h1 id="csi-madhya-kerala-diocese-premarital-counseling-application---user-guide">CSI
-Madhya Kerala Diocese Premarital Counseling Application - User
-Guide</h1>
-<h2 id="overview">Overview</h2>
-<p>The CSI Madhya Kerala Diocese Premarital Counseling Application is a
-comprehensive Progressive Web Application (PWA) designed to manage
-premarital and general counseling registrations, sessions, and feedback
-for the Church of South India Madhya Kerala Diocese.</p>
-<p><strong>Key Features:</strong> - Multi-language support (English and
-Malayalam) - Three types of registrations: Premarital, General, and
-Pre-confirmational - Admin dashboard for registration management -
-Session configuration and management - Feedback and questionnaire system
-- File upload capabilities - Email notifications - Certificate
-generation - Analytics and reporting</p>
-<hr />
-<h2 id="accessing-the-application">Accessing the Application</h2>
-<h3 id="website-url">Website URL</h3>
-<p>Visit the application at: <strong>[Your Production URL]</strong></p>
-<h3 id="system-requirements">System Requirements</h3>
-<ul>
-<li>Modern web browser (Chrome, Firefox, Safari, Edge)</li>
-<li>Internet connection</li>
-<li>JavaScript enabled</li>
-<li>For mobile: iOS 12+ or Android 8+</li>
-</ul>
-<h3 id="language-selection">Language Selection</h3>
-<ul>
-<li>Available languages: English and Malayalam</li>
-<li>Language selector located in the top navigation</li>
-<li>Settings are saved automatically</li>
-</ul>
-<hr />
-<h2 id="public-features-no-login-required">Public Features (No Login
-Required)</h2>
-<h3 id="about-page">1. About Page</h3>
-<ul>
-<li><strong>Access:</strong> Click “About Us” in navigation or visit
-homepage</li>
-<li><strong>Features:</strong>
-<ul>
-<li>Information about CSI MKD Premarital Counseling Centre</li>
-<li>Mission and vision</li>
-<li>Contact details</li>
-</ul></li>
-</ul>
-<h3 id="team-members">2. Team Members</h3>
-<ul>
-<li><strong>Access:</strong> Click “Our Team” in navigation</li>
-<li><strong>Features:</strong>
-<ul>
-<li>Meet the counseling team</li>
-<li>Staff profiles and contact information</li>
-</ul></li>
-</ul>
-<h3 id="available-sessions">3. Available Sessions</h3>
-<ul>
-<li><strong>Access:</strong> Click “Sessions” in navigation</li>
-<li><strong>Features:</strong>
-<ul>
-<li>View all upcoming counseling sessions</li>
-<li>Sessions grouped by year and month</li>
-<li>Registration status (Active/Unavailable)</li>
-<li>Session dates and names</li>
-<li>Direct registration links</li>
-</ul></li>
-</ul>
-<h3 id="registration-system">4. Registration System</h3>
-<h4 id="a.-premarital-registration">A. Premarital Registration</h4>
-<p><strong>Access:</strong> Go to “Register” → “Premarital Registration”
-or click “Register” on a session</p>
-<p><strong>Required Information:</strong> - <strong>Personal
-Details:</strong> - First Name, Last Name - Age (1-120 years) - Sex
-(Male/Female) - Father’s Name - Address - Occupation, Education</p>
-<ul>
-<li><strong>Church Information:</strong>
-<ul>
-<li>CSI MKD membership status</li>
-<li>Church District and Church Name (auto-populated from database)</li>
-<li>Manual church entry for non-members</li>
-</ul></li>
-<li><strong>Church Activities:</strong>
-<ul>
-<li>Choir Member</li>
-<li>Sunday School Teacher</li>
-<li>Youth Fellowship</li>
-<li>Other activities (text field)</li>
-</ul></li>
-<li><strong>Marriage Details:</strong>
-<ul>
-<li>Fiancé/Fiancée Name</li>
-<li>Date of Marriage (future dates only)</li>
-<li>Number of counseling days (1 day requires bishop’s permission, 3
-days standard)</li>
-</ul></li>
-<li><strong>Contact Information:</strong>
-<ul>
-<li>Phone number with country code</li>
-<li>Email address (validated against popular providers)</li>
-</ul></li>
-<li><strong>Session Selection:</strong>
-<ul>
-<li>Choose from available active sessions</li>
-</ul></li>
-<li><strong>File Uploads:</strong>
-<ul>
-<li>Personal photo (max 2MB, JPG/PNG)</li>
-<li>Vicar’s witness letter (max 2MB, PDF/DOC/DOCX/JPG/PNG)</li>
-</ul></li>
-<li><strong>Verification:</strong>
-<ul>
-<li>Declaration agreement checkbox</li>
-<li>reCAPTCHA verification</li>
-</ul></li>
-</ul>
-<p><strong>Process:</strong> 1. Fill out all required fields 2. Upload
-required documents 3. Complete reCAPTCHA 4. Click “Register” 5. Receive
-confirmation email with payment details</p>
-<h4 id="b.-general-registration">B. General Registration</h4>
-<p><strong>Access:</strong> Go to “Register” → “General
-Registration”</p>
-<p><strong>Required Information:</strong> - Basic personal details
-(Name, Age, Sex, Father’s Name, Address, Education, Occupation) - Church
-District and Church Name - Contact information (Phone, Email) - Marital
-Status (Single/Married) - Session Type (In-Person/Online) - Photo upload
-- Declaration and reCAPTCHA</p>
-<p><strong>Purpose:</strong> For general counseling sessions not related
-to marriage</p>
-<h4 id="c.-pre-confirmational-registration">C. Pre-confirmational
-Registration</h4>
-<p><strong>Access:</strong> Go to “Register” → “Pre-confirmational
-Registration”</p>
-<p><strong>Required Information:</strong> - Church District and Church
-Name - Confirmation Date (future date) - Counseling Date - List of
-Participants (Name and Age for each) - Vicar’s witness document upload -
-Consent agreement and reCAPTCHA</p>
-<p><strong>Purpose:</strong> For confirmation candidates requiring
-pre-confirmational counseling</p>
-<h3 id="feedback-and-questionnaire-system">5. Feedback and Questionnaire
-System</h3>
-<p><strong>Access:</strong> Go to “Feedback” in navigation</p>
-<p><strong>Process:</strong> 1. <strong>Email Verification:</strong> -
-Enter your registered email address - System verifies registration
-status - Access granted only to registered users</p>
-<ol start="2" type="1">
-<li><strong>Form Selection:</strong>
-<ul>
-<li><strong>Feedback Form:</strong> Share experience and suggestions
-about counseling sessions</li>
-<li><strong>Questionnaire Form:</strong> Provide thoughts and opinions
-for program improvement</li>
-</ul></li>
-<li><strong>Form Completion:</strong>
-<ul>
-<li>Answer all required questions</li>
-<li>Submit feedback anonymously or with identification</li>
-<li>Confirmation provided upon successful submission</li>
-</ul></li>
-</ol>
-<hr />
-<h2 id="admin-features-login-required">Admin Features (Login
-Required)</h2>
-<h3 id="accessing-admin-panel">Accessing Admin Panel</h3>
-<ul>
-<li><strong>URL:</strong> <code>/admin/login</code></li>
-<li><strong>Credentials:</strong> Provided by system administrator</li>
-<li><strong>Security:</strong> JWT-based authentication with session
-management</li>
-</ul>
-<h3 id="admin-dashboard">1. Admin Dashboard</h3>
-<p><strong>Access:</strong> <code>/admin/dashboard</code></p>
-<p><strong>Features:</strong> - <strong>Registration Counts:</strong> -
-Total Premarital Registrations - Total General Registrations - Total
-Pre-confirmational Registrations - <strong>Quick Overview
-Cards:</strong> Visual representation of current statistics</p>
-<h3 id="registration-management">2. Registration Management</h3>
-<h4 id="a.-premarital-registrations-adminpremarital">A. Premarital
-Registrations (<code>/admin/premarital</code>)</h4>
-<p><strong>Features:</strong> - <strong>Advanced Filtering:</strong> -
-Filter by session year - Filter by session name - Search by name or
-email - Show only unapproved payments - Show only active sessions</p>
-<ul>
-<li><strong>Registration Table:</strong>
-<ul>
-<li>Complete registration details in expandable rows</li>
-<li>Payment status management (Approve/Received)</li>
-<li>Certificate generation (for paid registrations)</li>
-<li>Feedback status tracking</li>
-<li>Question &amp; Answer status monitoring</li>
-<li>Edit and delete capabilities</li>
-</ul></li>
-<li><strong>Bulk Operations:</strong>
-<ul>
-<li>Download complete registration list</li>
-<li>Export data for reporting</li>
-</ul></li>
-<li><strong>Individual Actions:</strong>
-<ul>
-<li><strong>Payment Approval:</strong> Mark payments as received</li>
-<li><strong>Certificate Generation:</strong> Generate and download
-certificates</li>
-<li><strong>Edit Registration:</strong> Modify registration details</li>
-<li><strong>Delete Registration:</strong> Remove registrations (with
-confirmation)</li>
-<li><strong>View Details:</strong> Expand to see full registration
-information including uploaded photos and documents</li>
-</ul></li>
-</ul>
-<h4 id="b.-general-registrations-admingeneral-list">B. General
-Registrations (<code>/admin/general-list</code>)</h4>
-<p><strong>Features:</strong> - View and manage all general counseling
-registrations - Similar filtering and management options as premarital
-registrations - Payment status tracking - Export capabilities</p>
-<h4 id="c.-pre-confirmational-registrations-adminpre-confirm-list">C.
-Pre-confirmational Registrations
-(<code>/admin/pre-confirm-list</code>)</h4>
-<p><strong>Features:</strong> - Manage confirmation candidate
-registrations - View participant lists for each registration - Document
-management - Export and reporting functions</p>
-<h3 id="session-configuration-adminsession-config">3. Session
-Configuration (<code>/admin/session-config</code>)</h3>
-<p><strong>Features:</strong> - <strong>Create New Sessions:</strong> -
-Session name and description - Start and end dates - Active/inactive
-status - Capacity management</p>
-<ul>
-<li><strong>Manage Existing Sessions:</strong>
-<ul>
-<li>Edit session details</li>
-<li>Activate/deactivate sessions</li>
-<li>View registration counts</li>
-<li>Delete sessions (if no registrations)</li>
-</ul></li>
-<li><strong>Session Overview:</strong>
-<ul>
-<li>List all configured sessions</li>
-<li>Filter by year or status</li>
-<li>Quick activation toggles</li>
-</ul></li>
-</ul>
-<h3 id="session-deactivation-admindeactivate-sessions">4. Session
-Deactivation (<code>/admin/deactivate-sessions</code>)</h3>
-<p><strong>Features:</strong> - <strong>Bulk Deactivation:</strong>
-Deactivate sessions starting within 3 days - <strong>Manual
-Selection:</strong> Choose specific sessions to deactivate -
-<strong>Safety Features:</strong> Confirmation required before
-deactivation - <strong>Automatic Processing:</strong> Schedule-based
-deactivation for sessions that have passed</p>
-<h3 id="instructor-management-admininstructors">5. Instructor Management
-(<code>/admin/instructors</code>)</h3>
-<p><strong>Features:</strong> - <strong>Add New Instructors:</strong> -
-Name, contact information - Specialization areas - Availability
-status</p>
-<ul>
-<li><strong>Manage Existing Instructors:</strong>
-<ul>
-<li>Edit instructor profiles</li>
-<li>Update contact information</li>
-<li>Activate/deactivate instructors</li>
-<li>Delete instructor records</li>
-</ul></li>
-<li><strong>Assignment Tracking:</strong>
-<ul>
-<li>View instructor assignments</li>
-<li>Session allocation</li>
-<li>Workload management</li>
-</ul></li>
-</ul>
-<h3 id="feedback-management-adminfeedback-list">6. Feedback Management
-(<code>/admin/feedback-list</code>)</h3>
-<p><strong>Features:</strong> - <strong>View All Feedback:</strong> -
-Chronological listing of all submitted feedback - Filter by session,
-date range, or rating - Export feedback data</p>
-<ul>
-<li><strong>Analytics:</strong>
-<ul>
-<li>Average ratings by session</li>
-<li>Common feedback themes</li>
-<li>Improvement suggestions tracking</li>
-</ul></li>
-<li><strong>Response Management:</strong>
-<ul>
-<li>Mark feedback as reviewed</li>
-<li>Add admin notes</li>
-<li>Follow-up actions</li>
-</ul></li>
-</ul>
-<h3 id="question-answer-management-adminquestion-answers-list">7.
-Question &amp; Answer Management
-(<code>/admin/question-answers-list</code>)</h3>
-<p><strong>Features:</strong> - <strong>View All Responses:</strong> -
-Complete questionnaire responses - Filter by registration or session -
-Export for analysis</p>
-<ul>
-<li><strong>Data Analysis:</strong>
-<ul>
-<li>Response patterns</li>
-<li>Statistical summaries</li>
-<li>Trend identification</li>
-</ul></li>
-<li><strong>Privacy Controls:</strong>
-<ul>
-<li>Anonymized viewing options</li>
-<li>Data retention management</li>
-<li>Compliance features</li>
-</ul></li>
-</ul>
-<hr />
-<h2 id="key-application-features">Key Application Features</h2>
-<h3 id="file-upload-system">1. File Upload System</h3>
-<p><strong>Supported Formats:</strong> - <strong>Images:</strong> JPG,
-PNG (max 2MB) - <strong>Documents:</strong> PDF, DOC, DOCX (max 2MB)</p>
-<p><strong>Upload Process:</strong> 1. Click “Choose File” or “Choose
-Photo” button 2. Select file from device 3. Automatic validation for
-size and format 4. Progress indicator during upload 5. Success
-confirmation with file name display</p>
-<p><strong>Storage:</strong> All files securely stored in Azure Blob
-Storage</p>
-<h3 id="email-system">2. Email System</h3>
-<p><strong>Automated Emails:</strong> - Registration confirmation -
-Payment reminders - Session notifications - Certificate delivery -
-Administrative alerts</p>
-<p><strong>Email Templates:</strong> - Responsive design -
-Multi-language support - Branded formatting</p>
-<h3 id="payment-tracking">3. Payment Tracking</h3>
-<p><strong>Status Types:</strong> - <strong>Pending:</strong> Payment
-not yet received - <strong>Received:</strong> Payment confirmed by
-admin</p>
-<p><strong>Admin Controls:</strong> - Manual payment approval - Payment
-status updates - Payment history tracking</p>
-<h3 id="certificate-generation">4. Certificate Generation</h3>
-<p><strong>Availability:</strong> Only for participants with approved
-payments <strong>Format:</strong> PDF certificates with official
-formatting <strong>Content:</strong> Participant name, session details,
-dates, official signatures <strong>Download:</strong> Direct download
-from admin panel</p>
-<h3 id="search-and-filtering">5. Search and Filtering</h3>
-<p><strong>Global Search:</strong> - Search across all registration
-types - Name and email matching - Real-time results</p>
-<p><strong>Advanced Filters:</strong> - Date ranges - Session types -
-Payment status - Registration status - Church affiliations</p>
-<h3 id="data-export">6. Data Export</h3>
-<p><strong>Export Formats:</strong> - Excel spreadsheets - PDF reports -
-CSV data files</p>
-<p><strong>Export Options:</strong> - Complete registration lists -
-Filtered datasets - Custom date ranges - Summary reports</p>
-<h3 id="security-features">7. Security Features</h3>
-<p><strong>User Security:</strong> - reCAPTCHA protection on all forms -
-Email validation - Domain restrictions for email providers - Rate
-limiting on submissions</p>
-<p><strong>Admin Security:</strong> - JWT-based authentication - Session
-management - Role-based access control - Audit trail logging</p>
-<p><strong>Data Protection:</strong> - Encrypted data transmission -
-Secure file storage - Regular backup procedures - GDPR compliance
-features</p>
-<hr />
-<h2 id="troubleshooting">Troubleshooting</h2>
-<h3 id="common-issues-and-solutions">Common Issues and Solutions</h3>
-<h4 id="registration-problems">1. Registration Problems</h4>
-<p><strong>Issue:</strong> Form won’t submit <strong>Solutions:</strong>
-- Check all required fields are filled - Verify file sizes are under 2MB
-- Complete reCAPTCHA verification - Ensure valid email format - Check
-internet connection</p>
-<p><strong>Issue:</strong> Email already registered error
-<strong>Solutions:</strong> - Use a different email address - Contact
-administrator if this is an error - Check if you’ve already registered
-for this session</p>
-<h4 id="file-upload-issues">2. File Upload Issues</h4>
-<p><strong>Issue:</strong> File won’t upload <strong>Solutions:</strong>
-- Check file size (max 2MB) - Verify file format is supported - Try a
-different browser - Check internet connection - Clear browser cache</p>
-<h4 id="admin-login-problems">3. Admin Login Problems</h4>
-<p><strong>Issue:</strong> Cannot access admin panel
-<strong>Solutions:</strong> - Verify correct login URL - Check username
-and password - Clear browser cookies - Contact system administrator</p>
-<h4 id="email-access-issues">4. Email Access Issues</h4>
-<p><strong>Issue:</strong> Not receiving emails
-<strong>Solutions:</strong> - Check spam/junk folder - Verify email
-address is correct - Wait a few minutes for delivery - Contact
-administrator</p>
-<h4 id="session-access-problems">5. Session Access Problems</h4>
-<p><strong>Issue:</strong> Cannot register for session
-<strong>Solutions:</strong> - Check if session is still active - Verify
-registration deadline hasn’t passed - Ensure all prerequisites are met -
-Try refreshing the page</p>
-<h3 id="browser-compatibility">Browser Compatibility</h3>
-<p><strong>Recommended Browsers:</strong> - Chrome 90+ - Firefox 88+ -
-Safari 14+ - Edge 90+</p>
-<p><strong>Mobile Browsers:</strong> - Chrome Mobile - Safari Mobile -
-Samsung Internet - Firefox Mobile</p>
-<h3 id="performance-tips">Performance Tips</h3>
-<ol type="1">
-<li><strong>Clear Browser Cache:</strong> Regularly clear cache for
-optimal performance</li>
-<li><strong>Stable Internet:</strong> Ensure stable internet connection
-during registration</li>
-<li><strong>File Optimization:</strong> Compress images before uploading
-when possible</li>
-<li><strong>Browser Updates:</strong> Keep browser updated to latest
-version</li>
-<li><strong>JavaScript:</strong> Ensure JavaScript is enabled</li>
-</ol>
-<hr />
-<h2 id="contact-and-support">Contact and Support</h2>
-<h3 id="technical-support">Technical Support</h3>
-<ul>
-<li><strong>For Registration Issues:</strong> Contact your local parish
-office</li>
-<li><strong>For Technical Problems:</strong> Contact system
-administrator</li>
-<li><strong>For Admin Access:</strong> Contact Diocese IT
-department</li>
-</ul>
-<h3 id="important-notes">Important Notes</h3>
-<ol type="1">
-<li><strong>Data Privacy:</strong> All personal information is securely
-stored and processed according to privacy policies</li>
-<li><strong>Registration Deadlines:</strong> Register before session
-start dates</li>
-<li><strong>Payment Requirements:</strong> Payment approval required for
-certificate generation</li>
-<li><strong>Document Requirements:</strong> All uploaded documents
-should be clear and legible</li>
-<li><strong>Session Changes:</strong> Monitor email for any session
-updates or changes</li>
-</ol>
-<h3 id="emergency-contacts">Emergency Contacts</h3>
-<ul>
-<li>Diocese Office: [Phone Number]</li>
-<li>IT Support: [Email Address]</li>
-<li>Administrative Queries: [Contact Information]</li>
-</ul>
-<hr />
-<h2 id="appendix">Appendix</h2>
-<h3 id="keyboard-shortcuts-admin-panel">Keyboard Shortcuts (Admin
-Panel)</h3>
-<ul>
-<li><strong>Ctrl+F:</strong> Search within current page</li>
-<li><strong>Ctrl+R:</strong> Refresh data</li>
-<li><strong>Ctrl+E:</strong> Export current view</li>
-<li><strong>Esc:</strong> Close modal dialogs</li>
-</ul>
-<h3 id="mobile-app-features">Mobile App Features</h3>
-<p>The application works as a Progressive Web App (PWA): -
-<strong>Install:</strong> Add to home screen option available -
-<strong>Offline Access:</strong> Limited offline functionality -
-<strong>Push Notifications:</strong> Session reminders and updates -
-<strong>Responsive Design:</strong> Optimized for mobile devices</p>
-<h3 id="data-retention">Data Retention</h3>
-<ul>
-<li><strong>Registration Data:</strong> Retained for 7 years</li>
-<li><strong>Feedback Data:</strong> Retained for 5 years</li>
-<li><strong>Session Data:</strong> Retained indefinitely</li>
-<li><strong>File Uploads:</strong> Retained with registration data</li>
-</ul>
-<hr />
-<p><em>This guide covers the major features and functionality of the CSI
-MKD Premarital Counseling Application. For additional assistance or
-specific questions, please contact your system administrator.</em></p>
-<p><strong>Version:</strong> 1.0<br />
-<strong>Last Updated:</strong> [Current Date]<br />
-<strong>Application Version:</strong> 0.0.112+</p>
-</body>
+      ul.task-list[class] {
+        list-style: none;
+      }
+      ul.task-list li input[type="checkbox"] {
+        font-size: inherit;
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1.6em;
+        vertical-align: middle;
+      }
+      .display.math {
+        display: block;
+        text-align: center;
+        margin: 0.5rem auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="csi-madhya-kerala-diocese-premarital-counseling-application---user-guide">
+      CSI Madhya Kerala Diocese Premarital Counseling Application - User Guide
+    </h1>
+    <h2 id="overview">Overview</h2>
+    <p>
+      The CSI Madhya Kerala Diocese Premarital Counseling Application is a comprehensive Progressive Web Application
+      (PWA) designed to manage premarital and general counseling registrations, sessions, and feedback for the Church of
+      South India Madhya Kerala Diocese.
+    </p>
+    <p>
+      <strong>Key Features:</strong> - Multi-language support (English and Malayalam) - Three types of registrations:
+      Premarital, General, and Pre-confirmational - Admin dashboard for registration management - Session configuration
+      and management - Feedback and questionnaire system - File upload capabilities - Email notifications - Certificate
+      generation - Analytics and reporting
+    </p>
+    <hr />
+    <h2 id="accessing-the-application">Accessing the Application</h2>
+    <h3 id="website-url">Website URL</h3>
+    <p>Visit the application at: <strong>[Your Production URL]</strong></p>
+    <h3 id="system-requirements">System Requirements</h3>
+    <ul>
+      <li>Modern web browser (Chrome, Firefox, Safari, Edge)</li>
+      <li>Internet connection</li>
+      <li>JavaScript enabled</li>
+      <li>For mobile: iOS 12+ or Android 8+</li>
+    </ul>
+    <h3 id="language-selection">Language Selection</h3>
+    <ul>
+      <li>Available languages: English and Malayalam</li>
+      <li>Language selector located in the top navigation</li>
+      <li>Settings are saved automatically</li>
+    </ul>
+    <hr />
+    <h2 id="public-features-no-login-required">Public Features (No Login Required)</h2>
+    <h3 id="about-page">1. About Page</h3>
+    <ul>
+      <li><strong>Access:</strong> Click “About Us” in navigation or visit homepage</li>
+      <li>
+        <strong>Features:</strong>
+        <ul>
+          <li>Information about CSI MKD Premarital Counseling Centre</li>
+          <li>Mission and vision</li>
+          <li>Contact details</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="team-members">2. Team Members</h3>
+    <ul>
+      <li><strong>Access:</strong> Click “Our Team” in navigation</li>
+      <li>
+        <strong>Features:</strong>
+        <ul>
+          <li>Meet the counseling team</li>
+          <li>Staff profiles and contact information</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="available-sessions">3. Available Sessions</h3>
+    <ul>
+      <li><strong>Access:</strong> Click “Sessions” in navigation</li>
+      <li>
+        <strong>Features:</strong>
+        <ul>
+          <li>View all upcoming counseling sessions</li>
+          <li>Sessions grouped by year and month</li>
+          <li>Registration status (Active/Unavailable)</li>
+          <li>Session dates and names</li>
+          <li>Direct registration links</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="registration-system">4. Registration System</h3>
+    <h4 id="a.-premarital-registration">A. Premarital Registration</h4>
+    <p><strong>Access:</strong> Go to “Register” → “Premarital Registration” or click “Register” on a session</p>
+    <p>
+      <strong>Required Information:</strong> - <strong>Personal Details:</strong> - First Name, Last Name - Age (1-120
+      years) - Sex (Male/Female) - Father’s Name - Address - Occupation, Education
+    </p>
+    <ul>
+      <li>
+        <strong>Church Information:</strong>
+        <ul>
+          <li>CSI MKD membership status</li>
+          <li>Clergy District and Church Name (auto-populated from database)</li>
+          <li>Manual church entry for non-members</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Church Activities:</strong>
+        <ul>
+          <li>Choir Member</li>
+          <li>Sunday School Teacher</li>
+          <li>Youth Fellowship</li>
+          <li>Other activities (text field)</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Marriage Details:</strong>
+        <ul>
+          <li>Fiancé/Fiancée Name</li>
+          <li>Date of Marriage (future dates only)</li>
+          <li>Number of counseling days (1 day requires bishop’s permission, 3 days standard)</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Contact Information:</strong>
+        <ul>
+          <li>Phone number with country code</li>
+          <li>Email address (validated against popular providers)</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Session Selection:</strong>
+        <ul>
+          <li>Choose from available active sessions</li>
+        </ul>
+      </li>
+      <li>
+        <strong>File Uploads:</strong>
+        <ul>
+          <li>Personal photo (max 2MB, JPG/PNG)</li>
+          <li>Vicar’s witness letter (max 2MB, PDF/DOC/DOCX/JPG/PNG)</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Verification:</strong>
+        <ul>
+          <li>Declaration agreement checkbox</li>
+          <li>reCAPTCHA verification</li>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      <strong>Process:</strong> 1. Fill out all required fields 2. Upload required documents 3. Complete reCAPTCHA 4.
+      Click “Register” 5. Receive confirmation email with payment details
+    </p>
+    <h4 id="b.-general-registration">B. General Registration</h4>
+    <p><strong>Access:</strong> Go to “Register” → “General Registration”</p>
+    <p>
+      <strong>Required Information:</strong> - Basic personal details (Name, Age, Sex, Father’s Name, Address,
+      Education, Occupation) - Clergy District and Church Name - Contact information (Phone, Email) - Marital Status
+      (Single/Married) - Session Type (In-Person/Online) - Photo upload - Declaration and reCAPTCHA
+    </p>
+    <p><strong>Purpose:</strong> For general counseling sessions not related to marriage</p>
+    <h4 id="c.-pre-confirmational-registration">C. Pre-confirmational Registration</h4>
+    <p><strong>Access:</strong> Go to “Register” → “Pre-confirmational Registration”</p>
+    <p>
+      <strong>Required Information:</strong> - Clergy District and Church Name - Confirmation Date (future date) -
+      Counseling Date - List of Participants (Name and Age for each) - Vicar’s witness document upload - Consent
+      agreement and reCAPTCHA
+    </p>
+    <p><strong>Purpose:</strong> For confirmation candidates requiring pre-confirmational counseling</p>
+    <h3 id="feedback-and-questionnaire-system">5. Feedback and Questionnaire System</h3>
+    <p><strong>Access:</strong> Go to “Feedback” in navigation</p>
+    <p>
+      <strong>Process:</strong> 1. <strong>Email Verification:</strong> - Enter your registered email address - System
+      verifies registration status - Access granted only to registered users
+    </p>
+    <ol start="2" type="1">
+      <li>
+        <strong>Form Selection:</strong>
+        <ul>
+          <li><strong>Feedback Form:</strong> Share experience and suggestions about counseling sessions</li>
+          <li><strong>Questionnaire Form:</strong> Provide thoughts and opinions for program improvement</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Form Completion:</strong>
+        <ul>
+          <li>Answer all required questions</li>
+          <li>Submit feedback anonymously or with identification</li>
+          <li>Confirmation provided upon successful submission</li>
+        </ul>
+      </li>
+    </ol>
+    <hr />
+    <h2 id="admin-features-login-required">Admin Features (Login Required)</h2>
+    <h3 id="accessing-admin-panel">Accessing Admin Panel</h3>
+    <ul>
+      <li><strong>URL:</strong> <code>/admin/login</code></li>
+      <li><strong>Credentials:</strong> Provided by system administrator</li>
+      <li><strong>Security:</strong> JWT-based authentication with session management</li>
+    </ul>
+    <h3 id="admin-dashboard">1. Admin Dashboard</h3>
+    <p><strong>Access:</strong> <code>/admin/dashboard</code></p>
+    <p>
+      <strong>Features:</strong> - <strong>Registration Counts:</strong> - Total Premarital Registrations - Total
+      General Registrations - Total Pre-confirmational Registrations - <strong>Quick Overview Cards:</strong> Visual
+      representation of current statistics
+    </p>
+    <h3 id="registration-management">2. Registration Management</h3>
+    <h4 id="a.-premarital-registrations-adminpremarital">
+      A. Premarital Registrations (<code>/admin/premarital</code>)
+    </h4>
+    <p>
+      <strong>Features:</strong> - <strong>Advanced Filtering:</strong> - Filter by session year - Filter by session
+      name - Search by name or email - Show only unapproved payments - Show only active sessions
+    </p>
+    <ul>
+      <li>
+        <strong>Registration Table:</strong>
+        <ul>
+          <li>Complete registration details in expandable rows</li>
+          <li>Payment status management (Approve/Received)</li>
+          <li>Certificate generation (for paid registrations)</li>
+          <li>Feedback status tracking</li>
+          <li>Question &amp; Answer status monitoring</li>
+          <li>Edit and delete capabilities</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Bulk Operations:</strong>
+        <ul>
+          <li>Download complete registration list</li>
+          <li>Export data for reporting</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Individual Actions:</strong>
+        <ul>
+          <li><strong>Payment Approval:</strong> Mark payments as received</li>
+          <li><strong>Certificate Generation:</strong> Generate and download certificates</li>
+          <li><strong>Edit Registration:</strong> Modify registration details</li>
+          <li><strong>Delete Registration:</strong> Remove registrations (with confirmation)</li>
+          <li>
+            <strong>View Details:</strong> Expand to see full registration information including uploaded photos and
+            documents
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h4 id="b.-general-registrations-admingeneral-list">B. General Registrations (<code>/admin/general-list</code>)</h4>
+    <p>
+      <strong>Features:</strong> - View and manage all general counseling registrations - Similar filtering and
+      management options as premarital registrations - Payment status tracking - Export capabilities
+    </p>
+    <h4 id="c.-pre-confirmational-registrations-adminpre-confirm-list">
+      C. Pre-confirmational Registrations (<code>/admin/pre-confirm-list</code>)
+    </h4>
+    <p>
+      <strong>Features:</strong> - Manage confirmation candidate registrations - View participant lists for each
+      registration - Document management - Export and reporting functions
+    </p>
+    <h3 id="session-configuration-adminsession-config">
+      3. Session Configuration (<code>/admin/session-config</code>)
+    </h3>
+    <p>
+      <strong>Features:</strong> - <strong>Create New Sessions:</strong> - Session name and description - Start and end
+      dates - Active/inactive status - Capacity management
+    </p>
+    <ul>
+      <li>
+        <strong>Manage Existing Sessions:</strong>
+        <ul>
+          <li>Edit session details</li>
+          <li>Activate/deactivate sessions</li>
+          <li>View registration counts</li>
+          <li>Delete sessions (if no registrations)</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Session Overview:</strong>
+        <ul>
+          <li>List all configured sessions</li>
+          <li>Filter by year or status</li>
+          <li>Quick activation toggles</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="session-deactivation-admindeactivate-sessions">
+      4. Session Deactivation (<code>/admin/deactivate-sessions</code>)
+    </h3>
+    <p>
+      <strong>Features:</strong> - <strong>Bulk Deactivation:</strong> Deactivate sessions starting within 3 days -
+      <strong>Manual Selection:</strong> Choose specific sessions to deactivate -
+      <strong>Safety Features:</strong> Confirmation required before deactivation -
+      <strong>Automatic Processing:</strong> Schedule-based deactivation for sessions that have passed
+    </p>
+    <h3 id="instructor-management-admininstructors">5. Instructor Management (<code>/admin/instructors</code>)</h3>
+    <p>
+      <strong>Features:</strong> - <strong>Add New Instructors:</strong> - Name, contact information - Specialization
+      areas - Availability status
+    </p>
+    <ul>
+      <li>
+        <strong>Manage Existing Instructors:</strong>
+        <ul>
+          <li>Edit instructor profiles</li>
+          <li>Update contact information</li>
+          <li>Activate/deactivate instructors</li>
+          <li>Delete instructor records</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Assignment Tracking:</strong>
+        <ul>
+          <li>View instructor assignments</li>
+          <li>Session allocation</li>
+          <li>Workload management</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="feedback-management-adminfeedback-list">6. Feedback Management (<code>/admin/feedback-list</code>)</h3>
+    <p>
+      <strong>Features:</strong> - <strong>View All Feedback:</strong> - Chronological listing of all submitted feedback
+      - Filter by session, date range, or rating - Export feedback data
+    </p>
+    <ul>
+      <li>
+        <strong>Analytics:</strong>
+        <ul>
+          <li>Average ratings by session</li>
+          <li>Common feedback themes</li>
+          <li>Improvement suggestions tracking</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Response Management:</strong>
+        <ul>
+          <li>Mark feedback as reviewed</li>
+          <li>Add admin notes</li>
+          <li>Follow-up actions</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="question-answer-management-adminquestion-answers-list">
+      7. Question &amp; Answer Management (<code>/admin/question-answers-list</code>)
+    </h3>
+    <p>
+      <strong>Features:</strong> - <strong>View All Responses:</strong> - Complete questionnaire responses - Filter by
+      registration or session - Export for analysis
+    </p>
+    <ul>
+      <li>
+        <strong>Data Analysis:</strong>
+        <ul>
+          <li>Response patterns</li>
+          <li>Statistical summaries</li>
+          <li>Trend identification</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Privacy Controls:</strong>
+        <ul>
+          <li>Anonymized viewing options</li>
+          <li>Data retention management</li>
+          <li>Compliance features</li>
+        </ul>
+      </li>
+    </ul>
+    <hr />
+    <h2 id="key-application-features">Key Application Features</h2>
+    <h3 id="file-upload-system">1. File Upload System</h3>
+    <p>
+      <strong>Supported Formats:</strong> - <strong>Images:</strong> JPG, PNG (max 2MB) -
+      <strong>Documents:</strong> PDF, DOC, DOCX (max 2MB)
+    </p>
+    <p>
+      <strong>Upload Process:</strong> 1. Click “Choose File” or “Choose Photo” button 2. Select file from device 3.
+      Automatic validation for size and format 4. Progress indicator during upload 5. Success confirmation with file
+      name display
+    </p>
+    <p><strong>Storage:</strong> All files securely stored in Azure Blob Storage</p>
+    <h3 id="email-system">2. Email System</h3>
+    <p>
+      <strong>Automated Emails:</strong> - Registration confirmation - Payment reminders - Session notifications -
+      Certificate delivery - Administrative alerts
+    </p>
+    <p><strong>Email Templates:</strong> - Responsive design - Multi-language support - Branded formatting</p>
+    <h3 id="payment-tracking">3. Payment Tracking</h3>
+    <p>
+      <strong>Status Types:</strong> - <strong>Pending:</strong> Payment not yet received -
+      <strong>Received:</strong> Payment confirmed by admin
+    </p>
+    <p>
+      <strong>Admin Controls:</strong> - Manual payment approval - Payment status updates - Payment history tracking
+    </p>
+    <h3 id="certificate-generation">4. Certificate Generation</h3>
+    <p>
+      <strong>Availability:</strong> Only for participants with approved payments <strong>Format:</strong> PDF
+      certificates with official formatting <strong>Content:</strong> Participant name, session details, dates, official
+      signatures <strong>Download:</strong> Direct download from admin panel
+    </p>
+    <h3 id="search-and-filtering">5. Search and Filtering</h3>
+    <p>
+      <strong>Global Search:</strong> - Search across all registration types - Name and email matching - Real-time
+      results
+    </p>
+    <p>
+      <strong>Advanced Filters:</strong> - Date ranges - Session types - Payment status - Registration status - Church
+      affiliations
+    </p>
+    <h3 id="data-export">6. Data Export</h3>
+    <p><strong>Export Formats:</strong> - Excel spreadsheets - PDF reports - CSV data files</p>
+    <p>
+      <strong>Export Options:</strong> - Complete registration lists - Filtered datasets - Custom date ranges - Summary
+      reports
+    </p>
+    <h3 id="security-features">7. Security Features</h3>
+    <p>
+      <strong>User Security:</strong> - reCAPTCHA protection on all forms - Email validation - Domain restrictions for
+      email providers - Rate limiting on submissions
+    </p>
+    <p>
+      <strong>Admin Security:</strong> - JWT-based authentication - Session management - Role-based access control -
+      Audit trail logging
+    </p>
+    <p>
+      <strong>Data Protection:</strong> - Encrypted data transmission - Secure file storage - Regular backup procedures
+      - GDPR compliance features
+    </p>
+    <hr />
+    <h2 id="troubleshooting">Troubleshooting</h2>
+    <h3 id="common-issues-and-solutions">Common Issues and Solutions</h3>
+    <h4 id="registration-problems">1. Registration Problems</h4>
+    <p>
+      <strong>Issue:</strong> Form won’t submit <strong>Solutions:</strong> - Check all required fields are filled -
+      Verify file sizes are under 2MB - Complete reCAPTCHA verification - Ensure valid email format - Check internet
+      connection
+    </p>
+    <p>
+      <strong>Issue:</strong> Email already registered error <strong>Solutions:</strong> - Use a different email address
+      - Contact administrator if this is an error - Check if you’ve already registered for this session
+    </p>
+    <h4 id="file-upload-issues">2. File Upload Issues</h4>
+    <p>
+      <strong>Issue:</strong> File won’t upload <strong>Solutions:</strong> - Check file size (max 2MB) - Verify file
+      format is supported - Try a different browser - Check internet connection - Clear browser cache
+    </p>
+    <h4 id="admin-login-problems">3. Admin Login Problems</h4>
+    <p>
+      <strong>Issue:</strong> Cannot access admin panel <strong>Solutions:</strong> - Verify correct login URL - Check
+      username and password - Clear browser cookies - Contact system administrator
+    </p>
+    <h4 id="email-access-issues">4. Email Access Issues</h4>
+    <p>
+      <strong>Issue:</strong> Not receiving emails <strong>Solutions:</strong> - Check spam/junk folder - Verify email
+      address is correct - Wait a few minutes for delivery - Contact administrator
+    </p>
+    <h4 id="session-access-problems">5. Session Access Problems</h4>
+    <p>
+      <strong>Issue:</strong> Cannot register for session <strong>Solutions:</strong> - Check if session is still active
+      - Verify registration deadline hasn’t passed - Ensure all prerequisites are met - Try refreshing the page
+    </p>
+    <h3 id="browser-compatibility">Browser Compatibility</h3>
+    <p><strong>Recommended Browsers:</strong> - Chrome 90+ - Firefox 88+ - Safari 14+ - Edge 90+</p>
+    <p><strong>Mobile Browsers:</strong> - Chrome Mobile - Safari Mobile - Samsung Internet - Firefox Mobile</p>
+    <h3 id="performance-tips">Performance Tips</h3>
+    <ol type="1">
+      <li><strong>Clear Browser Cache:</strong> Regularly clear cache for optimal performance</li>
+      <li><strong>Stable Internet:</strong> Ensure stable internet connection during registration</li>
+      <li><strong>File Optimization:</strong> Compress images before uploading when possible</li>
+      <li><strong>Browser Updates:</strong> Keep browser updated to latest version</li>
+      <li><strong>JavaScript:</strong> Ensure JavaScript is enabled</li>
+    </ol>
+    <hr />
+    <h2 id="contact-and-support">Contact and Support</h2>
+    <h3 id="technical-support">Technical Support</h3>
+    <ul>
+      <li><strong>For Registration Issues:</strong> Contact your local parish office</li>
+      <li><strong>For Technical Problems:</strong> Contact system administrator</li>
+      <li><strong>For Admin Access:</strong> Contact Diocese IT department</li>
+    </ul>
+    <h3 id="important-notes">Important Notes</h3>
+    <ol type="1">
+      <li>
+        <strong>Data Privacy:</strong> All personal information is securely stored and processed according to privacy
+        policies
+      </li>
+      <li><strong>Registration Deadlines:</strong> Register before session start dates</li>
+      <li><strong>Payment Requirements:</strong> Payment approval required for certificate generation</li>
+      <li><strong>Document Requirements:</strong> All uploaded documents should be clear and legible</li>
+      <li><strong>Session Changes:</strong> Monitor email for any session updates or changes</li>
+    </ol>
+    <h3 id="emergency-contacts">Emergency Contacts</h3>
+    <ul>
+      <li>Diocese Office: [Phone Number]</li>
+      <li>IT Support: [Email Address]</li>
+      <li>Administrative Queries: [Contact Information]</li>
+    </ul>
+    <hr />
+    <h2 id="appendix">Appendix</h2>
+    <h3 id="keyboard-shortcuts-admin-panel">Keyboard Shortcuts (Admin Panel)</h3>
+    <ul>
+      <li><strong>Ctrl+F:</strong> Search within current page</li>
+      <li><strong>Ctrl+R:</strong> Refresh data</li>
+      <li><strong>Ctrl+E:</strong> Export current view</li>
+      <li><strong>Esc:</strong> Close modal dialogs</li>
+    </ul>
+    <h3 id="mobile-app-features">Mobile App Features</h3>
+    <p>
+      The application works as a Progressive Web App (PWA): - <strong>Install:</strong> Add to home screen option
+      available - <strong>Offline Access:</strong> Limited offline functionality -
+      <strong>Push Notifications:</strong> Session reminders and updates - <strong>Responsive Design:</strong> Optimized
+      for mobile devices
+    </p>
+    <h3 id="data-retention">Data Retention</h3>
+    <ul>
+      <li><strong>Registration Data:</strong> Retained for 7 years</li>
+      <li><strong>Feedback Data:</strong> Retained for 5 years</li>
+      <li><strong>Session Data:</strong> Retained indefinitely</li>
+      <li><strong>File Uploads:</strong> Retained with registration data</li>
+    </ul>
+    <hr />
+    <p>
+      <em
+        >This guide covers the major features and functionality of the CSI MKD Premarital Counseling Application. For
+        additional assistance or specific questions, please contact your system administrator.</em
+      >
+    </p>
+    <p>
+      <strong>Version:</strong> 1.0<br />
+      <strong>Last Updated:</strong> [Current Date]<br />
+      <strong>Application Version:</strong> 0.0.112+
+    </p>
+  </body>
 </html>

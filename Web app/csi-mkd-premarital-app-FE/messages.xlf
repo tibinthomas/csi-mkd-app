@@ -1805,7 +1805,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="8630480647147144748" datatype="html">
-        <source>Church District</source>
+        <source>Clergy District</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">105</context>
@@ -1820,7 +1820,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1345192570516679397" datatype="html">
-        <source>Church District is required.</source>
+        <source>Clergy District is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">112</context>

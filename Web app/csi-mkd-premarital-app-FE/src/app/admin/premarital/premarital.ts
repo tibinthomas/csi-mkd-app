@@ -1301,7 +1301,7 @@ export class DeleteConfirmationDialog {
         @if (editForm.get('churchMembership')?.value === 'member') {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
-            <mat-label>Church District</mat-label>
+            <mat-label>Clergy District</mat-label>
             <mat-select
               formControlName="churchDistrict"
               (selectionChange)="onDistrictChange($event.value)"
@@ -1310,7 +1310,7 @@ export class DeleteConfirmationDialog {
               <mat-option [value]="location">{{ location }}</mat-option>
               }
             </mat-select>
-            <mat-error>Church District is required</mat-error>
+            <mat-error>Clergy District is required</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">

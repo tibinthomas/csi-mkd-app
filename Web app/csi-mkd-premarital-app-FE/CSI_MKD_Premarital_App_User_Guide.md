@@ -74,7 +74,7 @@ Visit the application at: **[Your Production URL]**
 
 - **Church Information:**
   - CSI MKD membership status
-  - Church District and Church Name (auto-populated from database)
+  - Clergy District and Church Name (auto-populated from database)
   - Manual church entry for non-members
 
 - **Church Activities:**
@@ -115,7 +115,7 @@ Visit the application at: **[Your Production URL]**
 
 **Required Information:**
 - Basic personal details (Name, Age, Sex, Father's Name, Address, Education, Occupation)
-- Church District and Church Name
+- Clergy District and Church Name
 - Contact information (Phone, Email)
 - Marital Status (Single/Married)
 - Session Type (In-Person/Online)
@@ -128,7 +128,7 @@ Visit the application at: **[Your Production URL]**
 **Access:** Go to "Register" → "Pre-confirmational Registration"
 
 **Required Information:**
-- Church District and Church Name
+- Clergy District and Church Name
 - Confirmation Date (future date)
 - Counseling Date
 - List of Participants (Name and Age for each)

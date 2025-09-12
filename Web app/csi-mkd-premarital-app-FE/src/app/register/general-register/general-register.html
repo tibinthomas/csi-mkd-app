@@ -102,14 +102,14 @@
         </mat-form-field>
         <div class="grid md:grid-cols-2 gap-6 w-full">
           <mat-form-field appearance="fill" class="w-full">
-            <mat-label> <span i18n>Church District</span></mat-label>
+            <mat-label> <span i18n>Clergy District</span></mat-label>
             <mat-select formControlName="churchDistrict" (selectionChange)="onDistrictChange($event.value)">
               @for (location of allLocations(); track location) {
               <mat-option [value]="location">{{ location }}</mat-option>
               }
             </mat-select>
             @if (isInvalid('churchDistrict')) {
-            <mat-error i18n>Church District is required.</mat-error>
+            <mat-error i18n>Clergy District is required.</mat-error>
             }
           </mat-form-field>
 
