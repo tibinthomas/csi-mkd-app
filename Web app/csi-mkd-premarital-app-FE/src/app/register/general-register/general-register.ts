@@ -32,6 +32,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
+import { CounselingConsentComponent } from '../../shared/counseling-consent/counseling-consent';
 import {
   ChurchDataService,
   ChurchWithDetails,
@@ -55,6 +56,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     NoDigitsDirective,
     OnlyDigitsDirective,
     SpeechRecognitionDirective,
+    CounselingConsentComponent,
   ],
   hostDirectives: [],
   templateUrl: './general-register.html',
@@ -76,6 +78,7 @@ export class GeneralRegister {
   protected readonly isSubmitting = signal(false);
   protected readonly formSubmitted = signal(false);
   protected readonly photoError = signal('');
+  protected readonly counselingConsentTouched = signal(false);
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
@@ -106,7 +109,7 @@ export class GeneralRegister {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       lastName: [
@@ -115,7 +118,7 @@ export class GeneralRegister {
           Validators.required,
           Validators.minLength(1),
           Validators.maxLength(50),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       fatherName: [
@@ -124,7 +127,7 @@ export class GeneralRegister {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       address: [
@@ -142,7 +145,7 @@ export class GeneralRegister {
         [
           Validators.required,
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       occupation: [
@@ -150,7 +153,7 @@ export class GeneralRegister {
         [
           Validators.required,
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       churchDistrict: ['', Validators.required],
@@ -178,6 +181,7 @@ export class GeneralRegister {
       maritalStatus: ['', Validators.required],
       sessionType: ['', Validators.required],
       declaration: [false, Validators.requiredTrue],
+      counselingConsent: [false, Validators.requiredTrue],
       recaptcha: ['', Validators.required],
     });
   }
@@ -203,6 +207,9 @@ export class GeneralRegister {
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
+    if (name === 'counselingConsent') {
+      return !!(control && control.invalid && this.formSubmitted());
+    }
     return !!(control && control.invalid && this.formSubmitted());
   }
 
@@ -225,6 +232,11 @@ export class GeneralRegister {
 
   handleSuccess(token: string) {
     this.form.get('recaptcha')?.setValue(token);
+  }
+
+  onCounselingConsentChange(agreed: boolean): void {
+    this.counselingConsentTouched.set(true);
+    this.form.get('counselingConsent')?.setValue(agreed);
   }
   onSubmit() {
     this.formSubmitted.set(true);
