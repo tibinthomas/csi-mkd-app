@@ -96,7 +96,7 @@ export class PreConfirmRegister {
             [
               Validators.required,
               Validators.maxLength(100),
-              Validators.pattern(/^[a-zA-Z\s]*$/),
+              Validators.pattern(/^[a-zA-Z\s.]*$/),
             ],
           ],
           age: [

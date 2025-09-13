@@ -52,17 +52,43 @@
     <ng-container>
       <!-- Choose Form Heading -->
       <h1 class="mb-5 text-2xl font-bold tracking-tight text-on-background theme-transition" i18n>Choose a Form</h1>
+      
+      @if (!sessionAccessAllowed()) {
+      <!-- Session Access Denied Message -->
+      <mat-card class="max-w-2xl mx-auto mb-10 border-l-4 border-orange-500">
+        <mat-card-content class="p-6">
+          <div class="flex items-start space-x-4">
+            <svg class="w-6 h-6 text-orange-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 19c-.77.833.192 2.5 1.732 2.5z"></path>
+            </svg>
+            <div>
+              <h3 class="text-lg font-semibold text-orange-700 mb-2" i18n>Session Access Restricted</h3>
+              <p class="text-on-surface-variant mb-2" i18n>The feedback and questionnaire forms are only accessible during your session period.</p>
+              @if (sessionMessage()) {
+              <p class="text-sm text-on-surface-variant font-medium">{{ sessionMessage() }}</p>
+              }
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+      } @else {
       <p class="text-on-surface-variant max-w-xl mx-auto mb-10 theme-transition" i18n>
         Please select a form to proceed.
       </p>
+      }
 
       <!-- Form Cards -->
       <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
         <!-- Feedback Form Card -->
         <mat-card
-          class="cursor-pointer rounded-2xl transition-all duration-300 hover:shadow-lg"
+          [class.cursor-pointer]="sessionAccessAllowed()"
+          [class.cursor-not-allowed]="!sessionAccessAllowed()"
+          [class.opacity-50]="!sessionAccessAllowed()"
+          class="rounded-2xl transition-all duration-300"
+          [class.hover:shadow-lg]="sessionAccessAllowed()"
           (click)="goToForm('feedback')"
-          tabindex="0"
+          [tabindex]="sessionAccessAllowed() ? 0 : -1"
+          [attr.aria-disabled]="!sessionAccessAllowed()"
           role="button"
         >
           <mat-card-content class="flex flex-col h-full p-6 text-center">
@@ -83,14 +109,22 @@
             </svg>
             <h2 class="text-xl font-bold mb-2" i18n>Feedback Form</h2>
             <p class="text-on-surface-variant text-sm mt-auto" i18n>Share your experience and suggestions.</p>
+            @if (!sessionAccessAllowed()) {
+            <p class="text-xs text-orange-600 mt-2" i18n>Available during session period only</p>
+            }
           </mat-card-content>
         </mat-card>
 
         <!-- Questionnaire Form Card -->
         <mat-card
-          class="cursor-pointer rounded-2xl transition-all duration-300 hover:shadow-lg"
+          [class.cursor-pointer]="sessionAccessAllowed()"
+          [class.cursor-not-allowed]="!sessionAccessAllowed()"
+          [class.opacity-50]="!sessionAccessAllowed()"
+          class="rounded-2xl transition-all duration-300"
+          [class.hover:shadow-lg]="sessionAccessAllowed()"
           (click)="goToForm('questions')"
-          tabindex="0"
+          [tabindex]="sessionAccessAllowed() ? 0 : -1"
+          [attr.aria-disabled]="!sessionAccessAllowed()"
           role="button"
         >
           <mat-card-content class="flex flex-col h-full p-6 text-center">
@@ -113,6 +147,9 @@
             <p class="text-on-surface-variant text-sm mt-auto" i18n>
               Share your thoughts and opinions to help us understand participants better.
             </p>
+            @if (!sessionAccessAllowed()) {
+            <p class="text-xs text-orange-600 mt-2" i18n>Available during session period only</p>
+            }
           </mat-card-content>
         </mat-card>
       </div>

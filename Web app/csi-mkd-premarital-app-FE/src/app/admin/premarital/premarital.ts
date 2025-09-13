@@ -454,77 +454,140 @@ export class PremaritalComponent {
       format: 'a4',
     });
 
-    doc.setFontSize(16);
-    doc.text('Premarital Registrations Report', 40, 40);
-
     const data = this.registrations();
     if (data.length) {
       for (let index = 0; index < data.length; index++) {
         const reg = data[index];
-        const yOffset = 60 + index * 180;
 
-        if (yOffset > doc.internal.pageSize.height - 200) {
+        // Add a new page for each user (except the first one)
+        if (index > 0) {
           doc.addPage();
         }
 
-        const baseY = doc.lastAutoTable
-          ? doc.lastAutoTable.finalY + 20
-          : yOffset;
+        // Add header for each page
+        doc.setFontSize(16);
+        doc.text('Premarital Registration Details', 40, 40);
+
+        // Add user counter
+        doc.setFontSize(12);
+        doc.text(`Registration ${index + 1} of ${data.length}`, 40, 60);
+
+        // Start table at a fixed position on each page
+        const startY = 80;
 
         autoTable(doc, {
-          startY: baseY,
-          head: [['Field', 'Value']],
+          startY: startY,
+          head: [['Field', 'Value', 'Photo']],
           body: [
-            ['Full Name', `${reg.firstName} ${reg.lastName}`],
-            ['Sex', reg.sex],
-            ['Age', reg.age],
-            ['Email', reg.email],
-            ['Phone', reg.phone],
-            ['Father Name', reg.fatherName],
-            ['Address', reg.address],
-            ['Education', reg.education],
-            ['Occupation', reg.occupation],
-            ['Church', this.getChurchNameById(reg.churchId)],
-            ['Priest Name', reg.priestName],
-            ['Fiancé Name', reg.fianceName],
-            ['Session Name', reg.sessionName],
-            ['Session Days', reg.days],
+            ['Full Name', `${reg.firstName} ${reg.lastName}`, ''],
+            ['Sex', reg.sex, ''],
+            ['Age', reg.age, ''],
+            ['Email', reg.email, ''],
+            ['Phone', reg.phone, ''],
+            ['Father Name', reg.fatherName, ''],
+            ['Address', reg.address, ''],
+            ['Education', reg.education, ''],
+            ['Occupation', reg.occupation, ''],
+            ['Church', this.getChurchNameById(reg.churchId), ''],
+            ['Priest Name', reg.priestName, ''],
+            ['Fiancé Name', reg.fianceName, ''],
+            ['Session Name', reg.sessionName, ''],
+            ['Session Days', reg.days, ''],
             [
               'Date of Marriage',
               new Date(reg.dateOfMarriage).toLocaleDateString(),
+              '',
             ],
             [
               'Church Activities',
               this.getSelectedActivities(reg.churchActivities).join(', ') ||
                 'None',
+              '',
             ],
-            ['Payment Status', reg.paymentStatus ? 'Received' : 'Pending'],
-            ['Vicar Letter', reg.vicarLetterUrl ? reg.vicarLetterUrl : 'N/A'],
+            ['Payment Status', reg.paymentStatus ? 'Received' : 'Pending', ''],
+            [
+              'Vicar Letter',
+              reg.vicarLetterUrl ? reg.vicarLetterUrl : 'N/A',
+              '',
+            ],
           ],
           styles: {
             fontSize: 10,
             cellPadding: 4,
           },
+          columnStyles: {
+            0: { cellWidth: 120 }, // Field column fixed width (wider)
+            1: { cellWidth: 'auto' }, // Value column auto-width based on remaining space
+            2: { cellWidth: 120 }, // Photo column fixed width
+          },
+          tableWidth: 'auto', // Auto-size entire table based on content
           theme: 'grid',
           headStyles: {
             fillColor: [63, 81, 181],
             textColor: 255,
           },
-          margin: { left: 40, right: 40 },
+          margin: { left: 40, right: 40 }, // Normal margins since photo is now in table
         });
 
-        // Add photo image (if exists)
+        // Add photo image (if exists) - positioned in the photo column
         if (reg.photoUrl) {
           try {
             const imageData = await this.getBase64ImageFromUrl(reg.photoUrl);
-            doc.addImage(imageData, 'JPEG', 400, baseY + 20, 100, 100);
+            // Calculate photo position within the photo column of the first row
+            const tableX = 40; // Table left margin
+            const fieldColumnWidth = 150;
+            const valueColumnWidth =
+              doc.internal.pageSize.width -
+              tableX -
+              40 -
+              fieldColumnWidth -
+              120; // Calculate value column width
+            const photoColumnX =
+              tableX + fieldColumnWidth + valueColumnWidth + 10; // Photo column X position with padding
+            const photoY = startY + 25; // Y position within first row
+            const photoWidth = 100;
+            const photoHeight = 100;
+
+            doc.addImage(
+              imageData,
+              'JPEG',
+              photoColumnX,
+              photoY,
+              photoWidth,
+              photoHeight
+            );
           } catch (e) {
-            console.warn('Could not load image', e);
+            console.warn(
+              'Could not load image for user',
+              reg.firstName,
+              reg.lastName,
+              e
+            );
           }
         }
+
+        // Add page footer with page number
+        const pageHeight = doc.internal.pageSize.height;
+        doc.setFontSize(8);
+        doc.text(
+          `Page ${index + 1} of ${
+            data.length
+          } - Generated on ${new Date().toLocaleDateString()}`,
+          40,
+          pageHeight - 20
+        );
       }
 
-      doc.save('premarital-registrations-full.pdf');
+      // Generate filename with session info
+      const sessionName = this.selectedSession() || 'All-Sessions';
+      const sessionYear = this.selectedYear() || 'All-Years';
+      const sanitizedSessionName = sessionName.replace(/[^a-zA-Z0-9-_]/g, '-');
+      const sanitizedSessionYear = sessionYear
+        .toString()
+        .replace(/[^a-zA-Z0-9-_]/g, '-');
+      const filename = `premarital-registrations-${sanitizedSessionName}-${sanitizedSessionYear}.pdf`;
+
+      doc.save(filename);
     }
   }
 
@@ -1301,7 +1364,7 @@ export class DeleteConfirmationDialog {
         @if (editForm.get('churchMembership')?.value === 'member') {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill">
-            <mat-label>Church District</mat-label>
+            <mat-label>Clergy District</mat-label>
             <mat-select
               formControlName="churchDistrict"
               (selectionChange)="onDistrictChange($event.value)"
@@ -1310,7 +1373,7 @@ export class DeleteConfirmationDialog {
               <mat-option [value]="location">{{ location }}</mat-option>
               }
             </mat-select>
-            <mat-error>Church District is required</mat-error>
+            <mat-error>Clergy District is required</mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="fill">
@@ -1521,7 +1584,7 @@ export class EditRegistrationDialog {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(50),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       lastName: [
@@ -1530,7 +1593,7 @@ export class EditRegistrationDialog {
           Validators.required,
           Validators.minLength(1),
           Validators.maxLength(50),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       fatherName: [
@@ -1539,7 +1602,7 @@ export class EditRegistrationDialog {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       address: [
@@ -1560,7 +1623,7 @@ export class EditRegistrationDialog {
         [
           Validators.required,
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       occupation: [
@@ -1568,7 +1631,7 @@ export class EditRegistrationDialog {
         [
           Validators.required,
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-Z\s]*$/),
+          Validators.pattern(/^[a-zA-Z\s.]*$/),
         ],
       ],
       churchMembership: [churchMembership, Validators.required],
@@ -1577,7 +1640,7 @@ export class EditRegistrationDialog {
       manualChurchName: [reg.churchName && !reg.churchId ? reg.churchName : ''],
       fianceName: [
         reg.fianceName || '',
-        [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s]*$/)],
+        [Validators.maxLength(100), Validators.pattern(/^[a-zA-Z\s.]*$/)],
       ],
       dateOfMarriage: [
         reg.dateOfMarriage ? new Date(reg.dateOfMarriage) : null,

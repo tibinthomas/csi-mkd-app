@@ -21,6 +21,8 @@ export class NoDigitsDirective {
       'ArrowDown',
       'Home',
       'End',
+      '.',  // Allow dots
+      'Period',  // Alternative key name for dots
     ];
 
     const isModifierCombo = event.ctrlKey || event.metaKey;
@@ -33,7 +35,8 @@ export class NoDigitsDirective {
       return;
     }
 
-    if (/^[0-9]$/.test(event.key)) {
+    // Block invalid characters (anything that's not alphabets, spaces, or dots)
+    if (/^[^a-zA-Z\s.]$/.test(event.key)) {
       event.preventDefault();
     }
   }
@@ -42,7 +45,7 @@ export class NoDigitsDirective {
   onPaste(event: ClipboardEvent): void {
     const clipboardData = event.clipboardData || (window as any).clipboardData;
     const pastedText: string = clipboardData?.getData('text') ?? '';
-    const sanitized = pastedText.replace(/[0-9]/g, '');
+    const sanitized = pastedText.replace(/[^a-zA-Z\s.]/g, '');
     if (sanitized !== pastedText) {
       event.preventDefault();
       this.insertTextAtCursor(sanitized);
@@ -53,7 +56,7 @@ export class NoDigitsDirective {
   onInput(): void {
     const input = this.elementRef.nativeElement;
     const currentValue = input.value ?? '';
-    const sanitized = currentValue.replace(/[0-9]/g, '');
+    const sanitized = currentValue.replace(/[^a-zA-Z\s.]/g, '');
     if (sanitized !== currentValue) {
       const selectionStart = input.selectionStart ?? sanitized.length;
       const selectionEnd = input.selectionEnd ?? sanitized.length;
