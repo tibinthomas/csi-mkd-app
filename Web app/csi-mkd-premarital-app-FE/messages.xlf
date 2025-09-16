@@ -2002,7 +2002,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="1800141988486847570" datatype="html">
-        <source>Upload your Passport-Size Photo</source>
+        <source>Upload your Photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
           <context context-type="linenumber">206,207</context>

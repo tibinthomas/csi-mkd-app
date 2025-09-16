@@ -45,6 +45,7 @@ import {
   ChurchWithDetails,
 } from '../../core/services/church-data.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-premarital-register',
@@ -68,6 +69,7 @@ import { SessionsFallbackService } from '../../core/services/sessions-fallback.s
     OnlyDigitsDirective,
     SpeechRecognitionDirective,
     InformedConsentComponent,
+    MatTooltipModule,
   ],
   templateUrl: './premarital-register.html',
   styleUrl: './premarital-register.scss',

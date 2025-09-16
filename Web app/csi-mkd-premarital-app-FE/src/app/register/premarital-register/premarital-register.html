@@ -186,7 +186,8 @@
               <mat-option [value]="church.name">{{ church.name }}</mat-option>
               }
             </mat-select>
-            @if (selectedChurch()?.priestName && selectedChurch()?.priestName?.trim() && selectedChurch()?.priestName?.toLowerCase() !== 'unknown priest') {
+            @if (selectedChurch()?.priestName && selectedChurch()?.priestName?.trim() &&
+            selectedChurch()?.priestName?.toLowerCase() !== 'unknown priest') {
             <mat-hint>Priest: {{ selectedChurch()?.priestName }}</mat-hint>
             } @if (isInvalid('churchName')) {
             <mat-error i18n>Church Name is required.</mat-error>
@@ -324,7 +325,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2" role="group" aria-labelledby="upload-group-label">
           <!-- Upload Photo -->
           <div class="flex flex-col gap-2" role="group" aria-labelledby="photo-upload-label">
-            <label id="photo-upload-label" class="font-medium" i18n> Upload your Passport-Size Photo </label>
+            <label id="photo-upload-label" class="font-medium" i18n> Upload your Photo </label>
             <div class="flex items-center gap-2">
               <button
                 mat-raised-button
@@ -360,7 +361,15 @@
 
           <!-- Upload Vicar Letter -->
           <div class="flex flex-col gap-2" role="group" aria-labelledby="letter-upload-label">
-            <label id="letter-upload-label" class="font-medium" i18n>Upload Witness of Vicar</label>
+            <div class="flex items-center gap-1">
+              <label id="letter-upload-label" class="font-medium" i18n>Upload Witness of Vicar</label>
+              <mat-icon
+                class="text-on-surface-variant"
+                matTooltip="This is the letter from the vicar of your current church confirming your membership and request to attend the premarital counselling course."
+                i18n-matTooltip
+                >info</mat-icon
+              >
+            </div>
             <div class="flex items-center gap-2">
               <button
                 mat-raised-button
