@@ -31,8 +31,8 @@ namespace csi_mkd_premarital_app_BE.Data
             modelBuilder.Ignore<QuestionAnswers>();
 
 
-            // var hash = BCrypt.Net.BCrypt.HashPassword("admin123");
-
+            // var hash = BCrypt.Net.BCrypt.HashPassword("@dmin@CS!MKD");
+            // Console.WriteLine("Hashed password: " + hash);
             // Seed the AdminUser with a hashed password
             // Note: The password hash below is an example and should be replaced with a secure hash
             // for your actual application.
@@ -43,7 +43,7 @@ namespace csi_mkd_premarital_app_BE.Data
             {
                 Id = 1,
                 Username = "csimkdmarry@gmail.com",
-                PasswordHash = "$2a$11$JyS3ggBufEWrsn/v4PLe/OV/kwnMrD9e6bm0DISNeyHjDqkG/20k2"
+                PasswordHash = "$2a$11$Bs8bRm0NuP.QM7kTlBc/6OSw.G2Dq3MjX4yZEduT1LcrNXUtNj5D."
             });
 
             modelBuilder.Entity<EmailConfig>().HasData(new EmailConfig

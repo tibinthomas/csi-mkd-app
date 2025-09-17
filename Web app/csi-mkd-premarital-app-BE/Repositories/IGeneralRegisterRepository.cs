@@ -11,6 +11,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<bool> UpdatePaymentStatus(Guid id, bool status);
         Task<object> FilterRegistrations(GeneralRegisterFilterDto filter);
         Task<int> GetTotalRegistrations();
-
+        Task<GeneralRegistration?> GetRegistrationById(Guid id);
+        Task<bool> DeleteRegistration(Guid id);
     }
 }

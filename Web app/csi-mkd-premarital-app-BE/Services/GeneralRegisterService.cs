@@ -40,9 +40,8 @@ public class GeneralRegisterService : IGeneralRegisterService
         };
 
         var registerId = await _repo.AddRegistration(entity);
-        _emailService.SendConfirmationEmail(dto.Email, dto.FirstName);
 
-        return (200, new { message = "Registered and email sent!", id = registerId });
+        return (200, new { message = "Registered!", id = registerId });
     }
 
     public async Task<(int StatusCode, object Data)> SaveFiles(GeneralDocumentDto dto)
@@ -56,9 +55,15 @@ public class GeneralRegisterService : IGeneralRegisterService
         };
 
         await _repo.AddGeneralFiles(entity);
+        var registration = await _repo.GetRegistrationById(dto.RegistrationId);
+
+        if (registration != null)
+        {
+            _emailService.SendConfirmationEmail(registration.Email, registration.FirstName);
+            return (200, new { message = "Files uploaded and email sent!" });
+        }
 
         return (200, new { message = "Files uploaded!" });
-
     }
     public async Task<bool> CheckEmailExists(string email)
           => await _repo.CheckEmailExists(email);
@@ -74,5 +79,10 @@ public class GeneralRegisterService : IGeneralRegisterService
     public async Task<int> GetTotalRegistrations()
     {
         return await _repo.GetTotalRegistrations();
+    }
+
+    public async Task<bool> DeleteRegistration(Guid id)
+    {
+        return await _repo.DeleteRegistration(id);
     }
 }

@@ -10,6 +10,6 @@ namespace csi_mkd_premarital_app_BE.Services
         Task<(int StatusCode, object? Data)> UpdatePaymentStatus(Guid id, PaymentStatusUpdateDto dto);
         Task<object> GetFilteredRegistrations(GeneralRegisterFilterDto filter);
         Task<int> GetTotalRegistrations();
-
+        Task<bool> DeleteRegistration(Guid id);
     }
 }

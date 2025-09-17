@@ -58,9 +58,8 @@ namespace csi_mkd_premarital_app_BE.Services
             };
 
             var registerId = await _repo.AddRegistration(entity);
-            _emailService.SendConfirmationEmail(dto.Email, dto.FirstName);
 
-            return (200, new { message = "Registered and email sent!", id = registerId });
+            return (200, new { message = "Registered!", id = registerId });
         }
 
         public async Task<(int StatusCode, object Data)> SaveFiles(PremaritalDocumentDto dto)
@@ -75,6 +74,13 @@ namespace csi_mkd_premarital_app_BE.Services
             };
 
             await _repo.AddPremaritalFiles(entity);
+            var registration = await _repo.GetRegistrationById(dto.RegistrationId);
+
+            if (registration != null)
+            {
+                _emailService.SendConfirmationEmail(registration.Email, registration.FirstName);
+                return (200, new { message = "Files uploaded and email sent!" });
+            }
 
             return (200, new { message = "Files uploaded!" });
         }
@@ -95,7 +101,7 @@ namespace csi_mkd_premarital_app_BE.Services
             return await _repo.GetTotalRegistrations();
         }
 
-        public async Task<object?> GetRegistrationById(Guid id)
+        public async Task<PremaritalRegistration?> GetRegistrationById(Guid id)
         {
             return await _repo.GetRegistrationById(id);
         }

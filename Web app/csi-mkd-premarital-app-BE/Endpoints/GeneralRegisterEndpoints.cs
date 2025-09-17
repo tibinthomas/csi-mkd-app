@@ -61,7 +61,16 @@ public static class GeneralRegisterEndpoints
             return Results.Ok(new { total });
         })
         .CacheOutput(p => p.Tag("general-regs").Expire(TimeSpan.FromSeconds(10)));
+
+        group.MapDelete("/{id:guid}", async (Guid id, IGeneralRegisterService service, ICacheInvalidationService cacheService) =>
+        {
+            var success = await service.DeleteRegistration(id);
+            if (!success)
+            {
+                return Results.NotFound();
+            }
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.NoContent();
+        });
     }
 }
-
-

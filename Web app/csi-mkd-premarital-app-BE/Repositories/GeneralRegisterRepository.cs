@@ -102,4 +102,27 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
     {
         return await _context.GeneralRegistrations.CountAsync();
     }
+
+    public async Task<GeneralRegistration?> GetRegistrationById(Guid id)
+        => await _context.GeneralRegistrations.FindAsync(id);
+
+    public async Task<bool> DeleteRegistration(Guid id)
+    {
+        var registration = await _context.GeneralRegistrations
+            .Include(r => r.GeneralDocument)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+        if (registration == null)
+            return false;
+
+        // Remove associated document if exists
+        if (registration.GeneralDocument != null)
+        {
+            _context.GeneralDocuments.Remove(registration.GeneralDocument);
+        }
+
+        _context.GeneralRegistrations.Remove(registration);
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }
