@@ -36,6 +36,8 @@ public class GeneralRegisterRepository : IGeneralRegisterRepository
         var reg = await _context.GeneralRegistrations.FindAsync(id);
         if (reg is null) return false;
 
+        // Explicitly track the entity since global NoTracking is enabled
+        _context.Entry(reg).State = EntityState.Modified;
         reg.PaymentStatus = status;
         await _context.SaveChangesAsync();
         return true;
