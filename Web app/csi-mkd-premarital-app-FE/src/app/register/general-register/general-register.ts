@@ -24,7 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { switchMap } from 'rxjs';
 import { FileUploadService } from '../../core/services/file-upload.service';
-import { SuccessDialog } from '../../shared/success-dialog/success-dialog';
+import { Dialog } from '../../shared/dialog-popup/dialog-popup';
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -80,8 +80,8 @@ export class GeneralRegister {
   protected readonly photoError = signal('');
   protected readonly counselingConsentTouched = signal(false);
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() =>
     this.themeService.isDark() ? 'dark' : 'light'
   );
@@ -90,7 +90,6 @@ export class GeneralRegister {
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
   @ViewChild('formEl') formEl!: ElementRef<HTMLFormElement>;
   photoFileName: string | null = '';
-  showErrorModal = signal(false);
 
   // Church data signals
   protected readonly selectedDistrict = signal<string>('');
@@ -168,14 +167,14 @@ export class GeneralRegister {
             Validators.email,
             emailDomainValidator(),
           ],
-          asyncValidators: [
-            emailExistsValidatorFactory((email) =>
-              this.api.apiGeneralregisterCheckEmailGet({
-                email,
-              })
-            ),
-          ],
-          updateOn: 'blur',
+          // asyncValidators: [
+          //   emailExistsValidatorFactory((email) =>
+          //     this.api.apiGeneralregisterCheckEmailGet({
+          //       email,
+          //     })
+          //   ),
+          // ],
+          // updateOn: 'blur',
         },
       ],
       maritalStatus: ['', Validators.required],
@@ -303,15 +302,14 @@ export class GeneralRegister {
                     this.successMessage.set(
                       'Registration submitted successfully!'
                     );
-                    const dialogRef = this.dialog.open(SuccessDialog, {
+                    const dialogRef = this.dialog.open(Dialog, {
                       disableClose: true,
                       data: {
                         title: $localize`Registration Complete`,
                         messages: [
                           $localize`Your registration is successfully completed.`,
                         ],
-                        extraMessage:
-                          $localize`A confirmation email has been sent to your registered email address.`,
+                        extraMessage: $localize`A confirmation email has been sent to your registered email address.`,
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {
@@ -319,24 +317,44 @@ export class GeneralRegister {
                       window.history.back();
                     });
                   },
-                  error: (err) => this.handleUploadError(err),
+                  error: (err) => this.handleUploadError(err, registerId),
                 });
             },
-            error: (err) => this.handleUploadError(err),
+            error: (err) => this.handleUploadError(err, registerId),
           });
       },
       error: (err) => {
         this.errorMessage.set('Registration failed. Please try again.');
-        this.showErrorModal.set(true);
+        this.dialog.open(Dialog, {
+          data: {
+            title: 'Registration Failed',
+            messages: ['Something went wrong. Please try again later.'],
+          },
+        });
         this.isSubmitting.set(false);
       },
     });
   }
 
-  private handleUploadError(err: any) {
+  private handleUploadError(err: any, registerId: string) {
     console.error('Upload error:', err);
     this.errorMessage.set('Photo upload failed. Please try again.');
-    this.showErrorModal.set(true);
+
+    // Rollback the registration
+    this.api.apiGeneralregisterIdDelete({ id: registerId }).subscribe({
+      next: () => console.log('Registration rolled back successfully.'),
+      error: (deleteErr) =>
+        console.error('Failed to roll back registration:', deleteErr),
+    });
+
+    this.dialog.open(Dialog, {
+      data: {
+        title: 'Upload Failed',
+        messages: [
+          'There was an error uploading your photo. The registration has been cancelled. Please try again later.',
+        ],
+      },
+    });
     this.isSubmitting.set(false);
   }
 

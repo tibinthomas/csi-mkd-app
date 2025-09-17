@@ -67,6 +67,8 @@ import { apiGeneralregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be
 import { ApiGeneralregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-check-email-get';
 import { apiGeneralregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
 import { ApiGeneralregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
+import { apiGeneralregisterIdDelete } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-delete';
+import { ApiGeneralregisterIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-delete';
 import { apiGeneralregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
 import { ApiGeneralregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
 import { apiGeneralregisterPost } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post';
@@ -416,6 +418,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiGeneralregisterTotalGet(params?: ApiGeneralregisterTotalGet$Params, context?: HttpContext): Observable<void> {
     return this.apiGeneralregisterTotalGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiGeneralregisterIdDelete()` */
+  static readonly ApiGeneralregisterIdDeletePath = '/api/generalregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterIdDelete$Response(params: ApiGeneralregisterIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterIdDelete(params: ApiGeneralregisterIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterIdDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

@@ -27,11 +27,14 @@ import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services
 import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { FileUploadService } from '../../core/services/file-upload.service';
-import { SuccessDialog } from '../../shared/success-dialog/success-dialog';
+import { Dialog } from '../../shared/dialog-popup/dialog-popup';
 import { switchMap } from 'rxjs';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
-import { ChurchDataService, ChurchWithDetails } from '../../core/services/church-data.service';
+import {
+  ChurchDataService,
+  ChurchWithDetails,
+} from '../../core/services/church-data.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -74,7 +77,10 @@ export class PreConfirmRegister {
   // Church data signals
   protected readonly selectedDistrict = signal<string>('');
   protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
-  protected readonly allLocations = toSignal(this.churchDataService.getAllLocations(), { initialValue: [] });
+  protected readonly allLocations = toSignal(
+    this.churchDataService.getAllLocations(),
+    { initialValue: [] }
+  );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
@@ -129,8 +135,7 @@ export class PreConfirmRegister {
     }
   };
 
-  protected readonly timezoneDisplay: string =
-     $localize`DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
+  protected readonly timezoneDisplay: string = $localize`DD/MM/YYYY | Time Zone: IST (UTC+05:30)`;
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
@@ -192,7 +197,7 @@ export class PreConfirmRegister {
                 })
                 .subscribe({
                   next: () => {
-                    const dialogRef = this.dialog.open(SuccessDialog, {
+                    const dialogRef = this.dialog.open(Dialog, {
                       data: {
                         title: $localize`Pre-Confirmation Registration Complete`,
                         messages: [
@@ -288,18 +293,20 @@ export class PreConfirmRegister {
     this.selectedDistrict.set(district);
     this.form.patchValue({ churchName: '' }); // Reset church selection
     this.selectedChurch.set(null); // Reset selected church
-    
+
     if (district) {
       this.form.get('churchName')?.enable(); // Enable church name field
-      this.churchDataService.getChurchesByLocationAndSearch(district).subscribe({
-        next: (churches) => {
-          this.availableChurches.set(churches);
-        },
-        error: (err) => {
-          console.error('Error loading churches:', err);
-          this.availableChurches.set([]);
-        }
-      });
+      this.churchDataService
+        .getChurchesByLocationAndSearch(district)
+        .subscribe({
+          next: (churches) => {
+            this.availableChurches.set(churches);
+          },
+          error: (err) => {
+            console.error('Error loading churches:', err);
+            this.availableChurches.set([]);
+          },
+        });
     } else {
       this.form.get('churchName')?.disable(); // Disable church name field
       this.availableChurches.set([]);
@@ -307,7 +314,7 @@ export class PreConfirmRegister {
   }
 
   onChurchChange(churchName: string): void {
-    const church = this.availableChurches().find(c => c.name === churchName);
+    const church = this.availableChurches().find((c) => c.name === churchName);
     this.selectedChurch.set(church || null);
   }
 
