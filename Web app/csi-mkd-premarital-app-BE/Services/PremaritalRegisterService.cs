@@ -62,9 +62,11 @@ namespace csi_mkd_premarital_app_BE.Services
             return (200, new { message = "Registered!", id = registerId });
         }
 
-        public async Task<(int StatusCode, object Data)> SaveFiles(PremaritalDocumentDto dto)
+        // NEW: Upsert method for files
+        public async Task<(int StatusCode, object Data)> UpsertFiles(PremaritalDocumentDto dto)
         {
             if (dto == null) return (400, new { message = "Invalid input" });
+
             var entity = new PremaritalDocument
             {
                 RegistrationId = dto.RegistrationId,
@@ -73,17 +75,21 @@ namespace csi_mkd_premarital_app_BE.Services
                 SubmittedAt = DateTime.UtcNow
             };
 
-            await _repo.AddPremaritalFiles(entity);
-            var registration = await _repo.GetRegistrationById(dto.RegistrationId);
+            var isNew = await _repo.UpsertPremaritalFilesAsync(entity);
 
-            if (registration != null)
+            // Send email only if new
+            if (isNew)
             {
-                _emailService.SendConfirmationEmail(registration.Email, registration.FirstName);
-                return (200, new { message = "Files uploaded and email sent!" });
+                var registration = await _repo.GetRegistrationById(dto.RegistrationId);
+                if (registration != null)
+                    _emailService.SendConfirmationEmail(registration.Email, registration.FirstName);
+
+                return (200, new { message = "Files saved!" });
             }
 
-            return (200, new { message = "Files uploaded!" });
+            return (200, new { message = "Files updated!" });
         }
+
 
         public async Task<(int StatusCode, object? Data)> UpdatePaymentStatus(Guid id, PaymentStatusUpdateDto dto)
             => await _repo.UpdatePaymentStatus(id, dto.PaymentStatus)
@@ -97,24 +103,18 @@ namespace csi_mkd_premarital_app_BE.Services
             => await _repo.FilterRegistrations(filter);
 
         public async Task<int> GetTotalRegistrations()
-        {
-            return await _repo.GetTotalRegistrations();
-        }
+            => await _repo.GetTotalRegistrations();
 
         public async Task<PremaritalRegistration?> GetRegistrationById(Guid id)
-        {
-            return await _repo.GetRegistrationById(id);
-        }
+            => await _repo.GetRegistrationById(id);
 
         public async Task<bool> DeleteRegistration(Guid id)
-        {
-            return await _repo.DeleteRegistration(id);
-        }
+            => await _repo.DeleteRegistration(id);
 
         public async Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto)
-        {
-            return await _repo.UpdateRegistration(id, dto);
-        }
-    }
+            => await _repo.UpdateRegistration(id, dto);
 
+        public async Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId)
+            => await _repo.GetPremaritalFilesByRegistrationId(registrationId);
+    }
 }

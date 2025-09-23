@@ -9,11 +9,9 @@ namespace csi_mkd_premarital_app_BE.Models
         [ForeignKey("PremaritalRegistration")]
         public Guid RegistrationId { get; set; } // Primary Key and FK
 
-        [Required]
-        public required string PhotoUrl { get; set; } = string.Empty;
+        public  string? PhotoUrl { get; set; } = string.Empty;
 
-        [Required]
-        public required string VicarLetterUrl { get; set; } = string.Empty;
+        public  string? VicarLetterUrl { get; set; } = string.Empty;
 
         public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 

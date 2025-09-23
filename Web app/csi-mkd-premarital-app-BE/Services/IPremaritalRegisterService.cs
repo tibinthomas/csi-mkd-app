@@ -6,7 +6,7 @@ namespace csi_mkd_premarital_app_BE.Services
     public interface IPremaritalRegisterService
     {
         Task<(int StatusCode, object Data)> Register(PremaritalRegisterDto dto);
-        Task<(int StatusCode, object Data)> SaveFiles(PremaritalDocumentDto dto);
+        Task<(int StatusCode, object Data)> UpsertFiles(PremaritalDocumentDto dto);
         Task<(int StatusCode, object? Data)> UpdatePaymentStatus(Guid id, PaymentStatusUpdateDto dto);
         Task<(bool Exists, Guid? UserId)> CheckEmailExists(string email);
         Task<object> GetFilteredRegistrations(RegistrationFilterDto filter);
@@ -14,5 +14,7 @@ namespace csi_mkd_premarital_app_BE.Services
         Task<PremaritalRegistration?> GetRegistrationById(Guid id);
         Task<bool> DeleteRegistration(Guid id);
         Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto);
+        Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId);
+
     }
 }

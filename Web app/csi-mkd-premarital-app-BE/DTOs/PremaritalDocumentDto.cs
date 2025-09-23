@@ -7,9 +7,9 @@ public class PremaritalDocumentDto
     [Required]
     public Guid RegistrationId { get; set; } // Primary Key and FK
 
-    [Required, Url]
-    public required string PhotoUrl { get; set; } = string.Empty;
+    [Url]
+    public string? PhotoUrl { get; set; } = string.Empty;
 
-    [Required, Url]
-    public required string VicarLetterUrl { get; set; } = string.Empty;
+    [Url]
+    public string? VicarLetterUrl { get; set; } = string.Empty;
 }

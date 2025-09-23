@@ -40,6 +40,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
                 typeof(string),
                 propertyInfo: typeof(PremaritalDocument).GetProperty("PhotoUrl", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(PremaritalDocument).GetField("<PhotoUrl>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
                 maxLength: 500);
             photoUrl.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 
@@ -56,6 +57,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
                 typeof(string),
                 propertyInfo: typeof(PremaritalDocument).GetProperty("VicarLetterUrl", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(PremaritalDocument).GetField("<VicarLetterUrl>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
                 maxLength: 500);
             vicarLetterUrl.AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
 

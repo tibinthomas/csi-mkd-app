@@ -12,7 +12,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("bf45a897-01bb-4974-bbcd-132ccea0fc0c"), entityTypeCount: 12)
+            : base(skipDetectChanges: false, modelId: new Guid("95bc06e3-2f9f-4957-8e56-f7bec6f17bff"), entityTypeCount: 12)
         {
         }
 

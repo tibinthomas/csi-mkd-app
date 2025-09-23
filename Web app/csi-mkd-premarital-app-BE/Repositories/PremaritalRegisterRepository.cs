@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace csi_mkd_premarital_app_BE.Repositories
 {
-
     public class PremaritalRegisterRepository : IPremaritalRegisterRepository
     {
         private readonly ApplicationDbContext _context;
@@ -23,18 +22,39 @@ namespace csi_mkd_premarital_app_BE.Repositories
             return registration.Id;
         }
 
-        public async Task AddPremaritalFiles(PremaritalDocument documents)
+        // Unified Upsert for PremaritalDocument
+        public async Task<bool> UpsertPremaritalFilesAsync(PremaritalDocument dto)
         {
-            _context.PremaritalDocuments.Add(documents);
+            var existing = await _context.PremaritalDocuments
+                .FirstOrDefaultAsync(p => p.RegistrationId == dto.RegistrationId);
+
+            if (existing == null)
+            {
+                _context.PremaritalDocuments.Add(dto);
+                await _context.SaveChangesAsync();
+                return true; // new record
+            }
+
+            if (!string.IsNullOrEmpty(dto.PhotoUrl))
+                existing.PhotoUrl = dto.PhotoUrl;
+
+            if (!string.IsNullOrEmpty(dto.VicarLetterUrl))
+                existing.VicarLetterUrl = dto.VicarLetterUrl;
+
+            existing.SubmittedAt = DateTime.UtcNow;
+
+            _context.PremaritalDocuments.Update(existing);
             await _context.SaveChangesAsync();
+
+            return false; // updated record
         }
+
 
         public async Task<bool> UpdatePaymentStatus(Guid id, bool status)
         {
             var reg = await _context.PremaritalRegistrations.FindAsync(id);
             if (reg is null) return false;
 
-            // Explicitly track the entity since global NoTracking is enabled
             _context.Entry(reg).State = EntityState.Modified;
             reg.PaymentStatus = status;
             await _context.SaveChangesAsync();
@@ -60,7 +80,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
             if (!string.IsNullOrWhiteSpace(filter.Search))
             {
                 var search = filter.Search.ToLower();
-
                 query = query.Where(r =>
                     EF.Functions.ILike(r.FirstName, $"%{search}%") ||
                     EF.Functions.ILike(r.LastName, $"%{search}%") ||
@@ -73,7 +92,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
             if (filter.ActiveSessionOnly == true)
                 query = query.Where(r => r.SessionConfiguration != null && r.SessionConfiguration.IsActive);
 
-            // Default SessionYear to current year if not specified
             var sessionYear = filter.SessionYear ?? DateTime.UtcNow.Year;
 
             query = query.Where(r => r.SessionConfiguration != null && r.SessionConfiguration.StartDate.Year == sessionYear);
@@ -126,17 +144,13 @@ namespace csi_mkd_premarital_app_BE.Repositories
         }
 
         public async Task<int> GetTotalRegistrations()
-        {
-            return await _context.PremaritalRegistrations.CountAsync();
-        }
+            => await _context.PremaritalRegistrations.CountAsync();
 
         public async Task<PremaritalRegistration?> GetRegistrationById(Guid id)
-        {
-            return await _context.PremaritalRegistrations
+            => await _context.PremaritalRegistrations
                 .Include(r => r.SessionConfiguration)
                 .Include(r => r.PremaritalDocument)
                 .FirstOrDefaultAsync(r => r.Id == id);
-        }
 
         public async Task<bool> DeleteRegistration(Guid id)
         {
@@ -144,14 +158,10 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 .Include(r => r.PremaritalDocument)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
-            if (registration == null)
-                return false;
+            if (registration == null) return false;
 
-            // Remove associated document if exists
             if (registration.PremaritalDocument != null)
-            {
                 _context.PremaritalDocuments.Remove(registration.PremaritalDocument);
-            }
 
             _context.PremaritalRegistrations.Remove(registration);
             await _context.SaveChangesAsync();
@@ -161,13 +171,10 @@ namespace csi_mkd_premarital_app_BE.Repositories
         public async Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto)
         {
             var registration = await _context.PremaritalRegistrations.FindAsync(id);
-            if (registration == null)
-                return false;
+            if (registration == null) return false;
 
-            // Explicitly track the entity since global NoTracking is enabled
             _context.Entry(registration).State = EntityState.Modified;
 
-            // Update all fields
             registration.FirstName = dto.FirstName;
             registration.LastName = dto.LastName;
             registration.FatherName = dto.FatherName;
@@ -187,7 +194,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
             registration.Email = dto.Email;
             registration.Days = dto.Days;
 
-            // Update church activities JSON
             var churchActivities = new
             {
                 dto.ChoirMember,
@@ -211,6 +217,10 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 return false;
             }
         }
-    }
 
+        public async Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId)
+            => await _context.PremaritalDocuments
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.RegistrationId == registrationId);
+    }
 }
