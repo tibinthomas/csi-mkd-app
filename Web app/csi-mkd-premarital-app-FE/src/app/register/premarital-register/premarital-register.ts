@@ -449,7 +449,10 @@ export class PremaritalRegister {
               };
 
               this.api
-                .apiPremaritalregisterSaveFileUrlsPost({ body: fileBody })
+                .apiPremaritalregisterFilesRegistrationIdPost({
+                  registrationId: registerId,
+                  body: fileBody,
+                })
                 .subscribe({
                   next: () => {
                     this.successMessage.set(

@@ -6,9 +6,18 @@ import {
   computed,
   OnInit,
 } from '@angular/core';
+import { FileUploadService } from '../../core/services/file-upload.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { catchError, map, of, switchMap, firstValueFrom } from 'rxjs';
+import {
+  catchError,
+  map,
+  of,
+  switchMap,
+  firstValueFrom,
+  forkJoin,
+  Observable,
+} from 'rxjs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
@@ -111,6 +120,7 @@ export class PremaritalComponent {
   private readonly certificateService = inject(CertificateService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
   private readonly churchDataService = inject(ChurchDataService);
+  private fileUploadService = inject(FileUploadService);
 
   protected readonly selectedReg = signal<any | null>(null);
   protected readonly showAllDetails = signal(false);
@@ -386,64 +396,120 @@ export class PremaritalComponent {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.isEditing.set(reg.id);
+      if (!result) return;
 
-        // Transform form data to match UpdatePremaritalRegisterDto
-        const updateData: UpdatePremaritalRegisterDto = {
-          firstName: result.firstName,
-          lastName: result.lastName,
-          sex: result.sex,
-          age: result.age,
-          fatherName: result.fatherName,
-          occupation: result.occupation,
-          education: result.education,
-          address: result.address,
-          churchId: result.churchId,
-          churchName: result.churchName,
-          priestName: result.priestName,
-          email: result.email,
-          phone: result.phone,
-          fianceName: result.fianceName || null,
-          choirMember: result.ChoirMember || false,
-          ssTeacher: result.SsTeacher || false,
-          youthFellowship: result.YouthFellowship || false,
-          other: result.Other || null,
-          dateOfMarriage: result.dateOfMarriage
-            ? new Date(result.dateOfMarriage).toISOString()
-            : reg.dateOfMarriage || null,
-          days: result.days || reg.days || null,
-          declaration: result.declaration || true,
-          paymentStatus: reg.paymentStatus || false,
-          sessionId: result.sessionId || reg.sessionId || 0,
-        };
+      this.isEditing.set(reg.id);
 
-        this.api
-          .apiPremaritalregisterIdPut({
-            id: reg.id.toString(),
-            body: updateData,
+      const updateData: UpdatePremaritalRegisterDto = {
+        firstName: result.firstName,
+        lastName: result.lastName,
+        sex: result.sex,
+        age: result.age,
+        fatherName: result.fatherName,
+        occupation: result.occupation,
+        education: result.education,
+        address: result.address,
+        churchId: result.churchId,
+        churchName: result.churchName,
+        priestName: result.priestName,
+        email: result.email,
+        phone: result.phone,
+        fianceName: result.fianceName || null,
+        choirMember: result.ChoirMember || false,
+        ssTeacher: result.SsTeacher || false,
+        youthFellowship: result.YouthFellowship || false,
+        other: result.Other || null,
+        dateOfMarriage: result.dateOfMarriage
+          ? new Date(result.dateOfMarriage).toISOString()
+          : reg.dateOfMarriage || null,
+        days: result.days ?? reg.days ?? null,
+        declaration: result.declaration ?? true,
+        paymentStatus: reg.paymentStatus ?? false,
+        sessionId: result.sessionId ?? reg.sessionId ?? 0,
+      };
+
+      this.api
+        // Step 1: Update registration info
+        .apiPremaritalregisterIdPut({
+          id: reg.id.toString(),
+          body: updateData,
+        })
+        .pipe(
+          // Step 2: Upload files if any
+          switchMap(() => {
+            const uploads: Observable<any>[] = [];
+
+            if (result.photoFile) {
+              uploads.push(
+                this.api
+                  .apiAzureuploadGenerateSasGet({
+                    fileName: `premarital/${reg.id}/photo/${result.photoFile.name}`,
+                    contentType: result.photoFile.type,
+                  })
+                  .pipe(
+                    switchMap((sasUrl) =>
+                      this.fileUploadService.uploadFileToAzure(
+                        result.photoFile,
+                        sasUrl!
+                      )
+                    ),
+                    map((photoUrl) => ({ photoUrl }))
+                  )
+              );
+            }
+
+            if (result.vicarLetterFile) {
+              uploads.push(
+                this.api
+                  .apiAzureuploadGenerateSasGet({
+                    fileName: `premarital/${reg.id}/vicarletter/${result.vicarLetterFile.name}`,
+                    contentType: result.vicarLetterFile.type,
+                  })
+                  .pipe(
+                    switchMap((sasUrl) =>
+                      this.fileUploadService.uploadFileToAzure(
+                        result.vicarLetterFile,
+                        sasUrl!
+                      )
+                    ),
+                    map((vicarLetterUrl) => ({ vicarLetterUrl }))
+                  )
+              );
+            }
+
+            return uploads.length > 0 ? forkJoin(uploads) : of(null);
+          }),
+          // Step 3: Always upsert file URLs (backend handles new/update)
+          switchMap((uploaded) => {
+            if (!uploaded) return of(null);
+
+            const fileBody: any = { registrationId: reg.id };
+            uploaded.forEach((u) => Object.assign(fileBody, u));
+
+            return this.api.apiPremaritalregisterFilesRegistrationIdPost({
+              registrationId: reg.id.toString(),
+              body: fileBody,
+            });
           })
-          .subscribe({
-            next: () => {
-              this.isEditing.set(null);
-              this._snackBar.open(
-                'Registration updated successfully',
-                'Close',
-                { duration: 3000 }
-              );
-              this.filterTrigger.set(this.filterTrigger() + 1);
-            },
-            error: (err) => {
-              this.isEditing.set(null);
-              console.error('Update failed', err);
-              this._snackBar.open(
-                'Failed to update registration. Please try again.',
-                'Close',
-                { duration: 3000 }
-              );
-            },
-          });
-      }
+        )
+        .subscribe({
+          next: () => {
+            this.isEditing.set(null);
+            this._snackBar.open('Registration updated successfully', 'Close', {
+              duration: 3000,
+            });
+            this.filterTrigger.set(this.filterTrigger() + 1);
+          },
+          error: (err) => {
+            this.isEditing.set(null);
+            console.error('Update failed', err);
+            this._snackBar.open(
+              'Failed to update registration. Please try again.',
+              'Close',
+              { duration: 3000 }
+            );
+          },
+        });
     });
   }
 
@@ -1485,6 +1551,75 @@ export class DeleteConfirmationDialog {
           </mat-select>
           <mat-error>Session is required</mat-error>
         </mat-form-field>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <h3 class="text-lg font-medium mb-2">Photo</h3>
+            @if (data.registration.photoUrl) {
+            <div class="mb-2">
+              <a
+                [href]="data.registration.photoUrl"
+                target="_blank"
+                class="text-blue-500 hover:underline"
+                >View Current Photo</a
+              >
+            </div>
+            }
+            <button
+              type="button"
+              mat-stroked-button
+              (click)="photoInput.click()"
+            >
+              <mat-icon>upload_file</mat-icon>
+              <span>{{ photoFile ? 'Change' : 'Upload' }} Photo</span>
+            </button>
+            <input
+              hidden
+              #photoInput
+              type="file"
+              (change)="onPhotoFileSelected($event)"
+              accept="image/*"
+            />
+            @if (photoFile) {
+            <span class="ml-4 text-sm">{{ photoFile.name }}</span>
+            }
+          </div>
+
+          <div>
+            <h3 class="text-lg font-medium mb-2">Vicar's Letter</h3>
+            @if (data.registration.vicarLetterUrl) {
+            <div class="mb-2">
+              <a
+                [href]="data.registration.vicarLetterUrl"
+                target="_blank"
+                class="text-blue-500 hover:underline"
+                >View Current Letter</a
+              >
+            </div>
+            }
+            <button
+              type="button"
+              mat-stroked-button
+              (click)="vicarLetterInput.click()"
+            >
+              <mat-icon>upload_file</mat-icon>
+              <span
+                >{{ vicarLetterFile ? 'Change' : 'Upload' }} Vicar's
+                Letter</span
+              >
+            </button>
+            <input
+              hidden
+              #vicarLetterInput
+              type="file"
+              (change)="onVicarLetterFileSelected($event)"
+              accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+            />
+            @if (vicarLetterFile) {
+            <span class="ml-4 text-sm">{{ vicarLetterFile.name }}</span>
+            }
+          </div>
+        </div>
       </mat-dialog-content>
 
       <mat-dialog-actions align="end">
@@ -1514,6 +1649,7 @@ export class DeleteConfirmationDialog {
     MatNativeDateModule,
     ReactiveFormsModule,
     CommonModule,
+    MatIconModule,
   ],
   providers: [provideNativeDateAdapter()],
 })
@@ -1525,6 +1661,8 @@ export class EditRegistrationDialog {
   private sessionsFallbackService = inject(SessionsFallbackService);
 
   editForm: FormGroup;
+  photoFile: File | null = null;
+  vicarLetterFile: File | null = null;
   protected readonly minDate = new Date();
 
   // Church data signals
@@ -1751,39 +1889,58 @@ export class EditRegistrationDialog {
     this.selectedChurch.set(church || null);
   }
 
-  onSubmit(): void {
-    if (this.editForm.valid) {
-      const formValue = this.editForm.value;
-
-      // Combine country code and phone for submission
-      const phone = `${formValue.countryCode}${formValue.phone}`;
-
-      const result = {
-        ...formValue,
-        phone,
-        churchId:
-          formValue.churchMembership === 'member'
-            ? this.selectedChurch()?.id
-            : null,
-        priestName:
-          formValue.churchMembership === 'member'
-            ? this.selectedChurch()?.priestName
-            : null,
-        churchName:
-          formValue.churchMembership === 'member'
-            ? formValue.churchName
-            : formValue.manualChurchName,
-        dateOfMarriage: formValue.dateOfMarriage
-          ? formValue.dateOfMarriage
-          : null,
-        // Map church activities to the expected format
-        ChoirMember: formValue.churchActivities?.choirMember || false,
-        SsTeacher: formValue.churchActivities?.ssTeacher || false,
-        YouthFellowship: formValue.churchActivities?.youthFellowship || false,
-        Other: formValue.churchActivities?.other || '',
-      };
-
-      this.dialogRef.close(result);
+  onPhotoFileSelected(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    const fileList: FileList | null = element.files;
+    if (fileList && fileList.length > 0) {
+      this.photoFile = fileList[0];
     }
+  }
+
+  onVicarLetterFileSelected(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    const fileList: FileList | null = element.files;
+    if (fileList && fileList.length > 0) {
+      this.vicarLetterFile = fileList[0];
+    }
+  }
+
+  onSubmit(): void {
+    if (!this.editForm.valid) {
+      this.editForm.markAllAsTouched();
+      return;
+    }
+
+    const formValue = this.editForm.value;
+    const phone = `${formValue.countryCode}${formValue.phone}`;
+
+    const result = {
+      ...formValue,
+      phone,
+      churchId:
+        formValue.churchMembership === 'member'
+          ? this.selectedChurch()?.id
+          : null,
+      priestName:
+        formValue.churchMembership === 'member'
+          ? this.selectedChurch()?.priestName
+          : null,
+      churchName:
+        formValue.churchMembership === 'member'
+          ? formValue.churchName
+          : formValue.manualChurchName,
+      dateOfMarriage: formValue.dateOfMarriage
+        ? formValue.dateOfMarriage
+        : null,
+      ChoirMember: formValue.churchActivities?.choirMember || false,
+      SsTeacher: formValue.churchActivities?.ssTeacher || false,
+      YouthFellowship: formValue.churchActivities?.youthFellowship || false,
+      Other: formValue.churchActivities?.other || '',
+      // 👇 include files if changed
+      photoFile: this.photoFile || null,
+      vicarLetterFile: this.vicarLetterFile || null,
+    };
+
+    this.dialogRef.close(result);
   }
 }

@@ -10,24 +10,26 @@ import { RequestBuilder } from '../../request-builder';
 
 import { PremaritalDocumentDto } from '../../models/premarital-document-dto';
 
-export interface ApiPremaritalregisterSaveFileUrlsPost$Params {
+export interface ApiPremaritalregisterFilesRegistrationIdPost$Params {
+  registrationId: string;
       body?: PremaritalDocumentDto
 }
 
-export function apiPremaritalregisterSaveFileUrlsPost(http: HttpClient, rootUrl: string, params?: ApiPremaritalregisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterSaveFileUrlsPost.PATH, 'post');
+export function apiPremaritalregisterFilesRegistrationIdPost(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterFilesRegistrationIdPost$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterFilesRegistrationIdPost.PATH, 'post');
   if (params) {
+    rb.path('registrationId', params.registrationId, {});
     rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<any>;
     })
   );
 }
 
-apiPremaritalregisterSaveFileUrlsPost.PATH = '/api/premaritalregister/save-file-urls';
+apiPremaritalregisterFilesRegistrationIdPost.PATH = '/api/premaritalregister/files/{registrationId}';
