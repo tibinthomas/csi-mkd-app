@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 
-export interface SuccessDialogData {
+export interface DialogData {
   title?: string;
   messages: string[]; // multiple messages
   extraMessage?: string; // optional extra line
@@ -11,9 +11,9 @@ export interface SuccessDialogData {
 @Component({
   selector: 'app-success-dialog',
   imports: [MatDialogModule, MatButtonModule],
-  templateUrl: './success-dialog.html',
-  styleUrl: './success-dialog.scss',
+  templateUrl: './dialog-popup.html',
+  styleUrl: './dialog-popup.scss',
 })
-export class SuccessDialog {
-  data = inject(MAT_DIALOG_DATA) as SuccessDialogData;
+export class Dialog {
+  data = inject(MAT_DIALOG_DATA) as DialogData;
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,11 @@ export class FileUploadService {
         observe: 'response',
       })
       .pipe(
-        map(() => JSON.parse(sasUrl).url.split('?')[0]) // Return public blob URL without SAS token
+        map(() => JSON.parse(sasUrl).url.split('?')[0]), // Return public blob URL without SAS token
+        catchError((error) => {
+          console.error('Azure upload failed:', error);
+          return throwError(() => new Error('File upload to Azure failed.'));
+        })
       );
   }
 }

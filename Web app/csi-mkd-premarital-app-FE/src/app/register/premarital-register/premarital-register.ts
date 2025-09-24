@@ -28,7 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { SuccessDialog } from '../../shared/success-dialog/success-dialog';
+import { Dialog } from '../../shared/dialog-popup/dialog-popup';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
@@ -375,7 +375,6 @@ export class PremaritalRegister {
     }
 
     const raw = this.form.value;
-
     this.isSubmitting.set(true);
 
     const photo = this.photoFile()!;
@@ -422,6 +421,7 @@ export class PremaritalRegister {
     this.api.apiPremaritalregisterPost({ body }).subscribe({
       next: (response: any) => {
         const registerId: string = JSON.parse(response).id;
+
         forkJoin([
           this.api.apiAzureuploadGenerateSasGet({
             fileName: `premarital/${registerId}/photo/${photo.name}`,
@@ -441,21 +441,24 @@ export class PremaritalRegister {
             )
           )
           .subscribe({
-            next: ([photoSasUrl, letterSasUrl]) => {
-              const body = {
+            next: ([photoUrl, letterUrl]) => {
+              const fileBody = {
                 registrationId: registerId,
-                photoUrl: photoSasUrl,
-                vicarLetterUrl: letterSasUrl,
+                photoUrl,
+                vicarLetterUrl: letterUrl,
               };
+
               this.api
-                .apiPremaritalregisterSaveFileUrlsPost({ body })
+                .apiPremaritalregisterFilesRegistrationIdPost({
+                  registrationId: registerId,
+                  body: fileBody,
+                })
                 .subscribe({
                   next: () => {
                     this.successMessage.set(
                       'Registration submitted successfully!'
                     );
-                    const dialogRef = this.dialog.open(SuccessDialog, {
-                      // width: '400px',
+                    const dialogRef = this.dialog.open(Dialog, {
                       disableClose: true,
                       data: {
                         title: $localize`Premarital Registration Complete`,
@@ -466,21 +469,65 @@ export class PremaritalRegister {
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {
-                      // Navigate back to previous page
                       window.history.back();
                     });
                   },
                   error: (err) => {
                     console.error(err);
+                    // 🚨 Rollback step
+                    this.api
+                      .apiPremaritalregisterIdDelete({ id: registerId })
+                      .subscribe({
+                        next: () =>
+                          console.warn(
+                            `Rolled back registration ${registerId}`
+                          ),
+                        error: (rollbackErr) =>
+                          console.error('Rollback failed', rollbackErr),
+                      });
+
                     this.errorMessage.set(
-                      'File Upload failed. Please try again.'
+                      'File upload failed. Please try again.'
                     );
                     this.showErrorModal.set(true);
                     this.isSubmitting.set(false);
                   },
                 });
             },
+            error: (err) => {
+              console.error(err);
+
+              // 🚨 Rollback step
+              this.api
+                .apiPremaritalregisterIdDelete({ id: registerId })
+                .subscribe({
+                  next: () =>
+                    console.warn(`Rolled back registration ${registerId}`),
+                  error: (rollbackErr) =>
+                    console.error('Rollback failed', rollbackErr),
+                });
+
+              // Show error dialog
+              this.dialog.open(Dialog, {
+                disableClose: true,
+                data: {
+                  title: $localize`Registration Failed`,
+                  messages: [
+                    $localize`We couldn’t complete your registration.`,
+                    $localize`Please try again after some time.`,
+                  ],
+                },
+              });
+
+              this.isSubmitting.set(false);
+            },
           });
+      },
+      error: (err) => {
+        console.error('Registration save failed:', err);
+        this.errorMessage.set('Registration failed. Please try again.');
+        this.showErrorModal.set(true);
+        this.isSubmitting.set(false);
       },
     });
   }

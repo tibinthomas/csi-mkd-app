@@ -67,6 +67,8 @@ import { apiGeneralregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be
 import { ApiGeneralregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-check-email-get';
 import { apiGeneralregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
 import { ApiGeneralregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-filter-get';
+import { apiGeneralregisterIdDelete } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-delete';
+import { ApiGeneralregisterIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-delete';
 import { apiGeneralregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
 import { ApiGeneralregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-generalregister-id-paymentstatus-put';
 import { apiGeneralregisterPost } from '../fn/csi-mkd-premarital-app-be/api-generalregister-post';
@@ -89,6 +91,8 @@ import { apiInstructorsRatingsGet } from '../fn/csi-mkd-premarital-app-be/api-in
 import { ApiInstructorsRatingsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-instructors-ratings-get';
 import { apiPremaritalregisterCheckEmailGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
 import { ApiPremaritalregisterCheckEmailGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-check-email-get';
+import { apiPremaritalregisterFilesRegistrationIdPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-files-registration-id-post';
+import { ApiPremaritalregisterFilesRegistrationIdPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-files-registration-id-post';
 import { apiPremaritalregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
 import { ApiPremaritalregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-filter-get';
 import { apiPremaritalregisterIdDelete } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-delete';
@@ -101,8 +105,6 @@ import { apiPremaritalregisterIdPut } from '../fn/csi-mkd-premarital-app-be/api-
 import { ApiPremaritalregisterIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-put';
 import { apiPremaritalregisterPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { ApiPremaritalregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
-import { apiPremaritalregisterSaveFileUrlsPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post';
-import { ApiPremaritalregisterSaveFileUrlsPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-save-file-urls-post';
 import { apiPremaritalregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { ApiPremaritalregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { apiSessionconfigDeactivatePastSessionsPost } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-deactivate-past-sessions-post';
@@ -420,6 +422,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
     );
   }
 
+  /** Path part for operation `apiGeneralregisterIdDelete()` */
+  static readonly ApiGeneralregisterIdDeletePath = '/api/generalregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiGeneralregisterIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterIdDelete$Response(params: ApiGeneralregisterIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiGeneralregisterIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiGeneralregisterIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiGeneralregisterIdDelete(params: ApiGeneralregisterIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.apiGeneralregisterIdDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
   /** Path part for operation `apiPremaritalregisterPost()` */
   static readonly ApiPremaritalregisterPostPath = '/api/premaritalregister';
 
@@ -445,28 +472,28 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
     );
   }
 
-  /** Path part for operation `apiPremaritalregisterSaveFileUrlsPost()` */
-  static readonly ApiPremaritalregisterSaveFileUrlsPostPath = '/api/premaritalregister/save-file-urls';
+  /** Path part for operation `apiPremaritalregisterFilesRegistrationIdPost()` */
+  static readonly ApiPremaritalregisterFilesRegistrationIdPostPath = '/api/premaritalregister/files/{registrationId}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `apiPremaritalregisterSaveFileUrlsPost()` instead.
+   * To access only the response body, use `apiPremaritalregisterFilesRegistrationIdPost()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiPremaritalregisterSaveFileUrlsPost$Response(params?: ApiPremaritalregisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-    return apiPremaritalregisterSaveFileUrlsPost(this.http, this.rootUrl, params, context);
+  apiPremaritalregisterFilesRegistrationIdPost$Response(params: ApiPremaritalregisterFilesRegistrationIdPost$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+    return apiPremaritalregisterFilesRegistrationIdPost(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `apiPremaritalregisterSaveFileUrlsPost$Response()` instead.
+   * To access the full response (for headers, for example), `apiPremaritalregisterFilesRegistrationIdPost$Response()` instead.
    *
    * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  apiPremaritalregisterSaveFileUrlsPost(params?: ApiPremaritalregisterSaveFileUrlsPost$Params, context?: HttpContext): Observable<void> {
-    return this.apiPremaritalregisterSaveFileUrlsPost$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+  apiPremaritalregisterFilesRegistrationIdPost(params: ApiPremaritalregisterFilesRegistrationIdPost$Params, context?: HttpContext): Observable<any> {
+    return this.apiPremaritalregisterFilesRegistrationIdPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<any>): any => r.body)
     );
   }
 
