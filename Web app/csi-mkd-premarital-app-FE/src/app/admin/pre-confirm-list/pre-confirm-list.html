@@ -71,6 +71,14 @@
             <th mat-header-cell *matHeaderCellDef i18n><strong>Participants Count</strong></th>
             <td mat-cell *matCellDef="let reg">{{ reg.participants?.length || 0 }}</td>
           </ng-container>
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let reg">
+              <button mat-icon-button color="warn" (click)="deleteRegistration(reg); $event.stopPropagation()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
           <ng-container matColumnDef="expand">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let reg">

@@ -35,6 +35,8 @@ import { apiCacheMaintenancePost } from '../fn/csi-mkd-premarital-app-be/api-cac
 import { ApiCacheMaintenancePost$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-maintenance-post';
 import { apiConfirmationregisterFilterGet } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-filter-get';
 import { ApiConfirmationregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-filter-get';
+import { apiConfirmationregisterIdDelete } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-id-delete';
+import { ApiConfirmationregisterIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-id-delete';
 import { apiConfirmationregisterPost } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-post';
 import { ApiConfirmationregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-post';
 import { apiConfirmationregisterSaveFileUrlPost } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-save-file-url-post';
@@ -768,6 +770,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiConfirmationregisterTotalGet(params?: ApiConfirmationregisterTotalGet$Params, context?: HttpContext): Observable<void> {
     return this.apiConfirmationregisterTotalGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiConfirmationregisterIdDelete()` */
+  static readonly ApiConfirmationregisterIdDeletePath = '/api/confirmationregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConfirmationregisterIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationregisterIdDelete$Response(params: ApiConfirmationregisterIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiConfirmationregisterIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiConfirmationregisterIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiConfirmationregisterIdDelete(params: ApiConfirmationregisterIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.apiConfirmationregisterIdDelete$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

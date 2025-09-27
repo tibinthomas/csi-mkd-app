@@ -117,7 +117,7 @@ export class PreConfirmRegister {
   }
 
   hasPendingChanges = (): boolean => {
-    return this.form.dirty && !this.isSubmitting();
+    return this.form.dirty;
   };
 
   ngOnInit(): void {
@@ -207,6 +207,7 @@ export class PreConfirmRegister {
                     });
                     dialogRef.afterClosed().subscribe(() => {
                       // Navigate back to previous page
+                      this.form.reset();
                       window.history.back();
                     });
                   },

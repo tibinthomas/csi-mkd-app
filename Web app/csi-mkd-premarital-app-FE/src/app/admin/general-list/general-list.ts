@@ -319,6 +319,36 @@ export class GeneralList {
       this.churchData()
     );
   }
+
+  deleteRegistration(reg: any): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialog);
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.isLoading.set(true);
+        this.api.apiGeneralregisterIdDelete({ id: reg.id }).subscribe({
+          next: () => {
+            this.isLoading.set(false);
+            this._snackBar.open('Registration deleted successfully', 'OK', {
+              duration: 3000,
+            });
+            this.filterTrigger.set(this.filterTrigger() + 1);
+          },
+          error: (err) => {
+            this.isLoading.set(false);
+            console.error('Deletion failed', err);
+            this._snackBar.open(
+              'Failed to delete registration. Please try again.',
+              'OK',
+              {
+                duration: 3000,
+              }
+            );
+          },
+        });
+      }
+    });
+  }
 }
 
 @Component({
@@ -346,4 +376,26 @@ export class ConfirmationDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+}
+
+@Component({
+  selector: 'delete-confirmation-dialog',
+  template: `
+    <h2 mat-dialog-title>Confirm Deletion</h2>
+    <mat-dialog-content
+      >Are you sure you want to delete this registration?</mat-dialog-content
+    >
+    <mat-dialog-actions align="end">
+      <button mat-flat-button color="warn" (click)="dialogRef.close(true)">
+        Delete
+      </button>
+      <button mat-stroked-button (click)="dialogRef.close(false)">
+        Cancel
+      </button>
+    </mat-dialog-actions>
+  `,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class DeleteConfirmationDialog {
+  dialogRef = inject<MatDialogRef<DeleteConfirmationDialog>>(MatDialogRef);
 }

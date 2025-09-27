@@ -240,7 +240,7 @@ export class PremaritalRegister {
   }
 
   hasPendingChanges = (): boolean => {
-    return this.form.dirty && !this.isSubmitting();
+    return this.form.dirty;
   };
 
   ngOnInit() {
@@ -469,6 +469,7 @@ export class PremaritalRegister {
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {
+                      this.form.reset();
                       window.history.back();
                     });
                   },

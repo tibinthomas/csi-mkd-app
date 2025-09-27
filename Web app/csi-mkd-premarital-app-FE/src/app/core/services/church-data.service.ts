@@ -192,8 +192,8 @@ export class ChurchDataService {
    * @param churchData - The loaded church data
    * @returns Church name or fallback message
    */
-  getChurchNameById(churchId: number | null | undefined, churchData: ChurchData | null): string {
-    if (!churchId || !churchData) return 'Unknown Church';
+  getChurchNameById(churchId: number | null | undefined, churchData: ChurchData | null): any {
+    if (!churchId || !churchData) return null;
     
     const church = churchData.churches.find(c => c.id === churchId);
     return church?.name || `Church ID: ${churchId}`;
