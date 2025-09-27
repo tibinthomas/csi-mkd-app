@@ -1,6 +1,7 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { ConfirmationRegisterDto } from '../../../api/api-main-app/models';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
@@ -10,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -58,6 +60,7 @@ export class PreConfirmList implements OnInit {
   private api = inject(CsiMkdPremaritalAppBeService);
   private snackBar = inject(MatSnackBar);
   private datePipe = inject(DatePipe);
+  private dialog = inject(MatDialog);
   private readonly churchDataService = inject(ChurchDataService);
 
   protected readonly churchData = toSignal(this.churchDataService.churchData$, {
@@ -116,6 +119,7 @@ export class PreConfirmList implements OnInit {
     'ConfirmationDate',
     'CounsellingDate',
     'ParticipantsCount',
+    'Actions',
     'expand',
   ];
   expandedRow = signal<any | null>(null);
@@ -243,4 +247,57 @@ export class PreConfirmList implements OnInit {
       this.churchData()
     );
   }
+
+  deleteRegistration(reg: any): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialog);
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.isLoading.set(true);
+        this.api.apiConfirmationregisterIdDelete({ id: reg.id }).subscribe({
+          next: () => {
+            this.isLoading.set(false);
+            this.snackBar.open('Registration deleted successfully', 'OK', {
+              duration: 3000,
+            });
+            this.loadRegistrations();
+          },
+          error: (err) => {
+            this.isLoading.set(false);
+            console.error('Deletion failed', err);
+            this.snackBar.open(
+              'Failed to delete registration. Please try again.',
+              'OK',
+              {
+                duration: 3000,
+              }
+            );
+          },
+        });
+      }
+    });
+  }
+}
+
+@Component({
+  selector: 'delete-confirmation-dialog',
+  template: `
+    <h2 mat-dialog-title>Confirm Deletion</h2>
+    <mat-dialog-content>
+      Are you sure you want to delete this registration?
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-flat-button color="warn" (click)="dialogRef.close(true)">
+        Delete
+      </button>
+      <button mat-stroked-button (click)="dialogRef.close(false)">
+        Cancel
+      </button>
+    </mat-dialog-actions>
+  `,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class DeleteConfirmationDialog {
+  dialogRef = inject(MatDialogRef<DeleteConfirmationDialog>);
 }
