@@ -734,7 +734,10 @@ export class PremaritalComponent {
           ? new Date(reg.dateOfMarriage)
           : new Date(),
         sessionName: reg.sessionName,
-        churchName: this.getChurchNameById(reg.churchId),
+        churchName:
+          this.getChurchNameById(reg.churchId) ||
+          reg.churchName ||
+          'Unknown Church',
         priestName: reg.priestName,
         dates: sessionDates,
         programDuration: `${sessionDates.length} Day${
