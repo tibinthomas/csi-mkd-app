@@ -57,9 +57,11 @@ export class Sessions {
     const sessions = this.sessionsResource.value();
     if (!sessions || !Array.isArray(sessions)) return [];
 
+    const activeSessions = sessions.filter((session: any) => session.isActive);
+
     const yearGroups = new Map<string, Map<string, any[]>>();
 
-    sessions.forEach((session: any) => {
+    activeSessions.forEach((session: any) => {
       const date = new Date(session?.startDate);
       const year = date.getFullYear().toString();
       const month = date.toLocaleString('default', { month: 'long' });
