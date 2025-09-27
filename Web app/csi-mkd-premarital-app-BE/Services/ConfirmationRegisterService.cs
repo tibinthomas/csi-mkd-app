@@ -58,4 +58,16 @@ public class ConfirmationRegisterService : IConfirmationRegisterService
     {
         return await _repository.GetTotalRegistrations();
     }
+
+    public async Task<(int StatusCode, string Message)> DeleteAsync(Guid id)
+    {
+        var registration = await _repository.FindByIdAsync(id);
+        if (registration == null)
+        {
+            return (404, "Registration not found.");
+        }
+
+        await _repository.DeleteAsync(registration);
+        return (200, "Registration deleted successfully.");
+    }
 }

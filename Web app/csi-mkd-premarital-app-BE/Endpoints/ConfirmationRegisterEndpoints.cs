@@ -45,7 +45,16 @@ public static class ConfirmationRegisterEndpoints
             return Results.Ok(new { total });
         })
         .CacheOutput(p => p.Tag("confirmation-regs").Expire(TimeSpan.FromSeconds(10)));
+
+        group.MapDelete("/{id}", async (IConfirmationRegisterService service, ICacheInvalidationService cacheService, Guid id) =>
+        {
+            var (statusCode, message) = await service.DeleteAsync(id);
+            if (statusCode != 200)
+            {
+                return Results.NotFound(new { Message = message });
+            }
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.Ok(new { Message = message });
+        });
     }
 }
-
-

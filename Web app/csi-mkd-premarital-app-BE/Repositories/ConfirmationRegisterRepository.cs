@@ -78,4 +78,15 @@ class ConfirmationRegisterRepository : IConfirmationRegisterRepository
     {
         return await _context.ConfirmationRegistrations.CountAsync();
     }
+
+    public async Task<ConfirmationRegistration?> FindByIdAsync(Guid id)
+    {
+        return await _context.ConfirmationRegistrations.FindAsync(id);
+    }
+
+    public async Task DeleteAsync(ConfirmationRegistration registration)
+    {
+        _context.ConfirmationRegistrations.Remove(registration);
+        await _context.SaveChangesAsync();
+    }
 }

@@ -9,6 +9,6 @@ namespace csi_mkd_premarital_app_BE.Services
         Task<(int StatusCode, object Data)> SaveFiles(ConfirmationDocumentDto dto);
         Task<object> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter);
         Task<int> GetTotalRegistrations();
-
+        Task<(int StatusCode, string Message)> DeleteAsync(Guid id);
     }
 }
