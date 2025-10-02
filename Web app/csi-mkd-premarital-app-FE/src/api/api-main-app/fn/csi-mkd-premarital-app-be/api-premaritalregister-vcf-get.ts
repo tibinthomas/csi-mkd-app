@@ -9,7 +9,7 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface ApiPremaritalregisterFilterGet$Params {
+export interface ApiPremaritalregisterVcfGet$Params {
   search?: string;
   unapprovedOnly?: boolean;
   activeSessionOnly?: boolean;
@@ -21,8 +21,8 @@ export interface ApiPremaritalregisterFilterGet$Params {
   sex?: string;
 }
 
-export function apiPremaritalregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterFilterGet.PATH, 'get');
+export function apiPremaritalregisterVcfGet(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterVcfGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterVcfGet.PATH, 'get');
   if (params) {
     rb.query('search', params.search, {});
     rb.query('unapprovedOnly', params.unapprovedOnly, {});
@@ -45,4 +45,4 @@ export function apiPremaritalregisterFilterGet(http: HttpClient, rootUrl: string
   );
 }
 
-apiPremaritalregisterFilterGet.PATH = '/api/premaritalregister/filter';
+apiPremaritalregisterVcfGet.PATH = '/api/premaritalregister/vcf';

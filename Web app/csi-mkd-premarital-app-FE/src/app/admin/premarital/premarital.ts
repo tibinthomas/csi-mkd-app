@@ -79,6 +79,7 @@ import {
   QuestionsModalComponent,
   type QuestionsModalData,
 } from './questions-modal.component';
+import { ExportPhoneModalComponent } from './export-phone-modal.component';
 
 @Component({
   selector: 'app-premarital-list',
@@ -110,6 +111,7 @@ import {
     MatCardModule,
     MatTooltipModule,
     MatDialogModule,
+    ExportPhoneModalComponent,
   ],
 })
 export class PremaritalComponent {
@@ -663,6 +665,21 @@ export class PremaritalComponent {
     } else {
       this._snackBar.open('There are no registrations to download', 'OK');
     }
+  }
+
+  openExportPhoneModal(): void {
+    const dialogRef = this.dialog.open(ExportPhoneModalComponent, {
+      width: '500px',
+      maxWidth: '90vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._snackBar.open('Phone numbers exported successfully', 'Close', {
+          duration: 3000,
+        });
+      }
+    });
   }
 
   private async getBase64ImageFromUrl(imageUrl: string): Promise<string> {
