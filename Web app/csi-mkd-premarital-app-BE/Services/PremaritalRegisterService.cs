@@ -116,5 +116,23 @@ namespace csi_mkd_premarital_app_BE.Services
 
         public async Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId)
             => await _repo.GetPremaritalFilesByRegistrationId(registrationId);
+
+        public async Task<string> GenerateVcfFile(RegistrationFilterDto filter)
+        {
+            var registrations = await _repo.FilterRegistrationsForVcf(filter);
+            var vcfBuilder = new System.Text.StringBuilder();
+
+            foreach (var registration in registrations)
+            {
+                vcfBuilder.AppendLine("BEGIN:VCARD");
+                vcfBuilder.AppendLine("VERSION:3.0");
+                vcfBuilder.AppendLine($"N: {registration.LastName};{registration.FirstName};{registration.SessionConfiguration?.SessionName};;");
+                vcfBuilder.AppendLine($"FN:{registration.FirstName} - {registration.SessionConfiguration?.SessionName}");
+                vcfBuilder.AppendLine($"TEL;TYPE=CELL:{registration.Phone}");
+                vcfBuilder.AppendLine("END:VCARD");
+            }
+
+            return vcfBuilder.ToString();
+        }
     }
 }

@@ -114,5 +114,17 @@ public static class PremaritalRegisterEndpoints
         })
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
+
+        // Generate VCF file
+        group.MapGet("/vcf", async (IPremaritalRegisterService service, [AsParameters] RegistrationFilterDto filter) =>
+        {
+            var vcfString = await service.GenerateVcfFile(filter);
+            if (string.IsNullOrEmpty(vcfString))
+            {
+                return Results.NotFound("No contacts found for the given criteria.");
+            }
+
+            return Results.File(System.Text.Encoding.UTF8.GetBytes(vcfString), "text/vcard", "contacts.vcf");
+        });
     }
 }

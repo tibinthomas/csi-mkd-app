@@ -15,5 +15,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<bool> DeleteRegistration(Guid id);
         Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto);
         Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId);
+        Task<IEnumerable<PremaritalRegistration>> FilterRegistrationsForVcf(RegistrationFilterDto filter);
     }
 }

@@ -222,5 +222,25 @@ namespace csi_mkd_premarital_app_BE.Repositories
             => await _context.PremaritalDocuments
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.RegistrationId == registrationId);
+
+        public async Task<IEnumerable<PremaritalRegistration>> FilterRegistrationsForVcf(RegistrationFilterDto filter)
+        {
+            var query = _context.PremaritalRegistrations
+                .AsNoTracking()
+                .Include(r => r.SessionConfiguration)
+                .AsQueryable();
+
+            if (filter.SessionId.HasValue)
+            {
+                query = query.Where(r => r.SessionId == filter.SessionId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(filter.Sex))
+            {
+                query = query.Where(r => r.Sex == filter.Sex);
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }

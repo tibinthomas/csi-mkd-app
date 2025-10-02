@@ -15,6 +15,6 @@ namespace csi_mkd_premarital_app_BE.Services
         Task<bool> DeleteRegistration(Guid id);
         Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto);
         Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId);
-
+        Task<string> GenerateVcfFile(RegistrationFilterDto filter);
     }
 }

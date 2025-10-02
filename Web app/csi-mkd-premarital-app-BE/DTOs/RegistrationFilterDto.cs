@@ -22,4 +22,10 @@ public class RegistrationFilterDto
 
     [FromQuery(Name = "pageSize")]
     public int PageSize { get; set; } = 10;
+
+    [FromQuery(Name = "sessionId")]
+    public int? SessionId { get; set; }
+
+    [FromQuery(Name = "sex")]
+    public string? Sex { get; set; }
 }
