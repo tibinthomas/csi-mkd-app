@@ -148,8 +148,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
         public async Task<PremaritalRegistration?> GetRegistrationById(Guid id)
             => await _context.PremaritalRegistrations
-                .Include(r => r.SessionConfiguration)
-                .Include(r => r.PremaritalDocument)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
         public async Task<bool> DeleteRegistration(Guid id)
