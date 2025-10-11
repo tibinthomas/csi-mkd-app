@@ -107,6 +107,8 @@ import { apiPremaritalregisterIdPut } from '../fn/csi-mkd-premarital-app-be/api-
 import { ApiPremaritalregisterIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-put';
 import { apiPremaritalregisterPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { ApiPremaritalregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
+import { apiPremaritalregisterSpreadsheetGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-spreadsheet-get';
+import { ApiPremaritalregisterSpreadsheetGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-spreadsheet-get';
 import { apiPremaritalregisterTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { ApiPremaritalregisterTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-total-get';
 import { apiPremaritalregisterVcfGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-vcf-get';
@@ -697,6 +699,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiPremaritalregisterVcfGet(params: ApiPremaritalregisterVcfGet$Params, context?: HttpContext): Observable<void> {
     return this.apiPremaritalregisterVcfGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterSpreadsheetGet()` */
+  static readonly ApiPremaritalregisterSpreadsheetGetPath = '/api/premaritalregister/spreadsheet';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterSpreadsheetGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterSpreadsheetGet$Response(params?: ApiPremaritalregisterSpreadsheetGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterSpreadsheetGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterSpreadsheetGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterSpreadsheetGet(params?: ApiPremaritalregisterSpreadsheetGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterSpreadsheetGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

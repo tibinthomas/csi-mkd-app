@@ -80,6 +80,7 @@ import {
   type QuestionsModalData,
 } from './questions-modal.component';
 import { ExportPhoneModalComponent } from './export-phone-modal.component';
+import { ExportNameChurchModalComponent } from './export-name-church-modal.component';
 
 @Component({
   selector: 'app-premarital-list',
@@ -111,10 +112,10 @@ import { ExportPhoneModalComponent } from './export-phone-modal.component';
     MatCardModule,
     MatTooltipModule,
     MatDialogModule,
-    ExportPhoneModalComponent,
   ],
 })
 export class PremaritalComponent {
+  [x: string]: any;
   private readonly dialog = inject(MatDialog);
   private readonly api = inject(ApiService);
   private readonly questionAnswersService = inject(QuestionAnswersService);
@@ -665,6 +666,25 @@ export class PremaritalComponent {
     } else {
       this._snackBar.open('There are no registrations to download', 'OK');
     }
+  }
+
+  openExportNameChurchModal(): void {
+    const dialogRef = this.dialog.open(ExportNameChurchModalComponent, {
+      width: '500px',
+      maxWidth: '90vw',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this._snackBar.open(
+          'Name and church spreadsheet exported successfully',
+          'Close',
+          {
+            duration: 3000,
+          }
+        );
+      }
+    });
   }
 
   openExportPhoneModal(): void {
