@@ -4,6 +4,8 @@ using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Repositories;
 using Microsoft.AspNetCore.Hosting;
+using ClosedXML.Excel;
+using System.IO;
 
 namespace csi_mkd_premarital_app_BE.Services
 {
@@ -133,6 +135,32 @@ namespace csi_mkd_premarital_app_BE.Services
             }
 
             return vcfBuilder.ToString();
+        }
+
+        public async Task<byte[]> GenerateSpreadsheet(PremaritalRegisterSpreadsheetFilterDto filter)
+        {
+            var registrations = await _repo.FilterRegistrationsForSpreadsheet(filter);
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Registrations");
+                worksheet.Cell(1, 1).Value = "Name";
+                worksheet.Cell(1, 2).Value = "Church Name";
+
+                var row = 2;
+                foreach (var registration in registrations)
+                {
+                    worksheet.Cell(row, 1).Value = $"{registration.FirstName} {registration.LastName}";
+                    worksheet.Cell(row, 2).Value = registration.ChurchName;
+                    row++;
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    return stream.ToArray();
+                }
+            }
         }
     }
 }

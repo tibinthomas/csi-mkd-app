@@ -240,5 +240,22 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
             return await query.ToListAsync();
         }
+
+        public async Task<IEnumerable<PremaritalRegistration>> FilterRegistrationsForSpreadsheet(PremaritalRegisterSpreadsheetFilterDto filter)
+        {
+            var query = _context.PremaritalRegistrations.AsQueryable();
+
+            if (filter.SessionId.HasValue)
+            {
+                query = query.Where(r => r.SessionId == filter.SessionId.Value);
+            }
+
+            if (!string.IsNullOrEmpty(filter.Sex))
+            {
+                query = query.Where(r => r.Sex == filter.Sex);
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }

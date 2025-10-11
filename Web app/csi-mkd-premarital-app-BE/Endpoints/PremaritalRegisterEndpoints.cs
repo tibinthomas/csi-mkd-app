@@ -126,5 +126,16 @@ public static class PremaritalRegisterEndpoints
 
             return Results.File(System.Text.Encoding.UTF8.GetBytes(vcfString), "text/vcard", "contacts.vcf");
         });
+
+        group.MapGet("/spreadsheet", async (IPremaritalRegisterService service, [AsParameters] PremaritalRegisterSpreadsheetFilterDto filter) =>
+        {
+            var spreadsheetBytes = await service.GenerateSpreadsheet(filter);
+            if (spreadsheetBytes == null || spreadsheetBytes.Length == 0)
+            {
+                return Results.NotFound("No data found for the given criteria.");
+            }
+
+            return Results.File(spreadsheetBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "registrations.xlsx");
+        });
     }
 }
