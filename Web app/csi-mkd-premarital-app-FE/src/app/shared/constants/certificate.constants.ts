@@ -1,3 +1,5 @@
 export const CERTIFICATE_CONSTANTS = {
-  TEMPLATE_URL: 'assets/pre-marital_certificate_template.html',
+  PRE_MARITAL_TEMPLATE_URL: 'assets/pre-marital_certificate_template.html',
+  PRE_CONFIRMATION_TEMPLATE_URL:
+    'assets/pre-confirmation_certificate_template.html',
 } as const;

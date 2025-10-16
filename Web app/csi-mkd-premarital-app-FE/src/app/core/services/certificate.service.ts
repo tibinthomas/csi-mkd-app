@@ -3,6 +3,11 @@ import html2canvas from 'html2canvas';
 import html2pdf from 'html2pdf.js';
 import { CERTIFICATE_CONSTANTS } from '../../shared/constants/certificate.constants';
 
+export enum CertificateType {
+  PRE_MARITAL,
+  PRE_CONFIRMATION,
+}
+
 export interface CertificateData {
   name: string;
   completionDate?: Date;
@@ -70,9 +75,16 @@ export class CertificateService {
     return `${dates.join(', ')} ${monthYear}`;
   }
 
-  private async loadTemplate(): Promise<string> {
+  private async loadTemplate(
+    certificateType: CertificateType
+  ): Promise<string> {
+    const templateUrl =
+      certificateType === CertificateType.PRE_CONFIRMATION
+        ? CERTIFICATE_CONSTANTS.PRE_CONFIRMATION_TEMPLATE_URL
+        : CERTIFICATE_CONSTANTS.PRE_MARITAL_TEMPLATE_URL;
+
     try {
-      const response = await fetch(CERTIFICATE_CONSTANTS.TEMPLATE_URL);
+      const response = await fetch(templateUrl);
       if (!response.ok) {
         throw new Error(`Failed to load template: ${response.status}`);
       }
@@ -254,15 +266,24 @@ export class CertificateService {
       .replace(/\{\{\s*DATES\s*\}\}/g, formattedDates);
   }
 
-  async generateCertificateHTML(data: CertificateData): Promise<string> {
-    const template = await this.loadTemplate();
+  async generateCertificateHTML(
+    data: CertificateData,
+    certificateType: CertificateType = CertificateType.PRE_MARITAL
+  ): Promise<string> {
+    const template = await this.loadTemplate(certificateType);
     const populatedTemplate = this.populateTemplate(template, data);
 
     return populatedTemplate;
   }
 
-  async generateCertificatePDF(data: CertificateData): Promise<Blob> {
-    const htmlContent = await this.generateCertificateHTML(data);
+  async generateCertificatePDF(
+    data: CertificateData,
+    certificateType: CertificateType = CertificateType.PRE_MARITAL
+  ): Promise<Blob> {
+    const htmlContent = await this.generateCertificateHTML(
+      data,
+      certificateType
+    );
 
     const options = {
       margin: 0,
@@ -285,12 +306,18 @@ export class CertificateService {
     return html2pdf().set(options).from(htmlContent).outputPdf('blob');
   }
 
-  async previewCertificate(data: CertificateData): Promise<string> {
-    return this.generateCertificateHTML(data);
+  async previewCertificate(
+    data: CertificateData,
+    certificateType: CertificateType = CertificateType.PRE_MARITAL
+  ): Promise<string> {
+    return this.generateCertificateHTML(data, certificateType);
   }
 
-  async downloadCertificate(data: CertificateData): Promise<void> {
-    const pdfBlob = await this.generateCertificatePDF(data);
+  async downloadCertificate(
+    data: CertificateData,
+    certificateType: CertificateType = CertificateType.PRE_MARITAL
+  ): Promise<void> {
+    const pdfBlob = await this.generateCertificatePDF(data, certificateType);
     const url = URL.createObjectURL(pdfBlob);
     const link = document.createElement('a');
     link.href = url;
@@ -303,8 +330,14 @@ export class CertificateService {
     URL.revokeObjectURL(url);
   }
 
-  async downloadCertificateAsImage(data: CertificateData): Promise<void> {
-    const htmlContent = await this.generateCertificateHTML(data);
+  async downloadCertificateAsImage(
+    data: CertificateData,
+    certificateType: CertificateType = CertificateType.PRE_MARITAL
+  ): Promise<void> {
+    const htmlContent = await this.generateCertificateHTML(
+      data,
+      certificateType
+    );
     const imageDataUrl = await this.generateCertificateImage(htmlContent);
 
     const link = document.createElement('a');

@@ -8,7 +8,10 @@ import {
 } from '@angular/material/dialog';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { ConfirmationRegisterDto } from '../../../api/api-main-app/models';
-import { CertificateService } from '../../core/services/certificate.service';
+import {
+  CertificateService,
+  CertificateType,
+} from '../../core/services/certificate.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { firstValueFrom } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -285,7 +288,8 @@ export class PreConfirmList implements OnInit {
       };
 
       const htmlContent = await this.certificateService.previewCertificate(
-        certificateData
+        certificateData,
+        CertificateType.PRE_CONFIRMATION
       );
 
       this.openCertificatePreview(htmlContent, certificateData);
@@ -624,7 +628,8 @@ export class CertificatePreviewDialog implements OnInit {
     try {
       this.isLoading.set(true);
       await this.certificateService.downloadCertificateAsImage(
-        this.data.certificateData
+        this.data.certificateData,
+        CertificateType.PRE_CONFIRMATION
       );
       this.snackBar.open('Certificate downloaded successfully!', 'OK', {
         duration: 2000,
