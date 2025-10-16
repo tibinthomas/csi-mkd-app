@@ -132,7 +132,7 @@ export class CertificateService {
       aspect-ratio: 11 / 8.5;
       position: relative;
       margin: 0 auto;
-      background-image: url('assets/certificate_bg.png');
+      background-image: url('assets/pre-marital_certificate_bg.png');
       background-repeat: no-repeat;
       background-position: center;
       background-size: 100% 100%;
@@ -247,7 +247,6 @@ export class CertificateService {
       data.sessionStartDate && data.sessionEndDate
         ? this.formatSessionDates(data.sessionStartDate, data.sessionEndDate)
         : this.formatDates(data.dates);
-
 
     return template
       .replace(/\{\{\s*NAME\s*\}\}/g, data.name)
