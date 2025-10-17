@@ -116,11 +116,79 @@ export class PreConfirmRegister {
     });
   }
 
+  private readonly storageKey = 'preConfirmationForm';
+
+  protected saveForm(): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(this.form.value));
+    alert('Form data saved locally.');
+  }
+
+  protected loadForm(showAlert = false): void {
+    const savedData = localStorage.getItem(this.storageKey);
+    if (savedData) {
+      const formData = JSON.parse(savedData);
+
+      // Temporarily remove validators to avoid issues with disabled fields
+      this.form.get('churchName')?.clearValidators();
+      this.form.get('churchName')?.updateValueAndValidity();
+
+      // Patch all data except participants
+      const { participants, ...mainFormData } = formData;
+      this.form.patchValue(mainFormData);
+
+      // Handle participants array
+      if (participants && Array.isArray(participants)) {
+        this.participants().clear();
+        participants.forEach((participant: any) => {
+          this.participants().push(this.fb.group(participant));
+        });
+      }
+
+      // Handle dependent dropdown for church
+      if (formData.churchDistrict) {
+        this.selectedDistrict.set(formData.churchDistrict);
+        this.form.get('churchName')?.enable();
+        this.churchDataService
+          .getChurchesByLocationAndSearch(formData.churchDistrict)
+          .subscribe((churches) => {
+            this.availableChurches.set(churches);
+            this.form.get('churchName')?.setValue(formData.churchName);
+            this.onChurchChange(formData.churchName);
+
+            // Restore validators
+            this.form.get('churchName')?.setValidators([Validators.required]);
+            this.form.get('churchName')?.updateValueAndValidity();
+          });
+      } else {
+        // Restore validators if no district
+        this.form.get('churchName')?.setValidators([Validators.required]);
+        this.form.get('churchName')?.updateValueAndValidity();
+      }
+
+      if (showAlert) {
+        alert('Form data loaded from local storage.');
+      }
+    } else {
+      if (showAlert) {
+        alert('No saved data found.');
+      }
+    }
+  }
+
+  protected clearForm(): void {
+    localStorage.removeItem(this.storageKey);
+    this.form.reset();
+    this.participants().clear();
+    this.addParticipant(); // Add one default participant
+    alert('Local form data cleared.');
+  }
+
   hasPendingChanges = (): boolean => {
     return this.form.dirty;
   };
 
   ngOnInit(): void {
+    this.loadForm(false); // Load form on init without showing alert
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
   }
 
