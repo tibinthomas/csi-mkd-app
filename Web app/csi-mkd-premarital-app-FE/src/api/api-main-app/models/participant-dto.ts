@@ -4,5 +4,6 @@
 
 export interface ParticipantDto {
   age?: number;
+  id?: string | null;
   name: string | null;
 }

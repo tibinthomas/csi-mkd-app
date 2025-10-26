@@ -33,6 +33,7 @@ import autoTable from 'jspdf-autotable';
 import { ChurchDataService } from '../../core/services/church-data.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ParticipantDto } from '../../../api/api-main-app/models';
+import { EditPreConfirmDialogComponent } from './edit-pre-confirm-dialog.component';
 
 @Component({
   selector: 'app-pre-confirm-list',
@@ -67,6 +68,7 @@ export class PreConfirmList implements OnInit {
   expanded = new Set<string>();
   expandedAll = false;
   protected readonly totalCount = signal(0);
+  protected readonly minDate = new Date();
 
   private api = inject(CsiMkdPremaritalAppBeService);
   private snackBar = inject(MatSnackBar);
@@ -94,10 +96,13 @@ export class PreConfirmList implements OnInit {
       })
       .subscribe({
         next: (responseJson: any) => {
-          const response = JSON.parse(responseJson);
-          this.registrations.set(response.items);
-          this.totalCount.set(response.totalCount || 0);
-
+          const response =
+            typeof responseJson === 'string'
+              ? JSON.parse(responseJson)
+              : responseJson;
+          console.log(response);
+          this.registrations.set(response);
+          this.totalCount.set(response.length || 0);
           this.totalRegistrations.set(response.totalCount);
           this.isLoading.set(false);
         },
@@ -135,6 +140,32 @@ export class PreConfirmList implements OnInit {
     'Actions',
     'expand',
   ];
+
+  openEditDialog(reg: any): void {
+    const dialogRef = this.dialog.open(EditPreConfirmDialogComponent, {
+      width: '500px',
+      data: { reg, isEdit: true },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadRegistrations();
+      }
+    });
+  }
+
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(EditPreConfirmDialogComponent, {
+      width: '500px',
+      data: { reg: {}, isEdit: false },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadRegistrations();
+      }
+    });
+  }
   expandedRow = signal<any | null>(null);
 
   toggleRow = (row: any) => {

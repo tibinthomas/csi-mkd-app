@@ -37,6 +37,8 @@ import { apiConfirmationregisterFilterGet } from '../fn/csi-mkd-premarital-app-b
 import { ApiConfirmationregisterFilterGet$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-filter-get';
 import { apiConfirmationregisterIdDelete } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-id-delete';
 import { ApiConfirmationregisterIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-id-delete';
+import { apiConfirmationregisterIdPut } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-id-put';
+import { ApiConfirmationregisterIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-id-put';
 import { apiConfirmationregisterPost } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-post';
 import { ApiConfirmationregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-post';
 import { apiConfirmationregisterSaveFileUrlPost } from '../fn/csi-mkd-premarital-app-be/api-confirmationregister-save-file-url-post';
@@ -824,6 +826,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiConfirmationregisterTotalGet(params?: ApiConfirmationregisterTotalGet$Params, context?: HttpContext): Observable<void> {
     return this.apiConfirmationregisterTotalGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiConfirmationregisterIdPut()` */
+  static readonly ApiConfirmationregisterIdPutPath = '/api/confirmationregister/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiConfirmationregisterIdPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiConfirmationregisterIdPut$Response(params: ApiConfirmationregisterIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiConfirmationregisterIdPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiConfirmationregisterIdPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiConfirmationregisterIdPut(params: ApiConfirmationregisterIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.apiConfirmationregisterIdPut$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
