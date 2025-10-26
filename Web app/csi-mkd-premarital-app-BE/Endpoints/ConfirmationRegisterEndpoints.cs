@@ -1,9 +1,9 @@
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Services;
-using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
 
 namespace csi_mkd_premarital_app_BE.Endpoints;
 
@@ -56,5 +56,25 @@ public static class ConfirmationRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Ok(new { Message = message });
         });
+
+        group.MapPut("/{id}", async (
+     IConfirmationRegisterService service,
+     ICacheInvalidationService cacheService,
+     Guid id,
+     [FromBody] UpdateConfirmationRegisterDto dto) =>
+ {
+     // No longer need to compare dto.Id with id, since dto no longer contains Id
+     var (statusCode, message) = await service.UpdateAsync(id, dto);
+
+     if (statusCode == 404)
+     {
+         return Results.NotFound(new { Message = message });
+     }
+
+     await cacheService.InvalidateRegistrationCachesAsync();
+     return Results.Ok(new { Message = message });
+ })
+ .Accepts<UpdateConfirmationRegisterDto>("application/json");
+
     }
 }

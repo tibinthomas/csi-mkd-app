@@ -5,11 +5,12 @@ namespace csi_mkd_premarital_app_BE.Repositories
 {
     public interface IConfirmationRegisterRepository
     {
-        Task<Guid> AddRegistration(ConfirmationRegistration registration);
-        Task AddConfirmationFiles(ConfirmationDocument documents);
-        Task<object> FilterRegistrations(ConfirmationRegisterFilterDto filter);
-        Task<int> GetTotalRegistrations();
+        Task<ConfirmationRegistration> CreateAsync(ConfirmationRegistration registration);
         Task<ConfirmationRegistration?> FindByIdAsync(Guid id);
-        Task DeleteAsync(ConfirmationRegistration registration);
+        Task<IEnumerable<ConfirmationRegistration>> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter);
+        Task<int> GetTotalRegistrations();
+        Task DeleteAsync(Guid id);
+        void RemoveParticipants(IEnumerable<Participant> participants);
+        Task SaveChangesAsync();
     }
 }

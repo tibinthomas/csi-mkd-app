@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 namespace csi_mkd_premarital_app_BE.Models;
 
 public class ConfirmationDocument
@@ -13,6 +14,7 @@ public class ConfirmationDocument
     public required string VicarLetterUrl { get; set; } = string.Empty;
     public DateTime SubmittedAt { get; set; } = DateTime.UtcNow;
 
+    [JsonIgnore]
     public ConfirmationRegistration? ConfirmationRegistration { get; set; }
 
 }

@@ -1,6 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 [Index(nameof(Id))]
@@ -22,6 +23,7 @@ public class Participant
     [ForeignKey("ConfirmationRegistration")]
     public Guid ConfirmationRegistrationId { get; set; }
 
+    [JsonIgnore]
     public ConfirmationRegistration? ConfirmationRegistration { get; set; }
 
     [Required]

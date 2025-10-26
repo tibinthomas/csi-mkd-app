@@ -1,92 +1,85 @@
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.DTOs;
 using csi_mkd_premarital_app_BE.Models;
-using csi_mkd_premarital_app_BE.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-class ConfirmationRegisterRepository : IConfirmationRegisterRepository
+namespace csi_mkd_premarital_app_BE.Repositories
 {
-    private readonly ApplicationDbContext _context;
-
-    public ConfirmationRegisterRepository(ApplicationDbContext context)
+    public class ConfirmationRegisterRepository : IConfirmationRegisterRepository
     {
-        _context = context;
-    }
+        private readonly ApplicationDbContext _context;
 
-    public async Task<Guid> AddRegistration(ConfirmationRegistration registration)
-    {
-        _context.ConfirmationRegistrations.Add(registration);
-        await _context.SaveChangesAsync();
-        return registration.Id;
-    }
-
-    public async Task AddConfirmationFiles(ConfirmationDocument documents)
-    {
-        _context.ConfirmationDocuments.Add(documents);
-        await _context.SaveChangesAsync();
-    }
-
-    public async Task<object> FilterRegistrations(ConfirmationRegisterFilterDto filter)
-    {
-        var query = _context.ConfirmationRegistrations
-            .AsNoTracking()
-            .Include(r => r.ConfirmationDocument)
-            .Include(r => r.Participants)
-            .AsQueryable();
-
-
-        if (!string.IsNullOrWhiteSpace(filter.Search))
+        public ConfirmationRegisterRepository(ApplicationDbContext context)
         {
-            var search = filter.Search.ToLower();
-
-            query = query.Where(r =>
-                r.Participants.Any(p => EF.Functions.ILike(p.Name, $"%{search}%")));
-
+            _context = context;
         }
 
-        var totalCount = await query.CountAsync();
-
-        var results = await query
-            .OrderByDescending(r => r.SubmittedDate)
-            .Skip((filter.Page - 1) * filter.PageSize)
-            .Take(filter.PageSize)
-            .Select(r => new
-            {
-                r.Id,
-                r.ChurchId,
-                r.PriestName,
-                r.ConfirmationDate,
-                r.CounsellingDate,
-                Participants = r.Participants.Select(p => new
-                {
-                    p.Name,
-                    p.Age
-                }).ToList(),
-                VicarLetterUrl = r.ConfirmationDocument != null ? r.ConfirmationDocument.VicarLetterUrl : null,
-                r.Consent,
-            })
-            .ToListAsync();
-
-        return new
+        public async Task<ConfirmationRegistration> CreateAsync(ConfirmationRegistration registration)
         {
-            totalCount,
-            items = results
-        };
-    }
+            _context.ConfirmationRegistrations.Add(registration);
+            await _context.SaveChangesAsync();
+            return registration;
+        }
 
-    public async Task<int> GetTotalRegistrations()
-    {
-        return await _context.ConfirmationRegistrations.CountAsync();
-    }
+        public async Task<ConfirmationRegistration?> FindByIdAsync(Guid id)
+        {
+            var registration = await _context.ConfirmationRegistrations
+                .Include(r => r.Participants)
+                .FirstOrDefaultAsync(r => r.Id == id);
 
-    public async Task<ConfirmationRegistration?> FindByIdAsync(Guid id)
-    {
-        return await _context.ConfirmationRegistrations.FindAsync(id);
-    }
+            if (registration?.Participants != null)
+            {
+                registration.Participants = registration.Participants.OrderBy(p => p.SubmittedDate).ToList();
+            }
 
-    public async Task DeleteAsync(ConfirmationRegistration registration)
-    {
-        _context.ConfirmationRegistrations.Remove(registration);
-        await _context.SaveChangesAsync();
+            return registration;
+        }
+
+        public async Task<IEnumerable<ConfirmationRegistration>> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter)
+        {
+            var query = _context.ConfirmationRegistrations
+                .AsNoTracking()
+                .Include(r => r.ConfirmationDocument)
+                .Include(r => r.Participants.OrderBy(p => p.SubmittedDate))
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.Search))
+            {
+                var search = filter.Search.ToLower();
+                query = query.Where(r =>
+                    r.Participants.Any(p => EF.Functions.ILike(p.Name, $"%{search}%")));
+            }
+
+            return await query
+                .OrderByDescending(r => r.SubmittedDate)
+                .Skip((filter.Page - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .ToListAsync();
+        }
+
+        public async Task<int> GetTotalRegistrations()
+        {
+            return await _context.ConfirmationRegistrations.CountAsync();
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var registration = await _context.ConfirmationRegistrations.FindAsync(id);
+            if (registration != null)
+            {
+                _context.ConfirmationRegistrations.Remove(registration);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public void RemoveParticipants(IEnumerable<Participant> participants)
+        {
+            _context.Participants.RemoveRange(participants);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }
