@@ -9,6 +9,17 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
+      <!-- Important Notice -->
+      <div
+        class="flex items-start gap-2 p-3 mb-4 border-l-4 border-amber-500 bg-amber-50 dark:bg-amber-900/20 rounded-md"
+        role="alert"
+        aria-label="Registration note"
+      >
+        <mat-icon class="text-amber-600 dark:text-amber-400" aria-hidden="true">warning</mat-icon>
+        <p class="text-sm text-on-surface font-medium" i18n>
+          Each individual (both partners) must complete their own separate registration form.
+        </p>
+      </div>
       <form
         #formEl
         [formGroup]="form"
@@ -261,7 +272,7 @@
               </mat-select>
             </mat-form-field>
             <mat-form-field appearance="fill" class="w-full">
-              <mat-label i18n>Phone Number</mat-label>
+              <mat-label i18n>WhatsApp Number</mat-label>
               <input
                 matInput
                 type="text"
@@ -271,7 +282,7 @@
                 [appOnlyDigitsMax]="10"
               />
               @if (isInvalid('phone')) {
-              <mat-error i18n>Phone number is required.</mat-error>
+              <mat-error i18n>WhatsApp number is required.</mat-error>
               }
             </mat-form-field>
           </div>
