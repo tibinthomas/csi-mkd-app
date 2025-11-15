@@ -38,7 +38,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
         public async Task<IEnumerable<ConfirmationRegistration>> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter)
         {
             var query = _context.ConfirmationRegistrations
-                .AsNoTracking()
                 .Include(r => r.ConfirmationDocument)
                 .Include(r => r.Participants.OrderBy(p => p.SubmittedDate))
                 .AsQueryable();
