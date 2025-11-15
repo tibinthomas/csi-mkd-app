@@ -24,6 +24,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
         public async Task<ConfirmationRegistration?> FindByIdAsync(Guid id)
         {
             var registration = await _context.ConfirmationRegistrations
+                .AsTracking()
                 .Include(r => r.Participants)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
