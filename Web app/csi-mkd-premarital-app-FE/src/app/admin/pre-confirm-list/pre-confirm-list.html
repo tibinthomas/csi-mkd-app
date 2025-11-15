@@ -15,6 +15,7 @@
             type="text"
             [value]="searchTermInput()"
             (input)="searchTermInput.set($any($event.target).value)"
+            (keydown.enter)="searchRegistrations()"
             i18n
           />
           <mat-hint i18n>Search by church name or participant name</mat-hint>
