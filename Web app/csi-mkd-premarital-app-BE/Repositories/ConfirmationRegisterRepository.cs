@@ -76,8 +76,10 @@ namespace csi_mkd_premarital_app_BE.Repositories
             _context.Participants.RemoveRange(participants);
         }
 
-        public async Task SaveChangesAsync()
+        public async Task SaveChangesAsync(ConfirmationRegistration registration)
         {
+            _context.Entry(registration).State = EntityState.Modified;
+
             await _context.SaveChangesAsync();
         }
     }

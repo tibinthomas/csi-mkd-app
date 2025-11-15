@@ -113,8 +113,7 @@ namespace csi_mkd_premarital_app_BE.Services
                     });
                 }
             }
-
-            await _repository.SaveChangesAsync();
+            await _repository.SaveChangesAsync(registration);
             return (200, "Registration updated successfully.");
         }
 
