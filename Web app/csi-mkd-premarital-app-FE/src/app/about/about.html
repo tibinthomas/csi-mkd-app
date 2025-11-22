@@ -51,6 +51,52 @@
     </div>
   </section>
 
+  <!-- Leadership Legacy -->
+  <section class="py-16 px-6 bg-surface-container-low dark:bg-surface-container theme-transition" role="region" [attr.aria-labelledby]="'leadership-heading'">
+    <div class="max-w-6xl mx-auto">
+      <h3 id="leadership-heading" class="text-3xl font-bold text-center mb-8 text-on-surface theme-transition" [appAnimateOnScroll]="'fadeIn'">
+        Leadership Legacy
+      </h3>
+      
+      <div class="leadership-grid" role="list">
+        @for (director of directors; track director.tenure; let i = $index) {
+          <div class="leader-card" role="listitem" [appAnimateOnScroll]="'fadeIn'" [style.animation-delay]="(i * 100) + 'ms'">
+            <span class="leader-tenure">{{ director.tenure }}</span>
+            <span class="leader-name">{{ director.name }}</span>
+          </div>
+        }
+      </div>
+      
+      <p class="mt-6 text-sm text-right text-on-surface-variant italic">
+        Courtesy: Rev. Mathew Jillow Ninan, Former Director CSI Counselling Centre, Kottayam
+      </p>
+    </div>
+  </section>
+
+  <!-- Our History -->
+  <section class="py-20 px-6 bg-surface-container-low dark:bg-surface-container theme-transition" role="region" [attr.aria-labelledby]="'history-heading'">
+    <div class="max-w-6xl mx-auto">
+      <h2 id="history-heading" class="text-4xl font-bold text-center mb-16 text-on-surface theme-transition" [appAnimateOnScroll]="'fadeIn'">
+        Our Journey
+      </h2>
+      
+      <div class="timeline-container">
+        @for (event of historyContent; track $index; let i = $index) {
+          <div class="timeline-item" [appAnimateOnScroll]="i % 2 === 0 ? 'slideInLeft' : 'slideInRight'">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content" [class.left]="i % 2 === 0" [class.right]="i % 2 !== 0">
+              <span class="timeline-year">{{ event.year }}</span>
+              @if (event.title) {
+                <h3 class="text-xl font-bold mb-2 text-on-surface">{{ event.title }}</h3>
+              }
+              <p class="text-on-surface-variant leading-relaxed">{{ event.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
   <!-- Services -->
   <section
     class="py-20 px-6 bg-surface-container-low dark:bg-surface-container theme-transition"
