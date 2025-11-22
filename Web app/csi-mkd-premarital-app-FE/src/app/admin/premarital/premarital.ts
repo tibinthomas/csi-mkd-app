@@ -20,7 +20,7 @@ import {
 } from 'rxjs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { NgOptimizedImage } from '@angular/common';
+import { DatePipe, NgOptimizedImage } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -110,7 +110,8 @@ import { ExportNameChurchModalComponent } from './export-name-church-modal.compo
     MatRadioModule,
     MatCardModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    DatePipe
 ],
 })
 export class PremaritalComponent {
