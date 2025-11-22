@@ -117,6 +117,35 @@
   }
 }
 
+/* Dark mode adjustments for timeline content */
+:host-context([data-theme='dark']) .timeline-content {
+  background: #2b2930;
+  border-color: #49454f;
+  color: #e3e2e6;
+
+  h3 {
+    color: #e3e2e6 !important;
+  }
+
+  p {
+    color: #c4c7c5 !important;
+  }
+
+  &.left::before {
+    border-left-color: #2b2930;
+  }
+
+  &.right::before {
+    border-right-color: #2b2930;
+  }
+
+  @media (max-width: 768px) {
+    &::before {
+      border-right-color: #2b2930 !important;
+    }
+  }
+}
+
 .timeline-year {
   display: inline-block;
   padding: 0.25rem 0.75rem;
@@ -141,18 +170,10 @@
   border: 1px solid var(--mat-sys-outline-variant);
   border-radius: 1rem;
   padding: 1.5rem;
-  transition: all 0.3s ease;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--mat-sys-level3);
-    border-color: var(--mat-sys-primary);
-    background: var(--mat-sys-surface-container-high);
-  }
 
   .leader-tenure {
     font-size: 0.75rem;
@@ -169,5 +190,19 @@
     font-weight: 600;
     color: var(--mat-sys-on-surface);
     line-height: 1.4;
+  }
+}
+
+/* Dark mode adjustments for leader card */
+:host-context([data-theme='dark']) .leader-card {
+  background: #2b2930;
+  border-color: #49454f;
+  
+  .leader-name {
+    color: #e3e2e6 !important;
+  }
+
+  .leader-tenure {
+    color: #d0bcff !important;
   }
 }
