@@ -20,7 +20,7 @@ import {
 } from 'rxjs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -90,7 +90,6 @@ import { ExportNameChurchModalComponent } from './export-name-church-modal.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 
   imports: [
-    CommonModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -111,8 +110,8 @@ import { ExportNameChurchModalComponent } from './export-name-church-modal.compo
     MatRadioModule,
     MatCardModule,
     MatTooltipModule,
-    MatDialogModule,
-  ],
+    MatDialogModule
+],
 })
 export class PremaritalComponent {
   [x: string]: any;
@@ -1688,9 +1687,8 @@ export class DeleteConfirmationDialog {
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    CommonModule,
-    MatIconModule,
-  ],
+    MatIconModule
+],
   providers: [provideNativeDateAdapter()],
 })
 export class EditRegistrationDialog {

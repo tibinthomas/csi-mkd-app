@@ -14,7 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
 import { SessionDataService } from '../../core/services/session-data.service';
-import { CommonModule } from '@angular/common';
+
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiConfiguration } from '../../../api/api-main-app/api-configuration';
@@ -84,7 +84,6 @@ import { ApiConfiguration } from '../../../api/api-main-app/api-configuration';
     </form>
   `,
   imports: [
-    CommonModule,
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -92,8 +91,8 @@ import { ApiConfiguration } from '../../../api/api-main-app/api-configuration';
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatProgressSpinnerModule,
-  ],
+    MatProgressSpinnerModule
+],
   standalone: true,
 })
 export class ExportPhoneModalComponent {

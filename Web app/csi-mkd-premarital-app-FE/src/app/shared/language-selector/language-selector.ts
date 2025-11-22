@@ -2,7 +2,7 @@ import { Component, Inject, LOCALE_ID, DOCUMENT, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { CommonModule } from '@angular/common';
+
 import { SwUpdate } from '@angular/service-worker';
 import { AnalyticsService } from '../../core/services/analytics.service';
 
@@ -16,7 +16,7 @@ interface Language {
   templateUrl: './language-selector.html',
   styleUrls: ['./language-selector.scss'],
 
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, CommonModule],
+  imports: [MatButtonModule, MatMenuModule, MatIconModule],
 })
 export class LanguageSelectorComponent {
   languages: Language[] = [

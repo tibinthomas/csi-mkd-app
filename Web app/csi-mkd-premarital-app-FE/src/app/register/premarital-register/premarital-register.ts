@@ -119,7 +119,7 @@ export class PremaritalRegister {
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
 
   constructor() {
-    const navState = this.router.getCurrentNavigation()?.extras.state;
+    const navState = this.router.currentNavigation()?.extras.state;
     if (navState?.['selectedSessionId']) {
       this.selectedSessionId.set(navState['selectedSessionId']);
     }

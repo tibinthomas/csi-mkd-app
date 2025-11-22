@@ -11,7 +11,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, map, of, switchMap } from 'rxjs';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -46,7 +46,6 @@ import { ChurchDataService } from '../../core/services/church-data.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 
   imports: [
-    CommonModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
@@ -62,8 +61,8 @@ import { ChurchDataService } from '../../core/services/church-data.service';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatCardModule,
-  ],
+    MatCardModule
+],
 })
 export class GeneralList {
   private readonly dialog = inject(MatDialog);

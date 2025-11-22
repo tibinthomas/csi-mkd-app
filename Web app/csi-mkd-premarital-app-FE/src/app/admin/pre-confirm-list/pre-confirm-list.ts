@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
@@ -41,7 +41,6 @@ import { EditPreConfirmDialogComponent } from './edit-pre-confirm-dialog.compone
   styleUrls: ['./pre-confirm-list.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
@@ -54,8 +53,8 @@ import { EditPreConfirmDialogComponent } from './edit-pre-confirm-dialog.compone
     MatExpansionModule,
     MatDividerModule,
     MatCardModule,
-    DatePipe,
-  ],
+    DatePipe
+],
   providers: [DatePipe],
 })
 export class PreConfirmList implements OnInit {
@@ -594,9 +593,8 @@ export class DeleteConfirmationDialog {
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule,
-    CommonModule,
-  ],
+    MatProgressSpinnerModule
+],
 })
 export class CertificatePreviewDialog implements OnInit {
   dialogRef = inject<MatDialogRef<CertificatePreviewDialog>>(MatDialogRef);

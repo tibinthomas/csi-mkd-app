@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -73,15 +73,14 @@ import { SessionDataService } from '../../core/services/session-data.service';
     </form>
   `,
   imports: [
-    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatProgressSpinnerModule,
-  ],
+    MatProgressSpinnerModule
+],
   standalone: true,
 })
 export class ExportNameChurchModalComponent {

@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { CsiMkdPremaritalAppBeService } from '../../api/api-main-app//services';
 import { FeedbackDataService } from './feedback-data.service';
 import { SessionsFallbackService } from '../core/services/sessions-fallback.service';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,14 +27,13 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-feedback-questions',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     MatProgressSpinnerModule,
-    MatCardModule,
-  ],
+    MatCardModule
+],
   templateUrl: './feedback-questions.html',
   styleUrl: './feedback-questions.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   MatDialogModule,
   MAT_DIALOG_DATA,
@@ -106,13 +106,12 @@ export interface QuestionsModalData {
     </div>
   `,
   imports: [
-    CommonModule,
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
     MatCardModule,
-    MatExpansionModule,
-  ],
+    MatExpansionModule
+],
 })
 export class QuestionsModalComponent {
   readonly dialogRef = inject(MatDialogRef<QuestionsModalComponent>);

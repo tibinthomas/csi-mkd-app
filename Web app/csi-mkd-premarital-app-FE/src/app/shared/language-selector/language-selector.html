@@ -3,7 +3,9 @@
   <!-- <span>{{ currentLanguage.name }}</span> -->
 </button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item *ngFor="let lang of languages" (click)="changeLanguage(lang.code)">
-    <span>{{ lang.name }}</span>
-  </button>
+  @for (lang of languages; track lang) {
+    <button mat-menu-item (click)="changeLanguage(lang.code)">
+      <span>{{ lang.name }}</span>
+    </button>
+  }
 </mat-menu>

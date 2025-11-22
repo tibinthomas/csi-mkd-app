@@ -19,7 +19,7 @@ import {
   MatNativeDateModule,
   provideNativeDateAdapter,
 } from '@angular/material/core';
-import { CommonModule } from '@angular/common';
+
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import {
   ConfirmationRegisterDto,
@@ -133,7 +133,6 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
@@ -142,8 +141,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatIconModule,
-  ],
+    MatIconModule
+],
   providers: [provideNativeDateAdapter()],
 })
 export class EditPreConfirmDialogComponent implements OnInit {

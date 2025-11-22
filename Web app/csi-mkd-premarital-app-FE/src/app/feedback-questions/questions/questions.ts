@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,7 +23,6 @@ import { of } from 'rxjs';
 @Component({
   selector: 'app-questions',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatCardHeader,
     MatCardModule,
@@ -31,8 +30,8 @@ import { of } from 'rxjs';
     MatFormFieldModule,
     MatInputModule,
     MatButton,
-    SpeechRecognitionDirective,
-  ],
+    SpeechRecognitionDirective
+],
   templateUrl: './questions.html',
   styleUrl: './questions.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
