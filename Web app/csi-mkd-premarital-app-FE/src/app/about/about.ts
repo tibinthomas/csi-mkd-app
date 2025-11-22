@@ -203,7 +203,7 @@ export class About {
     },
     {
       tenure: '2014 May – 2016 April',
-      name: 'Rev. Abraham C Prakash, Convenor',
+      name: 'Rev. Abraham C Prakash, Director',
     },
     {
       tenure: '2016 May – 2017 Nov',
