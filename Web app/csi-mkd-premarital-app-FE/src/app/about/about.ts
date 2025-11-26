@@ -1,12 +1,17 @@
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage, CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   signal,
   computed,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  effect,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll.directive';
 
@@ -36,15 +41,19 @@ interface HeroContent {
   styleUrl: './about.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    CommonModule,
     RouterLink,
     RouterOutlet,
     NgOptimizedImage,
     MatCardModule,
     MatButtonModule,
+    MatIconModule,
     AnimateOnScrollDirective,
   ],
 })
-export class About {
+export class About implements OnInit, OnDestroy {
+  // Scroll to top button visibility
+  readonly showScrollTop = signal(false);
   private readonly _currentYear = signal(new Date().getFullYear());
 
   readonly currentYear = computed(() => this._currentYear());
@@ -195,6 +204,23 @@ export class About {
       description: $localize`:@@History Paragraph 10:The Diocesan Counselling Centre continues its ministry as a guide and support to many, acting as a mentoring space for couples and individuals, thus attempting to fulfil its call to counsel to the mind and care for the soul.`,
     },
   ];
+
+  ngOnInit(): void {
+    // Component initialization
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup if needed
+  }
+
+  @HostListener('window:scroll')
+  onWindowScroll(): void {
+    this.showScrollTop.set(window.scrollY > 500);
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   readonly directors: DirectorItem[] = [
     {

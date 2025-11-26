@@ -1,4 +1,16 @@
 <main role="main">
+  <!-- Scroll to Top Button -->
+  @if (showScrollTop()) {
+  <button
+    class="scroll-top-btn"
+    (click)="scrollToTop()"
+    aria-label="Scroll to top"
+    mat-fab
+    color="primary"
+  >
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+  }
   <!-- Hero Section -->
   <section
     class="bg-cover bg-center h-screen flex items-center justify-center relative"
