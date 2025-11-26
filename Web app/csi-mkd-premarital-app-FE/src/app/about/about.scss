@@ -200,6 +200,45 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  // Gradient background animation
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(var(--md-sys-color-primary-rgb, 25, 118, 210), 0.1),
+      transparent
+    );
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+  }
+  
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--md-sys-color-primary);
+    box-shadow: 
+      0 12px 24px rgba(0, 0, 0, 0.15),
+      0 0 0 1px var(--md-sys-color-primary) inset;
+    
+    &::before {
+      opacity: 1;
+      animation: shimmer 1.5s ease-in-out infinite;
+    }
+    
+    .leader-tenure {
+      transform: scale(1.05);
+    }
+  }
 
   .leader-tenure {
     font-size: 0.75rem;
@@ -209,6 +248,7 @@
     font-weight: 700;
     margin-bottom: 0.5rem;
     display: block;
+    transition: transform 0.3s ease;
   }
 
   .leader-name {
@@ -216,6 +256,33 @@
     font-weight: 600;
     color: var(--md-sys-color-on-surface);
     line-height: 1.4;
+  }
+}
+
+// Staggered animation for leadership cards
+@for $i from 1 through 10 {
+  .leader-card:nth-child(#{$i}) {
+    animation: slideInScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) #{$i * 0.1}s both;
+  }
+}
+
+@keyframes slideInScale {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
   }
 }
 

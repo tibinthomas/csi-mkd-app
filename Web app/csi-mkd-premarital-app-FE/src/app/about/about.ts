@@ -54,6 +54,9 @@ interface HeroContent {
 export class About implements OnInit, OnDestroy {
   // Scroll to top button visibility
   readonly showScrollTop = signal(false);
+  
+  // Mobile detection for timeline animation
+  readonly isMobile = signal(window.innerWidth < 768);
   private readonly _currentYear = signal(new Date().getFullYear());
 
   readonly currentYear = computed(() => this._currentYear());
@@ -216,6 +219,20 @@ export class About implements OnInit, OnDestroy {
   @HostListener('window:scroll')
   onWindowScroll(): void {
     this.showScrollTop.set(window.scrollY > 500);
+  }
+
+  @HostListener('window:resize')
+  onWindowResize(): void {
+    this.isMobile.set(window.innerWidth < 768);
+  }
+
+  getTimelineAnimation(index: number): string {
+    // On mobile, always slide from right
+    if (this.isMobile()) {
+      return 'slideInRight';
+    }
+    // On desktop, alternate between left and right
+    return index % 2 === 0 ? 'slideInLeft' : 'slideInRight';
   }
 
   scrollToTop(): void {

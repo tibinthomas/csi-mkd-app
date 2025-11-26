@@ -111,7 +111,7 @@
 
       <div class="timeline-container">
         @for (event of historyContent; track $index; let i = $index) {
-        <div class="timeline-item" [appAnimateOnScroll]="i % 2 === 0 ? 'slideInLeft' : 'slideInRight'">
+        <div class="timeline-item" [appAnimateOnScroll]="getTimelineAnimation(i)">
           <div class="timeline-dot"></div>
           <div class="timeline-content" [class.left]="i % 2 === 0" [class.right]="i % 2 !== 0">
             <span class="timeline-year">{{ event.year }}</span>
