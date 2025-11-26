@@ -46,6 +46,7 @@ import {
 } from '../../core/services/church-data.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import Shepherd from 'shepherd.js';
 
 @Component({
   selector: 'app-premarital-register',
@@ -117,6 +118,8 @@ export class PremaritalRegister {
     { initialValue: [] }
   );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
+
+  private tour: any | null = null;
 
   constructor() {
     const navState = this.router.currentNavigation()?.extras.state;
@@ -249,10 +252,6 @@ export class PremaritalRegister {
       this.form.patchValue({ sessionId: this.selectedSessionId() });
     }
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
-  }
-
-  ngOnDestroy(): void {
-    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   }
 
   private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
@@ -585,6 +584,488 @@ export class PremaritalRegister {
       }
     } catch {
       // no-op
+    }
+  }
+
+  startTutorial(): void {
+    // Dynamically import Shepherd CSS
+    if (!document.querySelector('link[href*="shepherd"]')) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css';
+      document.head.appendChild(link);
+    }
+
+    if (this.tour) {
+      this.tour.complete();
+    }
+
+    this.tour = new Shepherd.Tour({
+      useModalOverlay: true,
+      defaultStepOptions: {
+        cancelIcon: {
+          enabled: true,
+        },
+        classes: 'shepherd-theme-custom',
+        scrollTo: { behavior: 'smooth', block: 'center' },
+      },
+    });
+
+    // Step 1: Welcome & Introduction
+    this.tour.addStep({
+      id: 'welcome',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Welcome to the Premarital Registration Form</h3>
+        <p class="mb-2">This guided tour will help you understand each section of the form.</p>
+        <p class="text-sm text-amber-600 dark:text-amber-400">
+          <strong>Important:</strong> Each individual (both partners) must complete their own separate registration.
+        </p>
+      `,
+      buttons: [
+        {
+          text: 'Exit',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.complete(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 2: Personal Information
+    this.tour.addStep({
+      id: 'personal-info',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Personal Information</h3>
+        <p>Enter your basic personal details:</p>
+        <ul class="list-disc ml-4 mt-2 text-sm">
+          <li><strong>First Name & Last Name:</strong> Your full legal name</li>
+          <li><strong>Sex:</strong> Select Male or Female</li>
+          <li><strong>Age:</strong> Your current age (1-120)</li>
+          <li><strong>Father's Name:</strong> Your father's full name</li>
+        </ul>
+      `,
+      attachTo: {
+        element: '#personal-info-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 3: Education & Professional Details
+    this.tour.addStep({
+      id: 'education-professional',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Education & Professional Details</h3>
+        <p class="mb-2">Provide information about your education and current occupation.</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>Occupation:</strong> Your current job or profession</li>
+          <li><strong>Education:</strong> Your highest educational qualification</li>
+        </ul>
+      `,
+      attachTo: {
+        element: '#education-professional-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 4: Address
+    this.tour.addStep({
+      id: 'address',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Address</h3>
+        <p class="mb-2">Enter your complete residential address.</p>
+        <p class="text-sm text-blue-600 dark:text-blue-400">
+          <strong>Tip:</strong> You can use the microphone icon for voice input!
+        </p>
+      `,
+      attachTo: {
+        element: '#address-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 5: Church Membership Selection
+    this.tour.addStep({
+      id: 'church-membership',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Church Membership</h3>
+        <p class="mb-2">Select your CSI MKD membership status:</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>Member of CSI MKD:</strong> Select if you are a registered member. You'll need to choose your district and church.</li>
+          <li><strong>Not a member:</strong> Select if you belong to another church. You'll enter your church name manually.</li>
+        </ul>
+        <p class="text-sm mt-2 text-gray-600 dark:text-gray-400">Different fields will appear based on your selection.</p>
+      `,
+      attachTo: {
+        element: '#church-membership-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 6: Church Details (conditional - for members)
+    this.tour.addStep({
+      id: 'church-member-details',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Church Details (For Members)</h3>
+        <p class="mb-2">If you selected "Member of CSI MKD":</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>Clergy District:</strong> Select your district from the dropdown</li>
+          <li><strong>Church Name:</strong> After selecting district, choose your specific church</li>
+        </ul>
+        <p class="text-sm mt-2 text-gray-600 dark:text-gray-400">The priest's name will be shown below if available.</p>
+      `,
+      attachTo: {
+        element: '#church-member-details-section',
+        on: 'bottom',
+      },
+      when: {
+        show: () => {
+          const element = document.querySelector('#church-member-details-section') as HTMLElement;
+          if (!element || !element.offsetParent) {
+            this.tour?.next();
+          }
+        },
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 7: Church Details (conditional - for non-members)
+    this.tour.addStep({
+      id: 'church-nonmember-details',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Church Details (For Non-Members)</h3>
+        <p class="mb-2">If you selected "Not member of CSI MKD":</p>
+        <p class="text-sm">Enter the name of your church manually in the text field.</p>
+      `,
+      attachTo: {
+        element: '#church-nonmember-details-section',
+        on: 'bottom',
+      },
+      when: {
+        show: () => {
+          const element = document.querySelector('#church-nonmember-details-section') as HTMLElement;
+          if (!element || !element.offsetParent) {
+            this.tour?.next();
+          }
+        },
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 8: Church Activities
+    this.tour.addStep({
+      id: 'church-activities',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Church Activities</h3>
+        <p class="mb-2">Select the church activities you participate in:</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li>Choir Member</li>
+          <li>Sunday School Teacher</li>
+          <li>Youth Fellowship</li>
+          <li>Other activities (specify in the text field)</li>
+        </ul>
+      `,
+      attachTo: {
+        element: '#church-activities-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 9: Partner & Marriage Information
+    this.tour.addStep({
+      id: 'partner-marriage',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Partner & Marriage Information</h3>
+        <p class="mb-2">Provide details about your upcoming marriage:</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>Fiancé/Fiancée Name:</strong> Your partner's name</li>
+          <li><strong>Date of Marriage:</strong> Click the calendar icon to select the date</li>
+        </ul>
+      `,
+      attachTo: {
+        element: '#partner-marriage-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 10: Contact Information
+    this.tour.addStep({
+      id: 'contact-info',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Contact Information</h3>
+        <p class="mb-2">Provide your contact details for communication:</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>Country Code:</strong> Select your country code</li>
+          <li><strong>WhatsApp Number:</strong> Enter your 10-digit mobile number</li>
+          <li><strong>Email:</strong> Enter a valid email address</li>
+        </ul>
+        <p class="text-sm mt-2 text-amber-600 dark:text-amber-400">
+          Confirmation will be sent to this email.
+        </p>
+      `,
+      attachTo: {
+        element: '#contact-info-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 11: Session Selection
+    this.tour.addStep({
+      id: 'session-selection',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Session Selection</h3>
+        <p class="mb-2">Choose your preferred counselling session:</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>Number of Days:</strong> Select 1 day (with Bishop's permission) or 3 days</li>
+          <li><strong>Session:</strong> Choose from available sessions with dates</li>
+        </ul>
+        <p class="text-sm mt-2 text-gray-600 dark:text-gray-400">All dates are displayed in IST (Indian Standard Time).</p>
+      `,
+      attachTo: {
+        element: '#session-selection-section',
+        on: 'bottom',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 12: File Uploads
+    this.tour.addStep({
+      id: 'file-uploads',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Required File Uploads</h3>
+        <p class="mb-2">Upload the following required documents:</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>Your Photo:</strong> Passport-size photo (JPG/PNG, max 2MB)</li>
+          <li><strong>Witness of Vicar:</strong> Letter from your vicar confirming membership and counselling request (PDF/DOC/DOCX/JPG/PNG, max 2MB)</li>
+        </ul>
+        <p class="text-sm mt-2 text-red-600 dark:text-red-400">Both files are required to complete registration.</p>
+      `,
+      attachTo: {
+        element: '#file-uploads-section',
+        on: 'top',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 13: Declarations & Consent
+    this.tour.addStep({
+      id: 'declarations-consent',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Declarations & Consent</h3>
+        <p class="mb-3">Complete these two required steps:</p>
+        <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg mb-3">
+          <p class="text-sm font-semibold mb-2">Step 1: Declaration Checkbox</p>
+          <p class="text-sm">Check the box below that says "I would like to attend the premarital counselling course"</p>
+        </div>
+        <div class="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg">
+          <p class="text-sm font-semibold mb-2">Step 2: Read and Accept Informed Consent</p>
+          <p class="text-sm mb-2"><strong>Click the blue underlined link</strong> that says "Read and Accept Informed Consent and Counselling Agreement"</p>
+          <p class="text-sm mb-2">This will open a dialog box with the full agreement. Read it carefully, then:</p>
+          <ul class="list-disc ml-4 text-sm">
+            <li>Check the box at the bottom of the dialog</li>
+            <li>Click the OK button</li>
+          </ul>
+        </div>
+        <p class="text-sm mt-3 text-red-600 dark:text-red-400 font-bold">
+          ⚠️ Both steps are required before you can submit the form
+        </p>
+      `,
+      attachTo: {
+        element: '#declarations-consent-section',
+        on: 'top',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 14: Security & Submit
+    this.tour.addStep({
+      id: 'security-submit',
+      text: `
+        <h3 class="text-lg font-bold mb-2">Security Verification & Submit</h3>
+        <p class="mb-2">Final steps to complete your registration:</p>
+        <ul class="list-disc ml-4 text-sm">
+          <li><strong>reCAPTCHA:</strong> Check the "I'm not a robot" box to verify you're human</li>
+          <li><strong>Register Button:</strong> Click to submit your completed form</li>
+        </ul>
+        <p class="text-sm mt-2 text-green-600 dark:text-green-400">
+          After submission, you'll receive a confirmation email.
+        </p>
+      `,
+      attachTo: {
+        element: '#security-submit-section',
+        on: 'top',
+      },
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Next',
+          action: () => this.tour?.next(),
+        },
+      ],
+    });
+
+    // Step 15: Completion
+    this.tour.addStep({
+      id: 'completion',
+      text: `
+        <h3 class="text-lg font-bold mb-2">🎉 Tour Complete!</h3>
+        <p class="mb-2">You've completed the guided tour of the premarital registration form.</p>
+        <p class="text-sm">You can now proceed to fill out the form. If you need to see the tour again, click the help icon (?) in the form header.</p>
+        <p class="text-sm mt-2 text-gray-600 dark:text-gray-400">Good luck with your registration!</p>
+      `,
+      buttons: [
+        {
+          text: 'Back',
+          classes: 'shepherd-button-secondary',
+          action: () => this.tour?.back(),
+        },
+        {
+          text: 'Finish',
+          action: () => this.tour?.complete(),
+        },
+      ],
+    });
+
+    this.tour.start();
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+    if (this.tour) {
+      this.tour.complete();
     }
   }
 }
