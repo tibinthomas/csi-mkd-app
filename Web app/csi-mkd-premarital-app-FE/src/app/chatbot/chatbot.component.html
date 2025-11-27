@@ -1,0 +1,130 @@
+<div class="chatbot-container">
+  <!-- Floating Chat Button -->
+  <button
+    class="chat-fab"
+    mat-fab
+    color="primary"
+    (click)="toggleChat()"
+    [class.open]="isOpen()"
+    aria-label="Open chat assistant"
+  >
+    <mat-icon>{{ isOpen() ? 'close' : 'chat' }}</mat-icon>
+  </button>
+
+  <!-- Chat Window -->
+  @if (isOpen()) {
+  <div class="chat-window">
+    <!-- Header -->
+    <div class="chat-header">
+      <div class="header-content">
+        <mat-icon>support_agent</mat-icon>
+        <div>
+          <h3>CSI Assistant</h3>
+          <p>Ask me anything about our services</p>
+        </div>
+      </div>
+      <button
+        mat-icon-button
+        (click)="closeChat()"
+        aria-label="Close chat"
+        class="close-button"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div class="chat-messages">
+      @if (messages().length === 0) {
+        <!-- Welcome Message -->
+        <div class="welcome-message">
+          <mat-icon class="welcome-icon">waving_hand</mat-icon>
+          <h4>Hello! How can I help you today?</h4>
+          <p>I can answer questions about:</p>
+          <ul>
+            <li>Our counselling services</li>
+            <li>Registration process</li>
+            <li>Location and contact info</li>
+            <li>Fees and schedules</li>
+          </ul>
+          
+          <!-- Suggested Questions -->
+          <div class="suggested-questions">
+            <p class="suggestion-label">Try asking:</p>
+            @for (question of suggestedQuestions; track question) {
+              <button
+                class="suggestion-chip"
+                mat-stroked-button
+                (click)="sendMessage(question)"
+              >
+                {{ question }}
+              </button>
+            }
+          </div>
+        </div>
+      } @else {
+        <!-- Message List -->
+        @for (message of messages(); track $index) {
+          <div 
+            class="message"
+            [class.user-message]="message.role === 'user'"
+            [class.assistant-message]="message.role === 'assistant'"
+          >
+            <div class="message-avatar">
+              <mat-icon>{{ message.role === 'user' ? 'person' : 'support_agent' }}</mat-icon>
+            </div>
+            <div class="message-content">
+              <div class="message-bubble">
+                {{ message.content }}
+              </div>
+              <span class="message-time">
+                {{ message.timestamp | date:'shortTime' }}
+              </span>
+            </div>
+          </div>
+        }
+        
+        <!-- Loading Indicator -->
+        @if (isLoading()) {
+          <div class="message assistant-message">
+            <div class="message-avatar">
+              <mat-icon>support_agent</mat-icon>
+            </div>
+            <div class="message-content">
+              <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+          </div>
+        }
+      }
+    </div>
+
+    <!-- Input -->
+    <div class="chat-input">
+      <mat-form-field class="input-field" appearance="outline" subscriptSizing="dynamic">
+        <input
+          matInput
+          [(ngModel)]="userInput"
+          (keydown.enter)="sendMessage()"
+          [disabled]="isLoading()"
+          placeholder="Type your question..."
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <button
+        mat-fab
+        color="primary"
+        (click)="sendMessage()"
+        [disabled]="!userInput.trim() || isLoading()"
+        aria-label="Send message"
+        class="send-button"
+      >
+        <mat-icon>send</mat-icon>
+      </button>
+    </div>
+  </div>
+  }
+</div>

@@ -19,15 +19,17 @@ import { LoadingService } from './core/services/loading.service';
 import { ConsoleDetectionService } from './core/services/console-detection.service';
 import { UpdatePromptComponent } from './shared/components/update-prompt/update-prompt.component';
 import { GlobalLoaderComponent } from './shared/components/global-loader/global-loader.component';
+import { ChatbotComponent } from './chatbot/chatbot.component';
 import { filter, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UpdatePromptComponent, GlobalLoaderComponent],
+  imports: [RouterOutlet, UpdatePromptComponent, GlobalLoaderComponent, ChatbotComponent],
   template: `
     <router-outlet></router-outlet>
     <app-update-prompt></app-update-prompt>
     <app-global-loader></app-global-loader>
+    <app-chatbot></app-chatbot>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
