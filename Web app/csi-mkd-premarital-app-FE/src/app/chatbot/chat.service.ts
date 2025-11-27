@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { SessionDataService } from '../core/services/session-data.service';
+import { CreateUpdateSessionDto } from '../../api/api-main-app/models/create-update-session-dto';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -28,7 +30,10 @@ SERVICES OFFERED:
 
 KEY INFORMATION:
 - Current Director: Rev. Robin Mathew John (May 2025 - Present)
-- Location: Diocese of Madhya Kerala, CMS Press Compound, Kottayam-1
+- Location: CSI Counselling Centre, CMS Press Compound, Chalukunnu, Kottayam-1, Kerala, India – 686001
+- Contact Numbers: +91-8129778832, +91-9946033731
+- Email: csimkdmarry@gmail.com
+- Working Hours: Mon – Sat | 9:00 AM – 6:00 PM
 - Premarital counselling requires registration through the website
 - Three-day premarital camp held first Thursday to Saturday every month at CSI Retreat Centre Kottayam
 - The centre offers faith-sensitive, confidential counselling
@@ -43,16 +48,53 @@ REGISTRATION PROCESS:
 
 Be friendly, concise, and professional. If asked about something not in this context, politely say you're specifically focused on CSI Counselling Centre information and suggest contacting them directly.`;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private sessionDataService: SessionDataService
+  ) {}
 
   async sendMessage(userMessage: string, history: Message[]): Promise<string> {
+    // Fetch upcoming sessions
+    let sessionContext = '';
+    // Check if the user message contains keywords related to sessions
+    const includeSession = this.shouldIncludeSessionContext(userMessage);
+    console.log('Should include session context:', includeSession);
+
+    if (includeSession) {
+      try {
+        console.log('Fetching sessions...');
+        const sessions = await firstValueFrom(this.sessionDataService.fetchSessions()) as CreateUpdateSessionDto[];
+        console.log('Sessions fetched:', sessions);
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const upcomingSessions = sessions
+          .filter((s: CreateUpdateSessionDto) => s.startDate && new Date(s.startDate) >= today)
+          .sort((a: CreateUpdateSessionDto, b: CreateUpdateSessionDto) => new Date(a.startDate!).getTime() - new Date(b.startDate!).getTime())
+          .slice(0, 3); // Get top 3 upcoming sessions
+        
+        console.log('Upcoming sessions:', upcomingSessions);
+
+        if (upcomingSessions.length > 0) {
+          sessionContext = '\n\nUPCOMING SESSIONS:\n' + upcomingSessions.map((s: CreateUpdateSessionDto) => 
+            `- ${s.sessionName}: ${new Date(s.startDate!).toLocaleDateString()} to ${new Date(s.endDate!).toLocaleDateString()}`
+          ).join('\n');
+        } else {
+          sessionContext = '\n\nUPCOMING SESSIONS:\nNo upcoming sessions scheduled at the moment.';
+        }
+      } catch (error) {
+        console.error('Failed to fetch sessions for chatbot:', error);
+      }
+    }
+
     // Build conversation context
     const conversationHistory = history
       .slice(-6) // Keep last 6 messages for context
       .map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
       .join('\n');
 
-    const fullPrompt = `${this.systemContext}
+    const fullPrompt = `${this.systemContext}${sessionContext}
 
 Previous conversation:
 ${conversationHistory}
@@ -93,5 +135,14 @@ Assistant:`;
       console.error('Gemini API error:', error);
       throw new Error('Failed to get response from AI assistant');
     }
+  }
+
+  private shouldIncludeSessionContext(message: string): boolean {
+    const keywords = [
+      'session', 'class', 'date', 'schedule', 'upcoming', 'when', 
+      'register', 'premarital', 'camp', 'time', 'available', 'next'
+    ];
+    const lowerMessage = message.toLowerCase();
+    return keywords.some(keyword => lowerMessage.includes(keyword));
   }
 }

@@ -36,4 +36,20 @@ export class SessionDataService {
   refresh(): void {
     this.refreshTrigger.next();
   }
+
+  /**
+   * Fetches fresh session data directly from the API.
+   */
+  fetchSessions(): Observable<CreateUpdateSessionDto[]> {
+    return this.sessionsFallbackService.getAllSessions().pipe(
+      map((data: any) => {
+        const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+        return (parsed || []).sort((a: any, b: any) => b.id - a.id);
+      }),
+      catchError((err) => {
+        console.error('Failed to load sessions:', err);
+        return of([]);
+      })
+    );
+  }
 }
