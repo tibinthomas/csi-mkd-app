@@ -74,9 +74,7 @@
               <mat-icon>{{ message.role === 'user' ? 'person' : 'support_agent' }}</mat-icon>
             </div>
             <div class="message-content">
-              <div class="message-bubble">
-                {{ message.content }}
-              </div>
+              <div class="message-bubble" [innerHTML]="message.content | markdown"></div>
               <span class="message-time">
                 {{ message.timestamp | date:'shortTime' }}
               </span>

@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
 import { ChatService } from './chat.service';
+import { MarkdownPipe } from '../shared/pipes/markdown.pipe';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -25,6 +26,7 @@ interface Message {
     MatInputModule,
     MatProgressSpinnerModule,
     FormsModule,
+    MarkdownPipe,
   ],
   templateUrl: './chatbot.component.html',
   styleUrl: './chatbot.component.scss',
