@@ -1,4 +1,4 @@
-import { Component, signal, HostListener } from '@angular/core';
+import { Component, signal, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +28,7 @@ interface Message {
   ],
   templateUrl: './chatbot.component.html',
   styleUrl: './chatbot.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatbotComponent {
   readonly isOpen = signal(false);

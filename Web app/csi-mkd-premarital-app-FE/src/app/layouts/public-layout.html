@@ -10,9 +10,12 @@
       <!-- CSI Logo (Left of title) -->
       <div class="flex items-center transition-transform duration-300 hover:scale-105">
         <img
-          src="assets/csi-logo.png"
+          ngSrc="assets/csi-logo.avif"
           alt="CSI Church of South India Logo"
           class="h-8 w-auto max-w-[60px] object-contain"
+          width="60"
+          height="32"
+          priority
           role="img"
           appDoubleTap
           (doubleTap)="goToAdmin()"
@@ -35,9 +38,12 @@
       <!-- CSI MKD Logo (Right of title) -->
       <div class="flex items-center transition-transform duration-300 hover:scale-105">
         <img
-          src="assets/csi-mkd-logo.png"
+          ngSrc="assets/csi-mkd-logo.avif"
           alt="CSI Madhya Kerala Diocese Logo"
           class="h-8 w-auto max-w-[60px] object-contain"
+          width="60"
+          height="32"
+          priority
           role="img"
         />
       </div>

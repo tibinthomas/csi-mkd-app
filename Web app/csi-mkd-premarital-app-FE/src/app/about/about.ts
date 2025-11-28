@@ -65,18 +65,18 @@ export class About implements OnInit, OnDestroy {
     title: $localize`:@@CSI Counselling Centre Title:CSI Counselling Centre, Kottayam`,
     subtitle: $localize`:@@CSI Counselling Centre Subtitle:Healing Minds. Empowering Lives.`,
     location: $localize`:@@CSI Counselling Centre Location:Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1`,
-    backgroundImage: 'assets/who-we-are.png',
+    backgroundImage: 'assets/who-we-are.avif',
   };
 
   readonly whoWeAreContent = {
     title: $localize`:@@Who We Are Title:Who We Are`,
     description: $localize`:@@Who We Are Description:With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling. Our services are guided by a commitment to mental, emotional, and spiritual well-being.`,
-    image: 'assets/logo.png',
+    image: 'assets/logo.avif',
   };
 
   readonly services: readonly ServiceItem[] = [
     {
-      image: 'assets/individual.png',
+      image: 'assets/individual.avif',
       title: $localize`:@@Individual Counselling:Individual Counselling`,
       description: $localize`:@@Individual Counselling Description:Personal & online sessions for stress, anxiety, grief, and related challenges.`,
     },
@@ -86,27 +86,27 @@ export class About implements OnInit, OnDestroy {
       description: $localize`:@@Couple & Family Therapy description:Resolve conflicts and strengthen family relationships with professional guidance.`,
     },
     {
-      image: 'assets/child.png',
+      image: 'assets/child.avif',
       title: $localize`:@@Child & Adolescent Therapy:Child & Adolescent Therapy`,
       description: $localize`:@@Child & Adolescent Therapy description:Support for behavioral, academic, emotional development, and career guidance.`,
     },
     {
-      image: 'assets/psydiag.jpg',
+      image: 'assets/psydiag.avif',
       title: $localize`:@@Psychodiagnostics:Psychodiagnostics`,
       description: $localize`:@@Psychodiagnostics description:Assessments for learning difficulties, psychological testing, and career planning.`,
     },
     {
-      image: 'assets/premarital.jpeg',
+      image: 'assets/premarital.avif',
       title: $localize`:@@Premarital Counselling:Premarital Counselling`,
       description: $localize`:@@Premarital Counselling description:Three-day residential program to prepare couples for a strong and faithful marriage.`,
     },
     {
-      image: 'assets/confirm.png',
+      image: 'assets/confirm.avif',
       title: $localize`:@@Pre-confirmational Counselling:Pre-confirmational Counselling`,
       description: $localize`:@@Pre-confirmational Counselling description:A certified half/one day programme to guide and educate youth preparing for confirmation.`,
     },
     {
-      image: 'assets/shape.jpeg',
+      image: 'assets/shape.avif',
       title: $localize`:@@School & College Outreach Programmes:School & College Outreach Programmes`,
       subtitle: $localize`:@@School & College Outreach Programmes subtitle:S.H.A.P.E. - Student's Holistic and Pragmatic Empowerment`,
       description: $localize`:@@School & College Outreach Programmes description:Empowering individuals to ensure holistic wellbeing through counselling and other initiatives.`,

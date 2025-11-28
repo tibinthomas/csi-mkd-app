@@ -29,7 +29,9 @@ import { filter, map, switchMap } from 'rxjs';
     <router-outlet></router-outlet>
     <app-update-prompt></app-update-prompt>
     <app-global-loader></app-global-loader>
-    <app-chatbot></app-chatbot>
+    @defer (on idle) {
+      <app-chatbot></app-chatbot>
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
