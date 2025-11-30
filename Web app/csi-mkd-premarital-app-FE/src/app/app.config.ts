@@ -17,6 +17,7 @@ import {
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 
 import { ApiConfiguration as MainAppApiConfig } from '../api/api-main-app/api-configuration';
 import { ApiConfiguration as FunctionAppApiConfig } from '../api/api-functions/api-configuration';
@@ -32,6 +33,12 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
+    {
+      provide: IMAGE_LOADER,
+      useValue: (config: ImageLoaderConfig) => {
+        return config.src;
+      },
+    },
     provideHttpClient(
       withInterceptors([tokenInterceptor, rateLimitInterceptor])
     ),

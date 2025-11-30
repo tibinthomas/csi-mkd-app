@@ -33,7 +33,6 @@ import packageInfo from '../../../package.json';
     ThemeToggle,
     RouterLinkActive,
     DoubleTapDirective,
-    NgOptimizedImage,
   ],
   templateUrl: './public-layout.html',
 })

@@ -26,7 +26,6 @@ import { RouterOutlet } from '@angular/router';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    NgOptimizedImage,
     RouterOutlet,
     RouterLink,
   ],
