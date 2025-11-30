@@ -1,7 +1,7 @@
 /* Scroll to Top Button */
 .scroll-top-btn {
   position: fixed !important;
-  bottom: 2rem;
+  bottom: 9rem; // Positioned above chatbot (chatbot is at 2rem + 56px button = ~5rem, so 9rem gives clear space)
   right: 2rem;
   z-index: 9998;
   animation: slideInUp 0.3s ease-out;
@@ -10,6 +10,12 @@
   &:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  // Mobile responsive positioning to match chatbot
+  @media (max-width: 768px) {
+    bottom: 8rem; // Chatbot is at 1rem on mobile, so 8rem positions scroll button above it
+    right: 1rem; // Match chatbot's horizontal position on mobile
   }
 }
 
