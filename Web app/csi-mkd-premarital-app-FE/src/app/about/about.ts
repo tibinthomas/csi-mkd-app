@@ -65,7 +65,7 @@ export class About implements OnInit, OnDestroy {
     title: $localize`:@@CSI Counselling Centre Title:CSI Counselling Centre, Kottayam`,
     subtitle: $localize`:@@CSI Counselling Centre Subtitle:Healing Minds. Empowering Lives.`,
     location: $localize`:@@CSI Counselling Centre Location:Diocese of Madhya Kerala | CMS Press Compound, Kottayam-1`,
-    backgroundImage: 'assets/who-we-are.avif',
+    backgroundImage: '/assets/who-we-are.png',
   };
 
   readonly whoWeAreContent = {
