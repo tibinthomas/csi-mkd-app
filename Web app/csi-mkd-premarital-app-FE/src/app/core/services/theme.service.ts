@@ -13,7 +13,7 @@ export class ThemeService {
   private readonly isBrowser = isPlatformBrowser(this.platformId);
   private readonly analytics = inject(AnalyticsService);
   
-  private readonly _theme = signal<ThemeType>('system');
+  private readonly _theme = signal<ThemeType>('dark');
   private readonly _effectiveTheme = signal<EffectiveTheme>('light');
   private readonly _isTransitioning = signal(false);
   
@@ -87,8 +87,10 @@ export class ThemeService {
   }
   
   private initializeTheme(): void {
-    const savedTheme = this.loadThemePreference();
-    this._theme.set(savedTheme);
+    // Force dark theme for Christmas as it looks best with decorations
+    this._theme.set('dark');
+    // const savedTheme = this.loadThemePreference();
+    // this._theme.set(savedTheme);
   }
   
   private setupSystemThemeListener(): void {

@@ -20,12 +20,32 @@ import { ConsoleDetectionService } from './core/services/console-detection.servi
 import { UpdatePromptComponent } from './shared/components/update-prompt/update-prompt.component';
 import { GlobalLoaderComponent } from './shared/components/global-loader/global-loader.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
+import { ChristmasSnowComponent } from './shared/components/christmas-snow/christmas-snow.component';
+import { SantaSleighComponent } from './shared/components/santa-sleigh/santa-sleigh.component';
+import { ChristmasOrnamentsComponent } from './shared/components/christmas-ornaments/christmas-ornaments.component';
+import { CursorEffectsComponent } from './shared/components/cursor-effects/cursor-effects.component';
 import { filter, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, UpdatePromptComponent, GlobalLoaderComponent, ChatbotComponent],
+  imports: [
+    RouterOutlet,
+    UpdatePromptComponent,
+    GlobalLoaderComponent,
+    ChatbotComponent,
+    ChristmasSnowComponent,
+    SantaSleighComponent,
+    ChristmasOrnamentsComponent,
+    CursorEffectsComponent
+  ],
   template: `
+    <!-- Minimal Christmas Decorations -->
+    <app-christmas-snow></app-christmas-snow>
+    <app-santa-sleigh></app-santa-sleigh>
+    <app-christmas-ornaments></app-christmas-ornaments>
+    <app-cursor-effects></app-cursor-effects>
+    
+    <!-- Main App Content -->
     <router-outlet></router-outlet>
     <app-update-prompt></app-update-prompt>
     <app-global-loader></app-global-loader>
