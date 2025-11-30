@@ -37,6 +37,9 @@ export class ChatbotComponent {
   readonly isLoading = signal(false);
   readonly messages = signal<Message[]>([]);
   userInput = '';
+  
+  // Tooltip visibility
+  readonly showTooltip = signal(true);
 
   readonly suggestedQuestions = [
     'What services do you offer?',
@@ -48,10 +51,18 @@ export class ChatbotComponent {
   constructor(private chatService: ChatService) {
     // Load chat history from session storage
     this.loadChatHistory();
+    
+    // Hide tooltip after 8 seconds
+    setTimeout(() => {
+      this.showTooltip.set(false);
+    }, 8000);
   }
 
   toggleChat(): void {
     this.isOpen.update(value => !value);
+    if (this.isOpen()) {
+      this.showTooltip.set(false);
+    }
   }
 
   closeChat(): void {

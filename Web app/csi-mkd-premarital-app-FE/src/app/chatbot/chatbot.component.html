@@ -1,4 +1,11 @@
 <div class="chatbot-container">
+  <!-- Tooltip -->
+  @if (showTooltip() && !isOpen()) {
+    <div class="chat-tooltip">
+      👋 Click me for support!
+    </div>
+  }
+  
   <!-- Floating Chat Button -->
   <button
     class="chat-fab"
@@ -8,7 +15,7 @@
     [class.open]="isOpen()"
     aria-label="Open chat assistant"
   >
-    <mat-icon>{{ isOpen() ? 'close' : 'chat' }}</mat-icon>
+    <mat-icon>{{ isOpen() ? 'close' : 'support_agent' }}</mat-icon>
   </button>
 
   <!-- Chat Window -->
