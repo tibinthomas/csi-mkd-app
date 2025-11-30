@@ -21,7 +21,6 @@ import { UpdatePromptComponent } from './shared/components/update-prompt/update-
 import { GlobalLoaderComponent } from './shared/components/global-loader/global-loader.component';
 import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChristmasSnowComponent } from './shared/components/christmas-snow/christmas-snow.component';
-import { SantaSleighComponent } from './shared/components/santa-sleigh/santa-sleigh.component';
 import { ChristmasOrnamentsComponent } from './shared/components/christmas-ornaments/christmas-ornaments.component';
 import { CursorEffectsComponent } from './shared/components/cursor-effects/cursor-effects.component';
 import { filter, map, switchMap } from 'rxjs';
@@ -34,14 +33,12 @@ import { filter, map, switchMap } from 'rxjs';
     GlobalLoaderComponent,
     ChatbotComponent,
     ChristmasSnowComponent,
-    SantaSleighComponent,
     ChristmasOrnamentsComponent,
     CursorEffectsComponent
   ],
   template: `
     <!-- Minimal Christmas Decorations -->
     <app-christmas-snow></app-christmas-snow>
-    <app-santa-sleigh></app-santa-sleigh>
     <app-christmas-ornaments></app-christmas-ornaments>
     <app-cursor-effects></app-cursor-effects>
     
