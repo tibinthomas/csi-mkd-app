@@ -3044,6 +3044,14 @@
         <source>OK</source>
         <target>ശരി</target>
       </trans-unit>
+      <trans-unit id="Registration Notice Both Partners" datatype="html">
+        <source>Each individual (both partners) must complete their own separate registration form.</source>
+        <target>ഓരോ വ്യക്തിയും (രണ്ട് പങ്കാളികളും) സ്വന്തം പ്രത്യേക രജിസ്ട്രേഷൻ ഫോം പൂർത്തിയാക്കണം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
