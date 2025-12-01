@@ -3082,15 +3082,15 @@
       </trans-unit>
       <trans-unit id="Confidentiality Limit 1" datatype="html">
         <source><strong>Threat of Harm:</strong> If a counselor believes a participant is at risk of harming themselves or another person, they are legally and ethically obligated to intervene to ensure safety.</source>
-        <target><strong>ഉപദ്രവ ഭീഷണി:</strong> ഒരു പങ്കാളിക്ക് സ്വയം അല്ലെങ്കിൽ മറ്റൊരാൾക്ക് ഉപദ്രവം വരുത്താനുള്ള സാധ്യതയുണ്ടെന്ന് കൗൺസിലർ വിശ്വസിക്കുന്നുവെങ്കിൽ, സുരക്ഷ ഉറപ്പാക്കാൻ ഇടപെടാൻ അവർ നിയമപരമായും ധാർമ്മികമായും ബാധ്യതയുള്ളവരാണ്.</target>
+        <target>{$START_TAG_STRONG}ഉപദ്രവ ഭീഷണി:{$CLOSE_TAG_STRONG} ഒരു പങ്കാളിക്ക് സ്വയം അല്ലെങ്കിൽ മറ്റൊരാൾക്ക് ഉപദ്രവം വരുത്താനുള്ള സാധ്യതയുണ്ടെന്ന് കൗൺസിലർ വിശ്വസിക്കുന്നുവെങ്കിൽ, സുരക്ഷ ഉറപ്പാക്കാൻ ഇടപെടാൻ അവർ നിയമപരമായും ധാർമ്മികമായും ബാധ്യതയുള്ളവരാണ്.</target>
       </trans-unit>
       <trans-unit id="Confidentiality Limit 2" datatype="html">
         <source><strong>Abuse or Neglect:</strong> Suspicions of child, elder, or dependent adult abuse or neglect must be reported to the appropriate authorities.</source>
-        <target><strong>ദുരുപയോഗം അല്ലെങ്കിൽ അവഗണന:</strong> കുട്ടികൾ, മുതിർന്നവർ, അല്ലെങ്കിൽ ആശ്രിത മുതിർന്നവരെ ദുരുപയോഗം ചെയ്യുകയോ അവഗണിക്കുകയോ ചെയ്യുന്നതായി സംശയിക്കപ്പെടുന്നവ ഉചിതമായ അധികാരികൾക്ക് റിപ്പോർട്ട് ചെയ്യണം.</target>
+        <target>{$START_TAG_STRONG}ദുരുപയോഗം അല്ലെങ്കിൽ അവഗണന:{$CLOSE_TAG_STRONG} കുട്ടികൾ, മുതിർന്നവർ, അല്ലെങ്കിൽ ആശ്രിത മുതിർന്നവരെ ദുരുപയോഗം ചെയ്യുകയോ അവഗണിക്കുകയോ ചെയ്യുന്നതായി സംശയിക്കപ്പെടുന്നവ ഉചിതമായ അധികാരികൾക്ക് റിപ്പോർട്ട് ചെയ്യണം.</target>
       </trans-unit>
       <trans-unit id="Confidentiality Limit 3" datatype="html">
         <source><strong>Court Order:</strong> If a court orders the release of records, the counselor must comply.</source>
-        <target><strong>കോടതി ഉത്തരവ്:</strong> രേഖകൾ പുറത്തുവിടാൻ കോടതി ഉത്തരവിട്ടാൽ, കൗൺസിലർ അനുസരിക്കണം.</target>
+        <target>{$START_TAG_STRONG}കോടതി ഉത്തരവ്:{$CLOSE_TAG_STRONG} രേഖകൾ പുറത്തുവിടാൻ കോടതി ഉത്തരവിട്ടാൽ, കൗൺസിലർ അനുസരിക്കണം.</target>
       </trans-unit>
       <trans-unit id="Group Privacy Text" datatype="html">
         <source>In group settings, we ask all participants to respect the privacy of others and maintain confidentiality by not sharing what is discussed outside of the group.</source>
@@ -3110,23 +3110,23 @@
       </trans-unit>
       <trans-unit id="Camp Policy 4" datatype="html">
         <source><strong>Attendance:</strong> Full participation in all scheduled sessions and activities is expected to get the most out of the experience.</source>
-        <target><strong>ഹാജർ:</strong> അനുഭവത്തിൽ നിന്ന് പരമാവധി പ്രയോജനം നേടുന്നതിന് ഷെഡ്യൂൾ ചെയ്ത എല്ലാ സെഷനുകളിലും പ്രവർത്തനങ്ങളിലും പൂർണ്ണമായി പങ്കെടുക്കേണ്ടത് പ്രതീക്ഷിക്കുന്നു.</target>
+        <target>{$START_TAG_STRONG}ഹാജർ:{$CLOSE_TAG_STRONG} അനുഭവത്തിൽ നിന്ന് പരമാവധി പ്രയോജനം നേടുന്നതിന് ഷെഡ്യൂൾ ചെയ്ത എല്ലാ സെഷനുകളിലും പ്രവർത്തനങ്ങളിലും പൂർണ്ണമായി പങ്കെടുക്കേണ്ടത് പ്രതീക്ഷിക്കുന്നു.</target>
       </trans-unit>
       <trans-unit id="Camp Policy 5" datatype="html">
         <source><strong>Fees:</strong> The cost for the premarital counseling camp is fixed as per the decision of core committee of the CSI COUNSELLING CENTER KOTTAYAM. This fee covers all workshops, materials, food, stay and if any private session with a counselor. Payment should be done in full at the registration office before commencement of the camp.</source>
-        <target><strong>ഫീസ്:</strong> പ്രീമാരിറ്റൽ കൗൺസിലിംഗ് ക്യാമ്പിന്റെ ചെലവ് CSI കൗൺസിലിംഗ് സെന്റർ കോട്ടയത്തിന്റെ കോർ കമ്മിറ്റി തീരുമാനപ്രകാരം നിശ്ചയിച്ചിരിക്കുന്നു. ഈ ഫീസിൽ എല്ലാ വർക്ക്‌ഷോപ്പുകൾ, സാമഗ്രികൾ, ഭക്ഷണം, താമസം, കൗൺസിലറുമായുള്ള എന്തെങ്കിലും സ്വകാര്യ സെഷൻ എന്നിവ ഉൾപ്പെടുന്നു. ക്യാമ്പ് ആരംഭിക്കുന്നതിന് മുമ്പ് രജിസ്ട്രേഷൻ ഓഫീസിൽ പൂർണമായി പേമെന്റ് നടത്തണം.</target>
+        <target>{$START_TAG_STRONG}ഫീസ്:{$CLOSE_TAG_STRONG} പ്രീമാരിറ്റൽ കൗൺസിലിംഗ് ക്യാമ്പിന്റെ ചെലവ് CSI കൗൺസിലിംഗ് സെന്റർ കോട്ടയത്തിന്റെ കോർ കമ്മിറ്റി തീരുമാനപ്രകാരം നിശ്ചയിച്ചിരിക്കുന്നു. ഈ ഫീസിൽ എല്ലാ വർക്ക്‌ഷോപ്പുകൾ, സാമഗ്രികൾ, ഭക്ഷണം, താമസം, കൗൺസിലറുമായുള്ള എന്തെങ്കിലും സ്വകാര്യ സെഷൻ എന്നിവ ഉൾപ്പെടുന്നു. ക്യാമ്പ് ആരംഭിക്കുന്നതിന് മുമ്പ് രജിസ്ട്രേഷൻ ഓഫീസിൽ പൂർണമായി പേമെന്റ് നടത്തണം.</target>
       </trans-unit>
       <trans-unit id="Camp Policy 6" datatype="html">
         <source><strong>Cancellation Policy:</strong> Cancellations made at least 1 week before the start of the camp. No refunds will be issued for cancellations made after this date.</source>
-        <target><strong>റദ്ദാക്കൽ നയം:</strong> ക്യാമ്പ് ആരംഭിക്കുന്നതിന് ഒരാഴ്ച മുമ്പെങ്കിലും റദ്ദാക്കൽ ചെയ്യണം. ഈ തീയതിക്ക് ശേഷം ചെയ്യുന്ന റദ്ദാക്കലുകൾക്ക് റീഫണ്ട് നൽകില്ല.</target>
+        <target>{$START_TAG_STRONG}റദ്ദാക്കൽ നയം:{$CLOSE_TAG_STRONG} ക്യാമ്പ് ആരംഭിക്കുന്നതിന് ഒരാഴ്ച മുമ്പെങ്കിലും റദ്ദാക്കൽ ചെയ്യണം. ഈ തീയതിക്ക് ശേഷം ചെയ്യുന്ന റദ്ദാക്കലുകൾക്ക് റീഫണ്ട് നൽകില്ല.</target>
       </trans-unit>
       <trans-unit id="Participant Rights Text" datatype="html">
         <source><strong>Your Rights:</strong> You have the right to ask questions about the counseling process, to decide what you wish to share in the camp at any time.</source>
-        <target><strong>നിങ്ങളുടെ അവകാശങ്ങൾ:</strong> കൗൺസിലിംഗ് പ്രക്രിയയെക്കുറിച്ച് ചോദ്യങ്ങൾ ചോദിക്കാനും ക്യാമ്പിൽ എപ്പോൾ വേണമെങ്കിലും എന്ത് പങ്കിടണമെന്ന് തീരുമാനിക്കാനും നിങ്ങൾക്ക് അവകാശമുണ്ട്.</target>
+        <target>{$START_TAG_STRONG}നിങ്ങളുടെ അവകാശങ്ങൾ:{$CLOSE_TAG_STRONG} കൗൺസിലിംഗ് പ്രക്രിയയെക്കുറിച്ച് ചോദ്യങ്ങൾ ചോദിക്കാനും ക്യാമ്പിൽ എപ്പോൾ വേണമെങ്കിലും എന്ത് പങ്കിടണമെന്ന് തീരുമാനിക്കാനും നിങ്ങൾക്ക് അവകാശമുണ്ട്.</target>
       </trans-unit>
       <trans-unit id="Participant Responsibilities Text" datatype="html">
         <source><strong>Your Responsibilities:</strong> To ensure a successful experience, we ask that you commit to active and open participation, treating all counselors and fellow participants with respect, and being willing to explore difficult topics honestly with your partner.</source>
-        <target><strong>നിങ്ങളുടെ ഉത്തരവാദിത്തങ്ങൾ:</strong> വിജയകരമായ അനുഭവം ഉറപ്പാക്കാൻ, സജീവവും തുറന്നതുമായ പങ്കാളിത്തത്തിന് പ്രതിബദ്ധത പുലർത്താനും എല്ലാ കൗൺസിലർമാരോടും സഹപങ്കാളികളോടും ബഹുമാനത്തോടെ പെരുമാറാനും നിങ്ങളുടെ പങ്കാളിയുമായി പ്രയാസകരമായ വിഷയങ്ങൾ സത്യസന്ധമായി പര്യവേക്ഷണം ചെയ്യാൻ തയ്യാറാകാനും ഞങ്ങൾ അഭ്യർത്ഥിക്കുന്നു.</target>
+        <target>{$START_TAG_STRONG}നിങ്ങളുടെ ഉത്തരവാദിത്തങ്ങൾ:{$CLOSE_TAG_STRONG} വിജയകരമായ അനുഭവം ഉറപ്പാക്കാൻ, സജീവവും തുറന്നതുമായ പങ്കാളിത്തത്തിന് പ്രതിബദ്ധത പുലർത്താനും എല്ലാ കൗൺസിലർമാരോടും സഹപങ്കാളികളോടും ബഹുമാനത്തോടെ പെരുമാറാനും നിങ്ങളുടെ പങ്കാളിയുമായി പ്രയാസകരമായ വിഷയങ്ങൾ സത്യസന്ധമായി പര്യവേക്ഷണം ചെയ്യാൻ തയ്യാറാകാനും ഞങ്ങൾ അഭ്യർത്ഥിക്കുന്നു.</target>
       </trans-unit>
       <trans-unit id="3635469598435729056" datatype="html">
         <source>WhatsApp Number</source>
