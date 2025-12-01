@@ -501,6 +501,182 @@
           <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Our Journey Title" datatype="html">
+        <source>Our Journey</source>
+        <target>ഞങ്ങളുടെ യാത്ര</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Leadership Legacy Title" datatype="html">
+        <source>Leadership Legacy</source>
+        <target>നേതൃത്വ പാരമ്പര്യം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.html</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 1" datatype="html">
+        <source>The Beginning</source>
+        <target>തുടക്കം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">161</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 1" datatype="html">
+        <source>To have a pre-marital counselling centre for the CSI Diocese of Madhya Kerala was a felt need addressed at the Diocesan Council meeting of 2006, which was reinforced in the 2007 session. Concrete steps towards this came up with the Bishop Rt. Rev. Thomas Samuel calling up a meeting of counsellors in December 2007. The first major decision was to organise one-day, pre-marital counselling classes in all the twelve clergy districts. The first programme was conducted at the Kottayam clergy district, which was inaugurated by the Diocesan Bishop at Manganam St. John's CSI Church on 19 January 2008.</source>
+        <target>സി.എസ്.ഐ മദ്ധ്യകേരള മഹായിടവകയ്ക്ക് വിവാഹത്തിനു മുൻപുള്ള കൗൺസിലിംഗ് സെന്റർ സ്ഥാപിക്കേണ്ടതിന്റെ ആവശ്യകത 2006-ലെ മഹായിടവക കൗൺസിലിൽ അവതരിപ്പിക്കപ്പെട്ടു, ഇത് 2007-ലെ സെഷനിൽ കൂടുതൽ ശക്തമായി. 2007 ഡിസംബറിൽ ബിഷപ്പ് റെവ. തോമസ് സാമുവേൽ കൗൺസിലർമാരുടെ ഒരു യോഗം വിളിച്ചതോടെ ഇതിനുള്ള മൂർത്‌തമായ നടപടികൾ ആരംഭിച്ചു. എല്ലാ പന്ത്രണ്ട് പാസ്റ്ററേറ്റുകളിലും ഒരു ദിവസത്തെ വിവാഹത്തിനു മുൻപുള്ള കൗൺസിലിംഗ് ക്ലാസുകൾ സംഘടിപ്പിക്കുക എന്നതായിരുന്നു ആദ്യത്തെ പ്രധാന തീരുമാനം. ആദ്യ പരിപാടി കോട്ടയം പാസ്റ്ററേറ്റിൽ നടത്തി, 2008 ജനുവരി 19-ന് മംഗണം സെന്റ് ജോൺസ് സി.എസ്.ഐ പള്ളിയിൽ മഹായിടവക ബിഷപ്പ് ഉദ്ഘാടനം ചെയ്തു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">162</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 2" datatype="html">
+        <source>Growing Momentum</source>
+        <target>വളരുന്ന ഉത്സാഹം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">166</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 2" datatype="html">
+        <source>In the premarital counselling conducted at Kottayam 125 people attended, while the momentum at the Ettumanoor Clergy District premarital programme was a milestone which saw more than 300 young men and women in attendance. This was then soon spread to other clergy districts too.</source>
+        <target>കോട്ടയത്ത് നടത്തിയ വിവാഹത്തിനു മുൻപുള്ള കൗൺസിലിംഗിൽ 125 പേർ പങ്കെടുത്തു, എന്നാൽ ഏറ്റുമാനൂർ പാസ്റ്ററേറ്റിലെ പ്രീമാരിറ്റൽ പ്രോഗ്രാമിന്റെ ഉത്സാഹം ഒരു നാഴികക്കല്ലായിരുന്നു, അതിൽ 300-ലധികം യുവാക്കളും യുവതികളും പങ്കെടുത്തു. ഇത് പിന്നീട് മറ്റ് പാസ്റ്ററേറ്റുകളിലേക്കും വ്യാപിച്ചു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 3" datatype="html">
+        <source>Residential Camps</source>
+        <target>റെസിഡൻഷ്യൽ ക്യാമ്പുകൾ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 3" datatype="html">
+        <source>In the initial years, the counselling sessions were organised under the auspices of the Bishop Mani Theological Institute, with the participants given BMTI certification. Introduction of two-day residential Pre-Marital camp was a meaningful progress, with three such programmes organised in 2008. From January 2009 onwards, camps organised by BMTI were held every month at the Kottayam CSI Retreat Centre. And the numbers attending these camps came up to even 100.</source>
+        <target>പ്രാരംഭ വർഷങ്ങളിൽ, കൗൺസിലിംഗ് സെഷനുകൾ ബിഷപ്പ് മണി തിയോളജിക്കൽ ഇൻസ്റ്റിറ്റ്യൂട്ടിന്റെ കീഴിൽ സംഘടിപ്പിച്ചു, പങ്കെടുക്കുന്നവർക്ക് BMTI സർട്ടിഫിക്കേഷൻ നൽകി. രണ്ട് ദിവസത്തെ റെസിഡൻഷ്യൽ പ്രീ-മാരിറ്റൽ ക്യാമ്പിന്റെ ആമുഖം അർത്ഥവത്തായ പുരോഗതിയായിരുന്നു, 2008-ൽ അത്തരം മൂന്ന് പരിപാടികൾ സംഘടിപ്പിച്ചു. 2009 ജനുവരി മുതൽ, BMTI സംഘടിപ്പിച്ച ക്യാമ്പുകൾ കോട്ടയം CSI റിട്രീറ്റ് സെന്ററിൽ എല്ലാ മാസവും നടന്നു. ഈ ക്യാമ്പുകളിൽ പങ്കെടുക്കുന്നവരുടെ എണ്ണം 100 വരെ എത്തി.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">172</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 4" datatype="html">
+        <source>Official Inauguration</source>
+        <target>ഔദ്യോഗിക ഉദ്ഘാടനം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 4" datatype="html">
+        <source>The inauguration of the CSI Counselling Centre was conducted by the Diocesan Bishop Rt. Rev. Thomas K Oommen on the Diocesan Day 25 July 2011. The Centre was housed in the CMS Press compound. Three-day camps commenced in 2011; the first newsletter "Insight" came out in 2012. The same year saw the publication of the book "Vadhoovaranmaarude Gurukulam" (Couples' Academic Sanctuary).</source>
+        <target>CSI കൗൺസിലിംഗ് സെന്ററിന്റെ ഉദ്ഘാടനം 2011 ജൂലൈ 25-ന് മഹായിടവക ദിനത്തിൽ മഹായിടവക ബിഷപ്പ് റെവ. തോമസ് കെ. ഊമ്മൻ നടത്തി. സെന്റർ CMS പ്രസ്സ് കോമ്പൗണ്ടിൽ പ്രവർത്തിച്ചു. മൂന്ന് ദിവസത്തെ ക്യാമ്പുകൾ 2011-ൽ ആരംഭിച്ചു; ആദ്യത്തെ ന്യൂസ്‌ലെറ്റർ "ഇൻസൈറ്റ്" 2012-ൽ പുറത്തിറങ്ങി. അതേ വർഷം തന്നെ "വധൂവരന്മാരുടെ ഗുരുകുലം" എന്ന പുസ്തകം പ്രസിദ്ധീകരിച്ചു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 5" datatype="html">
+        <source>Expansion &amp; Relocation</source>
+        <target>വിപുലീകരണവും സ്ഥലംമാറ്റവും</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">181</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 5" datatype="html">
+        <source>Two pre-marital counselling courses were conducted every month from 2014 onwards. The second segment of the three-day camp commenced in January 2014 at Bethel Ashramam, Varikkad (Thiruvalla), which was to happen from the third Thursday to Saturday of each month. From 2017, this was relocated to the Eco-spirituality Centre, Othera. In 2024 the three-day premarital camp was fixed to conducted only in the first Thursday to Saturday every month at CSI retreat centre Kottayam.</source>
+        <target>2014 മുതൽ എല്ലാ മാസവും രണ്ട് വിവാഹത്തിനു മുൻപുള്ള കൗൺസിലിംഗ് കോഴ്‌സുകൾ നടത്തി. മൂന്ന് ദിവസത്തെ ക്യാമ്പിന്റെ രണ്ടാം ഭാഗം 2014 ജനുവരിയിൽ ബെഥേൽ ആശ്രമത്തിൽ, വരിക്കാട് (തിരുവല്ല) ആരംഭിച്ചു, ഇത് എല്ലാ മാസവും മൂന്നാം വ്യാഴാഴ്ച മുതൽ ശനിയാഴ്ച വരെ നടക്കുകയായിരുന്നു. 2017 മുതൽ, ഇത് ഓത്തേര ഇക്കോ-സ്പിരിച്വാലിറ്റി സെന്ററിലേക്ക് മാറ്റി. 2024-ൽ മൂന്ന് ദിവസത്തെ പ്രീമാരിറ്റൽ ക്യാമ്പ് എല്ലാ മാസവും ആദ്യത്തെ വ്യാഴാഴ്ച മുതൽ ശനിയാഴ്ച വരെ മാത്രം CSI റിട്രീറ്റ് സെന്റർ കോട്ടയത്ത് നടത്താൻ നിശ്ചയിച്ചു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">182</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 6" datatype="html">
+        <source>Community Outreach</source>
+        <target>കമ്മ്യൂണിറ്റി ഔട്ട്റീച്ച്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">186</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 6" datatype="html">
+        <source>The centre started Counselling with focus on individuals, schools and communities with classes in ten selected schools. Regular programmes were organised at the Kottayam CNI TTI and Baker Memorial Girls Higher Secondary School. In 2019-21 introduced The SHAPE (Students' Holistic and Pragmatic Empowerment) programme as the students' empowerment programme.</source>
+        <target>പത്ത് തിരഞ്ഞെടുത്ത സ്‌കൂളുകളിൽ ക്ലാസുകളോടെ വ്യക്തികൾ, സ്കൂളുകൾ, കമ്മ്യൂണിറ്റികൾ എന്നിവയിൽ ശ്രദ്ധ കേന്ദ്രീകരിച്ച് സെന്റർ കൗൺസിലിംഗ് ആരംഭിച്ചു. കോട്ടയം CNI TTI യിലും ബേക്കർ മെമ്മോറിയൽ ഗേൾസ് ഹയർ സെക്കണ്ടറി സ്‌കൂളിലും പതിവ് പരിപാടികൾ സംഘടിപ്പിച്ചു. 2019-21-ൽ വിദ്യാർത്ഥി ശാക്തീകരണ പരിപാടിയായി SHAPE (Students' Holistic and Pragmatic Empowerment) പരിപാടി അവതരിപ്പിച്ചു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">187</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 7" datatype="html">
+        <source>Academic Partnership</source>
+        <target>അക്കാദമിക് പങ്കാളിത്തം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">191</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 7" datatype="html">
+        <source>From 11th August 2025 onwards, a joint venture between the CSI Counseling Centre, Kottayam, under the SHAPE (Students Holistic and Pragmatic Empowerment) Project, and the Department of Psychology, Baker College for Women, Kottayam inaugurated an Add-On Programme in Counselling Psychology.</source>
+        <target>2025 ഓഗസ്റ്റ് 11 മുതൽ, SHAPE (Students Holistic and Pragmatic Empowerment) പദ്ധതിയുടെ കീഴിലുള്ള CSI കൗൺസിലിംഗ് സെന്റർ, കോട്ടയവും ബേക്കർ കോളേജ് ഫോർ വിമൻ, കോട്ടയത്തെ സൈക്കോളജി വകുപ്പും തമ്മിലുള്ള സംയുക്ത സംരംഭം കൗൺസിലിംഗ് സൈക്കോളജിയിൽ ഒരു ആഡ്-ഓൺ പ്രോഗ്രാം ഉദ്ഘാടനം ചെയ്തു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">192</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 8" datatype="html">
+        <source>Digital Transformation</source>
+        <target>ഡിജിറ്റൽ പരിവർത്തനം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 8" datatype="html">
+        <source>On 6 September 2025, inauguration of our Counselling Centre web app by the esteemed Bishop, the Rt. Revd. Dr. Malayil Sabu Koshy Cherian. Where the new digital platform greatly enhance ability to provide ease to registration and accessible support.</source>
+        <target>2025 സെപ്തംബർ 6-ന്, ബഹുമാനപ്പെട്ട ബിഷപ്പ്, റെവ. ഡോ. മലയിൽ സാബു കോശി ചെറിയാൻ ഞങ്ങളുടെ കൗൺസിലിംഗ് സെന്റർ വെബ് ആപ്പ് ഉദ്ഘാടനം ചെയ്തു. പുതിയ ഡിജിറ്റൽ പ്ലാറ്റ്‌ഫോം രജിസ്ട്രേഷനും ആക്‌സസ് ചെയ്യാവുന്ന പിന്തുണയും എളുപ്പത്തിൽ നൽകാനുള്ള കഴിവ് വളരെയധികം വർദ്ധിപ്പിക്കുന്നു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">197</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 9" datatype="html">
+        <source>Pre-confirmational Counselling</source>
+        <target>പ്രീ-കൺഫർമേഷണൽ കൗൺസിലിംഗ്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">201</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 9" datatype="html">
+        <source>The inaugural Pre-confirmational Counselling session was successfully held at St. Thomas CSI Church, Kollam, on October 18, 2025. A total of 14 candidates participated and greatly benefitted from the guidance. Which followed by other churches of our diocese. The Pre-confirmational Counselling focuses on equipping our teenagers who are preparing for confirmation with essential life skills. The unique counselling program goes beyond the doctrines to focus on Self-Awareness, Healthy Friendships, Healthy relationships and Future Orientation. It gives our teen the tools they need to live their faith powerfully in a changing world.</source>
+        <target>ഉദ്ഘാടന പ്രീ-കൺഫർമേഷണൽ കൗൺസിലിംഗ് സെഷൻ 2025 ഒക്ടോബർ 18-ന് കൊല്ലം സെന്റ് തോമസ് CSI ചർച്ചിൽ വിജയകരമായി നടന്നു. ആകെ 14 സ്ഥാനാർത്ഥികൾ പങ്കെടുക്കുകയും മാർഗനിർദേശത്തിൽ നിന്ന് വളരെയധികം പ്രയോജനം നേടുകയും ചെയ്തു. ഇത് നമ്മുടെ മഹായിടവകയിലെ മറ്റ് പള്ളികളിലും തുടർന്നു. പ്രീ-കൺഫർമേഷണൽ കൗൺസിലിംഗ് സ്ഥിരീകരണത്തിനായി തയ്യാറെടുക്കുന്ന നമ്മുടെ കൗമാരക്കാരെ അവശ്യ ജീവിത കഴിവുകളിൽ സജ്ജരാക്കുന്നതിൽ ശ്രദ്ധ കേന്ദ്രീകരിക്കുന്നു. അതുല്യമായ കൗൺസിലിംഗ് പ്രോഗ്രാം സിദ്ധാന്തങ്ങൾക്ക് അപ്പുറം പോയി സ്വയം അവബോധം, ആരോഗ്യകരമായ സൗഹൃദങ്ങൾ, ആരോഗ്യകരമായ ബന്ധങ്ങൾ, ഭാവി ആഭിമുഖ്യം എന്നിവയിൽ ശ്രദ്ധ കേന്ദ്രീകരിക്കുന്നു. മാറിക്കൊണ്ടിരിക്കുന്ന ലോകത്ത് അവരുടെ വിശ്വാസം ശക്തമായി ജീവിക്കാൻ ആവശ്യമായ ഉപകരണങ്ങൾ ഇത് നമ്മുടെ കൗമാരക്കാർക്ക് നൽകുന്നു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">202</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Title 10" datatype="html">
+        <source>Continuing the Mission</source>
+        <target>ദൗത്യം തുടരുന്നു</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="History Paragraph 10" datatype="html">
+        <source>The Diocesan Counselling Centre continues its ministry as a guide and support to many, acting as a mentoring space for couples and individuals, thus attempting to fulfil its call to counsel to the mind and care for the soul.</source>
+        <target>മഹായിടവക കൗൺസിലിംഗ് സെന്റർ പലർക്കും വഴികാട്ടിയും പിന്തുണയും ആയി അതിന്റെ ശുശ്രൂഷ തുടരുന്നു, ദമ്പതികൾക്കും വ്യക്തികൾക്കും ഒരു മെന്ററിംഗ് ഇടമായി പ്രവർത്തിച്ചുകൊണ്ട്, മനസ്സിനെ കൗൺസിൽ ചെയ്യാനും ആത്മാവിനെ പരിപാലിക്കാനും ഉള്ള അതിന്റെ ആഹ്വാനം പൂർത്തീകരിക്കാൻ ശ്രമിക്കുന്നു.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/about/about.ts</context>
+          <context context-type="linenumber">207</context>
+        </context-group>
+      </trans-unit>
 <trans-unit id="5988282777895538729" datatype="html">
         <source>📍 Visit Us</source>
         <target>📍ഞങ്ങളെ സന്ദർശിക്കുക</target>
