@@ -42,9 +42,9 @@ import { FormsModule } from '@angular/forms';
       <mat-dialog-content class="consent-content">
         <!-- Premarital Counseling Section -->
         <section class="consent-section">
-          <h4>Informed Consent for Premarital Counseling Camp</h4>
+          <h4 i18n="@@Premarital Consent Title">Informed Consent for Premarital Counseling Camp</h4>
 
-          <h5>1. Nature and Goals of Premarital Counseling</h5>
+          <h5 i18n="@@Premarital Section 1 Title">1. Nature and Goals of Premarital Counseling</h5>
           <p>
             This premarital counseling camp is a structured program by CSI
             MADHYA KERALA DIOCESE designed to help couples build a strong,
@@ -66,7 +66,7 @@ import { FormsModule } from '@angular/forms';
             issues.
           </p>
 
-          <h5>2. Confidentiality and Its Limits</h5>
+          <h5 i18n="@@Premarital Section 2 Title">2. Confidentiality and Its Limits</h5>
           <p>
             Confidentiality is a cornerstone of our work. Everything you share
             in your private sessions with a counselor will remain confidential.
@@ -95,7 +95,7 @@ import { FormsModule } from '@angular/forms';
             outside of the group.
           </p>
 
-          <h5>3. Camp Policies and Fees</h5>
+          <h5 i18n="@@Premarital Section 3 Title">3. Camp Policies and Fees</h5>
           <ul>
             <li>
               You have to attend the premarital counselling starts on Thursday
@@ -129,7 +129,7 @@ import { FormsModule } from '@angular/forms';
             </li>
           </ul>
 
-          <h5>4. Participant Rights and Responsibilities</h5>
+          <h5 i18n="@@Premarital Section 4 Title">4. Participant Rights and Responsibilities</h5>
           <p>
             <strong>Your Rights:</strong> You have the right to ask questions
             about the counseling process, to decide what you wish to share in
@@ -143,12 +143,12 @@ import { FormsModule } from '@angular/forms';
             partner.
           </p>
 
-          <h5>Consent and Agreement</h5>
+          <h5 i18n="@@Consent And Agreement Title">Consent and Agreement</h5>
           <p>
-            I hereby make my full consent that I have read and fully understand 
+            <span i18n="@@Consent Agreement Text">I hereby make my full consent that I have read and fully understand 
             the information provided in this consent form. I voluntarily agree 
             to participate in the premarital counseling camp and commit to the 
-            policies and responsibilities outlined above.
+            policies and responsibilities outlined above.</span>
           </p>
         </section>
 
@@ -161,7 +161,7 @@ import { FormsModule } from '@angular/forms';
                 color="primary"
                 class="consent-checkbox"
               >
-                <span class="checkbox-label">
+                <span class="checkbox-label" i18n="@@Informed Consent Agreement Checkbox">
                   I have read and agree to the Informed Consent and Counseling
                   Agreement
                 </span>
@@ -175,7 +175,7 @@ import { FormsModule } from '@angular/forms';
                 [disabled]="!agreed"
                 type="button"
               >
-                OK
+                <ng-container i18n="@@Counseling OK Button">OK</ng-container>
               </button>
             </div>
           </div>
@@ -303,7 +303,7 @@ export class InformedConsentDialogComponent {
   template: `
     <div class="consent-link-section">
       <a href="#" (click)="openConsentDialog($event)" class="consent-link">
-        Read and Accept Informed Consent and Counselling Agreement
+        <span i18n="@@Informed Consent Link Text">Read and Accept Informed Consent and Counselling Agreement</span>
       </a>
     </div>
   `,

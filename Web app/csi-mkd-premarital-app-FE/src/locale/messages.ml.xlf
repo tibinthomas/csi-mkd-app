@@ -1385,7 +1385,15 @@
         <target>സെഷൻസ് </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Premarital Nav Text" datatype="html">
+        <source>Premarital</source>
+        <target>പ്രീമാരിറ്റൽ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1842559488621738609" datatype="html">
@@ -2926,6 +2934,115 @@
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
           <context context-type="linenumber">9,10</context>
         </context-group>
+      </trans-unit>
+      <!-- Informed Consent Translations -->
+      <trans-unit id="Informed Consent Link Text" datatype="html">
+        <source>Read and Accept Informed Consent and Counselling Agreement</source>
+        <target>അറിവോടെയുള്ള സമ്മതവും കൗൺസിലിംഗ് കരാറും വായിച്ച് അംഗീകരിക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/informed-consent/informed-consent.ts</context>
+          <context context-type="linenumber">306</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/counseling-consent/counseling-consent.ts</context>
+          <context context-type="linenumber">297</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Informed Consent Agreement Checkbox" datatype="html">
+        <source>I have read and agree to the Informed Consent and Counseling Agreement</source>
+        <target>അറിവോടെയുള്ള സമ്മതവും കൗൺസിലിംഗ് കരാറും ഞാൻ വായിച്ചു, അതിനോട് യോജിക്കുന്നു</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/informed-consent/informed-consent.ts</context>
+          <context context-type="linenumber">165-166</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/counseling-consent/counseling-consent.ts</context>
+          <context context-type="linenumber">157</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Consent Error Message" datatype="html">
+        <source>You must read and agree to the Informed Consent and Counseling Agreement.</source>
+        <target>അറിവോടെയുള്ള സമ്മതവും കൗൺസിലിംഗ് കരാറും വായിച്ച് അംഗീകരിക്കണം.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">457</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/general-register/general-register.html</context>
+          <context context-type="linenumber">250</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Premarital Consent Title" datatype="html">
+        <source>Informed Consent for Premarital Counseling Camp</source>
+        <target>വിവാഹത്തിനു മുൻപുള്ള കൗൺസിലിംഗ് ക്യാമ്പിന് അറിവോടെയുള്ള സമ്മതം</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/informed-consent/informed-consent.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="General Counseling Consent Title" datatype="html">
+        <source>Informed Consent and Intake Form</source>
+        <target>അറിവോടെയുള്ള സമ്മത ഫോമും രജിസ്ട്രേഷൻ ഫോമും</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/counseling-consent/counseling-consent.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="Premarital Section 1 Title" datatype="html">
+        <source>1. Nature and Goals of Premarital Counseling</source>
+        <target>1. പ്രീമാരിറ്റൽ കൗൺസിലിംഗിന്റെ സ്വഭാവവും ലക്ഷ്യങ്ങളും</target>
+      </trans-unit>
+      <trans-unit id="Premarital Section 2 Title" datatype="html">
+        <source>2. Confidentiality and Its Limits</source>
+        <target>2. രഹസ്യസ്വഭാവവും അതിന്റെ പരിധികളും</target>
+      </trans-unit>
+      <trans-unit id="Premarital Section 3 Title" datatype="html">
+        <source>3. Camp Policies and Fees</source>
+        <target>3. ക്യാമ്പ് നയങ്ങളും ഫീസും</target>
+      </trans-unit>
+      <trans-unit id="Premarital Section 4 Title" datatype="html">
+        <source>4. Participant Rights and Responsibilities</source>
+        <target>4. പങ്കെടുക്കുന്നവരുടെ അവകാശങ്ങളും ഉത്തരവാദിത്തങ്ങളും</target>
+      </trans-unit>
+      <trans-unit id="Consent And Agreement Title" datatype="html">
+        <source>Consent and Agreement</source>
+        <target>സമ്മതവും കരാറും</target>
+      </trans-unit>
+      <trans-unit id="Consent Agreement Text" datatype="html">
+        <source>I hereby make my full consent that I have read and fully understand the information provided in this consent form. I voluntarily agree to participate in the premarital counseling camp and commit to the policies and responsibilities outlined above.</source>
+        <target>ഈ സമ്മത ഫോമിൽ നൽകിയിരിക്കുന്ന വിവരങ്ങൾ ഞാൻ വായിച്ചിട്ടുണ്ടെന്നും പൂർണ്ണമായി മനസ്സിലാക്കിയിട്ടുണ്ടെന്നും ഇതിലൂടെ ഞാൻ എന്റെ പൂർണ്ണമായ സമ്മതം നൽകുന്നു. മുകളിൽ വിവരിച്ച നയങ്ങളോടും ഉത്തരവാദിത്തങ്ങളോടും പ്രതിബദ്ധത പുലർത്തികൊണ്ട് പ്രീമാരിറ്റൽ കൗൺസിലിംഗ് ക്യാമ്പിൽ പങ്കെടുക്കാൻ ഞാൻ സ്വമേധയാ സമ്മതിക്കുന്നു.</target>
+      </trans-unit>
+      <trans-unit id="Counseling Consent Agreement Text" datatype="html">
+        <source>I hereby make my full consent that I have read and fully understand the information provided in this consent form. I voluntarily agree to participate in the counseling sessions and commit to the policies and responsibilities outlined above.</source>
+        <target>ഈ സമ്മത ഫോമിൽ നൽകിയിരിക്കുന്ന വിവരങ്ങൾ ഞാൻ വായിച്ചിട്ടുണ്ടെന്നും പൂർണ്ണമായി മനസ്സിലാക്കിയിട്ടുണ്ടെന്നും ഇതിലൂടെ ഞാൻ എന്റെ പൂർണ്ണമായ സമ്മതം നൽകുന്നു. മുകളിൽ വിവരിച്ച നയങ്ങളോടും ഉത്തരവാദിത്തങ്ങളോടും പ്രതിബദ്ധത പുലർത്തികൊണ്ട് കൗൺസിലിംഗ് സെഷനുകളിൽ പങ്കെടുക്കാൻ ഞാൻ സ്വമേധയാ സമ്മതിക്കുന്നു.</target>
+      </trans-unit>
+      <trans-unit id="Counseling Psychotherapy Title" datatype="html">
+        <source>Psychotherapy</source>
+        <target>സൈക്കോതെറാപ്പി</target>
+      </trans-unit>
+      <trans-unit id="Counseling Therapist Title" datatype="html">
+        <source>Therapist</source>
+        <target>തെറാപ്പിസ്റ്റ്</target>
+      </trans-unit>
+      <trans-unit id="Counseling Confidentiality Title" datatype="html">
+        <source>Confidentiality</source>
+        <target>രഹസ്യസ്വഭാവം</target>
+      </trans-unit>
+      <trans-unit id="Counseling Sessions Policy Title" datatype="html">
+        <source>Sessions Policy</source>
+        <target>സെഷൻ നയം</target>
+      </trans-unit>
+      <trans-unit id="Counseling Professional Fees Title" datatype="html">
+        <source>Professional Fees</source>
+        <target>പ്രൊഫഷണൽ ഫീസ്</target>
+      </trans-unit>
+      <trans-unit id="Counseling Research Title" datatype="html">
+        <source>Research</source>
+        <target>ഗവേഷണം</target>
+      </trans-unit>
+      <trans-unit id="Counseling OK Button" datatype="html">
+        <source>OK</source>
+        <target>ശരി</target>
       </trans-unit>
     </body>
   </file>

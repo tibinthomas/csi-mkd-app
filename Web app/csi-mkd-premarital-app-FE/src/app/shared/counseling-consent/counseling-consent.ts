@@ -42,13 +42,13 @@ import { FormsModule } from '@angular/forms';
       <mat-dialog-content class="consent-content">
         <!-- Counselling Consent Section -->
         <section class="consent-section">
-          <h4>Informed Consent and Intake Form</h4>
+          <h4 i18n="@@General Counseling Consent Title">Informed Consent and Intake Form</h4>
           <p>
             (Please read through the following informed consent agreement.)
             What follows is a basic understanding between client and therapist. In general, what are listed below are the responsibilities and obligations of your therapist, and also some expectations of you as the client. This document also contains important information about our professional services and business policies. Do not sign the informed consent unless you completely understand and agree to all aspects. If you have any questions, please bring this up at your next session, so you and your therapist can go through this document in as much detail as is needed. When you sign this document, you will sign an agreement between us.
           </p>
 
-          <h5>Psychotherapy</h5>
+          <h5 i18n="@@Counseling Psychotherapy Title">Psychotherapy</h5>
           <p>
             <strong>Voluntary Participation:</strong> All clients voluntarily agree to treatment, and accordingly may terminate if they wish to do so.
           </p>
@@ -65,7 +65,7 @@ import { FormsModule } from '@angular/forms';
             <strong>Benefits of Therapy:</strong> The benefits of therapy can include: a higher level of functional coping, solutions to specific problems, new insights into self, more effective means of communicating in relationships, symptomatic relief, and improved self-esteem.
           </p>
 
-          <h5>Therapist</h5>
+          <h5 i18n="@@Counseling Therapist Title">Therapist</h5>
           <p>
             <strong>Credentials and Qualifications:</strong> Counselors at Innovative Psychological Consultants hold a variety of degrees in the field of psychology such as Masters or Doctoral Degrees in Psychology, Family Therapy, and Psychiatry. You can check the therapist's profiles and qualifications here.
           </p>
@@ -79,7 +79,7 @@ import { FormsModule } from '@angular/forms';
             <strong>Colleague Consultation and Peer Supervision:</strong> In keeping with standards of practice, your therapist may consult with other mental health professionals regarding the care and management of cases. The purpose of this consultation is to ensure quality of care. Your therapist will maintain complete confidentiality and protect your identity by not using real names or any identifying information.
           </p>
 
-          <h5>Confidentiality</h5>
+          <h5 i18n="@@Counseling Confidentiality Title">Confidentiality</h5>
           <p>
             <strong>Confidentiality and Privilege:</strong> The information and content shared in therapy will remain confidential, except as noted in the next section: Exceptions to Confidentiality and Privilege. Your information will not be shared with anyone without your written consent. Your information is also privileged, which means that your therapist is free from the duty to speak in court about your counselling unless you waive that right, or a judge orders it.
           </p>
@@ -102,7 +102,7 @@ import { FormsModule } from '@angular/forms';
             Confidentiality has limitations for minor clients. Parents and guardians have the legal right to access a minor client's records. Minor clients do have the right to complete confidentiality in obtaining counselling for pregnancies and associated conditions, sexually transmitted diseases, and information about alcohol or drug abuse.
           </p>
 
-          <h5>Sessions Policy</h5>
+          <h5 i18n="@@Counseling Sessions Policy Title">Sessions Policy</h5>
           <p>
             <strong>Meetings:</strong> Once we have agreed to work together, we will usually schedule one appointment every 1-2 weeks at a time we can agree upon. Therapy sessions typically warrant intervals of at least 5-7 days between sessions and the frequency will be suggested by the therapist based on the client's needs and availability.
           </p>
@@ -119,12 +119,12 @@ import { FormsModule } from '@angular/forms';
             <strong>Termination:</strong> Either the client or the therapist may end therapy at any time. Your voluntary involvement allows you to discontinue at any time. If your therapist feels you are no longer benefiting from therapy or your therapist feels there is a conflict in values they may discuss termination. If you desire additional counseling your therapist will provide you with a referral competent to address your issues.
           </p>
 
-          <h5>Professional Fees</h5>
+          <h5 i18n="@@Counseling Professional Fees Title">Professional Fees</h5>
           <p>
             Therapists may schedule diagnostic sessions at the start or when a need arises, which is more expensive. Follow-up therapy sessions are less expensive. Fees vary for other services provided such as testing or psychiatry. A fee schedule for services can be provided at your request.
           </p>
 
-          <h5>Research</h5>
+          <h5 i18n="@@Counseling Research Title">Research</h5>
           <p>
             You may choose to participate in our Research Program. Your personal health information will be anonymized, meaning your identity will be removed. This anonymized data will be used for research purposes only. It will help us measure the effectiveness and efficiency of our treatments and services. Additionally, anonymized data is often used in scientific research publications to share findings with the broader medical community.
           </p>
@@ -135,12 +135,12 @@ import { FormsModule } from '@angular/forms';
             Please note that once your anonymized data has been published or submitted for publication, it may not be possible to redact it. This is because published material is generally considered public information.
           </p>
 
-          <h5>Consent and Agreement</h5>
+          <h5 i18n="@@Consent And Agreement Title">Consent and Agreement</h5>
           <p>
-            I hereby make my full consent that I have read and fully understand 
+            <span i18n="@@Counseling Consent Agreement Text">I hereby make my full consent that I have read and fully understand 
             the information provided in this consent form. I voluntarily agree 
             to participate in the counseling sessions and commit to the 
-            policies and responsibilities outlined above.
+            policies and responsibilities outlined above.</span>
           </p>
         </section>
 
@@ -153,7 +153,7 @@ import { FormsModule } from '@angular/forms';
                 color="primary"
                 class="consent-checkbox"
               >
-                <span class="checkbox-label">
+                <span class="checkbox-label" i18n="@@Informed Consent Agreement Checkbox">
                   I have read and agree to the Informed Consent and Counseling Agreement
                 </span>
               </mat-checkbox>
@@ -166,7 +166,7 @@ import { FormsModule } from '@angular/forms';
                 [disabled]="!agreed"
                 type="button"
               >
-                OK
+                <ng-container i18n="@@Counseling OK Button">OK</ng-container>
               </button>
             </div>
           </div>
@@ -294,7 +294,7 @@ export class CounselingConsentDialogComponent {
   template: `
     <div class="consent-link-section">
       <a href="#" (click)="openConsentDialog($event)" class="consent-link">
-        Read and Accept Informed Consent and Counselling Agreement
+        <span i18n="@@Informed Consent Link Text">Read and Accept Informed Consent and Counselling Agreement</span>
       </a>
     </div>
   `,
