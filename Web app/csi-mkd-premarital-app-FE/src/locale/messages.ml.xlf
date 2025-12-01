@@ -3121,11 +3121,17 @@
         <target>{$START_TAG_STRONG}റദ്ദാക്കൽ നയം:{$CLOSE_TAG_STRONG} ക്യാമ്പ് ആരംഭിക്കുന്നതിന് ഒരാഴ്ച മുമ്പെങ്കിലും റദ്ദാക്കൽ ചെയ്യണം. ഈ തീയതിക്ക് ശേഷം ചെയ്യുന്ന റദ്ദാക്കലുകൾക്ക് റീഫണ്ട് നൽകില്ല.</target>
       </trans-unit>
       <trans-unit id="Participant Rights Text" datatype="html">
-        <source><strong>Your Rights:</strong> You have the right to ask questions about the counseling process, to decide what you wish to share in the camp at any time.</source>
+        <source><strong>Your Rights:</strong> You have the right to ask questions
+            about the counseling process, to decide what you wish to share in
+            the camp at any time.</source>
         <target>{$START_TAG_STRONG}നിങ്ങളുടെ അവകാശങ്ങൾ:{$CLOSE_TAG_STRONG} കൗൺസിലിംഗ് പ്രക്രിയയെക്കുറിച്ച് ചോദ്യങ്ങൾ ചോദിക്കാനും ക്യാമ്പിൽ എപ്പോൾ വേണമെങ്കിലും എന്ത് പങ്കിടണമെന്ന് തീരുമാനിക്കാനും നിങ്ങൾക്ക് അവകാശമുണ്ട്.</target>
       </trans-unit>
       <trans-unit id="Participant Responsibilities Text" datatype="html">
-        <source><strong>Your Responsibilities:</strong> To ensure a successful experience, we ask that you commit to active and open participation, treating all counselors and fellow participants with respect, and being willing to explore difficult topics honestly with your partner.</source>
+        <source><strong>Your Responsibilities:</strong> To ensure a successful
+            experience, we ask that you commit to active and open participation,
+            treating all counselors and fellow participants with respect, and
+            being willing to explore difficult topics honestly with your
+            partner.</source>
         <target>{$START_TAG_STRONG}നിങ്ങളുടെ ഉത്തരവാദിത്തങ്ങൾ:{$CLOSE_TAG_STRONG} വിജയകരമായ അനുഭവം ഉറപ്പാക്കാൻ, സജീവവും തുറന്നതുമായ പങ്കാളിത്തത്തിന് പ്രതിബദ്ധത പുലർത്താനും എല്ലാ കൗൺസിലർമാരോടും സഹപങ്കാളികളോടും ബഹുമാനത്തോടെ പെരുമാറാനും നിങ്ങളുടെ പങ്കാളിയുമായി പ്രയാസകരമായ വിഷയങ്ങൾ സത്യസന്ധമായി പര്യവേക്ഷണം ചെയ്യാൻ തയ്യാറാകാനും ഞങ്ങൾ അഭ്യർത്ഥിക്കുന്നു.</target>
       </trans-unit>
       <trans-unit id="3635469598435729056" datatype="html">
