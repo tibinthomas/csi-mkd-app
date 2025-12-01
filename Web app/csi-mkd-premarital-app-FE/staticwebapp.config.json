@@ -1,6 +1,11 @@
 {
   "routes": [
     {
+      "route": "/",
+      "redirect": "/ml/",
+      "statusCode": 302
+    },
+    {
       "route": "/index.html",
       "headers": {
         "Cache-Control": "no-cache, no-store, must-revalidate",

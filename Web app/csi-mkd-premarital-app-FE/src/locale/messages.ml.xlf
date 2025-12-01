@@ -3128,6 +3128,14 @@
         <source><strong>Your Responsibilities:</strong> To ensure a successful experience, we ask that you commit to active and open participation, treating all counselors and fellow participants with respect, and being willing to explore difficult topics honestly with your partner.</source>
         <target><strong>നിങ്ങളുടെ ഉത്തരവാദിത്തങ്ങൾ:</strong> വിജയകരമായ അനുഭവം ഉറപ്പാക്കാൻ, സജീവവും തുറന്നതുമായ പങ്കാളിത്തത്തിന് പ്രതിബദ്ധത പുലർത്താനും എല്ലാ കൗൺസിലർമാരോടും സഹപങ്കാളികളോടും ബഹുമാനത്തോടെ പെരുമാറാനും നിങ്ങളുടെ പങ്കാളിയുമായി പ്രയാസകരമായ വിഷയങ്ങൾ സത്യസന്ധമായി പര്യവേക്ഷണം ചെയ്യാൻ തയ്യാറാകാനും ഞങ്ങൾ അഭ്യർത്ഥിക്കുന്നു.</target>
       </trans-unit>
+      <trans-unit id="3635469598435729056" datatype="html">
+        <source>WhatsApp Number</source>
+        <target>വാട്ട്സ്ആപ്പ് നമ്പർ</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.html</context>
+          <context context-type="linenumber">288</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
