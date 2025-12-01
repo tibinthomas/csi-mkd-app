@@ -3052,6 +3052,30 @@
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Premarital Intro Text" datatype="html">
+        <source>This premarital counseling camp is a structured program by CSI MADHYA KERALA DIOCESE designed to help couples build a strong, healthy foundation for their marriage. Our goals include:</source>
+        <target>ഈ പ്രീമാരിറ്റൽ കൗൺസിലിംഗ് ക്യാമ്പ് സി.എസ്.ഐ മദ്ധ്യകേരള മഹായിടവകയുടെ ഒരു ക്രമീകൃത പരിപാടിയാണ്, ദമ്പതികളെ അവരുടെ വിവാഹത്തിന് ശക്തവും ആരോഗ്യകരവുമായ അടിത്തറ കെട്ടിപ്പടുക്കാൻ സഹായിക്കാൻ രൂപകൽപ്പന ചെയ്തിരിക്കുന്നു. ഞങ്ങളുടെ ലക്ഷ്യങ്ങളിൽ ഉൾപ്പെടുന്നു:</target>
+      </trans-unit>
+      <trans-unit id="Premarital Goal 1" datatype="html">
+        <source>Improving communication and conflict-resolution skills.</source>
+        <target>ആശയവിനിമയവും സംഘർഷപരിഹാര കഴിവുകളും മെച്ചപ്പെടുത്തുക.</target>
+      </trans-unit>
+      <trans-unit id="Premarital Goal 2" datatype="html">
+        <source>Exploring expectations about marriage, finances, roles, and family.</source>
+        <target>വിവാഹം, സാമ്പത്തികം, റോളുകൾ, കുടുംബം എന്നിവയെക്കുറിച്ചുള്ള പ്രതീക്ഷകൾ പര്യവേക്ഷണം ചെയ്യുക.</target>
+      </trans-unit>
+      <trans-unit id="Premarital Goal 3" datatype="html">
+        <source>Identifying and discussing core values and beliefs.</source>
+        <target>പ്രധാന മൂല്യങ്ങളും വിശ്വാസങ്ങളും തിരിച്ചറിയുകയും ചർച്ച ചെയ്യുകയും ചെയ്യുക.</target>
+      </trans-unit>
+      <trans-unit id="Premarital Goal 4" datatype="html">
+        <source>Providing tools and strategies for a lifelong partnership.</source>
+        <target>ആജീവനാന്ത പങ്കാളിത്തത്തിനുള്ള ഉപകരണങ്ങളും തന്ത്രങ്ങളും നൽകുക.</target>
+      </trans-unit>
+      <trans-unit id="Premarital Camp Description" datatype="html">
+        <source>The camp involves group sessions, couple activities, and educational workshops led by qualified counselors. It is not intended to be a substitute for individual or intensive couples therapy for severe issues.</source>
+        <target>ക്യാമ്പിൽ യോഗ്യതയുള്ള കൗൺസിലർമാരുടെ നേതൃത്വത്തിൽ ഗ്രൂപ്പ് സെഷനുകൾ, ദമ്പതികളുടെ പ്രവർത്തനങ്ങൾ, വിദ്യാഭ്യാസ വർക്ക്‌ഷോപ്പുകൾ എന്നിവ ഉൾപ്പെടുന്നു. ഗുരുതരമായ പ്രശ്നങ്ങൾക്കുള്ള വ്യക്തിഗത അല്ലെങ്കിൽ തീവ്രമായ ദമ്പതി തെറാപ്പിക്ക് ഇത് പകരമായി ഉദ്ദേശിച്ചിട്ടുള്ളതല്ല.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

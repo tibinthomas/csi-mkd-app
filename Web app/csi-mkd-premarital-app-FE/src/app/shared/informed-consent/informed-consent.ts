@@ -45,21 +45,21 @@ import { FormsModule } from '@angular/forms';
           <h4 i18n="@@Premarital Consent Title">Informed Consent for Premarital Counseling Camp</h4>
 
           <h5 i18n="@@Premarital Section 1 Title">1. Nature and Goals of Premarital Counseling</h5>
-          <p>
+          <p i18n="@@Premarital Intro Text">
             This premarital counseling camp is a structured program by CSI
             MADHYA KERALA DIOCESE designed to help couples build a strong,
             healthy foundation for their marriage. Our goals include:
           </p>
           <ul>
-            <li>Improving communication and conflict-resolution skills.</li>
-            <li>
+            <li i18n="@@Premarital Goal 1">Improving communication and conflict-resolution skills.</li>
+            <li i18n="@@Premarital Goal 2">
               Exploring expectations about marriage, finances, roles, and
               family.
             </li>
-            <li>Identifying and discussing core values and beliefs.</li>
-            <li>Providing tools and strategies for a lifelong partnership.</li>
+            <li i18n="@@Premarital Goal 3">Identifying and discussing core values and beliefs.</li>
+            <li i18n="@@Premarital Goal 4">Providing tools and strategies for a lifelong partnership.</li>
           </ul>
-          <p>
+          <p i18n="@@Premarital Camp Description">
             The camp involves group sessions, couple activities, and educational
             workshops led by qualified counselors. It is not intended to be a
             substitute for individual or intensive couples therapy for severe
@@ -67,29 +67,29 @@ import { FormsModule } from '@angular/forms';
           </p>
 
           <h5 i18n="@@Premarital Section 2 Title">2. Confidentiality and Its Limits</h5>
-          <p>
+          <p i18n="@@Confidentiality Intro">
             Confidentiality is a cornerstone of our work. Everything you share
             in your private sessions with a counselor will remain confidential.
             However, there are legal and ethical limits to this confidentiality:
           </p>
           <ul>
-            <li>
+            <li i18n="@@Confidentiality Limit 1">
               <strong>Threat of Harm:</strong> If a counselor believes a
               participant is at risk of harming themselves or another person,
               they are legally and ethically obligated to intervene to ensure
               safety.
             </li>
-            <li>
+            <li i18n="@@Confidentiality Limit 2">
               <strong>Abuse or Neglect:</strong> Suspicions of child, elder, or
               dependent adult abuse or neglect must be reported to the
               appropriate authorities.
             </li>
-            <li>
+            <li i18n="@@Confidentiality Limit 3">
               <strong>Court Order:</strong> If a court orders the release of
               records, the counselor must comply.
             </li>
           </ul>
-          <p>
+          <p i18n="@@Group Privacy Text">
             In group settings, we ask all participants to respect the privacy of
             others and maintain confidentiality by not sharing what is discussed
             outside of the group.
@@ -97,24 +97,24 @@ import { FormsModule } from '@angular/forms';
 
           <h5 i18n="@@Premarital Section 3 Title">3. Camp Policies and Fees</h5>
           <ul>
-            <li>
+            <li i18n="@@Camp Policy 1">
               You have to attend the premarital counselling starts on Thursday
               9:30am till Saturday 11:00am.
             </li>
-            <li>
+            <li i18n="@@Camp Policy 2">
               You have to bring all necessary things for the three day
               premarital counselling camp including a Bible.
             </li>
-            <li>
+            <li i18n="@@Camp Policy 3">
               You have to bring atleast one of your parent to the last session
               (sacramentality of marriage and marriage rehearsal) of the camp.
             </li>
-            <li>
+            <li i18n="@@Camp Policy 4">
               <strong>Attendance:</strong> Full participation in all scheduled
               sessions and activities is expected to get the most out of the
               experience.
             </li>
-            <li>
+            <li i18n="@@Camp Policy 5">
               <strong>Fees:</strong> The cost for the premarital counseling camp
               is fixed as per the decision of core committee of the CSI
               COUNSELLING CENTER KOTTAYAM. This fee covers all workshops,
@@ -122,7 +122,7 @@ import { FormsModule } from '@angular/forms';
               Payment should be done in full at the registration office before
               commencement of the camp.
             </li>
-            <li>
+            <li i18n="@@Camp Policy 6">
               <strong>Cancellation Policy:</strong> Cancellations made at least
               1 week before the start of the camp. No refunds will be issued for
               cancellations made after this date.
@@ -130,12 +130,12 @@ import { FormsModule } from '@angular/forms';
           </ul>
 
           <h5 i18n="@@Premarital Section 4 Title">4. Participant Rights and Responsibilities</h5>
-          <p>
+          <p i18n="@@Participant Rights Text">
             <strong>Your Rights:</strong> You have the right to ask questions
             about the counseling process, to decide what you wish to share in
             the camp at any time.
           </p>
-          <p>
+          <p i18n="@@Participant Responsibilities Text">
             <strong>Your Responsibilities:</strong> To ensure a successful
             experience, we ask that you commit to active and open participation,
             treating all counselors and fellow participants with respect, and
