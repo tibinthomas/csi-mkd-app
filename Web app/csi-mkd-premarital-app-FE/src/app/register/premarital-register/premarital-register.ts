@@ -359,6 +359,11 @@ export class PremaritalRegister {
   onSubmit() {
     this.formSubmitted.set(true);
 
+    // Prevent submission while async validators are still running
+    if (this.form.pending) {
+      return;
+    }
+
     if (!this.photoFile()) {
       this.photoError.set('Passport-size photo is required.');
     }

@@ -167,14 +167,14 @@ export class GeneralRegister {
             Validators.email,
             emailDomainValidator(),
           ],
-          // asyncValidators: [
-          //   emailExistsValidatorFactory((email) =>
-          //     this.api.apiGeneralregisterCheckEmailGet({
-          //       email,
-          //     })
-          //   ),
-          // ],
-          // updateOn: 'blur',
+          asyncValidators: [
+            emailExistsValidatorFactory((email) =>
+              this.api.apiGeneralregisterCheckEmailGet({
+                email,
+              })
+            ),
+          ],
+          updateOn: 'blur',
         },
       ],
       maritalStatus: ['', Validators.required],
@@ -239,6 +239,11 @@ export class GeneralRegister {
   }
   onSubmit() {
     this.formSubmitted.set(true);
+
+    // Prevent submission while async validators are still running
+    if (this.form.pending) {
+      return;
+    }
 
     if (!this.photoFile()) {
       this.photoError.set('Passport-size photo is required.');
