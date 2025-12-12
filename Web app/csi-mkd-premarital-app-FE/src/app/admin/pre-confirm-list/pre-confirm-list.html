@@ -111,11 +111,12 @@
                     <span>{{ p.name }} – Age: {{ p.age }}</span>
                     <button
                       mat-icon-button
-                      color="primary"
+                      [class.printed-icon]="isPrinted(p, reg)"
+                      [color]="isPrinted(p, reg) ? null : 'primary'"
                       (click)="generateCertificate(p, reg); $event.stopPropagation()"
-                      matTooltip="Print Certificate"
+                      [matTooltip]="isPrinted(p, reg) ? 'Certificate Printed' : 'Print Certificate'"
                     >
-                      <mat-icon>print</mat-icon>
+                      <mat-icon>{{ isPrinted(p, reg) ? 'check_circle' : 'print' }}</mat-icon>
                     </button>
                   </li>
                   }
@@ -138,6 +139,7 @@
             class="cursor-pointer"
             (click)="toggleRow(row)"
             [class.bg-surface-container-high]="expandedRow() === row"
+            [class.highlight-row]="lastClickedId() === row.id"
           ></tr>
 
           <!-- Expanded Row -->

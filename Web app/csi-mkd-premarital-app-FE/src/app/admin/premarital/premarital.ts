@@ -150,6 +150,9 @@ export class PremaritalComponent {
   readonly isLoadingFeedback = signal<number | null>(null);
   readonly isLoadingQuestionAnswer = signal<number | null>(null);
 
+  readonly lastClickedId = signal<number | null>(null);
+  readonly printedRegistrations = signal<Set<any>>(new Set());
+
   // Status caches for performance
   protected readonly questionAnswerStatusCache = signal<Map<string, boolean>>(
     new Map()
@@ -287,6 +290,7 @@ export class PremaritalComponent {
   /** Toggles the expanded state of an element. */
   toggle(reg: any) {
     this.expandedElement = this.isExpanded(reg) ? null : reg;
+    this.lastClickedId.set(reg.id);
   }
 
   isExpanded(reg: any) {
@@ -792,7 +796,17 @@ export class PremaritalComponent {
 
       console.log('Generated HTML content length:', htmlContent.length);
 
+
+
       this.openCertificatePreview(htmlContent, certificateData);
+      
+      // Mark as printed
+      this.printedRegistrations.update(set => {
+        const newSet = new Set(set);
+        newSet.add(reg.id);
+        return newSet;
+      });
+
     } catch (error) {
       console.error('Error generating certificate:', error);
       this._snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
@@ -1035,6 +1049,11 @@ export class PremaritalComponent {
     } finally {
       this.isLoadingQuestionAnswer.set(null);
     }
+  }
+
+
+  isPrinted(reg: any): boolean {
+    return this.printedRegistrations().has(reg.id);
   }
 }
 

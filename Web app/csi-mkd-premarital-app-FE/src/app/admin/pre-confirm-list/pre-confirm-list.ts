@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, signal, inject } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   MatDialog,
@@ -53,7 +54,8 @@ import { EditPreConfirmDialogComponent } from './edit-pre-confirm-dialog.compone
     MatExpansionModule,
     MatDividerModule,
     MatCardModule,
-    DatePipe
+    DatePipe,
+    MatTooltipModule
 ],
   providers: [DatePipe],
 })
@@ -68,6 +70,8 @@ export class PreConfirmList implements OnInit {
   expandedAll = false;
   protected readonly totalCount = signal(0);
   protected readonly minDate = new Date();
+  readonly lastClickedId = signal<number | null>(null);
+  readonly printedParticipants = signal<Set<string>>(new Set());
 
   private api = inject(CsiMkdPremaritalAppBeService);
   private snackBar = inject(MatSnackBar);
@@ -169,6 +173,7 @@ export class PreConfirmList implements OnInit {
 
   toggleRow = (row: any) => {
     this.expandedRow.set(this.expandedRow() === row ? null : row);
+    this.lastClickedId.set(row.id);
   };
 
   expandedElement = signal<any | null>(null);
@@ -323,6 +328,15 @@ export class PreConfirmList implements OnInit {
       );
 
       this.openCertificatePreview(htmlContent, certificateData);
+      
+      // Mark as printed
+      const key = this.getParticipantKey((registration as any).id, participant);
+      this.printedParticipants.update(set => {
+        const newSet = new Set(set);
+        newSet.add(key);
+        return newSet;
+      });
+      
     } catch (error) {
       console.error('Error generating certificate:', error);
       this.snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
@@ -366,11 +380,22 @@ export class PreConfirmList implements OnInit {
                 duration: 3000,
               }
             );
-          },
+          }
         });
-      }
-    });
-  }
+    }
+  });
+}
+
+getParticipantKey(regId: any, participant: ParticipantDto): string {
+  if (participant.id) return participant.id;
+  // Fallback composite key
+  return `${regId}_${participant.name}`;
+}
+
+isPrinted(participant: ParticipantDto, reg: ConfirmationRegisterDto): boolean {
+  const key = this.getParticipantKey((reg as any).id, participant);
+  return this.printedParticipants().has(key);
+}
 }
 
 @Component({
