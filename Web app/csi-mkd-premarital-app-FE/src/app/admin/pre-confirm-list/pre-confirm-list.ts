@@ -396,6 +396,15 @@ isPrinted(participant: ParticipantDto, reg: ConfirmationRegisterDto): boolean {
   const key = this.getParticipantKey((reg as any).id, participant);
   return this.printedParticipants().has(key);
 }
+
+resetPrintStatus(participant: ParticipantDto, reg: ConfirmationRegisterDto): void {
+  const key = this.getParticipantKey((reg as any).id, participant);
+  this.printedParticipants.update(set => {
+    const newSet = new Set(set);
+    newSet.delete(key);
+    return newSet;
+  });
+}
 }
 
 @Component({

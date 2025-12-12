@@ -109,15 +109,28 @@
                   @for (p of reg.participants; track p) {
                   <li class="flex items-center justify-between">
                     <span>{{ p.name }} – Age: {{ p.age }}</span>
-                    <button
-                      mat-icon-button
-                      [class.printed-icon]="isPrinted(p, reg)"
-                      [color]="isPrinted(p, reg) ? null : 'primary'"
-                      (click)="generateCertificate(p, reg); $event.stopPropagation()"
-                      [matTooltip]="isPrinted(p, reg) ? 'Certificate Printed' : 'Print Certificate'"
-                    >
-                      <mat-icon>{{ isPrinted(p, reg) ? 'check_circle' : 'print' }}</mat-icon>
-                    </button>
+                    <div class="flex gap-1">
+                      <button
+                        mat-icon-button
+                        [class.printed-icon]="isPrinted(p, reg)"
+                        [color]="isPrinted(p, reg) ? null : 'primary'"
+                        (click)="generateCertificate(p, reg); $event.stopPropagation()"
+                        [matTooltip]="isPrinted(p, reg) ? 'Certificate Printed' : 'Print Certificate'"
+                      >
+                        <mat-icon>{{ isPrinted(p, reg) ? 'check_circle' : 'print' }}</mat-icon>
+                      </button>
+                      @if (isPrinted(p, reg)) {
+                      <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="resetPrintStatus(p, reg); $event.stopPropagation()"
+                        matTooltip="Reset Print Status"
+                        i18n-matTooltip
+                      >
+                        <mat-icon>refresh</mat-icon>
+                      </button>
+                      }
+                    </div>
                   </li>
                   }
                 </ul>

@@ -1055,6 +1055,14 @@ export class PremaritalComponent {
   isPrinted(reg: any): boolean {
     return this.printedRegistrations().has(reg.id);
   }
+
+  resetPrintStatus(reg: any): void {
+    this.printedRegistrations.update(set => {
+      const newSet = new Set(set);
+      newSet.delete(reg.id);
+      return newSet;
+    });
+  }
 }
 
 @Component({

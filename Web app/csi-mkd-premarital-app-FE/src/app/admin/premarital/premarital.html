@@ -128,16 +128,30 @@
             <th mat-header-cell *matHeaderCellDef i18n><strong>Certificate</strong></th>
             <td mat-cell *matCellDef="let reg">
               @if (reg.paymentStatus) {
-              <button
-                mat-icon-button
-                aria-label="generate certificate"
-                [class.printed-icon]="isPrinted(reg)"
-                [color]="isPrinted(reg) ? null : 'primary'"
-                (click)="generateCertificate(reg); $event.stopPropagation()"
-                [matTooltip]="isPrinted(reg) ? 'Certificate Printed' : 'Generate Certificate'"
-              >
-                <mat-icon>{{ isPrinted(reg) ? 'check_circle' : 'print' }}</mat-icon>
-              </button>
+              <div class="flex gap-1">
+                <button
+                  mat-icon-button
+                  aria-label="generate certificate"
+                  [class.printed-icon]="isPrinted(reg)"
+                  [color]="isPrinted(reg) ? null : 'primary'"
+                  (click)="generateCertificate(reg); $event.stopPropagation()"
+                  [matTooltip]="isPrinted(reg) ? 'Certificate Printed' : 'Generate Certificate'"
+                >
+                  <mat-icon>{{ isPrinted(reg) ? 'check_circle' : 'print' }}</mat-icon>
+                </button>
+                @if (isPrinted(reg)) {
+                <button
+                  mat-icon-button
+                  aria-label="reset print status"
+                  color="warn"
+                  (click)="resetPrintStatus(reg); $event.stopPropagation()"
+                  matTooltip="Reset Print Status"
+                  i18n-matTooltip
+                >
+                  <mat-icon>refresh</mat-icon>
+                </button>
+                }
+              </div>
               } @else {
               <span class="text-gray-400" i18n>Payment Required</span>
               }
