@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>csi_mkd_premarital_app_BE</RootNamespace>
@@ -19,23 +19,24 @@
   <ItemGroup>
     <PackageReference Include="ClosedXML" Version="0.105.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.53.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="9.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="10.0.0" />
+
     <ProjectReference Include="ServiceDefaults/ServiceDefaults.csproj" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.24.1" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
     <PackageReference Include="SendGrid" Version="9.29.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
