@@ -72,7 +72,6 @@ export class InstructorFormDialogComponent {
 
   onSubmit(): void {
     if (this.form.valid && !this.isSubmitting()) {
-      this.isSubmitting.set(true);
       const formValue = this.form.value;
 
       const instructorData: CreateInstructorDto | UpdateInstructorDto = {
@@ -80,50 +79,9 @@ export class InstructorFormDialogComponent {
         qualification: formValue.qualification!,
       };
 
-      if (this.isEdit() && this.instructor?.id) {
-        // Update existing instructor
-        this.api
-          .apiInstructorsIdPut({
-            id: this.instructor.id,
-            body: instructorData,
-          })
-          .pipe(finalize(() => this.isSubmitting.set(false)))
-          .subscribe({
-            next: () => {
-              this.snackBar.open('Instructor updated successfully', 'Close', {
-                duration: 3000,
-              });
-              this.dialogRef.close(true);
-            },
-            error: (error) => {
-              console.error('Error updating instructor:', error);
-              this.snackBar.open('Failed to update instructor', 'Close', {
-                duration: 3000,
-              });
-            },
-          });
-      } else {
-        // Create new instructor
-        this.api
-          .apiInstructorsPost({
-            body: instructorData,
-          })
-          .pipe(finalize(() => this.isSubmitting.set(false)))
-          .subscribe({
-            next: (response) => {
-              this.snackBar.open('Instructor created successfully', 'Close', {
-                duration: 3000,
-              });
-              this.dialogRef.close(response);
-            },
-            error: (error) => {
-              console.error('Error creating instructor:', error);
-              this.snackBar.open('Failed to create instructor', 'Close', {
-                duration: 3000,
-              });
-            },
-          });
-      }
+      // Return the form data to the parent component
+      // The parent will handle the API call
+      this.dialogRef.close(instructorData);
     } else {
       // Mark all fields as touched to show validation errors
       this.form.markAllAsTouched();
