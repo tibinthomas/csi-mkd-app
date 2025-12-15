@@ -91,14 +91,36 @@ cd ..
 # UPDATE FUNCTION APP SETTINGS
 # -----------------------
 echo "🔧 Updating Function App settings..."
+
+# Set application settings including backup configuration
 az functionapp config appsettings set \
     --name "$FUNCTION_APP_NAME" \
     --resource-group "$RESOURCE_GROUP" \
     --settings \
         "ConnectionStrings__DefaultConnection=$ConnectionStrings__DefaultConnection" \
         "FUNCTIONS_WORKER_RUNTIME=dotnet-isolated" \
-        "FUNCTIONS_EXTENSION_VERSION=~4" || {
+        "FUNCTIONS_EXTENSION_VERSION=~4" \
+        "SupabaseBackup__ContainerName=supabase-backups" \
+        "SupabaseBackup__RetentionDays=7" || {
     echo "⚠️ Warning: Failed to update some settings, but deployment may still work."
+}
+
+# Configure OS to Linux if not already (required for startup script)
+echo "🐧 Ensuring Linux runtime..."
+az functionapp config set \
+    --name "$FUNCTION_APP_NAME" \
+    --resource-group "$RESOURCE_GROUP" \
+    --linux-fx-version "DOTNET-ISOLATED|8.0" || {
+    echo "⚠️ Warning: Failed to set Linux runtime"
+}
+
+# Set startup command to install PostgreSQL tools
+echo "📝 Configuring startup command to install PostgreSQL client tools..."
+az functionapp config set \
+    --name "$FUNCTION_APP_NAME" \
+    --resource-group "$RESOURCE_GROUP" \
+    --startup-file "apt-get update && apt-get install -y postgresql-client && echo 'PostgreSQL client installed'" || {
+    echo "⚠️ Warning: Failed to set startup command. You may need to configure this manually in Azure Portal."
 }
 
 # -----------------------
