@@ -6,7 +6,8 @@
     "ConnectionStrings__DefaultConnection": "User Id=postgres;Password=REDACTED_POSTGRES_PASSWORD;Server=db.fdolnszolmihhwnbedkh.supabase.co;Port=5432;Database=postgres;SSL Mode=Require;Trust Server Certificate=true",
     "AzureBlob__ConnectionString": "DefaultEndpointsProtocol=https;AccountName=csimkdpremaritalstorage;AccountKey=REDACTED_AZURE_BLOB_KEY;EndpointSuffix=core.windows.net",
     "SupabaseBackup__ContainerName": "supabase-backups",
-    "SupabaseBackup__RetentionDays": "7"
+    "SupabaseBackup__RetentionDays": "7",
+    "MainApp__BaseUrl": "http://localhost:5000"
   },
   "Host": {
     "LocalHttpPort": 7071,

@@ -25,6 +25,7 @@ public static class EndpointConfiguration
         app.MapAzureUploadEndpoints();
         app.MapCacheManagementEndpoints();
         app.MapInstructorEndpoints();
+        app.MapBackupEndpoints();
     }
 
     private static void MapHealthEndpoints(WebApplication app)

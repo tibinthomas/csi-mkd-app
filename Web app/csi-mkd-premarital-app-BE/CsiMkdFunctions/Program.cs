@@ -31,6 +31,9 @@ var host = new HostBuilder()
             });
         });
 
+        // Add HttpClient for backup function
+        services.AddHttpClient();
+
         // Add configuration
         var configuration = context.Configuration;
 

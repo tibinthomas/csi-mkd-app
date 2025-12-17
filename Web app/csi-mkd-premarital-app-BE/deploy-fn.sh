@@ -103,7 +103,8 @@ az functionapp config appsettings set \
         "FUNCTIONS_WORKER_RUNTIME=dotnet-isolated" \
         "FUNCTIONS_EXTENSION_VERSION=~4" \
         "SupabaseBackup__ContainerName=supabase-backups" \
-        "SupabaseBackup__RetentionDays=7" || {
+        "SupabaseBackup__RetentionDays=7" \
+        "MainApp__BaseUrl=https://csi-mkd-premarital-app-be.azurewebsites.net" || {
     echo "⚠️ Warning: Failed to update some settings, but deployment may still work."
 }
 

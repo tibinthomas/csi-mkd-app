@@ -272,6 +272,7 @@ public static class ServiceConfiguration
         builder.Services.AddScoped<ICacheInvalidationService, CacheInvalidationService>();
         builder.Services.AddScoped<ICacheHealthService, CacheHealthService>();
         builder.Services.AddScoped<IInstructorService, InstructorService>();
+        builder.Services.AddScoped<IBackupService, BackupService>();
     }
 
     private static void ConfigureJwtAuthentication(WebApplicationBuilder builder)
