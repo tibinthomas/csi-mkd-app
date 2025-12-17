@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
+import { Void } from '../../models';
 
 export interface DownloadLatestBackup$Params {
 }
