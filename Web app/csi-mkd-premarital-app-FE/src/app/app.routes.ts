@@ -230,6 +230,15 @@ export const routes: Routes = [
             (m) => m.QuestionAnswersList
           ),
       },
+      {
+        path: 'database-backup',
+        title: 'Database Backup - CSI MKD Premarital Counsel',
+        data: { description: 'Manage database backups and recovery' },
+        loadComponent: () =>
+          import('./admin/database-backup/database-backup').then(
+            (m) => m.DatabaseBackup
+          ),
+      },
     ],
   },
 

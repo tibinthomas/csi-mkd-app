@@ -1,0 +1,147 @@
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <h1 class="text-3xl font-bold text-on-surface mb-6 theme-transition" i18n>
+    Database Backup Management
+  </h1>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Card: Trigger Backup -->
+    <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <mat-card-content class="p-6">
+        <div class="flex items-start mb-4">
+          <mat-icon class="text-blue-500 text-4xl mr-4">backup</mat-icon>
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold text-on-surface theme-transition mb-2" i18n>
+              Create New Backup
+            </h2>
+            <p class="text-sm text-on-surface-variant theme-transition mb-4" i18n>
+              Trigger an immediate backup of the Supabase PostgreSQL database. This will create a complete backup including both schema and data.
+            </p>
+          </div>
+        </div>
+
+        @if (lastBackupInfo()) {
+          <div class="bg-surface-variant rounded-lg p-4 mb-4 theme-transition">
+            <p class="text-sm font-medium text-on-surface-variant theme-transition mb-1" i18n>
+              Last Backup Created:
+            </p>
+            <p class="text-xs text-on-surface-variant theme-transition">
+              <strong i18n>File:</strong> {{ lastBackupInfo()!.fileName }}
+            </p>
+            <p class="text-xs text-on-surface-variant theme-transition">
+              <strong i18n>Time:</strong> {{ lastBackupInfo()!.timestamp | date: 'medium' }}
+            </p>
+            <p class="text-xs text-on-surface-variant theme-transition mt-2">
+              {{ lastBackupInfo()!.message }}
+            </p>
+          </div>
+        }
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="w-full"
+          (click)="triggerBackup()"
+          [disabled]="isTriggeringBackup()"
+        >
+          @if (isTriggeringBackup()) {
+            <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
+            <span i18n>Creating Backup...</span>
+          } @else {
+            <ng-container>
+              <mat-icon class="inline-block mr-2">cloud_upload</mat-icon>
+              <span i18n>Trigger Backup Now</span>
+            </ng-container>
+          }
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Card: Download Latest Backup -->
+    <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <mat-card-content class="p-6">
+        <div class="flex items-start mb-4">
+          <mat-icon class="text-green-500 text-4xl mr-4">cloud_download</mat-icon>
+          <div class="flex-1">
+            <h2 class="text-xl font-semibold text-on-surface theme-transition mb-2" i18n>
+              Download Latest Backup
+            </h2>
+            <p class="text-sm text-on-surface-variant theme-transition mb-4" i18n>
+              Download the most recent backup file from Azure Blob Storage. This file can be used to restore the database schema and data.
+            </p>
+          </div>
+        </div>
+
+        <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-4">
+          <div class="flex items-start">
+            <mat-icon class="text-amber-600 dark:text-amber-400 mr-2 text-xl">info</mat-icon>
+            <div>
+              <p class="text-sm font-medium text-amber-900 dark:text-amber-200 mb-1" i18n>
+                Recovery Instructions
+              </p>
+              <p class="text-xs text-amber-800 dark:text-amber-300" i18n>
+                To restore the database, use the following command:
+              </p>
+              <code class="block bg-amber-100 dark:bg-amber-950 text-amber-900 dark:text-amber-100 px-2 py-1 rounded mt-2 text-xs">
+                psql -U username -d database_name -f backup_file.sql
+              </code>
+            </div>
+          </div>
+        </div>
+
+        <button
+          mat-raised-button
+          color="accent"
+          class="w-full"
+          (click)="downloadLatestBackup()"
+          [disabled]="isDownloadingBackup()"
+        >
+          @if (isDownloadingBackup()) {
+            <mat-spinner diameter="20" class="inline-block mr-2"></mat-spinner>
+            <span i18n>Downloading...</span>
+          } @else {
+            <ng-container>
+              <mat-icon class="inline-block mr-2">get_app</mat-icon>
+              <span i18n>Download Latest Backup</span>
+            </ng-container>
+          }
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Information Section -->
+  <mat-card class="rounded-xl shadow-lg mt-6">
+    <mat-card-content class="p-6">
+      <div class="flex items-start">
+        <mat-icon class="text-indigo-500 text-3xl mr-4">help_outline</mat-icon>
+        <div>
+          <h3 class="text-lg font-semibold text-on-surface theme-transition mb-3" i18n>
+            About Database Backups
+          </h3>
+          <ul class="space-y-2 text-sm text-on-surface-variant theme-transition">
+            <li class="flex items-start">
+              <mat-icon class="text-indigo-500 mr-2 text-sm mt-0.5">check_circle</mat-icon>
+              <span i18n>Backups include complete database schema (tables, indexes, constraints)</span>
+            </li>
+            <li class="flex items-start">
+              <mat-icon class="text-indigo-500 mr-2 text-sm mt-0.5">check_circle</mat-icon>
+              <span i18n>All data from all tables is included in the backup</span>
+            </li>
+            <li class="flex items-start">
+              <mat-icon class="text-indigo-500 mr-2 text-sm mt-0.5">check_circle</mat-icon>
+              <span i18n>Backups are stored securely in Azure Blob Storage</span>
+            </li>
+            <li class="flex items-start">
+              <mat-icon class="text-indigo-500 mr-2 text-sm mt-0.5">check_circle</mat-icon>
+              <span i18n>Download backups regularly and store them in multiple secure locations</span>
+            </li>
+            <li class="flex items-start">
+              <mat-icon class="text-indigo-500 mr-2 text-sm mt-0.5">check_circle</mat-icon>
+              <span i18n>Test backup restoration periodically to ensure data integrity</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

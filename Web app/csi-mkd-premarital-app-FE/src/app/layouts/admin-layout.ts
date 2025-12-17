@@ -85,6 +85,11 @@ export class AdminLayout {
       icon: 'check_circle',
       label: 'Pre-Confirm List',
     },
+    {
+      routerLink: '/admin/database-backup',
+      icon: 'backup',
+      label: 'Database Backup',
+    },
   ];
 
   readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));
