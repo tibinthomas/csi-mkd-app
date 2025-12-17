@@ -30,6 +30,7 @@ fi
 
 required_secrets=(
     "ConnectionStrings__DefaultConnection"
+    "AzureBlob__ConnectionString"
 )
 
 missing_secrets=()
@@ -98,6 +99,7 @@ az functionapp config appsettings set \
     --resource-group "$RESOURCE_GROUP" \
     --settings \
         "ConnectionStrings__DefaultConnection=$ConnectionStrings__DefaultConnection" \
+        "AzureBlob__ConnectionString=$AzureBlob__ConnectionString" \
         "FUNCTIONS_WORKER_RUNTIME=dotnet-isolated" \
         "FUNCTIONS_EXTENSION_VERSION=~4" \
         "SupabaseBackup__ContainerName=supabase-backups" \
