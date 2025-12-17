@@ -9,22 +9,22 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 
-export interface DownloadLatestBackup$Params {
+export interface TriggerBackup$Params {
 }
 
-export function downloadLatestBackup(http: HttpClient, rootUrl: string, params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<Blob>> {
-  const rb = new RequestBuilder(rootUrl, downloadLatestBackup.PATH, 'get');
+export function triggerBackup(http: HttpClient, rootUrl: string, params?: TriggerBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, triggerBackup.PATH, 'post');
   if (params) {
   }
 
   return http.request(
-    rb.build({ responseType: 'blob', accept: 'application/octet-stream', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Blob>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }
 
-downloadLatestBackup.PATH = '/backup/download/latest';
+triggerBackup.PATH = '/api/backup/trigger';

@@ -11,11 +11,11 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { BackupResponse } from '../models/backup-response';
 import { downloadLatestBackup } from '../fn/backup/download-latest-backup';
 import { DownloadLatestBackup$Params } from '../fn/backup/download-latest-backup';
 import { triggerBackup } from '../fn/backup/trigger-backup';
 import { TriggerBackup$Params } from '../fn/backup/trigger-backup';
+import { Void } from '../models/void';
 
 @Injectable({ providedIn: 'root' })
 export class BackupService extends BaseService {
@@ -24,7 +24,7 @@ export class BackupService extends BaseService {
   }
 
   /** Path part for operation `triggerBackup()` */
-  static readonly TriggerBackupPath = '/backup/trigger';
+  static readonly TriggerBackupPath = '/api/backup/trigger';
 
   /**
    * Manually trigger database backup.
@@ -36,7 +36,7 @@ export class BackupService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  triggerBackup$Response(params?: TriggerBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<BackupResponse>> {
+  triggerBackup$Response(params?: TriggerBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return triggerBackup(this.http, this.rootUrl, params, context);
   }
 
@@ -50,14 +50,14 @@ export class BackupService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  triggerBackup(params?: TriggerBackup$Params, context?: HttpContext): Observable<BackupResponse> {
+  triggerBackup(params?: TriggerBackup$Params, context?: HttpContext): Observable<void> {
     return this.triggerBackup$Response(params, context).pipe(
-      map((r: StrictHttpResponse<BackupResponse>): BackupResponse => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
   /** Path part for operation `downloadLatestBackup()` */
-  static readonly DownloadLatestBackupPath = '/backup/download/latest';
+  static readonly DownloadLatestBackupPath = '/api/backup/download/latest';
 
   /**
    * Download latest backup.
@@ -69,7 +69,7 @@ export class BackupService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  downloadLatestBackup$Response(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<Blob>> {
+  downloadLatestBackup$Response(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<Void>> {
     return downloadLatestBackup(this.http, this.rootUrl, params, context);
   }
 
@@ -83,9 +83,9 @@ export class BackupService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  downloadLatestBackup(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<Blob> {
+  downloadLatestBackup(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<Void> {
     return this.downloadLatestBackup$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Blob>): Blob => r.body)
+      map((r: StrictHttpResponse<Void>): Void => r.body)
     );
   }
 

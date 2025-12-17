@@ -9,12 +9,13 @@ import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
 import { CreateQuestionAnswersDto } from '../../models/create-question-answers-dto';
+import { QuestionAnswersResponseDto } from '../../models/question-answers-response-dto';
 
 export interface CreateQuestionAnswers$Params {
       body: CreateQuestionAnswersDto
 }
 
-export function createQuestionAnswers(http: HttpClient, rootUrl: string, params: CreateQuestionAnswers$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+export function createQuestionAnswers(http: HttpClient, rootUrl: string, params: CreateQuestionAnswers$Params, context?: HttpContext): Observable<StrictHttpResponse<QuestionAnswersResponseDto>> {
   const rb = new RequestBuilder(rootUrl, createQuestionAnswers.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/json');
@@ -25,7 +26,7 @@ export function createQuestionAnswers(http: HttpClient, rootUrl: string, params:
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<any>;
+      return r as StrictHttpResponse<QuestionAnswersResponseDto>;
     })
   );
 }

@@ -9,9 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { BackupService } from '../../../api/api-functions/services';
+import { BackupService } from '../../../api/api-main-app/services';
 import { saveAs } from 'file-saver';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-database-backup',
@@ -44,44 +46,26 @@ export class DatabaseBackup {
   triggerBackup(): void {
     this.isTriggeringBackup.set(true);
 
-    this.backupService.triggerBackup().subscribe({
-      next: (response) => {
+    this.backupService.triggerBackup$Response().pipe(
+      catchError((error: HttpErrorResponse) => {
         this.isTriggeringBackup.set(false);
-
-        if (response.success) {
-          this.lastBackupInfo.set({
-            fileName: response.backupFileName || 'Unknown',
-            timestamp: response.timestamp || new Date().toISOString(),
-            message: response.message || 'Backup created successfully',
-          });
-
-          this.snackBar.open(
-            response.message || 'Database backup triggered successfully!',
-            'Close',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-              panelClass: ['success-snackbar'],
-            }
-          );
-        } else {
-          this.snackBar.open(
-            response.message || 'Backup trigger failed',
-            'Close',
-            {
-              duration: 7000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-              panelClass: ['error-snackbar'],
-            }
-          );
+        
+        let errorMessage = 'Failed to trigger database backup';
+        
+        if (error.status === 401) {
+          errorMessage = 'Authentication failed. Please try logging in again.';
+        } else if (error.status === 403) {
+          errorMessage = 'You do not have permission to perform this action.';
+        } else if (error.status === 500) {
+          errorMessage = 'Server error occurred while creating backup. Please try again later.';
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
+        } else if (error.message) {
+          errorMessage = error.message;
         }
-      },
-      error: (error: Error) => {
-        this.isTriggeringBackup.set(false);
+        
         this.snackBar.open(
-          error.message || 'Failed to trigger database backup',
+          errorMessage,
           'Close',
           {
             duration: 7000,
@@ -90,7 +74,37 @@ export class DatabaseBackup {
             panelClass: ['error-snackbar'],
           }
         );
-      },
+        
+        // Return empty observable to complete the stream without re-throwing
+        return of(null);
+      })
+    ).subscribe({
+      next: (response) => {
+        if (!response) {
+          // Error already handled in catchError
+          return;
+        }
+        
+        this.isTriggeringBackup.set(false);
+
+        // Update last backup info with current timestamp
+        this.lastBackupInfo.set({
+          fileName: 'Backup created',
+          timestamp: new Date().toISOString(),
+          message: 'Database backup triggered successfully',
+        });
+
+        this.snackBar.open(
+          'Database backup triggered successfully!',
+          'Close',
+          {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['success-snackbar'],
+          }
+        );
+      }
     });
   }
 
@@ -100,8 +114,47 @@ export class DatabaseBackup {
   downloadLatestBackup(): void {
     this.isDownloadingBackup.set(true);
 
-    this.backupService.downloadLatestBackup$Response().subscribe({
+    this.backupService.downloadLatestBackup$Response().pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.isDownloadingBackup.set(false);
+        
+        let errorMessage = 'Failed to download backup file';
+        
+        if (error.status === 401) {
+          errorMessage = 'Authentication failed. Please try logging in again.';
+        } else if (error.status === 403) {
+          errorMessage = 'You do not have permission to download backups.';
+        } else if (error.status === 404) {
+          errorMessage = 'No backup file found. Please create a backup first.';
+        } else if (error.status === 500) {
+          errorMessage = 'Server error occurred while downloading backup. Please try again later.';
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+        
+        this.snackBar.open(
+          errorMessage,
+          'Close',
+          {
+            duration: 7000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar'],
+          }
+        );
+        
+        // Return empty observable to complete the stream without re-throwing
+        return of(null);
+      })
+    ).subscribe({
       next: (response) => {
+        if (!response) {
+          // Error already handled in catchError
+          return;
+        }
+        
         this.isDownloadingBackup.set(false);
 
         if (response.body) {
@@ -116,8 +169,8 @@ export class DatabaseBackup {
             filename = `database_backup_${timestamp}.sql`;
           }
 
-          // Save the file
-          saveAs(response.body, filename);
+          // Save the file - response.body is typed as Void but actually contains the Blob
+          saveAs(response.body as any, filename);
 
           this.snackBar.open(
             'Backup file downloaded successfully!',
@@ -130,20 +183,7 @@ export class DatabaseBackup {
             }
           );
         }
-      },
-      error: (error: Error) => {
-        this.isDownloadingBackup.set(false);
-        this.snackBar.open(
-          error.message || 'Failed to download backup file',
-          'Close',
-          {
-            duration: 7000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: ['error-snackbar'],
-          }
-        );
-      },
+      }
     });
   }
 

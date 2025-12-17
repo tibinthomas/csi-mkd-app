@@ -33,3 +33,4 @@ export type { UpdateInstructorDto } from './models/update-instructor-dto';
 export type { UpdatePasswordDto } from './models/update-password-dto';
 export type { UpdatePremaritalRegisterDto } from './models/update-premarital-register-dto';
 export type { UpdateQuestionAnswersDto } from './models/update-question-answers-dto';
+export type { Void } from './models/void';

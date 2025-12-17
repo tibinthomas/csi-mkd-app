@@ -8,24 +8,22 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { BackupResponse } from '../../models/backup-response';
-
-export interface TriggerBackup$Params {
+export interface DownloadLatestBackup$Params {
 }
 
-export function triggerBackup(http: HttpClient, rootUrl: string, params?: TriggerBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<BackupResponse>> {
-  const rb = new RequestBuilder(rootUrl, triggerBackup.PATH, 'post');
+export function downloadLatestBackup(http: HttpClient, rootUrl: string, params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+  const rb = new RequestBuilder(rootUrl, downloadLatestBackup.PATH, 'get');
   if (params) {
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'application/json', context })
+    rb.build({ responseType: 'blob', accept: 'application/octet-stream', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<BackupResponse>;
+      return r as StrictHttpResponse<Void>;
     })
   );
 }
 
-triggerBackup.PATH = '/backup/trigger';
+downloadLatestBackup.PATH = '/api/backup/download/latest';

@@ -79,7 +79,7 @@ export class QuestionAnswersService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createQuestionAnswers$Response(params: CreateQuestionAnswers$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+  createQuestionAnswers$Response(params: CreateQuestionAnswers$Params, context?: HttpContext): Observable<StrictHttpResponse<QuestionAnswersResponseDto>> {
     return createQuestionAnswers(this.http, this.rootUrl, params, context);
   }
 
@@ -93,9 +93,9 @@ export class QuestionAnswersService extends BaseService {
    *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  createQuestionAnswers(params: CreateQuestionAnswers$Params, context?: HttpContext): Observable<any> {
+  createQuestionAnswers(params: CreateQuestionAnswers$Params, context?: HttpContext): Observable<QuestionAnswersResponseDto> {
     return this.createQuestionAnswers$Response(params, context).pipe(
-      map((r: StrictHttpResponse<any>): any => r.body)
+      map((r: StrictHttpResponse<QuestionAnswersResponseDto>): QuestionAnswersResponseDto => r.body)
     );
   }
 
@@ -211,7 +211,7 @@ export class QuestionAnswersService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteQuestionAnswers$Response(params: DeleteQuestionAnswers$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+  deleteQuestionAnswers$Response(params: DeleteQuestionAnswers$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return deleteQuestionAnswers(this.http, this.rootUrl, params, context);
   }
 
@@ -225,9 +225,9 @@ export class QuestionAnswersService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  deleteQuestionAnswers(params: DeleteQuestionAnswers$Params, context?: HttpContext): Observable<any> {
+  deleteQuestionAnswers(params: DeleteQuestionAnswers$Params, context?: HttpContext): Observable<void> {
     return this.deleteQuestionAnswers$Response(params, context).pipe(
-      map((r: StrictHttpResponse<any>): any => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
