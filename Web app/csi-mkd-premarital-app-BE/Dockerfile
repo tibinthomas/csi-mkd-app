@@ -48,6 +48,10 @@ RUN dotnet publish \
 # =========================
 FROM base AS final
 WORKDIR /app
+
+# Install PostgreSQL client tools for backup functionality
+RUN apk add --no-cache postgresql-client
+
 COPY --from=publish /app/publish .
 
 ENV ASPNETCORE_URLS=http://+:8080 \
