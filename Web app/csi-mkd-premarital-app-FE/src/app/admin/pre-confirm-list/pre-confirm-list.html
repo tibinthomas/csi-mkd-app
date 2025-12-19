@@ -106,7 +106,7 @@
                 @if (reg.participants?.length) {
                 <h4 class="text-sm mb-2" i18n><strong>Participants</strong></h4>
                 <ul class="list-disc pl-5 space-y-1">
-                  @for (p of reg.participants; track p) {
+                  @for (p of getSortedParticipants(reg.participants); track p) {
                   <li class="flex items-center justify-between">
                     <span>{{ p.name }} – Age: {{ p.age }}</span>
                     <div class="flex gap-1">

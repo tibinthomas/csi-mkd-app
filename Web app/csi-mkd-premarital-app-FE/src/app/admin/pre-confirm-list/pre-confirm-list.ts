@@ -405,6 +405,15 @@ resetPrintStatus(participant: ParticipantDto, reg: ConfirmationRegisterDto): voi
     return newSet;
   });
 }
+
+getSortedParticipants(participants: ParticipantDto[] | undefined): ParticipantDto[] {
+  if (!participants || participants.length === 0) return [];
+  return [...participants].sort((a, b) => {
+    const nameA = (a.name || '').toLowerCase();
+    const nameB = (b.name || '').toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+}
 }
 
 @Component({
