@@ -267,7 +267,7 @@ export class PremaritalComponent {
     const uniqueSessionNames = new Set(filtered.map((s: any) => s.sessionName));
     return [
       ...Array.from(uniqueSessionNames).map((name) => ({ sessionName: name })),
-    ];
+    ].reverse();
   });
 
   searchRegistrations() {
