@@ -28,7 +28,7 @@ public class SupabaseBackupFunction
         try
         {
             // Get the main app URL from configuration
-            var mainAppUrl = _configuration["MainApp:BaseUrl"]
+            var mainAppUrl = _configuration["MainApp:BaseUrl"];
             
             var backupEndpoint = $"{mainAppUrl}/api/backup/trigger";
 
