@@ -55,7 +55,7 @@ export class Dashboard implements OnInit {
   generateBypassUrl(): void {
     const timestamp = Date.now();
     const encodedTimestamp = btoa(timestamp.toString());
-    const bypassUrl = `${window.location.origin}/register/premarital-register?bypass=${encodedTimestamp}`;
+    const bypassUrl = `${window.location.origin}/#/register/premarital-register?bypass=${encodedTimestamp}`;
     
     this.generatedBypassUrl.set(bypassUrl);
   }
