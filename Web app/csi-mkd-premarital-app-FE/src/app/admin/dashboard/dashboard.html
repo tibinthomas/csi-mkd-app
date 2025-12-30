@@ -35,4 +35,59 @@
       </mat-card-content>
     </mat-card>
   </div>
+
+  <!-- CAPTCHA Bypass URL Generator -->
+  <div class="mt-8">
+    <mat-card class="rounded-xl shadow-lg">
+      <mat-card-content class="p-6">
+        <div class="flex items-start gap-4 mb-4">
+          <mat-icon class="text-amber-500 text-3xl">security</mat-icon>
+          <div>
+            <h2 class="text-xl font-bold text-on-surface" i18n>CAPTCHA Bypass URL Generator</h2>
+            <p class="text-on-surface-variant text-sm mt-1" i18n>
+              Generate a time-limited URL for users experiencing issues with CAPTCHA verification.
+              The link will be valid for 1 hour.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="generateBypassUrl()"
+            class="!font-medium"
+          >
+            <mat-icon class="mr-2">link</mat-icon>
+            <span i18n>Generate Bypass Link</span>
+          </button>
+
+          @if (generatedBypassUrl()) {
+            <div class="flex-1 flex items-center gap-2 p-3 bg-surface-container rounded-lg border border-outline/30">
+              <code class="flex-1 text-sm text-on-surface break-all font-mono">
+                {{ generatedBypassUrl() }}
+              </code>
+              <button 
+                mat-icon-button 
+                (click)="copyBypassUrl()"
+                matTooltip="Copy to clipboard"
+                i18n-matTooltip
+                class="shrink-0"
+              >
+                <mat-icon>content_copy</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+
+        @if (generatedBypassUrl()) {
+          <div class="mt-4 flex items-center gap-2 text-amber-600 dark:text-amber-400 text-sm">
+            <mat-icon class="!text-[18px] !w-[18px] !h-[18px]">info</mat-icon>
+            <span i18n>This link expires in 1 hour. Share it with the user facing CAPTCHA issues.</span>
+          </div>
+        }
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
+

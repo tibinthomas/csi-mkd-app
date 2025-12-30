@@ -36,7 +36,7 @@ import { NoDigitsDirective } from '../../shared/directives/no-digits.directive';
 import { OnlyDigitsDirective } from '../../shared/directives/only-digits.directive';
 import { SpeechRecognitionDirective } from '../../shared/directives/speech-recognition.directive';
 import { InformedConsentComponent } from '../../shared/informed-consent/informed-consent';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { ThemeService } from '../../core/services/theme.service';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
@@ -81,6 +81,7 @@ export class PremaritalRegister {
   private readonly fb = inject(FormBuilder);
   readonly dialog = inject(MatDialog);
   private router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
   private readonly api = inject(ApiService);
   private readonly fileUploadService = inject(FileUploadService);
@@ -88,6 +89,10 @@ export class PremaritalRegister {
   private readonly churchDataService = inject(ChurchDataService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
   private readonly snackBar = inject(MatSnackBar);
+
+  // CAPTCHA bypass feature - valid for 1 hour with special URL
+  protected readonly captchaBypassEnabled = signal(false);
+  private readonly BYPASS_VALIDITY_MS = 60 * 60 * 1000; // 1 hour in milliseconds
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -328,6 +333,59 @@ export class PremaritalRegister {
       this.form.patchValue({ sessionId: this.selectedSessionId() });
     }
     window.addEventListener('beforeunload', this.beforeUnloadHandler);
+
+    // Check for CAPTCHA bypass query parameter
+    this.checkCaptchaBypass();
+  }
+
+  /**
+   * Check for time-limited CAPTCHA bypass URL
+   * URL format: ?bypass=<base64_encoded_timestamp>
+   * Valid only for 1 hour from the timestamp
+   */
+  private checkCaptchaBypass(): void {
+    const bypassParam = this.route.snapshot.queryParamMap.get('bypass');
+    if (!bypassParam) return;
+
+    try {
+      // Decode base64 timestamp
+      const decodedTimestamp = atob(bypassParam);
+      const bypassTimestamp = parseInt(decodedTimestamp, 10);
+      
+      if (isNaN(bypassTimestamp)) {
+        console.warn('Invalid bypass token format');
+        return;
+      }
+
+      const now = Date.now();
+      const age = now - bypassTimestamp;
+
+      // Check if the bypass token is valid (within 1 hour)
+      if (age >= 0 && age <= this.BYPASS_VALIDITY_MS) {
+        this.captchaBypassEnabled.set(true);
+        
+        // Remove reCAPTCHA validator
+        this.form.get('recaptcha')?.clearValidators();
+        this.form.get('recaptcha')?.updateValueAndValidity();
+        
+        // Calculate remaining time
+        const remainingMinutes = Math.round((this.BYPASS_VALIDITY_MS - age) / 60000);
+        
+        this.snackBar.open(
+          $localize`CAPTCHA verification bypassed. Valid for ${remainingMinutes} more minutes.`,
+          $localize`OK`,
+          { duration: 5000 }
+        );
+      } else {
+        this.snackBar.open(
+          $localize`Bypass link has expired. Please complete CAPTCHA verification.`,
+          $localize`Close`,
+          { duration: 5000 }
+        );
+      }
+    } catch (error) {
+      console.warn('Failed to parse bypass token:', error);
+    }
   }
 
   private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
@@ -499,7 +557,8 @@ export class PremaritalRegister {
       declaration: raw.declaration,
       sessionId: Number(raw.sessionId),
       paymentStatus: false,
-      recaptchaToken: raw.recaptcha,
+      // Use special bypass token when CAPTCHA bypass is enabled
+      recaptchaToken: this.captchaBypassEnabled() ? 'CAPTCHA_BYPASS_AUTHORIZED' : raw.recaptcha,
     };
 
     this.api.apiPremaritalregisterPost({ body }).subscribe({

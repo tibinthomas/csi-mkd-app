@@ -475,14 +475,29 @@
         </div>
 
         <div id="security-submit-section" class="flex flex-col gap-4">
-          <!-- reCAPTCHA v2 Checkbox -->
-          <ngx-recaptcha2
-            formControlName="recaptcha"
-            [siteKey]="siteKey"
-            (success)="handleSuccess($event)"
-            [theme]="recaptchaTheme()"
-            size="normal"
-          ></ngx-recaptcha2>
+          <!-- reCAPTCHA v2 Checkbox (hidden when bypass is enabled) -->
+          @if (!captchaBypassEnabled()) {
+            <ngx-recaptcha2
+              formControlName="recaptcha"
+              [siteKey]="siteKey"
+              (success)="handleSuccess($event)"
+              [theme]="recaptchaTheme()"
+              size="normal"
+            ></ngx-recaptcha2>
+          } @else {
+            <!-- Bypass notice -->
+            <div class="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <mat-icon class="text-green-600 dark:text-green-400">verified_user</mat-icon>
+              <div class="flex-1">
+                <p class="text-green-700 dark:text-green-300 font-medium text-sm" i18n>
+                  CAPTCHA verification bypassed
+                </p>
+                <p class="text-green-600 dark:text-green-400 text-xs" i18n>
+                  You are using a time-limited bypass link. Form can be submitted without CAPTCHA.
+                </p>
+              </div>
+            </div>
+          }
         </div>
         <div class="mt-6 flex justify-center">
           <button
