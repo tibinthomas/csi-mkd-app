@@ -331,7 +331,8 @@ export class PremaritalRegister {
   }
 
   private beforeUnloadHandler = (event: BeforeUnloadEvent) => {
-    if (this.hasPendingChanges()) {
+    // Block navigation if form has pending changes OR if submission is in progress
+    if (this.hasPendingChanges() || this.isSubmitting()) {
       event.preventDefault();
       event.returnValue = '';
     }

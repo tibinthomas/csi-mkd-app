@@ -507,3 +507,23 @@
     </mat-card-content>
   </mat-card>
 </section>
+
+<!-- Full-screen blocking overlay during submission -->
+@if (isSubmitting()) {
+<div class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+  <div class="bg-surface-container p-8 rounded-2xl shadow-2xl flex flex-col items-center gap-4 max-w-sm mx-4 text-center">
+    <div class="relative">
+      <div class="w-16 h-16 border-4 border-primary/30 rounded-full"></div>
+      <div class="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-primary rounded-full animate-spin"></div>
+    </div>
+    <h3 class="text-xl font-bold text-on-surface" i18n>Submitting Registration</h3>
+    <p class="text-on-surface-variant text-sm" i18n>
+      Please wait while we upload your files and save your registration. Do not close or navigate away from this page.
+    </p>
+    <div class="flex items-center gap-2 text-amber-600 dark:text-amber-400 text-xs">
+      <mat-icon class="!text-[16px] !w-4 !h-4">warning</mat-icon>
+      <span i18n>Closing this page may result in incomplete registration</span>
+    </div>
+  </div>
+</div>
+}
