@@ -43,8 +43,8 @@ import { filter, map, switchMap } from 'rxjs';
     @if (isChristmasSeason()) {
       <app-christmas-snow></app-christmas-snow>
       <app-christmas-ornaments></app-christmas-ornaments>
+      <app-cursor-effects></app-cursor-effects>
     }
-    <app-cursor-effects></app-cursor-effects>
     
     <!-- Main App Content -->
     <router-outlet></router-outlet>
