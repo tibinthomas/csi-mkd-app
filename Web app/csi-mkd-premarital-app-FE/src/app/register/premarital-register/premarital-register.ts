@@ -598,6 +598,7 @@ export class PremaritalRegister {
                 })
                 .subscribe({
                   next: () => {
+                    this.isSubmitting.set(false); // Hide loading overlay
                     this.successMessage.set(
                       'Registration submitted successfully!'
                     );
