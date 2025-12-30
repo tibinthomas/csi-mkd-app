@@ -31,6 +31,7 @@ fi
 required_secrets=(
     "ConnectionStrings__DefaultConnection"
     "AzureBlob__ConnectionString"
+    "MainApp__BaseUrl"
 )
 
 missing_secrets=()
@@ -104,7 +105,7 @@ az functionapp config appsettings set \
         "FUNCTIONS_EXTENSION_VERSION=~4" \
         "SupabaseBackup__ContainerName=supabase-backups" \
         "SupabaseBackup__RetentionDays=7" \
-        "MainApp__BaseUrl=https://csi-mkd-premarital-app-be.azurewebsites.net" || {
+        "MainApp__BaseUrl=$MainApp__BaseUrl" || {
     echo "⚠️ Warning: Failed to update some settings, but deployment may still work."
 }
 
