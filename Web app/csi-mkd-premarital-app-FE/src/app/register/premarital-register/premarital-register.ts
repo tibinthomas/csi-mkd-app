@@ -46,6 +46,7 @@ import {
 } from '../../core/services/church-data.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import Shepherd from 'shepherd.js';
 
 @Component({
@@ -86,6 +87,7 @@ export class PremaritalRegister {
   private readonly themeService = inject(ThemeService);
   private readonly churchDataService = inject(ChurchDataService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
+  private readonly snackBar = inject(MatSnackBar);
 
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
@@ -242,11 +244,85 @@ export class PremaritalRegister {
     });
   }
 
+  // LocalStorage key for saving form progress
+  private readonly storageKey = 'premaritalRegistrationForm';
+
+  // Save form data to localStorage
+  protected saveForm(): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(this.form.getRawValue()));
+    this.snackBar.open($localize`Form data saved locally.`, $localize`Close`, { duration: 3000 });
+  }
+
+  // Load saved form data from localStorage
+  protected loadForm(showAlert = false): void {
+    const savedData = localStorage.getItem(this.storageKey);
+    if (savedData) {
+      const formData = JSON.parse(savedData);
+
+      // Temporarily remove validators to avoid issues with disabled fields
+      this.form.get('churchName')?.clearValidators();
+      this.form.get('churchName')?.updateValueAndValidity();
+
+      // Patch all form data
+      this.form.patchValue(formData);
+
+      // Handle dependent dropdown for church (only for members)
+      if (formData.churchMembership === 'member' && formData.churchDistrict) {
+        this.selectedDistrict.set(formData.churchDistrict);
+        this.form.get('churchName')?.enable();
+        this.churchDataService
+          .getChurchesByLocationAndSearch(formData.churchDistrict)
+          .subscribe((churches) => {
+            this.availableChurches.set(churches);
+            this.form.get('churchName')?.setValue(formData.churchName);
+            this.onChurchChange(formData.churchName);
+
+            // Restore validators
+            this.form.get('churchName')?.setValidators([Validators.required]);
+            this.form.get('churchName')?.updateValueAndValidity();
+          });
+      } else {
+        // Restore validators if no district
+        this.form.get('churchName')?.setValidators([Validators.required]);
+        this.form.get('churchName')?.updateValueAndValidity();
+      }
+
+      if (showAlert) {
+        this.snackBar.open($localize`Form data loaded from local storage.`, $localize`Close`, { duration: 3000 });
+      }
+    } else {
+      if (showAlert) {
+        this.snackBar.open($localize`No saved data found.`, $localize`Close`, { duration: 3000 });
+      }
+    }
+  }
+
+  // Clear saved form data from localStorage and reset form
+  protected clearForm(): void {
+    localStorage.removeItem(this.storageKey);
+    this.form.reset();
+    this.photoFile.set(null);
+    this.vicarLetterFile.set(null);
+    this.photoError.set('');
+    this.vicarLetterError.set('');
+    this.selectedChurch.set(null);
+    this.selectedDistrict.set('');
+    this.availableChurches.set([]);
+    this.formSubmitted.set(false);
+    this.snackBar.open($localize`Local form data cleared.`, $localize`Close`, { duration: 3000 });
+  }
+
+  // Clear localStorage after successful submission
+  private clearLocalStorage(): void {
+    localStorage.removeItem(this.storageKey);
+  }
+
   hasPendingChanges = (): boolean => {
     return this.form.dirty;
   };
 
   ngOnInit() {
+    this.loadForm(false); // Load any saved form data on init (without alert)
     this.sessionList(); // load sessionList()
     if (this.selectedSessionId()) {
       this.form.patchValue({ sessionId: this.selectedSessionId() });
@@ -358,6 +434,9 @@ export class PremaritalRegister {
 
   onSubmit() {
     this.formSubmitted.set(true);
+
+    // Auto-save form data to localStorage before attempting submission
+    localStorage.setItem(this.storageKey, JSON.stringify(this.form.getRawValue()));
 
     // Prevent submission while async validators are still running
     if (this.form.pending) {
@@ -473,6 +552,7 @@ export class PremaritalRegister {
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {
+                      this.clearLocalStorage(); // Clear saved form data after successful submission
                       this.form.reset();
                       window.history.back();
                     });

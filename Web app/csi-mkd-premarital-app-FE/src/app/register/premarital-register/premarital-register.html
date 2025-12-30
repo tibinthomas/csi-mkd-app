@@ -3,20 +3,34 @@
     class="elegant-card elegant-surface-elevated max-w-4xl mx-auto p-6 mt-20 theme-transition"
     appAnimateOnScroll
   >
-    <mat-card-header class="mb-6 flex items-center justify-between">
+    <mat-card-header class="mb-6 flex items-center justify-between flex-wrap gap-2">
       <mat-card-title id="form-title" class="!font-bold text-on-surface theme-transition" i18n>
         Premarital Registration Form
       </mat-card-title>
-      <button
-        mat-icon-button
-        type="button"
-        (click)="startTutorial()"
-        matTooltip="Take a guided tour of this form"
-        i18n-matTooltip
-        aria-label="Start tutorial"
-      >
-        <mat-icon>help_outline</mat-icon>
-      </button>
+      <div class="flex gap-2 items-center flex-wrap">
+        <button mat-stroked-button type="button" (click)="saveForm()" i18n>
+          <mat-icon class="mr-1">save</mat-icon>
+          Save Progress
+        </button>
+        <button mat-stroked-button type="button" (click)="loadForm(true)" i18n>
+          <mat-icon class="mr-1">restore</mat-icon>
+          Restore
+        </button>
+        <button mat-stroked-button type="button" (click)="clearForm()" i18n>
+          <mat-icon class="mr-1">delete_outline</mat-icon>
+          Clear Saved
+        </button>
+        <button
+          mat-icon-button
+          type="button"
+          (click)="startTutorial()"
+          matTooltip="Take a guided tour of this form"
+          i18n-matTooltip
+          aria-label="Start tutorial"
+        >
+          <mat-icon>help_outline</mat-icon>
+        </button>
+      </div>
     </mat-card-header>
     <mat-card-content>
       <!-- Important Notice -->
