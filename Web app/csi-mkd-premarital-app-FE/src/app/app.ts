@@ -3,6 +3,8 @@ import {
   Component,
   OnInit,
   inject,
+  computed,
+  signal,
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -37,9 +39,11 @@ import { filter, map, switchMap } from 'rxjs';
     CursorEffectsComponent
   ],
   template: `
-    <!-- Minimal Christmas Decorations -->
-    <app-christmas-snow></app-christmas-snow>
-    <app-christmas-ornaments></app-christmas-ornaments>
+    <!-- Minimal Christmas Decorations (Dec 1-26 only) -->
+    @if (isChristmasSeason()) {
+      <app-christmas-snow></app-christmas-snow>
+      <app-christmas-ornaments></app-christmas-ornaments>
+    }
     <app-cursor-effects></app-cursor-effects>
     
     <!-- Main App Content -->
@@ -59,6 +63,16 @@ export class App implements OnInit {
   private readonly updateService = inject(UpdateService);
   private readonly loadingService = inject(LoadingService);
   private readonly consoleDetectionService = inject(ConsoleDetectionService);
+
+  // Check if current date is within Christmas season (December 1-26)
+  readonly isChristmasSeason = computed(() => {
+    const now = new Date();
+    const month = now.getMonth(); // 0-indexed, December = 11
+    const day = now.getDate();
+    
+    // Show Christmas theme from December 1st to December 26th
+    return month === 11 && day >= 1 && day <= 26;
+  });
 
   ngOnInit(): void {
     // Initialize update service
