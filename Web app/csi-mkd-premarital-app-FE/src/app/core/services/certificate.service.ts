@@ -23,6 +23,14 @@ export interface CertificateData {
   providedIn: 'root',
 })
 export class CertificateService {
+  private toTitleCase(str: string): string {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   private formatDate(date: Date): string {
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -261,7 +269,7 @@ export class CertificateService {
         : this.formatDates(data.dates);
 
     return template
-      .replace(/\{\{\s*NAME\s*\}\}/g, data.name)
+      .replace(/\{\{\s*NAME\s*\}\}/g, this.toTitleCase(data.name))
       .replace(/\{\{\s*CHURCH_NAME\s*\}\}/g, data.churchName)
       .replace(/\{\{\s*DATES\s*\}\}/g, formattedDates);
   }
