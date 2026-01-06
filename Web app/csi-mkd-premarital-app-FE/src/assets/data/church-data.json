@@ -955,6 +955,12 @@
       "priestId": 39
     },
     {
+      "id": 499,
+      "name": "CSI Church, Manjadikari",
+      "locationId": 3,
+      "priestId": 40
+    },
+    {
       "id": 131,
       "name": "CSI St. Stephen’s Church, Velloor",
       "locationId": 3,
