@@ -1436,7 +1436,13 @@ export class DeleteConfirmationDialog {
             rows="3"
             required
           ></textarea>
-          <mat-error>Address is required</mat-error>
+          @if (editForm.get('address')?.hasError('required')) {
+            <mat-error>Address is required</mat-error>
+          } @else if (editForm.get('address')?.hasError('maxlength')) {
+            <mat-error>Address cannot exceed 250 characters</mat-error>
+          } @else if (editForm.get('address')?.hasError('pattern')) {
+            <mat-error>Address contains invalid characters</mat-error>
+          }
         </mat-form-field>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1814,7 +1820,7 @@ export class EditRegistrationDialog {
         [
           Validators.required,
           Validators.maxLength(250),
-          Validators.pattern(/^[a-zA-Z0-9\s,.-]*$/),
+          Validators.pattern(/^[a-zA-Z0-9\s,.\-\/()#:;'"&]*$/),
         ],
       ],
       sex: [reg.sex || '', Validators.required],
