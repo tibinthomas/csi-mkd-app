@@ -166,7 +166,7 @@ export class PremaritalRegister {
         '',
         [
           Validators.required,
-          Validators.maxLength(250),
+          Validators.maxLength(350),
           Validators.pattern(/^[a-zA-Z0-9\s,.\-\/()#:;'"&]*$/),
         ],
       ],
