@@ -382,6 +382,11 @@
             <span class="text-sm text-on-surface-variant overflow-hidden" aria-live="polite">
               {{ photoFile()?.name }}
             </span>
+             @if (photoPreviewUrl()) {
+                <div class="mt-2">
+                  <img [src]="photoPreviewUrl()" alt="Photo Preview" class="h-32 w-auto object-cover rounded-md border border-outline-variant">
+                </div>
+              }
             } @else { <mat-hint class="!text-xs" i18n>Max size 2MB (JPG, PNG)</mat-hint>
             } @if (photoError() ) {
             <mat-error class="text-xs" role="alert" aria-live="assertive"> {{ photoError() }} </mat-error>}
@@ -426,6 +431,14 @@
             <span class="text-sm text-on-surface-variant overflow-hidden" aria-live="polite">
               {{ vicarLetterFile()?.name }}
             </span>
+              @if (vicarLetterPreviewUrl()) {
+                <div class="mt-2">
+                  <a [href]="vicarLetterPreviewUrl()" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline text-sm flex items-center gap-1">
+                    <mat-icon class="!text-sm !w-4 !h-4">visibility</mat-icon>
+                    <span i18n>View Uploaded File</span>
+                  </a>
+                </div>
+              }
             } @else {
             <mat-hint class="text-xs" i18n>Max size 2MB (PDF, DOC, DOCX, JPG, PNG)</mat-hint>
 

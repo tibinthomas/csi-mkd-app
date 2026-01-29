@@ -97,6 +97,8 @@ export class PremaritalRegister {
   protected readonly form: FormGroup;
   protected readonly photoFile = signal<File | null>(null);
   protected readonly vicarLetterFile = signal<File | null>(null);
+  protected readonly photoPreviewUrl = signal<string | null>(null);
+  protected readonly vicarLetterPreviewUrl = signal<string | null>(null);
   protected readonly successMessage = signal('');
   protected readonly errorMessage = signal('');
   protected readonly isSubmitting = signal(false);
@@ -306,8 +308,19 @@ export class PremaritalRegister {
   protected clearForm(): void {
     localStorage.removeItem(this.storageKey);
     this.form.reset();
+    
+    // Revoke object URLs
+    if (this.photoPreviewUrl()) {
+      URL.revokeObjectURL(this.photoPreviewUrl()!);
+    }
+    if (this.vicarLetterPreviewUrl()) {
+      URL.revokeObjectURL(this.vicarLetterPreviewUrl()!);
+    }
+
     this.photoFile.set(null);
     this.vicarLetterFile.set(null);
+    this.photoPreviewUrl.set(null);
+    this.vicarLetterPreviewUrl.set(null);
     this.photoError.set('');
     this.vicarLetterError.set('');
     this.selectedChurch.set(null);
@@ -427,6 +440,11 @@ export class PremaritalRegister {
     const target = event.target as HTMLInputElement;
     const file = target.files?.[0] || null;
     if (type === 'photo') {
+      if (this.photoPreviewUrl()) {
+        URL.revokeObjectURL(this.photoPreviewUrl()!);
+        this.photoPreviewUrl.set(null);
+      }
+
       if (file && !file.type.startsWith('image/')) {
         this.photoError.set('Only image files are allowed.');
         this.photoFile.set(null);
@@ -436,9 +454,18 @@ export class PremaritalRegister {
       } else {
         this.photoFile.set(file);
         this.photoError.set('');
+        if (file) {
+          const url = URL.createObjectURL(file);
+          this.photoPreviewUrl.set(url);
+        }
       }
     }
     if (type === 'vicarLetter') {
+      if (this.vicarLetterPreviewUrl()) {
+        URL.revokeObjectURL(this.vicarLetterPreviewUrl()!);
+        this.vicarLetterPreviewUrl.set(null);
+      }
+
       const allowedTypes = [
         'application/pdf',
         'application/msword',
@@ -456,6 +483,10 @@ export class PremaritalRegister {
       } else {
         this.vicarLetterFile.set(file);
         this.vicarLetterError.set('');
+        if (file) {
+            const url = URL.createObjectURL(file);
+            this.vicarLetterPreviewUrl.set(url);
+          }
       }
     }
   }
