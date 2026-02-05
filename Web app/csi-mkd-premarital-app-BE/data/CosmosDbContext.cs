@@ -42,6 +42,9 @@ public class CosmosDbContext(DbContextOptions<CosmosDbContext> options) : DbCont
         modelBuilder.Ignore<PremaritalDocument>();
         modelBuilder.Ignore<GeneralDocument>();
         modelBuilder.Ignore<ConfirmationDocument>();
+        modelBuilder.Ignore<PremaritalOutsideKeralaRegistration>();
+        modelBuilder.Ignore<PremaritalOutsideKeralaDocument>();
+        modelBuilder.Ignore<ParticipantOutsideKerala>();
 
         // Apply only Cosmos DB specific configurations
         modelBuilder.ApplyConfiguration(new ClassFeedbackConfiguration());

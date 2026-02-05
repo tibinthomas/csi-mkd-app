@@ -17,5 +17,11 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId);
         Task<IEnumerable<PremaritalRegistration>> FilterRegistrationsForVcf(RegistrationFilterDto filter);
         Task<IEnumerable<PremaritalRegistration>> FilterRegistrationsForSpreadsheet(PremaritalRegisterSpreadsheetFilterDto filter);
+
+        // Outside Kerala methods
+        Task<Guid> AddOutsideKeralaRegistration(PremaritalOutsideKeralaRegistration registration);
+        Task<bool> UpsertOutsideKeralaFilesAsync(PremaritalOutsideKeralaDocument documents);
+        Task<PremaritalOutsideKeralaRegistration?> GetOutsideKeralaRegistrationById(Guid id);
+        Task<bool> DeleteOutsideKeralaRegistration(Guid id);
     }
 }

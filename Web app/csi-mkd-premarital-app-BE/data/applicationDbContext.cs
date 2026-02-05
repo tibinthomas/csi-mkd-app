@@ -18,6 +18,9 @@ namespace csi_mkd_premarital_app_BE.Data
         public DbSet<ConfirmationDocument> ConfirmationDocuments => Set<ConfirmationDocument>();
         public DbSet<Participant> Participants => Set<Participant>();
         public DbSet<Instructor> Instructors => Set<Instructor>();
+        public DbSet<PremaritalOutsideKeralaRegistration> PremaritalOutsideKeralaRegistrations => Set<PremaritalOutsideKeralaRegistration>();
+        public DbSet<PremaritalOutsideKeralaDocument> PremaritalOutsideKeralaDocuments => Set<PremaritalOutsideKeralaDocument>();
+        public DbSet<ParticipantOutsideKerala> ParticipantsOutsideKerala => Set<ParticipantOutsideKerala>();
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -105,6 +108,28 @@ namespace csi_mkd_premarital_app_BE.Data
                 .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<Instructor>().ToTable("Instructors", "public");
 
+            modelBuilder.Entity<PremaritalOutsideKeralaDocument>()
+                .HasKey(d => d.RegistrationId);
+
+            modelBuilder.Entity<PremaritalOutsideKeralaDocument>()
+                .HasOne(d => d.PremaritalOutsideKeralaRegistration)
+                .WithOne(r => r.PremaritalOutsideKeralaDocument)
+                .HasForeignKey<PremaritalOutsideKeralaDocument>(d => d.RegistrationId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PremaritalOutsideKeralaRegistration>(entity =>
+            {
+                entity.Property(e => e.TimeZone)
+                    .HasConversion(
+                        v => v.HasValue ? v.Value.GetIanaId() : null,
+                        v => v == null ? null : TimeZoneOptionExtensions.FromIanaId(v));
+            });
+
+            modelBuilder.Entity<ParticipantOutsideKerala>()
+                .HasOne(p => p.PremaritalOutsideKeralaRegistration)
+                .WithMany(r => r.Participants)
+                .HasForeignKey(p => p.RegistrationId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

@@ -137,5 +137,30 @@ public static class PremaritalRegisterEndpoints
 
             return Results.File(spreadsheetBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "registrations.xlsx");
         });
+
+        // Outside Kerala endpoints
+        var outsideGroup = app.MapGroup("/api/premaritalregister-outside-kerala");
+        outsideGroup.DisableAntiforgery();
+
+        outsideGroup.MapPost("/", async ([FromBody] PremaritalOutsideKeralaRegisterDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
+        {
+            var result = await service.RegisterOutsideKerala(dto);
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.Json(result.Data, statusCode: result.StatusCode);
+        })
+        .Accepts<PremaritalOutsideKeralaRegisterDto>("application/json");
+
+        outsideGroup.MapPost("/files/{registrationId:guid}", async (
+            Guid registrationId,
+            [FromForm] PremaritalOutsideKeralaDocumentDto dto,
+            IPremaritalRegisterService service,
+            ICacheInvalidationService cacheService) =>
+        {
+            dto.RegistrationId = registrationId;
+            var result = await service.UpsertOutsideKeralaFiles(dto);
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.Json(result.Data, statusCode: result.StatusCode);
+        })
+        .Accepts<PremaritalOutsideKeralaDocumentDto>("multipart/form-data");
     }
 }

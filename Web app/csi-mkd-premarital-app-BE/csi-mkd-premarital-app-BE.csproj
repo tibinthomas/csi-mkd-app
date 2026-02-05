@@ -20,6 +20,7 @@
     <PackageReference Include="ClosedXML" Version="0.105.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.53.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="10.0.0" />
+    <PackageReference Include="TimeZoneConverter" Version="7.2.0" />
 
     <ProjectReference Include="ServiceDefaults/ServiceDefaults.csproj" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />

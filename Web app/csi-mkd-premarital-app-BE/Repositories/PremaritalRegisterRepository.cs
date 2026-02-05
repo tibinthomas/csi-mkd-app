@@ -257,5 +257,57 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
             return await query.ToListAsync();
         }
+
+        public async Task<Guid> AddOutsideKeralaRegistration(PremaritalOutsideKeralaRegistration registration)
+        {
+            _context.PremaritalOutsideKeralaRegistrations.Add(registration);
+            await _context.SaveChangesAsync();
+            return registration.Id;
+        }
+
+        public async Task<bool> UpsertOutsideKeralaFilesAsync(PremaritalOutsideKeralaDocument dto)
+        {
+            var existing = await _context.PremaritalOutsideKeralaDocuments
+                .FirstOrDefaultAsync(p => p.RegistrationId == dto.RegistrationId);
+
+            if (existing == null)
+            {
+                _context.PremaritalOutsideKeralaDocuments.Add(dto);
+                await _context.SaveChangesAsync();
+                return true; // new record
+            }
+
+            if (!string.IsNullOrEmpty(dto.VicarLetterUrl))
+                existing.VicarLetterUrl = dto.VicarLetterUrl;
+
+            existing.SubmittedAt = DateTime.UtcNow;
+
+            _context.PremaritalOutsideKeralaDocuments.Update(existing);
+            await _context.SaveChangesAsync();
+
+            return false; // updated record
+        }
+
+        public async Task<PremaritalOutsideKeralaRegistration?> GetOutsideKeralaRegistrationById(Guid id)
+            => await _context.PremaritalOutsideKeralaRegistrations
+                .Include(r => r.Participants)
+                .Include(r => r.PremaritalOutsideKeralaDocument)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+        public async Task<bool> DeleteOutsideKeralaRegistration(Guid id)
+        {
+            var registration = await _context.PremaritalOutsideKeralaRegistrations
+                .Include(r => r.PremaritalOutsideKeralaDocument)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            if (registration == null) return false;
+
+            if (registration.PremaritalOutsideKeralaDocument != null)
+                _context.PremaritalOutsideKeralaDocuments.Remove(registration.PremaritalOutsideKeralaDocument);
+
+            _context.PremaritalOutsideKeralaRegistrations.Remove(registration);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

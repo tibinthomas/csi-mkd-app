@@ -12,7 +12,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("95bc06e3-2f9f-4957-8e56-f7bec6f17bff"), entityTypeCount: 12)
+            : base(skipDetectChanges: false, modelId: new Guid("e3467111-953d-4ed3-9a6b-e65dc4e2b0a3"), entityTypeCount: 15)
         {
         }
 
@@ -27,14 +27,19 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
             var generalDocument = GeneralDocumentEntityType.Create(this);
             var generalRegistration = GeneralRegistrationEntityType.Create(this);
             var instructor = InstructorEntityType.Create(this);
+            var participantOutsideKerala = ParticipantOutsideKeralaEntityType.Create(this);
             var premaritalDocument = PremaritalDocumentEntityType.Create(this);
+            var premaritalOutsideKeralaDocument = PremaritalOutsideKeralaDocumentEntityType.Create(this);
+            var premaritalOutsideKeralaRegistration = PremaritalOutsideKeralaRegistrationEntityType.Create(this);
             var premaritalRegistration = PremaritalRegistrationEntityType.Create(this);
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
 
             ParticipantEntityType.CreateForeignKey1(participant, confirmationRegistration);
             ConfirmationDocumentEntityType.CreateForeignKey1(confirmationDocument, confirmationRegistration);
             GeneralDocumentEntityType.CreateForeignKey1(generalDocument, generalRegistration);
+            ParticipantOutsideKeralaEntityType.CreateForeignKey1(participantOutsideKerala, premaritalOutsideKeralaRegistration);
             PremaritalDocumentEntityType.CreateForeignKey1(premaritalDocument, premaritalRegistration);
+            PremaritalOutsideKeralaDocumentEntityType.CreateForeignKey1(premaritalOutsideKeralaDocument, premaritalOutsideKeralaRegistration);
             PremaritalRegistrationEntityType.CreateForeignKey1(premaritalRegistration, sessionConfiguration);
 
             ConfirmationRegistrationEntityType.CreateAnnotations(confirmationRegistration);
@@ -46,12 +51,15 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
             GeneralDocumentEntityType.CreateAnnotations(generalDocument);
             GeneralRegistrationEntityType.CreateAnnotations(generalRegistration);
             InstructorEntityType.CreateAnnotations(instructor);
+            ParticipantOutsideKeralaEntityType.CreateAnnotations(participantOutsideKerala);
             PremaritalDocumentEntityType.CreateAnnotations(premaritalDocument);
+            PremaritalOutsideKeralaDocumentEntityType.CreateAnnotations(premaritalOutsideKeralaDocument);
+            PremaritalOutsideKeralaRegistrationEntityType.CreateAnnotations(premaritalOutsideKeralaRegistration);
             PremaritalRegistrationEntityType.CreateAnnotations(premaritalRegistration);
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
 
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-            AddAnnotation("ProductVersion", "9.0.8");
+            AddAnnotation("ProductVersion", "9.0.0");
             AddAnnotation("Relational:MaxIdentifierLength", 63);
         }
     }

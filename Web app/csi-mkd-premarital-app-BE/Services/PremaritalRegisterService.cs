@@ -1,6 +1,8 @@
 using System.Text.Json;
+using TimeZoneConverter;
 using csi_mkd_premarital_app_BE.Data;
 using csi_mkd_premarital_app_BE.DTOs;
+using csi_mkd_premarital_app_BE.Helpers;
 using csi_mkd_premarital_app_BE.Models;
 using csi_mkd_premarital_app_BE.Repositories;
 using Microsoft.AspNetCore.Hosting;
@@ -162,5 +164,63 @@ namespace csi_mkd_premarital_app_BE.Services
                 }
             }
         }
+
+        public async Task<(int StatusCode, object Data)> RegisterOutsideKerala(PremaritalOutsideKeralaRegisterDto dto)
+        {
+            if (dto == null) return (400, new { message = "Invalid input" });
+            
+            // Ensure TimeZone is present (handled by DTO validation usually, but safe access here)
+            if (dto.TimeZone == null) return (400, new { message = "TimeZone is required" });
+
+            // Use the Helper to get UTC range
+
+            var (utcStart, utcEnd) = DateRangeConverter.BuildUtcDateRange(
+                dto.SessionStartDate, 
+                dto.SessionEndDate, 
+                dto.TimeZone.Value.GetIanaId()
+            );
+
+            var entity = new PremaritalOutsideKeralaRegistration
+            {
+                ChurchId = dto.ChurchId,
+                SessionStartDate = utcStart,
+                SessionEndDate = utcEnd,
+                PriestName = dto.PriestName,
+                TimeZone = dto.TimeZone,
+                Participants = dto.Participants.Select(p => new ParticipantOutsideKerala
+                {
+                    Name = p.Name,
+                    SubmittedAt = DateTime.UtcNow
+                }).ToList(),
+                SubmittedAt = DateTime.UtcNow
+            };
+
+            var registerId = await _repo.AddOutsideKeralaRegistration(entity);
+
+            return (200, new { message = "Registered!", id = registerId });
+        }
+
+        public async Task<(int StatusCode, object Data)> UpsertOutsideKeralaFiles(PremaritalOutsideKeralaDocumentDto dto)
+        {
+            if (dto == null) return (400, new { message = "Invalid input" });
+
+            var entity = new PremaritalOutsideKeralaDocument
+            {
+                RegistrationId = dto.RegistrationId,
+                VicarLetterUrl = dto.VicarLetterUrl,
+                SubmittedAt = DateTime.UtcNow
+            };
+
+            var isNew = await _repo.UpsertOutsideKeralaFilesAsync(entity);
+
+            return (200, new { message = isNew ? "Files saved!" : "Files updated!" });
+        }
+
+        public async Task<PremaritalOutsideKeralaRegistration?> GetOutsideKeralaRegistrationById(Guid id)
+            => await _repo.GetOutsideKeralaRegistrationById(id);
+
+        public async Task<bool> DeleteOutsideKeralaRegistration(Guid id)
+            => await _repo.DeleteOutsideKeralaRegistration(id);
+
     }
 }

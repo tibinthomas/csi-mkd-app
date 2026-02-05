@@ -11,7 +11,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels.Cosmos
     public partial class CosmosDbContextModel
     {
         private CosmosDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("83f7eb2a-0785-49eb-a236-e9250d7dcf1d"), entityTypeCount: 6)
+            : base(skipDetectChanges: false, modelId: new Guid("96725d14-8079-40dc-866b-43376a663bd1"), entityTypeCount: 6)
         {
         }
 
@@ -37,7 +37,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels.Cosmos
             QuestionAnswersEntityType.CreateAnnotations(questionAnswers);
 
             AddAnnotation("Cosmos:ContainerName", "CosmosDbContext");
-            AddAnnotation("ProductVersion", "9.0.8");
+            AddAnnotation("ProductVersion", "9.0.0");
         }
     }
 }
