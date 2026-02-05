@@ -107,6 +107,10 @@ import { apiPremaritalregisterIdPaymentstatusPut } from '../fn/csi-mkd-premarita
 import { ApiPremaritalregisterIdPaymentstatusPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-paymentstatus-put';
 import { apiPremaritalregisterIdPut } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-put';
 import { ApiPremaritalregisterIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-put';
+import { apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-files-registration-id-post';
+import { ApiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-files-registration-id-post';
+import { apiPremaritalregisterOutsideKeralaPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-post';
+import { ApiPremaritalregisterOutsideKeralaPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-post';
 import { apiPremaritalregisterPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { ApiPremaritalregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { apiPremaritalregisterSpreadsheetGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-spreadsheet-get';
@@ -726,6 +730,56 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiPremaritalregisterSpreadsheetGet(params?: ApiPremaritalregisterSpreadsheetGet$Params, context?: HttpContext): Observable<void> {
     return this.apiPremaritalregisterSpreadsheetGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterOutsideKeralaPost()` */
+  static readonly ApiPremaritalregisterOutsideKeralaPostPath = '/api/premaritalregister-outside-kerala';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterOutsideKeralaPost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterOutsideKeralaPost$Response(params: ApiPremaritalregisterOutsideKeralaPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterOutsideKeralaPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterOutsideKeralaPost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterOutsideKeralaPost(params: ApiPremaritalregisterOutsideKeralaPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterOutsideKeralaPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost()` */
+  static readonly ApiPremaritalregisterOutsideKeralaFilesRegistrationIdPostPath = '/api/premaritalregister-outside-kerala/files/{registrationId}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Response(params: ApiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Response()` instead.
+   *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost(params: ApiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

@@ -7,7 +7,7 @@
       <span i18n> Select the type of counselling you'd like to register for.</span>
     </p>
 
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-10 m-10 sm:mx-40 md:m-5 md:pt-10">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-10 m-10 sm:mx-40 md:m-5 md:pt-10">
       <!-- Premarital Counselling Card -->
       <mat-card
         class="elegant-card elegant-hover-effect cursor-pointer pb-5 transition-all duration-300 hover:shadow-2xl hover:scale-[1.1] rounded-2xl flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary animate-fade-slide theme-transition"
@@ -28,6 +28,30 @@
           <mat-card-title class="!text-xl !font-bold" i18n>Premarital Counselling</mat-card-title>
           <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2 theme-transition" i18n>
             A 3-day program to prepare couples for a committed and faithful marriage.
+          </mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+
+      <!-- Outside Kerala & Abroad Premarital Counselling Card -->
+      <mat-card
+        class="elegant-card elegant-hover-effect cursor-pointer pb-5 transition-all duration-300 hover:shadow-2xl hover:scale-[1.1] rounded-2xl flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary animate-fade-slide theme-transition"
+        routerLink="/register/abroad-premarital-register"
+        appAnimateOnScroll
+      >
+        <img
+          mat-card-image
+          ngSrc="assets/abroad-counselling.jpg"
+          width="600"
+          height="600"
+          alt="Outside Kerala & Abroad Premarital Counselling"
+          class="w-full h-44 object-cover rounded-t-2xl"
+          loading="lazy"
+          decoding="async"
+        />
+        <mat-card-header class="pt-6 px-6 text-center flex flex-col items-center">
+          <mat-card-title class="!text-xl !font-bold" i18n>Outside Kerala & Abroad Premarital Counselling</mat-card-title>
+          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2 theme-transition" i18n>
+            Premarital registration specifically for candidates residing outside Kerala or abroad.
           </mat-card-subtitle>
         </mat-card-header>
       </mat-card>

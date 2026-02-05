@@ -85,6 +85,18 @@ export const routes: Routes = [
         canDeactivate: [pendingChangesGuard],
       },
       {
+        path: 'register/abroad-premarital-register',
+        title: 'Abroad Premarital Registration - CSI MKD Premarital Counsel',
+        data: {
+          description: 'Register for abroad premarital counselling sessions.',
+        },
+        loadComponent: () =>
+          import(
+            './register/abroad-premarital-register/abroad-premarital-register'
+          ).then((m) => m.AbroadPremaritalRegister),
+        canDeactivate: [pendingChangesGuard],
+      },
+      {
         path: 'register/general-register',
         title: 'General Registration - CSI MKD Premarital Counsel',
         data: { description: 'Register for general counselling sessions.' },
@@ -112,6 +124,18 @@ export const routes: Routes = [
         data: { description: 'View upcoming premarital counselling sessions.' },
         loadComponent: () =>
           import('./sessions/sessions').then((m) => m.Sessions),
+      },
+      {
+        path: 'register/abroad-premarital-register/:sessionId',
+        title: 'Abroad Premarital Registration - CSI MKD Premarital Counsel',
+        data: {
+          description:
+            'Register for a specific abroad premarital counselling session.',
+        },
+        loadComponent: () =>
+          import(
+            './register/abroad-premarital-register/abroad-premarital-register'
+          ).then((m) => m.AbroadPremaritalRegister),
       },
       {
         path: 'register/premarital-register/:sessionId',

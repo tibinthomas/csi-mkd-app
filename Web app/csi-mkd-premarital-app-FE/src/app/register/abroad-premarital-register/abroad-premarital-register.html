@@ -1,0 +1,311 @@
+<section class="py-10 px-4 theme-transition" role="main" aria-labelledby="form-title">
+  <mat-card
+    class="elegant-card elegant-surface-elevated max-w-4xl mx-auto p-6 mt-20 theme-transition"
+    appAnimateOnScroll
+  >
+    <mat-card-header class="mb-6 flex items-center justify-between flex-wrap gap-2">
+      <mat-card-title id="form-title" class="!font-bold text-on-surface theme-transition" i18n>
+        Outside Kerala & Abroad Premarital Registration Form
+      </mat-card-title>
+      <div class="flex gap-2 items-center flex-wrap">
+        <button mat-stroked-button type="button" (click)="saveForm()" i18n>
+          <mat-icon class="mr-1">save</mat-icon>
+          Save Progress
+        </button>
+        <button mat-stroked-button type="button" (click)="loadForm(true)" i18n>
+          <mat-icon class="mr-1">restore</mat-icon>
+          Restore
+        </button>
+        <button mat-stroked-button type="button" (click)="clearForm()" i18n>
+          <mat-icon class="mr-1">delete_outline</mat-icon>
+          Clear Saved
+        </button>
+
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <!-- Important Notice -->
+      <div
+        class="flex items-start gap-2 p-3 mb-4 border-l-4 border-amber-500 bg-amber-50 dark:bg-amber-900/20 rounded-md"
+        role="alert"
+        aria-label="Registration note"
+      >
+        <mat-icon class="text-amber-600 dark:text-amber-400" aria-hidden="true">warning</mat-icon>
+        <p class="text-sm text-on-surface font-medium" i18n="@@Registration Notice Hosting Churches">
+          This should be completed by the churches hosting the premarital session.
+        </p>
+      </div>
+      <form
+        #formEl
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        class="space-y-6"
+        role="form"
+        aria-labelledby="form-title"
+        novalidate
+      >
+        <!-- Clergy District -->
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label i18n>Clergy District</mat-label>
+          <mat-select formControlName="churchDistrict" required (selectionChange)="onDistrictChange($event.value)">
+            @for (location of filteredLocations(); track location) {
+              <mat-option [value]="location">{{ location }}</mat-option>
+            }
+          </mat-select>
+          @if (isInvalid('churchDistrict')) {
+          <mat-error i18n>Clergy District is required.</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Church Name -->
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label i18n>Church Name</mat-label>
+          <mat-select formControlName="manualChurchName" required (selectionChange)="onChurchChange($event.value)">
+            @for (church of availableChurches(); track church.id) {
+              <mat-option [value]="church.id">{{ church.name }}</mat-option>
+            }
+          </mat-select>
+          @if (isInvalid('manualChurchName')) {
+          <mat-error i18n>Church Name is required.</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Priest Name -->
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label i18n>Priest Name</mat-label>
+          <input matInput formControlName="priestName" required appNoDigits />
+          @if (isInvalid('priestName')) {
+            <mat-error>
+              @if (form.get('priestName')?.errors?.['required']) {
+                <span i18n>Priest Name is required.</span>
+              } @else if (form.get('priestName')?.errors?.['pattern']) {
+                <span i18n>Only letters, spaces, and dots are allowed.</span>
+              }
+            </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Timezone Selection -->
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label i18n>Time Zone</mat-label>
+          <mat-select formControlName="timezone">
+            @for (tz of timezones(); track tz.name) {
+              <mat-option [value]="tz.name">{{ tz.label }}</mat-option>
+            }
+          </mat-select>
+          <mat-hint i18n>All dates will be interpreted in this time zone.</mat-hint>
+        </mat-form-field>
+
+        <!-- Session Dates -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Session Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" formControlName="sessionStartDate" required [min]="minDate">
+            <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+            @if (isInvalid('sessionStartDate')) {
+            <mat-error i18n>Start date is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Session End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" formControlName="sessionEndDate" required [min]="form.get('sessionStartDate')?.value || minDate">
+            <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+            @if (isInvalid('sessionEndDate')) {
+            <mat-error i18n>End date is required.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <!-- Participants Section -->
+        <div class="border border-outline dark:border-outline-variant rounded-lg p-4 mb-4">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold" i18n>Participants</h3>
+            <button mat-stroked-button type="button" (click)="addParticipant()">
+              <mat-icon>add</mat-icon>
+              <span i18n>Add Participant</span>
+            </button>
+          </div>
+
+          <div formArrayName="participants" class="space-y-4">
+            @for (participant of participants.controls; track participant; let i = $index) {
+            <div [formGroupName]="i" class="flex gap-2 items-start">
+              <mat-form-field appearance="fill" class="w-full">
+                <mat-label i18n>Participant Name {{ i + 1 }}</mat-label>
+                <input matInput formControlName="name" required />
+                @if (participant.get('name')?.invalid && formSubmitted()) {
+                <mat-error i18n>Name is required.</mat-error>
+                }
+              </mat-form-field>
+              
+              @if (i > 0) {
+              <button mat-icon-button color="warn" type="button" (click)="removeParticipant(i)" matTooltip="Remove Participant">
+                <mat-icon>delete</mat-icon>
+              </button>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <div id="file-uploads-section" class="grid grid-cols-1 md:grid-cols-2 gap-2" role="group" aria-labelledby="upload-group-label">
+          <!-- Upload Vicar Letter -->
+          <div class="flex flex-col gap-2" role="group" aria-labelledby="letter-upload-label">
+            <div class="flex items-center gap-1">
+              <label id="letter-upload-label" class="font-medium" i18n>Upload Witness of Vicar</label>
+              <mat-icon
+                class="text-on-surface-variant"
+                matTooltip="This is the letter from the vicar of your current church confirming your membership and request to attend the premarital counselling course."
+                i18n-matTooltip
+              >
+                info
+              </mat-icon>
+            </div>
+            <div class="flex items-center gap-2">
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="letterInput.click()"
+                class="!font-bold"
+                aria-describedby="letter-upload-help"
+              >
+                <mat-icon aria-hidden="true">upload</mat-icon>
+                <span i18n>Choose File</span>
+              </button>
+            </div>
+
+            @if (vicarLetterFile()?.name) {
+            <span class="text-sm text-on-surface-variant overflow-hidden" aria-live="polite">
+              {{ vicarLetterFile()?.name }}
+            </span>
+              @if (vicarLetterPreviewUrl() && (vicarLetterFile()?.type?.startsWith('image/') || vicarLetterFile()?.name?.endsWith('.jpg') || vicarLetterFile()?.name?.endsWith('.png'))) {
+                <div class="mt-2">
+                  <img [src]="vicarLetterPreviewUrl()" alt="Letter Preview" class="h-32 w-auto object-cover rounded-md border border-outline-variant">
+                </div>
+              } @else if (vicarLetterPreviewUrl()) {
+                <div class="mt-2">
+                  <a [href]="vicarLetterPreviewUrl()" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline text-sm flex items-center gap-1">
+                    <mat-icon class="!text-sm !w-4 !h-4">visibility</mat-icon>
+                    <span i18n>View Uploaded File</span>
+                  </a>
+                </div>
+              }
+            } @else {
+            <mat-hint class="text-xs" i18n>Max size 2MB (PDF, DOC, DOCX, JPG, PNG)</mat-hint>
+
+            } @if (vicarLetterError()) {
+            <mat-error class="text-xs" role="alert" aria-live="assertive">
+              {{ vicarLetterError() }}
+            </mat-error>
+            }
+
+            <input
+              #letterInput
+              type="file"
+              accept=".pdf,.doc,.docx,image/*"
+              (change)="onFileChange($event, 'vicarLetter')"
+              hidden
+              aria-labelledby="letter-upload-label"
+              aria-describedby="letter-upload-help"
+            />
+          </div>
+        </div>
+
+        <div id="declarations-consent-section" class="flex flex-col mt-6" role="group" aria-labelledby="declaration-label">
+          <mat-checkbox formControlName="declaration" aria-required="true" aria-describedby="declaration-error">
+            <span id="declaration-label" i18n> I would like to attend the premarital counselling course. </span>
+          </mat-checkbox>
+
+          @if (isInvalid('declaration')) {
+          <mat-error class="text-xs mt-1" id="declaration-error" i18n role="alert">
+            You must accept the declaration.
+          </mat-error>
+          }
+
+        <!-- Informed Consent Agreement -->
+        <div class="mt-4">
+          <app-informed-consent
+            [agreed]="form.get('informedConsent')?.value || false"
+            (agreementChange)="onInformedConsentChange($event)"
+          >
+          </app-informed-consent>
+
+          @if (isInvalid('informedConsent')) {
+          <mat-error class="text-xs mt-1" role="alert" i18n>
+            You must read and agree to the Informed Consent and Counseling Agreement.
+          </mat-error>
+          }
+        </div>
+        </div>
+
+        <div id="security-submit-section" class="flex flex-col gap-4">
+          <!-- reCAPTCHA v2 Checkbox (hidden when bypass is enabled) -->
+          @if (!captchaBypassEnabled()) {
+            <ngx-recaptcha2
+              formControlName="recaptcha"
+              [siteKey]="siteKey"
+              (success)="handleSuccess($event)"
+              [theme]="recaptchaTheme()"
+              size="normal"
+            ></ngx-recaptcha2>
+          } @else {
+            <!-- Bypass notice -->
+            <div class="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+              <mat-icon class="text-green-600 dark:text-green-400">verified_user</mat-icon>
+              <div class="flex-1">
+                <p class="text-green-700 dark:text-green-300 font-medium text-sm" i18n>
+                  CAPTCHA verification bypassed
+                </p>
+                <p class="text-green-600 dark:text-green-400 text-xs" i18n>
+                  You are using a time-limited bypass link. Form can be submitted without CAPTCHA.
+                </p>
+              </div>
+            </div>
+          }
+        </div>
+        <div class="mt-6 flex justify-center">
+          <button
+            mat-flat-button
+            color="primary"
+            type="submit"
+            class="!font-bold"
+            [disabled]="isSubmitting()"
+            [attr.aria-describedby]="isSubmitting() ? 'submit-status' : null"
+          >
+            @if (isSubmitting()) {
+            <span i18n>Submitting...</span>
+            } @else {
+            <span i18n>Register</span>
+            }
+          </button>
+          @if (isSubmitting()) {
+          <div id="submit-status" class="sr-only" aria-live="polite" i18n>Form is being submitted, please wait</div>
+          }
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<!-- Full-screen blocking overlay during submission -->
+@if (isSubmitting()) {
+<div class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/60 backdrop-blur-sm">
+  <div class="bg-surface-container p-8 rounded-2xl shadow-2xl flex flex-col items-center gap-4 max-w-sm mx-4 text-center">
+    <div class="relative">
+      <div class="w-16 h-16 border-4 border-primary/30 rounded-full"></div>
+      <div class="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-primary rounded-full animate-spin"></div>
+    </div>
+    <h3 class="text-xl font-bold text-on-surface" i18n>Submitting Registration</h3>
+    <p class="text-on-surface-variant text-sm" i18n>
+      Please wait while we upload your files and save your registration. Do not close or navigate away from this page.
+    </p>
+    <div class="flex items-center gap-2 text-amber-600 dark:text-amber-400 text-xs">
+      <mat-icon class="!text-[16px] !w-4 !h-4">warning</mat-icon>
+      <span i18n>Closing this page may result in incomplete registration</span>
+    </div>
+  </div>
+</div>
+}
