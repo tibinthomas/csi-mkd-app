@@ -64,7 +64,6 @@ import { TimeZoneOption } from '../../../api/api-main-app/models/time-zone-optio
     MatIcon,
     AnimateOnScrollDirective,
     NgxCaptchaModule,
-    InformedConsentComponent,
     MatTooltipModule,
     NoDigitsDirective,
   ],
@@ -98,11 +97,11 @@ export class AbroadPremaritalRegister {
   protected readonly isSubmitting = signal(false);
   protected readonly formSubmitted = signal(false);
   protected readonly vicarLetterError = signal('');
-  protected readonly informedConsentTouched = signal(false);
+
   protected readonly minDate = new Date().toISOString().split('T')[0];
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() =>
     this.themeService.isDark() ? 'dark' : 'light'
   );
@@ -140,7 +139,6 @@ export class AbroadPremaritalRegister {
       sessionStartDate: ['', Validators.required],
       sessionEndDate: ['', Validators.required],
       declaration: [false, Validators.requiredTrue],
-      informedConsent: [false, Validators.requiredTrue],
       recaptcha: ['', Validators.required],
       timezone: [this.selectedTimezone(), Validators.required],
       participants: this.fb.array([this.createParticipant()]),
@@ -275,28 +273,66 @@ export class AbroadPremaritalRegister {
   private initTimezones(): void {
     try {
       const now = new Date();
-      // Use the Enum values directly
-      const tzList = Object.values(TimeZoneOption).map(iana => {
-        try {
-          const formatter = new Intl.DateTimeFormat('en-US', {
-            timeZone: iana,
-            timeZoneName: 'shortOffset'
-          });
-          const parts = formatter.formatToParts(now);
-          const offset = parts.find(p => p.type === 'timeZoneName')?.value || '';
-          return { name: iana, label: `${iana} (${offset})` };
-        } catch {
-          return { name: iana, label: iana };
-        }
-      });
+      // IST offset in minutes (UTC+05:30 = +330 minutes)
+      const IST_OFFSET_MINUTES = 330;
+      
+      // Use the Enum values directly, but filter out UTC
+      const tzList = Object.values(TimeZoneOption)
+        .filter(iana => iana !== 'UTC') // Remove UTC option
+        .map(iana => {
+          try {
+            // Get the UTC offset for this timezone
+            const formatter = new Intl.DateTimeFormat('en-US', {
+              timeZone: iana,
+              timeZoneName: 'shortOffset'
+            });
+            const parts = formatter.formatToParts(now);
+            const offsetStr = parts.find(p => p.type === 'timeZoneName')?.value || '';
+            
+            // Parse the offset (e.g., "GMT+5:30" or "GMT-5")
+            const match = offsetStr.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+            let tzOffsetMinutes = 0;
+            if (match) {
+              const sign = match[1] === '+' ? 1 : -1;
+              const hours = parseInt(match[2], 10);
+              const minutes = parseInt(match[3] || '0', 10);
+              tzOffsetMinutes = sign * (hours * 60 + minutes);
+            }
+            
+            // Calculate offset relative to IST
+            const diffFromIST = tzOffsetMinutes - IST_OFFSET_MINUTES;
+            
+            // Format the IST offset
+            let istOffsetLabel: string;
+            if (diffFromIST === 0) {
+              istOffsetLabel = 'IST';
+            } else {
+              const sign = diffFromIST >= 0 ? '+' : '-';
+              const absDiff = Math.abs(diffFromIST);
+              const hours = Math.floor(absDiff / 60);
+              const mins = absDiff % 60;
+              if (mins === 0) {
+                istOffsetLabel = `IST${sign}${hours}`;
+              } else {
+                istOffsetLabel = `IST${sign}${hours}:${mins.toString().padStart(2, '0')}`;
+              }
+            }
+            
+            return { name: iana, label: `${iana} (${istOffsetLabel})` };
+          } catch {
+            return { name: iana, label: iana };
+          }
+        });
 
       // Sort alphabetically by name (IANA identifier)
       tzList.sort((a, b) => a.name.localeCompare(b.name));
       this.timezones.set(tzList);
     } catch (e) {
       console.warn('Timezone initialization failed', e);
-      // Fallback
-      const fallbackList = Object.values(TimeZoneOption).map(tz => ({ name: tz, label: tz }));
+      // Fallback - also filter out UTC
+      const fallbackList = Object.values(TimeZoneOption)
+        .filter(tz => tz !== 'UTC')
+        .map(tz => ({ name: tz, label: tz }));
       this.timezones.set(fallbackList);
     }
   }
@@ -405,9 +441,6 @@ export class AbroadPremaritalRegister {
 
   isInvalid(name: string): boolean {
     const control = this.form.get(name);
-    if (name === 'informedConsent') {
-      return !!(control && control.invalid && this.formSubmitted());
-    }
     return !!(control && control.invalid && this.formSubmitted());
   }
 
@@ -415,10 +448,7 @@ export class AbroadPremaritalRegister {
     this.form.get('recaptcha')?.setValue(response);
   }
 
-  onInformedConsentChange(agreed: boolean): void {
-    this.informedConsentTouched.set(true);
-    this.form.get('informedConsent')?.setValue(agreed);
-  }
+
 
   preventInvalidKeys(event: KeyboardEvent) {
     const invalidKeys = ['e', 'E', '+', '-'];
@@ -454,8 +484,8 @@ export class AbroadPremaritalRegister {
     const body: any = {
       churchId: this.selectedChurch()?.id || null,
       participants: participants.map((p: any) => ({ name: p.name })),
-      sessionStartDate: raw.sessionStartDate ? this.toUtcIsoString(raw.sessionStartDate, raw.timezone) : '',
-      sessionEndDate: raw.sessionEndDate ? this.toUtcIsoString(raw.sessionEndDate, raw.timezone) : '',
+      sessionStartDate: raw.sessionStartDate ? this.toIsoStringPreservingLocal(raw.sessionStartDate) : '',
+      sessionEndDate: raw.sessionEndDate ? this.toIsoStringPreservingLocal(raw.sessionEndDate) : '',
       priestName: raw.priestName || '',
       timeZone: raw.timezone,
     };
@@ -547,37 +577,23 @@ export class AbroadPremaritalRegister {
     });
   }
 
-  toUtcIsoString(dateInput: string | Date, timezone?: string): string {
-    const date = new Date(dateInput);
-    if (!timezone) return date.toISOString();
 
-    try {
-      // Calculate the difference between UTC and target timezone for this specific date
-      // to handle DST correctly
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        year: 'numeric', month: 'numeric', day: 'numeric',
-        hour: 'numeric', minute: 'numeric', second: 'numeric',
-        hour12: false
-      });
-      
-      const parts = formatter.formatToParts(date);
-      const tzMap: { [key: string]: number } = {};
-      parts.forEach(p => { if (p.type !== 'literal') tzMap[p.type] = parseInt(p.value, 10); });
-      
-      // Create a "local" UTC date that has the same components as the formatted date
-      const tzDate = Date.UTC(tzMap['year'], tzMap['month'] - 1, tzMap['day'], tzMap['hour'] % 24, tzMap['minute'], tzMap['second']);
-      const localDate = Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-      
-      const offset = tzDate - localDate;
-      
-      // Adjust the original date
-      const result = new Date(date.getTime() - offset);
-      return result.toISOString();
-    } catch (e) {
-      console.warn('Timezone conversion failed, falling back to local ISO', e);
-      return date.toISOString();
-    }
+  toIsoStringPreservingLocal(dateInput: string | Date): string {
+    const date = new Date(dateInput);
+    const pad = (n: number) => (n < 10 ? '0' + n : n);
+    return (
+      date.getFullYear() +
+      '-' +
+      pad(date.getMonth() + 1) +
+      '-' +
+      pad(date.getDate()) +
+      'T' +
+      pad(date.getHours()) +
+      ':' +
+      pad(date.getMinutes()) +
+      ':' +
+      pad(date.getSeconds())
+    );
   }
 
   protected readonly currentTimezoneDisplay = computed(() => {
@@ -591,6 +607,22 @@ export class AbroadPremaritalRegister {
   onDistrictChange(district: string): void {
     this.form.patchValue({ manualChurchName: '', priestName: '' }); // Reset church selection
     this.selectedChurch.set(null); // Reset selected church
+
+    // Auto-select timezone based on the district
+    if (district) {
+      // For "Outside Kerala (Within India)", use IST
+      if (district.toLowerCase().includes('outside kerala') || district.toLowerCase().includes('within india')) {
+        const istTimezone = 'Asia/Kolkata';
+        this.form.patchValue({ timezone: istTimezone });
+        this.selectedTimezone.set(istTimezone);
+      } 
+      // For "Abroad (Outside India)", use the browser's timezone as default
+      else if (district.toLowerCase().includes('abroad') || district.toLowerCase().includes('outside india')) {
+        const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        this.form.patchValue({ timezone: browserTimezone });
+        this.selectedTimezone.set(browserTimezone);
+      }
+    }
 
     if (district) {
       this.form.get('manualChurchName')?.enable(); // Enable church name field

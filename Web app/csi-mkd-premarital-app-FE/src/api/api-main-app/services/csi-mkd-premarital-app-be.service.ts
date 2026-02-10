@@ -109,8 +109,16 @@ import { apiPremaritalregisterIdPut } from '../fn/csi-mkd-premarital-app-be/api-
 import { ApiPremaritalregisterIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-id-put';
 import { apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-files-registration-id-post';
 import { ApiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-files-registration-id-post';
+import { apiPremaritalregisterOutsideKeralaGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-get';
+import { ApiPremaritalregisterOutsideKeralaGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-get';
+import { apiPremaritalregisterOutsideKeralaIdDelete } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-delete';
+import { ApiPremaritalregisterOutsideKeralaIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-delete';
+import { apiPremaritalregisterOutsideKeralaIdGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-get';
+import { ApiPremaritalregisterOutsideKeralaIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-get';
 import { apiPremaritalregisterOutsideKeralaPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-post';
 import { ApiPremaritalregisterOutsideKeralaPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-post';
+import { apiPremaritalregisterOutsideKeralaTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-total-get';
+import { ApiPremaritalregisterOutsideKeralaTotalGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-total-get';
 import { apiPremaritalregisterPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { ApiPremaritalregisterPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-post';
 import { apiPremaritalregisterSpreadsheetGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-spreadsheet-get';
@@ -734,6 +742,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
     );
   }
 
+  /** Path part for operation `apiPremaritalregisterOutsideKeralaGet()` */
+  static readonly ApiPremaritalregisterOutsideKeralaGetPath = '/api/premaritalregister-outside-kerala';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterOutsideKeralaGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaGet$Response(params?: ApiPremaritalregisterOutsideKeralaGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterOutsideKeralaGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterOutsideKeralaGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaGet(params?: ApiPremaritalregisterOutsideKeralaGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterOutsideKeralaGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
   /** Path part for operation `apiPremaritalregisterOutsideKeralaPost()` */
   static readonly ApiPremaritalregisterOutsideKeralaPostPath = '/api/premaritalregister-outside-kerala';
 
@@ -780,6 +813,81 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost(params: ApiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Params, context?: HttpContext): Observable<void> {
     return this.apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterOutsideKeralaIdGet()` */
+  static readonly ApiPremaritalregisterOutsideKeralaIdGetPath = '/api/premaritalregister-outside-kerala/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterOutsideKeralaIdGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaIdGet$Response(params: ApiPremaritalregisterOutsideKeralaIdGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterOutsideKeralaIdGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterOutsideKeralaIdGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaIdGet(params: ApiPremaritalregisterOutsideKeralaIdGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterOutsideKeralaIdGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterOutsideKeralaIdDelete()` */
+  static readonly ApiPremaritalregisterOutsideKeralaIdDeletePath = '/api/premaritalregister-outside-kerala/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterOutsideKeralaIdDelete()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaIdDelete$Response(params: ApiPremaritalregisterOutsideKeralaIdDelete$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterOutsideKeralaIdDelete(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterOutsideKeralaIdDelete$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaIdDelete(params: ApiPremaritalregisterOutsideKeralaIdDelete$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterOutsideKeralaIdDelete$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiPremaritalregisterOutsideKeralaTotalGet()` */
+  static readonly ApiPremaritalregisterOutsideKeralaTotalGetPath = '/api/premaritalregister-outside-kerala/total';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterOutsideKeralaTotalGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaTotalGet$Response(params?: ApiPremaritalregisterOutsideKeralaTotalGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterOutsideKeralaTotalGet(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterOutsideKeralaTotalGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  apiPremaritalregisterOutsideKeralaTotalGet(params?: ApiPremaritalregisterOutsideKeralaTotalGet$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterOutsideKeralaTotalGet$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

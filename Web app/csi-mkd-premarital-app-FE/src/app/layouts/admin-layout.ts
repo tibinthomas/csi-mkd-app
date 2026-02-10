@@ -61,6 +61,11 @@ export class AdminLayout {
       label: 'Premarital Register List',
     },
     {
+      routerLink: '/admin/abroad-premarital',
+      icon: 'flight',
+      label: 'Abroad & Outside Kerala',
+    },
+    {
       routerLink: '/admin/session-config',
       icon: 'event',
       label: 'Premarital Session Config',

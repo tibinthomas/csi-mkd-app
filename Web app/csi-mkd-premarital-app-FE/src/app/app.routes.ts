@@ -187,6 +187,15 @@ export const routes: Routes = [
             (m) => m.PremaritalComponent
           ),
       },
+      {
+        path: 'abroad-premarital',
+        title: 'Abroad & Outside Kerala Registrations - CSI MKD Premarital Counsel',
+        data: { description: 'View and manage abroad and outside Kerala premarital registrations.' },
+        loadComponent: () =>
+          import('./admin/abroad-premarital/abroad-premarital-list').then(
+            (m) => m.AbroadPremaritalListComponent
+          ),
+      },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       {
         path: 'session-config',

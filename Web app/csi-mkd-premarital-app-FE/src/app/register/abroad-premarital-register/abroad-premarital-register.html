@@ -140,7 +140,7 @@
                 }
               </mat-form-field>
               
-              @if (i > 0) {
+              @if (participants.length > 1) {
               <button mat-icon-button color="warn" type="button" (click)="removeParticipant(i)" matTooltip="Remove Participant">
                 <mat-icon>delete</mat-icon>
               </button>
@@ -216,7 +216,7 @@
 
         <div id="declarations-consent-section" class="flex flex-col mt-6" role="group" aria-labelledby="declaration-label">
           <mat-checkbox formControlName="declaration" aria-required="true" aria-describedby="declaration-error">
-            <span id="declaration-label" i18n> I would like to attend the premarital counselling course. </span>
+            <span id="declaration-label" i18n> I hereby submit with all my consent for the above. </span>
           </mat-checkbox>
 
           @if (isInvalid('declaration')) {
@@ -225,20 +225,7 @@
           </mat-error>
           }
 
-        <!-- Informed Consent Agreement -->
-        <div class="mt-4">
-          <app-informed-consent
-            [agreed]="form.get('informedConsent')?.value || false"
-            (agreementChange)="onInformedConsentChange($event)"
-          >
-          </app-informed-consent>
 
-          @if (isInvalid('informedConsent')) {
-          <mat-error class="text-xs mt-1" role="alert" i18n>
-            You must read and agree to the Informed Consent and Counseling Agreement.
-          </mat-error>
-          }
-        </div>
         </div>
 
         <div id="security-submit-section" class="flex flex-col gap-4">

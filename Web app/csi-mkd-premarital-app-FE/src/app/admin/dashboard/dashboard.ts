@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { forkJoin } from 'rxjs';
 
@@ -17,7 +18,7 @@ import { forkJoin } from 'rxjs';
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: './dashboard.html',
-  imports: [MatCardModule, MatIconModule, MatButtonModule, MatTooltipModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule, MatTooltipModule, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Dashboard implements OnInit {
@@ -27,6 +28,7 @@ export class Dashboard implements OnInit {
   readonly premaritalCount = signal(0);
   readonly generalCount = signal(0);
   readonly confirmationCount = signal(0);
+  readonly abroadCount = signal(0);
   readonly totalCount = signal(0);
   
   // Bypass URL generator
@@ -37,13 +39,15 @@ export class Dashboard implements OnInit {
       premarital: this.api.apiPremaritalregisterTotalGet(),
       general: this.api.apiGeneralregisterTotalGet(),
       confirmation: this.api.apiConfirmationregisterTotalGet(),
+      abroad: this.api.apiPremaritalregisterOutsideKeralaTotalGet(),
     }).subscribe((results: any) => {
       this.premaritalCount.set(JSON.parse(results.premarital).total);
       this.generalCount.set(JSON.parse(results.general).total);
       this.confirmationCount.set(JSON.parse(results.confirmation).total);
+      this.abroadCount.set(JSON.parse(results.abroad).total);
 
       this.totalCount.set(
-        this.premaritalCount() + this.generalCount() + this.confirmationCount()
+        this.premaritalCount() + this.generalCount() + this.confirmationCount() + this.abroadCount()
       );
     });
   }
