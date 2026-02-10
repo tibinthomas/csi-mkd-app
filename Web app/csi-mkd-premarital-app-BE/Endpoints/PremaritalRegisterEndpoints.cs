@@ -162,5 +162,45 @@ public static class PremaritalRegisterEndpoints
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
         .Accepts<PremaritalOutsideKeralaDocumentDto>("multipart/form-data");
+
+        // Get all outside Kerala registrations
+        outsideGroup.MapGet("/", async (IPremaritalRegisterService service) =>
+        {
+            var registrations = await service.GetAllOutsideKeralaRegistrations();
+            return Results.Ok(registrations);
+        })
+        .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
+
+        // Get outside Kerala registration by ID
+        outsideGroup.MapGet("/{id:guid}", async (IPremaritalRegisterService service, Guid id) =>
+        {
+            var registration = await service.GetOutsideKeralaRegistrationById(id);
+            if (registration == null)
+                return Results.NotFound();
+
+            return Results.Ok(registration);
+        })
+        .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
+
+        // Get total outside Kerala registrations
+        outsideGroup.MapGet("/total", async (IPremaritalRegisterService service) =>
+        {
+            var total = await service.GetTotalOutsideKeralaRegistrations();
+            return Results.Ok(new { total });
+        })
+        .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
+
+        // Delete outside Kerala registration
+        outsideGroup.MapDelete("/{id:guid}", async (Guid id, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
+        {
+            var result = await service.DeleteOutsideKeralaRegistration(id);
+            if (!result)
+                return Results.NotFound(new { message = "Registration not found." });
+
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.Ok(new { message = "Registration deleted successfully." });
+        })
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }

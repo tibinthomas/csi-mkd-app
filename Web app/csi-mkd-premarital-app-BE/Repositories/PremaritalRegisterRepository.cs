@@ -309,5 +309,16 @@ namespace csi_mkd_premarital_app_BE.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<IEnumerable<PremaritalOutsideKeralaRegistration>> GetAllOutsideKeralaRegistrations()
+            => await _context.PremaritalOutsideKeralaRegistrations
+                .Include(r => r.Participants)
+                .Include(r => r.PremaritalOutsideKeralaDocument)
+                .OrderByDescending(r => r.SubmittedAt)
+                .AsNoTracking()
+                .ToListAsync();
+
+        public async Task<int> GetTotalOutsideKeralaRegistrations()
+            => await _context.PremaritalOutsideKeralaRegistrations.CountAsync();
     }
 }

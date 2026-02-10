@@ -222,5 +222,11 @@ namespace csi_mkd_premarital_app_BE.Services
         public async Task<bool> DeleteOutsideKeralaRegistration(Guid id)
             => await _repo.DeleteOutsideKeralaRegistration(id);
 
+        public async Task<IEnumerable<PremaritalOutsideKeralaRegistration>> GetAllOutsideKeralaRegistrations()
+            => await _repo.GetAllOutsideKeralaRegistrations();
+
+        public async Task<int> GetTotalOutsideKeralaRegistrations()
+            => await _repo.GetTotalOutsideKeralaRegistrations();
+
     }
 }
