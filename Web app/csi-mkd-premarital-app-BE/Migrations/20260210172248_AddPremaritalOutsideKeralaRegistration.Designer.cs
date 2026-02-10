@@ -12,7 +12,7 @@ using csi_mkd_premarital_app_BE.Data;
 namespace csi_mkd_premarital_app_BE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260204170916_AddPremaritalOutsideKeralaRegistration")]
+    [Migration("20260210172248_AddPremaritalOutsideKeralaRegistration")]
     partial class AddPremaritalOutsideKeralaRegistration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace csi_mkd_premarital_app_BE.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "10.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);

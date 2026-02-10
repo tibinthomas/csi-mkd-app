@@ -12,7 +12,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("e3467111-953d-4ed3-9a6b-e65dc4e2b0a3"), entityTypeCount: 15)
+            : base(skipDetectChanges: false, modelId: new Guid("852fc438-b981-4b9a-b979-d889cbd3d132"), entityTypeCount: 15)
         {
         }
 
@@ -59,7 +59,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
 
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-            AddAnnotation("ProductVersion", "9.0.0");
+            AddAnnotation("ProductVersion", "10.0.0");
             AddAnnotation("Relational:MaxIdentifierLength", 63);
         }
     }
