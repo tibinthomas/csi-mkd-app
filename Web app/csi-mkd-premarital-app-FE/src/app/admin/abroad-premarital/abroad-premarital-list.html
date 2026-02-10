@@ -1,0 +1,192 @@
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-3xl font-bold text-on-surface theme-transition" i18n>Abroad & Outside Kerala Registrations</h1>
+  </div>
+
+  <!-- Filters Section -->
+  <mat-card class="mb-6 rounded-xl shadow-lg">
+    <mat-card-content class="p-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+        <!-- Search Input -->
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label i18n>Search</mat-label>
+          <input matInput [(ngModel)]="searchTermInput" (keyup.enter)="searchRegistrations()" />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-2">
+          <button mat-raised-button color="primary" (click)="searchRegistrations()" i18n>
+            <mat-icon>search</mat-icon>
+            Search
+          </button>
+          <button mat-stroked-button (click)="clearFilters()" i18n>
+            <mat-icon>clear</mat-icon>
+            Clear
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Results Section -->
+  <mat-card class="rounded-xl shadow-lg">
+    <mat-card-content class="p-6">
+      <!-- Loading Spinner -->
+      @if (isLoading()) {
+        <div class="flex justify-center items-center py-12">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+      }
+
+      <!-- No Results Message -->
+      @if (!isLoading() && registrations().length === 0) {
+        
+        <div class="text-center py-12">
+          <mat-icon class="text-6xl text-on-surface-variant mb-4">inbox</mat-icon>
+          <p class="text-xl text-on-surface-variant" i18n>No registrations found</p>
+          <p class="text-sm text-on-surface-variant mt-2" i18n>
+            Try adjusting your search filters or check back later
+          </p>
+        </div>
+      }
+
+      <!-- Results Table -->
+      @if (!isLoading() && registrations().length > 0) {
+        <div class="overflow-x-auto border rounded-xl">
+          <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="w-full">
+            <!-- Participants Column -->
+           
+
+            <!-- Church Column -->
+            <ng-container matColumnDef="church">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Church</strong></th>
+              <td mat-cell *matCellDef="let reg">
+                {{ getChurchNameById(reg.churchId) }}
+              </td>
+            </ng-container>
+
+            <!-- Priest Column -->
+            <ng-container matColumnDef="priest">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Priest</strong></th>
+              <td mat-cell *matCellDef="let reg">
+                {{ reg.priestName || 'N/A' }}
+              </td>
+            </ng-container>
+
+            <!-- Session Dates (IST) Column -->
+            <ng-container matColumnDef="sessionDatesIST">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Session Dates (IST)</strong></th>
+              <td mat-cell *matCellDef="let reg">
+                {{ formatDate(reg.sessionStartDate, 'Asia/Kolkata') }} - {{ formatDate(reg.sessionEndDate, 'Asia/Kolkata') }}
+              </td>
+            </ng-container>
+
+            <!-- Session Dates (Local) Column -->
+            <ng-container matColumnDef="sessionDatesLocal">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Session Dates (Local)</strong></th>
+              <td mat-cell *matCellDef="let reg">
+                @if (reg.timeZone && reg.timeZone !== 'Asia/Kolkata') {
+                  {{ formatDate(reg.sessionStartDate, reg.timeZone) }} - {{ formatDate(reg.sessionEndDate, reg.timeZone) }} ({{reg.timeZone}})
+                } @else {
+                  <span class="text-on-surface-variant text-xs">Same as IST</span>
+                }
+              </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef i18n> <strong>Actions</strong></th>
+              <td mat-cell *matCellDef="let reg">
+               <div class="flex gap-2">
+                  <button mat-icon-button color="warn" (click)="deleteRegistration(reg)" 
+                          matTooltip="Delete" i18n-matTooltip
+                          [disabled]="isDeleting() === reg.id">
+                    @if (isDeleting() === reg.id) {
+                      <mat-spinner diameter="20"></mat-spinner>
+                    } @else {
+                      <mat-icon>delete</mat-icon>
+                    }
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Expanded Detail Row -->
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let reg" [attr.colspan]="8">
+                @if (isExpanded(reg)) {
+                  <div class="p-4 bg-surface-container rounded-lg my-2 ">
+                    @if (reg.participants?.length) {
+                <h4 class="text-sm mb-2" i18n><strong>Participants</strong></h4>
+                <ul class="list-disc pl-5 space-y-1">
+                  @for (p of reg.participants; track p) {
+                  <li class="flex items-center justify-between">
+                    <span>{{ p.name }} </span>
+                    <div class="flex gap-1">
+                      <button
+                        mat-icon-button
+                        [class.printed-icon]="isPrinted(p, reg)"
+                        [color]="isPrinted(p, reg) ? null : 'primary'"
+                        (click)="generateCertificate(p, reg); $event.stopPropagation()"
+                        [matTooltip]="isPrinted(p, reg) ? 'Certificate Printed' : 'Print Certificate'"
+                      >
+                        <mat-icon>{{ isPrinted(p, reg) ? 'check_circle' : 'print' }}</mat-icon>
+                      </button>
+                      @if (isPrinted(p, reg)) {
+                      <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="resetPrintStatus(p, reg); $event.stopPropagation()"
+                        matTooltip="Reset Print Status"
+                        i18n-matTooltip
+                      >
+                        <mat-icon>refresh</mat-icon>
+                      </button>
+                      }
+                    </div>
+                   
+                  </li>
+                  }
+                </ul>
+                } @else {
+                <p i18n>No participants found.</p>
+                }
+                    @if (reg.premaritalOutsideKeralaDocument.vicarLetterUrl) {
+                      <div class="mt-4">
+                        <a [href]="reg.premaritalOutsideKeralaDocument.vicarLetterUrl" target="_blank" mat-stroked-button color="primary">
+                          <mat-icon>description</mat-icon>
+                          <span i18n>View Vicar Letter</span>
+                        </a>
+                      </div>
+                    }
+                  </div>
+                }
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="[ 'church', 'priest', 'sessionDatesIST', 'sessionDatesLocal', 'actions' ]"></tr>
+            <tr mat-row *matRowDef="let row; columns: [ 'church', 'priest', 'sessionDatesIST', 'sessionDatesLocal', 'actions' ]"
+                class="hover:bg-surface-container cursor-pointer transition-colors"
+                (click)="toggle(row)"
+                [class.bg-surface-container-high]="isExpanded(row)"
+                [class.highlight-row]="lastClickedId() === row.id"
+                ></tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+          </table>
+        </div>
+
+        <!-- Paginator -->
+        <mat-paginator
+          [length]="totalCount()"
+          [pageSize]="pageSize()"
+          [pageIndex]="pageIndex()"
+          [pageSizeOptions]="[5, 10, 25, 50]"
+          (page)="onPageChange($event)"
+          showFirstLastButtons
+          class="mt-4">
+        </mat-paginator>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>

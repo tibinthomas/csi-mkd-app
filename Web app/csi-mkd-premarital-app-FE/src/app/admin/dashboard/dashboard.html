@@ -1,39 +1,58 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <h1 class="text-3xl font-bold text-on-surface mb-6 theme-transition" i18n>Welcome back, Admin!</h1>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Card: Premarital Registrations -->
-    <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <mat-card-content class="flex items-center p-6">
-        <mat-icon class="text-rose-500 text-4xl mr-6">people</mat-icon>
-        <div>
-          <p class="text-on-surface-variant theme-transition" i18n>Premarital Registrations</p>
-          <p class="text-3xl font-bold text-on-surface theme-transition">{{ premaritalCount() }}</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <a routerLink="/admin/premarital" class="no-underline">
+      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
+        <mat-card-content class="flex items-center p-6">
+          <mat-icon class="text-rose-500 text-4xl mr-6">people</mat-icon>
+          <div>
+            <p class="text-on-surface-variant theme-transition" i18n>Premarital Registrations</p>
+            <p class="text-3xl font-bold text-on-surface theme-transition">{{ premaritalCount() }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </a>
 
     <!-- Card: General Registrations -->
-    <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <mat-card-content class="flex items-center p-6">
-        <mat-icon class="text-blue-500 text-4xl mr-6">list_alt</mat-icon>
-        <div>
-          <p class="text-on-surface-variant theme-transition" i18n>General Registrations</p>
-          <p class="text-3xl font-bold text-on-surface theme-transition">{{ generalCount() }}</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <a routerLink="/admin/general-list" class="no-underline">
+      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
+        <mat-card-content class="flex items-center p-6">
+          <mat-icon class="text-blue-500 text-4xl mr-6">list_alt</mat-icon>
+          <div>
+            <p class="text-on-surface-variant theme-transition" i18n>General Registrations</p>
+            <p class="text-3xl font-bold text-on-surface theme-transition">{{ generalCount() }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </a>
 
     <!-- Card: Pre-confirmational Registrations -->
-    <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <mat-card-content class="flex items-center p-6">
-        <mat-icon class="text-green-500 text-4xl mr-6">check_circle</mat-icon>
-        <div>
-          <p class="text-on-surface-variant theme-transition" i18n>Pre-confirmational Registrations</p>
-          <p class="text-3xl font-bold text-on-surface theme-transition">{{ confirmationCount() }}</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+    <a routerLink="/admin/pre-confirm-list" class="no-underline">
+      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
+        <mat-card-content class="flex items-center p-6">
+          <mat-icon class="text-green-500 text-4xl mr-6">check_circle</mat-icon>
+          <div>
+            <p class="text-on-surface-variant theme-transition" i18n>Pre-confirmational Registrations</p>
+            <p class="text-3xl font-bold text-on-surface theme-transition">{{ confirmationCount() }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </a>
+
+    <!-- Card: Abroad & Outside Kerala Registrations -->
+    <a routerLink="/admin/abroad-premarital" class="no-underline">
+      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
+        <mat-card-content class="flex items-center p-6">
+          <mat-icon class="text-purple-500 text-4xl mr-6">flight</mat-icon>
+          <div>
+            <p class="text-on-surface-variant theme-transition" i18n>Abroad & Outside Kerala</p>
+            <p class="text-3xl font-bold text-on-surface theme-transition">{{ abroadCount() }}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </a>
   </div>
 
   <!-- CAPTCHA Bypass URL Generator -->

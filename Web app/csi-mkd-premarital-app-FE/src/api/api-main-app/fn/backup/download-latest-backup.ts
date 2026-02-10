@@ -7,12 +7,13 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
-import { Void } from '../../models';
+
+import { Void } from '../../models/void';
 
 export interface DownloadLatestBackup$Params {
 }
 
-export function downloadLatestBackup(http: HttpClient, rootUrl: string, params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+export function downloadLatestBackup(http: HttpClient, rootUrl: string, params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<Void>> {
   const rb = new RequestBuilder(rootUrl, downloadLatestBackup.PATH, 'get');
   if (params) {
   }
