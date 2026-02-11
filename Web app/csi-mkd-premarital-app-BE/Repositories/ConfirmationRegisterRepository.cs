@@ -77,6 +77,12 @@ namespace csi_mkd_premarital_app_BE.Repositories
             _context.Participants.RemoveRange(participants);
         }
 
+        public async Task AddConfirmationFiles(ConfirmationDocument documents)
+        {
+            _context.ConfirmationDocuments.Add(documents);
+            await _context.SaveChangesAsync();
+        }
+    
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

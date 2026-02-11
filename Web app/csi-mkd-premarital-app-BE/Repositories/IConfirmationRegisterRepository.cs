@@ -11,6 +11,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
         Task<int> GetTotalRegistrations();
         Task DeleteAsync(Guid id);
         void RemoveParticipants(IEnumerable<Participant> participants);
+        Task AddConfirmationFiles(ConfirmationDocument documents);
         Task SaveChangesAsync();
     }
 }

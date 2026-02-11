@@ -35,14 +35,13 @@ namespace csi_mkd_premarital_app_BE.Services
 
         public async Task<ServiceResponse<ConfirmationDocument>> SaveFiles(ConfirmationDocumentDto confirmationDocumentDto)
         {
-            // This method seems to be missing in the repository, so I'm commenting it out for now.
-            // You might need to add it to the repository and uncomment this.
-            // var documents = new ConfirmationDocument
-            // {
-            //     RegistrationId = confirmationDocumentDto.RegistrationId,
-            //     VicarLetterUrl = confirmationDocumentDto.VicarLetterUrl,
-            // };
-            // await _repository.AddConfirmationFiles(documents);
+         
+            var documents = new ConfirmationDocument
+            {
+                RegistrationId = confirmationDocumentDto.RegistrationId,
+                VicarLetterUrl = confirmationDocumentDto.VicarLetterUrl,
+            };
+            await _repository.AddConfirmationFiles(documents);
 
             return new ServiceResponse<ConfirmationDocument> { StatusCode = 200, Message = "Files saved successfully" };
         }
