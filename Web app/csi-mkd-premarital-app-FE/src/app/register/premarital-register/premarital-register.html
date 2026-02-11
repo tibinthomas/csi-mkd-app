@@ -431,7 +431,11 @@
             <span class="text-sm text-on-surface-variant overflow-hidden" aria-live="polite">
               {{ vicarLetterFile()?.name }}
             </span>
-              @if (vicarLetterPreviewUrl()) {
+              @if (vicarLetterPreviewUrl() && (vicarLetterFile()?.type?.startsWith('image/') || vicarLetterFile()?.name?.endsWith('.jpg') || vicarLetterFile()?.name?.endsWith('.png'))) {
+                <div class="mt-2">
+                  <img [src]="vicarLetterPreviewUrl()" alt="Letter Preview" class="h-32 w-auto object-cover rounded-md border border-outline-variant">
+                </div>
+              } @else if (vicarLetterPreviewUrl()) {
                 <div class="mt-2">
                   <a [href]="vicarLetterPreviewUrl()" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline text-sm flex items-center gap-1">
                     <mat-icon class="!text-sm !w-4 !h-4">visibility</mat-icon>

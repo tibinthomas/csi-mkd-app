@@ -72,6 +72,7 @@ export class PreConfirmRegister {
   protected readonly isSubmitting = signal(false);
   protected readonly minDate = new Date().toISOString().split('T')[0];
   protected readonly vicarLetterFile = signal<File | null>(null);
+  protected readonly vicarLetterPreviewUrl = signal<string | null>(null);
   protected readonly vicarLetterError = signal<string>('');
 
   // Church data signals
@@ -180,6 +181,15 @@ export class PreConfirmRegister {
     this.form.reset();
     this.participants().clear();
     this.addParticipant(); // Add one default participant
+
+    // Revoke object URL
+    if (this.vicarLetterPreviewUrl()) {
+      URL.revokeObjectURL(this.vicarLetterPreviewUrl()!);
+      this.vicarLetterPreviewUrl.set(null);
+    }
+    this.vicarLetterFile.set(null);
+    this.vicarLetterError.set('');
+
     alert('Local form data cleared.');
   }
 
@@ -345,12 +355,26 @@ export class PreConfirmRegister {
     if (file && !allowedTypes.includes(file.type)) {
       this.vicarLetterError.set('Allowed types: PDF, DOC, DOCX, JPG, PNG');
       this.vicarLetterFile.set(null);
+      this.vicarLetterPreviewUrl.set(null);
     } else if (file && file.size > 2 * 1024 * 1024) {
       this.vicarLetterError.set('File too large. Max size is 2MB.');
       this.vicarLetterFile.set(null);
+      this.vicarLetterPreviewUrl.set(null);
     } else {
+      // Revoke old URL
+      if (this.vicarLetterPreviewUrl()) {
+        URL.revokeObjectURL(this.vicarLetterPreviewUrl()!);
+      }
+
       this.vicarLetterFile.set(file);
       this.vicarLetterError.set('');
+
+      if (file) {
+        const url = URL.createObjectURL(file);
+        this.vicarLetterPreviewUrl.set(url);
+      } else {
+        this.vicarLetterPreviewUrl.set(null);
+      }
     }
   }
 
