@@ -40,158 +40,158 @@
       </div>
 
       <div #pdfContent class="export-pdf overflow-x-auto rounded-lg border">
-        @if(isLoading()){
-        <div class="flex justify-center items-center p-8">
-          <mat-spinner diameter="50" color="primary"></mat-spinner>
-        </div>
-        } @else if(registrations().length > 0){
-        <table
-          mat-table
-          [dataSource]="registrations()"
-          multiTemplateDataRows
-          class="min-w-full surface-container table-fixed theme-transition"
-        >
-          <!-- Column Definitions -->
-          <ng-container matColumnDef="ChurchName">
-            <th mat-header-cell *matHeaderCellDef i18n><strong>Church Name</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ getChurchNameById(reg.churchId) }}</td>
-          </ng-container>
-          <ng-container matColumnDef="PriestName">
-            <th mat-header-cell *matHeaderCellDef i18n><strong>Priest Name</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.priestName }}</td>
-          </ng-container>
-          <ng-container matColumnDef="ConfirmationDate">
-            <th mat-header-cell *matHeaderCellDef i18n><strong>Confirmation Date</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.confirmationDate | date : "MMM d, y" : "+5:30" }}</td>
-          </ng-container>
-          <ng-container matColumnDef="CounsellingDate">
-            <th mat-header-cell *matHeaderCellDef i18n><strong>Counselling Date</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.counsellingDate | date : "MMM d, y" : "+5:30" }}</td>
-          </ng-container>
-          <ng-container matColumnDef="ParticipantsCount">
-            <th mat-header-cell *matHeaderCellDef i18n><strong>Participants Count</strong></th>
-            <td mat-cell *matCellDef="let reg">{{ reg.participants?.length || 0 }}</td>
-          </ng-container>
-          <ng-container matColumnDef="Actions">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let reg">
-              <button mat-icon-button color="primary" (click)="openEditDialog(reg); $event.stopPropagation()">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteRegistration(reg); $event.stopPropagation()">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="expand">
-            <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let reg">
-              <button
-                mat-icon-button
-                aria-label="expand row"
-                (click)="toggleRow(reg); $event.stopPropagation()"
-                class="transition-transform duration-200 ease-in-out"
-                [class.rotate-180]="isExpanded(reg)"
-              >
-                <mat-icon>keyboard_arrow_down</mat-icon>
-              </button>
-            </td>
-          </ng-container>
+        @if (isLoading()) {
+          <div class="flex justify-center items-center p-8">
+            <mat-spinner diameter="50" color="primary"></mat-spinner>
+          </div>
+        } @else if (registrations().length > 0) {
+          <table
+            mat-table
+            [dataSource]="registrations()"
+            multiTemplateDataRows
+            class="min-w-full surface-container table-fixed theme-transition"
+          >
+            <!-- Column Definitions -->
+            <ng-container matColumnDef="ChurchName">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Church Name</strong></th>
+              <td mat-cell *matCellDef="let reg">{{ getChurchNameById(reg.churchId) }}</td>
+            </ng-container>
+            <ng-container matColumnDef="PriestName">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Priest Name</strong></th>
+              <td mat-cell *matCellDef="let reg">{{ reg.priestName }}</td>
+            </ng-container>
+            <ng-container matColumnDef="ConfirmationDate">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Confirmation Date</strong></th>
+              <td mat-cell *matCellDef="let reg">{{ reg.confirmationDate | date: "MMM d, y" : "+5:30" }}</td>
+            </ng-container>
+            <ng-container matColumnDef="CounsellingDate">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Counselling Date</strong></th>
+              <td mat-cell *matCellDef="let reg">{{ reg.counsellingDate | date: "MMM d, y" : "+5:30" }}</td>
+            </ng-container>
+            <ng-container matColumnDef="ParticipantsCount">
+              <th mat-header-cell *matHeaderCellDef i18n><strong>Participants Count</strong></th>
+              <td mat-cell *matCellDef="let reg">{{ reg.participants?.length || 0 }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Actions">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let reg">
+                <button mat-icon-button color="primary" (click)="openEditDialog(reg); $event.stopPropagation()">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteRegistration(reg); $event.stopPropagation()">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="expand">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let reg">
+                <button
+                  mat-icon-button
+                  aria-label="expand row"
+                  (click)="toggleRow(reg); $event.stopPropagation()"
+                  class="transition-transform duration-200 ease-in-out"
+                  [class.rotate-180]="isExpanded(reg)"
+                >
+                  <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-          <!-- Expanded Detail Row -->
-          <ng-container matColumnDef="expandedDetail">
-            <td mat-cell *matCellDef="let reg" [attr.colspan]="displayedColumns.length">
-              @if (expandedRow() === reg) {
-              <div class="p-4 rounded shadow-inner" animate.enter="slideDown" animate.leave="slideUp">
-                @if (reg.participants?.length) {
-                <h4 class="text-sm mb-2" i18n><strong>Participants</strong></h4>
-                <ul class="list-disc pl-5 space-y-1">
-                  @for (p of getSortedParticipants(reg.participants); track p) {
-                  <li class="flex items-center justify-between">
-                    <span>{{ p.name }} – Age: {{ p.age }}</span>
-                    <div class="flex gap-1">
-                      <button
-                        mat-icon-button
-                        [class.printed-icon]="isPrinted(p, reg)"
-                        [color]="isPrinted(p, reg) ? null : 'primary'"
-                        (click)="generateCertificate(p, reg); $event.stopPropagation()"
-                        [matTooltip]="isPrinted(p, reg) ? 'Certificate Printed' : 'Print Certificate'"
-                      >
-                        <mat-icon>{{ isPrinted(p, reg) ? 'check_circle' : 'print' }}</mat-icon>
-                      </button>
-                      @if (isPrinted(p, reg)) {
-                      <button
-                        mat-icon-button
-                        color="warn"
-                        (click)="resetPrintStatus(p, reg); $event.stopPropagation()"
-                        matTooltip="Reset Print Status"
-                        i18n-matTooltip
-                      >
-                        <mat-icon>refresh</mat-icon>
-                      </button>
+            <!-- Expanded Detail Row -->
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let reg" [attr.colspan]="displayedColumns.length">
+                @if (expandedRow() === reg) {
+                  <div class="p-4 rounded shadow-inner" animate.enter="slideDown" animate.leave="slideUp">
+                    @if (reg.participants?.length) {
+                      <h4 class="text-sm mb-2" i18n><strong>Participants</strong></h4>
+                      <ul class="list-disc pl-5 space-y-1">
+                        @for (p of getSortedParticipants(reg.participants); track p) {
+                          <li class="flex items-center justify-between">
+                            <span>{{ p.name }} – Age: {{ p.age }}</span>
+                            <div class="flex gap-1">
+                              <button
+                                mat-icon-button
+                                [class.printed-icon]="isPrinted(p, reg)"
+                                [color]="isPrinted(p, reg) ? null : 'primary'"
+                                (click)="generateCertificate(p, reg); $event.stopPropagation()"
+                                [matTooltip]="isPrinted(p, reg) ? 'Certificate Printed' : 'Print Certificate'"
+                              >
+                                <mat-icon>{{ isPrinted(p, reg) ? "check_circle" : "print" }}</mat-icon>
+                              </button>
+                              @if (isPrinted(p, reg)) {
+                                <button
+                                  mat-icon-button
+                                  color="warn"
+                                  (click)="resetPrintStatus(p, reg); $event.stopPropagation()"
+                                  matTooltip="Reset Print Status"
+                                  i18n-matTooltip
+                                >
+                                  <mat-icon>refresh</mat-icon>
+                                </button>
+                              }
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    } @else {
+                      <p i18n>No participants found.</p>
+                    }
+
+                    <div class="mt-6 pt-4 border-t">
+                      <h4 class="text-sm mb-3" i18n><strong>Vicar's Letter</strong></h4>
+                      @if (reg.confirmationDocument?.vicarLetterUrl) {
+                        <a
+                          [href]="reg.confirmationDocument?.vicarLetterUrl"
+                          target="_blank"
+                          rel="noopener"
+                          mat-raised-button
+                          color="primary"
+                          class="inline-flex items-center gap-2"
+                        >
+                          <mat-icon>description</mat-icon>
+                          <span i18n>View Vicar Letter</span>
+                        </a>
+                      } @else {
+                        <div class="flex items-center gap-2 text-on-surface-variant italic">
+                          <mat-icon class="!w-5 !h-5 !text-lg">info_outline</mat-icon>
+                          <span i18n>No letter uploaded for this registration.</span>
+                        </div>
                       }
                     </div>
-                  </li>
-                  }
-                </ul>
-                } @else {
-                <p i18n>No participants found.</p>
-                }
-
-                <div class="mt-6 pt-4 border-t">
-                  <h4 class="text-sm mb-3" i18n><strong>Vicar's Letter</strong></h4>
-                  @if (reg.confirmationDocument.vicarLetterUrl) {
-                  <a
-                    [href]="reg.confirmationDocument.vicarLetterUrl"
-                    target="_blank"
-                    rel="noopener"
-                    mat-raised-button
-                    color="primary"
-                    class="inline-flex items-center gap-2"
-                  >
-                    <mat-icon>description</mat-icon>
-                    <span i18n>View Vicar Letter</span>
-                  </a>
-                  } @else {
-                  <div class="flex items-center gap-2 text-on-surface-variant italic">
-                    <mat-icon class="!w-5 !h-5 !text-lg">info_outline</mat-icon>
-                    <span i18n>No letter uploaded for this registration.</span>
                   </div>
-                  }
-                </div>
-              </div>
-              }
-            </td>
-          </ng-container>
+                }
+              </td>
+            </ng-container>
 
-          <!-- Table Header -->
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <!-- Table Header -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
 
-          <!-- Table Row -->
-          <tr
-            mat-row
-            *matRowDef="let row; columns: displayedColumns"
-            class="cursor-pointer"
-            (click)="toggleRow(row)"
-            [class.bg-surface-container-high]="expandedRow() === row"
-            [class.highlight-row]="lastClickedId() === row.id"
-          ></tr>
+            <!-- Table Row -->
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+              class="cursor-pointer"
+              (click)="toggleRow(row)"
+              [class.bg-surface-container-high]="expandedRow() === row"
+              [class.highlight-row]="lastClickedId() === row.id"
+            ></tr>
 
-          <!-- Expanded Row -->
-          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="!h-0"></tr>
-        </table>
+            <!-- Expanded Row -->
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="!h-0"></tr>
+          </table>
 
-        <mat-paginator
-          [length]="totalRegistrations()"
-          [pageSize]="pageSize()"
-          [pageSizeOptions]="[5, 10, 25, 100]"
-          (page)="onPageChange($event)"
-          showFirstLastButtons
-        ></mat-paginator>
+          <mat-paginator
+            [length]="totalRegistrations()"
+            [pageSize]="pageSize()"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            (page)="onPageChange($event)"
+            showFirstLastButtons
+          ></mat-paginator>
         } @else {
-        <div class="text-center text-on-surface-variant p-8 theme-transition">
-          <p i18n>No registrations found.</p>
-        </div>
+          <div class="text-center text-on-surface-variant p-8 theme-transition">
+            <p i18n>No registrations found.</p>
+          </div>
         }
       </div>
     </mat-card-content>
