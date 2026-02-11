@@ -78,6 +78,10 @@
             <mat-error>
               @if (form.get('priestName')?.errors?.['required']) {
                 <span i18n>Priest Name is required.</span>
+              } @else if (form.get('priestName')?.errors?.['minLength']) {
+                <span i18n>Priest Name must be at least 3 characters long.</span>
+              } @else if (form.get('priestName')?.errors?.['maxLength']) {
+                <span i18n>Priest Name cannot exceed 100 characters.</span>
               } @else if (form.get('priestName')?.errors?.['pattern']) {
                 <span i18n>Only letters, spaces, and dots are allowed.</span>
               }
@@ -100,7 +104,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Session Start Date</mat-label>
-            <input matInput [matDatepicker]="startPicker" formControlName="sessionStartDate" required [min]="minDate">
+            <input matInput [matDatepicker]="startPicker" formControlName="sessionStartDate" required [min]="minDate" readonly (click)="startPicker.open()">
             <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
             <mat-datepicker #startPicker></mat-datepicker>
             @if (isInvalid('sessionStartDate')) {
@@ -110,11 +114,17 @@
 
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Session End Date</mat-label>
-            <input matInput [matDatepicker]="endPicker" formControlName="sessionEndDate" required [min]="form.get('sessionStartDate')?.value || minDate">
+            <input matInput [matDatepicker]="endPicker" formControlName="sessionEndDate" required [min]="form.get('sessionStartDate')?.value || minDate" readonly (click)="endPicker.open()">
             <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
             @if (isInvalid('sessionEndDate')) {
-            <mat-error i18n>End date is required.</mat-error>
+              <mat-error>
+                @if (form.get('sessionEndDate')?.errors?.['required']) {
+                  <span i18n>End date is required.</span>
+                } @else if (form.get('sessionEndDate')?.errors?.['dateRange']) {
+                  <span i18n>End date cannot be before start date.</span>
+                }
+              </mat-error>
             }
           </mat-form-field>
         </div>
@@ -134,9 +144,19 @@
             <div [formGroupName]="i" class="flex gap-2 items-start">
               <mat-form-field appearance="fill" class="w-full">
                 <mat-label i18n>Participant Name {{ i + 1 }}</mat-label>
-                <input matInput formControlName="name" required />
+                <input matInput formControlName="name" required appNoDigits />
                 @if (participant.get('name')?.invalid && formSubmitted()) {
-                <mat-error i18n>Name is required.</mat-error>
+                <mat-error>
+                  @if (participant.get('name')?.errors?.['required']) {
+                    <span i18n>Name is required.</span>
+                  } @else if (participant.get('name')?.errors?.['minLength']) {
+                    <span i18n>Name must be at least 3 characters long.</span>
+                  } @else if (participant.get('name')?.errors?.['maxLength']) {
+                    <span i18n>Name cannot exceed 100 characters.</span>
+                  } @else if (participant.get('name')?.errors?.['pattern']) {
+                    <span i18n>Only letters, spaces, and dots are allowed.</span>
+                  }
+                </mat-error>
                 }
               </mat-form-field>
               

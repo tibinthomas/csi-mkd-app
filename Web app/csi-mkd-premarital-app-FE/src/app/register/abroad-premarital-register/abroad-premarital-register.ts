@@ -44,6 +44,7 @@ import {
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { dateRangeValidator } from '../../core/validators/date-range.validator';
 import Shepherd from 'shepherd.js';
 import { TimeZoneOption } from '../../../api/api-main-app/models/time-zone-option';
 
@@ -135,14 +136,19 @@ export class AbroadPremaritalRegister {
       churchMembership: ['abroad-candidate', Validators.required],
       churchDistrict: ['', Validators.required], // Now used for Outside Kerala / Abroad
       manualChurchName: [{ value: '', disabled: true }, Validators.required], 
-      priestName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s.]*$/)]],
+      priestName: ['', [
+        Validators.required, 
+        Validators.minLength(3),
+        Validators.maxLength(100),
+        Validators.pattern(/^[a-zA-Z\s.]*$/)
+      ]],
       sessionStartDate: ['', Validators.required],
       sessionEndDate: ['', Validators.required],
       declaration: [false, Validators.requiredTrue],
       recaptcha: ['', Validators.required],
       timezone: [this.selectedTimezone(), Validators.required],
       participants: this.fb.array([this.createParticipant()]),
-    });
+    }, { validators: dateRangeValidator('sessionStartDate', 'sessionEndDate') });
 
     // Simplified logic: Just ensure manualChurchName is required
     this.form.get('manualChurchName')?.setValidators([Validators.required]);
@@ -155,7 +161,12 @@ export class AbroadPremaritalRegister {
 
   createParticipant(): FormGroup {
     return this.fb.group({
-      name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s.]*$/)]],
+      name: ['', [
+        Validators.required, 
+        Validators.minLength(3),
+        Validators.maxLength(100),
+        Validators.pattern(/^[a-zA-Z\s.]*$/)
+      ]],
     });
   }
 
@@ -468,7 +479,10 @@ export class AbroadPremaritalRegister {
       return;
     }
 
-    if (this.form.invalid || this.vicarLetterError()) {
+    if (this.form.invalid || this.vicarLetterError() || !this.vicarLetterFile()) {
+      if (!this.vicarLetterFile()) {
+        this.vicarLetterError.set($localize`Vicar’s letter is required.`);
+      }
       this.form.markAllAsTouched();
       this.focusFirstInvalidControl();
       return;
