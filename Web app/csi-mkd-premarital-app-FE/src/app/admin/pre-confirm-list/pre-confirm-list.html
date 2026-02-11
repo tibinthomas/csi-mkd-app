@@ -137,6 +137,28 @@
                 } @else {
                 <p i18n>No participants found.</p>
                 }
+
+                <div class="mt-6 pt-4 border-t">
+                  <h4 class="text-sm mb-3" i18n><strong>Vicar's Letter</strong></h4>
+                  @if (reg.confirmationDocument.vicarLetterUrl) {
+                  <a
+                    [href]="reg.confirmationDocument.vicarLetterUrl"
+                    target="_blank"
+                    rel="noopener"
+                    mat-raised-button
+                    color="primary"
+                    class="inline-flex items-center gap-2"
+                  >
+                    <mat-icon>description</mat-icon>
+                    <span i18n>View Vicar Letter</span>
+                  </a>
+                  } @else {
+                  <div class="flex items-center gap-2 text-on-surface-variant italic">
+                    <mat-icon class="!w-5 !h-5 !text-lg">info_outline</mat-icon>
+                    <span i18n>No letter uploaded for this registration.</span>
+                  </div>
+                  }
+                </div>
               </div>
               }
             </td>
