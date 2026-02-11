@@ -35,6 +35,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels.Cosmos
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 maxLength: 4000,
                 valueGeneratorFactory: new CosmosIdValueGeneratorFactory().Create);
+            id.AddAnnotation("Cosmos:PropertyName", "id");
 
             var premaritalRegistrationId = runtimeEntityType.AddProperty(
                 "PremaritalRegistrationId",
