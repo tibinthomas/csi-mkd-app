@@ -184,13 +184,31 @@ export class AbroadPremaritalRegister {
   // LocalStorage key for saving form progress
   private readonly storageKey = 'abroadPremaritalRegistrationForm';
 
-  // Save form data to localStorage
+  // Save form data and files to localStorage
   protected saveForm(): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.form.getRawValue()));
-    this.snackBar.open($localize`Form data saved locally.`, $localize`Close`, { duration: 3000 });
+    const data = this.form.getRawValue();
+    const file = this.vicarLetterFile();
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64 = e.target?.result as string;
+        localStorage.setItem(this.storageKey, JSON.stringify({
+          ...data,
+          vicarLetterBase64: base64,
+          vicarLetterName: file.name,
+          vicarLetterType: file.type
+        }));
+        this.snackBar.open($localize`Form data and file saved locally.`, $localize`Close`, { duration: 3000 });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      localStorage.setItem(this.storageKey, JSON.stringify(data));
+      this.snackBar.open($localize`Form data saved locally.`, $localize`Close`, { duration: 3000 });
+    }
   }
 
-  // Load saved form data from localStorage
+  // Load saved form data and files from localStorage
   protected loadForm(showAlert = false): void {
     const savedData = localStorage.getItem(this.storageKey);
     if (savedData) {
@@ -211,9 +229,39 @@ export class AbroadPremaritalRegister {
 
       // Handle dependent dropdown for church
       if (formData.churchDistrict) {
-        this.onDistrictChange(formData.churchDistrict);
-        // Wait for churches to load or patch manually if needed
-        this.form.get('manualChurchName')?.setValue(formData.manualChurchName);
+        this.form.get('manualChurchName')?.enable();
+        this.churchDataService
+          .getChurchesByLocationAndSearch(formData.churchDistrict)
+          .subscribe({
+            next: (churches) => {
+              this.availableChurches.set(churches);
+              this.form.get('manualChurchName')?.setValue(formData.manualChurchName);
+              this.form.get('priestName')?.setValue(formData.priestName);
+              // Set the internal selectedChurch signal so it's not null on submission
+              this.onChurchChange(formData.manualChurchName);
+              
+              // Sync selectedTimezone signal with patched form value
+              if (formData.timezone) {
+                this.selectedTimezone.set(formData.timezone);
+              }
+            },
+            error: (err) => {
+              console.error('Error loading churches:', err);
+              this.availableChurches.set([]);
+            },
+          });
+      }
+
+      // Restore saved file if present
+      if (formData.vicarLetterBase64 && formData.vicarLetterName && formData.vicarLetterType) {
+        fetch(formData.vicarLetterBase64)
+          .then(res => res.blob())
+          .then(blob => {
+            const file = new File([blob], formData.vicarLetterName, { type: formData.vicarLetterType });
+            this.vicarLetterFile.set(file);
+            this.vicarLetterPreviewUrl.set(URL.createObjectURL(file));
+          })
+          .catch(err => console.error('Error restoring saved file:', err));
       }
 
       if (showAlert) {
@@ -470,9 +518,6 @@ export class AbroadPremaritalRegister {
 
   onSubmit() {
     this.formSubmitted.set(true);
-
-    // Auto-save form data to localStorage before attempting submission
-    localStorage.setItem(this.storageKey, JSON.stringify(this.form.getRawValue()));
 
     // Prevent submission while async validators are still running
     if (this.form.pending) {

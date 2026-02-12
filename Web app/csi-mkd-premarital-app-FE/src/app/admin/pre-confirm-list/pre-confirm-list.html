@@ -182,8 +182,9 @@
           </table>
 
           <mat-paginator
-            [length]="totalRegistrations()"
+            [length]="totalCount()"
             [pageSize]="pageSize()"
+            [pageIndex]="pageIndex()"
             [pageSizeOptions]="[5, 10, 25, 100]"
             (page)="onPageChange($event)"
             showFirstLastButtons

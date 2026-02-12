@@ -63,7 +63,6 @@ import { EditPreConfirmDialogComponent } from './edit-pre-confirm-dialog.compone
 export class PreConfirmList implements OnInit {
   registrations = signal<ConfirmationRegisterDto[]>([]);
   isLoading = signal(false);
-  totalRegistrations = signal(0);
   pageIndex = signal(0);
   pageSize = signal(10);
   searchTermInput = signal('');
@@ -71,6 +70,7 @@ export class PreConfirmList implements OnInit {
   expandedAll = false;
   protected readonly totalCount = signal(0);
   protected readonly minDate = new Date();
+
   readonly lastClickedId = signal<number | null>(null);
   readonly printedParticipants = signal<Set<string>>(new Set());
 
@@ -104,9 +104,8 @@ export class PreConfirmList implements OnInit {
             typeof responseJson === 'string'
               ? JSON.parse(responseJson)
               : responseJson;
-          this.registrations.set(response);
-          this.totalCount.set(response.length || 0);
-          this.totalRegistrations.set(response.totalCount);
+          this.registrations.set(response.items || []);
+          this.totalCount.set(response.totalCount || 0);
           this.isLoading.set(false);
         },
         error: () => {

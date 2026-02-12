@@ -951,7 +951,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiConfirmationregisterFilterGet$Response(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  apiConfirmationregisterFilterGet$Response(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
     return apiConfirmationregisterFilterGet(this.http, this.rootUrl, params, context);
   }
 
@@ -961,9 +961,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiConfirmationregisterFilterGet(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<void> {
+  apiConfirmationregisterFilterGet(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<any> {
     return this.apiConfirmationregisterFilterGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<void>): void => r.body)
+      map((r: StrictHttpResponse<any>): any => r.body)
     );
   }
 

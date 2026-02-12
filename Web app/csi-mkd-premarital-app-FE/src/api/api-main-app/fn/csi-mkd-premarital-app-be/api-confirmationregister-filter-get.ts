@@ -15,7 +15,7 @@ export interface ApiConfirmationregisterFilterGet$Params {
   pageSize: number;
 }
 
-export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
   const rb = new RequestBuilder(rootUrl, apiConfirmationregisterFilterGet.PATH, 'get');
   if (params) {
     rb.query('search', params.search, {});
@@ -24,11 +24,11 @@ export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: stri
   }
 
   return http.request(
-    rb.build({ responseType: 'text', accept: '*/*', context })
+    rb.build({ responseType: 'json', accept: 'application/json', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+      return r as StrictHttpResponse<any>;
     })
   );
 }
