@@ -7,7 +7,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
     {
         Task<ConfirmationRegistration> CreateAsync(ConfirmationRegistration registration);
         Task<ConfirmationRegistration?> FindByIdAsync(Guid id);
-        Task<IEnumerable<ConfirmationRegistration>> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter);
+        Task<object> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter);
         Task<int> GetTotalRegistrations();
         Task DeleteAsync(Guid id);
         void RemoveParticipants(IEnumerable<Participant> participants);

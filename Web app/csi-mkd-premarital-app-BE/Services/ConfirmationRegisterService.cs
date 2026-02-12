@@ -46,7 +46,7 @@ namespace csi_mkd_premarital_app_BE.Services
             return new ServiceResponse<ConfirmationDocument> { StatusCode = 200, Message = "Files saved successfully" };
         }
 
-        public async Task<IEnumerable<ConfirmationRegistration>> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter)
+        public async Task<object> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter)
         {
             return await _repository.GetFilteredRegistrations(filter);
         }

@@ -7,7 +7,7 @@ namespace csi_mkd_premarital_app_BE.Services
     {
         Task<ServiceResponse<ConfirmationRegistration>> Register(ConfirmationRegisterDto confirmationRegisterDto);
         Task<ServiceResponse<ConfirmationDocument>> SaveFiles(ConfirmationDocumentDto confirmationDocumentDto);
-        Task<IEnumerable<ConfirmationRegistration>> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter);
+        Task<object> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter);
         Task<int> GetTotalRegistrations();
         Task<(int StatusCode, string Message)> DeleteAsync(Guid id);
         Task<(int StatusCode, string Message)> UpdateAsync(Guid id, UpdateConfirmationRegisterDto dto);

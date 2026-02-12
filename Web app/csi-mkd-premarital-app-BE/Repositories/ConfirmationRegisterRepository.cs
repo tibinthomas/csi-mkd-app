@@ -36,7 +36,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
             return registration;
         }
 
-        public async Task<IEnumerable<ConfirmationRegistration>> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter)
+        public async Task<object> GetFilteredRegistrations(ConfirmationRegisterFilterDto filter)
         {
             var query = _context.ConfirmationRegistrations
                 .Include(r => r.ConfirmationDocument)
@@ -50,11 +50,19 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     r.Participants.Any(p => EF.Functions.ILike(p.Name, $"%{search}%")));
             }
 
-            return await query
+            var totalCount = await query.CountAsync();
+
+            var items = await query
                 .OrderByDescending(r => r.SubmittedDate)
                 .Skip((filter.Page - 1) * filter.PageSize)
                 .Take(filter.PageSize)
                 .ToListAsync();
+
+            return new
+            {
+                totalCount,
+                items
+            };
         }
 
         public async Task<int> GetTotalRegistrations()
