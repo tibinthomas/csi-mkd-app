@@ -1,6 +1,6 @@
 {
   "name": "csi-mkd-counselling",
-  "version": "0.0.193",
+  "version": "0.0.195",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
