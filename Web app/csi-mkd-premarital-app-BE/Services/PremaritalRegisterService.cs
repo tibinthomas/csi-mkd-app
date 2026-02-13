@@ -228,5 +228,67 @@ namespace csi_mkd_premarital_app_BE.Services
         public async Task<int> GetTotalOutsideKeralaRegistrations()
             => await _repo.GetTotalOutsideKeralaRegistrations();
 
+        public async Task<bool> UpdateOutsideKeralaRegistration(Guid id, PremaritalOutsideKeralaRegisterDto dto)
+        {
+            if (dto == null || dto.TimeZone == null) return false;
+
+            var registration = await _repo.GetOutsideKeralaRegistrationById(id);
+            if (registration == null) return false;
+
+            var (utcStart, utcEnd) = DateRangeConverter.BuildUtcDateRange(
+                dto.SessionStartDate, 
+                dto.SessionEndDate, 
+                dto.TimeZone.Value.GetIanaId()
+            );
+
+            registration.ChurchId = dto.ChurchId;
+            registration.SessionStartDate = utcStart;
+            registration.SessionEndDate = utcEnd;
+            registration.PriestName = dto.PriestName;
+            registration.TimeZone = dto.TimeZone;
+
+            // Update participants
+            if (dto.DeletedParticipantIds != null && dto.DeletedParticipantIds.Any())
+            {
+                var participantsToRemove = registration.Participants
+                    .Where(p => dto.DeletedParticipantIds.Contains(p.Id))
+                    .ToList();
+                _repo.RemoveParticipantsOutsideKerala(participantsToRemove);
+            }
+
+            foreach (var participantDto in dto.Participants)
+            {
+                if (participantDto.Id.HasValue)
+                {
+                    var existingParticipant = registration.Participants
+                        .FirstOrDefault(p => p.Id == participantDto.Id.Value);
+
+                    if (existingParticipant != null)
+                    {
+                        existingParticipant.Name = participantDto.Name;
+                    }
+                }
+                else
+                {
+                    registration.Participants.Add(new ParticipantOutsideKerala
+                    {
+                        Id = Guid.Empty,
+                        Name = participantDto.Name,
+                        SubmittedAt = DateTime.UtcNow
+                    });
+                }
+            }
+
+            try
+            {
+                await _repo.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating outside Kerala registration: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

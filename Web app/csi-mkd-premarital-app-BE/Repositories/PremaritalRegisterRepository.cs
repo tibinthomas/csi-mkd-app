@@ -320,5 +320,15 @@ namespace csi_mkd_premarital_app_BE.Repositories
 
         public async Task<int> GetTotalOutsideKeralaRegistrations()
             => await _context.PremaritalOutsideKeralaRegistrations.CountAsync();
+
+        public void RemoveParticipantsOutsideKerala(IEnumerable<ParticipantOutsideKerala> participants)
+        {
+            _context.ParticipantsOutsideKerala.RemoveRange(participants);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

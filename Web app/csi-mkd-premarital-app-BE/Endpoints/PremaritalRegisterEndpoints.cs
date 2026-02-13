@@ -202,5 +202,19 @@ public static class PremaritalRegisterEndpoints
         })
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
+
+        // Update outside Kerala registration
+        outsideGroup.MapPut("/{id:guid}", async (Guid id, [FromBody] PremaritalOutsideKeralaRegisterDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
+        {
+            var result = await service.UpdateOutsideKeralaRegistration(id, dto);
+            if (!result)
+                return Results.NotFound(new { message = "Registration not found or update failed." });
+
+            await cacheService.InvalidateRegistrationCachesAsync();
+            return Results.Ok(new { message = "Registration updated successfully." });
+        })
+        .Accepts<PremaritalOutsideKeralaRegisterDto>("application/json")
+        .Produces(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status404NotFound);
     }
 }

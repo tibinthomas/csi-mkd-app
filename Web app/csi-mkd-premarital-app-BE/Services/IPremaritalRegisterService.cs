@@ -23,6 +23,7 @@ namespace csi_mkd_premarital_app_BE.Services
         Task<(int StatusCode, object Data)> UpsertOutsideKeralaFiles(PremaritalOutsideKeralaDocumentDto dto);
         Task<PremaritalOutsideKeralaRegistration?> GetOutsideKeralaRegistrationById(Guid id);
         Task<bool> DeleteOutsideKeralaRegistration(Guid id);
+        Task<bool> UpdateOutsideKeralaRegistration(Guid id, PremaritalOutsideKeralaRegisterDto dto);
         Task<IEnumerable<PremaritalOutsideKeralaRegistration>> GetAllOutsideKeralaRegistrations();
         Task<int> GetTotalOutsideKeralaRegistrations();
     }

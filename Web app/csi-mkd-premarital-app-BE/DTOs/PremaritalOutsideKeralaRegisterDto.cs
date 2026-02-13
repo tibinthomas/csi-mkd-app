@@ -7,6 +7,7 @@ namespace csi_mkd_premarital_app_BE.DTOs
 {
     public class ParticipantOutsideKeralaDto
     {
+        public Guid? Id { get; set; }
         [Required]
         public string Name { get; set; } = string.Empty;
     }
@@ -29,6 +30,8 @@ namespace csi_mkd_premarital_app_BE.DTOs
         
         [Required]
         public List<ParticipantOutsideKeralaDto> Participants { get; set; } = new();
+
+        public List<Guid> DeletedParticipantIds { get; set; } = new();
     }
 
     public class PremaritalOutsideKeralaDocumentDto
