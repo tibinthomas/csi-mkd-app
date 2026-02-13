@@ -8,19 +8,18 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { PremaritalOutsideKeralaRegisterDto } from '../../models/premarital-outside-kerala-register-dto';
 
-export interface ApiConfirmationregisterFilterGet$Params {
-  search?: string;
-  page: number;
-  pageSize: number;
+export interface ApiPremaritalregisterOutsideKeralaIdPut$Params {
+  id: string;
+      body: PremaritalOutsideKeralaRegisterDto
 }
 
-export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: string, params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, apiConfirmationregisterFilterGet.PATH, 'get');
+export function apiPremaritalregisterOutsideKeralaIdPut(http: HttpClient, rootUrl: string, params: ApiPremaritalregisterOutsideKeralaIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiPremaritalregisterOutsideKeralaIdPut.PATH, 'put');
   if (params) {
-    rb.query('search', params.search, {});
-    rb.query('page', params.page, {});
-    rb.query('pageSize', params.pageSize, {});
+    rb.path('id', params.id, {});
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -33,4 +32,4 @@ export function apiConfirmationregisterFilterGet(http: HttpClient, rootUrl: stri
   );
 }
 
-apiConfirmationregisterFilterGet.PATH = '/api/confirmationregister/filter';
+apiPremaritalregisterOutsideKeralaIdPut.PATH = '/api/premaritalregister-outside-kerala/{id}';

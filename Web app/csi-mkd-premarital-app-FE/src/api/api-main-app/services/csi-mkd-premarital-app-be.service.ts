@@ -115,6 +115,8 @@ import { apiPremaritalregisterOutsideKeralaIdDelete } from '../fn/csi-mkd-premar
 import { ApiPremaritalregisterOutsideKeralaIdDelete$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-delete';
 import { apiPremaritalregisterOutsideKeralaIdGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-get';
 import { ApiPremaritalregisterOutsideKeralaIdGet$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-get';
+import { apiPremaritalregisterOutsideKeralaIdPut } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-put';
+import { ApiPremaritalregisterOutsideKeralaIdPut$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-id-put';
 import { apiPremaritalregisterOutsideKeralaPost } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-post';
 import { ApiPremaritalregisterOutsideKeralaPost$Params } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-post';
 import { apiPremaritalregisterOutsideKeralaTotalGet } from '../fn/csi-mkd-premarital-app-be/api-premaritalregister-outside-kerala-total-get';
@@ -842,6 +844,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
     );
   }
 
+  /** Path part for operation `apiPremaritalregisterOutsideKeralaIdPut()` */
+  static readonly ApiPremaritalregisterOutsideKeralaIdPutPath = '/api/premaritalregister-outside-kerala/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiPremaritalregisterOutsideKeralaIdPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterOutsideKeralaIdPut$Response(params: ApiPremaritalregisterOutsideKeralaIdPut$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiPremaritalregisterOutsideKeralaIdPut(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiPremaritalregisterOutsideKeralaIdPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiPremaritalregisterOutsideKeralaIdPut(params: ApiPremaritalregisterOutsideKeralaIdPut$Params, context?: HttpContext): Observable<void> {
+    return this.apiPremaritalregisterOutsideKeralaIdPut$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
   /** Path part for operation `apiPremaritalregisterOutsideKeralaIdDelete()` */
   static readonly ApiPremaritalregisterOutsideKeralaIdDeletePath = '/api/premaritalregister-outside-kerala/{id}';
 
@@ -951,7 +978,7 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiConfirmationregisterFilterGet$Response(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<any>> {
+  apiConfirmationregisterFilterGet$Response(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return apiConfirmationregisterFilterGet(this.http, this.rootUrl, params, context);
   }
 
@@ -961,9 +988,9 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  apiConfirmationregisterFilterGet(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<any> {
+  apiConfirmationregisterFilterGet(params: ApiConfirmationregisterFilterGet$Params, context?: HttpContext): Observable<void> {
     return this.apiConfirmationregisterFilterGet$Response(params, context).pipe(
-      map((r: StrictHttpResponse<any>): any => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

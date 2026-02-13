@@ -10,7 +10,7 @@
         <!-- Search Input -->
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Search</mat-label>
-          <input matInput [(ngModel)]="searchTermInput" (keyup.enter)="searchRegistrations()" />
+          <input matInput [ngModel]="searchTermInput()" (ngModelChange)="searchTermInput.set($event)" (keyup.enter)="searchRegistrations()" />
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
@@ -98,8 +98,12 @@
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef i18n> <strong>Actions</strong></th>
               <td mat-cell *matCellDef="let reg">
-               <div class="flex gap-2">
-                  <button mat-icon-button color="warn" (click)="deleteRegistration(reg)" 
+                <div class="flex gap-2">
+                  <button mat-icon-button color="primary" (click)="editRegistration(reg); $event.stopPropagation()" 
+                          matTooltip="Edit" i18n-matTooltip>
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="deleteRegistration(reg); $event.stopPropagation()" 
                           matTooltip="Delete" i18n-matTooltip
                           [disabled]="isDeleting() === reg.id">
                     @if (isDeleting() === reg.id) {
@@ -114,7 +118,7 @@
 
             <!-- Expanded Detail Row -->
             <ng-container matColumnDef="expandedDetail">
-              <td mat-cell *matCellDef="let reg" [attr.colspan]="8">
+              <td mat-cell *matCellDef="let reg" [attr.colspan]="5">
                 @if (isExpanded(reg)) {
                   <div class="p-4 bg-surface-container rounded-lg my-2 ">
                     @if (reg.participants?.length) {

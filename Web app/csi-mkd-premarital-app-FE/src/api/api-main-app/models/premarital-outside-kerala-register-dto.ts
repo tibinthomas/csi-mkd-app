@@ -6,6 +6,7 @@ import { ParticipantOutsideKeralaDto } from '../models/participant-outside-keral
 import { TimeZoneOption } from '../models/time-zone-option';
 export interface PremaritalOutsideKeralaRegisterDto {
   churchId?: number | null;
+  deletedParticipantIds?: Array<string> | null;
   participants: Array<ParticipantOutsideKeralaDto>;
   priestName?: string | null;
   sessionEndDate: string;

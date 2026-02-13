@@ -1,64 +1,79 @@
+import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-  computed,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    inject,
+    signal
 } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import {
-  catchError,
-  map,
-  of,
-  switchMap,
-} from 'rxjs';
-import { MatTableModule } from '@angular/material/table';
+    FormArray,
+    FormBuilder,
+    FormGroup,
+    FormsModule,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { FormsModule } from '@angular/forms';
-import {
-  MatFormField,
-  MatFormFieldModule,
-  MatLabel,
-} from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import {
-  MatDialog,
-  MatDialogModule,
-} from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+    MAT_DIALOG_DATA,
+    MatDialog,
+    MatDialogModule,
+    MatDialogRef,
+} from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {
+    catchError,
+    map,
+    of,
+    switchMap
+} from 'rxjs';
+import { ParticipantOutsideKeralaDto, PremaritalOutsideKeralaRegisterDto } from '../../../api/api-main-app/models';
+import { TimeZoneOption } from '../../../api/api-main-app/models/time-zone-option';
 import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-main-app/services';
 import {
-  ChurchDataService,
-} from '../../core/services/church-data.service';
-import {
-  CertificateService,
-  CertificateType,
+    CertificateService,
+    CertificateType,
 } from '../../core/services/certificate.service';
+import {
+    ChurchDataService,
+} from '../../core/services/church-data.service';
+import { FileUploadService } from '../../core/services/file-upload.service';
 import { CertificatePreviewDialog } from '../../shared/components/certificate-preview-dialog/certificate-preview-dialog';
-import { ParticipantOutsideKeralaDto, PremaritalOutsideKeralaRegisterDto } from '../../../api/api-main-app/models';
 
 @Component({
   selector: 'app-abroad-premarital-list',
+  standalone: true,
   templateUrl: './abroad-premarital-list.html',
   styleUrl: './abroad-premarital-list.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    CommonModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,
     MatExpansionModule,
     FormsModule,
-    MatFormField,
-    MatLabel,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatPaginatorModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
@@ -207,6 +222,36 @@ export class AbroadPremaritalListComponent {
     this.snackBar.open('Payment approval not yet implemented', 'Close', {
       duration: 3000,
     });
+  }
+
+  editRegistration(reg: any): void {
+    console.log('editRegistration method triggered');
+    console.log('Registration data:', reg);
+    console.log('Church data available:', !!this.churchData());
+    
+    try {
+      const dialogRef = this.dialog.open(EditAbroadRegistrationDialogComponent, {
+        width: '600px',
+        data: { registration: reg, churchData: this.churchData() },
+      });
+      console.log('Dialog open call executed');
+
+      dialogRef.afterOpened().subscribe(() => {
+        console.log('Dialog successfully opened in UI');
+      });
+
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log('Dialog closed with result:', result);
+        if (result) {
+          this.filterTrigger.set(this.filterTrigger() + 1);
+          this.snackBar.open('Registration updated successfully', 'Close', {
+            duration: 3000,
+          });
+        }
+      });
+    } catch (error) {
+      console.error('Error attempting to open dialog:', error);
+    }
   }
 
   deleteRegistration(reg: any): void {
@@ -358,5 +403,272 @@ export class AbroadPremaritalListComponent {
       panelClass: 'full-screen-dialog',
     });
   }
-  
+}
+
+interface EditAbroadRegistrationData {
+  registration: any;
+  churchData: any;
+}
+
+@Component({
+  selector: 'edit-abroad-registration-dialog',
+  template: `
+    <h2 mat-dialog-title i18n>Edit Registration</h2>
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <mat-dialog-content>
+        <div class="flex flex-col gap-4 pt-2">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label i18n>Location/District</mat-label>
+              <input matInput formControlName="churchDistrict" readonly>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label i18n>Church Name</mat-label>
+              <input matInput formControlName="manualChurchName" readonly>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label i18n>Priest Name</mat-label>
+            <input matInput formControlName="priestName">
+          </mat-form-field>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label i18n>Session Start Date</mat-label>
+              <input matInput [matDatepicker]="startPicker" formControlName="sessionStartDate" (click)="startPicker.open()">
+              <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+              <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label i18n>Session End Date</mat-label>
+              <input matInput [matDatepicker]="endPicker" formControlName="sessionEndDate" (click)="endPicker.open()">
+              <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+              <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label i18n>Timezone</mat-label>
+            <mat-select formControlName="timezone">
+              @for (tz of timeZoneOptions; track tz) {
+                <mat-option [value]="tz">{{ tz }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <!-- Vicar Letter Section -->
+          <div class="border rounded-lg p-4 bg-surface-container-low">
+            <h4 class="text-sm font-semibold mb-3 flex items-center gap-2">
+              <mat-icon class="text-base h-4 w-4">description</mat-icon>
+              <span i18n>Vicar Letter</span>
+            </h4>
+            
+            <div class="flex flex-col gap-3">
+              @if (editForm.get('vicarLetterUrl')?.value) {
+                <div class="flex items-center gap-2 text-sm">
+                  <span class="text-on-surface-variant" i18n>Current:</span>
+                  <a [href]="editForm.get('vicarLetterUrl')?.value" target="_blank" class="text-primary hover:underline flex items-center gap-1">
+                    <span i18n>View current letter</span>
+                    <mat-icon class="text-xs h-3 w-3">open_in_new</mat-icon>
+                  </a>
+                </div>
+              }
+              
+              <div class="flex flex-col gap-2">
+                <label class="text-xs text-on-surface-variant px-1" i18n>Upload New Letter (Optional)</label>
+                <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png"
+                       class="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:bg-primary-container-high cursor-pointer" />
+                @if (vicarLetterFile()) {
+                  <div class="text-xs text-primary flex items-center gap-1 mt-1">
+                    <mat-icon class="text-xs h-3 w-3">check_circle</mat-icon>
+                    <span>{{ vicarLetterFile()?.name }} selected</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <h3 class="text-lg font-medium" i18n>Participants</h3>
+          <div formArrayName="participants" class="space-y-2">
+            @for (p of participants.controls; track p; let i = $index) {
+              <div [formGroupName]="i" class="flex gap-2 items-center">
+                <mat-form-field appearance="outline" class="flex-grow pt-2">
+                  <mat-label i18n>Participant Name</mat-label>
+                  <input matInput formControlName="name">
+                </mat-form-field>
+                <button type="button" mat-icon-button color="warn" (click)="removeParticipant(i)" [disabled]="participants.length === 1">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            }
+          </div>
+          <button type="button" mat-stroked-button color="primary" (click)="addParticipant()">
+            <mat-icon>add</mat-icon> <span i18n>Add Participant</span>
+          </button>
+        </div>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="editForm.invalid || isSaving()">
+          @if (isSaving()) {
+            <mat-spinner diameter="18" class="mr-2"></mat-spinner>
+            <span i18n>Saving...</span>
+          } @else {
+            <span i18n>Update</span>
+          }
+        </button>
+      </mat-dialog-actions>
+    </form>
+  `,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule
+  ],
+  providers: [provideNativeDateAdapter()],
+})
+export class EditAbroadRegistrationDialogComponent {
+  private readonly fb = inject(FormBuilder);
+  readonly dialogRef = inject(MatDialogRef<EditAbroadRegistrationDialogComponent>);
+  readonly data = inject<EditAbroadRegistrationData>(MAT_DIALOG_DATA);
+  private readonly api = inject(ApiService);
+  private readonly churchDataService = inject(ChurchDataService);
+  private readonly fileUploadService = inject(FileUploadService);
+  private readonly snackBar = inject(MatSnackBar);
+
+  editForm: FormGroup;
+  isSaving = signal(false);
+  vicarLetterFile = signal<File | null>(null);
+  timeZoneOptions = Object.values(TimeZoneOption);
+  deletedParticipantIds: string[] = [];
+
+  constructor() {
+    console.log('EditAbroadRegistrationDialogComponent constructor starting');
+    
+    const reg = this.data.registration;
+    const churchData = this.data.churchData;
+
+    const churchDetails = this.churchDataService.getChurchDetailsById(reg?.churchId, churchData);
+
+    this.editForm = this.fb.group({
+      churchDistrict: [{ value: churchDetails?.locationName || reg?.churchDistrict || '', disabled: true }, Validators.required],
+      manualChurchName: [{ value: churchDetails?.name || reg?.manualChurchName || '', disabled: true }, Validators.required],
+      priestName: [reg?.priestName || '', Validators.required],
+      sessionStartDate: [reg?.sessionStartDate ? new Date(reg.sessionStartDate) : null, Validators.required],
+      sessionEndDate: [reg?.sessionEndDate ? new Date(reg.sessionEndDate) : null, Validators.required],
+      timezone: [reg?.timeZone || 'Asia/Kolkata', Validators.required],
+      vicarLetterUrl: [reg?.premaritalOutsideKeralaDocument?.vicarLetterUrl || ''],
+      participants: this.fb.array([])
+    });
+
+    if (reg?.participants) {
+      const sortedParticipants = [...reg.participants].sort((a: any, b: any) => (b.id || 0) - (a.id || 0));
+      sortedParticipants.forEach((p: any) => {
+        this.participants.push(this.fb.group({
+          id: [p.id],
+          name: [p.name || '', Validators.required]
+        }));
+      });
+    }
+  }
+
+  get participants(): FormArray {
+    return this.editForm.get('participants') as FormArray;
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      this.vicarLetterFile.set(file);
+    }
+  }
+
+  addParticipant() {
+    this.participants.push(this.fb.group({
+      id: [null],
+      name: ['', Validators.required]
+    }));
+  }
+
+  removeParticipant(index: number) {
+    if (this.participants.length > 1) {
+      const participant = this.participants.at(index);
+      const id = participant.get('id')?.value;
+      if (id) {
+        this.deletedParticipantIds.push(id);
+      }
+      this.participants.removeAt(index);
+    }
+  }
+
+  onSubmit() {
+    if (this.editForm.invalid) return;
+
+    this.isSaving.set(true);
+    const formValue = this.editForm.getRawValue();
+    
+    const reg = this.data.registration;
+    const updateDto: any = {
+      churchId: reg.churchId,
+      participants: formValue.participants.map((p: any) => ({
+        id: p.id,
+        name: p.name
+      })),
+      priestName: formValue.priestName,
+      sessionStartDate: formValue.sessionStartDate ? formValue.sessionStartDate.toISOString() : null,
+      sessionEndDate: formValue.sessionEndDate ? formValue.sessionEndDate.toISOString() : null,
+      timeZone: formValue.timezone,
+      deletedParticipantIds: this.deletedParticipantIds
+    };
+
+    this.api.apiPremaritalregisterOutsideKeralaIdPut({
+      id: reg.id.toString(),
+      body: updateDto
+    }).pipe(
+      switchMap(() => {
+        const file = this.vicarLetterFile();
+        if (!file) return of(null);
+
+        return this.api.apiAzureuploadGenerateSasGet({
+          fileName: `abroad/${reg.id}/vicarletter/${file.name}`,
+          contentType: file.type
+        }).pipe(
+          switchMap((sasUrl) => this.fileUploadService.uploadFileToAzure(file, sasUrl!)),
+          switchMap((vicarLetterUrl) => {
+            return this.api.apiPremaritalregisterOutsideKeralaFilesRegistrationIdPost({
+              registrationId: reg.id.toString(),
+              body: {
+                registrationId: reg.id.toString(),
+                vicarLetterUrl: vicarLetterUrl
+              }
+            });
+          })
+        );
+      })
+    ).subscribe({
+      next: () => {
+        this.isSaving.set(false);
+        this.snackBar.open('Registration updated successfully', 'Close', { duration: 3000 });
+        this.dialogRef.close(true);
+      },
+      error: (err) => {
+        console.error('Update failed', err);
+        this.isSaving.set(false);
+        this.snackBar.open('Failed to update registration', 'Close', { duration: 3000 });
+      }
+    });
+  }
 }
