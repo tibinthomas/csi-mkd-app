@@ -298,16 +298,16 @@ export class CertificateService {
       filename: `certificate-${data.name
         .replace(/\s+/g, '-')
         .toLowerCase()}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
+      image: { type: 'jpeg' as const, quality: 0.98 },
       html2canvas: {
         scale: 2,
         useCORS: true,
         allowTaint: true,
       },
       jsPDF: {
-        unit: 'in',
-        format: 'letter',
-        orientation: 'landscape',
+        unit: 'in' as const,
+        format: 'letter' as const,
+        orientation: 'landscape' as const,
       },
     };
 
