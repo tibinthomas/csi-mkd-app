@@ -315,7 +315,6 @@ namespace csi_mkd_premarital_app_BE.Repositories
                 .Include(r => r.Participants)
                 .Include(r => r.PremaritalOutsideKeralaDocument)
                 .OrderByDescending(r => r.SubmittedAt)
-                .AsNoTracking()
                 .ToListAsync();
 
         public async Task<int> GetTotalOutsideKeralaRegistrations()
