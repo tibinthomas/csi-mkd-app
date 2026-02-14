@@ -289,7 +289,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
         }
 
         public async Task<PremaritalOutsideKeralaRegistration?> GetOutsideKeralaRegistrationById(Guid id)
-            => await _context.PremaritalOutsideKeralaRegistrations
+            => await _context.PremaritalOutsideKeralaRegistrations.AsTracking()
                 .Include(r => r.Participants)
                 .Include(r => r.PremaritalOutsideKeralaDocument)
                 .FirstOrDefaultAsync(r => r.Id == id);
