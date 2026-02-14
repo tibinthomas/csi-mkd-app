@@ -418,31 +418,31 @@ interface EditAbroadRegistrationData {
       <mat-dialog-content>
         <div class="flex flex-col gap-4 pt-2">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="fill" class="w-full">
               <mat-label i18n>Location/District</mat-label>
               <input matInput formControlName="churchDistrict" readonly>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="fill" class="w-full">
               <mat-label i18n>Church Name</mat-label>
               <input matInput formControlName="manualChurchName" readonly>
             </mat-form-field>
           </div>
 
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Priest Name</mat-label>
             <input matInput formControlName="priestName">
           </mat-form-field>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="fill" class="w-full">
               <mat-label i18n>Session Start Date</mat-label>
               <input matInput [matDatepicker]="startPicker" formControlName="sessionStartDate" (click)="startPicker.open()">
               <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
               <mat-datepicker #startPicker></mat-datepicker>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="w-full">
+            <mat-form-field appearance="fill" class="w-full">
               <mat-label i18n>Session End Date</mat-label>
               <input matInput [matDatepicker]="endPicker" formControlName="sessionEndDate" (click)="endPicker.open()">
               <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
@@ -450,7 +450,7 @@ interface EditAbroadRegistrationData {
             </mat-form-field>
           </div>
 
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Timezone</mat-label>
             <mat-select formControlName="timezone">
               @for (tz of timeZoneOptions; track tz) {
@@ -495,7 +495,7 @@ interface EditAbroadRegistrationData {
           <div formArrayName="participants" class="space-y-2">
             @for (p of participants.controls; track p; let i = $index) {
               <div [formGroupName]="i" class="flex gap-2 items-center">
-                <mat-form-field appearance="outline" class="flex-grow pt-2">
+                <mat-form-field appearance="fill" class="flex-grow pt-2">
                   <mat-label i18n>Participant Name</mat-label>
                   <input matInput formControlName="name">
                 </mat-form-field>
