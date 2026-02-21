@@ -597,7 +597,6 @@ export class AbroadPremaritalRegister {
               data: {
                 title: $localize`Abroad Premarital Registration Complete`,
                 messages: [$localize`Your premarital registration is successfully completed.`],
-                extraMessage: $localize`A confirmation email has been sent to your registered email address.`,
               },
             });
             dialogRef.afterClosed().subscribe(() => {
