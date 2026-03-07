@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,6 +41,7 @@ import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-mai
 import {
   ChurchDataService,
   ChurchWithDetails,
+  Priest,
 } from '../../core/services/church-data.service';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -56,6 +58,7 @@ import { TimeZoneOption } from '../../../api/api-main-app/models/time-zone-optio
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatCheckboxModule,
     MatRadioModule,
     MatButtonModule,
@@ -119,6 +122,17 @@ export class AbroadPremaritalRegister {
   });
   protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
+  protected readonly allPriests = toSignal(
+    this.churchDataService.getAllPriests(),
+    { initialValue: [] as Priest[] }
+  );
+  protected readonly priestSearchTerm = signal('');
+  protected readonly filteredPriests = computed(() => {
+    const term = this.priestSearchTerm().toLowerCase().trim();
+    const priests = this.allPriests();
+    if (!term) return priests;
+    return priests.filter(p => p.name.toLowerCase().includes(term));
+  });
 
   // Timezone signals
   protected readonly timezones = signal<{ name: string; label: string }[]>([]);
@@ -136,12 +150,7 @@ export class AbroadPremaritalRegister {
       churchMembership: ['abroad-candidate', Validators.required],
       churchDistrict: ['', Validators.required], // Now used for Outside Kerala / Abroad
       manualChurchName: [{ value: '', disabled: true }, Validators.required], 
-      priestName: ['', [
-        Validators.required, 
-        Validators.minLength(3),
-        Validators.maxLength(100),
-        Validators.pattern(/^[a-zA-Z\s.]*$/)
-      ]],
+      priestName: ['', Validators.required],
       sessionStartDate: ['', Validators.required],
       sessionEndDate: ['', Validators.required],
       declaration: [false, Validators.requiredTrue],
@@ -704,6 +713,11 @@ export class AbroadPremaritalRegister {
   onChurchChange(churchId: number): void {
     const church = this.availableChurches().find((c) => c.id === churchId);
     this.selectedChurch.set(church || null);
+  }
+
+  onPriestInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.priestSearchTerm.set(value);
   }
 
   private focusFirstInvalidControl(): void {

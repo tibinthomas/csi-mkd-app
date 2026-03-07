@@ -116,6 +116,16 @@ export class ChurchDataService {
   }
 
   /**
+   * Get all priests
+   * @returns Observable array of all priests
+   */
+  getAllPriests(): Observable<Priest[]> {
+    return this.churchData$.pipe(
+      map(data => data.priests)
+    );
+  }
+
+  /**
    * Get all churches with full details
    * @returns Observable array of all churches with location and priest details
    */
