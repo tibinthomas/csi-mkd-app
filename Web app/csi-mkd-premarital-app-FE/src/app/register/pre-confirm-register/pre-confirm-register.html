@@ -11,19 +11,19 @@
     </mat-card-header>
     <mat-card-content>
       <form #formEl [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
-        <div class="grid md:grid-cols-2 gap-6">
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label> <span i18n>Clergy District</span></mat-label>
-            <mat-select formControlName="churchDistrict" (selectionChange)="onDistrictChange($event.value)">
-              @for (location of allLocations(); track location) {
-              <mat-option [value]="location">{{ location }}</mat-option>
-              }
-            </mat-select>
-            @if (isInvalid('churchDistrict')) {
-            <mat-error i18n>Clergy District is required.</mat-error>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label> <span i18n>Clergy District</span></mat-label>
+          <mat-select formControlName="churchDistrict" (selectionChange)="onDistrictChange($event.value)">
+            @for (location of allLocations(); track location) {
+            <mat-option [value]="location">{{ location }}</mat-option>
             }
-          </mat-form-field>
+          </mat-select>
+          @if (isInvalid('churchDistrict')) {
+          <mat-error i18n>Clergy District is required.</mat-error>
+          }
+        </mat-form-field>
 
+        <div class="grid md:grid-cols-2 gap-6">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label i18n>Church Name</mat-label>
             <mat-select
@@ -35,10 +35,26 @@
               <mat-option [value]="church.name">{{ church.name }}</mat-option>
               }
             </mat-select>
-            @if (selectedChurch()?.priestName) {
-            <mat-hint>Priest: {{ selectedChurch()?.priestName }}</mat-hint>
-            } @if (isInvalid('churchName')) {
+            @if (isInvalid('churchName')) {
             <mat-error i18n>Church Name is required.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label i18n>Priest Name</mat-label>
+            <input
+              matInput
+              formControlName="priestName"
+              [matAutocomplete]="priestAuto"
+              (input)="onPriestInput($event)"
+            />
+            <mat-autocomplete #priestAuto="matAutocomplete">
+              @for (priest of filteredPriests(); track priest.id) {
+              <mat-option [value]="priest.name">{{ priest.name }}</mat-option>
+              }
+            </mat-autocomplete>
+            @if (isInvalid('priestName')) {
+            <mat-error i18n>Priest Name is required.</mat-error>
             }
           </mat-form-field>
         </div>

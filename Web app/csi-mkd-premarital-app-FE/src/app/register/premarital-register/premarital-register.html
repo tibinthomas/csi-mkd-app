@@ -199,7 +199,7 @@
         </div>
 
         @if (form.get('churchMembership')?.value === 'member') {
-        <div id="church-member-details-section" class="grid md:grid-cols-2 gap-2">
+        <div id="church-member-details-section">
           <mat-form-field appearance="fill" class="w-full">
             <mat-label> <span i18n>Clergy District</span> </mat-label>
             <mat-select formControlName="churchDistrict" (selectionChange)="onDistrictChange($event.value)">
@@ -212,24 +212,41 @@
             }
           </mat-form-field>
 
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label i18n>Church Name</mat-label>
-            <mat-select
-              formControlName="churchName"
-              [disabled]="!selectedDistrict()"
-              (selectionChange)="onChurchChange($event.value)"
-            >
-              @for (church of availableChurches(); track church.id) {
-              <mat-option [value]="church.name">{{ church.name }}</mat-option>
+          <div class="grid md:grid-cols-2 gap-2">
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label i18n>Church Name</mat-label>
+              <mat-select
+                formControlName="churchName"
+                [disabled]="!selectedDistrict()"
+                (selectionChange)="onChurchChange($event.value)"
+              >
+                @for (church of availableChurches(); track church.id) {
+                <mat-option [value]="church.name">{{ church.name }}</mat-option>
+                }
+              </mat-select>
+              @if (isInvalid('churchName')) {
+              <mat-error i18n>Church Name is required.</mat-error>
               }
-            </mat-select>
-            @if (selectedChurch()?.priestName && selectedChurch()?.priestName?.trim() &&
-            selectedChurch()?.priestName?.toLowerCase() !== 'unknown priest') {
-            <mat-hint>Priest: {{ selectedChurch()?.priestName }}</mat-hint>
-            } @if (isInvalid('churchName')) {
-            <mat-error i18n>Church Name is required.</mat-error>
-            }
-          </mat-form-field>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label i18n>Priest Name</mat-label>
+              <input
+                matInput
+                formControlName="priestName"
+                [matAutocomplete]="priestAuto"
+                (input)="onPriestInput($event)"
+              />
+              <mat-autocomplete #priestAuto="matAutocomplete">
+                @for (priest of filteredPriests(); track priest.id) {
+                <mat-option [value]="priest.name">{{ priest.name }}</mat-option>
+                }
+              </mat-autocomplete>
+              @if (isInvalid('priestName')) {
+              <mat-error i18n>Priest Name is required.</mat-error>
+              }
+            </mat-form-field>
+          </div>
         </div>
         } @else if (form.get('churchMembership')?.value === 'not-member') {
         <mat-form-field id="church-nonmember-details-section" appearance="fill" class="w-full">

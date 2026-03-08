@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,6 +35,7 @@ import { ThemeService } from '../../core/services/theme.service';
 import {
   ChurchDataService,
   ChurchWithDetails,
+  Priest,
 } from '../../core/services/church-data.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -44,6 +46,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatFormFieldModule,
     MatCardModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
@@ -83,6 +86,17 @@ export class PreConfirmRegister {
     { initialValue: [] }
   );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
+  protected readonly allPriests = toSignal(
+    this.churchDataService.getAllPriests(),
+    { initialValue: [] as Priest[] }
+  );
+  protected readonly priestSearchTerm = signal('');
+  protected readonly filteredPriests = computed(() => {
+    const term = this.priestSearchTerm().toLowerCase().trim();
+    const priests = this.allPriests();
+    if (!term) return priests;
+    return priests.filter(p => p.name.toLowerCase().includes(term));
+  });
 
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
@@ -94,6 +108,7 @@ export class PreConfirmRegister {
     this.form = this.fb.group({
       churchDistrict: ['', Validators.required],
       churchName: [{ value: '', disabled: true }, Validators.required],
+      priestName: ['', Validators.required],
       confirmationDate: ['', Validators.required],
       counsellingDate: ['', Validators.required],
       participants: this.fb.array([
@@ -237,7 +252,7 @@ export class PreConfirmRegister {
     const selectedChurch = this.selectedChurch();
     const body = {
       churchId: selectedChurch?.id || null,
-      priestName: selectedChurch?.priestName || null,
+      priestName: raw.priestName || null,
       confirmationDate: new Date(raw.confirmationDate).toISOString(),
       counsellingDate: new Date(raw.counsellingDate).toISOString(),
       participants: raw.participants.map((p: any) => ({
@@ -409,6 +424,11 @@ export class PreConfirmRegister {
   onChurchChange(churchName: string): void {
     const church = this.availableChurches().find((c) => c.name === churchName);
     this.selectedChurch.set(church || null);
+  }
+
+  onPriestInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.priestSearchTerm.set(value);
   }
 
   private focusFirstInvalidControl(): void {

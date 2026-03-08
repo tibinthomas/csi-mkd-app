@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
@@ -43,6 +44,7 @@ import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-mai
 import {
   ChurchDataService,
   ChurchWithDetails,
+  Priest,
 } from '../../core/services/church-data.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -57,6 +59,7 @@ import Shepherd from 'shepherd.js';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatCheckboxModule,
     MatRadioModule,
     MatButtonModule,
@@ -127,6 +130,17 @@ export class PremaritalRegister {
     { initialValue: [] }
   );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
+  protected readonly allPriests = toSignal(
+    this.churchDataService.getAllPriests(),
+    { initialValue: [] as Priest[] }
+  );
+  protected readonly priestSearchTerm = signal('');
+  protected readonly filteredPriests = computed(() => {
+    const term = this.priestSearchTerm().toLowerCase().trim();
+    const priests = this.allPriests();
+    if (!term) return priests;
+    return priests.filter(p => p.name.toLowerCase().includes(term));
+  });
 
   private tour: any | null = null;
 
@@ -193,6 +207,7 @@ export class PremaritalRegister {
       churchMembership: ['', Validators.required],
       churchDistrict: ['', Validators.required],
       churchName: [{ value: '', disabled: true }, Validators.required],
+      priestName: ['', Validators.required],
       manualChurchName: [''],
       fianceName: [
         '',
@@ -234,19 +249,22 @@ export class PremaritalRegister {
     this.form.get('churchMembership')?.valueChanges.subscribe((membership) => {
       if (membership === 'not-member') {
         // If not a member, clear and disable district/church fields, enable manual church name
-        this.form.patchValue({ churchDistrict: '', churchName: '' });
+        this.form.patchValue({ churchDistrict: '', churchName: '', priestName: '' });
         this.form.get('churchDistrict')?.clearValidators();
         this.form.get('churchName')?.clearValidators();
+        this.form.get('priestName')?.clearValidators();
         this.form.get('manualChurchName')?.setValidators([Validators.required]);
       } else if (membership === 'member') {
         // If a member, restore district/church validation, clear manual church name
         this.form.patchValue({ manualChurchName: '' });
         this.form.get('churchDistrict')?.setValidators([Validators.required]);
         this.form.get('churchName')?.setValidators([Validators.required]);
+        this.form.get('priestName')?.setValidators([Validators.required]);
         this.form.get('manualChurchName')?.clearValidators();
       }
       this.form.get('churchDistrict')?.updateValueAndValidity();
       this.form.get('churchName')?.updateValueAndValidity();
+      this.form.get('priestName')?.updateValueAndValidity();
       this.form.get('manualChurchName')?.updateValueAndValidity();
     });
   }
@@ -569,7 +587,7 @@ export class PremaritalRegister {
       priestName:
         raw.churchMembership === 'not-member'
           ? null
-          : this.selectedChurch()?.priestName || null,
+          : raw.priestName || null,
       churchName:
         raw.churchMembership === 'not-member'
           ? raw.manualChurchName
@@ -743,6 +761,11 @@ export class PremaritalRegister {
   onChurchChange(churchName: string): void {
     const church = this.availableChurches().find((c) => c.name === churchName);
     this.selectedChurch.set(church || null);
+  }
+
+  onPriestInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.priestSearchTerm.set(value);
   }
 
   private focusFirstInvalidControl(): void {

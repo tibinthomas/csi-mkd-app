@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { switchMap } from 'rxjs';
@@ -36,6 +37,7 @@ import { CounselingConsentComponent } from '../../shared/counseling-consent/coun
 import {
   ChurchDataService,
   ChurchWithDetails,
+  Priest,
 } from '../../core/services/church-data.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -48,6 +50,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatAutocompleteModule,
     MatCheckboxModule,
     MatButtonModule,
     MatDialogModule,
@@ -99,6 +102,17 @@ export class GeneralRegister {
     { initialValue: [] }
   );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
+  protected readonly allPriests = toSignal(
+    this.churchDataService.getAllPriests(),
+    { initialValue: [] as Priest[] }
+  );
+  protected readonly priestSearchTerm = signal('');
+  protected readonly filteredPriests = computed(() => {
+    const term = this.priestSearchTerm().toLowerCase().trim();
+    const priests = this.allPriests();
+    if (!term) return priests;
+    return priests.filter(p => p.name.toLowerCase().includes(term));
+  });
 
   constructor() {
     this.form = this.fb.group({
@@ -157,6 +171,7 @@ export class GeneralRegister {
       ],
       churchDistrict: ['', Validators.required],
       churchName: [{ value: '', disabled: true }, Validators.required],
+      priestName: ['', Validators.required],
       countryCode: ['+91', [Validators.required]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       email: [
@@ -270,7 +285,7 @@ export class GeneralRegister {
       education: raw.education,
       occupation: raw.occupation,
       churchId: this.selectedChurch()?.id || null,
-      priestName: this.selectedChurch()?.priestName || null,
+      priestName: raw.priestName || null,
       phone: `${raw.countryCode}${raw.phone}`,
       email: raw.email,
       maritalStatus: raw.maritalStatus,
@@ -391,6 +406,11 @@ export class GeneralRegister {
   onChurchChange(churchName: string): void {
     const church = this.availableChurches().find((c) => c.name === churchName);
     this.selectedChurch.set(church || null);
+  }
+
+  onPriestInput(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.priestSearchTerm.set(value);
   }
 
   private focusFirstInvalidControl(): void {

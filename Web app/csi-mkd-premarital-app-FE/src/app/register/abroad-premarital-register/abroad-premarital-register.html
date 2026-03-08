@@ -73,19 +73,19 @@
         <!-- Priest Name -->
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Priest Name</mat-label>
-          <input matInput formControlName="priestName" required appNoDigits />
+          <input
+            matInput
+            formControlName="priestName"
+            [matAutocomplete]="priestAuto"
+            (input)="onPriestInput($event)"
+          />
+          <mat-autocomplete #priestAuto="matAutocomplete">
+            @for (priest of filteredPriests(); track priest.id) {
+            <mat-option [value]="priest.name">{{ priest.name }}</mat-option>
+            }
+          </mat-autocomplete>
           @if (isInvalid('priestName')) {
-            <mat-error>
-              @if (form.get('priestName')?.errors?.['required']) {
-                <span i18n>Priest Name is required.</span>
-              } @else if (form.get('priestName')?.errors?.['minLength']) {
-                <span i18n>Priest Name must be at least 3 characters long.</span>
-              } @else if (form.get('priestName')?.errors?.['maxLength']) {
-                <span i18n>Priest Name cannot exceed 100 characters.</span>
-              } @else if (form.get('priestName')?.errors?.['pattern']) {
-                <span i18n>Only letters, spaces, and dots are allowed.</span>
-              }
-            </mat-error>
+          <mat-error i18n>Priest Name is required.</mat-error>
           }
         </mat-form-field>
 
