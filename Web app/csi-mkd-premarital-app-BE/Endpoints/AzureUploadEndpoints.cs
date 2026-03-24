@@ -17,7 +17,19 @@ public static class AzureUploadEndpoints
             return Results.Ok(new { url });
         })
         .Produces(StatusCodes.Status200OK);
+
+        group.MapPost("/rehydrate", async (BlobStorageService blobService, RehydrateRequest request) =>
+        {
+            if (string.IsNullOrWhiteSpace(request.BlobUrl))
+                return Results.BadRequest(new { status = "invalid_request" });
+
+            var status = await blobService.RehydrateBlobAsync(request.BlobUrl);
+            return Results.Ok(new { status });
+        })
+        .Produces(StatusCodes.Status200OK);
     }
 }
+
+internal record RehydrateRequest(string BlobUrl);
 
 

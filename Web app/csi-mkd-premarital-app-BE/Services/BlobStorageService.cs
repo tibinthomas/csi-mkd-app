@@ -1,5 +1,6 @@
 using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
 using Microsoft.Extensions.Configuration;
 
@@ -19,6 +20,33 @@ public class BlobStorageService
         _isDevelopment = connectionString == "UseDevelopmentStorage=true";
 
         _blobServiceClient = new BlobServiceClient(connectionString);
+    }
+
+    public async Task<string> RehydrateBlobAsync(string blobUrl)
+    {
+        // Extract the blob name from the URL (everything after the container name)
+        var containerSegment = $"/{_containerName}/";
+        var idx = blobUrl.IndexOf(containerSegment, StringComparison.OrdinalIgnoreCase);
+        if (idx < 0)
+            return "not_found";
+
+        var blobName = Uri.UnescapeDataString(blobUrl[(idx + containerSegment.Length)..].Split('?')[0]);
+
+        var containerClient = _blobServiceClient.GetBlobContainerClient(_containerName);
+        var blobClient = containerClient.GetBlobClient(blobName);
+
+        if (!await blobClient.ExistsAsync())
+            return "not_found";
+
+        var props = await blobClient.GetPropertiesAsync();
+        var tier = props.Value.AccessTier;
+
+        if (tier != "Archive")
+            return "already_available";
+
+        // Rehydrate to Hot — Azure will make the blob available within 1-15 hours
+        await blobClient.SetAccessTierAsync(AccessTier.Hot);
+        return "rehydration_started";
     }
 
     public async Task<string> GetUploadSasUrlAsync(string fileName, string contentType)
