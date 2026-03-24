@@ -398,6 +398,52 @@
                       </div>
                       }
                     </div>
+
+                    <!-- Archived files notice & request buttons -->
+                    <div class="mt-4 rounded-lg border border-outline p-3 bg-surface-container text-xs theme-transition">
+                      <div class="flex items-start gap-2 text-on-surface-variant mb-2">
+                        <mat-icon class="text-base shrink-0">archive</mat-icon>
+                        <span i18n>Files older than 1 month are archived and may not be immediately available.</span>
+                      </div>
+                      <div class="flex flex-wrap gap-2">
+                        @if (reg.photoUrl) {
+                        <button
+                          mat-stroked-button
+                          color="primary"
+                          class="!text-xs"
+                          [disabled]="isRehydrating() === reg.photoUrl"
+                          (click)="requestFileRehydration(reg.photoUrl); $event.stopPropagation()"
+                          matTooltip="Request that the photo is made available"
+                          i18n-matTooltip
+                        >
+                          @if (isRehydrating() === reg.photoUrl) {
+                          <mat-spinner diameter="14"></mat-spinner>
+                          } @else {
+                          <mat-icon class="text-sm">photo</mat-icon>
+                          }
+                          <span i18n>Request Photo</span>
+                        </button>
+                        }
+                        @if (reg.vicarLetterUrl) {
+                        <button
+                          mat-stroked-button
+                          color="primary"
+                          class="!text-xs"
+                          [disabled]="isRehydrating() === reg.vicarLetterUrl"
+                          (click)="requestFileRehydration(reg.vicarLetterUrl); $event.stopPropagation()"
+                          matTooltip="Request that the vicar letter is made available"
+                          i18n-matTooltip
+                        >
+                          @if (isRehydrating() === reg.vicarLetterUrl) {
+                          <mat-spinner diameter="14"></mat-spinner>
+                          } @else {
+                          <mat-icon class="text-sm">description</mat-icon>
+                          }
+                          <span i18n>Request Vicar's Letter</span>
+                        </button>
+                        }
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

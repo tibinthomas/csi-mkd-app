@@ -719,6 +719,33 @@ export class PremaritalComponent {
     });
   }
 
+  readonly isRehydrating = signal<string | null>(null);
+
+  async requestFileRehydration(blobUrl: string): Promise<void> {
+    this.isRehydrating.set(blobUrl);
+    try {
+      const response = await fetch(`${this.baseApiUrl}/api/azureupload/rehydrate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ blobUrl }),
+        credentials: 'include',
+      });
+      const data = await response.json();
+      if (data.status === 'rehydration_started') {
+        this._snackBar.open('Rehydration started. The file will be available within a few hours.', 'Close', { duration: 6000 });
+      } else if (data.status === 'already_available') {
+        this._snackBar.open('This file is already available. Try opening the link directly.', 'Close', { duration: 4000 });
+      } else {
+        this._snackBar.open('File not found in storage. It may have been deleted.', 'Close', { duration: 4000 });
+      }
+    } catch (err) {
+      this._snackBar.open('Failed to request the file. Please try again.', 'Close', { duration: 4000 });
+      console.error('Rehydration request failed', err);
+    } finally {
+      this.isRehydrating.set(null);
+    }
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     filterValue.trim().toLowerCase();
