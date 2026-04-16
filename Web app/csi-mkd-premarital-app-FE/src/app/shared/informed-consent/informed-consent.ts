@@ -15,6 +15,7 @@ import {
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-informed-consent-dialog',
@@ -39,7 +40,7 @@ import { FormsModule } from '@angular/forms';
         </button>
       </div>
 
-      <mat-dialog-content class="consent-content">
+      <mat-dialog-content class="consent-content" id="consent-pdf-content">
         <!-- Premarital Counseling Section -->
         <section class="consent-section">
           <h4 i18n="@@Premarital Consent Title">Informed Consent for Premarital Counseling Camp</h4>
@@ -96,38 +97,51 @@ import { FormsModule } from '@angular/forms';
           </p>
 
           <h5 i18n="@@Premarital Section 3 Title">3. Camp Policies and Fees</h5>
-          <ul>
+          <ol>
             <li i18n="@@Camp Policy 1">
-              You have to attend the premarital counselling starts on Thursday
-              9:30am till Saturday 11:00am.
+              Please arrive at the camp location by 9:15 AM on Thursday, as
+              registration begins at that time.
             </li>
             <li i18n="@@Camp Policy 2">
-              You have to bring all necessary things for the three day
-              premarital counselling camp including a Bible.
+              All sessions/classes will begin at 10:00 AM.
             </li>
             <li i18n="@@Camp Policy 3">
-              You have to bring atleast one of your parent to the last session
-              (sacramentality of marriage and marriage rehearsal) of the camp.
+              Bring all necessary personal items for your stay from Thursday
+              (9:30 AM) to Saturday (10:30 AM), such as a blanket, toothbrush,
+              toothpaste, soap, towels, Bible, etc.
             </li>
             <li i18n="@@Camp Policy 4">
-              <strong>Attendance:</strong> Full participation in all scheduled
-              sessions and activities is expected to get the most out of the
-              experience.
+              Participants are not permitted to leave the camp premises during
+              the program.
             </li>
             <li i18n="@@Camp Policy 5">
+              Parents are required to attend the final session on Saturday from
+              9:00 AM to 10:30 AM.
+            </li>
+            <li i18n="@@Camp Policy 6">
+              After registration closes on the Monday prior to the camp, a
+              WhatsApp group will be created for further communication.
+            </li>
+            <li i18n="@@Camp Policy 7">
+              <strong>Attendance:</strong> Full participation in all scheduled
+              sessions and activities is expected to get the most out of the
+              experience. Be actively involved—attend, interact, participate,
+              and engage during the camp.
+            </li>
+            <li i18n="@@Camp Policy 8">
               <strong>Fees:</strong> The cost for the premarital counseling camp
               is fixed as per the decision of core committee of the CSI
               COUNSELLING CENTER KOTTAYAM. This fee covers all workshops,
               materials, food, stay and if any private session with a counselor.
-              Payment should be done in full at the registration office before
-              commencement of the camp.
+              The camp fee must be paid in cash at the registration office upon
+              arrival.
             </li>
-            <li i18n="@@Camp Policy 6">
+            <li i18n="@@Camp Policy 9">
               <strong>Cancellation Policy:</strong> Cancellations made at least
               1 week before the start of the camp. No refunds will be issued for
               cancellations made after this date.
             </li>
-          </ul>
+          </ol>
 
           <h5 i18n="@@Premarital Section 4 Title">4. Participant Rights and Responsibilities</h5>
           <p i18n="@@Participant Rights Text">
@@ -168,6 +182,16 @@ import { FormsModule } from '@angular/forms';
               </mat-checkbox>
             </div>
             <div class="ok-button-container">
+              <button
+                mat-stroked-button
+                color="primary"
+                (click)="downloadPdf()"
+                type="button"
+                style="margin-right: 8px;"
+              >
+                <mat-icon>download</mat-icon>
+                <ng-container i18n="@@Download Policies Button">Download Consent Agreement</ng-container>
+              </button>
               <button
                 mat-flat-button
                 color="primary"
@@ -239,12 +263,21 @@ import { FormsModule } from '@angular/forms';
       text-align: justify;
     }
 
-    .consent-section ul {
+    .consent-section ul, .consent-section ol {
       color: var(--mat-sys-color-secondary);
       font-size: 13px;
       line-height: 1.5;
       margin-left: 20px;
       margin-bottom: 12px;
+      padding-left: 20px;
+    }
+
+    .consent-section ul {
+      list-style-type: disc;
+    }
+
+    .consent-section ol {
+      list-style-type: decimal;
     }
 
     .consent-section li {
@@ -294,6 +327,74 @@ export class InformedConsentDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { initialAgreed: boolean }
   ) {
     this.agreed = data?.initialAgreed || false;
+  }
+
+  downloadPdf(): void {
+    const element = document.getElementById('consent-pdf-content');
+    if (!element) {
+      console.error('Consent content element not found!');
+      return;
+    }
+    
+    const doc = new jsPDF('p', 'mm', 'a4');
+    const margin = 15;
+    const maxWidth = doc.internal.pageSize.getWidth() - (margin * 2);
+    let y = 20;
+
+    doc.setFont("helvetica", "normal");
+
+    const textLines: {text: string, isHeading: boolean}[] = [];
+    
+    const traverse = (node: Element) => {
+      if (!node) return;
+      const navNode = node as HTMLElement;
+      
+      if (node.tagName === 'H4' || node.tagName === 'H5') {
+        textLines.push({ text: '', isHeading: false });
+        textLines.push({ text: navNode.innerText.trim(), isHeading: true });
+      } else if (node.tagName === 'P') {
+         textLines.push({ text: navNode.innerText.trim(), isHeading: false });
+      } else if (node.tagName === 'OL' || node.tagName === 'UL') {
+        let i = 1;
+        Array.from(node.children).forEach((child) => {
+          if (child.tagName === 'LI') {
+            const bullet = node.tagName === 'OL' ? `${i++}. ` : `• `;
+            const el = child as HTMLElement;
+            textLines.push({ text: bullet + el.innerText.trim().replace(/\n/g, ' ').replace(/\s+/g, ' '), isHeading: false });
+          }
+        });
+      } else if (node.children.length > 0) {
+        Array.from(node.children).forEach(traverse);
+      }
+    };
+    
+    traverse(element);
+
+    textLines.forEach(lineObj => {
+      if (!lineObj.text && lineObj.text !== '') return;
+      
+      if (lineObj.isHeading) {
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+      } else {
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+      }
+
+      const splitLines = doc.splitTextToSize(lineObj.text, maxWidth);
+      splitLines.forEach((splitLine: string) => {
+        if (y > 280) {
+          doc.addPage();
+          y = 20;
+        }
+        doc.text(splitLine, margin, y);
+        y += lineObj.isHeading ? 8 : 6;
+      });
+      
+      y += 3; // gap between paragraphs
+    });
+
+    doc.save('Premarital_Counseling_Consent.pdf');
   }
 }
 
