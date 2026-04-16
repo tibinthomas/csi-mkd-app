@@ -111,8 +111,8 @@ export class PremaritalRegister {
   protected readonly informedConsentTouched = signal(false);
   protected readonly minDate = new Date().toISOString().split('T')[0];
 
-  // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
-  protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
+  protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
+  // protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() =>
     this.themeService.isDark() ? 'dark' : 'light'
   );
