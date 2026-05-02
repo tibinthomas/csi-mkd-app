@@ -8,6 +8,7 @@
     <IsAspireHost>true</IsAspireHost>
     <AspireHostingSDKVersion>13.0.2</AspireHostingSDKVersion>
     <UserSecretsId>b348c39b-69fc-4406-85d8-d637fd5a8d55</UserSecretsId>
+    <BaseOutputPath>$(MSBuildProjectDirectory)/bin/</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,8 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\csi-mkd-premarital-app-BE.csproj" />
-    <ProjectReference Include="..\CsiMkdFunctions\CsiMkdFunctions.csproj" />
+    <ProjectReference Include="..\csi-mkd-premarital-app-BE.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\CsiMkdFunctions\CsiMkdFunctions.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
