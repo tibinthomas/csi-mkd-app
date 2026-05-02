@@ -1,0 +1,148 @@
+#!/bin/bash
+set -e
+set -o pipefail
+
+# -----------------------
+# Deploy CSI MKD Functions to Azure Functions
+# -----------------------
+
+echo "⚡ Deploying CSI MKD Functions to Azure Functions..."
+
+# -----------------------
+# CONFIG - Update with your Function App name
+# -----------------------
+FUNCTION_APP_NAME="fn-app-csi-mkd-counselling"
+RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
+
+# -----------------------
+# LOAD & VALIDATE SECRETS
+# -----------------------
+if [ -f CsiMkdFunctions/.env ]; then
+    echo "📜 Loading environment variables from CsiMkdFunctions/.env file..."
+    set -o allexport
+    source CsiMkdFunctions/.env
+    set +o allexport
+else
+    echo "❌ CsiMkdFunctions/.env file not found."
+    echo "👉 Please create a .env file in the CsiMkdFunctions directory with required environment variables."
+    exit 1
+fi
+
+required_secrets=(
+    "ConnectionStrings__DefaultConnection"
+    "AzureBlob__ConnectionString"
+    "MainApp__BaseUrl"
+)
+
+missing_secrets=()
+for secret in "${required_secrets[@]}"; do
+    if [ -z "${!secret}" ]; then
+        missing_secrets+=("$secret")
+    fi
+done
+
+if [ ${#missing_secrets[@]} -ne 0 ]; then
+    echo "❌ Missing required environment variables:"
+    printf "  - %s\n" "${missing_secrets[@]}"
+    echo "👉 Please set them in your environment or in a .env file."
+    exit 1
+fi
+
+echo "✅ All required secrets are present."
+
+# -----------------------
+# CHECK TOOLS
+# -----------------------
+for cmd in func az dotnet; do
+    if ! command -v "$cmd" &>/dev/null; then
+        echo "❌ Required command '$cmd' not found."
+        if [ "$cmd" = "func" ]; then
+            echo "📥 Install Azure Functions Core Tools: https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local"
+        fi
+        exit 1
+    fi
+done
+
+# -----------------------
+# AZURE LOGIN
+# -----------------------
+if ! az account show &>/dev/null; then
+    echo "🔑 Logging into Azure..."
+    az login || { echo "❌ Azure login failed."; exit 1; }
+fi
+
+# -----------------------
+# BUILD & DEPLOY FUNCTION
+# -----------------------
+echo "🏗️ Building CSI MKD Functions..."
+cd CsiMkdFunctions
+
+# Restore and build
+dotnet restore
+dotnet build -c Release
+
+echo "🚀 Deploying to Azure Function: $FUNCTION_APP_NAME"
+func azure functionapp publish "$FUNCTION_APP_NAME" --dotnet-isolated || {
+    echo "❌ Function deployment failed."
+    exit 1
+}
+
+cd ..
+
+# -----------------------
+# UPDATE FUNCTION APP SETTINGS
+# -----------------------
+echo "🔧 Updating Function App settings..."
+
+# Set application settings including backup configuration
+az functionapp config appsettings set \
+    --name "$FUNCTION_APP_NAME" \
+    --resource-group "$RESOURCE_GROUP" \
+    --settings \
+        "ConnectionStrings__DefaultConnection=$ConnectionStrings__DefaultConnection" \
+        "AzureBlob__ConnectionString=$AzureBlob__ConnectionString" \
+        "FUNCTIONS_WORKER_RUNTIME=dotnet-isolated" \
+        "FUNCTIONS_EXTENSION_VERSION=~4" \
+        "SupabaseBackup__ContainerName=supabase-backups" \
+        "SupabaseBackup__RetentionDays=7" \
+        "MainApp__BaseUrl=$MainApp__BaseUrl" || {
+    echo "⚠️ Warning: Failed to update some settings, but deployment may still work."
+}
+
+# Configure OS to Linux if not already (required for startup script)
+echo "🐧 Ensuring Linux runtime..."
+az functionapp config set \
+    --name "$FUNCTION_APP_NAME" \
+    --resource-group "$RESOURCE_GROUP" \
+    --linux-fx-version "DOTNET-ISOLATED|8.0" || {
+    echo "⚠️ Warning: Failed to set Linux runtime"
+}
+
+# Set startup command to install PostgreSQL tools
+echo "📝 Configuring startup command to install PostgreSQL client tools..."
+az functionapp config set \
+    --name "$FUNCTION_APP_NAME" \
+    --resource-group "$RESOURCE_GROUP" \
+    --startup-file "apt-get update && apt-get install -y postgresql-client && echo 'PostgreSQL client installed'" || {
+    echo "⚠️ Warning: Failed to set startup command. You may need to configure this manually in Azure Portal."
+}
+
+# -----------------------
+# GET DEPLOYMENT URL
+# -----------------------
+FUNCTION_APP_URL=$(az functionapp show --name "$FUNCTION_APP_NAME" --resource-group "$RESOURCE_GROUP" --query "defaultHostName" -o tsv)
+
+echo ""
+echo "✅ CSI MKD Functions deployment successful!"
+echo ""
+echo "📋 Service URL:"
+echo "   CSI MKD Functions: https://$FUNCTION_APP_URL"
+echo "   Function API:      https://$FUNCTION_APP_URL/api"
+echo ""
+echo "🔧 Management:"
+echo "   Azure Portal:      https://portal.azure.com"
+echo "   Resource Group:    $RESOURCE_GROUP"
+echo "   Function App:      $FUNCTION_APP_NAME"
+echo ""
+echo "📊 Monitor logs:"
+echo "   func azure functionapp logstream $FUNCTION_APP_NAME"
