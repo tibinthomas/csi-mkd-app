@@ -12,18 +12,30 @@ namespace CsiMkdFunctions.CompiledModels
     public partial class ApplicationDbContextModel
     {
         private ApplicationDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("87be09e9-afa1-46fc-8d69-aa362a9c9d85"), entityTypeCount: 1)
+            : base(skipDetectChanges: false, modelId: new Guid("0230f715-cc18-4ebb-82b6-02c2575e39b9"), entityTypeCount: 5)
         {
         }
 
         partial void Initialize()
         {
+            var premaritalDocument = PremaritalDocumentEntityType.Create(this);
+            var premaritalOutsideKeralaDocument = PremaritalOutsideKeralaDocumentEntityType.Create(this);
+            var premaritalOutsideKeralaRegistration = PremaritalOutsideKeralaRegistrationEntityType.Create(this);
+            var premaritalRegistration = PremaritalRegistrationEntityType.Create(this);
             var sessionConfiguration = SessionConfigurationEntityType.Create(this);
 
+            PremaritalDocumentEntityType.CreateForeignKey1(premaritalDocument, premaritalRegistration);
+            PremaritalOutsideKeralaDocumentEntityType.CreateForeignKey1(premaritalOutsideKeralaDocument, premaritalOutsideKeralaRegistration);
+            PremaritalRegistrationEntityType.CreateForeignKey1(premaritalRegistration, sessionConfiguration);
+
+            PremaritalDocumentEntityType.CreateAnnotations(premaritalDocument);
+            PremaritalOutsideKeralaDocumentEntityType.CreateAnnotations(premaritalOutsideKeralaDocument);
+            PremaritalOutsideKeralaRegistrationEntityType.CreateAnnotations(premaritalOutsideKeralaRegistration);
+            PremaritalRegistrationEntityType.CreateAnnotations(premaritalRegistration);
             SessionConfigurationEntityType.CreateAnnotations(sessionConfiguration);
 
             AddAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-            AddAnnotation("ProductVersion", "9.0.6");
+            AddAnnotation("ProductVersion", "10.0.0");
             AddAnnotation("Relational:MaxIdentifierLength", 63);
         }
     }
