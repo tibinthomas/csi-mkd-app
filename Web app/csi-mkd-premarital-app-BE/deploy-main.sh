@@ -15,7 +15,10 @@ DOCKER_USER="tibinthomas"
 IMAGE_NAME="tibinthomas/csi-mkd-counselling-web-api"
 RESOURCE_GROUP="csi-mkd-premarital-counsel-app"
 CONTAINER_APP_NAME="csi-mid-counselling-web-api"
-PLATFORM="linux/amd64"
+
+# Multi-arch support
+PLATFORMS="linux/amd64,linux/arm64"
+
 VERSION="v1.0.0"
 
 # Dynamic config
@@ -28,6 +31,7 @@ FULL_IMAGE="$IMAGE_NAME:$IMAGE_TAG"
 # -----------------------
 if [ -f .env ]; then
     echo "📜 Loading environment variables from .env file..."
+
     set -o allexport
     source .env
     set +o allexport
@@ -49,6 +53,7 @@ required_secrets=(
 )
 
 missing_secrets=()
+
 for secret in "${required_secrets[@]}"; do
     if [ -z "${!secret}" ]; then
         missing_secrets+=("$secret")
@@ -75,32 +80,60 @@ for cmd in docker az; do
 done
 
 # -----------------------
+# ENABLE BUILDX
+# -----------------------
+echo "🔧 Initializing Docker buildx..."
+
+docker buildx create --use --name multiarch-builder 2>/dev/null || true
+docker buildx inspect --bootstrap
+
+# -----------------------
 # DOCKER LOGIN & BUILD
 # -----------------------
 echo "🔑 Logging into Docker Hub with PAT..."
-echo "$DOCKER_PAT" | docker login -u "$DOCKER_USER" --password-stdin
 
-echo "📦 Building and pushing $FULL_IMAGE for $PLATFORM..."
+echo "$DOCKER_PAT" | docker login \
+    -u "$DOCKER_USER" \
+    --password-stdin
+
+echo "📦 Building and pushing multi-arch image:"
+echo "   $FULL_IMAGE"
+
 docker buildx build \
-    --platform "$PLATFORM" \
+    --platform "$PLATFORMS" \
     -t "$FULL_IMAGE" \
     --push \
-    . || { echo "❌ Build & push failed."; exit 1; }
+    . || {
+        echo "❌ Build & push failed."
+        exit 1
+    }
 
-echo "✅ Image pushed: $FULL_IMAGE"
+echo "✅ Image pushed successfully."
+
+# -----------------------
+# VERIFY IMAGE MANIFEST
+# -----------------------
+echo "🔍 Verifying image architectures..."
+
+docker manifest inspect "$FULL_IMAGE"
 
 # -----------------------
 # AZURE LOGIN
 # -----------------------
 if ! az account show &>/dev/null; then
     echo "🔑 Logging into Azure..."
-    az login || { echo "❌ Azure login failed."; exit 1; }
+
+    az login || {
+        echo "❌ Azure login failed."
+        exit 1
+    }
 fi
 
 # -----------------------
 # UPDATE CONTAINER APP
 # -----------------------
 echo "🚀 Updating Azure Container App: $CONTAINER_APP_NAME"
+
 az containerapp update \
     --name "$CONTAINER_APP_NAME" \
     --resource-group "$RESOURCE_GROUP" \
@@ -119,14 +152,20 @@ az containerapp update \
         AzureBlob__AccountName="${AzureBlob__AccountName}" \
         AzureBlob__AccountKey="${AzureBlob__AccountKey}" \
         GoogleReCaptcha__SecretKey="${GoogleReCaptcha__SecretKey}" || {
-        echo "❌ Azure Container App update failed."
-        exit 1
-    }
+            echo "❌ Azure Container App update failed."
+            exit 1
+        }
 
 # -----------------------
 # GET DEPLOYMENT URL
 # -----------------------
-CONTAINER_APP_URL=$(az containerapp show --name "$CONTAINER_APP_NAME" --resource-group "$RESOURCE_GROUP" --query "properties.configuration.ingress.fqdn" -o tsv)
+CONTAINER_APP_URL=$(
+    az containerapp show \
+        --name "$CONTAINER_APP_NAME" \
+        --resource-group "$RESOURCE_GROUP" \
+        --query "properties.configuration.ingress.fqdn" \
+        -o tsv
+)
 
 echo ""
 echo "✅ Main API deployment successful!"
@@ -139,3 +178,7 @@ echo "🔧 Management:"
 echo "   Azure Portal:     https://portal.azure.com"
 echo "   Resource Group:   $RESOURCE_GROUP"
 echo "   Container App:    $CONTAINER_APP_NAME"
+echo ""
+echo "✅ Supported Architectures:"
+echo "   - linux/amd64"
+echo "   - linux/arm64"
