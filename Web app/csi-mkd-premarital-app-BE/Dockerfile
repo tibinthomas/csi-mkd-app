@@ -30,11 +30,13 @@ RUN dotnet build "./csi-mkd-premarital-app-BE.csproj" -c $BUILD_CONFIGURATION -o
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 
-RUN dotnet publish \
+ARG TARGETARCH
+RUN DOTNET_RID="linux-$(echo "$TARGETARCH" | sed 's/amd64/x64/')" && \
+    dotnet publish \
     "./csi-mkd-premarital-app-BE.csproj" \
     -c $BUILD_CONFIGURATION \
     -o /app/publish \
-    -r linux-x64 \
+    -r "$DOTNET_RID" \
     /p:PublishSingleFile=false \
     /p:SelfContained=false \
     /p:PublishReadyToRun=false \

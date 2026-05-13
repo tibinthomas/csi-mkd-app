@@ -130,6 +130,22 @@ if ! az account show &>/dev/null; then
 fi
 
 # -----------------------
+# CONFIGURE REGISTRY CREDENTIALS
+# (Required so Azure can pull from Docker Hub without hitting anonymous rate limits)
+# -----------------------
+echo "🔑 Configuring Docker Hub registry credentials on Container App..."
+
+az containerapp registry set \
+    --name "$CONTAINER_APP_NAME" \
+    --resource-group "$RESOURCE_GROUP" \
+    --server "docker.io" \
+    --username "$DOCKER_USER" \
+    --password "$DOCKER_PAT" || {
+        echo "❌ Failed to configure registry credentials."
+        exit 1
+    }
+
+# -----------------------
 # UPDATE CONTAINER APP
 # -----------------------
 echo "🚀 Updating Azure Container App: $CONTAINER_APP_NAME"
