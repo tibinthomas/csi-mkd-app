@@ -56,4 +56,14 @@ export class PublicLayout {
   goToAdmin() {
     this.router.navigate(['/admin/login']);
   }
+
+  /** The settings rows render as full-width pills but the menu trigger is a
+   *  small embedded button — forward taps anywhere on the row to it. */
+  openSettingMenu(event: MouseEvent) {
+    const row = event.currentTarget as HTMLElement;
+    const button = row.querySelector('button');
+    if (button && !button.contains(event.target as Node)) {
+      button.click();
+    }
+  }
 }

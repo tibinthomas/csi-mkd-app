@@ -91,6 +91,12 @@ mat-toolbar.cx-header {
   padding: 0.5rem 0.95rem;
   border-radius: 999px;
   font-size: 0.86rem;
+
+  /* Tighter pills on tablets so the full nav + action icons fit */
+  @media (min-width: 768px) and (max-width: 1023.98px) {
+    padding: 0.45rem 0.5rem;
+    font-size: 0.76rem;
+  }
   font-weight: 700;
   color: var(--md-sys-color-on-surface-variant);
   text-decoration: none;
@@ -133,8 +139,13 @@ mat-toolbar.cx-header {
 }
 
 /* ---------- Mobile hamburger ---------- */
+/* Phones only; display set here because this scoped rule outranks Tailwind's md:hidden */
 .cx-burger {
-  display: inline-flex;
+  display: none;
+
+  @media (max-width: 767.98px) {
+    display: inline-flex;
+  }
   align-items: center;
   justify-content: center;
   width: 42px;

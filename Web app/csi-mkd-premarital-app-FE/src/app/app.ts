@@ -25,6 +25,7 @@ import { ChatbotComponent } from './chatbot/chatbot.component';
 import { ChristmasSnowComponent } from './shared/components/christmas-snow/christmas-snow.component';
 import { ChristmasOrnamentsComponent } from './shared/components/christmas-ornaments/christmas-ornaments.component';
 import { CursorEffectsComponent } from './shared/components/cursor-effects/cursor-effects.component';
+import { CursorTrailComponent } from './shared/components/cursor-trail/cursor-trail.component';
 import { filter, map, switchMap } from 'rxjs';
 
 @Component({
@@ -36,7 +37,8 @@ import { filter, map, switchMap } from 'rxjs';
     ChatbotComponent,
     ChristmasSnowComponent,
     ChristmasOrnamentsComponent,
-    CursorEffectsComponent
+    CursorEffectsComponent,
+    CursorTrailComponent
   ],
   template: `
     <!-- Minimal Christmas Decorations (Dec 1-26 only) -->
@@ -44,8 +46,11 @@ import { filter, map, switchMap } from 'rxjs';
       <app-christmas-snow></app-christmas-snow>
       <app-christmas-ornaments></app-christmas-ornaments>
       <app-cursor-effects></app-cursor-effects>
+    } @else {
+      <!-- Year-round cursor trail (Christmas has its own cursor effect) -->
+      <app-cursor-trail></app-cursor-trail>
     }
-    
+
     <!-- Main App Content -->
     <router-outlet></router-outlet>
     <app-update-prompt></app-update-prompt>

@@ -364,6 +364,21 @@
   }
 }
 
+/* Full tier + modern browsers: the line draws itself as the section scrolls */
+@supports (animation-timeline: view()) {
+  :host-context([data-motion='full']) .timeline-container::before {
+    transform-origin: top center;
+    animation: cx-tl-line-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 5% cover 75%;
+  }
+}
+
+@keyframes cx-tl-line-draw {
+  from { transform: translateX(-50%) scaleY(0); }
+  to { transform: translateX(-50%) scaleY(1); }
+}
+
 .timeline-item {
   position: relative;
   width: 100%;
@@ -384,8 +399,76 @@
   border: 4px solid var(--md-sys-color-background);
   box-shadow: 0 0 0 4px rgba(216, 166, 87, 0.45);
   z-index: 2;
+  transition: box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 
   @media (max-width: 768px) { left: 20px; }
+}
+
+/* Reveal choreography — keyed off the animate-* class the scroll directive
+   adds to .timeline-item, so the 'none' tier (no class) stays static. */
+.timeline-item[class*='animate-'] {
+  .timeline-dot {
+    animation: cx-tl-dot-pop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
+  }
+
+  .timeline-year {
+    animation: cx-tl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s backwards;
+  }
+
+  h3 {
+    animation: cx-tl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.35s backwards;
+  }
+
+  p {
+    animation: cx-tl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.45s backwards;
+  }
+
+  .timeline-content::before {
+    animation: cx-tl-arm 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.2s backwards;
+  }
+}
+
+@keyframes cx-tl-dot-pop {
+  0% {
+    transform: translateX(-50%) scale(0);
+    box-shadow: 0 0 0 0 rgba(216, 166, 87, 0.6);
+  }
+  60% {
+    transform: translateX(-50%) scale(1.25);
+    box-shadow: 0 0 0 12px rgba(216, 166, 87, 0.18);
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 0 0 4px rgba(216, 166, 87, 0.45);
+  }
+}
+
+@keyframes cx-tl-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cx-tl-arm {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Lite tier: keep the reveal but drop delays and shorten everything */
+:host-context([data-motion='lite']) .timeline-item[class*='animate-'] {
+  .timeline-dot,
+  .timeline-year,
+  h3,
+  p,
+  .timeline-content::before {
+    animation-duration: 0.3s;
+    animation-delay: 0s;
+  }
 }
 
 .timeline-content {
@@ -396,11 +479,55 @@
   &.left { float: left; text-align: right; }
   &.right { float: right; text-align: left; }
 
+  /* Connector arm from the card toward its dot */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 13px; // aligned with the dot's vertical center
+    width: 2.5rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(216, 166, 87, 0.55));
+    transition: background 0.4s ease;
+  }
+
+  &.left::before {
+    left: 100%;
+    transform-origin: right center;
+    background: linear-gradient(90deg, rgba(216, 166, 87, 0.55), transparent);
+  }
+
+  &.right::before {
+    right: 100%;
+    transform-origin: left center;
+  }
+
   @media (max-width: 768px) {
     width: calc(100% - 56px);
     float: right !important;
     text-align: left !important;
     margin-left: 56px;
+
+    &::before {
+      left: auto;
+      right: 100%;
+      width: 2rem;
+      transform-origin: left center;
+      background: linear-gradient(90deg, rgba(216, 166, 87, 0.55), transparent) !important;
+    }
+  }
+}
+
+/* Hover polish: card lifts, its dot glows, the arm brightens */
+.timeline-item:hover {
+  .timeline-content {
+    transform: translateY(-4px);
+    border-color: rgba(216, 166, 87, 0.55);
+    box-shadow: var(--glass-shadow-lg);
+  }
+
+  .timeline-dot {
+    transform: translateX(-50%) scale(1.18);
+    box-shadow: 0 0 0 7px rgba(216, 166, 87, 0.3), 0 0 18px rgba(216, 166, 87, 0.45);
   }
 }
 

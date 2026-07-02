@@ -4,7 +4,7 @@
   >
     <!-- Left: CSI Logo + Title + CSI MKD Logo -->
     <div
-      class="cx-brand flex-1 lg:flex-auto flex items-center justify-center lg:justify-start gap-3 cursor-pointer px-2"
+      class="cx-brand flex-1 md:flex-auto flex items-center justify-center md:justify-start gap-3 cursor-pointer px-2"
       routerLink="/about"
     >
       <!-- CSI Logo (Left of title) -->
@@ -22,7 +22,7 @@
       <!-- Title -->
       <div class="text-center">
         <h1
-          class="cx-brand-title !text-lg xl:!text-xl uppercase tracking-wide !font-bold leading-tight"
+          class="cx-brand-title !text-lg md:!text-base lg:!text-lg xl:!text-xl uppercase tracking-wide !font-bold leading-tight"
           i18n
         >
           CSI Counselling Centre
@@ -46,7 +46,7 @@
     <!-- Right: Nav + Language + Menu -->
     <div class="flex items-center space-x-1 sm:space-x-2 lg:space-x-2 min-[1400px]:space-x-3">
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-1 min-[1400px]:gap-2" role="navigation" aria-label="Main navigation">
+      <nav class="hidden md:flex items-center gap-1 min-[1400px]:gap-2" role="navigation" aria-label="Main navigation">
         <a
           routerLink="/about"
           routerLinkActive="cx-nav-link--active"
@@ -88,7 +88,7 @@
       </nav>
 
       <!-- Desktop Action Icons -->
-      <div class="hidden lg:flex items-center gap-2 cx-action-cluster">
+      <div class="hidden md:flex items-center gap-2 cx-action-cluster">
         <app-language-selector class="header-icon-small"></app-language-selector>
         <app-theme-toggle class="header-icon-small"></app-theme-toggle>
       </div>
@@ -96,7 +96,7 @@
       <!-- Mobile Hamburger -->
       <button
         (click)="toggleMobileMenu()"
-        class="cx-burger lg:hidden"
+        class="cx-burger md:hidden"
         aria-label="Open navigation menu"
         [attr.aria-expanded]="mobileMenuOpen()"
         aria-haspopup="true"
@@ -110,7 +110,7 @@
 <!-- Mobile Overlay Menu -->
 @if (mobileMenuOpen()) {
 <div
-  class="lg:hidden fixed inset-0 z-40 mobile-menu-overlay overflow-y-auto"
+  class="md:hidden fixed inset-0 z-40 mobile-menu-overlay overflow-y-auto"
   (click)="closeMobileMenu()"
 >
   <!-- Header -->
@@ -180,8 +180,8 @@
     <span class="cx-eyebrow"><span i18n>Settings</span></span>
 
     <!-- Language Selector -->
-    <div class="cx-mobile-setting">
-      <div class="flex items-center">
+    <div class="cx-mobile-setting cursor-pointer" (click)="openSettingMenu($event)">
+      <div class="flex items-center gap-4">
         <span class="cx-mobile-icon"><mat-icon>language</mat-icon></span>
         <span class="text-base font-semibold" i18n>Language</span>
       </div>
@@ -189,8 +189,8 @@
     </div>
 
     <!-- Theme Toggle -->
-    <div class="cx-mobile-setting">
-      <div class="flex items-center">
+    <div class="cx-mobile-setting cursor-pointer" (click)="openSettingMenu($event)">
+      <div class="flex items-center gap-4">
         <span class="cx-mobile-icon"><mat-icon>palette</mat-icon></span>
         <span class="text-base font-semibold" i18n>Theme</span>
       </div>
