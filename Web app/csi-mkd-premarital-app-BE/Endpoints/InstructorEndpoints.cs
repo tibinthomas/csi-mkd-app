@@ -12,12 +12,16 @@ public static class InstructorEndpoints
     {
         var group = app.MapGroup("/api/instructors");
         group.DisableAntiforgery();
+        // Secure by default: only the instructor list is public (feedback form);
+        // everything else requires an admin token.
+        group.RequireAuthorization();
 
         group.MapGet("/", async (IInstructorService service) =>
         {
             var instructors = await service.GetAllInstructors();
             return Results.Ok(instructors);
         })
+        .AllowAnonymous()
         .Produces<List<InstructorDto>>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("instructors"));
 

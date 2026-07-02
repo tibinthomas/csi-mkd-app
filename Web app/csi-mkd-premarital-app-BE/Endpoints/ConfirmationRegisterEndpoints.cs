@@ -13,6 +13,9 @@ public static class ConfirmationRegisterEndpoints
     {
         var group = app.MapGroup("/api/confirmationregister");
         group.DisableAntiforgery();
+        // Secure by default: every endpoint requires an admin token unless
+        // explicitly opened with AllowAnonymous (public registration flow).
+        group.RequireAuthorization();
 
         group.MapPost("/", async (IConfirmationRegisterService service, IRecaptchaService recaptcha, ICacheInvalidationService cacheService, [FromBody] ConfirmationRegisterDto dto) =>
         {
@@ -22,6 +25,7 @@ public static class ConfirmationRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<ConfirmationRegisterDto>("application/json");
 
         group.MapPost("/save-file-url", async (IConfirmationRegisterService service, ICacheInvalidationService cacheService, [FromBody] ConfirmationDocumentDto dto) =>
@@ -30,6 +34,7 @@ public static class ConfirmationRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<ConfirmationDocumentDto>("application/json");
 
         group.MapGet("/filter", async (IConfirmationRegisterService service, [AsParameters] ConfirmationRegisterFilterDto filter) =>

@@ -10,6 +10,8 @@ public static class CacheManagementEndpoints
     {
         var group = app.MapGroup("/api/cache");
         group.DisableAntiforgery();
+        // Admin-only (defense in depth; each endpoint also carries [Authorize]).
+        group.RequireAuthorization();
 
         // Invalidate all caches
         group.MapPost("/invalidate-all", [Authorize] async (ICacheInvalidationService cacheService) =>

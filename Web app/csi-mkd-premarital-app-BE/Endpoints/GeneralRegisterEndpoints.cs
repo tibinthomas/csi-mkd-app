@@ -13,6 +13,9 @@ public static class GeneralRegisterEndpoints
     {
         var group = app.MapGroup("/api/generalregister");
         group.DisableAntiforgery();
+        // Secure by default: every endpoint requires an admin token unless
+        // explicitly opened with AllowAnonymous (public registration flow).
+        group.RequireAuthorization();
 
         group.MapPost("/", async ([FromForm] GeneralRegisterDto dto, IGeneralRegisterService service, IRecaptchaService recaptcha, ICacheInvalidationService cacheService) =>
         {
@@ -23,6 +26,7 @@ public static class GeneralRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<GeneralRegisterDto>("multipart/form-data");
 
         group.MapPost("/save-photo-url", async ([FromForm] GeneralDocumentDto dto, IGeneralRegisterService service, ICacheInvalidationService cacheService) =>
@@ -31,6 +35,7 @@ public static class GeneralRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<GeneralDocumentDto>("multipart/form-data");
 
         group.MapGet("/check-email", async (IGeneralRegisterService service, string email) =>
@@ -38,6 +43,7 @@ public static class GeneralRegisterEndpoints
             var exists = await service.CheckEmailExists(email);
             return Results.Ok(new CheckEmailResponseDto { Exists = exists });
         })
+        .AllowAnonymous()
         .Produces<CheckEmailResponseDto>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("general-regs").Expire(TimeSpan.FromSeconds(10)));
 
@@ -71,6 +77,7 @@ public static class GeneralRegisterEndpoints
             }
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.NoContent();
-        });
+        })
+        .AllowAnonymous(); // public register flow rolls back its own registration (by GUID) when file upload fails
     }
 }

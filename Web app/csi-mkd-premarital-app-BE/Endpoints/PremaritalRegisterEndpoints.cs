@@ -13,6 +13,9 @@ public static class PremaritalRegisterEndpoints
     {
         var group = app.MapGroup("/api/premaritalregister");
         group.DisableAntiforgery();
+        // Secure by default: every endpoint in this group requires an admin token
+        // unless it is explicitly opened with AllowAnonymous below (public registration flow).
+        group.RequireAuthorization();
 
         // Registration endpoint
         group.MapPost("/", async ([FromForm] PremaritalRegisterDto dto, IPremaritalRegisterService service, IRecaptchaService recaptcha, ICacheInvalidationService cacheService) =>
@@ -24,6 +27,7 @@ public static class PremaritalRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<PremaritalRegisterDto>("multipart/form-data");
 
         // Unified file save/update endpoint
@@ -39,6 +43,7 @@ public static class PremaritalRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<PremaritalDocumentDto>("multipart/form-data")
         .Produces<object>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest)
@@ -72,6 +77,7 @@ public static class PremaritalRegisterEndpoints
             var (exists, userId) = await service.CheckEmailExists(email);
             return Results.Ok(new CheckEmailResponseDto { Exists = exists, UserId = userId });
         })
+        .AllowAnonymous()
         .Produces<CheckEmailResponseDto>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
 
@@ -100,6 +106,7 @@ public static class PremaritalRegisterEndpoints
 
             return Results.Ok(registration);
         })
+        .AllowAnonymous() // public feedback/questionnaire flow looks up the registration by GUID
         .CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)));
 
         // Delete registration
@@ -112,6 +119,7 @@ public static class PremaritalRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Ok(new { message = "Registration deleted successfully." });
         })
+        .AllowAnonymous() // public register flow rolls back its own registration (by GUID) when file upload fails
         .Produces(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound);
 
@@ -141,6 +149,8 @@ public static class PremaritalRegisterEndpoints
         // Outside Kerala endpoints
         var outsideGroup = app.MapGroup("/api/premaritalregister-outside-kerala");
         outsideGroup.DisableAntiforgery();
+        // Secure by default: only the public registration/file-upload endpoints are anonymous
+        outsideGroup.RequireAuthorization();
 
         outsideGroup.MapPost("/", async ([FromBody] PremaritalOutsideKeralaRegisterDto dto, IPremaritalRegisterService service, ICacheInvalidationService cacheService) =>
         {
@@ -148,6 +158,7 @@ public static class PremaritalRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<PremaritalOutsideKeralaRegisterDto>("application/json");
 
         outsideGroup.MapPost("/files/{registrationId:guid}", async (
@@ -161,6 +172,7 @@ public static class PremaritalRegisterEndpoints
             await cacheService.InvalidateRegistrationCachesAsync();
             return Results.Json(result.Data, statusCode: result.StatusCode);
         })
+        .AllowAnonymous()
         .Accepts<PremaritalOutsideKeralaDocumentDto>("multipart/form-data");
 
         // Get all outside Kerala registrations

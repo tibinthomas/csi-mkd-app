@@ -9,6 +9,8 @@ public static class BackupEndpoints
     {
         var group = app.MapGroup("/api/backup");
         group.DisableAntiforgery();
+        // Admin-only: triggering and downloading database backups.
+        group.RequireAuthorization();
 
         // POST /api/backup/trigger - Manually trigger a backup
         group.MapPost("/trigger", async (IBackupService service, ILogger<Program> logger) =>

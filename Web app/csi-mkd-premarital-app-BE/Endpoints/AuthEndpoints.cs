@@ -15,6 +15,8 @@ public static class AuthEndpoints
     {
         var group = app.MapGroup("/api/auth");
         group.DisableAntiforgery();
+        // Secure by default: only login is anonymous.
+        group.RequireAuthorization();
 
         group.MapPost("/login", async (ApplicationDbContext db, IConfiguration config, AdminLoginDto dto) =>
         {
@@ -41,7 +43,8 @@ public static class AuthEndpoints
             var tokenString = tokenHandler.WriteToken(token);
 
             return Results.Ok(new { token = tokenString, username = admin.Username });
-        });
+        })
+        .AllowAnonymous();
 
         group.MapPost("/update-password", [Authorize] async (ApplicationDbContext db, UpdatePasswordDto dto) =>
         {

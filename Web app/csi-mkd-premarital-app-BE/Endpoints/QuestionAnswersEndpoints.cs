@@ -15,9 +15,13 @@ public static class QuestionAnswersEndpoints
         var group = endpoints.MapGroup("/api/question-answers")
             .WithTags("Question Answers")
             .WithOpenApi();
+        // Secure by default: only questionnaire submission is public;
+        // reading/updating/deleting answers requires an admin token.
+        group.RequireAuthorization();
 
         // POST: Create new questionnaire answers
         group.MapPost("/", CreateQuestionAnswersAsync)
+            .AllowAnonymous()
             .WithName("CreateQuestionAnswers")
             .WithSummary("Create new questionnaire answers")
             .WithDescription("Creates new questionnaire answers for a premarital registration")

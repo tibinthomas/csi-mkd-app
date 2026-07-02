@@ -13,12 +13,16 @@ public static class SessionConfigEndpoints
     {
         var group = app.MapGroup("/api/sessionconfig");
         group.DisableAntiforgery();
+        // Secure by default: session reads are public (registration/feedback flows);
+        // create/update/delete/deactivate require an admin token.
+        group.RequireAuthorization();
 
         group.MapGet("/", async (ISessionConfigService service) =>
         {
             var sessions = await service.GetAllSessions();
             return Results.Ok(sessions);
         })
+        .AllowAnonymous()
         .Produces<List<SessionConfigurationDto>>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("sessions"));
 
@@ -28,6 +32,7 @@ public static class SessionConfigEndpoints
             if (session == null) return Results.NotFound();
             return Results.Ok(session);
         })
+        .AllowAnonymous()
         .Produces<SessionConfigurationDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status404NotFound)
         .CacheOutput(p => p.Tag("sessions").Expire(TimeSpan.FromMinutes(2)));
@@ -69,6 +74,7 @@ public static class SessionConfigEndpoints
             var sessions = await service.GetSessionsByYear(year);
             return Results.Ok(sessions);
         })
+        .AllowAnonymous()
         .Produces<List<SessionConfigurationDto>>(StatusCodes.Status200OK)
         .CacheOutput(p => p.Tag("sessions").Expire(TimeSpan.FromMinutes(2)));
 

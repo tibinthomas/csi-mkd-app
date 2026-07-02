@@ -10,12 +10,16 @@ public static class AzureUploadEndpoints
     {
         var group = app.MapGroup("/api/azureupload");
         group.DisableAntiforgery();
+        // Secure by default: SAS generation stays public (all registration flows
+        // upload files with it); rehydration is admin-only.
+        group.RequireAuthorization();
 
         group.MapGet("/generate-sas", async (BlobStorageService blobService, string fileName, string contentType) =>
         {
             var url = await blobService.GetUploadSasUrlAsync(fileName, contentType);
             return Results.Ok(new { url });
         })
+        .AllowAnonymous()
         .Produces(StatusCodes.Status200OK);
 
         group.MapPost("/rehydrate", async (BlobStorageService blobService, RehydrateRequest request) =>

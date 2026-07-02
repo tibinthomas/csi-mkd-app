@@ -15,6 +15,8 @@ public static class EmailConfigEndpoints
     {
         var group = app.MapGroup("/api/emailconfig");
         group.DisableAntiforgery();
+        // Admin-only: the config includes sender credentials and must never be public.
+        group.RequireAuthorization();
 
         group.MapGet("/", async (ApplicationDbContext db) =>
         {

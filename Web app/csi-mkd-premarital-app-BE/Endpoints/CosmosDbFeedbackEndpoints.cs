@@ -11,6 +11,9 @@ namespace csi_mkd_premarital_app_BE.Endpoints
         {
             var group = app.MapGroup("/api/cosmos/feedback");
             group.DisableAntiforgery();
+            // Secure by default: participants can submit feedback and read their own
+            // progress by registration GUID; all other reads require an admin token.
+            group.RequireAuthorization();
 
             // Submit feedback to Cosmos DB
             group.MapPost("/", async (
@@ -24,6 +27,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 await service.SubmitFeedbackAsync(dto, userAgent, ipAddress);
                 return Results.Ok(new { message = "Feedback submitted successfully to Cosmos DB." });
             })
+            .AllowAnonymous()
             .Accepts<ClassFeedbackDto>("application/json")
             .Produces(StatusCodes.Status200OK);
 
@@ -56,6 +60,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var feedbacks = await service.GetFeedbacksByRegistrationIdAsync(registrationId);
                 return Results.Ok(feedbacks);
             })
+            .AllowAnonymous()
             .Produces<List<ClassFeedbackResponseDto>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(2)));
 
@@ -67,6 +72,7 @@ namespace csi_mkd_premarital_app_BE.Endpoints
                 var classIds = await service.GetCompletedClassIdsAsync(registrationId);
                 return Results.Ok(classIds);
             })
+            .AllowAnonymous()
             .Produces<List<int>>(StatusCodes.Status200OK)
             .CacheOutput(p => p.Tag("cosmos-feedback").Expire(TimeSpan.FromMinutes(10)));
 
