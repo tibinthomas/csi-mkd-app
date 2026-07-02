@@ -1,55 +1,76 @@
-<main class="min-h-screen py-30 px-6 theme-transition">
+<main class="min-h-screen py-30 px-6">
   <section class="max-w-4xl mx-auto">
-    <div class="flex justify-between items-center mb-4">
-      <h1 class="text-2xl font-bold text-on-background theme-transition">
-        <span i18n>Register for a Premarital Session</span>
-        <span class="text-xs opacity-60 font-normal ml-2" i18n>(All dates are in IST)</span>
-      </h1>
-      <button mat-raised-button color="primary" class="!font-bold" (click)="toggleAll()">
-        @if ( allExpanded()) {
+    <!-- Heading -->
+    <div class="cx-sessions-head">
+      <div>
+        <span class="cx-eyebrow"><i class="bi bi-calendar-heart"></i><span i18n>Premarital Sessions</span></span>
+        <h1 class="cx-h2 cx-gradient-text text-2xl sm:text-3xl mt-3">
+          <span i18n>Register for a Premarital Session</span>
+        </h1>
+        <p class="text-xs text-on-surface-variant mt-1" i18n>(All dates are in IST)</p>
+      </div>
+      <button mat-raised-button color="primary" class="!font-bold cx-toggle-all" (click)="toggleAll()">
+        @if (allExpanded()) {
         <span i18n>Collapse All</span>
-        } @if ( !allExpanded()) {
+        } @if (!allExpanded()) {
         <span i18n>Expand All</span>
         }
       </button>
     </div>
+
+    <hr class="cx-divider w-full my-7" />
+
     @if(sessionsResource.isLoading()) {
-    <div class="flex justify-center items-center mt-8">
-      <mat-spinner diameter="40" color="primary"></mat-spinner>
+    <div class="flex justify-center items-center mt-10">
+      <mat-spinner diameter="44" color="primary"></mat-spinner>
     </div>
     } @else if(sessionsResource.error()) {
-    <div class="text-center mt-8">
-      <p class="text-error">Failed to load sessions. Please try again later.</p>
-      <button mat-raised-button color="primary" (click)="sessionsResource.reload()" class="mt-4">Retry</button>
+    <div class="cx-sessions-error glass-card">
+      <i class="bi bi-exclamation-triangle"></i>
+      <p class="text-error font-semibold">Failed to load sessions. Please try again later.</p>
+      <button mat-raised-button color="primary" (click)="sessionsResource.reload()" class="mt-1">Retry</button>
     </div>
     } @else {
     <mat-accordion multi>
       @for (yearGroup of groupedSessions(); track yearGroup.year) {
       <mat-expansion-panel
         [expanded]="isYearExpanded(yearGroup.year)"
-        class="shadow-none border border-outline dark:border-outline-variant dark:bg-surface-container rounded-xl mb-2 theme-transition"
+        class="cx-year-panel mb-3"
       >
         <mat-expansion-panel-header (click)="toggleYear(yearGroup.year)">
-          <mat-panel-title class="text-lg font-semibold">{{ yearGroup.year }}</mat-panel-title>
+          <mat-panel-title class="text-lg font-bold cx-year-title">{{ yearGroup.year }}</mat-panel-title>
         </mat-expansion-panel-header>
 
-        <div class="space-y-4 px-4 pb-4">
+        <div class="space-y-5 px-1 pb-2">
           @for (monthGroup of yearGroup.months; track monthGroup.month) {
           <div>
-            <h3 class="text-lg font-semibold mb-2 uppercase">{{ monthGroup.month }}</h3>
+            <h3 class="cx-month-label">{{ monthGroup.month }}</h3>
             <div class="grid gap-4">
               @for (session of monthGroup.sessions; track session.id) {
-              <mat-card
-                class="rounded-xl shadow-sm border border-outline dark:border-outline-variant hover:shadow-md transition animate-fade-slide theme-transition"
-              >
-                <mat-card-header>
-                  <mat-card-title class="!text-lg !font-bold"> {{ session.sessionName }} </mat-card-title>
-                  <mat-card-subtitle class="!text-lg text-on-surface-variant">
-                    {{ session.startDate | date : "MMM d, y" : "+5:30" }} →
+              <mat-card class="glass-card cx-session-card animate-fade-slide">
+                <span class="cx-session-card__icon" aria-hidden="true">
+                  <i class="bi bi-calendar2-event"></i>
+                </span>
+                <div class="cx-session-card__body">
+                  <h4 class="cx-session-card__name">{{ session.sessionName }}</h4>
+                  <p class="cx-session-card__dates">
+                    {{ session.startDate | date : "MMM d, y" : "+5:30" }}
+                    <i class="bi bi-arrow-right cx-session-card__arrow"></i>
                     {{ session.endDate | date : "MMM d, y" : "+5:30" }}
-                  </mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-actions class="flex justify-end">
+                  </p>
+                  <span
+                    class="cx-session-status"
+                    [class.cx-session-status--open]="session.isActive"
+                    [class.cx-session-status--closed]="!session.isActive"
+                  >
+                    @if (session.isActive) {
+                    <span i18n>Open for registration</span>
+                    } @else {
+                    <span i18n>Unavailable</span>
+                    }
+                  </span>
+                </div>
+                <div class="cx-session-card__action">
                   <button
                     mat-flat-button
                     color="primary"
@@ -62,9 +83,8 @@
                     <span i18n>Unavailable</span>
                     }
                   </button>
-                </mat-card-actions>
+                </div>
               </mat-card>
-
               }
             </div>
           </div>

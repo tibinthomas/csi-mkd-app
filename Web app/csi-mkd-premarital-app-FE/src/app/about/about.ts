@@ -3,17 +3,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   signal,
-  computed,
-  OnInit,
-  OnDestroy,
-  HostListener,
-  effect,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll.directive';
+import { ParallaxTiltDirective } from '../shared/directives/parallax-tilt.directive';
 
 interface ServiceItem {
   readonly image: string;
@@ -40,6 +36,10 @@ interface HeroContent {
   templateUrl: './about.html',
   styleUrl: './about.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(window:scroll)': 'onWindowScroll()',
+    '(window:resize)': 'onWindowResize()',
+  },
   imports: [
     CommonModule,
     RouterLink,
@@ -49,17 +49,15 @@ interface HeroContent {
     MatButtonModule,
     MatIconModule,
     AnimateOnScrollDirective,
+    ParallaxTiltDirective,
   ],
 })
-export class About implements OnInit, OnDestroy {
+export class About {
   // Scroll to top button visibility
   readonly showScrollTop = signal(false);
-  
+
   // Mobile detection for timeline animation
   readonly isMobile = signal(window.innerWidth < 768);
-  private readonly _currentYear = signal(new Date().getFullYear());
-
-  readonly currentYear = computed(() => this._currentYear());
 
   readonly heroContent: HeroContent = {
     title: $localize`:@@CSI Counselling Centre Title:CSI Counselling Centre, Kottayam`,
@@ -147,6 +145,24 @@ export class About implements OnInit, OnDestroy {
     bookAppointment: $localize`:@@Book Appointment Button:Book Appointment`,
   };
 
+  // Words of the hero title, revealed with a staggered rise animation
+  readonly heroTitleWords = this.heroContent.title.split(' ');
+
+  readonly heroStats: readonly HeroStat[] = [
+    {
+      value: $localize`:@@Hero Stat Years Value:18+`,
+      label: $localize`:@@Hero Stat Years Label:Years of Ministry`,
+    },
+    {
+      value: $localize`:@@Hero Stat Services Value:7`,
+      label: $localize`:@@Hero Stat Services Label:Counselling Services`,
+    },
+    {
+      value: $localize`:@@Hero Stat Couples Value:1000s`,
+      label: $localize`:@@Hero Stat Couples Label:of Couples Guided`,
+    },
+  ] as const;
+
   trackByServiceTitle(_index: number, item: ServiceItem): string {
     return item.title;
   }
@@ -208,20 +224,10 @@ export class About implements OnInit, OnDestroy {
     },
   ];
 
-  ngOnInit(): void {
-    // Component initialization
-  }
-
-  ngOnDestroy(): void {
-    // Cleanup if needed
-  }
-
-  @HostListener('window:scroll')
   onWindowScroll(): void {
     this.showScrollTop.set(window.scrollY > 500);
   }
 
-  @HostListener('window:resize')
   onWindowResize(): void {
     this.isMobile.set(window.innerWidth < 768);
   }
@@ -280,4 +286,9 @@ interface HistoryEvent {
   year: string;
   title: string;
   description: string;
+}
+
+interface HeroStat {
+  readonly value: string;
+  readonly label: string;
 }

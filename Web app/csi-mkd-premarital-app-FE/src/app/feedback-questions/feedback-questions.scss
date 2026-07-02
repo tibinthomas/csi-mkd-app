@@ -1,0 +1,83 @@
+/* ============================================================
+   FEEDBACK & QUESTIONNAIRE — landing
+   ============================================================ */
+
+.cx-verify-card {
+  overflow: visible;
+}
+
+.cx-verify-icon {
+  font-size: 1.5rem;
+
+  i { line-height: 1; }
+}
+
+.cx-verify-btn {
+  font-weight: 800 !important;
+  padding: 0 2rem !important;
+}
+
+/* ---------- Restricted-access notice ---------- */
+.cx-notice {
+  border-left: 4px solid var(--cx-gold) !important;
+}
+
+.cx-notice__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 0.8rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background: linear-gradient(135deg, #e0922f, #c1666b);
+}
+
+/* ---------- Form choice cards ---------- */
+.cx-form-choice {
+  position: relative;
+  cursor: pointer;
+  outline: none;
+}
+
+.cx-form-choice:focus-visible {
+  box-shadow: var(--glass-shadow-lg), 0 0 0 3px var(--cx-rose) !important;
+}
+
+.cx-form-choice--disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  filter: grayscale(0.35);
+}
+
+.cx-form-choice--disabled:hover {
+  transform: none !important;
+  box-shadow: var(--glass-shadow) !important;
+}
+
+.cx-form-choice__hint {
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #c1666b;
+}
+
+.cx-form-choice__go {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-top: 1rem;
+  border-radius: 50%;
+  color: #fff;
+  background: var(--cx-grad-primary);
+  box-shadow: 0 8px 18px -8px rgba(168, 56, 90, 0.65);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cx-form-choice:hover .cx-form-choice__go {
+  transform: translateX(5px);
+}

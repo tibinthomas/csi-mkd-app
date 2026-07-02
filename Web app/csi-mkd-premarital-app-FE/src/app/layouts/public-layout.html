@@ -1,18 +1,18 @@
 <header role="banner">
   <mat-toolbar
-    class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-3 shadow-md backdrop-blur-sm bg-surface/90 dark:bg-surface/90 theme-transition"
+    class="cx-header fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-4 py-3"
   >
     <!-- Left: CSI Logo + Title + CSI MKD Logo -->
     <div
-      class="flex-1 lg:flex-auto flex items-center justify-center lg:justify-start gap-4 hover:scale-101 cursor-pointer px-2"
+      class="cx-brand flex-1 lg:flex-auto flex items-center justify-center lg:justify-start gap-3 cursor-pointer px-2"
       routerLink="/about"
     >
       <!-- CSI Logo (Left of title) -->
-      <div class="flex items-center transition-transform duration-300 hover:scale-105">
+      <div class="cx-logo-ring flex items-center">
         <img
           src="assets/csi-logo.avif"
           alt="CSI Church of South India Logo"
-          class="h-8 w-auto max-w-[60px] object-contain"
+          class="h-9 w-auto max-w-[60px] object-contain"
           role="img"
           appDoubleTap
           (doubleTap)="goToAdmin()"
@@ -22,78 +22,73 @@
       <!-- Title -->
       <div class="text-center">
         <h1
-          class="!text-lg xl:!text-xl uppercase tracking-wide transition-opacity duration-500 !font-bold leading-tight"
+          class="cx-brand-title !text-lg xl:!text-xl uppercase tracking-wide !font-bold leading-tight"
           i18n
         >
           CSI Counselling Centre
         </h1>
-        <h2 class="!text-sm uppercase tracking-wide transition-all duration-500 leading-tight" i18n>
+        <h2 class="cx-brand-sub !text-xs uppercase tracking-[0.18em] leading-tight" i18n>
           Madhya Kerala Diocese
         </h2>
       </div>
 
       <!-- CSI MKD Logo (Right of title) -->
-      <div class="flex items-center transition-transform duration-300 hover:scale-105">
+      <div class="cx-logo-ring flex items-center">
         <img
           src="assets/csi-mkd-logo.avif"
           alt="CSI Madhya Kerala Diocese Logo"
-          class="h-8 w-auto max-w-[60px] object-contain"
+          class="h-9 w-auto max-w-[60px] object-contain"
           role="img"
         />
       </div>
     </div>
 
     <!-- Right: Nav + Language + Menu -->
-    <div class="flex items-center space-x-1 sm:space-x-2 lg:space-x-2 min-[1400px]:space-x-4">
+    <div class="flex items-center space-x-1 sm:space-x-2 lg:space-x-2 min-[1400px]:space-x-3">
       <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex space-x-1 min-[1400px]:space-x-4" role="navigation" aria-label="Main navigation">
+      <nav class="hidden lg:flex items-center gap-1 min-[1400px]:gap-2" role="navigation" aria-label="Main navigation">
         <a
-          mat-button
           routerLink="/about"
-          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm !px-3"
+          routerLinkActive="cx-nav-link--active"
+          class="cx-nav-link"
           aria-label="About us page"
           ><span i18n>About Us</span></a
         >
         <a
-          mat-button
           routerLink="/team-members"
-          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm !px-3"
+          routerLinkActive="cx-nav-link--active"
+          class="cx-nav-link"
           i18n
           aria-label="Our team members page"
           >Our Team</a
         >
         <a
-          mat-button
           routerLink="/register"
-          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm !px-3"
+          routerLinkActive="cx-nav-link--active"
+          class="cx-nav-link"
           i18n
           aria-label="Registration page"
           >Register</a
         >
         <a
-          mat-button
           routerLink="/feedback-questions"
-          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm !px-3"
+          routerLinkActive="cx-nav-link--active"
+          class="cx-nav-link"
           aria-label="Feedback Questionnaire"
           ><span i18n>Feedback</span></a
         >
         <a
-          mat-button
           routerLink="/sessions"
-          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
-          class="hover:underline hover:scale-105 transition-all duration-300 !font-bold !text-sm !px-3"
+          routerLinkActive="cx-nav-link--active"
+          class="cx-nav-link"
           aria-label="Premarital Sessions page"
-          >
+        >
           <span class="hidden min-[1400px]:inline" i18n="@@Premarital Nav Text">Premarital </span><span i18n>Sessions</span>
         </a>
       </nav>
 
       <!-- Desktop Action Icons -->
-      <div class="hidden lg:flex items-center space-x-3">
+      <div class="hidden lg:flex items-center gap-2 cx-action-cluster">
         <app-language-selector class="header-icon-small"></app-language-selector>
         <app-theme-toggle class="header-icon-small"></app-theme-toggle>
       </div>
@@ -101,7 +96,7 @@
       <!-- Mobile Hamburger -->
       <button
         (click)="toggleMobileMenu()"
-        class="lg:hidden active:animate-bounce"
+        class="cx-burger lg:hidden"
         aria-label="Open navigation menu"
         [attr.aria-expanded]="mobileMenuOpen()"
         aria-haspopup="true"
@@ -115,112 +110,89 @@
 <!-- Mobile Overlay Menu -->
 @if (mobileMenuOpen()) {
 <div
-  class="lg:hidden fixed inset-0 z-40 mobile-menu-overlay overflow-y-auto theme-transition"
+  class="lg:hidden fixed inset-0 z-40 mobile-menu-overlay overflow-y-auto"
   (click)="closeMobileMenu()"
 >
   <!-- Header -->
-  <div class="p-4 pt-16">
-    <h3 class="text-sm pt-5 font-semibold text-rose-700 dark:text-gray-400 uppercase tracking-wide theme-transition">
-      <span i18n>Menu</span>
-    </h3>
+  <div class="p-5 pt-20">
+    <span class="cx-eyebrow"><span i18n>Menu</span></span>
   </div>
 
   <!-- Navigation Links -->
-  <nav role="navigation" aria-label="Mobile navigation" class="p-4 space-y-2" (click)="$event.stopPropagation()">
+  <nav role="navigation" aria-label="Mobile navigation" class="px-4 pb-2 space-y-2" (click)="$event.stopPropagation()">
     <a
       routerLink="/about"
-      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      routerLinkActive="cx-mobile-link--active"
       (click)="closeMobileMenu()"
-      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+      class="cx-mobile-link"
       aria-label="About us page"
     >
-      <mat-icon
-        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
-        >info</mat-icon
-      >
-      <span class="text-lg font-medium" i18n>About Us</span>
+      <span class="cx-mobile-icon"><mat-icon>info</mat-icon></span>
+      <span class="text-lg font-semibold" i18n>About Us</span>
     </a>
 
     <a
       routerLink="/team-members"
-      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      routerLinkActive="cx-mobile-link--active"
       (click)="closeMobileMenu()"
-      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+      class="cx-mobile-link"
       aria-label="Our team members page"
     >
-      <mat-icon
-        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
-        >group</mat-icon
-      >
-      <span class="text-lg font-medium" i18n>Our Team</span>
+      <span class="cx-mobile-icon"><mat-icon>group</mat-icon></span>
+      <span class="text-lg font-semibold" i18n>Our Team</span>
     </a>
 
     <a
       routerLink="/register"
-      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      routerLinkActive="cx-mobile-link--active"
       (click)="closeMobileMenu()"
-      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+      class="cx-mobile-link"
     >
-      <mat-icon
-        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
-        >app_registration</mat-icon
-      >
-      <span class="text-lg font-medium" i18n>Register</span>
+      <span class="cx-mobile-icon"><mat-icon>app_registration</mat-icon></span>
+      <span class="text-lg font-semibold" i18n>Register</span>
     </a>
 
     <a
       routerLink="/feedback-questions"
-      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      routerLinkActive="cx-mobile-link--active"
       (click)="closeMobileMenu()"
-      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+      class="cx-mobile-link"
     >
-      <mat-icon
-        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
-        >feedback</mat-icon
-      >
-      <span class="text-lg font-medium" i18n>Feedback</span>
+      <span class="cx-mobile-icon"><mat-icon>feedback</mat-icon></span>
+      <span class="text-lg font-semibold" i18n>Feedback</span>
     </a>
 
     <a
       routerLink="/sessions"
-      routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary"
+      routerLinkActive="cx-mobile-link--active"
       (click)="closeMobileMenu()"
-      class="flex items-center p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-all duration-200 group text-rose-900 dark:text-white theme-transition"
+      class="cx-mobile-link"
     >
-      <mat-icon
-        class="mr-4 group-hover:scale-110 transition-transform text-rose-600 dark:text-gray-400 theme-transition"
-        >calendar_month</mat-icon
-      >
-      <span class="text-lg font-medium" i18n>Premarital Sessions</span>
+      <span class="cx-mobile-icon"><mat-icon>calendar_month</mat-icon></span>
+      <span class="text-lg font-semibold" i18n>Premarital Sessions</span>
     </a>
   </nav>
 
-  <div class="mx-4 my-4 border-t border-rose-200 dark:border-gray-700 theme-transition"></div>
+  <hr class="cx-divider mx-5 my-4" />
 
   <!-- Settings Section -->
-  <div class="p-4 space-y-3" (click)="$event.stopPropagation()">
-    <h3 class="text-sm font-semibold text-rose-700 dark:text-gray-400 uppercase tracking-wide theme-transition">
-      <span i18n>Settings</span>
-    </h3>
+  <div class="px-5 pb-10 space-y-3" (click)="$event.stopPropagation()">
+    <span class="cx-eyebrow"><span i18n>Settings</span></span>
 
     <!-- Language Selector -->
-    <div
-      class="flex items-center justify-between p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-colors theme-transition"
-    >
+    <div class="cx-mobile-setting">
       <div class="flex items-center">
-        <mat-icon class="mr-3 text-rose-600 dark:text-gray-400 theme-transition">language</mat-icon>
-        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition" i18n>Language</span>
+        <span class="cx-mobile-icon"><mat-icon>language</mat-icon></span>
+        <span class="text-base font-semibold" i18n>Language</span>
       </div>
       <app-language-selector class="header-icon-small"></app-language-selector>
     </div>
 
     <!-- Theme Toggle -->
-    <div
-      class="flex items-center justify-between p-3 rounded-xl hover:bg-rose-100 dark:hover:bg-gray-800 transition-colors theme-transition"
-    >
+    <div class="cx-mobile-setting">
       <div class="flex items-center">
-        <mat-icon class="mr-3 text-rose-600 dark:text-gray-400 theme-transition">palette</mat-icon>
-        <span class="text-base font-medium text-rose-900 dark:text-white theme-transition" i18n>Theme</span>
+        <span class="cx-mobile-icon"><mat-icon>palette</mat-icon></span>
+        <span class="text-base font-semibold" i18n>Theme</span>
       </div>
       <app-theme-toggle class="header-icon-small"></app-theme-toggle>
     </div>
@@ -231,101 +203,110 @@
 <main role="main" class="animate-fade-in">
   <router-outlet></router-outlet>
 </main>
+
 <!-- Footer Contact Section -->
-<footer
-  class="bg-surface-container-low dark:bg-surface-container-low mt-20 pt-10 border-t border-outline-variant dark:border-outline-variant theme-transition"
->
-  <!-- Top: Contact + Address + Scripture -->
-  <div
-    class="max-w-7xl mx-auto px-6 grid gap-12 md:grid-cols-3 text-on-surface text-center md:text-left theme-transition"
-  >
-    <!-- Contact Info -->
-    <div>
-      <h3 class="text-xl font-semibold mb-4"><i class="bi bi-telephone"></i><span i18n> Contact</span></h3>
-      <ul class="space-y-1 text-sm leading-relaxed">
-        <li><a href="tel:+918129778832" class="hover:underline">+91-8129778832</a></li>
-        <li><a href="tel:+919946033731" class="hover:underline">+91-9946033731</a></li>
-        <li><a href="mailto:csimkdmarry@gmail.com" class="hover:underline">csimkdmarry&#64;gmail.com</a></li>
-        <li class="mt-2 text-xs" i18n><i class="bi bi-calendar-week"></i> Mon – Sat | 9:00 AM – 6:00 PM</li>
-      </ul>
+<footer class="cx-footer mt-24">
+  <span class="cx-orb cx-orb--rose cx-footer-orb-a"></span>
+  <span class="cx-orb cx-orb--gold cx-footer-orb-b"></span>
+
+  <div class="cx-footer-inner">
+    <!-- Top: Contact + Address + Scripture -->
+    <div
+      class="max-w-7xl mx-auto px-6 grid gap-8 md:grid-cols-3 text-on-surface text-center md:text-left"
+    >
+      <!-- Contact Info -->
+      <div class="cx-footer-col">
+        <h3 class="cx-footer-heading">
+          <mat-icon>call</mat-icon><span i18n>Contact</span>
+        </h3>
+        <ul class="space-y-2 text-sm leading-relaxed">
+          <li><a href="tel:+918129778832" class="cx-footer-link">+91-8129778832</a></li>
+          <li><a href="tel:+919946033731" class="cx-footer-link">+91-9946033731</a></li>
+          <li><a href="mailto:csimkdmarry@gmail.com" class="cx-footer-link">csimkdmarry&#64;gmail.com</a></li>
+          <li class="mt-2 text-xs opacity-80" i18n>Mon – Sat | 9:00 AM – 6:00 PM</li>
+        </ul>
+      </div>
+
+      <!-- Address -->
+      <div class="cx-footer-col">
+        <h3 class="cx-footer-heading">
+          <mat-icon>place</mat-icon><span i18n>Visit Us</span>
+        </h3>
+        <ul class="space-y-1 text-sm leading-relaxed">
+          <li i18n>CSI Counselling Centre</li>
+          <li i18n>CMS Press Compound</li>
+          <li i18n>Chalukunnu, Kottayam-1</li>
+          <li i18n>Kerala, India – 686001</li>
+        </ul>
+      </div>
+
+      <!-- Scripture -->
+      <div class="cx-footer-col cx-footer-scripture">
+        <mat-icon class="cx-scripture-mark">format_quote</mat-icon>
+        <blockquote class="italic text-base leading-relaxed" i18n>
+          “Come to me, all who are weary and burdened, and I will give you rest.”
+        </blockquote>
+        <p class="mt-2 text-xs tracking-widest uppercase opacity-80" i18n>– Matthew 11:28</p>
+      </div>
     </div>
 
-    <!-- Address -->
-    <div>
-      <h3 class="text-xl font-semibold mb-4"><i class="bi bi-geo-alt"></i> <span i18n>Visit Us</span></h3>
-      <ul class="space-y-1 text-sm leading-relaxed">
-        <li i18n>CSI Counselling Centre</li>
-        <li i18n>CMS Press Compound</li>
-        <li i18n>Chalukunnu, Kottayam-1</li>
-        <li i18n>Kerala, India – 686001</li>
-      </ul>
+    <!-- Google Map -->
+    <div class="max-w-5xl mx-auto px-6 mt-12">
+      <div class="rounded-2xl overflow-hidden map-embed glass-card">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.9814545776558!2d76.51042919678956!3d9.596864899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b062b0f442475b7%3A0x50451aeaf955cd6f!2sCSI%20Counselling%20Centre!5e0!3m2!1sen!2sca!4v1752345411567!5m2!1sen!2sca"
+          width="100%"
+          height="260"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Google Map"
+        ></iframe>
+      </div>
     </div>
 
-    <!-- Scripture -->
-    <div>
-      <blockquote class="italic text-sm leading-relaxed" i18n>
-        “Come to me, all who are weary and burdened, and I will give you rest.”
-      </blockquote>
-      <p class="mt-2 text-xs" i18n>– Matthew 11:28</p>
-    </div>
-  </div>
+    <!-- Divider -->
+    <hr class="cx-divider max-w-7xl mx-auto mt-12" />
 
-  <!-- Google Map -->
-  <div class="max-w-5xl mx-auto px-6 mt-12">
-    <div class="rounded-xl overflow-hidden shadow-lg map-embed">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.9814545776558!2d76.51042919678956!3d9.596864899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b062b0f442475b7%3A0x50451aeaf955cd6f!2sCSI%20Counselling%20Centre!5e0!3m2!1sen!2sca!4v1752345411567!5m2!1sen!2sca"
-        width="100%"
-        height="260"
-        style="border: 0"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Google Map"
-      ></iframe>
-    </div>
-  </div>
+    <!-- Bottom: Copyright & Social -->
+    <div
+      class="max-w-7xl mx-auto px-6 py-7 flex flex-col lg:flex-row items-center justify-between gap-4 text-center lg:text-left text-xs text-on-surface-variant"
+    >
+      <!-- Copyright -->
+      <div class="space-y-1">
+        <p>
+          &copy; {{ currentYear }} CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved. (v{{ version }})
+        </p>
+        <p>
+          Developed by
+          <a
+            href="https://teena496.github.io/homestack-team/"
+            class="cx-footer-link font-semibold"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Friends of the Church</a
+          >
+        </p>
+      </div>
 
-  <!-- Divider -->
-  <div class="w-full border-t border-outline-variant dark:border-outline-variant mt-10 theme-transition"></div>
-
-  <!-- Bottom: Copyright & Social -->
-  <div
-    class="max-w-7xl mx-auto px-6 py-6 flex flex-col lg:flex-row items-center justify-between text-center lg:text-left text-xs text-on-surface-variant theme-transition"
-  >
-    <!-- Copyright -->
-    <div class="space-y-1">
-      <p>
-        &copy; {{ currentYear }} CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved. (v{{ version }})
-      </p>
-      <p>
-        Developed by
-        <a
-          href="https://teena496.github.io/homestack-team/"
-          class="text-rose-600 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-          >Friends of the Church</a
-        >
-      </p>
-    </div>
-
-    <!-- Social Media -->
-    <div class="mt-4 lg:mt-0">
-      <div class="flex justify-center lg:justify-end gap-4 text-lg">
+      <!-- Social Media -->
+      <div class="flex justify-center lg:justify-end gap-3">
         <a
           href="https://www.facebook.com/CsiCounselingCentreKottyam"
           target="_blank"
+          rel="noopener noreferrer"
           aria-label="Facebook"
-          class="hover:text-blue-600 transition duration-200"
+          class="cx-social"
         >
           <i class="bi bi-facebook"></i>
         </a>
         <a
           href="https://www.instagram.com/c.s.i_counselling_center_ktm/"
           target="_blank"
+          rel="noopener noreferrer"
           aria-label="Instagram"
-          class="hover:text-pink-600 transition duration-200"
+          class="cx-social"
         >
           <i class="bi bi-instagram"></i>
         </a>

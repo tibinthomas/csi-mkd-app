@@ -24,6 +24,7 @@ import { ApiConfiguration as FunctionAppApiConfig } from '../api/api-functions/a
 import { routes } from './app.routes';
 import { tokenInterceptor } from './core/auth/token.interceptor';
 import { ThemeService } from './core/services/theme.service';
+import { MotionService } from './core/services/motion.service';
 import { AnalyticsService } from './core/services/analytics.service';
 import { NavigationAnalyticsService } from './core/services/navigation-analytics.service';
 import { GlobalErrorHandlerService } from './core/services/global-error-handler.service';
@@ -60,6 +61,11 @@ export const appConfig: ApplicationConfig = {
     provideAppInitializer(() => {
       // Initialize theme service to ensure proper theme application on app start
       inject(ThemeService);
+      return Promise.resolve();
+    }),
+    provideAppInitializer(() => {
+      // Detect device capability and set the data-motion animation tier
+      inject(MotionService);
       return Promise.resolve();
     }),
     provideAppInitializer(() => {

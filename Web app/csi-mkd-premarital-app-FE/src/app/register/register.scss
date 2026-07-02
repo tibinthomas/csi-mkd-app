@@ -1,1 +1,64 @@
-/* Converted to Tailwind CSS */
+/* ============================================================
+   REGISTER — choice cards
+   ============================================================ */
+
+.cx-choice-card {
+  position: relative;
+  cursor: pointer;
+  padding-bottom: 1.5rem;
+  outline: none;
+}
+
+.cx-choice-card__media {
+  position: relative;
+  height: 11.5rem;
+  overflow: hidden;
+  border-radius: 1.25rem 1.25rem 0 0;
+}
+
+.cx-choice-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cx-choice-card__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(74, 23, 48, 0.55), transparent 60%);
+}
+
+.cx-choice-card__go {
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  font-size: 1.05rem;
+  color: #fff;
+  background: var(--cx-grad-primary);
+  box-shadow: 0 10px 22px -8px rgba(168, 56, 90, 0.7);
+  opacity: 0;
+  transform: translateY(8px) scale(0.85);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cx-choice-card:hover .cx-choice-card__img,
+.cx-choice-card:focus-visible .cx-choice-card__img {
+  transform: scale(1.1);
+}
+
+.cx-choice-card:hover .cx-choice-card__go,
+.cx-choice-card:focus-visible .cx-choice-card__go {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cx-choice-card:focus-visible {
+  box-shadow: var(--glass-shadow-lg), 0 0 0 3px var(--cx-rose) !important;
+}

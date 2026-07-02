@@ -11,82 +11,120 @@
     <mat-icon>arrow_upward</mat-icon>
   </button>
   }
-  <!-- Hero Section -->
-  <section
-    class="bg-cover bg-center h-screen flex items-center justify-center relative"
-    [style.background-image]="'url(' + heroContent.backgroundImage + ')'"
-    [appAnimateOnScroll]="'fadeIn'"
-    role="banner"
-    aria-label="Hero section"
-  >
-    <div class="absolute inset-0 bg-gradient-to-br from-black/60 to-rose-900/70" aria-hidden="true"></div>
-    <div class="relative z-10 p-10 rounded-xl text-center max-w-3xl text-white animate-zoom-in">
-      <h1 class="text-4xl sm:text-5xl font-extrabold mb-3 drop-shadow">
-        {{ heroContent.title }}
+
+  <!-- ================= HERO ================= -->
+  <section class="cx-hero" role="banner" aria-label="Hero section">
+    <div
+      class="cx-hero__bg cx-kenburns-anim"
+      [style.background-image]="'url(' + heroContent.backgroundImage + ')'"
+      aria-hidden="true"
+    ></div>
+    <div class="cx-hero__veil" aria-hidden="true"></div>
+    <span class="cx-orb cx-orb--rose cx-hero__orb cx-hero__orb--a cx-float-anim" aria-hidden="true"></span>
+    <span class="cx-orb cx-orb--gold cx-hero__orb cx-hero__orb--b cx-float-anim-2" aria-hidden="true"></span>
+
+    <div class="cx-hero__panel cx-reveal" [appParallaxTilt]="3">
+      <span class="cx-hero__mark cx-ring-anim" aria-hidden="true">
+        <mat-icon>favorite</mat-icon>
+      </span>
+      <h1 class="cx-hero__title">
+        @for (word of heroTitleWords; track $index; let i = $index) {
+        <!-- The bound space renders as a real text node between the
+             inline-block words, keeping the heading readable to screen
+             readers and copyable as normal text. -->
+        <span
+          class="cx-hero__word cx-hero-text cx-word-rise"
+          [style.animation-delay]="0.25 + i * 0.09 + 's'"
+          >{{ word }}</span
+        >{{ $last ? '' : ' ' }}
+        }
       </h1>
-      <p class="text-xl italic font-light">{{ heroContent.subtitle }}</p>
-      <p class="mt-4 text-sm">{{ heroContent.location }}</p>
-      <div class="mt-6">
+      <p class="cx-hero__subtitle cx-blur-in cx-delay-3">{{ heroContent.subtitle }}</p>
+      <p class="cx-hero__location cx-blur-in cx-delay-4">
+        <mat-icon aria-hidden="true">place</mat-icon>
+        <span>{{ heroContent.location }}</span>
+      </p>
+      <div class="cx-hero__cta cx-reveal cx-delay-4">
         <button
           mat-flat-button
-          class="!font-bold hover:scale-103"
           color="primary"
+          class="cx-cta-btn"
           routerLink="/register"
           [attr.aria-label]="sectionTitles.bookAppointment"
         >
+          <mat-icon aria-hidden="true">event_available</mat-icon>
           <span>{{ sectionTitles.bookAppointment }}</span>
         </button>
       </div>
+
+      <div class="cx-hero__stats cx-reveal cx-delay-5" role="list" aria-label="Centre highlights">
+        @for (stat of heroStats; track stat.label) {
+        <div class="cx-hero__stat" role="listitem">
+          <span class="cx-hero__stat-value cx-hero-text">{{ stat.value }}</span>
+          <span class="cx-hero__stat-label">{{ stat.label }}</span>
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="cx-hero__scroll" aria-hidden="true">
+      <span class="cx-hero__scroll-pill"><span class="cx-hero__scroll-dot"></span></span>
     </div>
   </section>
 
-  <!-- Who We Are -->
-  <section class="py-20 px-6 theme-transition" role="region" [attr.aria-labelledby]="'who-we-are-heading'">
-    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-      <img
-        [ngSrc]="whoWeAreContent.image"
-        width="260"
-        height="239"
-        class="w-full max-w-sm"
-        [alt]="whoWeAreContent.title"
-        [appAnimateOnScroll]="'slideInLeft'"
-        priority
-      />
+  <!-- ================= WHO WE ARE ================= -->
+  <section class="py-24 px-6" role="region" [attr.aria-labelledby]="'who-we-are-heading'">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center">
+      <div class="cx-figure" [appAnimateOnScroll]="'slideInLeft'">
+        <span class="cx-orb cx-orb--gold cx-figure__orb" aria-hidden="true"></span>
+        <div class="cx-figure__frame">
+          <img
+            [ngSrc]="whoWeAreContent.image"
+            width="260"
+            height="239"
+            class="cx-figure__img"
+            [alt]="whoWeAreContent.title"
+            priority
+          />
+        </div>
+      </div>
       <div [appAnimateOnScroll]="'slideInRight'">
-        <h2 id="who-we-are-heading" class="text-4xl font-bold mb-4 text-on-background theme-transition">
+        <span class="cx-eyebrow"><mat-icon>spa</mat-icon></span>
+        <h2 id="who-we-are-heading" class="cx-h2 cx-gradient-text text-4xl sm:text-5xl mt-5 mb-5">
           {{ whoWeAreContent.title }}
         </h2>
-        <p class="text-lg leading-relaxed text-on-surface theme-transition">
+        <hr class="cx-divider w-28 !mx-0 mb-6" />
+        <p class="cx-lead text-lg leading-relaxed text-on-surface">
           {{ whoWeAreContent.description }}
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Leadership Legacy -->
-  <section
-    class="py-16 px-6 bg-surface-container-low dark:bg-surface-container theme-transition"
-    role="region"
-    [attr.aria-labelledby]="'leadership-heading'"
-  >
+  <!-- ================= LEADERSHIP LEGACY ================= -->
+  <section class="py-20 px-6" role="region" [attr.aria-labelledby]="'leadership-heading'">
     <div class="max-w-6xl mx-auto">
-      <h3
-        id="leadership-heading"
-        class="text-3xl font-bold text-center mb-8 text-on-surface theme-transition"
-        [appAnimateOnScroll]="'fadeIn'"
-        i18n="@@Leadership Legacy Title"
-      >
-        Leadership Legacy
-      </h3>
+      <div class="cx-section-head" [appAnimateOnScroll]="'fadeIn'">
+        <span class="cx-eyebrow"><mat-icon>workspace_premium</mat-icon></span>
+        <h3
+          id="leadership-heading"
+          class="cx-h2 cx-gradient-text text-3xl sm:text-4xl mt-4"
+          i18n="@@Leadership Legacy Title"
+        >
+          Leadership Legacy
+        </h3>
+        <hr class="cx-divider w-32 mt-4" />
+      </div>
 
       <div class="leadership-grid" role="list">
         @for (director of directors; track director.tenure; let i = $index) {
         <div
-          class="leader-card"
+          class="leader-card cx-shimmer"
           role="listitem"
           [appAnimateOnScroll]="'fadeIn'"
           [style.animation-delay]="i * 100 + 'ms'"
         >
+          <span class="leader-icon" aria-hidden="true"><mat-icon>person</mat-icon></span>
           <span class="leader-tenure">{{ director.tenure }}</span>
           <span class="leader-name">{{ director.name }}</span>
         </div>
@@ -95,27 +133,26 @@
     </div>
   </section>
 
-  <!-- Our History -->
-  <section
-    class="py-20 px-6 bg-surface-container-low dark:bg-surface-container theme-transition"
-    role="region"
-    [attr.aria-labelledby]="'history-heading'"
-  >
+  <!-- ================= OUR JOURNEY ================= -->
+  <section class="py-24 px-6" role="region" [attr.aria-labelledby]="'history-heading'">
     <div class="max-w-6xl mx-auto">
-      <h2
-        id="history-heading"
-        class="text-4xl font-bold text-center mb-16 text-on-surface theme-transition"
-        [appAnimateOnScroll]="'fadeIn'"
-        i18n="@@Our Journey Title"
-      >
-        Our Journey
-      </h2>
+      <div class="cx-section-head mb-12" [appAnimateOnScroll]="'fadeIn'">
+        <span class="cx-eyebrow"><mat-icon>history_edu</mat-icon></span>
+        <h2
+          id="history-heading"
+          class="cx-h2 cx-gradient-text text-4xl sm:text-5xl mt-4"
+          i18n="@@Our Journey Title"
+        >
+          Our Journey
+        </h2>
+        <hr class="cx-divider w-32 mt-4" />
+      </div>
 
       <div class="timeline-container">
         @for (event of historyContent; track $index; let i = $index) {
         <div class="timeline-item" [appAnimateOnScroll]="getTimelineAnimation(i)">
           <div class="timeline-dot"></div>
-          <div class="timeline-content" [class.left]="i % 2 === 0" [class.right]="i % 2 !== 0">
+          <div class="timeline-content glass-card" [class.left]="i % 2 === 0" [class.right]="i % 2 !== 0">
             <span class="timeline-year">{{ event.year }}</span>
             @if (event.title) {
             <h3 class="text-xl font-bold mb-2 text-on-surface">{{ event.title }}</h3>
@@ -125,44 +162,47 @@
         </div>
         }
       </div>
-      
-      <p class="mt-6 text-sm text-right text-on-surface-variant italic">
+
+      <p class="mt-8 text-sm text-right text-on-surface-variant italic">
         Courtesy: Rev. Mathew Jillow Ninan, Former Director CSI Counselling Centre, Kottayam
       </p>
     </div>
   </section>
 
-  <!-- Services -->
-  <section
-    class="py-20 px-6 bg-surface-container-low dark:bg-surface-container theme-transition"
-    role="region"
-    [attr.aria-labelledby]="'services-heading'"
-  >
+  <!-- ================= SERVICES ================= -->
+  <section class="py-24 px-6" role="region" [attr.aria-labelledby]="'services-heading'">
     <div class="max-w-6xl mx-auto">
-      <h2 id="services-heading" class="text-4xl font-bold text-center mb-16 text-on-surface theme-transition">
-        {{ sectionTitles.services }}
-      </h2>
+      <div class="cx-section-head mb-14" [appAnimateOnScroll]="'fadeIn'">
+        <span class="cx-eyebrow"><mat-icon>volunteer_activism</mat-icon></span>
+        <h2 id="services-heading" class="cx-h2 cx-gradient-text text-4xl sm:text-5xl mt-4">
+          {{ sectionTitles.services }}
+        </h2>
+        <hr class="cx-divider w-32 mt-4" />
+      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" role="list" aria-label="Services offered">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" role="list" aria-label="Services offered">
         @for (service of services; track trackByServiceTitle($index, service)) {
         <mat-card
-          class="elegant-card flex flex-col h-full shadow-md rounded-xl overflow-hidden theme-transition"
+          class="elegant-card cx-service-card flex flex-col h-full"
           [appAnimateOnScroll]="'slideInUp'"
           role="listitem"
           tabindex="0"
         >
-          <img
-            mat-card-image
-            [ngSrc]="service.image"
-            width="600"
-            height="360"
-            [alt]="service.title + ' service illustration'"
-            class="h-30 w-full object-cover"
-            loading="lazy"
-          />
+          <div class="cx-service-card__media">
+            <img
+              mat-card-image
+              [ngSrc]="service.image"
+              width="600"
+              height="360"
+              [alt]="service.title + ' service illustration'"
+              class="cx-service-card__img"
+              loading="lazy"
+            />
+            <span class="cx-service-card__sheen" aria-hidden="true"></span>
+          </div>
 
-          <mat-card-header class="pb-0">
-            <mat-card-title class="text-xl font-semibold !font-bold">
+          <mat-card-header class="pb-0 pt-5">
+            <mat-card-title class="text-xl !font-bold">
               {{ service.title }}
             </mat-card-title>
             @if (service.subtitle) {
@@ -180,35 +220,42 @@
       </div>
     </div>
   </section>
-  <!-- Why Choose Us -->
-  <section class="py-15 px-6" role="region" [attr.aria-labelledby]="'why-choose-us-heading'">
+
+  <!-- ================= WHY CHOOSE US ================= -->
+  <section class="py-24 px-6" role="region" [attr.aria-labelledby]="'why-choose-us-heading'">
     <div class="max-w-6xl mx-auto">
-      <h2 id="why-choose-us-heading" class="text-4xl font-bold text-center mb-16">
-        {{ sectionTitles.whyChooseUs }}
-      </h2>
+      <div class="cx-section-head mb-14" [appAnimateOnScroll]="'fadeIn'">
+        <span class="cx-eyebrow"><mat-icon>auto_awesome</mat-icon></span>
+        <h2 id="why-choose-us-heading" class="cx-h2 cx-gradient-text text-4xl sm:text-5xl mt-4">
+          {{ sectionTitles.whyChooseUs }}
+        </h2>
+        <hr class="cx-divider w-32 mt-4" />
+      </div>
 
       <div
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         role="list"
         aria-label="Reasons to choose our services"
       >
-        @for (item of reasons; track trackByReasonTitle($index, item)) {
+        @for (item of reasons; track trackByReasonTitle($index, item); let i = $index) {
         <mat-card
-          class="elegant-card flex flex-col h-full p-4 shadow-md rounded-xl theme-transition"
+          class="elegant-card cx-reason-card flex flex-col h-full"
           [appAnimateOnScroll]="'fadeIn'"
+          [style.animation-delay]="i * 90 + 'ms'"
           role="listitem"
           tabindex="0"
         >
-          <mat-card-header class="pb-2">
-            <mat-card-title class="text-xl !font-semibold">
+          <span class="cx-icon-chip" aria-hidden="true">{{ i + 1 }}</span>
+          <mat-card-header class="pb-2 pt-4">
+            <mat-card-title class="text-xl !font-bold">
               @if (item.link) {
               <a
                 [routerLink]="item.link"
-                routerLinkActive="underline underline-offset-4"
-                class="hover:text-on-surface-variant transition-colors duration-200 cursor-pointer"
+                class="cx-reason-link"
                 [attr.aria-label]="'Learn more about ' + item.title"
               >
                 {{ item.title }}
+                <mat-icon aria-hidden="true">arrow_outward</mat-icon>
               </a>
               } @else {
               {{ item.title }}

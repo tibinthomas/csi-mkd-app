@@ -1,28 +1,24 @@
-<section class="py-30 px-6 bg-surface dark:bg-surface theme-transition">
-  <div class="max-w-6xl mx-auto text-center">
-    <h2 class="mb-6 text-2xl font-extrabold tracking-tight font-bold" i18n>Meet Our Team</h2>
-    <p class="mb-12 max-w-2xl mx-auto text-on-surface text-lg leading-relaxed theme-transition" i18n>
-      With a panel of certified counsellors, psychologists, and clergy dedicated to your holistic healing.
-    </p>
+<section class="py-30 px-6">
+  <div class="max-w-6xl mx-auto">
+    <!-- Heading -->
+    <div class="cx-page-head text-center">
+      <span class="cx-eyebrow"><i class="bi bi-people-fill"></i><span i18n>Our People</span></span>
+      <h2 class="cx-h2 cx-gradient-text text-3xl sm:text-4xl mt-4 mb-3" i18n>Meet Our Team</h2>
+      <p class="max-w-2xl mx-auto text-on-surface-variant text-base leading-relaxed" i18n>
+        With a panel of certified counsellors, psychologists, and clergy dedicated to your holistic healing.
+      </p>
+      <hr class="cx-divider w-28 mx-auto mt-5" />
+    </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 mt-12">
       @for (member of teamMembers(); track member) {
-      <mat-card
-        class="elegant-card shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 animate-fade-slide theme-transition"
-        appAnimateOnScroll
-      >
-        <mat-card-header class="flex flex-col items-center text-center px-6 pt-6">
-          <!-- <mat-card-title class="">{{ member.name }}</mat-card-title> -->
-          <!-- <mat-card-subtitle class="text-gray-600 pb-5">{{ member.qualification }}</mat-card-subtitle> -->
-          <mat-card-subtitle class="text-on-surface-variant !font-bold">{{ member.name }}</mat-card-subtitle>
-
-          <mat-card-content>
-            <p class="text-on-surface-variant text-xs">
-              {{ member.qualification }}
-            </p>
-          </mat-card-content>
-        </mat-card-header>
-        <!-- Optional: Add member photo or additional details here -->
+      <mat-card class="elegant-card cx-team-card" appAnimateOnScroll>
+        <span class="cx-team-avatar" aria-hidden="true">
+          <i class="bi bi-person-fill"></i>
+        </span>
+        <h3 class="cx-team-name">{{ member.name }}</h3>
+        <p class="cx-team-qual">{{ member.qualification }}</p>
+        <span class="cx-team-glow" aria-hidden="true"></span>
       </mat-card>
       }
     </div>

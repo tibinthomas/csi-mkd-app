@@ -1,14 +1,16 @@
-/* Converted to Tailwind CSS */
+/* ============================================================
+   PUBLIC LAYOUT — Glass header, mobile menu & footer
+   ============================================================ */
 
 /* Header Icon Size Adjustments */
 .header-icon-small {
   ::ng-deep .mat-mdc-button,
   ::ng-deep .mat-mdc-icon-button {
-    min-width: 32px !important;
-    width: 32px !important;
-    height: 32px !important;
-    padding: 6px !important;
-    
+    min-width: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 7px !important;
+
     .mat-icon {
       font-size: 18px !important;
       width: 18px !important;
@@ -17,72 +19,317 @@
   }
 }
 
-/* Google Maps iframe dark mode treatment */
-.map-embed iframe {
-  transition: filter 0.3s ease; /* smooth theme switch */
-}
+/* ---------- Frosted-glass header ---------- */
+mat-toolbar.cx-header {
+  min-height: 64px;
+  background: var(--glass-bg-strong) !important;
+  color: var(--md-sys-color-on-surface);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px -18px rgba(110, 39, 70, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
-/* Apply a tasteful invert + hue rotate when the app is in dark mode */
-:host-context([data-theme='dark']) .map-embed iframe {
-  filter: invert(90%) hue-rotate(180deg) saturate(0.85) brightness(0.9)
-    contrast(0.9);
-}
-
-/* Mobile Menu Overlay Animations */
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
+  /* gradient hairline */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cx-rose), var(--cx-gold), transparent);
+    opacity: 0.85;
+    pointer-events: none;
   }
-  to {
-    transform: translateX(0);
-  }
 }
 
-@keyframes fadeIn {
-  from {
+.cx-brand {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  &:hover { transform: scale(1.015); }
+}
+
+.cx-logo-ring {
+  position: relative;
+  padding: 4px;
+  border-radius: 50%;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(216, 166, 87, 0.45), transparent 70%);
     opacity: 0;
+    transition: opacity 0.4s ease;
+    /* Decorative halo overlays the logo img; must not swallow its clicks
+       (the admin double-tap listener lives on the img) */
+    pointer-events: none;
   }
-  to {
-    opacity: 1;
+  &:hover {
+    transform: scale(1.08) rotate(-3deg);
+    &::before { opacity: 1; }
   }
 }
 
-/* Mobile menu container animation */
+.cx-brand-title {
+  color: var(--md-sys-color-on-surface);
+}
+
+.cx-brand-sub {
+  color: var(--cx-rose-deep);
+  font-weight: 700;
+}
+:host-context([data-theme='dark']) .cx-brand-sub { color: var(--cx-gold-soft); }
+
+/* ---------- Desktop nav links ---------- */
+.cx-nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--md-sys-color-on-surface-variant);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--cx-grad-primary);
+    transform: translateX(-50%);
+    transition: width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover {
+    color: var(--cx-rose-deep);
+    background: var(--glass-bg-faint);
+    transform: translateY(-2px);
+    &::after { width: 46%; }
+  }
+}
+:host-context([data-theme='dark']) .cx-nav-link:hover { color: var(--cx-gold-soft); }
+
+.cx-nav-link--active {
+  color: #fff !important;
+  background: var(--cx-grad-primary) !important;
+  box-shadow: 0 8px 20px -8px rgba(168, 56, 90, 0.6);
+  &::after { width: 0 !important; }
+}
+
+.cx-action-cluster {
+  padding-left: 0.35rem;
+  margin-left: 0.15rem;
+  border-left: 1px solid var(--glass-border-soft);
+}
+
+/* ---------- Mobile hamburger ---------- */
+.cx-burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  color: var(--cx-rose-deep);
+  background: var(--glass-bg-faint);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: transform 0.25s ease, background-color 0.25s ease;
+
+  &:active { transform: scale(0.92); }
+  &:hover { background: var(--glass-bg); }
+}
+:host-context([data-theme='dark']) .cx-burger { color: var(--cx-gold-soft); }
+
+/* ---------- Mobile overlay menu ---------- */
 .mobile-menu-overlay {
-  animation: fadeIn 0.3s ease-out;
-  background-color: rgb(255 241 242) !important; /* rose-50 for light theme */
-  
-  /* Light theme text colors */
-  h2, span, .mat-icon {
-    color: rgb(17 24 39) !important; /* gray-900 for text */
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  backdrop-filter: blur(28px) saturate(170%);
+  animation: cx-menu-fade 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes cx-menu-fade {
+  from { opacity: 0; transform: scale(1.04); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.cx-mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1rem;
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    background: var(--glass-bg-faint);
+    transform: translateX(6px);
+    border-color: var(--glass-border-soft);
   }
 }
 
-/* Dark theme override */
-:host-context([data-theme='dark']) .mobile-menu-overlay {
-  background-color: rgb(17 24 39) !important; /* gray-900 for dark theme */
-  
-  /* Dark theme text colors */
-  h2, span, .mat-icon {
-    color: white !important;
+.cx-mobile-link--active {
+  background: var(--cx-grad-soft);
+  border-color: rgba(216, 166, 87, 0.55) !important;
+  color: var(--cx-wine);
+}
+:host-context([data-theme='dark']) .cx-mobile-link--active {
+  background: linear-gradient(135deg, rgba(168, 56, 90, 0.4), rgba(120, 84, 40, 0.32));
+  color: #fff;
+}
+
+.cx-mobile-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  color: #fff;
+  background: var(--cx-grad-primary);
+  box-shadow: 0 6px 16px -8px rgba(168, 56, 90, 0.7);
+}
+
+.cx-mobile-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  background: var(--glass-bg-faint);
+  border: 1px solid var(--glass-border-soft);
+}
+
+/* ---------- Footer ---------- */
+.cx-footer {
+  position: relative;
+  overflow: hidden;
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  backdrop-filter: blur(20px) saturate(150%);
+  border-top: 1px solid var(--glass-border);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cx-rose-deep), var(--cx-rose), var(--cx-gold), var(--cx-rose));
+    background-size: 200% auto;
+    animation: cx-gradient-shift 8s ease infinite;
   }
 }
 
-/* Active navigation item border fixes */
-.mobile-menu-overlay {
-  /* Light theme - force dark border for active items */
-  a[routerlinkactive] {
-    border-color: rgb(17 24 39) !important; /* black border in light theme */
-  }
+.cx-footer-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 3.5rem;
 }
 
-:host-context([data-theme='dark']) .mobile-menu-overlay {
-  /* Dark theme - keep white border for active items */
-  a[routerlinkactive] {
-    border-color: white !important; /* white border in dark theme */
-  }
+.cx-footer-orb-a {
+  width: 320px;
+  height: 320px;
+  top: -120px;
+  left: -90px;
+}
+.cx-footer-orb-b {
+  width: 280px;
+  height: 280px;
+  bottom: -140px;
+  right: -80px;
 }
 
-.mobile-menu-panel {
-  animation: slideInRight 0.3s ease-out;
+.cx-footer-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--cx-rose-deep);
+
+  mat-icon {
+    font-size: 1.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+@media (min-width: 768px) {
+  .cx-footer-heading { justify-content: flex-start; }
+}
+:host-context([data-theme='dark']) .cx-footer-heading { color: var(--cx-gold-soft); }
+
+.cx-footer-link {
+  position: relative;
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+  transition: color 0.25s ease;
+  &:hover { color: var(--cx-rose-deep); }
+}
+:host-context([data-theme='dark']) .cx-footer-link:hover { color: var(--cx-gold-soft); }
+
+.cx-footer-scripture {
+  position: relative;
+  padding: 0.5rem 0.25rem;
+}
+
+.cx-scripture-mark {
+  font-size: 2.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--cx-gold);
+  opacity: 0.55;
+  margin-bottom: -0.5rem;
+}
+
+.cx-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  color: var(--cx-rose-deep);
+  background: var(--glass-bg-faint);
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.08);
+    color: #fff;
+    background: var(--cx-grad-primary);
+    box-shadow: 0 10px 22px -8px rgba(168, 56, 90, 0.65);
+  }
+}
+:host-context([data-theme='dark']) .cx-social { color: var(--cx-gold-soft); }
+
+/* Google Maps iframe theme treatment */
+.map-embed iframe {
+  display: block;
+  transition: filter 0.3s ease;
+}
+:host-context([data-theme='dark']) .map-embed iframe {
+  filter: invert(90%) hue-rotate(180deg) saturate(0.85) brightness(0.9) contrast(0.9);
 }

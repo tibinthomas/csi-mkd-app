@@ -2,6 +2,7 @@
 @use './theme-config.scss' as *;
 @use './app/core/theme/theme-tokens.scss' as *;
 @use './app/core/theme/component-theme-overrides.scss' as *;
+@use './app/core/theme/glass-design-system.scss' as *;
 
 @tailwind base;
 @tailwind components;
@@ -185,19 +186,37 @@ html {
 }
 
 .animate-fadeIn {
-  animation: fadeIn 1s ease forwards;
+  animation: fadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-slideInUp {
-  animation: slideInUp 1s ease forwards;
+  animation: slideInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-slideInLeft {
-  animation: slideInLeft 1s ease forwards;
+  animation: slideInLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .animate-slideInRight {
-  animation: slideInRight 1s ease forwards;
+  animation: slideInRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Performance tiers (data-motion set by MotionService) */
+[data-motion='lite'] .animate-fadeIn,
+[data-motion='lite'] .animate-slideInUp,
+[data-motion='lite'] .animate-slideInLeft,
+[data-motion='lite'] .animate-slideInRight {
+  animation-duration: 0.45s;
+}
+
+[data-motion='none'] .animate-fadeIn,
+[data-motion='none'] .animate-slideInUp,
+[data-motion='none'] .animate-slideInLeft,
+[data-motion='none'] .animate-slideInRight,
+[data-motion='none'] .animate-fade-in,
+[data-motion='none'] .animate-zoom-in,
+[data-motion='none'] .animate-fade-slide {
+  animation-duration: 0.01s;
 }
 
 .animate-parallax {
@@ -219,34 +238,40 @@ html {
 
 @keyframes slideInUp {
   from {
-    transform: translateY(100%);
+    transform: translateY(34px);
     opacity: 0;
+    filter: blur(4px);
   }
   to {
     transform: translateY(0);
     opacity: 1;
+    filter: blur(0);
   }
 }
 
 @keyframes slideInLeft {
   from {
-    transform: translateX(-100%);
+    transform: translateX(-40px);
     opacity: 0;
+    filter: blur(4px);
   }
   to {
     transform: translateX(0);
     opacity: 1;
+    filter: blur(0);
   }
 }
 
 @keyframes slideInRight {
   from {
-    transform: translateX(100%);
+    transform: translateX(40px);
     opacity: 0;
+    filter: blur(4px);
   }
   to {
     transform: translateX(0);
     opacity: 1;
+    filter: blur(0);
   }
 }
 

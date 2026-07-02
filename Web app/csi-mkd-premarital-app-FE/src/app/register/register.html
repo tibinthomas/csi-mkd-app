@@ -1,107 +1,132 @@
-<main class="min-h-screen py-30 px-6 theme-transition">
-  <div class="max-w-4xl mx-auto text-center">
-    <h1 class="mb-5 text-2xl font-bold tracking-tight text-on-background theme-transition">
-      <span i18n>Choose a Registration Type </span>
-    </h1>
-    <p class="text-on-surface-variant max-w-xl mx-auto mb-10 theme-transition">
-      <span i18n> Select the type of counselling you'd like to register for.</span>
-    </p>
+<main class="min-h-screen py-30 px-6">
+  <div class="max-w-5xl mx-auto">
+    <!-- Page heading -->
+    <div class="cx-page-head text-center">
+      <span class="cx-eyebrow"><i class="bi bi-journal-check"></i><span i18n>Registration</span></span>
+      <h1 class="cx-h2 cx-gradient-text text-3xl sm:text-4xl mt-4 mb-3">
+        <span i18n>Choose a Registration Type</span>
+      </h1>
+      <p class="text-on-surface-variant max-w-xl mx-auto">
+        <span i18n>Select the type of counselling you'd like to register for.</span>
+      </p>
+      <hr class="cx-divider w-28 mx-auto mt-5" />
+    </div>
 
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-10 m-10 sm:mx-40 md:m-5 md:pt-10">
+    <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 mt-12">
       <!-- Premarital Counselling Card -->
       <mat-card
-        class="elegant-card elegant-hover-effect cursor-pointer pb-5 transition-all duration-300 hover:shadow-2xl hover:scale-[1.1] rounded-2xl flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary animate-fade-slide theme-transition"
+        class="elegant-card cx-choice-card"
         routerLink="/register/premarital-register"
         appAnimateOnScroll
+        tabindex="0"
       >
-        <img
-          mat-card-image
-          ngSrc="assets/premarital.avif"
-          width="600"
-          height="400"
-          alt="Premarital Counselling"
-          class="w-full h-44 object-cover rounded-t-2xl"
-          loading="lazy"
-          decoding="async"
-        />
+        <div class="cx-choice-card__media">
+          <img
+            mat-card-image
+            ngSrc="assets/premarital.avif"
+            width="600"
+            height="400"
+            alt="Premarital Counselling"
+            class="cx-choice-card__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="cx-choice-card__sheen" aria-hidden="true"></span>
+        </div>
         <mat-card-header class="pt-6 px-6 text-center flex flex-col items-center">
           <mat-card-title class="!text-xl !font-bold" i18n>Premarital Counselling</mat-card-title>
-          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2 theme-transition" i18n>
+          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2" i18n>
             A 3-day program to prepare couples for a committed and faithful marriage.
           </mat-card-subtitle>
         </mat-card-header>
+        <span class="cx-choice-card__go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
       </mat-card>
 
       <!-- Outside Kerala & Abroad Premarital Counselling Card -->
       <mat-card
-        class="elegant-card elegant-hover-effect cursor-pointer pb-5 transition-all duration-300 hover:shadow-2xl hover:scale-[1.1] rounded-2xl flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary animate-fade-slide theme-transition"
+        class="elegant-card cx-choice-card"
         routerLink="/register/abroad-premarital-register"
         appAnimateOnScroll
+        tabindex="0"
       >
-        <img
-          mat-card-image
-          ngSrc="assets/abroad-counselling.jpg"
-          width="600"
-          height="600"
-          alt="Outside Kerala & Abroad Premarital Counselling"
-          class="w-full h-44 object-cover rounded-t-2xl"
-          loading="lazy"
-          decoding="async"
-        />
+        <div class="cx-choice-card__media">
+          <img
+            mat-card-image
+            ngSrc="assets/abroad-counselling.jpg"
+            width="600"
+            height="600"
+            alt="Outside Kerala & Abroad Premarital Counselling"
+            class="cx-choice-card__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="cx-choice-card__sheen" aria-hidden="true"></span>
+        </div>
         <mat-card-header class="pt-6 px-6 text-center flex flex-col items-center">
           <mat-card-title class="!text-xl !font-bold" i18n>Outside Kerala & Abroad Premarital Counselling</mat-card-title>
-          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2 theme-transition" i18n>
+          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2" i18n>
             Offline Premarital Course registration specifically for candidates residing outside Kerala and abroad. The session is hosted by the parish on behalf of the Counselling Centre, Kottayam.
           </mat-card-subtitle>
         </mat-card-header>
+        <span class="cx-choice-card__go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
       </mat-card>
 
       <!-- General Counselling Card -->
       <mat-card
-        class="elegant-card elegant-hover-effect cursor-pointer pb-5 transition-all duration-300 hover:shadow-2xl hover:scale-[1.1] rounded-2xl flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary animate-fade-slide theme-transition"
+        class="elegant-card cx-choice-card"
         routerLink="/register/general-register"
         appAnimateOnScroll
+        tabindex="0"
       >
-        <img
-          mat-card-image
-          ngSrc="assets/general.jpg"
-          width="600"
-          height="400"
-          alt="General Counselling"
-          class="w-full h-44 object-cover rounded-t-2xl"
-          loading="lazy"
-          decoding="async"
-        />
+        <div class="cx-choice-card__media">
+          <img
+            mat-card-image
+            ngSrc="assets/general.jpg"
+            width="600"
+            height="400"
+            alt="General Counselling"
+            class="cx-choice-card__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="cx-choice-card__sheen" aria-hidden="true"></span>
+        </div>
         <mat-card-header class="pt-6 px-6 text-center flex flex-col items-center">
           <mat-card-title class="!text-xl !font-bold" i18n>General Counselling</mat-card-title>
-          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2 theme-transition" i18n>
+          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2" i18n>
             Counselling support for individuals, families, and students.
           </mat-card-subtitle>
         </mat-card-header>
+        <span class="cx-choice-card__go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
       </mat-card>
 
       <!-- Pre-Confirmational Counselling Card -->
       <mat-card
-        class="elegant-card elegant-hover-effect cursor-pointer pb-5 transition-all duration-300 hover:shadow-2xl hover:scale-[1.1] rounded-2xl flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-rose-500 dark:focus:ring-primary animate-fade-slide theme-transition"
+        class="elegant-card cx-choice-card"
         routerLink="/register/pre-confirm-register"
         appAnimateOnScroll
+        tabindex="0"
       >
-        <img
-          mat-card-image
-          ngSrc="assets/confirm.avif"
-          width="600"
-          height="343"
-          alt="Pre-Confirmational Counselling"
-          class="w-full h-44 object-cover rounded-t-2xl"
-          loading="lazy"
-          decoding="async"
-        />
+        <div class="cx-choice-card__media">
+          <img
+            mat-card-image
+            ngSrc="assets/confirm.avif"
+            width="600"
+            height="343"
+            alt="Pre-Confirmational Counselling"
+            class="cx-choice-card__img"
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="cx-choice-card__sheen" aria-hidden="true"></span>
+        </div>
         <mat-card-header class="pt-6 px-6 text-center flex flex-col items-center">
           <mat-card-title class="!text-xl !font-bold" i18n>Pre-Confirmational Counselling</mat-card-title>
-          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2 theme-transition" i18n>
+          <mat-card-subtitle class="!text-on-surface-variant !text-sm mt-2" i18n>
             One-day counselling program for youth preparing for confirmation.
           </mat-card-subtitle>
         </mat-card-header>
+        <span class="cx-choice-card__go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
       </mat-card>
     </div>
   </div>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CSI Counselling Centre — Redesign Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" />
+<style>
+:root{
+  --cx-blush:#f6d4d9;--cx-rose-soft:#e7a9b4;--cx-rose:#c25d7a;--cx-rose-deep:#a8385a;
+  --cx-plum:#6e2746;--cx-wine:#4a1730;--cx-gold:#d8a657;--cx-gold-soft:#eccf9b;
+  --bg:#fff8f6;--on-bg:#2a1d22;--on-surf:#3a2a30;--on-var:#7a6168;
+  --cx-grad-primary:linear-gradient(135deg,#a8385a 0%,#c25d7a 52%,#d8a657 116%);
+  --cx-grad-heading:linear-gradient(100deg,#a8385a 0%,#c25d7a 45%,#6e2746 100%);
+  --cx-grad-hero-text:linear-gradient(102deg,#ffffff 0%,#f8dde0 42%,#f0d49e 96%);
+  --cx-grad-hero-overlay:linear-gradient(135deg,rgba(74,23,48,.86) 0%,rgba(110,39,70,.62) 46%,rgba(168,56,90,.5) 100%);
+  --glass-bg:rgba(255,255,255,.55);--glass-bg-strong:rgba(255,255,255,.74);
+  --glass-bg-faint:rgba(255,255,255,.38);--glass-border:rgba(255,255,255,.7);
+  --glass-border-soft:rgba(168,56,90,.16);
+  --glass-shadow:0 10px 34px -12px rgba(110,39,70,.32),0 4px 14px -8px rgba(74,23,48,.18),inset 0 1px 0 rgba(255,255,255,.6);
+  --glass-shadow-lg:0 26px 60px -22px rgba(110,39,70,.44),0 10px 24px -14px rgba(74,23,48,.28),inset 0 1px 0 rgba(255,255,255,.65);
+  --cx-mesh:radial-gradient(38vw 38vw at 12% 8%,rgba(246,212,217,.62),transparent 62%),
+    radial-gradient(34vw 34vw at 88% 14%,rgba(236,207,155,.42),transparent 60%),
+    radial-gradient(40vw 40vw at 78% 88%,rgba(231,169,180,.4),transparent 64%),
+    radial-gradient(36vw 36vw at 16% 92%,rgba(216,166,87,.22),transparent 62%);
+}
+[data-theme="dark"]{
+  --bg:#121013;--on-bg:#ede4e7;--on-surf:#ddd2d6;--on-var:#b09aa2;
+  --cx-grad-heading:linear-gradient(100deg,#f3b8c6 0%,#e9aebc 42%,#e7c993 100%);
+  --glass-bg:rgba(42,30,35,.56);--glass-bg-strong:rgba(48,35,40,.82);
+  --glass-bg-faint:rgba(40,28,33,.4);--glass-border:rgba(255,255,255,.12);
+  --glass-border-soft:rgba(255,255,255,.08);
+  --glass-shadow:0 12px 38px -12px rgba(0,0,0,.66),0 4px 14px -8px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.08);
+  --glass-shadow-lg:0 30px 64px -22px rgba(0,0,0,.78),0 10px 24px -14px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);
+  --cx-mesh:radial-gradient(40vw 40vw at 12% 8%,rgba(110,39,70,.5),transparent 62%),
+    radial-gradient(36vw 36vw at 88% 14%,rgba(120,84,40,.34),transparent 60%),
+    radial-gradient(42vw 42vw at 80% 90%,rgba(168,56,90,.36),transparent 64%),
+    radial-gradient(36vw 36vw at 14% 92%,rgba(74,23,48,.5),transparent 64%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'PT Serif','Inter',serif;background:var(--bg);color:var(--on-bg);overflow-x:hidden;transition:background .4s,color .4s}
+body::before{content:"";position:fixed;inset:-10%;z-index:-1;background:var(--cx-mesh);background-size:180% 180%;animation:aurora 34s ease-in-out infinite alternate;pointer-events:none}
+@keyframes aurora{0%{background-position:0 0}50%{background-position:100% 60%}100%{background-position:30% 100%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes floatB{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-28px) translateX(12px)}}
+@keyframes gshift{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}
+@keyframes glow{0%,100%{box-shadow:0 8px 26px -10px rgba(194,93,122,.5)}50%{box-shadow:0 12px 40px -8px rgba(216,166,87,.66)}}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);opacity:.45}50%{transform:translateX(-50%) translateY(9px);opacity:1}}
+@keyframes reveal{from{opacity:0;transform:translateY(40px) scale(.98);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
+.reveal{opacity:0}.reveal.in{animation:reveal .9s cubic-bezier(.22,1,.36,1) both}
+.orb{position:absolute;border-radius:50%;filter:blur(46px);pointer-events:none;z-index:0}
+.orb-rose{background:radial-gradient(circle,rgba(231,169,180,.95),transparent 70%)}
+.orb-gold{background:radial-gradient(circle,rgba(236,207,155,.9),transparent 70%)}
+.gtext{background:var(--cx-grad-heading);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gshift 9s ease infinite}
+.divider{height:2px;border:0;border-radius:2px;background:linear-gradient(90deg,transparent,var(--cx-rose),var(--cx-gold),transparent);opacity:.75;width:130px;margin:14px auto}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;font-family:Inter,sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cx-rose-deep);background:var(--glass-bg-faint);border:1px solid var(--glass-border-soft);backdrop-filter:blur(8px)}
+[data-theme="dark"] .eyebrow{color:var(--cx-gold-soft)}
+
+header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+  padding:12px 28px;background:var(--glass-bg-strong);backdrop-filter:blur(22px) saturate(180%);
+  border-bottom:1px solid var(--glass-border);box-shadow:0 10px 30px -18px rgba(110,39,70,.5)}
+header::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--cx-rose),var(--cx-gold),transparent)}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+.brand img{height:38px;width:auto}
+.brand-t{font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-family:Inter,sans-serif;color:var(--on-bg)}
+.brand-s{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--cx-rose-deep);font-family:Inter,sans-serif}
+[data-theme="dark"] .brand-s{color:var(--cx-gold-soft)}
+nav{display:flex;align-items:center;gap:6px}
+.nl{position:relative;padding:8px 15px;border-radius:999px;font-family:Inter,sans-serif;font-size:13px;font-weight:700;color:var(--on-var);text-decoration:none;transition:.3s}
+.nl:hover{color:var(--cx-rose-deep);background:var(--glass-bg-faint);transform:translateY(-2px)}
+.nl.active{color:#fff;background:var(--cx-grad-primary);box-shadow:0 8px 20px -8px rgba(168,56,90,.6)}
+.icbtn{width:38px;height:38px;border-radius:11px;border:1px solid var(--glass-border);background:var(--glass-bg-faint);
+  color:var(--cx-rose-deep);font-size:16px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:.25s}
+.icbtn:hover{background:var(--glass-bg);transform:translateY(-2px)}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:url('src/assets/who-we-are.png') center/cover}
+.hero-veil{position:absolute;inset:0;background:var(--cx-grad-hero-overlay),radial-gradient(120% 80% at 50% 120%,rgba(0,0,0,.55),transparent 70%);z-index:1}
+.hero .orb{z-index:1;mix-blend-mode:screen}
+.hp{position:relative;z-index:2;max-width:620px;margin:0 24px;padding:48px 44px 44px;text-align:center;color:#fff;border-radius:32px;
+  background:rgba(28,14,22,.34);backdrop-filter:blur(20px) saturate(155%);border:1px solid rgba(255,255,255,.2);
+  box-shadow:0 34px 72px -26px rgba(0,0,0,.72),inset 0 1px 0 rgba(255,255,255,.22);animation:reveal 1s cubic-bezier(.22,1,.36,1) both}
+.hp-mark{width:58px;height:58px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--cx-grad-primary);color:#fff;font-size:24px;margin-bottom:18px;animation:glow 4s ease-in-out infinite;
+  box-shadow:0 0 0 8px rgba(255,255,255,.08)}
+.hp h1{font-size:clamp(2.1rem,5vw,3.4rem);font-weight:800;line-height:1.1;letter-spacing:-.015em;margin-bottom:14px;
+  background:var(--cx-grad-hero-text);background-size:200% auto;-webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;animation:gshift 11s ease infinite}
+.hp p.sub{font-size:clamp(1.05rem,2.2vw,1.35rem);font-style:italic;font-weight:300;color:rgba(255,255,255,.92)}
+.hp p.loc{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;color:rgba(255,255,255,.78);font-family:Inter,sans-serif}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:26px;padding:13px 30px;border:0;border-radius:999px;
+  font-family:Inter,sans-serif;font-size:15px;font-weight:800;color:#fff;cursor:pointer;background-image:var(--cx-grad-primary);
+  animation:glow 4.5s ease-in-out infinite;transition:transform .3s}
+.cta:hover{transform:translateY(-3px)}
+.hscroll{position:absolute;bottom:24px;left:50%;z-index:2;color:rgba(255,255,255,.85);font-size:30px;animation:bob 1.8s ease-in-out infinite}
+
+section{padding:96px 28px;position:relative}
+.wrap{max-width:1120px;margin:0 auto}
+.shead{text-align:center;display:flex;flex-direction:column;align-items:center;margin-bottom:52px}
+.shead h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.01em;margin-top:14px}
+.glass{background:var(--glass-bg);backdrop-filter:blur(18px) saturate(155%);border:1px solid var(--glass-border);
+  box-shadow:var(--glass-shadow);border-radius:24px;transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s,border-color .4s}
+.glass:hover{transform:translateY(-10px);box-shadow:var(--glass-shadow-lg);border-color:rgba(216,166,87,.55)}
+
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.figframe{padding:24px;border-radius:32px;position:relative;z-index:1}
+.figframe img{width:100%;max-width:300px;display:block;margin:0 auto}
+.lead{font-size:18px;line-height:1.75;color:var(--on-surf)}
+
+.lgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.lcard{padding:24px;border-radius:22px}
+.lic{width:42px;height:42px;border-radius:13px;background:var(--cx-grad-primary);color:#fff;font-size:20px;
+  display:inline-flex;align-items:center;justify-content:center;margin-bottom:10px}
+.lten{font-family:Inter,sans-serif;font-size:11px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--cx-rose-deep)}
+[data-theme="dark"] .lten{color:var(--cx-gold-soft)}
+.lname{font-size:16px;font-weight:700;line-height:1.4;margin-top:5px;color:var(--on-bg)}
+
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.scard{overflow:hidden;display:flex;flex-direction:column}
+.smedia{position:relative;height:172px;overflow:hidden}
+.smedia img{width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.scard:hover .smedia img{transform:scale(1.1)}
+.ssheen{position:absolute;inset:0;background:linear-gradient(to top,rgba(74,23,48,.5),transparent 55%)}
+.scard .body{padding:20px}
+.scard h3{font-size:20px;font-weight:800;color:var(--on-bg)}
+.scard p{font-size:14px;line-height:1.6;margin-top:8px;color:var(--on-surf)}
+
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.rcard{padding:24px}
+.chip{width:52px;height:52px;border-radius:16px;background:var(--cx-grad-primary);color:#fff;font-family:Inter,sans-serif;
+  font-size:19px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;
+  box-shadow:0 12px 26px -10px rgba(168,56,90,.6);margin-bottom:14px}
+.rcard h3{font-size:19px;font-weight:800;color:var(--on-bg)}
+.rcard p{font-size:14px;line-height:1.6;margin-top:8px;color:var(--on-surf)}
+
+footer{position:relative;overflow:hidden;background:var(--glass-bg-strong);backdrop-filter:blur(20px) saturate(150%);
+  border-top:1px solid var(--glass-border);padding:56px 28px 28px;margin-top:40px}
+footer::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--cx-rose-deep),var(--cx-rose),var(--cx-gold),var(--cx-rose));background-size:200% auto;animation:gshift 8s ease infinite}
+.fgrid{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:36px}
+.fcol h4{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;color:var(--cx-rose-deep);margin-bottom:12px}
+[data-theme="dark"] .fcol h4{color:var(--cx-gold-soft)}
+.fcol li{list-style:none;font-size:14px;line-height:1.9;color:var(--on-surf)}
+.fcol.scr{position:relative}
+.fcol.scr i{font-size:34px;color:var(--cx-gold);opacity:.55}
+.fcol.scr blockquote{font-style:italic;font-size:16px;line-height:1.6;color:var(--on-surf)}
+.social{display:inline-flex;width:40px;height:40px;border-radius:50%;align-items:center;justify-content:center;margin:0 4px;
+  color:var(--cx-rose-deep);background:var(--glass-bg-faint);border:1px solid var(--glass-border);text-decoration:none;transition:.3s}
+.social:hover{transform:translateY(-4px) scale(1.08);color:#fff;background:var(--cx-grad-primary)}
+.fbot{max-width:1120px;margin:32px auto 0;padding-top:22px;border-top:1px solid var(--glass-border-soft);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:Inter,sans-serif;font-size:12px;color:var(--on-var)}
+.banner{position:fixed;bottom:0;left:0;right:0;z-index:60;text-align:center;padding:8px;font-family:Inter,sans-serif;
+  font-size:12px;color:#fff;background:var(--cx-grad-primary);letter-spacing:.03em}
+@media(max-width:780px){.wgrid,.sgrid,.rgrid,.fgrid{grid-template-columns:1fr}nav .nl{display:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <img src="src/assets/csi-logo.avif" alt="CSI logo" />
+    <div>
+      <div class="brand-t">CSI Counselling Centre</div>
+      <div class="brand-s">Madhya Kerala Diocese</div>
+    </div>
+    <img src="src/assets/csi-mkd-logo.avif" alt="CSI MKD logo" />
+  </div>
+  <nav>
+    <a class="nl active" href="#">About Us</a>
+    <a class="nl" href="#">Our Team</a>
+    <a class="nl" href="#">Register</a>
+    <a class="nl" href="#">Feedback</a>
+    <a class="nl" href="#">Sessions</a>
+    <button class="icbtn" id="themeBtn" aria-label="Toggle theme"><i class="bi bi-moon-stars"></i></button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-veil"></div>
+  <span class="orb orb-rose" style="width:360px;height:360px;top:8%;left:-90px;animation:float 7s ease-in-out infinite"></span>
+  <span class="orb orb-gold" style="width:300px;height:300px;bottom:6%;right:-70px;animation:floatB 11s ease-in-out infinite"></span>
+  <div class="hp">
+    <span class="hp-mark"><i class="bi bi-heart-fill"></i></span>
+    <h1>CSI Counselling Centre, Kottayam</h1>
+    <p class="sub">Healing Minds. Empowering Lives.</p>
+    <p class="loc"><i class="bi bi-geo-alt"></i> Diocese of Madhya Kerala · CMS Press Compound, Kottayam-1</p>
+    <div><button class="cta"><i class="bi bi-calendar-check"></i> Book Appointment</button></div>
+  </div>
+  <span class="hscroll"><i class="bi bi-chevron-down"></i></span>
+</section>
+
+<section>
+  <div class="wrap wgrid">
+    <div class="reveal" style="position:relative;display:flex;justify-content:center">
+      <span class="orb orb-gold" style="width:280px;height:280px;top:-30px;left:50%;transform:translateX(-50%)"></span>
+      <div class="figframe glass"><img src="src/assets/logo.avif" alt="CSI Counselling Centre" /></div>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow"><i class="bi bi-flower1"></i> Who We Are</span>
+      <h2 class="gtext" style="font-size:clamp(2rem,4vw,3rem);font-weight:800;margin:18px 0 6px">Who We Are</h2>
+      <hr class="divider" style="margin:0 0 22px" />
+      <p class="lead">With the blessing of Bishop Rt. Rev. Dr. Malayil Sabu Koshy Cherian, the CSI Counselling Centre offers holistic healing through compassionate, confidential, and evidence-based counselling — guided by a commitment to mental, emotional, and spiritual well-being.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow"><i class="bi bi-award"></i> Leadership</span>
+      <h2 class="gtext">Leadership Legacy</h2>
+      <hr class="divider" />
+    </div>
+    <div class="lgrid">
+      <div class="lcard glass reveal"><span class="lic"><i class="bi bi-person"></i></span><div class="lten">2017 Dec – 2021 Apr</div><div class="lname">Rev. Mathew Jillow Ninan, Director</div></div>
+      <div class="lcard glass reveal"><span class="lic"><i class="bi bi-person"></i></span><div class="lten">2021 May – 2025 Apr</div><div class="lname">Rev. Jacob Johnson, Director</div></div>
+      <div class="lcard glass reveal"><span class="lic"><i class="bi bi-person"></i></span><div class="lten">2025 May – Present</div><div class="lname">Rev. Robin Mathew John, Director</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow"><i class="bi bi-hand-thumbs-up"></i> What We Do</span>
+      <h2 class="gtext">Our Services</h2>
+      <hr class="divider" />
+    </div>
+    <div class="sgrid">
+      <div class="scard glass reveal"><div class="smedia"><img src="src/assets/individual.avif" alt="" /><span class="ssheen"></span></div><div class="body"><h3>Individual Counselling</h3><p>Personal &amp; online sessions for stress, anxiety, grief, and related challenges.</p></div></div>
+      <div class="scard glass reveal"><div class="smedia"><img src="src/assets/premarital.avif" alt="" /><span class="ssheen"></span></div><div class="body"><h3>Premarital Counselling</h3><p>A three-day residential program to prepare couples for a strong, faithful marriage.</p></div></div>
+      <div class="scard glass reveal"><div class="smedia"><img src="src/assets/child.avif" alt="" /><span class="ssheen"></span></div><div class="body"><h3>Child &amp; Adolescent Therapy</h3><p>Support for behavioural, academic, emotional development, and career guidance.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead reveal">
+      <span class="eyebrow"><i class="bi bi-stars"></i> Why Us</span>
+      <h2 class="gtext">Why Choose Us?</h2>
+      <hr class="divider" />
+    </div>
+    <div class="rgrid">
+      <div class="rcard glass reveal"><span class="chip">1</span><h3>Faith-Sensitive Care</h3><p>Confidential counselling with sensitivity to Christian values.</p></div>
+      <div class="rcard glass reveal"><span class="chip">2</span><h3>Experienced Team</h3><p>A panel of certified psychologists, pastoral counsellors, and clergy.</p></div>
+      <div class="rcard glass reveal"><span class="chip">3</span><h3>Holistic Healing</h3><p>Integration of professional therapy with spiritual care and support.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="fgrid">
+    <div class="fcol">
+      <h4><i class="bi bi-telephone"></i> Contact</h4>
+      <ul><li>+91-8129778832</li><li>+91-9946033731</li><li>csimkdmarry@gmail.com</li><li>Mon – Sat | 9:00 AM – 6:00 PM</li></ul>
+    </div>
+    <div class="fcol">
+      <h4><i class="bi bi-geo-alt"></i> Visit Us</h4>
+      <ul><li>CSI Counselling Centre</li><li>CMS Press Compound</li><li>Chalukunnu, Kottayam-1</li><li>Kerala, India – 686001</li></ul>
+    </div>
+    <div class="fcol scr">
+      <i class="bi bi-quote"></i>
+      <blockquote>"Come to me, all who are weary and burdened, and I will give you rest."</blockquote>
+      <p style="margin-top:8px;font-family:Inter,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-var)">– Matthew 11:28</p>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>© 2026 CSI Counselling Centre, Madhya Kerala Diocese. All rights reserved.</span>
+    <span><a class="social" href="#"><i class="bi bi-facebook"></i></a><a class="social" href="#"><i class="bi bi-instagram"></i></a></span>
+  </div>
+</footer>
+
+<div class="banner">Static design preview · the live Angular app keeps full bilingual (English / Malayalam) support, dark mode &amp; all functionality</div>
+
+<script>
+const btn=document.getElementById('themeBtn'),root=document.documentElement;
+btn.addEventListener('click',()=>{
+  const d=root.getAttribute('data-theme')==='dark';
+  root.setAttribute('data-theme',d?'light':'dark');
+  btn.innerHTML=d?'<i class="bi bi-moon-stars"></i>':'<i class="bi bi-sun"></i>';
+});
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.animationDelay=(i%3*0.1)+'s';io.observe(el);});
+</script>
+</body>
+</html>

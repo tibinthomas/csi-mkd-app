@@ -1,38 +1,52 @@
 import {
   Directive,
+  DestroyRef,
   ElementRef,
-  Renderer2,
-  AfterViewInit,
-  Input,
+  afterNextRender,
+  inject,
+  input,
 } from '@angular/core';
+import { MotionService } from '../../core/services/motion.service';
 
+/**
+ * Reveals an element with the given animation the first time it scrolls into
+ * view. Honours the device's motion tier: on 'none' the element is shown
+ * immediately without animating.
+ */
 @Directive({
   selector: '[appAnimateOnScroll]',
-  standalone: true,
 })
-export class AnimateOnScrollDirective implements AfterViewInit {
-  @Input('appAnimateOnScroll') animationType = 'fadeIn';
+export class AnimateOnScrollDirective {
+  readonly animationType = input<string>('fadeIn', {
+    alias: 'appAnimateOnScroll',
+  });
 
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+  private readonly el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly motion = inject(MotionService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  ngAfterViewInit(): void {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          this.renderer.addClass(
-            this.el.nativeElement,
-            `animate-${this.animationType}`
-          );
-          this.renderer.removeClass(this.el.nativeElement, 'opacity-0');
-          observer.disconnect();
-        }
-      },
-      {
-        threshold: 0.1,
+  constructor() {
+    afterNextRender(() => {
+      const element = this.el.nativeElement;
+
+      if (this.motion.tier() === 'none') {
+        return;
       }
-    );
 
-    this.renderer.addClass(this.el.nativeElement, 'opacity-0');
-    observer.observe(this.el.nativeElement);
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            element.classList.add(`animate-${this.animationType()}`);
+            element.classList.remove('opacity-0');
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      element.classList.add('opacity-0');
+      observer.observe(element);
+      this.destroyRef.onDestroy(() => observer.disconnect());
+    });
   }
 }

@@ -1,13 +1,15 @@
-<main class="min-h-screen py-30 px-6 theme-transition">
-  <div class="max-w-4xl mx-auto text-center">
+<main class="min-h-screen py-30 px-6">
+  <div class="max-w-4xl mx-auto">
     <!-- Email Verification Card -->
-    <mat-card class="max-w-md mx-auto rounded-2xl mb-10">
-      <mat-card-content class="text-center p-6">
-        <!-- Heading -->
-        <h1 class="text-xl font-bold mb-2" i18n>Verify Your Email</h1>
+    <mat-card class="glass-card cx-verify-card max-w-md mx-auto mb-12">
+      <mat-card-content class="text-center p-7">
+        <span class="cx-icon-chip cx-verify-icon" aria-hidden="true">
+          <i class="bi bi-envelope-heart"></i>
+        </span>
 
-        <!-- Subheading -->
-        <p class="text-on-surface-variant mb-6" i18n>
+        <h1 class="cx-h2 cx-gradient-text text-2xl mt-4 mb-2" i18n>Verify Your Email</h1>
+
+        <p class="text-on-surface-variant text-sm mb-6" i18n>
           Enter your registered email to access Feedback and Questionnaire Forms
         </p>
 
@@ -34,8 +36,8 @@
             }
           </mat-form-field>
           <div class="flex justify-center">
-            <button mat-flat-button type="submit" class="cursor-pointer">
-              <span i18n> Verify Email</span>
+            <button mat-flat-button color="primary" type="submit" class="cx-verify-btn cursor-pointer">
+              <span i18n>Verify Email</span>
             </button>
           </div>
         </form>
@@ -51,104 +53,75 @@
     <!-- Show heading, user details, and form cards only after verification -->
     <ng-container>
       <!-- Choose Form Heading -->
-      <h1 class="mb-5 text-2xl font-bold tracking-tight text-on-background theme-transition" i18n>Choose a Form</h1>
-      
+      <div class="cx-page-head text-center">
+        <span class="cx-eyebrow"><i class="bi bi-card-checklist"></i><span i18n>Forms</span></span>
+        <h1 class="cx-h2 cx-gradient-text text-2xl sm:text-3xl mt-4" i18n>Choose a Form</h1>
+      </div>
+
       @if (!sessionAccessAllowed()) {
       <!-- Session Access Denied Message -->
-      <mat-card class="max-w-2xl mx-auto mb-10 border-l-4 border-orange-500">
+      <mat-card class="glass-card cx-notice max-w-2xl mx-auto my-8">
         <mat-card-content class="p-6">
-          <div class="flex items-start space-x-4">
-            <svg class="w-6 h-6 text-orange-500 mt-1 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 19c-.77.833.192 2.5 1.732 2.5z"></path>
-            </svg>
+          <div class="flex items-start gap-4">
+            <span class="cx-notice__icon" aria-hidden="true"><i class="bi bi-exclamation-triangle-fill"></i></span>
             <div>
-              <h3 class="text-lg font-semibold text-orange-700 mb-2" i18n>Session Access Restricted</h3>
-              <p class="text-on-surface-variant mb-2" i18n>The feedback and questionnaire forms are only accessible during your session period.</p>
+              <h3 class="text-lg font-bold mb-1" i18n>Session Access Restricted</h3>
+              <p class="text-on-surface-variant text-sm mb-2" i18n>The feedback and questionnaire forms are only accessible during your session period.</p>
               @if (sessionMessage()) {
-              <p class="text-sm text-on-surface-variant font-medium">{{ sessionMessage() }}</p>
+              <p class="text-sm text-on-surface-variant font-semibold">{{ sessionMessage() }}</p>
               }
             </div>
           </div>
         </mat-card-content>
       </mat-card>
       } @else {
-      <p class="text-on-surface-variant max-w-xl mx-auto mb-10 theme-transition" i18n>
+      <p class="text-on-surface-variant text-sm max-w-xl mx-auto mt-3 mb-8 text-center" i18n>
         Please select a form to proceed.
       </p>
       }
 
       <!-- Form Cards -->
-      <div class="grid grid-cols-1 gap-10 md:grid-cols-2">
+      <div class="grid grid-cols-1 gap-7 md:grid-cols-2">
         <!-- Feedback Form Card -->
         <mat-card
-          [class.cursor-pointer]="sessionAccessAllowed()"
-          [class.cursor-not-allowed]="!sessionAccessAllowed()"
-          [class.opacity-50]="!sessionAccessAllowed()"
-          class="rounded-2xl transition-all duration-300"
-          [class.hover:shadow-lg]="sessionAccessAllowed()"
+          class="glass-card cx-form-choice"
+          [class.cx-form-choice--disabled]="!sessionAccessAllowed()"
           (click)="goToForm('feedback')"
           [tabindex]="sessionAccessAllowed() ? 0 : -1"
           [attr.aria-disabled]="!sessionAccessAllowed()"
           role="button"
         >
-          <mat-card-content class="flex flex-col h-full p-6 text-center">
-            <svg
-              class="w-10 h-10 mb-4 text-rose-700 mx-auto"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M7 8h10M7 12h6m-3 8a9 9 0 1 1 4.546-16.764L19 8v7a2 2 0 0 1-2 2H8l-3 3v-3z"
-              ></path>
-            </svg>
-            <h2 class="text-xl font-bold mb-2" i18n>Feedback Form</h2>
-            <p class="text-on-surface-variant text-sm mt-auto" i18n>Share your experience and suggestions.</p>
+          <mat-card-content class="flex flex-col items-center text-center p-7">
+            <span class="cx-icon-chip" aria-hidden="true"><i class="bi bi-chat-heart"></i></span>
+            <h2 class="text-xl font-bold mt-4 mb-2" i18n>Feedback Form</h2>
+            <p class="text-on-surface-variant text-sm" i18n>Share your experience and suggestions.</p>
             @if (!sessionAccessAllowed()) {
-            <p class="text-xs text-orange-600 mt-2" i18n>Available during session period only</p>
+            <p class="cx-form-choice__hint" i18n>Available during session period only</p>
+            } @else {
+            <span class="cx-form-choice__go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
             }
           </mat-card-content>
         </mat-card>
 
         <!-- Questionnaire Form Card -->
         <mat-card
-          [class.cursor-pointer]="sessionAccessAllowed()"
-          [class.cursor-not-allowed]="!sessionAccessAllowed()"
-          [class.opacity-50]="!sessionAccessAllowed()"
-          class="rounded-2xl transition-all duration-300"
-          [class.hover:shadow-lg]="sessionAccessAllowed()"
+          class="glass-card cx-form-choice"
+          [class.cx-form-choice--disabled]="!sessionAccessAllowed()"
           (click)="goToForm('questions')"
           [tabindex]="sessionAccessAllowed() ? 0 : -1"
           [attr.aria-disabled]="!sessionAccessAllowed()"
           role="button"
         >
-          <mat-card-content class="flex flex-col h-full p-6 text-center">
-            <svg
-              class="w-10 h-10 mb-4 text-rose-700 mx-auto"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 12l2 2 4-4M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"
-              ></path>
-            </svg>
-            <h2 class="text-xl font-bold mb-2" i18n>Questionnaire Form</h2>
-            <p class="text-on-surface-variant text-sm mt-auto" i18n>
+          <mat-card-content class="flex flex-col items-center text-center p-7">
+            <span class="cx-icon-chip" aria-hidden="true"><i class="bi bi-clipboard2-check"></i></span>
+            <h2 class="text-xl font-bold mt-4 mb-2" i18n>Questionnaire Form</h2>
+            <p class="text-on-surface-variant text-sm" i18n>
               Share your thoughts and opinions to help us understand participants better.
             </p>
             @if (!sessionAccessAllowed()) {
-            <p class="text-xs text-orange-600 mt-2" i18n>Available during session period only</p>
+            <p class="cx-form-choice__hint" i18n>Available during session period only</p>
+            } @else {
+            <span class="cx-form-choice__go" aria-hidden="true"><i class="bi bi-arrow-right"></i></span>
             }
           </mat-card-content>
         </mat-card>
