@@ -133,6 +133,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
                     PhotoUrl = r.PremaritalDocument != null ? r.PremaritalDocument.PhotoUrl : null,
                     VicarLetterUrl = r.PremaritalDocument != null ? r.PremaritalDocument.VicarLetterUrl : null,
                     r.PaymentStatus,
+                    r.SubmittedAt,
                 })
                 .ToListAsync();
 

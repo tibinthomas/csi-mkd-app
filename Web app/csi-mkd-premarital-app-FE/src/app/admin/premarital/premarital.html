@@ -352,6 +352,9 @@
                       <strong i18n>Date of Marriage:</strong> {{ reg.dateOfMarriage | date : "MMM d, y" : "+5:30" }}
                     </div>
                     <div>
+                      <strong i18n>Registered:</strong> {{ reg.submittedAt | date : "MMM d, y, h:mm a" : "+5:30" }}
+                    </div>
+                    <div>
                       <strong i18n>Church Activities:</strong>
                       @if (hasActivities(reg.churchActivities)) {
                       <ul class="list-disc list-inside mt-2">
