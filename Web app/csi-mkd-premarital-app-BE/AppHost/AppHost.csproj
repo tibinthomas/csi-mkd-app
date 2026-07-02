@@ -6,13 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsAspireHost>true</IsAspireHost>
-    <AspireHostingSDKVersion>13.0.2</AspireHostingSDKVersion>
+    <AspireHostingSDKVersion>13.4.6</AspireHostingSDKVersion>
     <UserSecretsId>b348c39b-69fc-4406-85d8-d637fd5a8d55</UserSecretsId>
     <BaseOutputPath>$(MSBuildProjectDirectory)/bin/</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.0.2" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.4.6" />
   </ItemGroup>
 
   <ItemGroup>

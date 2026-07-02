@@ -42,12 +42,8 @@ public static class BackupEndpoints
         .Produces(StatusCodes.Status500InternalServerError)
         .WithName("TriggerBackup")
         .WithTags("Backup")
-        .WithOpenApi(operation =>
-        {
-            operation.Summary = "Manually trigger database backup";
-            operation.Description = "Triggers an immediate backup of the Supabase database to Azure Blob Storage";
-            return operation;
-        });
+        .WithSummary("Manually trigger database backup")
+        .WithDescription("Triggers an immediate backup of the Supabase database to Azure Blob Storage");
 
         // GET /api/backup/download/latest - Download the most recent backup
         group.MapGet("/download/latest", async (IBackupService service, ILogger<Program> logger) =>
@@ -89,11 +85,7 @@ public static class BackupEndpoints
         .Produces(StatusCodes.Status500InternalServerError)
         .WithName("DownloadLatestBackup")
         .WithTags("Backup")
-        .WithOpenApi(operation =>
-        {
-            operation.Summary = "Download latest backup";
-            operation.Description = "Downloads the most recent backup file from Azure Blob Storage";
-            return operation;
-        });
+        .WithSummary("Download latest backup")
+        .WithDescription("Downloads the most recent backup file from Azure Blob Storage");
     }
 }

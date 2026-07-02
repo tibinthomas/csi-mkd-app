@@ -13,8 +13,7 @@ public static class QuestionAnswersEndpoints
     public static void MapQuestionAnswersEndpoints(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("/api/question-answers")
-            .WithTags("Question Answers")
-            .WithOpenApi();
+            .WithTags("Question Answers");
         // Secure by default: only questionnaire submission is public;
         // reading/updating/deleting answers requires an admin token.
         group.RequireAuthorization();
