@@ -142,7 +142,7 @@
                       <h4 class="text-sm mb-3" i18n><strong>Vicar's Letter</strong></h4>
                       @if (reg.confirmationDocument?.vicarLetterUrl) {
                         <a
-                          [href]="reg.confirmationDocument?.vicarLetterUrl"
+                          [href]="$safeNavigationMigration(reg.confirmationDocument?.vicarLetterUrl)"
                           target="_blank"
                           rel="noopener"
                           mat-raised-button

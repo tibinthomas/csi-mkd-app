@@ -304,6 +304,7 @@ export class SessionConfig implements OnInit {
       <button mat-stroked-button (click)="onNoClick()">No</button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class ConfirmationDialog {
@@ -324,6 +325,7 @@ export class ConfirmationDialog {
       <button mat-button (click)="onOkClick()">OK</button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class AlertDialog {

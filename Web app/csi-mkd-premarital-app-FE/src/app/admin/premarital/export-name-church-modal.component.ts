@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -81,6 +81,7 @@ import { SessionDataService } from '../../core/services/session-data.service';
     MatSelectModule,
     MatProgressSpinnerModule
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class ExportNameChurchModalComponent {

@@ -1113,6 +1113,7 @@ export class PremaritalComponent {
       </button>
     </mat-dialog-actions>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class ConfirmationDialog {
@@ -1143,6 +1144,7 @@ export class ConfirmationDialog {
       </button>
     </mat-dialog-actions>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DeleteConfirmationDialog {
@@ -1475,6 +1477,7 @@ export class DeleteConfirmationDialog {
     ReactiveFormsModule,
     MatIconModule
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [provideNativeDateAdapter()],
 })
 export class EditRegistrationDialog {

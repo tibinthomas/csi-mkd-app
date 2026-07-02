@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Particle {
@@ -26,6 +26,7 @@ interface Particle {
       ></canvas>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: [`
     .cursor-effects-canvas {
       position: fixed;

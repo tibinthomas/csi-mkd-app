@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -93,6 +93,7 @@ import { ApiConfiguration } from '../../../api/api-main-app/api-configuration';
     FormsModule,
     MatProgressSpinnerModule
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: true,
 })
 export class ExportPhoneModalComponent {

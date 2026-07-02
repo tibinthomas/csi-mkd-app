@@ -71,13 +71,13 @@
                 class="text-xs text-on-surface-variant mt-1"
                 [matTooltip]="
                   'Quality: ' +
-                  (rating.ratingBreakdown?.averageQuality | number : '1.1-2') +
+                  ($safeNavigationMigration(rating.ratingBreakdown?.averageQuality) | number : '1.1-2') +
                   ', Relevance: ' +
-                  (rating.ratingBreakdown?.averageRelevance | number : '1.1-2') +
+                  ($safeNavigationMigration(rating.ratingBreakdown?.averageRelevance) | number : '1.1-2') +
                   ', Engagement: ' +
-                  (rating.ratingBreakdown?.averageEngagement | number : '1.1-2') +
+                  ($safeNavigationMigration(rating.ratingBreakdown?.averageEngagement) | number : '1.1-2') +
                   ', Organization: ' +
-                  (rating.ratingBreakdown?.averageOrganization | number : '1.1-2')
+                  ($safeNavigationMigration(rating.ratingBreakdown?.averageOrganization) | number : '1.1-2')
                 "
               >
                 View Breakdown

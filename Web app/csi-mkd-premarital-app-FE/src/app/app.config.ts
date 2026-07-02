@@ -14,7 +14,7 @@ import {
   withInMemoryScrolling,
   withComponentInputBinding,
 } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withXhr } from '@angular/common/http';
 import { provideServiceWorker } from '@angular/service-worker';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
         return config.src;
       },
     },
-    provideHttpClient(
+    provideHttpClient(withXhr(), 
       withInterceptors([tokenInterceptor, rateLimitInterceptor])
     ),
     provideRouter(

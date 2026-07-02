@@ -366,6 +366,7 @@ export class GeneralList {
       </button>
     </mat-dialog-actions>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class ConfirmationDialog {
@@ -393,6 +394,7 @@ export class ConfirmationDialog {
       </button>
     </mat-dialog-actions>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DeleteConfirmationDialog {

@@ -2,6 +2,7 @@ import {
   Component,
   inject,
   signal,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -34,6 +35,7 @@ import packageInfo from '../../../package.json';
     RouterLinkActive,
     DoubleTapDirective,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './public-layout.html',
 })
 export class PublicLayout {

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, signal } from '@angular/core';
+import { Component, Inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -143,6 +143,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatIconModule
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [provideNativeDateAdapter()],
 })
 export class EditPreConfirmDialogComponent implements OnInit {

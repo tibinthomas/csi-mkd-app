@@ -5,6 +5,7 @@ import {
   computed,
   ElementRef,
   ViewChild,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -59,6 +60,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     OnlyDigitsDirective,
   ],
   templateUrl: './pre-confirm-register.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './pre-confirm-register.scss',
 })
 export class PreConfirmRegister {

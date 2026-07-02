@@ -1,4 +1,4 @@
-import { Component, Inject, LOCALE_ID, DOCUMENT, inject } from '@angular/core';
+import { Component, Inject, LOCALE_ID, DOCUMENT, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -16,6 +16,7 @@ interface Language {
   templateUrl: './language-selector.html',
   styleUrls: ['./language-selector.scss'],
 
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatButtonModule, MatMenuModule, MatIconModule],
 })
 export class LanguageSelectorComponent {

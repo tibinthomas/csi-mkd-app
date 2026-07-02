@@ -470,7 +470,7 @@ interface EditAbroadRegistrationData {
               @if (editForm.get('vicarLetterUrl')?.value) {
                 <div class="flex items-center gap-2 text-sm">
                   <span class="text-on-surface-variant" i18n>Current:</span>
-                  <a [href]="editForm.get('vicarLetterUrl')?.value" target="_blank" class="text-primary hover:underline flex items-center gap-1">
+                  <a [href]="$safeNavigationMigration(editForm.get('vicarLetterUrl')?.value)" target="_blank" class="text-primary hover:underline flex items-center gap-1">
                     <span i18n>View current letter</span>
                     <mat-icon class="text-xs h-3 w-3">open_in_new</mat-icon>
                   </a>
@@ -538,6 +538,7 @@ interface EditAbroadRegistrationData {
     MatProgressSpinnerModule,
     MatTooltipModule
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [provideNativeDateAdapter()],
 })
 export class EditAbroadRegistrationDialogComponent {

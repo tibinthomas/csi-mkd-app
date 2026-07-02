@@ -238,6 +238,7 @@ export class Instructors implements OnInit {
       <button mat-stroked-button [mat-dialog-close]="false">No</button>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class ConfirmationDialog {

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-deactivate-sessions',
   imports: [MatButtonModule],
   templateUrl: './deactivate-sessions.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './deactivate-sessions.scss',
 })
 export class DeactivateSessions {

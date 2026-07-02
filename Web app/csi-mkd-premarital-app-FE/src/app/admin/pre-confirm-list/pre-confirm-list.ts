@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {
@@ -58,6 +58,7 @@ import { EditPreConfirmDialogComponent } from './edit-pre-confirm-dialog.compone
     DatePipe,
     MatTooltipModule
 ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [DatePipe],
 })
 export class PreConfirmList implements OnInit {
@@ -436,6 +437,7 @@ getSortedParticipants(participants: ParticipantDto[] | undefined): ParticipantDt
     </mat-dialog-actions>
   `,
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DeleteConfirmationDialog {
