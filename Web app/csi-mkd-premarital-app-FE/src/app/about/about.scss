@@ -37,18 +37,28 @@
 
 .cx-hero__bg {
   position: absolute;
-  inset: 0;
+  /* Oversized so the blur doesn't reveal soft transparent edges */
+  inset: -1.5rem;
   background-size: cover;
   background-position: center;
   transform-origin: center;
+  filter: blur(5px);
   z-index: 0;
 }
 
+/* Bottom-weighted scrim: keeps the photo visible while grounding the text.
+   A faint brand tint ties the image into the rose/gold palette. */
 .cx-hero__veil {
   position: absolute;
   inset: 0;
-  background: var(--cx-grad-hero-overlay),
-    radial-gradient(120% 80% at 50% 120%, rgba(0, 0, 0, 0.55), transparent 70%);
+  background: linear-gradient(
+      to top,
+      rgba(24, 12, 19, 0.82) 0%,
+      rgba(24, 12, 19, 0.42) 34%,
+      rgba(24, 12, 19, 0.16) 62%,
+      rgba(24, 12, 19, 0.3) 100%
+    ),
+    linear-gradient(135deg, rgba(74, 23, 48, 0.26), rgba(168, 56, 90, 0.1) 60%, transparent);
   z-index: 1;
 }
 
@@ -59,59 +69,16 @@
 .cx-hero__orb--a { width: 360px; height: 360px; top: 8%; left: -90px; }
 .cx-hero__orb--b { width: 300px; height: 300px; bottom: 6%; right: -70px; }
 
+/* Open composition — no boxed glass card, the photo stays visible.
+   Readability comes from the scrim + soft text shadows. */
 .cx-hero__panel {
   position: relative;
   z-index: 2;
-  max-width: 46rem;
+  max-width: 52rem;
   margin: 0 1.5rem;
-  padding: 3rem 2.5rem 2.75rem;
+  padding: 2rem 0;
   text-align: center;
-  border-radius: 2rem;
   color: #fff;
-  background: rgba(28, 14, 22, 0.34);
-  -webkit-backdrop-filter: blur(20px) saturate(155%);
-  backdrop-filter: blur(20px) saturate(155%);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 34px 72px -26px rgba(0, 0, 0, 0.72),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
-
-.cx-hero__mark {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.6rem;
-  height: 3.6rem;
-  margin-bottom: 1.1rem;
-  border-radius: 50%;
-  background: var(--cx-grad-primary);
-  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.08), 0 10px 24px -8px rgba(168, 56, 90, 0.7);
-  animation: cx-glow-pulse 4s ease-in-out infinite;
-
-  mat-icon { color: #fff; }
-
-  /* Rotating conic halo */
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -7px;
-    border-radius: 50%;
-    padding: 2px;
-    background: conic-gradient(
-      from 0deg,
-      transparent 0%,
-      var(--cx-gold) 22%,
-      transparent 40%,
-      var(--cx-rose-soft) 68%,
-      transparent 90%
-    );
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    animation: cx-ring-rotate 7s linear infinite;
-  }
 }
 
 .cx-hero__title {
@@ -120,6 +87,7 @@
   line-height: 1.14;
   letter-spacing: -0.015em;
   margin-bottom: 0.85rem;
+  filter: drop-shadow(0 3px 14px rgba(0, 0, 0, 0.55));
 }
 
 .cx-hero__word {
@@ -130,7 +98,8 @@
   font-size: clamp(1.05rem, 2.4vw, 1.4rem);
   font-style: italic;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
 .cx-hero__location {
@@ -139,7 +108,8 @@
   gap: 0.4rem;
   margin-top: 1rem;
   font-size: 0.84rem;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 
   mat-icon {
     font-size: 1.05rem;
@@ -150,25 +120,124 @@
 
 .cx-hero__cta { margin-top: 1.9rem; }
 
+/* Shiny gradient pill: periodic light-streak sweep + gold twinkle,
+   lift-and-glow on hover. Fits the rose/gold + sparkle hero theme. */
 .cx-cta-btn {
+  position: relative;
   display: inline-flex !important;
   align-items: center;
   gap: 0.5rem;
+  overflow: hidden;
   font-weight: 800 !important;
-  padding: 0 1.9rem !important;
-  height: 3rem !important;
+  letter-spacing: 0.02em;
+  font-size: 0.9rem;
+  padding: 0 1.6rem !important;
+  height: 2.65rem !important;
+  border-radius: 999px !important;
+  color: #fff !important;
+  background: linear-gradient(120deg, var(--cx-rose-deep), var(--cx-rose) 45%, var(--cx-gold) 95%) !important;
+  background-size: 180% auto !important;
+  background-position: left center !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  box-shadow: 0 12px 30px -10px rgba(168, 56, 90, 0.65),
+    0 4px 14px rgba(216, 166, 87, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease,
+    background-position 0.6s ease;
   animation: cx-glow-pulse 4.5s ease-in-out infinite;
+
+  /* Diagonal light streak sweeping across every few seconds */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -25%;
+    bottom: -25%;
+    left: -70%;
+    width: 45%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.5) 50%, transparent);
+    transform: skewX(-20deg);
+    animation: cx-cta-shine 3.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* Gold twinkle that blinks just after the streak passes */
+  &::after {
+    content: '✦';
+    position: absolute;
+    top: 0.3rem;
+    right: 0.85rem;
+    font-size: 0.62rem;
+    line-height: 1;
+    color: var(--cx-gold-soft);
+    opacity: 0;
+    animation: cx-cta-twinkle 3.8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  mat-icon {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &:hover {
+    transform: translateY(-2px) scale(1.03);
+    /* Slide the gradient so the gold end washes over the button */
+    background-position: right center !important;
+    box-shadow: 0 18px 42px -12px rgba(168, 56, 90, 0.8),
+      0 6px 22px rgba(216, 166, 87, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+
+    mat-icon {
+      transform: rotate(-8deg) scale(1.15);
+    }
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.97);
+  }
 }
 
+@keyframes cx-cta-shine {
+  0%,
+  55% {
+    left: -70%;
+  }
+  85%,
+  100% {
+    left: 130%;
+  }
+}
+
+@keyframes cx-cta-twinkle {
+  0%,
+  72%,
+  100% {
+    opacity: 0;
+    transform: scale(0.6) rotate(0deg);
+  }
+  82% {
+    opacity: 1;
+    transform: scale(1.2) rotate(35deg);
+  }
+  92% {
+    opacity: 0.35;
+    transform: scale(0.85) rotate(70deg);
+  }
+}
+
+/* Slim frosted strip — the only glass element left in the hero */
 .cx-hero__stats {
   display: flex;
   justify-content: center;
   gap: 0;
-  margin-top: 2.1rem;
+  max-width: 34rem;
+  margin: 2.3rem auto 0;
   padding: 0.9rem 0.5rem;
   border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(24, 12, 19, 0.38);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 16px 40px -18px rgba(0, 0, 0, 0.6);
 }
 
 .cx-hero__stat {
@@ -226,8 +295,9 @@
 /* Performance tiers: stop the hero's infinite effects on constrained devices */
 :host-context([data-motion='lite']),
 :host-context([data-motion='none']) {
-  .cx-hero__mark,
   .cx-cta-btn,
+  .cx-cta-btn::before,
+  .cx-cta-btn::after,
   .cx-hero__scroll-dot {
     animation: none;
   }
@@ -312,26 +382,50 @@
   }
 }
 
-.leader-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-bottom: 0.4rem;
-  border-radius: 0.8rem;
-  color: #fff;
+/* Ghost era number — big gradient numeral watermarked in the corner */
+.leader-ordinal {
+  position: absolute;
+  top: 0.55rem;
+  right: 1.1rem;
+  font-size: 3.4rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
   background: var(--cx-grad-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  opacity: 0.22;
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  user-select: none;
+}
 
-  mat-icon { font-size: 1.3rem; width: 1.3rem; height: 1.3rem; }
+.leader-card:hover .leader-ordinal {
+  opacity: 0.42;
+  transform: scale(1.06);
 }
 
 .leader-tenure {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.07em;
   font-weight: 800;
   color: var(--cx-rose-deep);
+
+  /* Gold-to-rose accent dash in place of the old stock icon */
+  &::before {
+    content: '';
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--cx-gold), var(--cx-rose));
+  }
 }
 
 .leader-name {
@@ -407,24 +501,27 @@
 /* Reveal choreography — keyed off the animate-* class the scroll directive
    adds to .timeline-item, so the 'none' tier (no class) stays static. */
 .timeline-item[class*='animate-'] {
+  /* Slow the card slide itself (overrides the global 0.9s) */
+  animation-duration: 1.6s;
+
   .timeline-dot {
-    animation: cx-tl-dot-pop 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
+    animation: cx-tl-dot-pop 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
   }
 
   .timeline-year {
-    animation: cx-tl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s backwards;
+    animation: cx-tl-rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.55s backwards;
   }
 
   h3 {
-    animation: cx-tl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.35s backwards;
+    animation: cx-tl-rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.75s backwards;
   }
 
   p {
-    animation: cx-tl-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.45s backwards;
+    animation: cx-tl-rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.95s backwards;
   }
 
   .timeline-content::before {
-    animation: cx-tl-arm 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.2s backwards;
+    animation: cx-tl-arm 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.4s backwards;
   }
 }
 

@@ -26,10 +26,7 @@
     <span class="cx-orb cx-orb--rose cx-hero__orb cx-hero__orb--a cx-float-anim" aria-hidden="true"></span>
     <span class="cx-orb cx-orb--gold cx-hero__orb cx-hero__orb--b cx-float-anim-2" aria-hidden="true"></span>
 
-    <div class="cx-hero__panel cx-reveal" [appParallaxTilt]="3">
-      <span class="cx-hero__mark cx-ring-anim" aria-hidden="true">
-        <mat-icon>favorite</mat-icon>
-      </span>
+    <div class="cx-hero__panel cx-reveal">
       <h1 class="cx-hero__title">
         @for (word of heroTitleWords; track $index; let i = $index) {
         <!-- The bound space renders as a real text node between the
@@ -127,7 +124,7 @@
           [appAnimateOnScroll]="'fadeIn'"
           [style.animation-delay]="i * 100 + 'ms'"
         >
-          <span class="leader-icon" aria-hidden="true"><mat-icon>person</mat-icon></span>
+          <span class="leader-ordinal" aria-hidden="true">{{ i < 9 ? '0' + (i + 1) : i + 1 }}</span>
           <span class="leader-tenure">{{ director.tenure }}</span>
           <span class="leader-name">{{ director.name }}</span>
         </div>
