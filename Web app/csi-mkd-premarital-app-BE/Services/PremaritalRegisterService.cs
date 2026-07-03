@@ -16,12 +16,21 @@ namespace csi_mkd_premarital_app_BE.Services
         private readonly IPremaritalRegisterRepository _repo;
         private readonly IWebHostEnvironment _env;
         private readonly EmailService _emailService;
+        private readonly BlobStorageService _blobStorageService;
+        private readonly ILogger<PremaritalRegisterService> _logger;
 
-        public PremaritalRegisterService(IPremaritalRegisterRepository repo, IWebHostEnvironment env, EmailService emailService)
+        public PremaritalRegisterService(
+            IPremaritalRegisterRepository repo,
+            IWebHostEnvironment env,
+            EmailService emailService,
+            BlobStorageService blobStorageService,
+            ILogger<PremaritalRegisterService> logger)
         {
             _repo = repo;
             _env = env;
             _emailService = emailService;
+            _blobStorageService = blobStorageService;
+            _logger = logger;
         }
 
         public async Task<(int StatusCode, object Data)> Register(PremaritalRegisterDto dto)
@@ -116,7 +125,58 @@ namespace csi_mkd_premarital_app_BE.Services
             => await _repo.DeleteRegistration(id);
 
         public async Task<bool> UpdateRegistration(Guid id, UpdatePremaritalRegisterDto dto)
-            => await _repo.UpdateRegistration(id, dto);
+        {
+            var updated = await _repo.UpdateRegistration(id, dto);
+            if (updated)
+            {
+                // If the registration now belongs to an active/upcoming session, make sure
+                // its documents are not stuck in the Archive tier (e.g. after the admin
+                // moved a participant from a past session to a new batch).
+                await RehydrateDocumentsIfSessionActiveAsync(id);
+            }
+
+            return updated;
+        }
+
+        private async Task RehydrateDocumentsIfSessionActiveAsync(Guid registrationId)
+        {
+            try
+            {
+                var sessionEndDate = await _repo.GetSessionEndDateForRegistration(registrationId);
+                if (sessionEndDate is not DateTime endDate || endDate < DateTime.UtcNow)
+                {
+                    return;
+                }
+
+                var documents = await _repo.GetPremaritalFilesByRegistrationId(registrationId);
+                if (documents == null)
+                {
+                    return;
+                }
+
+                foreach (var url in new[] { documents.PhotoUrl, documents.VicarLetterUrl })
+                {
+                    if (string.IsNullOrEmpty(url))
+                    {
+                        continue;
+                    }
+
+                    var status = await _blobStorageService.RehydrateBlobAsync(url);
+                    if (status == "rehydration_started")
+                    {
+                        _logger.LogInformation(
+                            "Started rehydration of archived document for registration {RegistrationId}: {Url}",
+                            registrationId, url);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Rehydration is best-effort; the registration update itself already succeeded.
+                _logger.LogError(ex,
+                    "Failed to check/rehydrate documents for registration {RegistrationId}", registrationId);
+            }
+        }
 
         public async Task<PremaritalDocument?> GetPremaritalFilesByRegistrationId(Guid registrationId)
             => await _repo.GetPremaritalFilesByRegistrationId(registrationId);

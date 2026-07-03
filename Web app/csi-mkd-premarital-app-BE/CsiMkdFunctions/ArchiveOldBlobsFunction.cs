@@ -40,7 +40,10 @@ public class ArchiveOldBlobsFunction
             }
 
             var blobNamesToArchive = await GetBlobNamesFromPastSessionsAsync();
-            _logger.LogInformation("Found {Count} blob(s) eligible for archival based on session dates.", blobNamesToArchive.Count);
+            var blobNamesToRescue = await GetBlobNamesFromActiveSessionsAsync();
+            _logger.LogInformation(
+                "Found {ArchiveCount} blob(s) eligible for archival and {RescueCount} blob(s) belonging to active/upcoming sessions.",
+                blobNamesToArchive.Count, blobNamesToRescue.Count);
 
             var blobServiceClient = new BlobServiceClient(blobConnectionString);
             var containerClient = blobServiceClient.GetBlobContainerClient(_containerName);
@@ -52,11 +55,47 @@ public class ArchiveOldBlobsFunction
             }
 
             int archivedCount = 0;
+            int rescuedCount = 0;
+            // Grace period so manually rehydrated blobs are not immediately re-archived
+            var tierChangeGraceCutoff = DateTimeOffset.UtcNow.AddDays(-40);
 
             await foreach (var blobItem in containerClient.GetBlobsAsync())
             {
-                if (blobNamesToArchive.Contains(blobItem.Name) && blobItem.Properties.AccessTier != AccessTier.Archive)
+                var isArchived = blobItem.Properties.AccessTier == AccessTier.Archive;
+
+                // Rescue pass: registration data now says this blob should be available
+                // (e.g. the registration was reassigned to an upcoming session after archival).
+                if (blobNamesToRescue.Contains(blobItem.Name))
                 {
+                    if (isArchived && blobItem.Properties.ArchiveStatus == null)
+                    {
+                        var blobClient = containerClient.GetBlobClient(blobItem.Name);
+                        _logger.LogInformation("Rehydrating blob for active session: {BlobName}", blobItem.Name);
+
+                        try
+                        {
+                            await blobClient.SetAccessTierAsync(AccessTier.Hot);
+                            rescuedCount++;
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "Failed to rehydrate blob {BlobName}", blobItem.Name);
+                        }
+                    }
+                    continue; // never archive a blob needed by an active session
+                }
+
+                if (blobNamesToArchive.Contains(blobItem.Name) && !isArchived)
+                {
+                    // Respect recent manual rehydration: skip until the grace period passes
+                    if (blobItem.Properties.AccessTierChangedOn is DateTimeOffset changedOn && changedOn > tierChangeGraceCutoff)
+                    {
+                        _logger.LogInformation(
+                            "Skipping {BlobName}: access tier changed recently ({ChangedOn}).",
+                            blobItem.Name, changedOn);
+                        continue;
+                    }
+
                     var blobClient = containerClient.GetBlobClient(blobItem.Name);
                     _logger.LogInformation("Archiving blob: {BlobName}", blobItem.Name);
 
@@ -72,7 +111,7 @@ public class ArchiveOldBlobsFunction
                 }
             }
 
-            _logger.LogInformation("Successfully archived {Count} blobs.", archivedCount);
+            _logger.LogInformation("Archived {ArchivedCount} blob(s), rehydrated {RescuedCount} blob(s).", archivedCount, rescuedCount);
         }
         catch (Exception ex)
         {
@@ -109,6 +148,41 @@ public class ArchiveOldBlobsFunction
         var outsideKeralaUrls = await _context.PremaritalOutsideKeralaDocuments
             .AsNoTracking()
             .Where(pd => pd.PremaritalOutsideKeralaRegistration!.SessionEndDate < cutoffOffset)
+            .Select(pd => pd.VicarLetterUrl)
+            .ToListAsync();
+
+        foreach (var url in outsideKeralaUrls)
+            AddBlobName(blobNames, url);
+
+        return blobNames;
+    }
+
+    /// <summary>
+    /// Blobs whose registration data says they must stay available — the exact
+    /// inverse of the archive predicate, so anything not eligible for archival
+    /// (upcoming, ongoing, or recently ended sessions) is rescued if archived.
+    /// </summary>
+    private async Task<HashSet<string>> GetBlobNamesFromActiveSessionsAsync()
+    {
+        var cutoff = DateTime.UtcNow.AddMonths(-2);
+        var cutoffOffset = DateTimeOffset.UtcNow.AddMonths(-2);
+        var blobNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        var premaritalUrls = await _context.PremaritalDocuments
+            .AsNoTracking()
+            .Where(pd => pd.PremaritalRegistration!.SessionConfiguration!.EndDate >= cutoff)
+            .Select(pd => new { pd.PhotoUrl, pd.VicarLetterUrl })
+            .ToListAsync();
+
+        foreach (var doc in premaritalUrls)
+        {
+            AddBlobName(blobNames, doc.PhotoUrl);
+            AddBlobName(blobNames, doc.VicarLetterUrl);
+        }
+
+        var outsideKeralaUrls = await _context.PremaritalOutsideKeralaDocuments
+            .AsNoTracking()
+            .Where(pd => pd.PremaritalOutsideKeralaRegistration!.SessionEndDate >= cutoffOffset)
             .Select(pd => pd.VicarLetterUrl)
             .ToListAsync();
 

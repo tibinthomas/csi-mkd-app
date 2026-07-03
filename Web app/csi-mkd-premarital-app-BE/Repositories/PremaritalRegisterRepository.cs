@@ -151,6 +151,13 @@ namespace csi_mkd_premarital_app_BE.Repositories
             => await _context.PremaritalRegistrations
                 .FirstOrDefaultAsync(r => r.Id == id);
 
+        public async Task<DateTime?> GetSessionEndDateForRegistration(Guid registrationId)
+            => await _context.PremaritalRegistrations
+                .AsNoTracking()
+                .Where(r => r.Id == registrationId)
+                .Select(r => (DateTime?)r.SessionConfiguration!.EndDate)
+                .FirstOrDefaultAsync();
+
         public async Task<bool> DeleteRegistration(Guid id)
         {
             var registration = await _context.PremaritalRegistrations
