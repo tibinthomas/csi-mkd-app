@@ -13,9 +13,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 mt-12">
       @for (member of teamMembers(); track member) {
       <mat-card class="elegant-card cx-team-card" appAnimateOnScroll>
-        <span class="cx-team-avatar" aria-hidden="true">
-          <i class="bi bi-person-fill"></i>
-        </span>
+        <span class="cx-team-avatar" aria-hidden="true">{{ initialsFor(member.name) }}</span>
         <h3 class="cx-team-name">{{ member.name }}</h3>
         <p class="cx-team-qual">{{ member.qualification }}</p>
         <span class="cx-team-glow" aria-hidden="true"></span>

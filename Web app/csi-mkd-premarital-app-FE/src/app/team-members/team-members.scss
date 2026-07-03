@@ -12,6 +12,7 @@
   overflow: hidden;
 }
 
+/* Initials monogram — personal to each member instead of a stock icon */
 .cx-team-avatar {
   position: relative;
   z-index: 1;
@@ -22,16 +23,33 @@
   height: 4.25rem;
   margin-bottom: 1.1rem;
   border-radius: 50%;
-  font-size: 1.9rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   color: #fff;
   background: var(--cx-grad-primary);
   box-shadow: 0 12px 26px -10px rgba(168, 56, 90, 0.6),
     inset 0 2px 4px rgba(255, 255, 255, 0.3);
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Slim gold halo ring around the monogram */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(216, 166, 87, 0.55);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s ease;
+  }
 }
 
 .cx-team-card:hover .cx-team-avatar {
   transform: scale(1.08) rotate(-4deg);
+
+  &::before {
+    transform: scale(1.12);
+    border-color: var(--cx-gold);
+  }
 }
 
 .cx-team-name {
@@ -46,10 +64,21 @@
 .cx-team-qual {
   position: relative;
   z-index: 1;
-  margin-top: 0.4rem;
   font-size: 0.78rem;
   line-height: 1.5;
   color: var(--md-sys-color-on-surface-variant);
+
+  /* Gold-to-rose accent dash between name and qualifications,
+     matching the leadership legacy cards */
+  &::before {
+    content: '';
+    display: block;
+    width: 1.5rem;
+    height: 3px;
+    border-radius: 3px;
+    margin: 0.55rem auto;
+    background: linear-gradient(90deg, var(--cx-gold), var(--cx-rose));
+  }
 }
 
 /* soft glow accent behind avatar */

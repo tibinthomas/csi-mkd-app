@@ -62,4 +62,22 @@ export class TeamMembers {
     { name: 'Mrs. Susamma P.I', qualification: 'B.Sc.,B.Ed.,P.G.D.C.P.C' },
     { name: 'Mr. Sachin Sunny', qualification: 'B.Tech (Office Staff)' },
   ]);
+
+  private static readonly HONORIFICS = new Set([
+    'rev', 'dr', 'mr', 'mrs', 'ms', 'adv', 'prof', 'fr', 'sr', 'pastor',
+  ]);
+
+  /** Monogram from the first and last significant words, skipping honorifics
+   *  ("Rev. Dr. Vergis K Cheriyan" → "VC"). */
+  protected initialsFor(name: string): string {
+    const words = name
+      .split(/\s+/)
+      .filter((w) => !TeamMembers.HONORIFICS.has(w.replace(/\./g, '').toLowerCase()));
+    if (words.length === 0) {
+      return name.charAt(0).toUpperCase();
+    }
+    const first = words[0].charAt(0);
+    const last = words.length > 1 ? words[words.length - 1].charAt(0) : '';
+    return (first + last).toUpperCase();
+  }
 }
