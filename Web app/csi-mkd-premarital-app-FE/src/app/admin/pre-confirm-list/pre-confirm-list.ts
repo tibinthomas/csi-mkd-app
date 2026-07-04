@@ -33,6 +33,7 @@ import { MatCardModule } from '@angular/material/card';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ChurchDataService } from '../../core/services/church-data.service';
+import { BlobAccessService } from '../../core/services/blob-access.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ParticipantDto } from '../../../api/api-main-app/models';
 import { EditPreConfirmDialogComponent } from './edit-pre-confirm-dialog.component';
@@ -82,6 +83,7 @@ export class PreConfirmList implements OnInit {
   private readonly churchDataService = inject(ChurchDataService);
   private readonly certificateService = inject(CertificateService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
+  protected readonly blobAccess = inject(BlobAccessService);
 
   protected readonly churchData = toSignal(this.churchDataService.churchData$, {
     initialValue: null,

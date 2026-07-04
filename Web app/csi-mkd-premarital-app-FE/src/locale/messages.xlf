@@ -6,14 +6,14 @@
         <source> Leadership Legacy </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
-          <context context-type="linenumber">111,113</context>
+          <context context-type="linenumber">114,116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Our Journey Title" datatype="html">
         <source> Our Journey </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/about/about.html</context>
-          <context context-type="linenumber">143,145</context>
+          <context context-type="linenumber">146,148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="CSI Counselling Centre Title" datatype="html">
@@ -603,18 +603,18 @@
         <source>View Vicar Letter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.html</context>
-          <context context-type="linenumber">163,164</context>
+          <context context-type="linenumber">173,174</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/pre-confirm-list/pre-confirm-list.html</context>
-          <context context-type="linenumber">153,154</context>
+          <context context-type="linenumber">157,158</context>
         </context-group>
       </trans-unit>
       <trans-unit id="136103351121970628" datatype="html">
         <source>Edit Registration</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">416,417</context>
+          <context context-type="linenumber">418,419</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
@@ -625,14 +625,14 @@
         <source>Location/District</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">422</context>
+          <context context-type="linenumber">424</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2217151238786141335" datatype="html">
         <source>Church Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">427</context>
+          <context context-type="linenumber">429</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/abroad-premarital-register/abroad-premarital-register.html</context>
@@ -659,7 +659,7 @@
         <source>Priest Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">433</context>
+          <context context-type="linenumber">435</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/abroad-premarital-register/abroad-premarital-register.html</context>
@@ -682,7 +682,7 @@
         <source>Session Start Date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">439</context>
+          <context context-type="linenumber">441</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/abroad-premarital-register/abroad-premarital-register.html</context>
@@ -693,7 +693,7 @@
         <source>Session End Date</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">446</context>
+          <context context-type="linenumber">448</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/abroad-premarital-register/abroad-premarital-register.html</context>
@@ -704,42 +704,42 @@
         <source>Timezone</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">454</context>
+          <context context-type="linenumber">456</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8855999074870419554" datatype="html">
         <source>Vicar Letter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">466,467</context>
+          <context context-type="linenumber">468,469</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7531465938860815822" datatype="html">
         <source>Current:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">472,473</context>
+          <context context-type="linenumber">474,475</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6614418741863356934" datatype="html">
         <source>View current letter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">474,475</context>
+          <context context-type="linenumber">476,477</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1976419281675229584" datatype="html">
         <source>Upload New Letter (Optional)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">481,482</context>
+          <context context-type="linenumber">483,484</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3481736869685494304" datatype="html">
         <source>Participants</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">494,495</context>
+          <context context-type="linenumber">496,497</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/abroad-premarital-register/abroad-premarital-register.html</context>
@@ -750,7 +750,7 @@
         <source>Participant Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">499</context>
+          <context context-type="linenumber">501</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.html</context>
@@ -761,7 +761,7 @@
         <source>Add Participant</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">509,510</context>
+          <context context-type="linenumber">511,512</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/abroad-premarital-register/abroad-premarital-register.html</context>
@@ -772,14 +772,14 @@
         <source>Saving...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">518,519</context>
+          <context context-type="linenumber">520,521</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4021752662928002901" datatype="html">
         <source>Update</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/abroad-premarital/abroad-premarital-list.ts</context>
-          <context context-type="linenumber">520,521</context>
+          <context context-type="linenumber">522,523</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4453176063787191635" datatype="html">
@@ -1300,7 +1300,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">370,371</context>
+          <context context-type="linenumber">373,374</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4893616715766810081" datatype="html">
@@ -1311,7 +1311,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">498,499</context>
+          <context context-type="linenumber">505,506</context>
         </context-group>
       </trans-unit>
       <trans-unit id="370711479257073703" datatype="html">
@@ -1582,14 +1582,14 @@
         <source>No letter uploaded for this registration.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/pre-confirm-list/pre-confirm-list.html</context>
-          <context context-type="linenumber">158,159</context>
+          <context context-type="linenumber">162,163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="178076727880316864" datatype="html">
         <source>No registrations found.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/pre-confirm-list/pre-confirm-list.html</context>
-          <context context-type="linenumber">194,195</context>
+          <context context-type="linenumber">198,199</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1193797418739830936" datatype="html">
@@ -1815,67 +1815,74 @@
           <context context-type="linenumber">352</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3255386377222311828" datatype="html">
+        <source>Registered:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
+          <context context-type="linenumber">355</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="9130470748661769218" datatype="html">
         <source>Church Activities:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">355,356</context>
+          <context context-type="linenumber">358,359</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4347415165036700652" datatype="html">
         <source>No activities listed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">363,364</context>
+          <context context-type="linenumber">366,367</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3193764125791084606" datatype="html">
         <source>Vicar&apos;s Letter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">392,393</context>
+          <context context-type="linenumber">399,400</context>
         </context-group>
       </trans-unit>
       <trans-unit id="670906300672775611" datatype="html">
         <source>No letter uploaded</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">397,398</context>
+          <context context-type="linenumber">404,405</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6296618934482238604" datatype="html">
         <source>Files older than 1 month are archived and may not be immediately available.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">406,407</context>
+          <context context-type="linenumber">413,414</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5391900384094608166" datatype="html">
         <source>Request that the photo is made available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">416,417</context>
+          <context context-type="linenumber">423,424</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5182733598094342405" datatype="html">
         <source>Request Photo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">424,425</context>
+          <context context-type="linenumber">431,432</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4465814874083145338" datatype="html">
         <source>Request that the vicar letter is made available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">434,435</context>
+          <context context-type="linenumber">441,442</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3154551681281221999" datatype="html">
         <source>Request Vicar&apos;s Letter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/premarital/premarital.html</context>
-          <context context-type="linenumber">442,443</context>
+          <context context-type="linenumber">449,450</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3744750936163187936" datatype="html">
@@ -1940,7 +1947,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
-          <context context-type="linenumber">231</context>
+          <context context-type="linenumber">233</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
@@ -3032,6 +3039,10 @@
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
           <context context-type="linenumber">407</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/rehydration-notice-dialog/rehydration-notice-dialog.ts</context>
+          <context context-type="linenumber">26,27</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4273726538431683462" datatype="html">
         <source>Bypass link has expired. Please complete CAPTCHA verification.</source>
@@ -3596,14 +3607,14 @@
         <source>Pre-Confirmation Registration Complete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
-          <context context-type="linenumber">295</context>
+          <context context-type="linenumber">297</context>
         </context-group>
       </trans-unit>
       <trans-unit id="107504608993292284" datatype="html">
         <source>Your pre-confirmation registration is successfully completed.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/pre-confirm-register/pre-confirm-register.ts</context>
-          <context context-type="linenumber">297</context>
+          <context context-type="linenumber">299</context>
         </context-group>
       </trans-unit>
       <trans-unit id="172699377993238502" datatype="html">
@@ -3972,6 +3983,27 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
           <context context-type="linenumber">83,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3421022583874856657" datatype="html">
+        <source>File is being retrieved</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/rehydration-notice-dialog/rehydration-notice-dialog.ts</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1579322889064537537" datatype="html">
+        <source> This file was archived because it is older than 1 month. Retrieval from the archive has started and the file will be available in <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>2 to 10 hours<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/>, depending on its size. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/rehydration-notice-dialog/rehydration-notice-dialog.ts</context>
+          <context context-type="linenumber">16,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7605977200851710718" datatype="html">
+        <source> No further action is needed — please come back and open the file again later. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/rehydration-notice-dialog/rehydration-notice-dialog.ts</context>
+          <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7350919090373604527" datatype="html">

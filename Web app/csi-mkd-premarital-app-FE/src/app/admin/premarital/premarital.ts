@@ -62,6 +62,7 @@ import { CsiMkdPremaritalAppBeService as ApiService } from '../../../api/api-mai
 import { QuestionAnswersService } from '../../../api/api-main-app/services/question-answers.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { SessionDataService } from '../../core/services/session-data.service';
+import { BlobAccessService } from '../../core/services/blob-access.service';
 import { CertificateService, CertificateType } from '../../core/services/certificate.service';
 import { CertificatePreviewDialog } from '../../shared/components/certificate-preview-dialog/certificate-preview-dialog';
 import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
@@ -163,12 +164,12 @@ export class PremaritalComponent {
   >(new Map());
 
   private _snackBar = inject(MatSnackBar);
+  protected readonly blobAccess = inject(BlobAccessService);
 
   protected readonly churchData = toSignal(this.churchDataService.churchData$, {
     initialValue: null,
   });
 
-  baseApiUrl = API_ROOT_URL_MAIN_APP;
   expandedElement: any = null;
   disableSelect = new FormControl(false);
 
@@ -717,33 +718,6 @@ export class PremaritalComponent {
       reader.onload = () => resolve(reader.result as string);
       reader.readAsDataURL(blob);
     });
-  }
-
-  readonly isRehydrating = signal<string | null>(null);
-
-  async requestFileRehydration(blobUrl: string): Promise<void> {
-    this.isRehydrating.set(blobUrl);
-    try {
-      const response = await fetch(`${this.baseApiUrl}/api/azureupload/rehydrate`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ blobUrl }),
-        credentials: 'include',
-      });
-      const data = await response.json();
-      if (data.status === 'rehydration_started') {
-        this._snackBar.open('Rehydration started. The file will be available within a few hours.', 'Close', { duration: 6000 });
-      } else if (data.status === 'already_available') {
-        this._snackBar.open('This file is already available. Try opening the link directly.', 'Close', { duration: 4000 });
-      } else {
-        this._snackBar.open('File not found in storage. It may have been deleted.', 'Close', { duration: 4000 });
-      }
-    } catch (err) {
-      this._snackBar.open('Failed to request the file. Please try again.', 'Close', { duration: 4000 });
-      console.error('Rehydration request failed', err);
-    } finally {
-      this.isRehydrating.set(null);
-    }
   }
 
   applyFilter(event: Event) {

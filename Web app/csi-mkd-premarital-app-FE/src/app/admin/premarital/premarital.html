@@ -385,15 +385,19 @@
 
                       <!-- Vicar's Letter -->
                       @if (reg.vicarLetterUrl) {
-                      <a
-                        [href]="reg.vicarLetterUrl"
-                        target="_blank"
-                        rel="noopener"
-                        class="inline-flex items-center gap-2 px-3 py-2 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-opacity text-sm"
+                      <button
+                        type="button"
+                        class="inline-flex items-center gap-2 px-3 py-2 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-opacity text-sm disabled:opacity-60"
+                        [disabled]="blobAccess.isRehydrating() === reg.vicarLetterUrl"
+                        (click)="blobAccess.openFile(reg.vicarLetterUrl); $event.stopPropagation()"
                       >
+                        @if (blobAccess.isRehydrating() === reg.vicarLetterUrl) {
+                        <mat-spinner diameter="16"></mat-spinner>
+                        } @else {
                         <mat-icon class="text-lg">description</mat-icon>
+                        }
                         <span i18n>Vicar's Letter</span>
-                      </a>
+                      </button>
                       } @else {
                       <div class="text-center">
                         <mat-icon class="text-2xl text-on-surface-variant mb-1">description</mat-icon>
@@ -414,12 +418,12 @@
                           mat-stroked-button
                           color="primary"
                           class="!text-xs"
-                          [disabled]="isRehydrating() === reg.photoUrl"
-                          (click)="requestFileRehydration(reg.photoUrl); $event.stopPropagation()"
+                          [disabled]="blobAccess.isRehydrating() === reg.photoUrl"
+                          (click)="blobAccess.openFile(reg.photoUrl); $event.stopPropagation()"
                           matTooltip="Request that the photo is made available"
                           i18n-matTooltip
                         >
-                          @if (isRehydrating() === reg.photoUrl) {
+                          @if (blobAccess.isRehydrating() === reg.photoUrl) {
                           <mat-spinner diameter="14"></mat-spinner>
                           } @else {
                           <mat-icon class="text-sm">photo</mat-icon>
@@ -432,12 +436,12 @@
                           mat-stroked-button
                           color="primary"
                           class="!text-xs"
-                          [disabled]="isRehydrating() === reg.vicarLetterUrl"
-                          (click)="requestFileRehydration(reg.vicarLetterUrl); $event.stopPropagation()"
+                          [disabled]="blobAccess.isRehydrating() === reg.vicarLetterUrl"
+                          (click)="blobAccess.openFile(reg.vicarLetterUrl); $event.stopPropagation()"
                           matTooltip="Request that the vicar letter is made available"
                           i18n-matTooltip
                         >
-                          @if (isRehydrating() === reg.vicarLetterUrl) {
+                          @if (blobAccess.isRehydrating() === reg.vicarLetterUrl) {
                           <mat-spinner diameter="14"></mat-spinner>
                           } @else {
                           <mat-icon class="text-sm">description</mat-icon>

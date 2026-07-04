@@ -52,6 +52,7 @@ import {
 import {
     ChurchDataService,
 } from '../../core/services/church-data.service';
+import { BlobAccessService } from '../../core/services/blob-access.service';
 import { FileUploadService } from '../../core/services/file-upload.service';
 import { CertificatePreviewDialog } from '../../shared/components/certificate-preview-dialog/certificate-preview-dialog';
 
@@ -88,6 +89,7 @@ export class AbroadPremaritalListComponent {
   private readonly churchDataService = inject(ChurchDataService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly certificateService = inject(CertificateService);
+  protected readonly blobAccess = inject(BlobAccessService);
 
   protected readonly totalCount = signal(0);
   protected readonly searchTermInput = signal<string>('');

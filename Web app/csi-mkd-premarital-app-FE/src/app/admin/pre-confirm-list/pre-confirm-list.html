@@ -140,18 +140,22 @@
 
                     <div class="mt-6 pt-4 border-t">
                       <h4 class="text-sm mb-3" i18n><strong>Vicar's Letter</strong></h4>
-                      @if (reg.confirmationDocument?.vicarLetterUrl) {
-                        <a
-                          [href]="$safeNavigationMigration(reg.confirmationDocument?.vicarLetterUrl)"
-                          target="_blank"
-                          rel="noopener"
+                      @if (reg.confirmationDocument?.vicarLetterUrl; as vicarLetterUrl) {
+                        <button
+                          type="button"
                           mat-raised-button
                           color="primary"
                           class="inline-flex items-center gap-2"
+                          [disabled]="blobAccess.isRehydrating() === vicarLetterUrl"
+                          (click)="blobAccess.openFile(vicarLetterUrl); $event.stopPropagation()"
                         >
-                          <mat-icon>description</mat-icon>
+                          @if (blobAccess.isRehydrating() === vicarLetterUrl) {
+                            <mat-spinner diameter="16"></mat-spinner>
+                          } @else {
+                            <mat-icon>description</mat-icon>
+                          }
                           <span i18n>View Vicar Letter</span>
-                        </a>
+                        </button>
                       } @else {
                         <div class="flex items-center gap-2 text-on-surface-variant italic">
                           <mat-icon class="!w-5 !h-5 !text-lg">info_outline</mat-icon>
