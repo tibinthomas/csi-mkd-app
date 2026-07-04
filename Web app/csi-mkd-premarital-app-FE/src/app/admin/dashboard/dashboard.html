@@ -1,54 +1,60 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <h1 class="text-3xl font-bold text-on-surface mb-6 theme-transition" i18n>Welcome back, Admin!</h1>
+  <div class="cx-page-head">
+    <span class="cx-icon-chip"><mat-icon>dashboard</mat-icon></span>
+    <div class="cx-page-head-text">
+      <h1 i18n>Welcome back, Admin!</h1>
+      <p i18n>Here's a snapshot of all registrations at a glance.</p>
+    </div>
+  </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
     <!-- Card: Premarital Registrations -->
-    <a routerLink="/admin/premarital" class="no-underline">
-      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
-        <mat-card-content class="flex items-center p-6">
-          <mat-icon class="text-rose-500 text-4xl mr-6">people</mat-icon>
+    <a routerLink="/admin/premarital" class="no-underline cx-lift">
+      <mat-card class="cursor-pointer h-full">
+        <mat-card-content class="cx-stat-tile">
+          <span class="cx-icon-chip"><mat-icon>people</mat-icon></span>
           <div>
-            <p class="text-on-surface-variant theme-transition" i18n>Premarital Registrations</p>
-            <p class="text-3xl font-bold text-on-surface theme-transition">{{ premaritalCount() }}</p>
+            <p class="cx-stat-label" i18n>Premarital Registrations</p>
+            <p class="cx-stat-value">{{ premaritalCount() }}</p>
           </div>
         </mat-card-content>
       </mat-card>
     </a>
 
     <!-- Card: General Registrations -->
-    <a routerLink="/admin/general-list" class="no-underline">
-      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
-        <mat-card-content class="flex items-center p-6">
-          <mat-icon class="text-blue-500 text-4xl mr-6">list_alt</mat-icon>
+    <a routerLink="/admin/general-list" class="no-underline cx-lift">
+      <mat-card class="cursor-pointer h-full">
+        <mat-card-content class="cx-stat-tile">
+          <span class="cx-icon-chip cx-icon-chip--gold"><mat-icon>list_alt</mat-icon></span>
           <div>
-            <p class="text-on-surface-variant theme-transition" i18n>General Registrations</p>
-            <p class="text-3xl font-bold text-on-surface theme-transition">{{ generalCount() }}</p>
+            <p class="cx-stat-label" i18n>General Registrations</p>
+            <p class="cx-stat-value">{{ generalCount() }}</p>
           </div>
         </mat-card-content>
       </mat-card>
     </a>
 
     <!-- Card: Pre-confirmational Registrations -->
-    <a routerLink="/admin/pre-confirm-list" class="no-underline">
-      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
-        <mat-card-content class="flex items-center p-6">
-          <mat-icon class="text-green-500 text-4xl mr-6">check_circle</mat-icon>
+    <a routerLink="/admin/pre-confirm-list" class="no-underline cx-lift">
+      <mat-card class="cursor-pointer h-full">
+        <mat-card-content class="cx-stat-tile">
+          <span class="cx-icon-chip cx-icon-chip--plum"><mat-icon>check_circle</mat-icon></span>
           <div>
-            <p class="text-on-surface-variant theme-transition" i18n>Pre-confirmational Registrations</p>
-            <p class="text-3xl font-bold text-on-surface theme-transition">{{ confirmationCount() }}</p>
+            <p class="cx-stat-label" i18n>Pre-confirmational Registrations</p>
+            <p class="cx-stat-value">{{ confirmationCount() }}</p>
           </div>
         </mat-card-content>
       </mat-card>
     </a>
 
     <!-- Card: Abroad & Outside Kerala Registrations -->
-    <a routerLink="/admin/abroad-premarital" class="no-underline">
-      <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
-        <mat-card-content class="flex items-center p-6">
-          <mat-icon class="text-purple-500 text-4xl mr-6">flight</mat-icon>
+    <a routerLink="/admin/abroad-premarital" class="no-underline cx-lift">
+      <mat-card class="cursor-pointer h-full">
+        <mat-card-content class="cx-stat-tile">
+          <span class="cx-icon-chip cx-icon-chip--amber"><mat-icon>flight</mat-icon></span>
           <div>
-            <p class="text-on-surface-variant theme-transition" i18n>Abroad & Outside Kerala</p>
-            <p class="text-3xl font-bold text-on-surface theme-transition">{{ abroadCount() }}</p>
+            <p class="cx-stat-label" i18n>Abroad & Outside Kerala</p>
+            <p class="cx-stat-value">{{ abroadCount() }}</p>
           </div>
         </mat-card-content>
       </mat-card>
@@ -57,10 +63,10 @@
 
   <!-- CAPTCHA Bypass URL Generator -->
   <div class="mt-8">
-    <mat-card class="rounded-xl shadow-lg">
+    <mat-card>
       <mat-card-content class="p-6">
         <div class="flex items-start gap-4 mb-4">
-          <mat-icon class="text-amber-500 text-3xl">security</mat-icon>
+          <span class="cx-icon-chip cx-icon-chip--amber shrink-0"><mat-icon>security</mat-icon></span>
           <div>
             <h2 class="text-xl font-bold text-on-surface" i18n>CAPTCHA Bypass URL Generator</h2>
             <p class="text-on-surface-variant text-sm mt-1" i18n>

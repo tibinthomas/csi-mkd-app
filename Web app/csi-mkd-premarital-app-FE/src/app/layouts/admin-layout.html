@@ -1,23 +1,24 @@
-<mat-sidenav-container class="h-screen surface-container theme-transition">
+<mat-sidenav-container class="h-screen cx-admin-canvas theme-transition">
   <mat-sidenav
     #sidenav
     [mode]="sidenavMode()"
     [opened]="sidenavOpened()"
     (openedChange)="sidenavOpen.set($event)"
-    class="theme-transition"
+    class="cx-admin-sidenav theme-transition"
     style="width: fit-content !important;"
   >
-    <div class="p-4 text-center border-b border-outline">
-      <h2 class="text-2xl font-bold text-primary theme-transition">CSI Admin</h2>
+    <div class="cx-admin-brand p-5 text-center border-b border-outline/30">
+      <h2 class="text-2xl font-extrabold tracking-tight theme-transition">CSI Admin</h2>
     </div>
 
-    <mat-nav-list class="flex flex-col justify-between flex-1">
+    <mat-nav-list class="flex flex-col justify-between flex-1 !py-3">
       <div>
         @for (item of navigationItems; track item.routerLink) {
         <a
           mat-list-item
           [routerLink]="item.routerLink"
-          routerLinkActive="!bg-primary-container !text-on-primary-container !border-2 !border-primary !rounded-lg"
+          routerLinkActive="cx-admin-nav-item--active"
+          class="cx-admin-nav-item"
           (click)="onNavItemClick()"
         >
           <mat-icon class="mr-4">{{ item.icon }}</mat-icon>
@@ -26,8 +27,8 @@
         }
       </div>
 
-      <div class="p-4 border-t border-outline">
-        <button mat-flat-button class="w-full" (click)="onLogout()">
+      <div class="p-4 border-t border-outline/30">
+        <button mat-flat-button color="primary" class="w-full" (click)="onLogout()">
           <mat-icon class="mr-2">exit_to_app</mat-icon>
           <span>Logout</span>
         </button>
@@ -36,7 +37,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar class="fixed top-0 left-0 right-0 z-50 shadow-sm theme-transition">
+    <mat-toolbar class="cx-admin-toolbar fixed top-0 left-0 right-0 z-50 theme-transition">
       <button mat-icon-button (click)="toggleSidenav()">
         <mat-icon>{{ menuIcon() }}</mat-icon>
       </button>
@@ -45,7 +46,7 @@
       <app-theme-toggle></app-theme-toggle>
       <app-language-selector></app-language-selector>
     </mat-toolbar>
-    <main class="py-20 surface-container theme-transition">
+    <main class="py-20 cx-admin-canvas theme-transition">
       <router-outlet></router-outlet>
     </main>
   </mat-sidenav-content>

@@ -1,11 +1,15 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-on-surface theme-transition" i18n>Abroad & Outside Kerala Registrations</h1>
+  <div class="cx-page-head">
+    <span class="cx-icon-chip cx-icon-chip--amber"><mat-icon>flight</mat-icon></span>
+    <div class="cx-page-head-text">
+      <h1 i18n>Abroad & Outside Kerala Registrations</h1>
+      <p i18n>Search, review and manage abroad & outside Kerala sign-ups.</p>
+    </div>
   </div>
 
   <!-- Filters Section -->
-  <mat-card class="mb-6 rounded-xl shadow-lg">
-    <mat-card-content class="p-6">
+  <mat-card class="mb-6">
+    <mat-card-content class="cx-filter-bar !mb-0">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
         <!-- Search Input -->
         <mat-form-field appearance="fill" class="w-full">
@@ -30,7 +34,7 @@
   </mat-card>
 
   <!-- Results Section -->
-  <mat-card class="rounded-xl shadow-lg">
+  <mat-card>
     <mat-card-content class="p-6">
       <!-- Loading Spinner -->
       @if (isLoading()) {
@@ -41,7 +45,7 @@
 
       <!-- No Results Message -->
       @if (!isLoading() && registrations().length === 0) {
-        
+
         <div class="text-center py-12">
           <mat-icon class="text-6xl text-on-surface-variant mb-4">inbox</mat-icon>
           <p class="text-xl text-on-surface-variant" i18n>No registrations found</p>
@@ -53,7 +57,7 @@
 
       <!-- Results Table -->
       @if (!isLoading() && registrations().length > 0) {
-        <div class="overflow-x-auto border rounded-xl">
+        <div class="overflow-x-auto cx-table-glass border border-outline/20">
           <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="w-full">
             <!-- Participants Column -->
            

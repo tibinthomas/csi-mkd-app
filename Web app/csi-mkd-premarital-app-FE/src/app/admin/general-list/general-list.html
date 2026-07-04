@@ -1,13 +1,17 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <mat-card class="rounded-2xl shadow-xl">
-    <mat-card-header class="!pb-4">
-      <mat-card-title>
-        <h1 class="text-2xl font-bold text-on-surface theme-transition" i18n>General Registrations</h1>
-      </mat-card-title>
-    </mat-card-header>
+  <div class="cx-page-head">
+    <span class="cx-icon-chip cx-icon-chip--gold"><mat-icon>list_alt</mat-icon></span>
+    <div class="cx-page-head-text">
+      <h1 i18n>General Registrations</h1>
+      <p i18n>Search, review and manage general counselling sign-ups.</p>
+    </div>
+  </div>
+
+  <mat-card>
     <mat-card-content>
       <!-- Filter Controls -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="cx-filter-bar">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <mat-form-field appearance="fill" class="w-full md:col-span-2">
           <mat-label i18n>Search</mat-label>
           <input
@@ -28,7 +32,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-3">
         <mat-checkbox [checked]="unapprovedOnly()" (change)="onUnapprovedChange($event.checked)" i18n>
           Show Unapproved Payments Only
         </mat-checkbox>
@@ -37,8 +41,9 @@
           <span i18n>Download Full List</span>
         </button>
       </div>
+      </div>
 
-      <div #pdfContent class="export-pdf overflow-x-auto rounded-lg border">
+      <div #pdfContent class="export-pdf overflow-x-auto cx-table-glass border border-outline/20">
         @if(isLoading()){
         <div class="flex justify-center items-center p-8">
           <mat-spinner diameter="50" color="primary"></mat-spinner>
@@ -48,7 +53,7 @@
           mat-table
           [dataSource]="registrations()"
           multiTemplateDataRows
-          class="min-w-full surface-container table-fixed theme-transition"
+          class="min-w-full table-fixed theme-transition"
         >
           <!-- Column Definitions -->
           <ng-container matColumnDef="FirstName">

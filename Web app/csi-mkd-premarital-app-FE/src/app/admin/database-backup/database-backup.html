@@ -1,14 +1,18 @@
 <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <h1 class="text-3xl font-bold text-on-surface mb-6 theme-transition" i18n>
-    Database Backup Management
-  </h1>
+  <div class="cx-page-head">
+    <span class="cx-icon-chip"><mat-icon>backup</mat-icon></span>
+    <div class="cx-page-head-text">
+      <h1 i18n>Database Backup Management</h1>
+      <p i18n>Trigger, download and monitor Supabase PostgreSQL backups.</p>
+    </div>
+  </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
     <!-- Card: Trigger Backup -->
-    <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <mat-card class="cx-lift">
       <mat-card-content class="p-6">
         <div class="flex items-start mb-4">
-          <mat-icon class="text-blue-500 text-4xl mr-4">backup</mat-icon>
+          <span class="cx-icon-chip mr-4 shrink-0"><mat-icon>backup</mat-icon></span>
           <div class="flex-1">
             <h2 class="text-xl font-semibold text-on-surface theme-transition mb-2" i18n>
               Create New Backup
@@ -57,10 +61,10 @@
     </mat-card>
 
     <!-- Card: Download Latest Backup -->
-    <mat-card class="rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <mat-card class="cx-lift">
       <mat-card-content class="p-6">
         <div class="flex items-start mb-4">
-          <mat-icon class="text-green-500 text-4xl mr-4">cloud_download</mat-icon>
+          <span class="cx-icon-chip cx-icon-chip--gold mr-4 shrink-0"><mat-icon>cloud_download</mat-icon></span>
           <div class="flex-1">
             <h2 class="text-xl font-semibold text-on-surface theme-transition mb-2" i18n>
               Download Latest Backup
@@ -110,10 +114,10 @@
   </div>
 
   <!-- Information Section -->
-  <mat-card class="rounded-xl shadow-lg mt-6">
+  <mat-card class="mt-6">
     <mat-card-content class="p-6">
       <div class="flex items-start">
-        <mat-icon class="text-indigo-500 text-3xl mr-4">help_outline</mat-icon>
+        <span class="cx-icon-chip cx-icon-chip--plum mr-4 shrink-0"><mat-icon>help_outline</mat-icon></span>
         <div>
           <h3 class="text-lg font-semibold text-on-surface theme-transition mb-3" i18n>
             About Database Backups

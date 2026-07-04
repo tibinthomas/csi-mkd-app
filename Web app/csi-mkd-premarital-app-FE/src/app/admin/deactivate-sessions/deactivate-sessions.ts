@@ -3,10 +3,12 @@ import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/cor
 import { CsiMkdPremaritalAppBeService } from '../../../api/api-main-app/services';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-deactivate-sessions',
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, MatCardModule, MatIconModule],
   templateUrl: './deactivate-sessions.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './deactivate-sessions.scss',

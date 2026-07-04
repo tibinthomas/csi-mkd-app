@@ -1,14 +1,18 @@
 <section
-  class="surface-container h-screen flex flex-col items-center justify-center theme-transition px-4"
+  class="cx-admin-canvas relative overflow-hidden h-screen flex flex-col items-center justify-center theme-transition px-4"
   role="main"
   aria-labelledby="login-title"
 >
-  <mat-card class="w-full max-w-md p-8 rounded-2xl shadow-xl">
+  <span class="cx-orb cx-orb--rose cx-float-anim" style="width: 320px; height: 320px; top: -80px; left: -100px;" aria-hidden="true"></span>
+  <span class="cx-orb cx-orb--gold cx-float-anim-2" style="width: 280px; height: 280px; bottom: -100px; right: -80px;" aria-hidden="true"></span>
+
+  <mat-card class="glass-panel relative z-[1] w-full max-w-md p-8">
     <mat-card-content>
-      <div class="text-center mb-8">
-        <img src="assets/logo.avif" alt="CSI MKD Logo" class="mx-auto w-[100px] h-auto" />
-        <h1 id="login-title" class="text-3xl font-bold text-on-surface mt-4 theme-transition" i18n>Admin Login</h1>
+      <div class="cx-form-head">
+        <img src="assets/logo.avif" alt="CSI MKD Logo" class="mx-auto w-[92px] h-auto" />
+        <h1 id="login-title" class="cx-form-title cx-gradient-text" i18n>Admin Login</h1>
         <p class="text-on-surface-variant theme-transition" i18n>Access the dashboard</p>
+        <hr class="cx-divider w-24" />
       </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
@@ -51,7 +55,7 @@
   </mat-card>
 
   <!-- Elegant link to main site -->
-  <div class="mt-6 text-center">
+  <div class="relative z-[1] mt-6 text-center">
     <a routerLink="/about" class="text-primary flex items-center justify-center gap-2 font-medium cursor-pointer">
       <mat-icon fontIcon="home"></mat-icon>
       <span i18n>Back to Main Website</span>

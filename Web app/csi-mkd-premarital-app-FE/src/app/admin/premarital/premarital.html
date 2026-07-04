@@ -1,13 +1,17 @@
 <div class="container mx-auto lg:py-8">
-  <mat-card class="rounded-2xl shadow-xl">
-    <mat-card-header class="!pb-4">
-      <mat-card-title>
-        <h1 class="text-2xl font-bold text-on-surface theme-transition" i18n>Premarital Registrations</h1>
-      </mat-card-title>
-    </mat-card-header>
+  <div class="cx-page-head">
+    <span class="cx-icon-chip"><mat-icon>people</mat-icon></span>
+    <div class="cx-page-head-text">
+      <h1 i18n>Premarital Registrations</h1>
+      <p i18n>Search, review and manage premarital counselling sign-ups.</p>
+    </div>
+  </div>
+
+  <mat-card>
     <mat-card-content>
       <!-- Filter Controls -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="cx-filter-bar">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
         <mat-form-field appearance="fill" class="w-full">
           <mat-label i18n>Session Year</mat-label>
           <mat-select [value]="selectedYear()" (selectionChange)="selectedYear.set($event.value)">
@@ -41,7 +45,7 @@
         </mat-form-field>
       </div>
 
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <!-- Checkboxes Group -->
         <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
           <mat-checkbox
@@ -62,7 +66,7 @@
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-wrap items-center gap-2">
           <button mat-flat-button color="primary" (click)="searchRegistrations()" i18n>Search</button>
           <button mat-stroked-button (click)="clearFilters()" i18n>Clear</button>
           <button mat-raised-button color="accent" (click)="handleDownload()">
@@ -79,14 +83,15 @@
           </button>
         </div>
       </div>
+      </div>
 
-      <div #pdfContent class="export-pdf overflow-x-auto rounded-lg shadow border">
+      <div #pdfContent class="export-pdf overflow-x-auto cx-table-glass border border-outline/20">
         @if(isLoading()){
         <div class="flex justify-center items-center mt-8">
           <mat-spinner diameter="40" color="primary"></mat-spinner>
         </div>
         } @else if(registrations().length > 0){
-        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full mat-elevation-z8">
+        <table mat-table [dataSource]="registrations()" multiTemplateDataRows class="min-w-full">
           <!-- Column Definitions -->
           <ng-container matColumnDef="FirstName">
             <th mat-header-cell *matHeaderCellDef i18n><strong>First Name</strong></th>

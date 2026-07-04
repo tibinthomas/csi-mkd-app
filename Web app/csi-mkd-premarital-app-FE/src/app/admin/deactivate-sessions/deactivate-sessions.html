@@ -1,18 +1,24 @@
-<div class="max-w-4xl mx-auto py-10 text-center">
-  <!-- Main Heading -->
-  <h1 class="text-2xl font-bold mb-8 text-on-background">Deactivate Sessions</h1>
+<div class="max-w-4xl mx-auto py-10">
+  <div class="cx-page-head justify-center text-center flex-col">
+    <span class="cx-icon-chip cx-icon-chip--amber"><mat-icon>event_busy</mat-icon></span>
+    <div class="cx-page-head-text mt-3">
+      <h1>Deactivate Sessions</h1>
+      <p>Bulk-deactivate sessions that are upcoming or already finished.</p>
+    </div>
+  </div>
 
   <!-- Cards Grid -->
   <div class="grid gap-8 md:grid-cols-2">
     <!-- Upcoming Sessions Card -->
-    <div class="rounded-2xl shadow-lg p-6 flex flex-col items-center transition-transform hover:scale-[1.02]">
+    <mat-card class="cx-lift p-6 flex flex-col items-center text-center">
       <h3 class="text-lg font-semibold mb-2">Upcoming Sessions (Next 3 Days)</h3>
       <p class="text-sm text-on-surface-variant mb-4 text-center">
         Deactivate all sessions scheduled for today and the next 3 days.
       </p>
       <button
         mat-flat-button
-        class="bg-rose-500 hover:bg-rose-600 text-white w-full py-2 rounded-lg transition-colors disabled:opacity-50"
+        color="warn"
+        class="w-full"
         (click)="confirmDeactivateUpcoming()"
         [disabled]="loadingDeactivateUpcoming()"
       >
@@ -27,15 +33,16 @@
         {{ messageDeactivateUpcoming() }}
       </p>
       }
-    </div>
+    </mat-card>
 
     <!-- Past Sessions Card -->
-    <div class="rounded-2xl shadow-md p-6 flex flex-col items-center transition-transform hover:scale-[1.02]">
+    <mat-card class="cx-lift p-6 flex flex-col items-center text-center">
       <h3 class="text-lg font-semibold mb-2">Past Sessions</h3>
       <p class="text-sm text-on-surface-variant mb-4 text-center">Deactivate all sessions that have already ended.</p>
       <button
         mat-flat-button
-        class="bg-rose-500 hover:bg-rose-600 text-white w-full py-2 rounded-lg transition-colors disabled:opacity-50"
+        color="warn"
+        class="w-full"
         (click)="confirmDeactivatePast()"
         [disabled]="loadingDeactivatePast()"
       >
@@ -50,6 +57,6 @@
         {{ messageDeactivatePast() }}
       </p>
       }
-    </div>
+    </mat-card>
   </div>
 </div>

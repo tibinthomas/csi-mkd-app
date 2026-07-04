@@ -346,6 +346,8 @@ body::before {
   }
 }
 .cx-icon-chip--gold { background: linear-gradient(135deg, var(--cx-gold), var(--cx-rose)); }
+.cx-icon-chip--plum { background: linear-gradient(135deg, var(--cx-plum), var(--cx-wine)); }
+.cx-icon-chip--amber { background: linear-gradient(135deg, #d8a657, #b9832f); }
 
 // Section heading helper -----------------------------------------------------
 .cx-h2 {
@@ -575,4 +577,151 @@ mat-card.glass-card {
 
 @media (prefers-reduced-motion: reduce) {
   :root { @include cx-motion-off; }
+}
+
+// -----------------------------------------------------------------------------
+// 8. ADMIN PANEL SURFACES
+// -----------------------------------------------------------------------------
+// Lets the aurora mesh backdrop show through admin screens instead of a flat
+// opaque surface color.
+.cx-admin-canvas {
+  background: transparent !important;
+}
+
+// Frosted sidenav ------------------------------------------------------------
+.cx-admin-sidenav {
+  background: var(--glass-bg-strong) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  backdrop-filter: blur(22px) saturate(180%);
+  border-right: 1px solid var(--glass-border);
+}
+
+.cx-admin-brand {
+  h2 {
+    background: var(--cx-grad-heading);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+.cx-admin-nav-item {
+  position: relative;
+  margin: 0.2rem 0.65rem;
+  border-radius: 0.9rem !important;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: var(--glass-bg-faint) !important;
+    transform: translateX(3px);
+  }
+}
+
+.cx-admin-nav-item--active {
+  background: var(--cx-grad-soft) !important;
+  color: var(--cx-wine) !important;
+  font-weight: 700;
+
+  .mat-icon { color: var(--cx-rose-deep); }
+}
+:root[data-theme='dark'] .cx-admin-nav-item--active {
+  background: linear-gradient(135deg, rgba(168, 56, 90, 0.38), rgba(120, 84, 40, 0.3)) !important;
+  color: var(--cx-gold-soft) !important;
+
+  .mat-icon { color: var(--cx-gold-soft); }
+}
+
+// Frosted top toolbar ----------------------------------------------------
+.cx-admin-toolbar {
+  background: var(--glass-bg-strong) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--md-sys-color-on-surface);
+}
+
+// Page header: icon chip + title + subtitle -----------------------------
+.cx-page-head {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.75rem;
+
+  .cx-page-head-text {
+    min-width: 0;
+  }
+
+  h1 {
+    font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  p {
+    margin: 0.2rem 0 0;
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.9rem;
+  }
+}
+
+// Filter / toolbar strip inside a page --------------------------------------
+.cx-filter-bar {
+  background: var(--glass-bg-faint);
+  border: 1px solid var(--glass-border-soft);
+  border-radius: 1.1rem;
+  padding: 1.1rem;
+  margin-bottom: 1.5rem;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+// Table glass treatment -------------------------------------------------
+.cx-table-glass {
+  border-radius: 1rem;
+  overflow: hidden;
+
+  th.mat-mdc-header-cell {
+    background: var(--glass-bg-faint);
+    color: var(--cx-rose-deep);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--glass-border-soft);
+  }
+  :root[data-theme='dark'] & th.mat-mdc-header-cell { color: var(--cx-gold-soft); }
+
+  td.mat-mdc-cell {
+    border-bottom: 1px solid var(--glass-border-soft);
+  }
+
+  tr.mat-mdc-row {
+    transition: background-color 0.25s ease;
+    &:hover { background: var(--glass-bg-faint); }
+  }
+}
+
+// Stat / summary tiles (dashboard) -------------------------------------------
+.cx-stat-tile {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+  padding: 1.5rem;
+
+  .cx-stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--md-sys-color-on-surface);
+  }
+
+  .cx-stat-label {
+    color: var(--md-sys-color-on-surface-variant);
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
 }

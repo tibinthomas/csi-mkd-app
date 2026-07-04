@@ -1,6 +1,11 @@
 <div class="feedback-list-container">
-  <div class="header">
-    <h1>Feedback List</h1>
+  <div class="cx-page-head">
+    <span class="cx-icon-chip cx-icon-chip--plum"><mat-icon>feedback</mat-icon></span>
+    <div class="cx-page-head-text">
+      <h1>Feedback List</h1>
+      <p>Browse participant feedback submitted after sessions.</p>
+    </div>
+    <span class="flex-1"></span>
     <button mat-raised-button color="primary" (click)="refreshData()">
       <mat-icon>refresh</mat-icon>
       Refresh
@@ -8,10 +13,7 @@
   </div>
 
   <mat-card class="filters-card">
-    <mat-card-header>
-      <mat-card-title>Search & Filters</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="cx-filter-bar !mb-0">
       <mat-form-field appearance="fill" class="search-field">
         <mat-label>Search by name or email</mat-label>
         <input matInput [(ngModel)]="searchTerm" (ngModelChange)="searchTerm.set($event)" />
@@ -50,7 +52,7 @@
         </p>
       </div>
       } @else {
-      <div class="table-container">
+      <div class="table-container cx-table-glass border border-outline/20">
         <table mat-table [dataSource]="filteredFeedback()" class="feedback-table">
           <!-- Name Column -->
           <ng-container matColumnDef="name">
