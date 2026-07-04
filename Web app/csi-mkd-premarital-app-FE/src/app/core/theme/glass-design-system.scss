@@ -717,7 +717,10 @@ mat-card.glass-card {
 // Table glass treatment -------------------------------------------------
 .cx-table-glass {
   border-radius: 1rem;
-  overflow: hidden;
+  // Horizontal scroll (for the actions column on narrow screens) is applied
+  // via `overflow-x-auto` on the same element — set only `overflow-y` here
+  // so the two don't fight over the `overflow-x` value.
+  overflow: auto;
 
   th.mat-mdc-header-cell {
     background: var(--glass-bg-faint);
