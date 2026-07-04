@@ -12,6 +12,22 @@
   }
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions [class.!justify-between]="data.calendarEvent" align="end">
+  @if (data.calendarEvent) {
+  <button mat-stroked-button [matMenuTriggerFor]="calendarMenu" class="pt-serif-bold">
+    <mat-icon>event</mat-icon>
+    Add to Calendar
+  </button>
+  <mat-menu #calendarMenu="matMenu">
+    <button mat-menu-item (click)="addToGoogleCalendar()">
+      <mat-icon>calendar_today</mat-icon>
+      <span>Google Calendar</span>
+    </button>
+    <button mat-menu-item (click)="downloadIcs()">
+      <mat-icon>download</mat-icon>
+      <span>Download .ics file</span>
+    </button>
+  </mat-menu>
+  }
   <button mat-flat-button mat-dialog-close class="pt-serif-bold">OK</button>
 </mat-dialog-actions>

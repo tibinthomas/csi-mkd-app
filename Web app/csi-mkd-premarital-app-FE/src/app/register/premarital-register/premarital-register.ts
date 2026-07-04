@@ -30,6 +30,7 @@ import { DatePipe } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { Dialog } from '../../shared/dialog-popup/dialog-popup';
+import { CalendarEvent } from '../../core/services/calendar.service';
 import { emailExistsValidatorFactory } from '../../core/validators/unique-email.validator';
 import { emailDomainValidator } from '../../core/validators/email-domain.validator';
 import { FileUploadService } from '../../core/services/file-upload.service';
@@ -568,6 +569,10 @@ export class PremaritalRegister {
     const raw = this.form.value;
     this.isSubmitting.set(true);
 
+    const selectedSession = this.sessionList().find(
+      (session: any) => Number(session.id) === Number(raw.sessionId)
+    ) as { sessionName?: string; startDate?: string; endDate?: string } | undefined;
+
     const photo = this.photoFile()!;
     const letter = this.vicarLetterFile()!;
 
@@ -651,6 +656,17 @@ export class PremaritalRegister {
                     this.successMessage.set(
                       'Registration submitted successfully!'
                     );
+                    const calendarEvent: CalendarEvent | undefined =
+                      selectedSession?.startDate && selectedSession?.endDate
+                        ? {
+                            title: $localize`CSI MKD Premarital Counselling — ${selectedSession.sessionName}`,
+                            description: $localize`Premarital counselling session registered with the CSI Madhya Kerala Diocese Premarital Counselling Centre.`,
+                            startDate: new Date(selectedSession.startDate),
+                            endDate: new Date(selectedSession.endDate),
+                            allDay: true,
+                          }
+                        : undefined;
+
                     const dialogRef = this.dialog.open(Dialog, {
                       disableClose: true,
                       data: {
@@ -659,6 +675,7 @@ export class PremaritalRegister {
                           $localize`Your premarital registration is successfully completed.`,
                         ],
                         extraMessage: $localize`A confirmation email has been sent to your registered email address.`,
+                        calendarEvent,
                       },
                     });
                     dialogRef.afterClosed().subscribe(() => {

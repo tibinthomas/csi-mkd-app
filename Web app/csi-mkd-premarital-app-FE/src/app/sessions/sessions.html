@@ -52,34 +52,38 @@
                   <i class="bi bi-calendar2-event"></i>
                 </span>
                 <div class="cx-session-card__body">
-                  <h4 class="cx-session-card__name">{{ session.sessionName }}</h4>
+                  <div class="cx-session-card__title-row">
+                    <h4 class="cx-session-card__name">{{ session.sessionName }}</h4>
+                    <span
+                      class="cx-session-status"
+                      [class.cx-session-status--open]="session.isActive"
+                      [class.cx-session-status--closed]="!session.isActive"
+                    >
+                      @if (session.isActive) {
+                      <span i18n>Open for registration</span>
+                      } @else {
+                      <span i18n>Unavailable</span>
+                      }
+                    </span>
+                  </div>
                   <p class="cx-session-card__dates">
                     {{ session.startDate | date : "MMM d, y" : "+5:30" }}
                     <i class="bi bi-arrow-right cx-session-card__arrow"></i>
                     {{ session.endDate | date : "MMM d, y" : "+5:30" }}
                   </p>
-                  <span
-                    class="cx-session-status"
-                    [class.cx-session-status--open]="session.isActive"
-                    [class.cx-session-status--closed]="!session.isActive"
-                  >
-                    @if (session.isActive) {
-                    <span i18n>Open for registration</span>
-                    } @else {
-                    <span i18n>Unavailable</span>
-                    }
-                  </span>
                 </div>
                 <div class="cx-session-card__action">
                   <button
                     mat-flat-button
                     color="primary"
+                    class="cx-session-card__register"
                     [disabled]="!session.isActive"
                     (click)="registerSession(session)"
                   >
-                    @if( session.isActive) {
+                    @if (session.isActive) {
                     <span i18n>Register</span>
-                    } @if(!session.isActive) {
+                    <i class="bi bi-arrow-right cx-session-card__register-arrow" aria-hidden="true"></i>
+                    } @else {
                     <span i18n>Unavailable</span>
                     }
                   </button>
