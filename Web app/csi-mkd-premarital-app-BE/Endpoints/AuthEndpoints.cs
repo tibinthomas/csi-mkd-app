@@ -36,6 +36,8 @@ public static class AuthEndpoints
                     new Claim(ClaimTypes.Role, "Admin")
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
+                Issuer = config["JwtSettings:Issuer"],
+                Audience = config["JwtSettings:Audience"],
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
