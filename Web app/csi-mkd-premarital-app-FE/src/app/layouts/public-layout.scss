@@ -101,7 +101,8 @@ mat-toolbar.cx-header {
   color: var(--md-sys-color-on-surface-variant);
   text-decoration: none;
   white-space: nowrap;
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  border: 1px solid transparent;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 
   &::after {
     content: '';
@@ -126,10 +127,15 @@ mat-toolbar.cx-header {
 :host-context([data-theme='dark']) .cx-nav-link:hover { color: var(--cx-gold-soft); }
 
 .cx-nav-link--active {
-  color: #fff !important;
-  background: var(--cx-grad-primary) !important;
-  box-shadow: 0 8px 20px -8px rgba(168, 56, 90, 0.6);
+  color: var(--cx-rose-deep) !important;
+  background: rgba(168, 56, 90, 0.14) !important;
+  border-color: rgba(168, 56, 90, 0.28) !important;
   &::after { width: 0 !important; }
+}
+:host-context([data-theme='dark']) .cx-nav-link--active {
+  color: var(--cx-gold-soft) !important;
+  background: rgba(216, 166, 87, 0.16) !important;
+  border-color: rgba(216, 166, 87, 0.32) !important;
 }
 
 .cx-action-cluster {
