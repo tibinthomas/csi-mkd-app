@@ -80,6 +80,23 @@ namespace csi_mkd_premarital_app_BE.Services
             registration.ConfirmationDate = DateTime.SpecifyKind(dto.ConfirmationDate, DateTimeKind.Utc);
             registration.CounsellingDate = DateTime.SpecifyKind(dto.CounsellingDate, DateTimeKind.Utc);
 
+            if (!string.IsNullOrWhiteSpace(dto.VicarLetterUrl))
+            {
+                if (registration.ConfirmationDocument != null)
+                {
+                    registration.ConfirmationDocument.VicarLetterUrl = dto.VicarLetterUrl;
+                    registration.ConfirmationDocument.SubmittedAt = DateTime.UtcNow;
+                }
+                else
+                {
+                    registration.ConfirmationDocument = new ConfirmationDocument
+                    {
+                        RegistrationId = registration.Id,
+                        VicarLetterUrl = dto.VicarLetterUrl,
+                    };
+                }
+            }
+
             // Update participants
             if (dto.DeletedParticipantIds != null && dto.DeletedParticipantIds.Any())
             {

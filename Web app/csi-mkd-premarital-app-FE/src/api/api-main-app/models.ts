@@ -30,6 +30,7 @@ export type { PremaritalOutsideKeralaDocumentDto } from './models/premarital-out
 export type { PremaritalOutsideKeralaRegisterDto } from './models/premarital-outside-kerala-register-dto';
 export type { PremaritalRegisterDto } from './models/premarital-register-dto';
 export type { QuestionAnswersResponseDto } from './models/question-answers-response-dto';
+export type { RehydrateRequest } from './models/rehydrate-request';
 export type { SessionConfigurationDto } from './models/session-configuration-dto';
 export { TimeZoneOption } from './models/time-zone-option';
 export type { UpdateConfirmationRegisterDto } from './models/update-confirmation-register-dto';
@@ -37,4 +38,3 @@ export type { UpdateInstructorDto } from './models/update-instructor-dto';
 export type { UpdatePasswordDto } from './models/update-password-dto';
 export type { UpdatePremaritalRegisterDto } from './models/update-premarital-register-dto';
 export type { UpdateQuestionAnswersDto } from './models/update-question-answers-dto';
-export type { Void } from './models/void';

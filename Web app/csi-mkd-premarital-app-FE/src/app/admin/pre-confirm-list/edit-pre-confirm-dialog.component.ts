@@ -27,9 +27,12 @@ import {
 } from '../../../api/api-main-app/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChurchDataService } from '../../core/services/church-data.service';
+import { FileUploadService } from '../../core/services/file-upload.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-edit-pre-confirm-dialog',
@@ -108,6 +111,49 @@ import { MatIconModule } from '@angular/material/icon';
         >
           Add Participant
         </button>
+
+        @if (data.isEdit) {
+        <h3>Vicar's Letter</h3>
+        <div class="vicar-letter-section">
+          <input
+            #vicarLetterInput
+            type="file"
+            hidden
+            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+            (change)="onVicarLetterChange($event)"
+          />
+          <button
+            mat-stroked-button
+            color="primary"
+            type="button"
+            (click)="vicarLetterInput.click()"
+          >
+            <mat-icon>upload_file</mat-icon>
+            {{ currentVicarLetterUrl ? 'Replace Letter' : 'Upload Letter' }}
+          </button>
+          @if (vicarLetterFile(); as file) {
+          <span class="vicar-letter-file">
+            <mat-icon class="text-base">attach_file</mat-icon>
+            {{ file.name }}
+            <button
+              mat-icon-button
+              type="button"
+              aria-label="Remove selected letter"
+              (click)="clearVicarLetter(vicarLetterInput)"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </span>
+          } @else if (currentVicarLetterUrl) {
+          <span class="vicar-letter-hint">A letter is already on file; uploading replaces it.</span>
+          } @else {
+          <span class="vicar-letter-hint">No letter uploaded yet.</span>
+          }
+        </div>
+        @if (vicarLetterError()) {
+        <p class="vicar-letter-error">{{ vicarLetterError() }}</p>
+        }
+        }
       </form>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
@@ -116,8 +162,11 @@ import { MatIconModule } from '@angular/material/icon';
         mat-flat-button
         color="primary"
         (click)="onSubmit()"
-        [disabled]="form.invalid"
+        [disabled]="form.invalid || isSaving()"
       >
+        @if (isSaving()) {
+        <mat-spinner diameter="18"></mat-spinner>
+        }
         {{ data.isEdit ? 'Update' : 'Create' }}
       </button>
     </mat-dialog-actions>
@@ -128,6 +177,29 @@ import { MatIconModule } from '@angular/material/icon';
         display: flex;
         gap: 1rem;
         align-items: center;
+      }
+      .vicar-letter-section {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0.5rem 0 1rem;
+      }
+      .vicar-letter-file {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 0.85rem;
+        word-break: break-all;
+      }
+      .vicar-letter-hint {
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+      .vicar-letter-error {
+        color: var(--md-sys-color-error, #b3261e);
+        font-size: 0.85rem;
+        margin-bottom: 1rem;
       }
     `,
   ],
@@ -141,7 +213,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
 ],
   changeDetection: ChangeDetectionStrategy.Eager,
   providers: [provideNativeDateAdapter()],
@@ -151,6 +224,10 @@ export class EditPreConfirmDialogComponent implements OnInit {
   churchData;
   deletedParticipantIds: string[] = [];
   protected readonly minDate = new Date();
+
+  protected readonly vicarLetterFile = signal<File | null>(null);
+  protected readonly vicarLetterError = signal<string>('');
+  protected readonly isSaving = signal(false);
 
   constructor(
     private fb: FormBuilder,
@@ -162,7 +239,8 @@ export class EditPreConfirmDialogComponent implements OnInit {
     },
     private api: CsiMkdPremaritalAppBeService,
     private snackBar: MatSnackBar,
-    private churchDataService: ChurchDataService
+    private churchDataService: ChurchDataService,
+    private fileUploadService: FileUploadService
   ) {
     this.churchData = toSignal(this.churchDataService.churchData$, {
       initialValue: null,
@@ -213,40 +291,76 @@ export class EditPreConfirmDialogComponent implements OnInit {
     this.participants.removeAt(index);
   }
 
+  get currentVicarLetterUrl(): string | null {
+    return (this.data.reg as any).confirmationDocument?.vicarLetterUrl ?? null;
+  }
+
+  onVicarLetterChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const file = target.files?.[0] || null;
+
+    const allowedTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'image/jpeg',
+      'image/png',
+    ];
+
+    if (file && !allowedTypes.includes(file.type)) {
+      this.vicarLetterError.set('Allowed types: PDF, DOC, DOCX, JPG, PNG');
+      this.vicarLetterFile.set(null);
+    } else if (file && file.size > 2 * 1024 * 1024) {
+      this.vicarLetterError.set('File too large. Max size is 2MB.');
+      this.vicarLetterFile.set(null);
+    } else {
+      this.vicarLetterError.set('');
+      this.vicarLetterFile.set(file);
+    }
+  }
+
+  clearVicarLetter(input: HTMLInputElement) {
+    input.value = '';
+    this.vicarLetterFile.set(null);
+    this.vicarLetterError.set('');
+  }
+
   onSubmit() {
-    if (this.form.invalid) {
+    if (this.form.invalid || this.isSaving()) {
       return;
     }
 
     const formData = this.form.getRawValue();
 
     if (this.data.isEdit) {
-      // Build the updated DTO (no id property inside the DTO)
-      const updatedReg: UpdateConfirmationRegisterDto = {
-        ...formData,
-        deletedParticipantIds: this.deletedParticipantIds,
-      };
-
       const id = (this.data.reg as any).id; // Route parameter value
+      const file = this.vicarLetterFile();
 
-      this.api
-        .apiConfirmationregisterIdPut({
-          id, // send id separately in route param
-          body: updatedReg, // DTO without id
-        })
-        .subscribe({
-          next: () => {
-            this.snackBar.open('Registration updated successfully', 'Close', {
-              duration: 3000,
-            });
-            this.dialogRef.close(true);
-          },
-          error: () => {
-            this.snackBar.open('Failed to update registration', 'Close', {
-              duration: 3000,
-            });
-          },
-        });
+      if (file) {
+        this.isSaving.set(true);
+        this.api
+          .apiAzureuploadGenerateSasGet({
+            fileName: `confirmation/${id}/witnessofvicar/${file.name}`,
+            contentType: file.type,
+          })
+          .pipe(
+            switchMap((sasUrl) =>
+              this.fileUploadService.uploadFileToAzure(file, sasUrl!)
+            )
+          )
+          .subscribe({
+            next: (blobUrl) => this.updateRegistration(id, formData, blobUrl),
+            error: () => {
+              this.isSaving.set(false);
+              this.vicarLetterError.set(
+                'Letter upload failed. The registration was not updated.'
+              );
+            },
+          });
+      } else {
+        this.isSaving.set(true);
+        this.updateRegistration(id, formData, null);
+      }
     } else {
       // For new registration
       const newReg: ConfirmationRegisterDto = {
@@ -268,5 +382,39 @@ export class EditPreConfirmDialogComponent implements OnInit {
         },
       });
     }
+  }
+
+  private updateRegistration(
+    id: string,
+    formData: any,
+    vicarLetterUrl: string | null
+  ) {
+    // Build the updated DTO (no id property inside the DTO)
+    const updatedReg: UpdateConfirmationRegisterDto = {
+      ...formData,
+      deletedParticipantIds: this.deletedParticipantIds,
+      ...(vicarLetterUrl ? { vicarLetterUrl } : {}),
+    };
+
+    this.api
+      .apiConfirmationregisterIdPut({
+        id, // send id separately in route param
+        body: updatedReg, // DTO without id
+      })
+      .subscribe({
+        next: () => {
+          this.isSaving.set(false);
+          this.snackBar.open('Registration updated successfully', 'Close', {
+            duration: 3000,
+          });
+          this.dialogRef.close(true);
+        },
+        error: () => {
+          this.isSaving.set(false);
+          this.snackBar.open('Failed to update registration', 'Close', {
+            duration: 3000,
+          });
+        },
+      });
   }
 }

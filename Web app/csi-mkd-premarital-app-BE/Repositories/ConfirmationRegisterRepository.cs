@@ -26,6 +26,7 @@ namespace csi_mkd_premarital_app_BE.Repositories
             var registration = await _context.ConfirmationRegistrations
                 .AsTracking()
                 .Include(r => r.Participants)
+                .Include(r => r.ConfirmationDocument)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (registration?.Participants != null)

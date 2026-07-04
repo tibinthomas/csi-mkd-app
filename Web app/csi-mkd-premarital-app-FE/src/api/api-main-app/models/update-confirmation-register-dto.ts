@@ -9,4 +9,5 @@ export interface UpdateConfirmationRegisterDto {
   counsellingDate?: string;
   deletedParticipantIds?: Array<string> | null;
   participants?: Array<ParticipantDto> | null;
+  vicarLetterUrl?: string | null;
 }

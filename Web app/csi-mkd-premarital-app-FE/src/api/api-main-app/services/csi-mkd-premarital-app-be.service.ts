@@ -17,6 +17,8 @@ import { apiAuthUpdatePasswordPost } from '../fn/csi-mkd-premarital-app-be/api-a
 import { ApiAuthUpdatePasswordPost$Params } from '../fn/csi-mkd-premarital-app-be/api-auth-update-password-post';
 import { apiAzureuploadGenerateSasGet } from '../fn/csi-mkd-premarital-app-be/api-azureupload-generate-sas-get';
 import { ApiAzureuploadGenerateSasGet$Params } from '../fn/csi-mkd-premarital-app-be/api-azureupload-generate-sas-get';
+import { apiAzureuploadRehydratePost } from '../fn/csi-mkd-premarital-app-be/api-azureupload-rehydrate-post';
+import { ApiAzureuploadRehydratePost$Params } from '../fn/csi-mkd-premarital-app-be/api-azureupload-rehydrate-post';
 import { apiCacheHealthGet } from '../fn/csi-mkd-premarital-app-be/api-cache-health-get';
 import { ApiCacheHealthGet$Params } from '../fn/csi-mkd-premarital-app-be/api-cache-health-get';
 import { apiCacheInvalidateAllPost } from '../fn/csi-mkd-premarital-app-be/api-cache-invalidate-all-post';
@@ -1631,6 +1633,31 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
    */
   apiAzureuploadGenerateSasGet(params: ApiAzureuploadGenerateSasGet$Params, context?: HttpContext): Observable<void> {
     return this.apiAzureuploadGenerateSasGet$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `apiAzureuploadRehydratePost()` */
+  static readonly ApiAzureuploadRehydratePostPath = '/api/azureupload/rehydrate';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `apiAzureuploadRehydratePost()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiAzureuploadRehydratePost$Response(params: ApiAzureuploadRehydratePost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return apiAzureuploadRehydratePost(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `apiAzureuploadRehydratePost$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  apiAzureuploadRehydratePost(params: ApiAzureuploadRehydratePost$Params, context?: HttpContext): Observable<void> {
+    return this.apiAzureuploadRehydratePost$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

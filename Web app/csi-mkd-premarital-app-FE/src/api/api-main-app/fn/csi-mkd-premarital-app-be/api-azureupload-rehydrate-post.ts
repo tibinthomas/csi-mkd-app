@@ -8,13 +8,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { RehydrateRequest } from '../../models/rehydrate-request';
 
-export interface DownloadLatestBackup$Params {
+export interface ApiAzureuploadRehydratePost$Params {
+      body: RehydrateRequest
 }
 
-export function downloadLatestBackup(http: HttpClient, rootUrl: string, params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
-  const rb = new RequestBuilder(rootUrl, downloadLatestBackup.PATH, 'get');
+export function apiAzureuploadRehydratePost(http: HttpClient, rootUrl: string, params: ApiAzureuploadRehydratePost$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+  const rb = new RequestBuilder(rootUrl, apiAzureuploadRehydratePost.PATH, 'post');
   if (params) {
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -27,4 +30,4 @@ export function downloadLatestBackup(http: HttpClient, rootUrl: string, params?:
   );
 }
 
-downloadLatestBackup.PATH = '/api/backup/download/latest';
+apiAzureuploadRehydratePost.PATH = '/api/azureupload/rehydrate';

@@ -15,7 +15,6 @@ import { downloadLatestBackup } from '../fn/backup/download-latest-backup';
 import { DownloadLatestBackup$Params } from '../fn/backup/download-latest-backup';
 import { triggerBackup } from '../fn/backup/trigger-backup';
 import { TriggerBackup$Params } from '../fn/backup/trigger-backup';
-import { Void } from '../models/void';
 
 @Injectable({ providedIn: 'root' })
 export class BackupService extends BaseService {
@@ -69,7 +68,7 @@ export class BackupService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  downloadLatestBackup$Response(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<Void>> {
+  downloadLatestBackup$Response(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return downloadLatestBackup(this.http, this.rootUrl, params, context);
   }
 
@@ -83,9 +82,9 @@ export class BackupService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  downloadLatestBackup(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<Void> {
+  downloadLatestBackup(params?: DownloadLatestBackup$Params, context?: HttpContext): Observable<void> {
     return this.downloadLatestBackup$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Void>): Void => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

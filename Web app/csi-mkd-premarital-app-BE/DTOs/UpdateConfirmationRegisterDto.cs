@@ -11,4 +11,10 @@ public class UpdateConfirmationRegisterDto
     public DateTime CounsellingDate { get; set; }
     public List<ParticipantDto> Participants { get; set; } = new();
     public List<Guid> DeletedParticipantIds { get; set; } = new();
+
+    /// <summary>
+    /// When set, replaces (or creates) the registration's vicar letter document.
+    /// Null/empty leaves the existing letter untouched.
+    /// </summary>
+    public string? VicarLetterUrl { get; set; }
 }

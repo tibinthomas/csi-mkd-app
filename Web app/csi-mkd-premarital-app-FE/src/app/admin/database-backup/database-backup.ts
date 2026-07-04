@@ -157,7 +157,10 @@ export class DatabaseBackup {
         
         this.isDownloadingBackup.set(false);
 
-        if (response.body) {
+        // The endpoint is typed as void in the OpenAPI spec, but the
+        // response body actually contains the backup file Blob.
+        const body = response.body as unknown as Blob | null;
+        if (body) {
           // Extract filename from Content-Disposition header or use default
           let filename = this.getFilenameFromResponse(response.headers);
 
@@ -169,8 +172,7 @@ export class DatabaseBackup {
             filename = `database_backup_${timestamp}.sql`;
           }
 
-          // Save the file - response.body is typed as Void but actually contains the Blob
-          saveAs(response.body as any, filename);
+          saveAs(body, filename);
 
           this.snackBar.open(
             'Backup file downloaded successfully!',
