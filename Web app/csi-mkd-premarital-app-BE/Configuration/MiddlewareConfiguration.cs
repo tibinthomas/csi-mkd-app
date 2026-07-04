@@ -33,10 +33,13 @@ public static class MiddlewareConfiguration
         // Standard middleware
         app.UseStaticFiles();
         app.UseCors("AllowedOrigins");
-        app.UseOutputCache();
-        app.UseCacheInvalidation();
         app.UseAuthentication();
         app.UseAuthorization();
+        // Output caching must run after auth, otherwise a cached response from one
+        // caller's authorization outcome can be served to a different caller who
+        // bypasses their own auth check entirely.
+        app.UseOutputCache();
+        app.UseCacheInvalidation();
         app.UseAntiforgery();
     }
 }
