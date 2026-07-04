@@ -7,7 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule],
   template: `
     @if (loadingService.isLoading()) {
-    <div class="loading-overlay">
+    <div class="loading-overlay" animate.enter="fadeIn" animate.leave="fadeOut">
       <div class="loading-container">
         <mat-spinner diameter="40"></mat-spinner>
       </div>
@@ -25,6 +25,31 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
       justify-content: center;
       align-items: center;
       z-index: 9999;
+    }
+
+    .fadeIn {
+      animation: global-loader-fade-in 0.2s ease both;
+    }
+
+    .fadeOut {
+      animation: global-loader-fade-out 0.18s ease both;
+    }
+
+    @keyframes global-loader-fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes global-loader-fade-out {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fadeIn,
+      .fadeOut {
+        animation: none;
+      }
     }
 
     .loading-container {

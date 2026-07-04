@@ -26,7 +26,7 @@ import { ChristmasSnowComponent } from './shared/components/christmas-snow/chris
 import { ChristmasOrnamentsComponent } from './shared/components/christmas-ornaments/christmas-ornaments.component';
 import { CursorEffectsComponent } from './shared/components/cursor-effects/cursor-effects.component';
 import { CursorTrailComponent } from './shared/components/cursor-trail/cursor-trail.component';
-import { filter, map, switchMap } from 'rxjs';
+import { filter, map, switchMap, takeUntil, timer } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -86,18 +86,27 @@ export class App implements OnInit {
     // Initialize console detection for developers
     this.consoleDetectionService.initializeConsoleDetection();
 
-    // Handle loading state for route navigation
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.loadingService.show();
-      } else if (
-        event instanceof NavigationEnd ||
-        event instanceof NavigationCancel ||
-        event instanceof NavigationError
-      ) {
-        this.loadingService.hide();
-      }
-    });
+    // Handle loading state for route navigation. Only surface the full-screen
+    // loader once a navigation has been running for a bit — most lazy chunks
+    // are already cached and resolve near-instantly, so showing it
+    // unconditionally just flashes on/off and reads as jank.
+    const navigationEnd$ = this.router.events.pipe(
+      filter(
+        (event) =>
+          event instanceof NavigationEnd ||
+          event instanceof NavigationCancel ||
+          event instanceof NavigationError
+      )
+    );
+
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationStart => event instanceof NavigationStart),
+        switchMap(() => timer(150).pipe(takeUntil(navigationEnd$)))
+      )
+      .subscribe(() => this.loadingService.show());
+
+    navigationEnd$.subscribe(() => this.loadingService.hide());
 
     // Handle SEO meta tags
     this.router.events

@@ -209,6 +209,41 @@ body::before {
 .cx-word-rise    { animation: cx-word-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 
 // -----------------------------------------------------------------------------
+// 4b. ROUTE (VIEW TRANSITION) ANIMATIONS
+// -----------------------------------------------------------------------------
+// Styles the browser View Transitions API snapshots that Angular's Router
+// triggers via withViewTransitions() on every navigation. Without this the
+// browser falls back to its default instant cross-fade, which reads as an
+// abrupt "snap" between routes.
+@keyframes cx-view-out {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(-8px) scale(0.99); }
+}
+@keyframes cx-view-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+::view-transition-old(root) {
+  animation: cx-view-out 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+::view-transition-new(root) {
+  animation: cx-view-in 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+:root[data-motion='none'] ::view-transition-old(root),
+:root[data-motion='none'] ::view-transition-new(root) {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+// -----------------------------------------------------------------------------
 // 5. GLASS SURFACE UTILITIES
 // -----------------------------------------------------------------------------
 .glass-card,
