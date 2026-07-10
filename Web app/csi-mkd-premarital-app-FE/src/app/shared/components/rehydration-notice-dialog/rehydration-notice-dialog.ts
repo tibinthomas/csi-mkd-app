@@ -21,19 +21,6 @@ import { MatIconModule } from '@angular/material/icon';
         No further action is needed &mdash; please come back and open the file
         again later.
       </p>
-      <p
-        class="mt-2 flex items-start gap-2 text-sm text-amber-600 dark:text-amber-400"
-      >
-        <mat-icon
-          class="!text-[18px] !w-[18px] !h-[18px] shrink-0"
-          aria-hidden="true"
-          >paid</mat-icon
-        >
-        <span i18n>
-          Note: retrieving files from archive storage incurs an additional cloud
-          storage cost. Only request a file when you actually need it.
-        </span>
-      </p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
       <button mat-flat-button color="primary" mat-dialog-close i18n>OK</button>

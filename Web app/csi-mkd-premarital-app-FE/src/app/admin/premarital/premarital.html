@@ -388,14 +388,34 @@
                     <h4 class="font-semibold mb-1 text-on-surface theme-transition" i18n>Documents</h4>
 
                     <div class="flex items-start gap-4">
+                      @if (reg.photoUrl) {
+                      <button
+                        type="button"
+                        class="shrink-0 cursor-pointer rounded-lg disabled:opacity-60"
+                        [disabled]="blobAccess.isRehydrating() === 'photo-' + reg.id"
+                        (click)="blobAccess.openFile(reg.photoUrl, 'photo-' + reg.id); $event.stopPropagation()"
+                        matTooltip="View full photo"
+                        i18n-matTooltip
+                      >
+                        <img
+                          [ngSrc]="reg.photoUrl"
+                          width="100"
+                          height="120"
+                          alt="Photo of {{ reg.firstName }} {{ reg.lastName }}"
+                          class="max-w-[100px] h-auto rounded-lg shadow-sm border border-outline dark:border-outline-variant"
+                          priority="low"
+                        />
+                      </button>
+                      } @else {
                       <img
-                        [ngSrc]="reg.photoUrl || 'https://blocks.astratic.com/img/user-img-big.png'"
+                        ngSrc="https://blocks.astratic.com/img/user-img-big.png"
                         width="100"
                         height="120"
                         alt="Photo of {{ reg.firstName }} {{ reg.lastName }}"
                         class="max-w-[100px] h-auto rounded-lg shadow-sm border border-outline dark:border-outline-variant shrink-0"
                         priority="low"
                       />
+                      }
 
                       <!-- Vicar's Letter -->
                       <div class="flex-1">
@@ -422,54 +442,6 @@
                       </div>
                     </div>
 
-                    <!-- Archived files notice & request buttons -->
-                    <div class="rounded-lg border border-outline p-3 bg-surface text-xs theme-transition">
-                      <div class="flex items-start gap-2 text-on-surface-variant mb-2">
-                        <mat-icon class="text-base shrink-0">archive</mat-icon>
-                        <span i18n
-                          >Files older than 1 month are archived. If a file above didn't open, request it below
-                          &mdash; retrieval takes 2 to 10 hours and has a small cloud storage cost.</span
-                        >
-                      </div>
-                      <div class="flex flex-wrap gap-2">
-                        @if (reg.photoUrl) {
-                        <button
-                          mat-stroked-button
-                          color="primary"
-                          class="!text-xs"
-                          [disabled]="blobAccess.isRehydrating() === 'photoRequest-' + reg.id"
-                          (click)="blobAccess.openFile(reg.photoUrl, 'photoRequest-' + reg.id); $event.stopPropagation()"
-                          matTooltip="Request that the photo is made available"
-                          i18n-matTooltip
-                        >
-                          @if (blobAccess.isRehydrating() === 'photoRequest-' + reg.id) {
-                          <mat-spinner diameter="14"></mat-spinner>
-                          } @else {
-                          <mat-icon class="text-sm">photo</mat-icon>
-                          }
-                          <span i18n>Request Photo</span>
-                        </button>
-                        }
-                        @if (reg.vicarLetterUrl) {
-                        <button
-                          mat-stroked-button
-                          color="primary"
-                          class="!text-xs"
-                          [disabled]="blobAccess.isRehydrating() === 'vicarLetterRequest-' + reg.id"
-                          (click)="blobAccess.openFile(reg.vicarLetterUrl, 'vicarLetterRequest-' + reg.id); $event.stopPropagation()"
-                          matTooltip="Request that the vicar letter is made available"
-                          i18n-matTooltip
-                        >
-                          @if (blobAccess.isRehydrating() === 'vicarLetterRequest-' + reg.id) {
-                          <mat-spinner diameter="14"></mat-spinner>
-                          } @else {
-                          <mat-icon class="text-sm">description</mat-icon>
-                          }
-                          <span i18n>Request Vicar's Letter</span>
-                        </button>
-                        }
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

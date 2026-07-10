@@ -22,7 +22,7 @@ public class BlobStorageService
         _blobServiceClient = new BlobServiceClient(connectionString);
     }
 
-    public async Task<string> RehydrateBlobAsync(string blobUrl)
+    public async Task<string> RehydrateBlobAsync(string blobUrl, bool checkOnly = false)
     {
         // Extract the blob name from the URL (everything after the container name)
         var containerSegment = $"/{_containerName}/";
@@ -39,10 +39,17 @@ public class BlobStorageService
             return "not_found";
 
         var props = await blobClient.GetPropertiesAsync();
-        var tier = props.Value.AccessTier;
 
-        if (tier != "Archive")
+        if (props.Value.AccessTier != "Archive")
             return "already_available";
+
+        // Azure sets ArchiveStatus (e.g. "rehydrate-pending-to-hot") while a
+        // previously requested rehydration is still copying the blob back.
+        if (props.Value.ArchiveStatus is not null)
+            return "rehydration_in_progress";
+
+        if (checkOnly)
+            return "archived";
 
         // Rehydrate to Hot — Azure will make the blob available within 1-15 hours
         await blobClient.SetAccessTierAsync(AccessTier.Hot);

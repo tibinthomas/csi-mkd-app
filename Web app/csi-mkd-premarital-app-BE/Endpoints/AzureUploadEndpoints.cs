@@ -27,13 +27,13 @@ public static class AzureUploadEndpoints
             if (string.IsNullOrWhiteSpace(request.BlobUrl))
                 return Results.BadRequest(new { status = "invalid_request" });
 
-            var status = await blobService.RehydrateBlobAsync(request.BlobUrl);
+            var status = await blobService.RehydrateBlobAsync(request.BlobUrl, request.CheckOnly);
             return Results.Ok(new { status });
         })
         .Produces(StatusCodes.Status200OK);
     }
 }
 
-internal record RehydrateRequest(string BlobUrl);
+internal record RehydrateRequest(string BlobUrl, bool CheckOnly = false);
 
 
