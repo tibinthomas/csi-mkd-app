@@ -16,17 +16,23 @@ export class BlobAccessService {
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
 
-  /** Blob URL currently being checked/rehydrated, or null when idle. */
+  /**
+   * Key of the request currently in flight, or null when idle. Defaults to
+   * the blob URL, but callers with more than one button for the same blob
+   * (e.g. a "view" button and a separate "request" button) should pass a
+   * distinct `key` to `openFile` so only the button actually clicked shows
+   * a loading state.
+   */
   readonly isRehydrating = signal<string | null>(null);
 
-  async openFile(blobUrl: string): Promise<void> {
-    this.isRehydrating.set(blobUrl);
+  async openFile(blobUrl: string, key: string = blobUrl): Promise<void> {
+    this.isRehydrating.set(key);
     try {
       const { status } = await firstValueFrom(
         this.http.post<{ status: string }>(
           `${API_ROOT_URL_MAIN_APP}/api/azureupload/rehydrate`,
-          { blobUrl }
-        )
+          { blobUrl },
+        ),
       );
 
       if (status === 'already_available') {
@@ -37,13 +43,17 @@ export class BlobAccessService {
         this.snackBar.open(
           'File not found in storage. It may have been deleted.',
           'Close',
-          { duration: 4000 }
+          { duration: 4000 },
         );
       }
     } catch (err) {
-      this.snackBar.open('Failed to open the file. Please try again.', 'Close', {
-        duration: 4000,
-      });
+      this.snackBar.open(
+        'Failed to open the file. Please try again.',
+        'Close',
+        {
+          duration: 4000,
+        },
+      );
       console.error('Blob access request failed', err);
     } finally {
       this.isRehydrating.set(null);
