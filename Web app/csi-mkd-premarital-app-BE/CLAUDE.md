@@ -1,298 +1,103 @@
 # CLAUDE.md
 
-# Project Coding Standards (Microsoft Guidelines Based)
-
-This project follows **Microsoft’s official coding conventions** and **best practices** for .NET Core, C#, ASP.NET Core, and Entity Framework Core.  
-All AI agents must follow these rules when generating or reviewing code.
-
----
-
-## 1. General Coding Style (C# Conventions)
-
-- **Naming**
-  - Classes, methods, properties: **PascalCase**
-  - Private fields: **\_camelCase** (underscore prefix)
-  - Parameters and local variables: **camelCase**
-  - Interfaces: start with **I** (e.g., `IService`)
-  - Constants: **PascalCase**
-- **Layout**
-  - One class per file
-  - Place **braces on new line** for classes and methods
-  - Indentation: 4 spaces, no tabs
-  - Keep files under ~400 lines
-- **Language Usage**
-  - Use `var` for local variables when the type is obvious
-  - Use string interpolation (`$"..."`) instead of concatenation
-  - Avoid `dynamic` unless required
-  - Prefer `async/await` instead of `.Result` or `.Wait()`
-
----
-
-## 2. Error Handling
-
-- Never swallow exceptions silently
-- Use specific exceptions (not just `Exception`)
-- Use `try/catch` at boundaries (e.g., controllers, background jobs)
-- Use `throw;` to rethrow, not `throw ex;`
-- Log exceptions with `ILogger<T>`
-
----
-
-## 3. ASP.NET Core Best Practices
-
-- Use **Dependency Injection** for all services
-- Register services with appropriate lifetime:
-  - `AddSingleton` for single instance
-  - `AddScoped` for per-request
-  - `AddTransient` for short-lived
-- Avoid static classes for business logic
-- Keep controllers thin:
-  - Validation → Model validation attributes
-  - Business logic → Services
-  - Data access → Repositories/DbContext
-- Use minimal APIs or controllers, but not a mix in the same service
-- Use configuration via `IOptions<T>`
-
----
-
-## 4. EF Core Best Practices
-
-- Use **Migrations** for schema changes (not `EnsureCreated` in production)
-- Use `AsNoTracking()` for read-only queries
-- Prefer `Include` over lazy loading (disable lazy loading by default)
-- Batch queries where possible
-- Avoid `ToList()` until necessary
-- Use async versions of EF methods (`ToListAsync`, `SaveChangesAsync`)
-- Keep `DbContext` lifetime **scoped**
-- Use value conversions or enums for domain values
-
----
-
-## 5. API Design Guidelines
-
-- Follow **RESTful conventions**
-  - Nouns for resource names (`/api/users`)
-  - Use plural naming (`/api/orders`)
-  - Return proper HTTP status codes (`200 OK`, `400 BadRequest`, `404 NotFound`, `500 InternalServerError`)
-- Use DTOs / ViewModels for API responses (avoid exposing EF entities directly)
-- Always validate input (ModelState / FluentValidation)
-- Paginate large lists (`GET /api/users?page=1&pageSize=20`)
-- Apply authentication/authorization consistently with policies
-
----
-
-## 6. Performance & Security
-
-- Cache expensive queries or external API calls
-- Use `IAsyncEnumerable<T>` for streaming where appropriate
-- Avoid synchronous I/O in async code
-- Use parameterized queries (EF Core handles this by default)
-- Store secrets in **Azure Key Vault / Secret Manager**, never in code
-- Use HTTPS and enforce secure cookies
-- Apply proper CORS rules (least privilege)
-
----
-
-## 7. Testing Guidelines
-
-- Unit test business logic
-- Integration test repositories and APIs
-- Use in-memory DB (or SQLite in memory) for EF Core tests
-- Mock external dependencies
-- Follow AAA pattern (Arrange, Act, Assert)
-
----
-
-## 8. Code Analysis & Tooling
-
-- Enforce rules via **Roslyn Analyzers**
-- Follow `.editorconfig` with Microsoft defaults
-- Run `dotnet format` for consistent style
-- Treat warnings as errors in CI (`<TreatWarningsAsErrors>true</TreatWarningsAsErrors>`)
-
----
-
-## 9. AI Agent Instructions
-
-- Always **consult these guidelines before generating code**
-- If user requests violate best practices, suggest a compliant alternative
-- Apply:
-  - C# conventions
-  - EF Core performance rules
-  - ASP.NET Core dependency injection patterns
-  - Microsoft REST API guidelines
-- Prefer modern patterns (e.g., **minimal APIs**, **record types**, **nullable reference types**)
-- Never use obsolete .NET Framework APIs
-
----
-
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Development Commands
+## Project Overview
 
-### Build & Run
+ASP.NET Core **.NET 10** minimal API backend for the CSI MKD Premarital Counselling registration system. The repo contains four projects:
 
-```bash
-# Restore dependencies
-dotnet restore
+| Project | Path | Purpose |
+|---|---|---|
+| Main API | `.` (`csi-mkd-premarital-app-BE.csproj`) | Minimal API serving all registration/admin endpoints; deployed to Azure Container Apps |
+| Azure Functions | `CsiMkdFunctions/` | Isolated-worker Functions app (v4): lightweight sessions read API, timer-based Supabase `pg_dump` backups, old-blob archival; deployed to Azure Function App |
+| Aspire AppHost | `AppHost/` | Local orchestrator that runs the Main API and Functions together |
+| ServiceDefaults | `ServiceDefaults/` | Shared Aspire telemetry/health/resilience defaults, referenced by the Main API |
 
-# Build project
-dotnet build
+The main `.csproj` explicitly excludes `AppHost/`, `ServiceDefaults/`, and `CsiMkdFunctions/` sources from its own compilation — they are separate projects. `CsiMkdFunctions` is **not** in the `.sln`; build/run it from its own directory.
 
-# Run in development mode
-dotnet run
+The Angular frontend (`../csi-mkd-premarital-app-FE/`) generates its API client from this backend's OpenAPI spec. After changing any endpoint signature or DTO, the frontend must re-run `npm run gen-api`.
 
-# Run with hot reload for development
-dotnet watch run
-```
-
-### Database Operations
+## Commands
 
 ```bash
-# PostgreSQL (Primary Database)
-dotnet ef migrations add MigrationName
+# Build & run (Main API)
+dotnet restore && dotnet build
+dotnet watch run                 # Hot reload → http://localhost:5177 (Swagger at /swagger, dev only)
+dotnet run --project AppHost     # Aspire: run Main API + Functions together
+
+# Formatting (CSharpier is the configured tool)
+dotnet tool restore
+dotnet csharpier format .
+
+# EF Core — PostgreSQL (primary context: ApplicationDbContext)
+dotnet ef migrations add <Name>
 dotnet ef database update
-dotnet ef migrations remove
-dotnet ef migrations script
-dotnet ef dbcontext optimize
+dotnet ef dbcontext optimize     # Regenerate CompiledModels/ after ANY schema change
 
-# Cosmos DB (NoSQL Database)
+# EF Core — Cosmos (CosmosDbContext)
 dotnet ef database ensure-created --context CosmosDbContext
-dotnet ef migrations add MigrationName --context CosmosDbContext
-dotnet ef database update --context CosmosDbContext
+
+# Azure Functions (from CsiMkdFunctions/)
+func start                       # Requires Azure Functions Core Tools v4 + local.settings.json
+
+# Deployment (requires .env with secrets — see below)
+./deploy.sh          # Deploys BOTH: main API + functions
+./deploy-main.sh     # Main API only: multi-arch Docker build → Docker Hub → Azure Container App
+./deploy-fn.sh       # Functions only
 ```
 
-### Testing & Quality
+There is currently **no test project** — `dotnet test` finds nothing. If adding tests, create a separate test project following the AAA pattern with an in-memory/SQLite provider for EF Core.
 
-```bash
-# Run tests (if any exist)
-dotnet test
+## Architecture
 
-# Clean build artifacts
-dotnet clean
+### Startup flow
 
-# Build for production
-dotnet build -c Release
-```
+`Program.cs` is intentionally tiny — it delegates to four static classes in `Configuration/`:
 
-### Publishing & Deployment
+1. `ServiceConfiguration.ConfigureServices` — DI registrations, rate limiting, output caching, JSON options, Swagger (dev only), CORS, both DbContexts, JWT auth
+2. `MiddlewareConfiguration.ConfigureMiddleware` — pipeline order
+3. `EndpointConfiguration.MapEndpoints` — maps every `Endpoints/*.cs` extension method plus `/health`, `/health/db`, `/health/cosmos`
+4. `StartupConfiguration.ConfigureStartupTasks` — warmup
 
-```bash
-# Publish for specific runtime
-dotnet publish -c Release -r linux-x64 --self-contained true
+New services/repositories must be registered in `ServiceConfiguration.RegisterApplicationServices` (all scoped, interface-based). New endpoint files need a `Map*Endpoints` extension wired into `EndpointConfiguration`.
 
-# Deploy to Azure (requires environment variables)
-./deploy.sh
-```
+### Request flow
 
-## Architecture Overview
+Endpoints (`Endpoints/`, one file per feature) → Services (`Services/`, business logic) → Repositories (`Repositories/`, EF Core data access). DTOs in `DTOs/`, entities in `models/`. Admin operations are protected with `.RequireAuthorization()`; public form submissions go through `IRecaptchaService` validation.
 
-This is an ASP.NET Core 9.0 minimal API application for CSI MKD Premarital Counseling registration system. The architecture follows clean separation of concerns with the following key components:
+### Dual database
 
-### Core Structure
+- **PostgreSQL** (Supabase) via `data/applicationDbContext.cs`: pooled DbContext (`AddDbContextPool`, pool size 128), retry-on-failure, `AuditSaveChangesInterceptor` (in `data/Interceptors/`) stamps audit entries on saves.
+- **Cosmos DB** via `data/CosmosDbContext.cs`: registered **only if** `ConnectionStrings__CosmosConnection` is set — code touching Cosmos must tolerate its absence. Used for feedback/analytics documents; entity configurations live in `data/Configurations/`.
 
-- **Minimal APIs**: Uses ASP.NET Core minimal APIs organized in `Endpoints/` directory (one file per feature)
-- **Configuration Split**: Application configuration is modularized in `Configuration/` directory:
-  - `ServiceConfiguration.cs`: Service registrations, DI, caching, JWT auth
-  - `MiddlewareConfiguration.cs`: Middleware pipeline setup
-  - `EndpointConfiguration.cs`: Route mapping
-  - `StartupConfiguration.cs`: Application warmup tasks
+**Production-only behaviors** (not active under `dotnet watch run`): compiled models from `CompiledModels/` are loaded via `UseModel`, query tracking defaults to `NoTracking`, and JSON is compact. `CompiledModels/` is generated — never hand-edit; regenerate with `dotnet ef dbcontext optimize` after schema changes or production startup will use a stale model.
 
-### Data Layer
+### Cache system
 
-- **Entity Framework Core**: Dual database support
-  - **PostgreSQL**: Primary relational database with Npgsql provider
-  - **Azure Cosmos DB**: NoSQL database for analytics and flexible data
-- **Models**: Domain entities in `models/` directory
-- **DbContexts**:
-  - `data/applicationDbContext.cs` - PostgreSQL context
-  - `data/CosmosDbContext.cs` - Cosmos DB context
-- **Repositories**: Data access layer in `Repositories/`
-- **Migrations**: Database migrations in `Migrations/`
+Read endpoints attach output-cache tags inline (e.g. `.CacheOutput(p => p.Tag("premarital-regs").Expire(TimeSpan.FromSeconds(10)))`). On writes, services call `ICacheInvalidationService`, which evicts by tag. `CacheHealthService` monitors state; manual admin control lives at `/api/cache/*`. When adding a read endpoint, tag it; when adding a write path, invalidate the matching tag — details in `CACHE_INVALIDATION_README.md`.
 
-### Business Logic
+### Security
 
-- **Services**: Business logic in `Services/` directory with interface-based design
-- **DTOs**: Data transfer objects in `DTOs/` directory
-- **Endpoints**: Feature-based endpoint grouping in `Endpoints/`
+- JWT bearer auth (`JwtSettings` config section) for admin endpoints; passwords hashed with BCrypt
+- AspNetCoreRateLimit (in-memory): IP-based 2 req/s and 50 req/15min; client-based 10 req/s and 200 req/15min (`appsettings.json`)
+- CORS allowlist in `ServiceConfiguration.ConfigureCors` — add new frontend origins there
+- Secrets come from environment variables / `.env` (never committed). `deploy-main.sh` lists the full required set: PostgreSQL + Cosmos connection strings, `CosmosDb__DatabaseName`, `JwtSettings__*`, `SendGrid__ApiKey`, `AzureBlob__*`, `GoogleReCaptcha__SecretKey`, `DOCKER_PAT`
 
-### Key Features
+### CsiMkdFunctions specifics
 
-- **Registration Types**: Premarital, General, and Confirmation registrations
-- **Session Management**: Configurable counseling sessions
-- **File Uploads**: Azure Blob Storage integration for document handling
-- **Caching**: Comprehensive output caching and memory caching with invalidation system
-- **Email Integration**: SendGrid for automated notifications
-- **Authentication**: JWT-based admin authentication
-- **Rate Limiting**: AspNetCoreRateLimit for API protection
-- **reCAPTCHA**: Google reCAPTCHA integration for form protection
+Self-contained Functions project with its own `Program.cs`, repositories, and compiled models. Key functions: `FunctionsApi.cs` (GET `/api/sessions`, `/api/sessions/{year}`), `SupabaseBackupFunction.cs` (scheduled DB backups — see `BACKUP_README.md`, `PG_DUMP_SETUP.md`, `MANUAL_BACKUP_API.md`), `ArchiveOldBlobsFunction.cs`. It reads the same PostgreSQL database as the main API.
 
-### Cache System
+## Coding Standards
 
-The application implements a sophisticated cache invalidation system:
+Follow Microsoft C#/.NET conventions. Project-specific expectations:
 
-- **Output Caching**: API response caching with tags (`premarital-regs`, `general-regs`, etc.)
-- **Memory Caching**: Internal service data caching (email config, sessions)
-- **Automatic Invalidation**: Caches are invalidated on data changes
-- **Manual Management**: Admin endpoints for cache control at `/api/cache/*`
-- **Health Monitoring**: Background service monitors cache health
-
-### External Integrations
-
-- **Azure Blob Storage**: Document and file storage
-- **SendGrid**: Email delivery service
-- **Google reCAPTCHA**: Bot protection
-- **PostgreSQL**: Primary relational database on Supabase
-- **Azure Cosmos DB**: NoSQL database for analytics and flexible document storage
-
-### Development Environment
-
-- **Hot Reload**: Use `dotnet watch run` for development
-- **Swagger**: API documentation available at `/swagger` in development
-- **Aspire**: Service defaults for telemetry and health checks
-
-### Deployment
-
-- **Containerized**: Docker support with multi-stage builds
-- **Azure Container Apps**: Production deployment target
-- **Environment Variables**: Secrets managed via environment variables or `.env` file
-  - Requires both PostgreSQL and Cosmos DB connection strings
-  - Configure `CosmosDb__DatabaseName` for target database
-- **Automated Deployment**: `deploy.sh` script handles full CI/CD pipeline
-
-### Database Schema
-
-#### PostgreSQL (Primary Database)
-
-Key entities include:
-
-- `PremaritalRegistration`: Main registration entity with session foreign key
-- `SessionConfiguration`: Counseling session configurations
-- `AdminUser`: Admin authentication
-- `ClassFeedback`: Session feedback from participants
-- `EmailConfig`: Email template configuration
-- Document entities for file management per registration type
-
-#### Azure Cosmos DB (NoSQL Database)
-
-- **Setup**: Basic context created, ready for document collections
-- **Configuration**: Optimized for performance with Direct connection mode
-- **Usage**: Suitable for analytics, logs, metrics, and flexible document storage
-- **Partitioning**: Ready to be configured based on specific use cases
-
-### Security Features
-
-- JWT authentication for admin endpoints
-- Rate limiting (2 req/sec, 50 req/15min for general; 10 req/sec, 200 req/15min for clients)
-- reCAPTCHA validation on public forms
-- CORS configuration
-- Input validation and sanitization
-- Audit trail for data changes
-
-### Performance Optimizations
-
-- Output caching with intelligent invalidation
-- Entity Framework compiled models in production
-- Single-file deployment with ReadyToRun
-- Connection pooling and query optimization
-- Background cache health monitoring
+- Nullable reference types and implicit usings are enabled; keep code warning-clean
+- PascalCase types/members, `_camelCase` private fields, `I`-prefixed interfaces; braces on new lines; 4-space indent; one class per file (~400 lines max)
+- Async all the way down: EF async methods (`ToListAsync`, `SaveChangesAsync`), never `.Result`/`.Wait()`
+- `AsNoTracking()` for read-only queries; `Include` over lazy loading; avoid premature `ToList()`
+- DTOs for API responses — do not expose EF entities directly
+- Constructor/DI over statics for business logic; configuration via `IOptions<T>` or `IConfiguration` sections
+- Exceptions: catch specific types at boundaries, log via `ILogger<T>`, rethrow with `throw;` (not `throw ex;`), never swallow silently
+- REST conventions: plural nouns, proper status codes, paginate large lists
+- Schema changes always via EF migrations (`EnsureCreated` is acceptable only for Cosmos)
+- Run `dotnet csharpier format .` before committing
