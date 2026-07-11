@@ -1,4 +1,10 @@
-import { Component, Inject, OnInit, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
   MatDialogRef,
@@ -45,10 +51,14 @@ import { switchMap } from 'rxjs';
         <mat-form-field appearance="fill" class="w-full">
           <mat-label>Church</mat-label>
           <mat-select formControlName="churchId">
-            @for(church of churchData()?.churches; track church.id){
-            <mat-option [value]="church.id">{{ church.name }}</mat-option>
+            @for (church of churchData()?.churches; track church.id) {
+              <mat-option [value]="church.id">{{ church.name }}</mat-option>
             }
           </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Priest Name</mat-label>
+          <input matInput formControlName="priestName" />
         </mat-form-field>
         <mat-form-field class="w-full">
           <mat-label>Confirmation Date</mat-label>
@@ -83,29 +93,35 @@ import { switchMap } from 'rxjs';
 
         <h3>Participants</h3>
         <div formArrayName="participants">
-          @for(participantGroup of participants.controls; track participantGroup; let i = $index){
-          <div [formGroupName]="i" class="participant-group">
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input matInput formControlName="name" />
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Age</mat-label>
-              <input matInput formControlName="age" type="number" />
-            </mat-form-field>
-            <button
-              mat-icon-button
-              color="warn"
-              (click)="removeParticipant(i)"
-            >
-              <mat-icon>remove_circle</mat-icon>
-            </button>
-          </div>
+          @for (
+            participantGroup of participants.controls;
+            track participantGroup;
+            let i = $index
+          ) {
+            <div [formGroupName]="i" class="participant-group">
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" />
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Age</mat-label>
+                <input matInput formControlName="age" type="number" />
+              </mat-form-field>
+              <button
+                mat-icon-button
+                color="warn"
+                type="button"
+                (click)="removeParticipant(i)"
+              >
+                <mat-icon>remove_circle</mat-icon>
+              </button>
+            </div>
           }
         </div>
         <button
           mat-stroked-button
           color="primary"
+          type="button"
           (click)="addParticipant()"
           class="w-full"
         >
@@ -113,46 +129,48 @@ import { switchMap } from 'rxjs';
         </button>
 
         @if (data.isEdit) {
-        <h3>Vicar's Letter</h3>
-        <div class="vicar-letter-section">
-          <input
-            #vicarLetterInput
-            type="file"
-            hidden
-            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
-            (change)="onVicarLetterChange($event)"
-          />
-          <button
-            mat-stroked-button
-            color="primary"
-            type="button"
-            (click)="vicarLetterInput.click()"
-          >
-            <mat-icon>upload_file</mat-icon>
-            {{ currentVicarLetterUrl ? 'Replace Letter' : 'Upload Letter' }}
-          </button>
-          @if (vicarLetterFile(); as file) {
-          <span class="vicar-letter-file">
-            <mat-icon class="text-base">attach_file</mat-icon>
-            {{ file.name }}
+          <h3>Vicar's Letter</h3>
+          <div class="vicar-letter-section">
+            <input
+              #vicarLetterInput
+              type="file"
+              hidden
+              accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+              (change)="onVicarLetterChange($event)"
+            />
             <button
-              mat-icon-button
+              mat-stroked-button
+              color="primary"
               type="button"
-              aria-label="Remove selected letter"
-              (click)="clearVicarLetter(vicarLetterInput)"
+              (click)="vicarLetterInput.click()"
             >
-              <mat-icon>close</mat-icon>
+              <mat-icon>upload_file</mat-icon>
+              {{ currentVicarLetterUrl ? 'Replace Letter' : 'Upload Letter' }}
             </button>
-          </span>
-          } @else if (currentVicarLetterUrl) {
-          <span class="vicar-letter-hint">A letter is already on file; uploading replaces it.</span>
-          } @else {
-          <span class="vicar-letter-hint">No letter uploaded yet.</span>
+            @if (vicarLetterFile(); as file) {
+              <span class="vicar-letter-file">
+                <mat-icon class="text-base">attach_file</mat-icon>
+                {{ file.name }}
+                <button
+                  mat-icon-button
+                  type="button"
+                  aria-label="Remove selected letter"
+                  (click)="clearVicarLetter(vicarLetterInput)"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </span>
+            } @else if (currentVicarLetterUrl) {
+              <span class="vicar-letter-hint"
+                >A letter is already on file; uploading replaces it.</span
+              >
+            } @else {
+              <span class="vicar-letter-hint">No letter uploaded yet.</span>
+            }
+          </div>
+          @if (vicarLetterError()) {
+            <p class="vicar-letter-error">{{ vicarLetterError() }}</p>
           }
-        </div>
-        @if (vicarLetterError()) {
-        <p class="vicar-letter-error">{{ vicarLetterError() }}</p>
-        }
         }
       </form>
     </mat-dialog-content>
@@ -162,10 +180,10 @@ import { switchMap } from 'rxjs';
         mat-flat-button
         color="primary"
         (click)="onSubmit()"
-        [disabled]="form.invalid || isSaving()"
+        [disabled]="form.invalid || isSaving() || (data.isEdit && !hasChanges)"
       >
         @if (isSaving()) {
-        <mat-spinner diameter="18"></mat-spinner>
+          <mat-spinner diameter="18"></mat-spinner>
         }
         {{ data.isEdit ? 'Update' : 'Create' }}
       </button>
@@ -214,8 +232,8 @@ import { switchMap } from 'rxjs';
     MatNativeDateModule,
     MatSelectModule,
     MatIconModule,
-    MatProgressSpinnerModule
-],
+    MatProgressSpinnerModule,
+  ],
   changeDetection: ChangeDetectionStrategy.Eager,
   providers: [provideNativeDateAdapter()],
 })
@@ -223,7 +241,7 @@ export class EditPreConfirmDialogComponent implements OnInit {
   form: FormGroup;
   churchData;
   deletedParticipantIds: string[] = [];
-  protected readonly minDate = new Date();
+  protected minDate: Date | null = new Date();
 
   protected readonly vicarLetterFile = signal<File | null>(null);
   protected readonly vicarLetterError = signal<string>('');
@@ -240,7 +258,7 @@ export class EditPreConfirmDialogComponent implements OnInit {
     private api: CsiMkdPremaritalAppBeService,
     private snackBar: MatSnackBar,
     private churchDataService: ChurchDataService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
   ) {
     this.churchData = toSignal(this.churchDataService.churchData$, {
       initialValue: null,
@@ -256,6 +274,9 @@ export class EditPreConfirmDialogComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data.isEdit) {
+      // Existing records may hold past dates; enforcing a min date would keep
+      // the form permanently invalid and the Update button disabled.
+      this.minDate = null;
       this.form.patchValue(this.data.reg);
       if (this.data.reg.participants) {
         this.data.reg.participants.forEach((p) => this.addParticipant(p));
@@ -268,12 +289,20 @@ export class EditPreConfirmDialogComponent implements OnInit {
     return this.form.get('participants') as FormArray;
   }
 
+  protected get hasChanges(): boolean {
+    return (
+      this.form.dirty ||
+      this.vicarLetterFile() !== null ||
+      this.deletedParticipantIds.length > 0
+    );
+  }
+
   addParticipant(
     participant: {
       id?: string | null;
       name: string | null;
       age?: number | undefined | null;
-    } | null = null
+    } | null = null,
   ) {
     const participantGroup = this.fb.group({
       id: [participant?.id || null],
@@ -281,6 +310,11 @@ export class EditPreConfirmDialogComponent implements OnInit {
       age: [participant?.age || null, [Validators.required, Validators.min(1)]],
     });
     this.participants.push(participantGroup);
+    // Only user-initiated additions count as a change; prefilled rows from
+    // ngOnInit pass the existing participant in.
+    if (!participant) {
+      this.participants.markAsDirty();
+    }
   }
 
   removeParticipant(index: number) {
@@ -289,6 +323,7 @@ export class EditPreConfirmDialogComponent implements OnInit {
       this.deletedParticipantIds.push(removedParticipant.value.id);
     }
     this.participants.removeAt(index);
+    this.participants.markAsDirty();
   }
 
   get currentVicarLetterUrl(): string | null {
@@ -345,15 +380,15 @@ export class EditPreConfirmDialogComponent implements OnInit {
           })
           .pipe(
             switchMap((sasUrl) =>
-              this.fileUploadService.uploadFileToAzure(file, sasUrl!)
-            )
+              this.fileUploadService.uploadFileToAzure(file, sasUrl!),
+            ),
           )
           .subscribe({
             next: (blobUrl) => this.updateRegistration(id, formData, blobUrl),
             error: () => {
               this.isSaving.set(false);
               this.vicarLetterError.set(
-                'Letter upload failed. The registration was not updated.'
+                'Letter upload failed. The registration was not updated.',
               );
             },
           });
@@ -387,7 +422,7 @@ export class EditPreConfirmDialogComponent implements OnInit {
   private updateRegistration(
     id: string,
     formData: any,
-    vicarLetterUrl: string | null
+    vicarLetterUrl: string | null,
   ) {
     // Build the updated DTO (no id property inside the DTO)
     const updatedReg: UpdateConfirmationRegisterDto = {

@@ -63,7 +63,10 @@ import { QuestionAnswersService } from '../../../api/api-main-app/services/quest
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
 import { SessionDataService } from '../../core/services/session-data.service';
 import { BlobAccessService } from '../../core/services/blob-access.service';
-import { CertificateService, CertificateType } from '../../core/services/certificate.service';
+import {
+  CertificateService,
+  CertificateType,
+} from '../../core/services/certificate.service';
 import { CertificatePreviewDialog } from '../../shared/components/certificate-preview-dialog/certificate-preview-dialog';
 import { UpdatePremaritalRegisterDto } from '../../../api/api-main-app/models/update-premarital-register-dto';
 import { PaymentStatusUpdateDto } from '../../../api/api-main-app/models/payment-status-update-dto';
@@ -113,8 +116,8 @@ import { ExportNameChurchModalComponent } from './export-name-church-modal.compo
     MatCardModule,
     MatTooltipModule,
     MatDialogModule,
-    DatePipe
-],
+    DatePipe,
+  ],
 })
 export class PremaritalComponent {
   [x: string]: any;
@@ -157,7 +160,7 @@ export class PremaritalComponent {
 
   // Status caches for performance
   protected readonly questionAnswerStatusCache = signal<Map<string, boolean>>(
-    new Map()
+    new Map(),
   );
   protected readonly feedbackStatusCache = signal<
     Map<string, { completed: number; total: number }>
@@ -183,7 +186,7 @@ export class PremaritalComponent {
       this.activeSessionOnly(),
       this.selectedYear(),
       this.selectedSession(),
-    ])
+    ]),
   ).pipe(
     switchMap(
       ([
@@ -227,10 +230,10 @@ export class PremaritalComponent {
               console.error('Error loading filtered data:', err);
               this.isLoading.set(false); // also stop on error
               return of([]);
-            })
+            }),
           );
-      }
-    )
+      },
+    ),
   );
 
   private shouldResetSession(newYear: any): boolean {
@@ -253,8 +256,8 @@ export class PremaritalComponent {
   readonly sessionYears = computed(() => [
     ...new Set(
       this.sessionList().map((session: any) =>
-        new Date(session.startDate).getFullYear()
-      )
+        new Date(session.startDate).getFullYear(),
+      ),
     ),
   ]);
 
@@ -262,7 +265,7 @@ export class PremaritalComponent {
     const filtered = this.selectedYear()
       ? this.sessionList().filter(
           (session: any) =>
-            new Date(session.startDate).getFullYear() === this.selectedYear()
+            new Date(session.startDate).getFullYear() === this.selectedYear(),
         )
       : this.sessionList();
 
@@ -379,7 +382,7 @@ export class PremaritalComponent {
               this._snackBar.open(
                 'Registration deleted successfully',
                 'Close',
-                { duration: 3000 }
+                { duration: 3000 },
               );
               this.filterTrigger.set(this.filterTrigger() + 1);
             },
@@ -389,7 +392,7 @@ export class PremaritalComponent {
               this._snackBar.open(
                 'Failed to delete registration. Please try again.',
                 'Close',
-                { duration: 3000 }
+                { duration: 3000 },
               );
             },
           });
@@ -459,11 +462,11 @@ export class PremaritalComponent {
                     switchMap((sasUrl) =>
                       this.fileUploadService.uploadFileToAzure(
                         result.photoFile,
-                        sasUrl!
-                      )
+                        sasUrl!,
+                      ),
                     ),
-                    map((photoUrl) => ({ photoUrl }))
-                  )
+                    map((photoUrl) => ({ photoUrl })),
+                  ),
               );
             }
 
@@ -478,11 +481,11 @@ export class PremaritalComponent {
                     switchMap((sasUrl) =>
                       this.fileUploadService.uploadFileToAzure(
                         result.vicarLetterFile,
-                        sasUrl!
-                      )
+                        sasUrl!,
+                      ),
                     ),
-                    map((vicarLetterUrl) => ({ vicarLetterUrl }))
-                  )
+                    map((vicarLetterUrl) => ({ vicarLetterUrl })),
+                  ),
               );
             }
 
@@ -499,7 +502,7 @@ export class PremaritalComponent {
               registrationId: reg.id.toString(),
               body: fileBody,
             });
-          })
+          }),
         )
         .subscribe({
           next: () => {
@@ -515,7 +518,7 @@ export class PremaritalComponent {
             this._snackBar.open(
               'Failed to update registration. Please try again.',
               'Close',
-              { duration: 3000 }
+              { duration: 3000 },
             );
           },
         });
@@ -629,14 +632,14 @@ export class PremaritalComponent {
               photoColumnX,
               photoY,
               photoWidth,
-              photoHeight
+              photoHeight,
             );
           } catch (e) {
             console.warn(
               'Could not load image for user',
               reg.firstName,
               reg.lastName,
-              e
+              e,
             );
           }
         }
@@ -649,7 +652,7 @@ export class PremaritalComponent {
             data.length
           } - Generated on ${new Date().toLocaleDateString()}`,
           40,
-          pageHeight - 20
+          pageHeight - 20,
         );
       }
 
@@ -687,7 +690,7 @@ export class PremaritalComponent {
           'Close',
           {
             duration: 3000,
-          }
+          },
         );
       }
     });
@@ -742,7 +745,7 @@ export class PremaritalComponent {
           const sessionResponse = await firstValueFrom(
             this.sessionsFallbackService.apiSessionconfigIdGet({
               id: reg.sessionId,
-            })
+            }),
           );
 
           if (sessionResponse?.startDate && sessionResponse?.endDate) {
@@ -792,23 +795,19 @@ export class PremaritalComponent {
 
       console.log('Generating certificate for:', certificateData);
 
-      const htmlContent = await this.certificateService.previewCertificate(
-        certificateData
-      );
+      const htmlContent =
+        await this.certificateService.previewCertificate(certificateData);
 
       console.log('Generated HTML content length:', htmlContent.length);
 
-
-
       this.openCertificatePreview(htmlContent, certificateData);
-      
+
       // Mark as printed
-      this.printedRegistrations.update(set => {
+      this.printedRegistrations.update((set) => {
         const newSet = new Set(set);
         newSet.add(reg.id);
         return newSet;
       });
-
     } catch (error) {
       console.error('Error generating certificate:', error);
       this._snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
@@ -819,10 +818,10 @@ export class PremaritalComponent {
 
   private openCertificatePreview(htmlContent: string, data: any): void {
     this.dialog.open(CertificatePreviewDialog, {
-      data: { 
-        htmlContent, 
+      data: {
+        htmlContent,
         certificateData: data,
-        certificateType: CertificateType.PRE_MARITAL
+        certificateType: CertificateType.PRE_MARITAL,
       },
       width: '95vw',
       height: '95vh',
@@ -835,12 +834,12 @@ export class PremaritalComponent {
   getChurchNameById(churchId: number | null | undefined): string {
     return this.churchDataService.getChurchNameById(
       churchId,
-      this.churchData()
+      this.churchData(),
     );
   }
 
   getFeedbackStatus(
-    registrationId: string
+    registrationId: string,
   ): { completed: number; total: number } | null {
     return this.feedbackStatusCache().get(registrationId) || null;
   }
@@ -879,8 +878,8 @@ export class PremaritalComponent {
                 duration: 3000,
               });
               return of([]);
-            })
-          )
+            }),
+          ),
       );
 
       // Check if feedback data exists and has feedbacks property
@@ -1024,8 +1023,8 @@ export class PremaritalComponent {
             catchError((err) => {
               console.error('Error fetching question answer data:', err);
               return of(null);
-            })
-          )
+            }),
+          ),
       );
 
       // Check if question answers exist
@@ -1035,7 +1034,7 @@ export class PremaritalComponent {
           'Close',
           {
             duration: 3000,
-          }
+          },
         );
         return;
       }
@@ -1057,13 +1056,12 @@ export class PremaritalComponent {
     }
   }
 
-
   isPrinted(reg: any): boolean {
     return this.printedRegistrations().has(reg.id);
   }
 
   resetPrintStatus(reg: any): void {
-    this.printedRegistrations.update(set => {
+    this.printedRegistrations.update((set) => {
       const newSet = new Set(set);
       newSet.delete(reg.id);
       return newSet;
@@ -1222,46 +1220,51 @@ export class DeleteConfirmationDialog {
               >Non-CSI Member</mat-radio-button
             >
           </mat-radio-group>
-          @if (editForm.get('churchMembership')?.hasError('required') &&
-          editForm.get('churchMembership')?.touched) {
-          <mat-error>Please select church membership status</mat-error>
+          @if (
+            editForm.get('churchMembership')?.hasError('required') &&
+            editForm.get('churchMembership')?.touched
+          ) {
+            <mat-error>Please select church membership status</mat-error>
           }
         </div>
 
         @if (editForm.get('churchMembership')?.value === 'member') {
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <mat-form-field appearance="fill">
-            <mat-label>Clergy District</mat-label>
-            <mat-select
-              formControlName="churchDistrict"
-              (selectionChange)="onDistrictChange($event.value)"
-            >
-              @for (location of allLocations(); track location) {
-              <mat-option [value]="location">{{ location }}</mat-option>
-              }
-            </mat-select>
-            <mat-error>Clergy District is required</mat-error>
-          </mat-form-field>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <mat-form-field appearance="fill">
+              <mat-label>Clergy District</mat-label>
+              <mat-select
+                formControlName="churchDistrict"
+                (selectionChange)="onDistrictChange($event.value)"
+              >
+                @for (location of allLocations(); track location) {
+                  <mat-option [value]="location">{{ location }}</mat-option>
+                }
+              </mat-select>
+              <mat-error>Clergy District is required</mat-error>
+            </mat-form-field>
 
-          <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill">
+              <mat-label>Church Name</mat-label>
+              <mat-select
+                formControlName="churchName"
+                (selectionChange)="onChurchChange($event.value)"
+              >
+                @for (church of availableChurches(); track church.id) {
+                  <mat-option [value]="church.name">{{
+                    church.name
+                  }}</mat-option>
+                }
+              </mat-select>
+              <mat-error>Church Name is required</mat-error>
+            </mat-form-field>
+          </div>
+        }
+        @if (editForm.get('churchMembership')?.value === 'not-member') {
+          <mat-form-field appearance="fill" class="w-full">
             <mat-label>Church Name</mat-label>
-            <mat-select
-              formControlName="churchName"
-              (selectionChange)="onChurchChange($event.value)"
-            >
-              @for (church of availableChurches(); track church.id) {
-              <mat-option [value]="church.name">{{ church.name }}</mat-option>
-              }
-            </mat-select>
+            <input matInput formControlName="manualChurchName" required />
             <mat-error>Church Name is required</mat-error>
           </mat-form-field>
-        </div>
-        } @if (editForm.get('churchMembership')?.value === 'not-member') {
-        <mat-form-field appearance="fill" class="w-full">
-          <mat-label>Church Name</mat-label>
-          <input matInput formControlName="manualChurchName" required />
-          <mat-error>Church Name is required</mat-error>
-        </mat-form-field>
         }
 
         <mat-form-field appearance="fill" class="w-full">
@@ -1276,7 +1279,6 @@ export class DeleteConfirmationDialog {
             readonly
             [matDatepicker]="marriagePicker"
             formControlName="dateOfMarriage"
-            [min]="minDate"
             (click)="marriagePicker.open()"
           />
           <mat-datepicker-toggle
@@ -1345,9 +1347,9 @@ export class DeleteConfirmationDialog {
           <mat-label>Session</mat-label>
           <mat-select formControlName="sessionId">
             @for (session of sessionList(); track session.id) {
-            <mat-option [value]="session.id">{{
-              session.sessionName
-            }}</mat-option>
+              <mat-option [value]="session.id">{{
+                session.sessionName
+              }}</mat-option>
             }
           </mat-select>
           <mat-error>Session is required</mat-error>
@@ -1357,14 +1359,14 @@ export class DeleteConfirmationDialog {
           <div>
             <h3 class="text-lg font-medium mb-2">Photo</h3>
             @if (data.registration.photoUrl) {
-            <div class="mb-2">
-              <a
-                [href]="data.registration.photoUrl"
-                target="_blank"
-                class="text-blue-500 hover:underline"
-                >View Current Photo</a
-              >
-            </div>
+              <div class="mb-2">
+                <a
+                  [href]="data.registration.photoUrl"
+                  target="_blank"
+                  class="text-blue-500 hover:underline"
+                  >View Current Photo</a
+                >
+              </div>
             }
             <button
               type="button"
@@ -1382,21 +1384,21 @@ export class DeleteConfirmationDialog {
               accept="image/*"
             />
             @if (photoFile) {
-            <span class="ml-4 text-sm">{{ photoFile.name }}</span>
+              <span class="ml-4 text-sm">{{ photoFile.name }}</span>
             }
           </div>
 
           <div>
             <h3 class="text-lg font-medium mb-2">Vicar's Letter</h3>
             @if (data.registration.vicarLetterUrl) {
-            <div class="mb-2">
-              <a
-                [href]="data.registration.vicarLetterUrl"
-                target="_blank"
-                class="text-blue-500 hover:underline"
-                >View Current Letter</a
-              >
-            </div>
+              <div class="mb-2">
+                <a
+                  [href]="data.registration.vicarLetterUrl"
+                  target="_blank"
+                  class="text-blue-500 hover:underline"
+                  >View Current Letter</a
+                >
+              </div>
             }
             <button
               type="button"
@@ -1417,7 +1419,7 @@ export class DeleteConfirmationDialog {
               accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
             />
             @if (vicarLetterFile) {
-            <span class="ml-4 text-sm">{{ vicarLetterFile.name }}</span>
+              <span class="ml-4 text-sm">{{ vicarLetterFile.name }}</span>
             }
           </div>
         </div>
@@ -1449,8 +1451,8 @@ export class DeleteConfirmationDialog {
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatIconModule
-],
+    MatIconModule,
+  ],
   changeDetection: ChangeDetectionStrategy.Eager,
   providers: [provideNativeDateAdapter()],
 })
@@ -1464,14 +1466,13 @@ export class EditRegistrationDialog {
   editForm: FormGroup;
   photoFile: File | null = null;
   vicarLetterFile: File | null = null;
-  protected readonly minDate = new Date();
 
   // Church data signals
   protected readonly selectedDistrict = signal<string>('');
   protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
   protected readonly allLocations = toSignal(
     this.churchDataService.getAllLocations(),
-    { initialValue: [] }
+    { initialValue: [] },
   );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
 
@@ -1496,7 +1497,7 @@ export class EditRegistrationDialog {
       catchError((err) => {
         console.error('Error loading sessions:', err);
         return of([]);
-      })
+      }),
     );
 
   protected readonly sessionList = toSignal(this.sessions$, {
