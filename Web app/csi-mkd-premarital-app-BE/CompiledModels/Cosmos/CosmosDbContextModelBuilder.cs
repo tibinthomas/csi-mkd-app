@@ -11,12 +11,13 @@ namespace csi_mkd_premarital_app_BE.CompiledModels.Cosmos
     public partial class CosmosDbContextModel
     {
         private CosmosDbContextModel()
-            : base(skipDetectChanges: false, modelId: new Guid("38b89df0-0467-4c45-bbff-3a0980e24157"), entityTypeCount: 6)
+            : base(skipDetectChanges: false, modelId: new Guid("0c9d3d6d-fc3d-41e1-8306-05e1bf74dcc4"), entityTypeCount: 7)
         {
         }
 
         partial void Initialize()
         {
+            var appFeedback = AppFeedbackEntityType.Create(this);
             var classFeedback = ClassFeedbackEntityType.Create(this);
             var classFeedbackDetail = ClassFeedbackDetailEntityType.Create(this);
             var classFeedbackEntry = ClassFeedbackEntryEntityType.Create(this);
@@ -29,6 +30,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels.Cosmos
             ClassFeedbackRatingsEntityType.CreateForeignKey1(classFeedbackRatings, classFeedbackDetail);
             ClassFeedbackTextResponsesEntityType.CreateForeignKey1(classFeedbackTextResponses, classFeedbackDetail);
 
+            AppFeedbackEntityType.CreateAnnotations(appFeedback);
             ClassFeedbackEntityType.CreateAnnotations(classFeedback);
             ClassFeedbackDetailEntityType.CreateAnnotations(classFeedbackDetail);
             ClassFeedbackEntryEntityType.CreateAnnotations(classFeedbackEntry);
@@ -37,7 +39,7 @@ namespace csi_mkd_premarital_app_BE.CompiledModels.Cosmos
             QuestionAnswersEntityType.CreateAnnotations(questionAnswers);
 
             AddAnnotation("Cosmos:ContainerName", "CosmosDbContext");
-            AddAnnotation("ProductVersion", "10.0.0");
+            AddAnnotation("ProductVersion", "10.0.9");
         }
     }
 }
