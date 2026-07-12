@@ -524,3 +524,26 @@ body {
     touch-action: auto;
   }
 }
+
+/* ============================================
+   MALAYALAM TYPOGRAPHY
+   Malayalam script has taller, denser glyphs than Latin;
+   give it larger minimum sizes and more line spacing.
+   Applies only to the ml locale build (html lang="ml").
+   ============================================ */
+html[lang='ml'] {
+  body {
+    line-height: 1.75;
+  }
+
+  /* Lift Tailwind's small text utilities to stay legible in Malayalam */
+  .text-xs {
+    font-size: 0.8125rem; /* 13px instead of 12px */
+    line-height: 1.55;
+  }
+
+  .text-sm {
+    font-size: 0.9375rem; /* 15px instead of 14px */
+    line-height: 1.65;
+  }
+}
