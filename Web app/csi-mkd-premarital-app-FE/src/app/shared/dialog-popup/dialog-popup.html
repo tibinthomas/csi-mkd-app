@@ -16,18 +16,18 @@
   @if (data.calendarEvent) {
   <button mat-stroked-button [matMenuTriggerFor]="calendarMenu" class="pt-serif-bold">
     <mat-icon>event</mat-icon>
-    Add to Calendar
+    <span i18n>Add to Calendar</span>
   </button>
   <mat-menu #calendarMenu="matMenu">
     <button mat-menu-item (click)="addToGoogleCalendar()">
       <mat-icon>calendar_today</mat-icon>
-      <span>Google Calendar</span>
+      <span i18n>Google Calendar</span>
     </button>
     <button mat-menu-item (click)="downloadIcs()">
       <mat-icon>download</mat-icon>
-      <span>Download .ics file</span>
+      <span i18n>Download .ics file</span>
     </button>
   </mat-menu>
   }
-  <button mat-flat-button mat-dialog-close class="pt-serif-bold">OK</button>
+  <button mat-flat-button mat-dialog-close class="pt-serif-bold" i18n>OK</button>
 </mat-dialog-actions>

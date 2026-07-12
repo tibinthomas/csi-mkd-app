@@ -144,7 +144,7 @@ export class ExportNameChurchModalComponent {
                 );
                 this.dialogRef.close(true);
               } else {
-                this.snackBar.open('No data found to export', 'Close', {
+                this.snackBar.open($localize`No data found to export`, $localize`Close`, {
                   duration: 3000,
                 });
                 this.dialogRef.close(false);
@@ -152,7 +152,7 @@ export class ExportNameChurchModalComponent {
             },
             error: (err) => {
               console.error('Error exporting spreadsheet:', err);
-              this.snackBar.open('Failed to export spreadsheet', 'Close', {
+              this.snackBar.open($localize`Failed to export spreadsheet`, $localize`Close`, {
                 duration: 3000,
               });
               this.isLoading.set(false);
@@ -162,7 +162,7 @@ export class ExportNameChurchModalComponent {
       },
       error: (err) => {
         console.error('Error fetching session name:', err);
-        this.snackBar.open('Failed to fetch session name', 'Close', {
+        this.snackBar.open($localize`Failed to fetch session name`, $localize`Close`, {
           duration: 3000,
         });
         this.isLoading.set(false);

@@ -250,7 +250,7 @@ export class Feedback implements OnInit {
 
             this.snackBar.open(
               $localize`Feedback submitted successfully!`,
-              'Close',
+              $localize`Close`,
               {
                 duration: 5000,
                 horizontalPosition: 'right',
@@ -261,8 +261,8 @@ export class Feedback implements OnInit {
       },
       error: (err) => {
         this.snackBar.open(
-          'Failed to submit feedback. Please try again later.',
-          'Close',
+          $localize`Failed to submit feedback. Please try again later.`,
+          $localize`Close`,
           {
             duration: 5000,
             horizontalPosition: 'right',

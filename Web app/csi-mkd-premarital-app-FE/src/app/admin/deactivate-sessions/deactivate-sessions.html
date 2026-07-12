@@ -2,8 +2,8 @@
   <div class="cx-page-head justify-center text-center flex-col">
     <span class="cx-icon-chip cx-icon-chip--amber"><mat-icon>event_busy</mat-icon></span>
     <div class="cx-page-head-text mt-3">
-      <h1>Deactivate Sessions</h1>
-      <p>Bulk-deactivate sessions that are upcoming or already finished.</p>
+      <h1 i18n>Deactivate Sessions</h1>
+      <p i18n>Bulk-deactivate sessions that are upcoming or already finished.</p>
     </div>
   </div>
 
@@ -11,8 +11,8 @@
   <div class="grid gap-8 md:grid-cols-2">
     <!-- Upcoming Sessions Card -->
     <mat-card class="cx-lift p-6 flex flex-col items-center text-center">
-      <h3 class="text-lg font-semibold mb-2">Upcoming Sessions (Next 3 Days)</h3>
-      <p class="text-sm text-on-surface-variant mb-4 text-center">
+      <h3 class="text-lg font-semibold mb-2" i18n>Upcoming Sessions (Next 3 Days)</h3>
+      <p class="text-sm text-on-surface-variant mb-4 text-center" i18n>
         Deactivate all sessions scheduled for today and the next 3 days.
       </p>
       <button
@@ -22,7 +22,11 @@
         (click)="confirmDeactivateUpcoming()"
         [disabled]="loadingDeactivateUpcoming()"
       >
-        {{ loadingDeactivateUpcoming() ? "Deactivating..." : "Deactivate Upcoming Sessions" }}
+        @if (loadingDeactivateUpcoming()) {
+          <span i18n>Deactivating...</span>
+        } @else {
+          <span i18n>Deactivate Upcoming Sessions</span>
+        }
       </button>
       @if (messageDeactivateUpcoming()) {
       <p
@@ -37,8 +41,8 @@
 
     <!-- Past Sessions Card -->
     <mat-card class="cx-lift p-6 flex flex-col items-center text-center">
-      <h3 class="text-lg font-semibold mb-2">Past Sessions</h3>
-      <p class="text-sm text-on-surface-variant mb-4 text-center">Deactivate all sessions that have already ended.</p>
+      <h3 class="text-lg font-semibold mb-2" i18n>Past Sessions</h3>
+      <p class="text-sm text-on-surface-variant mb-4 text-center" i18n>Deactivate all sessions that have already ended.</p>
       <button
         mat-flat-button
         color="warn"
@@ -46,7 +50,11 @@
         (click)="confirmDeactivatePast()"
         [disabled]="loadingDeactivatePast()"
       >
-        {{ loadingDeactivatePast() ? "Deactivating..." : "Deactivate Past Sessions" }}
+        @if (loadingDeactivatePast()) {
+          <span i18n>Deactivating...</span>
+        } @else {
+          <span i18n>Deactivate Past Sessions</span>
+        }
       </button>
       @if (messageDeactivatePast()) {
       <p

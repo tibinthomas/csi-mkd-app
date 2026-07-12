@@ -221,7 +221,7 @@ export class AbroadPremaritalListComponent {
 
   approvePayment(reg: any): void {
     // TODO: Implement payment approval for abroad registrations
-    this.snackBar.open('Payment approval not yet implemented', 'Close', {
+    this.snackBar.open($localize`Payment approval not yet implemented`, $localize`Close`, {
       duration: 3000,
     });
   }
@@ -246,7 +246,7 @@ export class AbroadPremaritalListComponent {
         console.log('Dialog closed with result:', result);
         if (result) {
           this.filterTrigger.set(this.filterTrigger() + 1);
-          this.snackBar.open('Registration updated successfully', 'Close', {
+          this.snackBar.open($localize`Registration updated successfully`, $localize`Close`, {
             duration: 3000,
           });
         }
@@ -267,7 +267,7 @@ export class AbroadPremaritalListComponent {
         .subscribe({
           next: () => {
             this.isDeleting.set(null);
-            this.snackBar.open('Registration deleted successfully', 'Close', {
+            this.snackBar.open($localize`Registration deleted successfully`, $localize`Close`, {
               duration: 3000,
             });
             // Refresh the list
@@ -276,7 +276,7 @@ export class AbroadPremaritalListComponent {
           error: (err) => {
             this.isDeleting.set(null);
             console.error('Delete failed', err);
-            this.snackBar.open('Failed to delete registration. Please try again.', 'Close', {
+            this.snackBar.open($localize`Failed to delete registration. Please try again.`, $localize`Close`, {
               duration: 3000,
             });
           },
@@ -385,7 +385,7 @@ export class AbroadPremaritalListComponent {
       
     } catch (error) {
       console.error('Error generating certificate:', error);
-      this.snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
+      this.snackBar.open($localize`Failed to generate certificate: ${error}`, $localize`OK`, {
         duration: 5000,
       });
     }
@@ -664,13 +664,13 @@ export class EditAbroadRegistrationDialogComponent {
     ).subscribe({
       next: () => {
         this.isSaving.set(false);
-        this.snackBar.open('Registration updated successfully', 'Close', { duration: 3000 });
+        this.snackBar.open($localize`Registration updated successfully`, $localize`Close`, { duration: 3000 });
         this.dialogRef.close(true);
       },
       error: (err) => {
         console.error('Update failed', err);
         this.isSaving.set(false);
-        this.snackBar.open('Failed to update registration', 'Close', { duration: 3000 });
+        this.snackBar.open($localize`Failed to update registration`, $localize`Close`, { duration: 3000 });
       }
     });
   }

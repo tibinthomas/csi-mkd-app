@@ -54,7 +54,7 @@ export class FeedbackList {
     stream: () => this.apiService.apiCosmosFeedbackGet().pipe(
       catchError((error) => {
         console.error('Error fetching feedback:', error);
-        this.snackBar.open('Failed to load feedback data', 'Close', {
+        this.snackBar.open($localize`Failed to load feedback data`, $localize`Close`, {
           duration: 3000,
         });
         return of([]);

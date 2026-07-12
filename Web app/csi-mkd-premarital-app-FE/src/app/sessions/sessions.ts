@@ -44,7 +44,7 @@ export class Sessions {
         return await firstValueFrom(this.api.getAllSessions());
       } catch (error) {
         console.error('Error loading sessions:', error);
-        this.snackBar.open('Failed to load sessions', 'Close', {
+        this.snackBar.open($localize`Failed to load sessions`, $localize`Close`, {
           duration: 3000,
         });
         return [];

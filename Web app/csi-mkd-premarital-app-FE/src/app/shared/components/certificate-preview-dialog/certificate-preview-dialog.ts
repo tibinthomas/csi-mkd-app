@@ -253,8 +253,8 @@ export class CertificatePreviewDialog implements OnInit {
     } catch (error) {
       console.error('Error printing certificate:', error);
       this.snackBar.open(
-        'Failed to print certificate. Please check if popups are allowed.',
-        'OK',
+        $localize`Failed to print certificate. Please check if popups are allowed.`,
+        $localize`OK`,
         {
           duration: 3000,
         }
@@ -271,14 +271,14 @@ export class CertificatePreviewDialog implements OnInit {
         this.data.certificateData,
         CertificateType.PRE_CONFIRMATION
       );
-      this.snackBar.open('Certificate downloaded successfully!', 'OK', {
+      this.snackBar.open($localize`Certificate downloaded successfully!`, $localize`OK`, {
         duration: 2000,
       });
     } catch (error) {
       console.error('Error downloading certificate:', error);
       this.snackBar.open(
-        'Failed to download certificate. Please try again.',
-        'OK',
+        $localize`Failed to download certificate. Please try again.`,
+        $localize`OK`,
         {
           duration: 3000,
         }
@@ -295,14 +295,14 @@ export class CertificatePreviewDialog implements OnInit {
         this.data.certificateData,
         CertificateType.PRE_MARITAL
       );
-      this.snackBar.open('Pre-marital certificate downloaded successfully!', 'OK', {
+      this.snackBar.open($localize`Pre-marital certificate downloaded successfully!`, $localize`OK`, {
         duration: 2000,
       });
     } catch (error) {
       console.error('Error downloading pre-marital certificate:', error);
       this.snackBar.open(
-        'Failed to download certificate. Please try again.',
-        'OK',
+        $localize`Failed to download certificate. Please try again.`,
+        $localize`OK`,
         {
           duration: 3000,
         }

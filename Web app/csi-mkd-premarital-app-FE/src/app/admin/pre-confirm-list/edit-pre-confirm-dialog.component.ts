@@ -405,13 +405,13 @@ export class EditPreConfirmDialogComponent implements OnInit {
 
       this.api.apiConfirmationregisterPost({ body: newReg }).subscribe({
         next: () => {
-          this.snackBar.open('Registration created successfully', 'Close', {
+          this.snackBar.open($localize`Registration created successfully`, $localize`Close`, {
             duration: 3000,
           });
           this.dialogRef.close(true);
         },
         error: () => {
-          this.snackBar.open('Failed to create registration', 'Close', {
+          this.snackBar.open($localize`Failed to create registration`, $localize`Close`, {
             duration: 3000,
           });
         },
@@ -439,14 +439,14 @@ export class EditPreConfirmDialogComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isSaving.set(false);
-          this.snackBar.open('Registration updated successfully', 'Close', {
+          this.snackBar.open($localize`Registration updated successfully`, $localize`Close`, {
             duration: 3000,
           });
           this.dialogRef.close(true);
         },
         error: () => {
           this.isSaving.set(false);
-          this.snackBar.open('Failed to update registration', 'Close', {
+          this.snackBar.open($localize`Failed to update registration`, $localize`Close`, {
             duration: 3000,
           });
         },

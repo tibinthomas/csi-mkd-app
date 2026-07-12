@@ -275,7 +275,7 @@ export class GeneralList {
     if (this.registrations().length) {
       this.downloadAsPDF();
     } else {
-      this._snackBar.open('There are no registrations to download', 'OK');
+      this._snackBar.open($localize`There are no registrations to download`, $localize`OK`);
     }
   }
 
@@ -328,7 +328,7 @@ export class GeneralList {
         this.api.apiGeneralregisterIdDelete({ id: reg.id }).subscribe({
           next: () => {
             this.isLoading.set(false);
-            this._snackBar.open('Registration deleted successfully', 'OK', {
+            this._snackBar.open($localize`Registration deleted successfully`, $localize`OK`, {
               duration: 3000,
             });
             this.filterTrigger.set(this.filterTrigger() + 1);
@@ -337,8 +337,8 @@ export class GeneralList {
             this.isLoading.set(false);
             console.error('Deletion failed', err);
             this._snackBar.open(
-              'Failed to delete registration. Please try again.',
-              'OK',
+              $localize`Failed to delete registration. Please try again.`,
+              $localize`OK`,
               {
                 duration: 3000,
               }

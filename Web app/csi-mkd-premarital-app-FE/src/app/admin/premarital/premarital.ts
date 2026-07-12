@@ -380,8 +380,8 @@ export class PremaritalComponent {
             next: () => {
               this.isDeleting.set(null);
               this._snackBar.open(
-                'Registration deleted successfully',
-                'Close',
+                $localize`Registration deleted successfully`,
+                $localize`Close`,
                 { duration: 3000 },
               );
               this.filterTrigger.set(this.filterTrigger() + 1);
@@ -390,8 +390,8 @@ export class PremaritalComponent {
               this.isDeleting.set(null);
               console.error('Delete failed', err);
               this._snackBar.open(
-                'Failed to delete registration. Please try again.',
-                'Close',
+                $localize`Failed to delete registration. Please try again.`,
+                $localize`Close`,
                 { duration: 3000 },
               );
             },
@@ -507,7 +507,7 @@ export class PremaritalComponent {
         .subscribe({
           next: () => {
             this.isEditing.set(null);
-            this._snackBar.open('Registration updated successfully', 'Close', {
+            this._snackBar.open($localize`Registration updated successfully`, $localize`Close`, {
               duration: 3000,
             });
             this.filterTrigger.set(this.filterTrigger() + 1);
@@ -516,8 +516,8 @@ export class PremaritalComponent {
             this.isEditing.set(null);
             console.error('Update failed', err);
             this._snackBar.open(
-              'Failed to update registration. Please try again.',
-              'Close',
+              $localize`Failed to update registration. Please try again.`,
+              $localize`Close`,
               { duration: 3000 },
             );
           },
@@ -673,7 +673,7 @@ export class PremaritalComponent {
     if (this.registrations().length) {
       this.downloadAsPDF();
     } else {
-      this._snackBar.open('There are no registrations to download', 'OK');
+      this._snackBar.open($localize`There are no registrations to download`, $localize`OK`);
     }
   }
 
@@ -686,8 +686,8 @@ export class PremaritalComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this._snackBar.open(
-          'Name and church spreadsheet exported successfully',
-          'Close',
+          $localize`Name and church spreadsheet exported successfully`,
+          $localize`Close`,
           {
             duration: 3000,
           },
@@ -704,7 +704,7 @@ export class PremaritalComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this._snackBar.open('Phone numbers exported successfully', 'Close', {
+        this._snackBar.open($localize`Phone numbers exported successfully`, $localize`Close`, {
           duration: 3000,
         });
       }
@@ -810,7 +810,7 @@ export class PremaritalComponent {
       });
     } catch (error) {
       console.error('Error generating certificate:', error);
-      this._snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
+      this._snackBar.open($localize`Failed to generate certificate: ${error}`, $localize`OK`, {
         duration: 5000,
       });
     }
@@ -874,7 +874,7 @@ export class PremaritalComponent {
           .pipe(
             catchError((err) => {
               console.error('Error fetching feedback data:', err);
-              this._snackBar.open('Failed to load feedback details', 'Close', {
+              this._snackBar.open($localize`Failed to load feedback details`, $localize`Close`, {
                 duration: 3000,
               });
               return of([]);
@@ -884,7 +884,7 @@ export class PremaritalComponent {
 
       // Check if feedback data exists and has feedbacks property
       if (!feedbacks.length || !feedbacks[0]?.feedbacks) {
-        this._snackBar.open('No feedback data found for this user', 'Close', {
+        this._snackBar.open($localize`No feedback data found for this user`, $localize`Close`, {
           duration: 3000,
         });
         return;
@@ -903,7 +903,7 @@ export class PremaritalComponent {
       });
     } catch (error) {
       console.error('Error loading feedback details:', error);
-      this._snackBar.open('Error loading feedback details', 'Close', {
+      this._snackBar.open($localize`Error loading feedback details`, $localize`Close`, {
         duration: 3000,
       });
     } finally {
@@ -1030,8 +1030,8 @@ export class PremaritalComponent {
       // Check if question answers exist
       if (!questionAnswers) {
         this._snackBar.open(
-          'No question answers found for this user',
-          'Close',
+          $localize`No question answers found for this user`,
+          $localize`Close`,
           {
             duration: 3000,
           },

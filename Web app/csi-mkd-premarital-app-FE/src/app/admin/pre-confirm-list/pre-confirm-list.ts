@@ -113,7 +113,7 @@ export class PreConfirmList implements OnInit {
         },
         error: () => {
           this.isLoading.set(false);
-          this.snackBar.open('Failed to load registrations', 'Close', {
+          this.snackBar.open($localize`Failed to load registrations`, $localize`Close`, {
             duration: 3000,
           });
         },
@@ -187,7 +187,7 @@ export class PreConfirmList implements OnInit {
   handleDownloadCSV() {
     const items = this.registrations();
     if (!items || items.length === 0) {
-      this.snackBar.open('No data available to download.', 'Close', {
+      this.snackBar.open($localize`No data available to download.`, $localize`Close`, {
         duration: 3000,
       });
       return;
@@ -238,7 +238,7 @@ export class PreConfirmList implements OnInit {
     const items = this.registrations();
 
     if (!items || items.length === 0) {
-      this.snackBar.open('No data available to download.', 'Close', {
+      this.snackBar.open($localize`No data available to download.`, $localize`Close`, {
         duration: 3000,
       });
       return;
@@ -341,7 +341,7 @@ export class PreConfirmList implements OnInit {
       
     } catch (error) {
       console.error('Error generating certificate:', error);
-      this.snackBar.open(`Failed to generate certificate: ${error}`, 'OK', {
+      this.snackBar.open($localize`Failed to generate certificate: ${error}`, $localize`OK`, {
         duration: 5000,
       });
     }
@@ -371,7 +371,7 @@ export class PreConfirmList implements OnInit {
         this.api.apiConfirmationregisterIdDelete({ id: reg.id }).subscribe({
           next: () => {
             this.isLoading.set(false);
-            this.snackBar.open('Registration deleted successfully', 'OK', {
+            this.snackBar.open($localize`Registration deleted successfully`, $localize`OK`, {
               duration: 3000,
             });
             this.loadRegistrations();
@@ -380,8 +380,8 @@ export class PreConfirmList implements OnInit {
             this.isLoading.set(false);
             console.error('Deletion failed', err);
             this.snackBar.open(
-              'Failed to delete registration. Please try again.',
-              'OK',
+              $localize`Failed to delete registration. Please try again.`,
+              $localize`OK`,
               {
                 duration: 3000,
               }

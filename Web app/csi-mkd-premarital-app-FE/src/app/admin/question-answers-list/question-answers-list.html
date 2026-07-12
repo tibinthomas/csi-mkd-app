@@ -2,8 +2,8 @@
   <div class="cx-page-head">
     <span class="cx-icon-chip cx-icon-chip--gold"><mat-icon>quiz</mat-icon></span>
     <div class="cx-page-head-text">
-      <h1>Question Answers Management</h1>
-      <p>Review participant responses to session questionnaires.</p>
+      <h1 i18n>Question Answers Management</h1>
+      <p i18n>Review participant responses to session questionnaires.</p>
     </div>
     <span class="flex-1"></span>
     <button
@@ -14,7 +14,7 @@
       class="flex items-center gap-2"
     >
       <mat-icon>refresh</mat-icon>
-      Refresh
+      <span i18n>Refresh</span>
     </button>
   </div>
 
@@ -26,11 +26,11 @@
     <mat-card class="error-card bg-error-container text-on-error-container">
       <mat-card-header>
         <mat-icon class="text-error">error</mat-icon>
-        <span class="ml-2 font-semibold">Error Loading Data</span>
+        <span class="ml-2 font-semibold" i18n>Error Loading Data</span>
       </mat-card-header>
       <mat-card-content>
         <p>{{ error()?.message || 'An unexpected error occurred' }}</p>
-        <button mat-button color="primary" (click)="refreshData()" class="mt-2">
+        <button mat-button color="primary" (click)="refreshData()" class="mt-2" i18n>
           Try Again
         </button>
       </mat-card-content>
@@ -39,8 +39,8 @@
     <mat-card class="text-center py-12">
       <mat-card-content>
         <mat-icon class="text-6xl text-on-surface-variant mb-4">quiz</mat-icon>
-        <h3 class="text-xl font-semibold mb-2">No Question Answers Found</h3>
-        <p class="text-on-surface-variant">No participants have submitted their question answers yet.</p>
+        <h3 class="text-xl font-semibold mb-2" i18n>No Question Answers Found</h3>
+        <p class="text-on-surface-variant" i18n>No participants have submitted their question answers yet.</p>
       </mat-card-content>
     </mat-card>
   } @else {
@@ -60,7 +60,7 @@
               </div>
               <div class="text-sm text-on-surface-variant">
                 @if (response.submittedAt) {
-                  Submitted: {{ response.submittedAt | date : "MMM d, y" : "+5:30" }}
+                  <span i18n>Submitted: {{ response.submittedAt | date : "MMM d, y" : "+5:30" }}</span>
                 }
               </div>
             </mat-card-title>

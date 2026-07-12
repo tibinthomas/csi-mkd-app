@@ -43,15 +43,15 @@ export class BlobAccessService {
         await this.confirmAndRetrieve(blobUrl);
       } else {
         this.snackBar.open(
-          'File not found in storage. It may have been deleted.',
-          'Close',
+          $localize`File not found in storage. It may have been deleted.`,
+          $localize`Close`,
           { duration: 4000 },
         );
       }
     } catch (err) {
       this.snackBar.open(
-        'Failed to open the file. Please try again.',
-        'Close',
+        $localize`Failed to open the file. Please try again.`,
+        $localize`Close`,
         {
           duration: 4000,
         },

@@ -89,7 +89,7 @@ export class Instructors implements OnInit {
         console.error('Failed to load instructors', err);
         this.error.set('Failed to load instructors');
         this.isLoading.set(false);
-        this.snackBar.open('Failed to load instructors', 'Close', {
+        this.snackBar.open($localize`Failed to load instructors`, $localize`Close`, {
           duration: 5000,
         });
       },
@@ -114,7 +114,7 @@ export class Instructors implements OnInit {
       error: (err) => {
         console.error('Failed to load instructor ratings', err);
         this.isLoadingRatings.set(false);
-        this.snackBar.open('Failed to load instructor ratings', 'Close', {
+        this.snackBar.open($localize`Failed to load instructor ratings`, $localize`Close`, {
           duration: 3000,
         });
       },
@@ -172,13 +172,13 @@ export class Instructors implements OnInit {
         if (this.ratingsVisible()) {
           this.loadInstructorRatings();
         }
-        this.snackBar.open('Instructor created successfully', 'Close', {
+        this.snackBar.open($localize`Instructor created successfully`, $localize`Close`, {
           duration: 3000,
         });
       },
       error: (err) => {
         console.error('Failed to create instructor', err);
-        this.snackBar.open('Failed to create instructor', 'Close', {
+        this.snackBar.open($localize`Failed to create instructor`, $localize`Close`, {
           duration: 5000,
         });
       },
@@ -194,13 +194,13 @@ export class Instructors implements OnInit {
           if (this.ratingsVisible()) {
             this.loadInstructorRatings();
           }
-          this.snackBar.open('Instructor updated successfully', 'Close', {
+          this.snackBar.open($localize`Instructor updated successfully`, $localize`Close`, {
             duration: 3000,
           });
         },
         error: (err) => {
           console.error('Failed to update instructor', err);
-          this.snackBar.open('Failed to update instructor', 'Close', {
+          this.snackBar.open($localize`Failed to update instructor`, $localize`Close`, {
             duration: 5000,
           });
         },
@@ -214,13 +214,13 @@ export class Instructors implements OnInit {
         if (this.ratingsVisible()) {
           this.loadInstructorRatings();
         }
-        this.snackBar.open('Instructor deleted successfully', 'Close', {
+        this.snackBar.open($localize`Instructor deleted successfully`, $localize`Close`, {
           duration: 3000,
         });
       },
       error: (err) => {
         console.error('Failed to delete instructor', err);
-        this.snackBar.open('Failed to delete instructor', 'Close', {
+        this.snackBar.open($localize`Failed to delete instructor`, $localize`Close`, {
           duration: 5000,
         });
       },
