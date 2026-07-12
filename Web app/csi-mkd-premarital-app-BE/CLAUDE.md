@@ -6,12 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ASP.NET Core **.NET 10** minimal API backend for the CSI MKD Premarital Counselling registration system. The repo contains four projects:
 
-| Project | Path | Purpose |
-|---|---|---|
-| Main API | `.` (`csi-mkd-premarital-app-BE.csproj`) | Minimal API serving all registration/admin endpoints; deployed to Azure Container Apps |
-| Azure Functions | `CsiMkdFunctions/` | Isolated-worker Functions app (v4): lightweight sessions read API, timer-based Supabase `pg_dump` backups, old-blob archival; deployed to Azure Function App |
-| Aspire AppHost | `AppHost/` | Local orchestrator that runs the Main API and Functions together |
-| ServiceDefaults | `ServiceDefaults/` | Shared Aspire telemetry/health/resilience defaults, referenced by the Main API |
+| Project         | Path                                     | Purpose                                                                                                                                                      |
+| --------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Main API        | `.` (`csi-mkd-premarital-app-BE.csproj`) | Minimal API serving all registration/admin endpoints; deployed to Azure Container Apps                                                                       |
+| Azure Functions | `CsiMkdFunctions/`                       | Isolated-worker Functions app (v4): lightweight sessions read API, timer-based Supabase `pg_dump` backups, old-blob archival; deployed to Azure Function App |
+| Aspire AppHost  | `AppHost/`                               | Local orchestrator that runs the Main API and Functions together                                                                                             |
+| ServiceDefaults | `ServiceDefaults/`                       | Shared Aspire telemetry/health/resilience defaults, referenced by the Main API                                                                               |
 
 The main `.csproj` explicitly excludes `AppHost/`, `ServiceDefaults/`, and `CsiMkdFunctions/` sources from its own compilation — they are separate projects. `CsiMkdFunctions` is **not** in the `.sln`; build/run it from its own directory.
 
@@ -101,3 +101,41 @@ Follow Microsoft C#/.NET conventions. Project-specific expectations:
 - REST conventions: plural nouns, proper status codes, paginate large lists
 - Schema changes always via EF migrations (`EnsureCreated` is acceptable only for Cosmos)
 - Run `dotnet csharpier format .` before committing
+
+# AI Session Manager (Advisory Mode)
+
+Act as an intelligent session-management advisor alongside answering questions.
+You cannot change settings yourself, so your job is to _recommend_ and let the
+user act.
+
+## On each user message, evaluate
+
+- Task complexity.
+- Conversation length and context quality.
+- Whether the current reasoning effort seems appropriate.
+- Whether the current model's capability matches the task.
+
+## When worthwhile, suggest that the user take one of these actions in settings
+
+- Increase reasoning effort.
+- Decrease reasoning effort.
+- Switch to a stronger model.
+- Switch to a faster/cheaper model.
+- Compact the conversation (offer to write the summary).
+- Start a new chat (offer to write a concise handoff summary).
+- Drop obsolete context that's no longer useful.
+
+## Always provide
+
+1. The recommendation, phrased as a step for the user to take.
+2. A one-sentence reason.
+3. The expected benefit (better quality, lower cost, faster responses, or
+   improved context).
+
+## Constraints
+
+- Only interrupt when the improvement is genuinely worth it.
+- You evaluate only when the user sends a message — you do not monitor between
+  turns.
+- You do not have exact token counts, so conversation-length calls are judgment,
+  not precise metering.
