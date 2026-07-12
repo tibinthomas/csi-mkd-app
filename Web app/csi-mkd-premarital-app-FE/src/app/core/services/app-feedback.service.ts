@@ -14,6 +14,7 @@ const SESSION_KEY = 'csi-app-feedback-session';
 const PROMPT_DELAY_MS = 30_000; // wait until the visitor has settled in
 const MIN_VISITS_BEFORE_PROMPT = 2; // never on the first visit
 const SNOOZE_DAYS = 14; // if dismissed, stay quiet for two weeks
+const POST_SUBMISSION_DELAY_MS = 800; // breathing room after the success dialog closes
 
 /**
  * Coordinates the "rate this app" dialog: a deliberately quiet auto-prompt
@@ -55,6 +56,23 @@ export class AppFeedbackService {
 
     this.promptedThisSession = true;
     setTimeout(() => this.open(true), PROMPT_DELAY_MS);
+  }
+
+  /**
+   * Invites feedback right after a completed registration — the moment the
+   * visitor has finished what they came for. Stays quiet if they already
+   * submitted feedback or recently dismissed the dialog.
+   */
+  promptAfterSubmission(): void {
+    const state = this.read();
+    if (
+      state.submitted ||
+      (state.snoozeUntil && Date.now() < state.snoozeUntil)
+    ) {
+      return;
+    }
+    // Let the post-registration navigation settle before the dialog appears
+    setTimeout(() => this.open(true), POST_SUBMISSION_DELAY_MS);
   }
 
   /** Opens the feedback dialog (from the auto prompt or the toolbar button). */

@@ -3897,6 +3897,512 @@
         <source>Try Again</source>
         <target>വീണ്ടും ശ്രമിക്കുക</target>
       </trans-unit>
+          <trans-unit id="971150223304657062" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Welcome to the Premarital Registration Form&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;This guided tour will help you understand each section of the form.&lt;/p&gt;
+        &lt;p class=&quot;text-sm text-amber-600 dark:text-amber-400&quot;&gt;
+          &lt;strong&gt;Important:&lt;/strong&gt; Each individual (both partners) must complete their own separate registration.
+        &lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;വിവാഹപൂർവ രജിസ്ട്രേഷൻ ഫോമിലേക്ക് സ്വാഗതം&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;ഫോമിന്റെ ഓരോ ഭാഗവും മനസ്സിലാക്കാൻ ഈ ഗൈഡഡ് ടൂർ നിങ്ങളെ സഹായിക്കും.&lt;/p&gt;
+        &lt;p class=&quot;text-sm text-amber-600 dark:text-amber-400&quot;&gt;
+          &lt;strong&gt;പ്രധാനം:&lt;/strong&gt; ഓരോ വ്യക്തിയും (വധുവും വരനും) വെവ്വേറെ രജിസ്ട്രേഷൻ പൂർത്തിയാക്കണം.
+        &lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">862,868</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5045200874122539692" datatype="html">
+        <source>Exit</source>
+        <target>പുറത്തുകടക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">871</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3885497195825665706" datatype="html">
+        <source>Next</source>
+        <target>അടുത്തത്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">876</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">906</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">934</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">961</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">990</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1029</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1064</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1094</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1122</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1154</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1183</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1212</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1252</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1283</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7369134415302665922" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Personal Information&lt;/h3&gt;
+        &lt;p&gt;Enter your basic personal details:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 mt-2 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;First Name &amp; Last Name:&lt;/strong&gt; Your full legal name&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Sex:&lt;/strong&gt; Select Male or Female&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Age:&lt;/strong&gt; Your current age (1-120)&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Father&apos;s Name:&lt;/strong&gt; Your father&apos;s full name&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;വ്യക്തിഗത വിവരങ്ങൾ&lt;/h3&gt;
+        &lt;p&gt;നിങ്ങളുടെ അടിസ്ഥാന വിവരങ്ങൾ എന്റർ ചെയ്യുക:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 mt-2 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;ഫസ്റ്റ് നെയിം &amp; ലാസ്റ്റ് നെയിം:&lt;/strong&gt; ഔദ്യോഗിക രേഖകളിലെ നിങ്ങളുടെ മുഴുവൻ പേര്&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;ലിംഗം:&lt;/strong&gt; Male അല്ലെങ്കിൽ Female തിരഞ്ഞെടുക്കുക&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;വയസ്സ്:&lt;/strong&gt; നിങ്ങളുടെ ഇപ്പോഴത്തെ വയസ്സ് (1-120)&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;പിതാവിൻ്റെ പേര്:&lt;/strong&gt; പിതാവിന്റെ മുഴുവൻ പേര്&lt;/li&gt;
+        &lt;/ul&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">885,894</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8890553633144307762" datatype="html">
+        <source>Back</source>
+        <target>പുറകോട്ട്</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">901</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">929</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">956</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">985</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1024</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1059</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1089</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1117</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1149</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1178</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1207</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1247</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1278</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1300</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8802818269512398449" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Education &amp; Professional Details&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Provide information about your education and current occupation.&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Occupation:&lt;/strong&gt; Your current job or profession&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Education:&lt;/strong&gt; Your highest educational qualification&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;വിദ്യാഭ്യാസവും തൊഴിൽ വിവരങ്ങളും&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;നിങ്ങളുടെ വിദ്യാഭ്യാസത്തെയും ഇപ്പോഴത്തെ ജോലിയെയും കുറിച്ചുള്ള വിവരങ്ങൾ നൽകുക.&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;ജോലി:&lt;/strong&gt; നിങ്ങളുടെ ഇപ്പോഴത്തെ ജോലി അല്ലെങ്കിൽ തൊഴിൽ&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;വിദ്യാഭ്യാസം:&lt;/strong&gt; നിങ്ങളുടെ ഏറ്റവും ഉയർന്ന വിദ്യാഭ്യാസ യോഗ്യത&lt;/li&gt;
+        &lt;/ul&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">915,922</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6740433671269735910" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Address&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Enter your complete residential address.&lt;/p&gt;
+        &lt;p class=&quot;text-sm text-blue-600 dark:text-blue-400&quot;&gt;
+          &lt;strong&gt;Tip:&lt;/strong&gt; You can use the microphone icon for voice input!
+        &lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;അഡ്രസ്സ്&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;നിങ്ങളുടെ പൂർണ്ണമായ താമസ വിലാസം എന്റർ ചെയ്യുക.&lt;/p&gt;
+        &lt;p class=&quot;text-sm text-blue-600 dark:text-blue-400&quot;&gt;
+          &lt;strong&gt;സൂചന:&lt;/strong&gt; വോയ്സ് ഇൻപുട്ടിനായി മൈക്രോഫോൺ ഐക്കൺ ഉപയോഗിക്കാം!
+        &lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">943,949</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8608268777597537363" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Membership&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Select your CSI MKD membership status:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Member of CSI MKD:&lt;/strong&gt; Select if you are a registered member. You&apos;ll need to choose your district and church.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Not a member:&lt;/strong&gt; Select if you belong to another church. You&apos;ll enter your church name manually.&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;Different fields will appear based on your selection.&lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;സഭാ അംഗത്വം&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;നിങ്ങളുടെ മദ്ധ്യകേരള മഹായിടവക അംഗത്വ നില തിരഞ്ഞെടുക്കുക:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;മദ്ധ്യകേരള മഹായിടവക അംഗം:&lt;/strong&gt; രജിസ്റ്റർ ചെയ്ത അംഗമാണെങ്കിൽ ഇത് തിരഞ്ഞെടുക്കുക. വൈദിക ജില്ലയും സഭയും തിരഞ്ഞെടുക്കേണ്ടതുണ്ട്.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;അംഗമല്ല:&lt;/strong&gt; മറ്റൊരു സഭയിലെ അംഗമാണെങ്കിൽ ഇത് തിരഞ്ഞെടുക്കുക. സഭയുടെ പേര് നേരിട്ട് എന്റർ ചെയ്യാം.&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;നിങ്ങളുടെ തിരഞ്ഞെടുപ്പ് അനുസരിച്ച് വ്യത്യസ്ത ഫീൽഡുകൾ ദൃശ്യമാകും.&lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">970,978</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7588341175854642493" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Details (For Members)&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;If you selected &quot;Member of CSI MKD&quot;:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Clergy District:&lt;/strong&gt; Select your district from the dropdown&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Church Name:&lt;/strong&gt; After selecting district, choose your specific church&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;The priest&apos;s name will be shown below if available.&lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;സഭാ വിവരങ്ങൾ (അംഗങ്ങൾക്ക്)&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;&quot;മദ്ധ്യകേരള മഹായിടവക അംഗം&quot; തിരഞ്ഞെടുത്തെങ്കിൽ:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;വൈദിക ജില്ല:&lt;/strong&gt; ഡ്രോപ്പ്ഡൗണിൽ നിന്ന് നിങ്ങളുടെ ജില്ല തിരഞ്ഞെടുക്കുക&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;സഭ:&lt;/strong&gt; ജില്ല തിരഞ്ഞെടുത്ത ശേഷം നിങ്ങളുടെ സഭ തിരഞ്ഞെടുക്കുക&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;ലഭ്യമെങ്കിൽ ഇടവകവികാരിയുടെ പേര് താഴെ കാണിക്കും.&lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">999,1007</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6307786374641061852" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Details (For Non-Members)&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;If you selected &quot;Not member of CSI MKD&quot;:&lt;/p&gt;
+        &lt;p class=&quot;text-sm&quot;&gt;Enter the name of your church manually in the text field.&lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;സഭാ വിവരങ്ങൾ (അംഗമല്ലാത്തവർക്ക്)&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;&quot;മദ്ധ്യകേരള മഹായിടവക അംഗമല്ല&quot; തിരഞ്ഞെടുത്തെങ്കിൽ:&lt;/p&gt;
+        &lt;p class=&quot;text-sm&quot;&gt;ടെക്സ്റ്റ് ഫീൽഡിൽ നിങ്ങളുടെ സഭയുടെ പേര് എന്റർ ചെയ്യുക.&lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1038,1042</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3511578158815410990" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Activities&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Select the church activities you participate in:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;Choir Member&lt;/li&gt;
+          &lt;li&gt;Sunday School Teacher&lt;/li&gt;
+          &lt;li&gt;Youth Fellowship&lt;/li&gt;
+          &lt;li&gt;Other activities (specify in the text field)&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;സഭാ പ്രവർത്തനങ്ങൾ&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;നിങ്ങൾ പങ്കെടുക്കുന്ന സഭാ പ്രവർത്തനങ്ങൾ തിരഞ്ഞെടുക്കുക:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;ക്വയർ അംഗം&lt;/li&gt;
+          &lt;li&gt;സൺഡേ സ്കൂൾ അധ്യാപകൻ/അധ്യാപിക&lt;/li&gt;
+          &lt;li&gt;യൂത്ത് ഫെലോഷിപ്പ്&lt;/li&gt;
+          &lt;li&gt;മറ്റ് പ്രവർത്തനങ്ങൾ (ടെക്സ്റ്റ് ഫീൽഡിൽ വ്യക്തമാക്കുക)&lt;/li&gt;
+        &lt;/ul&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1073,1082</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5044189848770346137" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Partner &amp; Marriage Information&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Provide details about your upcoming marriage:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Fiancé/Fiancée Name:&lt;/strong&gt; Your partner&apos;s name&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Date of Marriage:&lt;/strong&gt; Click the calendar icon to select the date&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;പങ്കാളിയും വിവാഹ വിവരങ്ങളും&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;നിങ്ങളുടെ വിവാഹത്തെക്കുറിച്ചുള്ള വിവരങ്ങൾ നൽകുക:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;പ്രതിശ്രുത വരന്റെ/വധുവിന്റെ പേര്:&lt;/strong&gt; നിങ്ങളുടെ പങ്കാളിയുടെ പേര്&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;വിവാഹ തീയതി:&lt;/strong&gt; തീയതി തിരഞ്ഞെടുക്കാൻ കലണ്ടർ ഐക്കണിൽ ക്ലിക്ക് ചെയ്യുക&lt;/li&gt;
+        &lt;/ul&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1103,1110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3584480675880974002" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Contact Information&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Provide your contact details for communication:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Country Code:&lt;/strong&gt; Select your country code&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;WhatsApp Number:&lt;/strong&gt; Enter your 10-digit mobile number&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Email:&lt;/strong&gt; Enter a valid email address&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-amber-600 dark:text-amber-400&quot;&gt;
+          Confirmation will be sent to this email.
+        &lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;ബന്ധപ്പെടാനുള്ള വിവരങ്ങൾ&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;ആശയവിനിമയത്തിനായി നിങ്ങളുടെ വിവരങ്ങൾ നൽകുക:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;കൺട്രി കോഡ്:&lt;/strong&gt; നിങ്ങളുടെ കൺട്രി കോഡ് തിരഞ്ഞെടുക്കുക&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;വാട്ട്സ്ആപ്പ് നമ്പർ:&lt;/strong&gt; നിങ്ങളുടെ 10 അക്ക മൊബൈൽ നമ്പർ എന്റർ ചെയ്യുക&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;ഇമെയിൽ:&lt;/strong&gt; സാധുവായ ഇമെയിൽ വിലാസം എന്റർ ചെയ്യുക&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-amber-600 dark:text-amber-400&quot;&gt;
+          സ്ഥിരീകരണം ഈ ഇമെയിലിലേക്ക് അയയ്ക്കും.
+        &lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1131,1142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4051194026385736874" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Session Selection&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Choose your preferred counselling session:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Number of Days:&lt;/strong&gt; Select 1 day (with Bishop&apos;s permission) or 3 days&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Session:&lt;/strong&gt; Choose from available sessions with dates&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;All dates are displayed in IST (Indian Standard Time).&lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;സെഷൻ തിരഞ്ഞെടുക്കൽ&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;നിങ്ങൾക്ക് അനുയോജ്യമായ കൗൺസിലിംഗ് സെഷൻ തിരഞ്ഞെടുക്കുക:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;ദിവസങ്ങളുടെ എണ്ണം:&lt;/strong&gt; 1 ദിവസം (ബിഷപ്പിന്റെ അനുമതിയോടെ) അല്ലെങ്കിൽ 3 ദിവസം തിരഞ്ഞെടുക്കുക&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;സെഷൻ:&lt;/strong&gt; തീയതികളോടു കൂടിയ ലഭ്യമായ സെഷനുകളിൽ നിന്ന് തിരഞ്ഞെടുക്കുക&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;എല്ലാ തീയതികളും IST (ഇന്ത്യൻ സമയം) പ്രകാരമാണ്.&lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1163,1171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7091368378284541490" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Required File Uploads&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Upload the following required documents:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Your Photo:&lt;/strong&gt; Passport-size photo (JPG/PNG, max 2MB)&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Witness of Vicar:&lt;/strong&gt; Letter from your vicar confirming membership and counselling request (PDF/DOC/DOCX/JPG/PNG, max 2MB)&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-red-600 dark:text-red-400&quot;&gt;Both files are required to complete registration.&lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;ആവശ്യമായ ഫയലുകൾ അപ്‌ലോഡ് ചെയ്യുക&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;താഴെ പറയുന്ന നിർബന്ധ രേഖകൾ അപ്‌ലോഡ് ചെയ്യുക:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;നിങ്ങളുടെ ഫോട്ടോ:&lt;/strong&gt; പാസ്പോർട്ട് സൈസ് ഫോട്ടോ (JPG/PNG, പരമാവധി 2MB)&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;വികാരിയുടെ സാക്ഷ്യപത്രം:&lt;/strong&gt; അംഗത്വവും കൗൺസിലിംഗ് അപേക്ഷയും സ്ഥിരീകരിക്കുന്ന വികാരിയുടെ കത്ത് (PDF/DOC/DOCX/JPG/PNG, പരമാവധി 2MB)&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-red-600 dark:text-red-400&quot;&gt;രജിസ്ട്രേഷൻ പൂർത്തിയാക്കാൻ രണ്ട് ഫയലുകളും നിർബന്ധമാണ്.&lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1192,1200</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1065445530520933965" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Declarations &amp; Consent&lt;/h3&gt;
+        &lt;p class=&quot;mb-3&quot;&gt;Complete these two required steps:&lt;/p&gt;
+        &lt;div class=&quot;bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg mb-3&quot;&gt;
+          &lt;p class=&quot;text-sm font-semibold mb-2&quot;&gt;Step 1: Declaration Checkbox&lt;/p&gt;
+          &lt;p class=&quot;text-sm&quot;&gt;Check the box below that says &quot;I would like to attend the premarital counselling course&quot;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg&quot;&gt;
+          &lt;p class=&quot;text-sm font-semibold mb-2&quot;&gt;Step 2: Read and Accept Informed Consent&lt;/p&gt;
+          &lt;p class=&quot;text-sm mb-2&quot;&gt;&lt;strong&gt;Click the blue underlined link&lt;/strong&gt; that says &quot;Read and Accept Informed Consent and Counselling Agreement&quot;&lt;/p&gt;
+          &lt;p class=&quot;text-sm mb-2&quot;&gt;This will open a dialog box with the full agreement. Read it carefully, then:&lt;/p&gt;
+          &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+            &lt;li&gt;Check the box at the bottom of the dialog&lt;/li&gt;
+            &lt;li&gt;Click the OK button&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;text-sm mt-3 text-red-600 dark:text-red-400 font-bold&quot;&gt;
+          ⚠️ Both steps are required before you can submit the form
+        &lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;സമ്മതപത്രങ്ങൾ&lt;/h3&gt;
+        &lt;p class=&quot;mb-3&quot;&gt;ഈ രണ്ട് നിർബന്ധ ഘട്ടങ്ങൾ പൂർത്തിയാക്കുക:&lt;/p&gt;
+        &lt;div class=&quot;bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg mb-3&quot;&gt;
+          &lt;p class=&quot;text-sm font-semibold mb-2&quot;&gt;ഘട്ടം 1: ഡിക്ലറേഷൻ ചെക്ക്ബോക്സ്&lt;/p&gt;
+          &lt;p class=&quot;text-sm&quot;&gt;&quot;ഞാൻ പ്രീമാരിറ്റൽ കൗൺസിലിംഗിൽ പങ്കെടുക്കാൻ ആഗ്രഹിക്കുന്നു&quot; എന്ന ചെക്ക്ബോക്സ് ടിക്ക് ചെയ്യുക&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg&quot;&gt;
+          &lt;p class=&quot;text-sm font-semibold mb-2&quot;&gt;ഘട്ടം 2: അറിവോടെയുള്ള സമ്മതം വായിച്ച് അംഗീകരിക്കുക&lt;/p&gt;
+          &lt;p class=&quot;text-sm mb-2&quot;&gt;&quot;അറിവോടെയുള്ള സമ്മതവും കൗൺസിലിംഗ് കരാറും വായിച്ച് അംഗീകരിക്കുക&quot; എന്ന &lt;strong&gt;നീല അടിവരയിട്ട ലിങ്കിൽ ക്ലിക്ക് ചെയ്യുക&lt;/strong&gt;&lt;/p&gt;
+          &lt;p class=&quot;text-sm mb-2&quot;&gt;കരാർ പൂർണ്ണമായി കാണിക്കുന്ന ഒരു ഡയലോഗ് തുറക്കും. അത് ശ്രദ്ധയോടെ വായിച്ച ശേഷം:&lt;/p&gt;
+          &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+            &lt;li&gt;ഡയലോഗിന്റെ താഴെയുള്ള ചെക്ക്ബോക്സ് ടിക്ക് ചെയ്യുക&lt;/li&gt;
+            &lt;li&gt;OK ബട്ടണിൽ ക്ലിക്ക് ചെയ്യുക&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;text-sm mt-3 text-red-600 dark:text-red-400 font-bold&quot;&gt;
+          ⚠️ ഫോം സമർപ്പിക്കുന്നതിന് ഈ രണ്ട് ഘട്ടങ്ങളും നിർബന്ധമാണ്
+        &lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1221,1240</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="95330446281133026" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Security Verification &amp; Submit&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Final steps to complete your registration:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;reCAPTCHA:&lt;/strong&gt; Check the &quot;I&apos;m not a robot&quot; box to verify you&apos;re human&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Register Button:&lt;/strong&gt; Click to submit your completed form&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-green-600 dark:text-green-400&quot;&gt;
+          After submission, you&apos;ll receive a confirmation email.
+        &lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;സെക്യൂരിറ്റി പരിശോധനയും സമർപ്പണവും&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;രജിസ്ട്രേഷൻ പൂർത്തിയാക്കാനുള്ള അവസാന ഘട്ടങ്ങൾ:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;reCAPTCHA:&lt;/strong&gt; &quot;I&apos;m not a robot&quot; എന്ന ബോക്സ് ടിക്ക് ചെയ്യുക&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;രജിസ്റ്റർ ബട്ടൺ:&lt;/strong&gt; പൂരിപ്പിച്ച ഫോം സമർപ്പിക്കാൻ ക്ലിക്ക് ചെയ്യുക&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-green-600 dark:text-green-400&quot;&gt;
+          സമർപ്പിച്ച ശേഷം നിങ്ങൾക്ക് ഒരു സ്ഥിരീകരണ ഇമെയിൽ ലഭിക്കും.
+        &lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1261,1271</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8971654449997622938" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;🎉 Tour Complete!&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;You&apos;ve completed the guided tour of the premarital registration form.&lt;/p&gt;
+        &lt;p class=&quot;text-sm&quot;&gt;You can now proceed to fill out the form. If you need to see the tour again, click the help icon (?) in the form header.&lt;/p&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;Good luck with your registration!&lt;/p&gt;
+      </source>
+        <target>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;🎉 ടൂർ പൂർത്തിയായി!&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;വിവാഹപൂർവ രജിസ്ട്രേഷൻ ഫോമിന്റെ ഗൈഡഡ് ടൂർ നിങ്ങൾ പൂർത്തിയാക്കി.&lt;/p&gt;
+        &lt;p class=&quot;text-sm&quot;&gt;ഇനി ഫോം പൂരിപ്പിക്കാം. ടൂർ വീണ്ടും കാണണമെങ്കിൽ ഫോം ഹെഡറിലെ ഹെൽപ്പ് ഐക്കണിൽ (?) ക്ലിക്ക് ചെയ്യുക.&lt;/p&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;നിങ്ങളുടെ രജിസ്ട്രേഷന് എല്ലാ ആശംസകളും!&lt;/p&gt;
+      </target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1292,1297</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="65984904390749158" datatype="html">
+        <source>Finish</source>
+        <target>പൂർത്തിയാക്കുക</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1305</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -832,23 +832,23 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">288</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">317</context>
+          <context context-type="linenumber">330</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">321</context>
+          <context context-type="linenumber">336</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">349</context>
+          <context context-type="linenumber">366</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">414</context>
+          <context context-type="linenumber">435</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.ts</context>
@@ -975,7 +975,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">408</context>
+          <context context-type="linenumber">429</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/certificate-preview-dialog/certificate-preview-dialog.ts</context>
@@ -2782,7 +2782,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">752</context>
+          <context context-type="linenumber">779</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8329077065153211078" datatype="html">
@@ -3887,7 +3887,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">288</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4930524459350465368" datatype="html">
@@ -3898,7 +3898,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">317</context>
+          <context context-type="linenumber">329</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5537031432211017752" datatype="html">
@@ -3909,7 +3909,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">321</context>
+          <context context-type="linenumber">336</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7532337394968788830" datatype="html">
@@ -3920,7 +3920,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">407</context>
+          <context context-type="linenumber">428</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4273726538431683462" datatype="html">
@@ -3931,7 +3931,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">413</context>
+          <context context-type="linenumber">434</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2083865990213274454" datatype="html">
@@ -3956,7 +3956,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">675</context>
+          <context context-type="linenumber">701</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8343719751143645715" datatype="html">
@@ -3967,7 +3967,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">726</context>
+          <context context-type="linenumber">753</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3178829420475188258" datatype="html">
@@ -3985,7 +3985,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">729</context>
+          <context context-type="linenumber">756</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4850034093874038528" datatype="html">
@@ -4367,7 +4367,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">677</context>
+          <context context-type="linenumber">703</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6934153456217930718" datatype="html">
@@ -4724,35 +4724,397 @@
         <source>Local form data cleared.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">349</context>
+          <context context-type="linenumber">366</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8524843939866861964" datatype="html">
         <source>CSI MKD Premarital Counselling — <x id="PH" equiv-text="selectedSession.sessionName"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">662</context>
+          <context context-type="linenumber">688</context>
         </context-group>
       </trans-unit>
       <trans-unit id="381731911109209650" datatype="html">
         <source>Premarital counselling session registered with the CSI Madhya Kerala Diocese Premarital Counselling Centre.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">663</context>
+          <context context-type="linenumber">689</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7948010322583643082" datatype="html">
         <source>Premarital Registration Complete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">673</context>
+          <context context-type="linenumber">699</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8464150493924020711" datatype="html">
         <source>We couldn’t complete your registration.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
-          <context context-type="linenumber">728</context>
+          <context context-type="linenumber">755</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="971150223304657062" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Welcome to the Premarital Registration Form&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;This guided tour will help you understand each section of the form.&lt;/p&gt;
+        &lt;p class=&quot;text-sm text-amber-600 dark:text-amber-400&quot;&gt;
+          &lt;strong&gt;Important:&lt;/strong&gt; Each individual (both partners) must complete their own separate registration.
+        &lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">862,868</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5045200874122539692" datatype="html">
+        <source>Exit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">871</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3885497195825665706" datatype="html">
+        <source>Next</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">876</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">906</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">934</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">961</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">990</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1029</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1064</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1094</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1122</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1154</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1183</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1212</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1252</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1283</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7369134415302665922" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Personal Information&lt;/h3&gt;
+        &lt;p&gt;Enter your basic personal details:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 mt-2 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;First Name &amp; Last Name:&lt;/strong&gt; Your full legal name&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Sex:&lt;/strong&gt; Select Male or Female&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Age:&lt;/strong&gt; Your current age (1-120)&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Father&apos;s Name:&lt;/strong&gt; Your father&apos;s full name&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">885,894</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8890553633144307762" datatype="html">
+        <source>Back</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">901</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">929</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">956</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">985</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1024</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1059</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1089</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1117</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1149</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1178</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1207</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1247</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1278</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1300</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8802818269512398449" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Education &amp; Professional Details&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Provide information about your education and current occupation.&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Occupation:&lt;/strong&gt; Your current job or profession&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Education:&lt;/strong&gt; Your highest educational qualification&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">915,922</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6740433671269735910" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Address&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Enter your complete residential address.&lt;/p&gt;
+        &lt;p class=&quot;text-sm text-blue-600 dark:text-blue-400&quot;&gt;
+          &lt;strong&gt;Tip:&lt;/strong&gt; You can use the microphone icon for voice input!
+        &lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">943,949</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8608268777597537363" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Membership&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Select your CSI MKD membership status:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Member of CSI MKD:&lt;/strong&gt; Select if you are a registered member. You&apos;ll need to choose your district and church.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Not a member:&lt;/strong&gt; Select if you belong to another church. You&apos;ll enter your church name manually.&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;Different fields will appear based on your selection.&lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">970,978</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7588341175854642493" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Details (For Members)&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;If you selected &quot;Member of CSI MKD&quot;:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Clergy District:&lt;/strong&gt; Select your district from the dropdown&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Church Name:&lt;/strong&gt; After selecting district, choose your specific church&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;The priest&apos;s name will be shown below if available.&lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">999,1007</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6307786374641061852" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Details (For Non-Members)&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;If you selected &quot;Not member of CSI MKD&quot;:&lt;/p&gt;
+        &lt;p class=&quot;text-sm&quot;&gt;Enter the name of your church manually in the text field.&lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1038,1042</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3511578158815410990" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Church Activities&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Select the church activities you participate in:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;Choir Member&lt;/li&gt;
+          &lt;li&gt;Sunday School Teacher&lt;/li&gt;
+          &lt;li&gt;Youth Fellowship&lt;/li&gt;
+          &lt;li&gt;Other activities (specify in the text field)&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1073,1082</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5044189848770346137" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Partner &amp; Marriage Information&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Provide details about your upcoming marriage:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Fiancé/Fiancée Name:&lt;/strong&gt; Your partner&apos;s name&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Date of Marriage:&lt;/strong&gt; Click the calendar icon to select the date&lt;/li&gt;
+        &lt;/ul&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1103,1110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3584480675880974002" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Contact Information&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Provide your contact details for communication:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Country Code:&lt;/strong&gt; Select your country code&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;WhatsApp Number:&lt;/strong&gt; Enter your 10-digit mobile number&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Email:&lt;/strong&gt; Enter a valid email address&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-amber-600 dark:text-amber-400&quot;&gt;
+          Confirmation will be sent to this email.
+        &lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1131,1142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4051194026385736874" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Session Selection&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Choose your preferred counselling session:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Number of Days:&lt;/strong&gt; Select 1 day (with Bishop&apos;s permission) or 3 days&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Session:&lt;/strong&gt; Choose from available sessions with dates&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;All dates are displayed in IST (Indian Standard Time).&lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1163,1171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7091368378284541490" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Required File Uploads&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Upload the following required documents:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;Your Photo:&lt;/strong&gt; Passport-size photo (JPG/PNG, max 2MB)&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Witness of Vicar:&lt;/strong&gt; Letter from your vicar confirming membership and counselling request (PDF/DOC/DOCX/JPG/PNG, max 2MB)&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-red-600 dark:text-red-400&quot;&gt;Both files are required to complete registration.&lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1192,1200</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1065445530520933965" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Declarations &amp; Consent&lt;/h3&gt;
+        &lt;p class=&quot;mb-3&quot;&gt;Complete these two required steps:&lt;/p&gt;
+        &lt;div class=&quot;bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg mb-3&quot;&gt;
+          &lt;p class=&quot;text-sm font-semibold mb-2&quot;&gt;Step 1: Declaration Checkbox&lt;/p&gt;
+          &lt;p class=&quot;text-sm&quot;&gt;Check the box below that says &quot;I would like to attend the premarital counselling course&quot;&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg&quot;&gt;
+          &lt;p class=&quot;text-sm font-semibold mb-2&quot;&gt;Step 2: Read and Accept Informed Consent&lt;/p&gt;
+          &lt;p class=&quot;text-sm mb-2&quot;&gt;&lt;strong&gt;Click the blue underlined link&lt;/strong&gt; that says &quot;Read and Accept Informed Consent and Counselling Agreement&quot;&lt;/p&gt;
+          &lt;p class=&quot;text-sm mb-2&quot;&gt;This will open a dialog box with the full agreement. Read it carefully, then:&lt;/p&gt;
+          &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+            &lt;li&gt;Check the box at the bottom of the dialog&lt;/li&gt;
+            &lt;li&gt;Click the OK button&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;text-sm mt-3 text-red-600 dark:text-red-400 font-bold&quot;&gt;
+          ⚠️ Both steps are required before you can submit the form
+        &lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1221,1240</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="95330446281133026" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;Security Verification &amp; Submit&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;Final steps to complete your registration:&lt;/p&gt;
+        &lt;ul class=&quot;list-disc ml-4 text-sm&quot;&gt;
+          &lt;li&gt;&lt;strong&gt;reCAPTCHA:&lt;/strong&gt; Check the &quot;I&apos;m not a robot&quot; box to verify you&apos;re human&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Register Button:&lt;/strong&gt; Click to submit your completed form&lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p class=&quot;text-sm mt-2 text-green-600 dark:text-green-400&quot;&gt;
+          After submission, you&apos;ll receive a confirmation email.
+        &lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1261,1271</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8971654449997622938" datatype="html">
+        <source>
+        &lt;h3 class=&quot;text-lg font-bold mb-2&quot;&gt;🎉 Tour Complete!&lt;/h3&gt;
+        &lt;p class=&quot;mb-2&quot;&gt;You&apos;ve completed the guided tour of the premarital registration form.&lt;/p&gt;
+        &lt;p class=&quot;text-sm&quot;&gt;You can now proceed to fill out the form. If you need to see the tour again, click the help icon (?) in the form header.&lt;/p&gt;
+        &lt;p class=&quot;text-sm mt-2 text-gray-600 dark:text-gray-400&quot;&gt;Good luck with your registration!&lt;/p&gt;
+      </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1292,1297</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="65984904390749158" datatype="html">
+        <source>Finish</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/register/premarital-register/premarital-register.ts</context>
+          <context context-type="linenumber">1305</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8298333184054476827" datatype="html">

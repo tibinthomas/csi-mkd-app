@@ -48,6 +48,7 @@ import {
   Priest,
 } from '../../core/services/church-data.service';
 import { SessionsFallbackService } from '../../core/services/sessions-fallback.service';
+import { AppFeedbackService } from '../../core/services/app-feedback.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Shepherd from 'shepherd.js';
@@ -93,6 +94,7 @@ export class PremaritalRegister {
   private readonly churchDataService = inject(ChurchDataService);
   private readonly sessionsFallbackService = inject(SessionsFallbackService);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly appFeedback = inject(AppFeedbackService);
 
   // CAPTCHA bypass feature - valid for 1 hour with special URL
   protected readonly captchaBypassEnabled = signal(false);
@@ -115,7 +117,7 @@ export class PremaritalRegister {
   // protected siteKey: string = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; //test site key
   protected siteKey: string = '6LeODJ0rAAAAAM09ftjENEAG5A9CkDQiL1wa3199';
   protected recaptchaTheme = computed(() =>
-    this.themeService.isDark() ? 'dark' : 'light'
+    this.themeService.isDark() ? 'dark' : 'light',
   );
 
   @ViewChild('photoInput') photoInput!: ElementRef<HTMLInputElement>;
@@ -128,19 +130,19 @@ export class PremaritalRegister {
   protected readonly availableChurches = signal<ChurchWithDetails[]>([]);
   protected readonly allLocations = toSignal(
     this.churchDataService.getAllLocations(),
-    { initialValue: [] }
+    { initialValue: [] },
   );
   protected readonly selectedChurch = signal<ChurchWithDetails | null>(null);
   protected readonly allPriests = toSignal(
     this.churchDataService.getAllPriests(),
-    { initialValue: [] as Priest[] }
+    { initialValue: [] as Priest[] },
   );
   protected readonly priestSearchTerm = signal('');
   protected readonly filteredPriests = computed(() => {
     const term = this.priestSearchTerm().toLowerCase().trim();
     const priests = this.allPriests();
     if (!term) return priests;
-    return priests.filter(p => p.name.toLowerCase().includes(term));
+    return priests.filter((p) => p.name.toLowerCase().includes(term));
   });
 
   private tour: any | null = null;
@@ -227,7 +229,7 @@ export class PremaritalRegister {
           ],
           asyncValidators: [
             emailExistsValidatorFactory((email) =>
-              this.api.apiPremaritalregisterCheckEmailGet({ email })
+              this.api.apiPremaritalregisterCheckEmailGet({ email }),
             ),
           ],
           updateOn: 'blur',
@@ -250,7 +252,11 @@ export class PremaritalRegister {
     this.form.get('churchMembership')?.valueChanges.subscribe((membership) => {
       if (membership === 'not-member') {
         // If not a member, clear and disable district/church fields, enable manual church name
-        this.form.patchValue({ churchDistrict: '', churchName: '', priestName: '' });
+        this.form.patchValue({
+          churchDistrict: '',
+          churchName: '',
+          priestName: '',
+        });
         this.form.get('churchDistrict')?.clearValidators();
         this.form.get('churchName')?.clearValidators();
         this.form.get('priestName')?.clearValidators();
@@ -275,8 +281,13 @@ export class PremaritalRegister {
 
   // Save form data to localStorage
   protected saveForm(): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.form.getRawValue()));
-    this.snackBar.open($localize`Form data saved locally.`, $localize`Close`, { duration: 3000 });
+    localStorage.setItem(
+      this.storageKey,
+      JSON.stringify(this.form.getRawValue()),
+    );
+    this.snackBar.open($localize`Form data saved locally.`, $localize`Close`, {
+      duration: 3000,
+    });
   }
 
   // Load saved form data from localStorage
@@ -314,11 +325,17 @@ export class PremaritalRegister {
       }
 
       if (showAlert) {
-        this.snackBar.open($localize`Form data loaded from local storage.`, $localize`Close`, { duration: 3000 });
+        this.snackBar.open(
+          $localize`Form data loaded from local storage.`,
+          $localize`Close`,
+          { duration: 3000 },
+        );
       }
     } else {
       if (showAlert) {
-        this.snackBar.open($localize`No saved data found.`, $localize`Close`, { duration: 3000 });
+        this.snackBar.open($localize`No saved data found.`, $localize`Close`, {
+          duration: 3000,
+        });
       }
     }
   }
@@ -327,7 +344,7 @@ export class PremaritalRegister {
   protected clearForm(): void {
     localStorage.removeItem(this.storageKey);
     this.form.reset();
-    
+
     // Revoke object URLs
     if (this.photoPreviewUrl()) {
       URL.revokeObjectURL(this.photoPreviewUrl()!);
@@ -346,7 +363,9 @@ export class PremaritalRegister {
     this.selectedDistrict.set('');
     this.availableChurches.set([]);
     this.formSubmitted.set(false);
-    this.snackBar.open($localize`Local form data cleared.`, $localize`Close`, { duration: 3000 });
+    this.snackBar.open($localize`Local form data cleared.`, $localize`Close`, {
+      duration: 3000,
+    });
   }
 
   // Clear localStorage after successful submission
@@ -383,7 +402,7 @@ export class PremaritalRegister {
       // Decode base64 timestamp
       const decodedTimestamp = atob(bypassParam);
       const bypassTimestamp = parseInt(decodedTimestamp, 10);
-      
+
       if (isNaN(bypassTimestamp)) {
         console.warn('Invalid bypass token format');
         return;
@@ -395,24 +414,26 @@ export class PremaritalRegister {
       // Check if the bypass token is valid (within 1 hour)
       if (age >= 0 && age <= this.BYPASS_VALIDITY_MS) {
         this.captchaBypassEnabled.set(true);
-        
+
         // Remove reCAPTCHA validator
         this.form.get('recaptcha')?.clearValidators();
         this.form.get('recaptcha')?.updateValueAndValidity();
-        
+
         // Calculate remaining time
-        const remainingMinutes = Math.round((this.BYPASS_VALIDITY_MS - age) / 60000);
-        
+        const remainingMinutes = Math.round(
+          (this.BYPASS_VALIDITY_MS - age) / 60000,
+        );
+
         this.snackBar.open(
           $localize`CAPTCHA verification bypassed. Valid for ${remainingMinutes} more minutes.`,
           $localize`OK`,
-          { duration: 5000 }
+          { duration: 5000 },
         );
       } else {
         this.snackBar.open(
           $localize`Bypass link has expired. Please complete CAPTCHA verification.`,
           $localize`Close`,
-          { duration: 5000 }
+          { duration: 5000 },
         );
       }
     } catch (error) {
@@ -448,7 +469,7 @@ export class PremaritalRegister {
       catchError((err) => {
         console.error('Error loading sessions:', err);
         return of([]); // fallback to empty array
-      })
+      }),
     );
 
   protected readonly sessionList = toSignal(this.sessions$, {
@@ -503,9 +524,9 @@ export class PremaritalRegister {
         this.vicarLetterFile.set(file);
         this.vicarLetterError.set('');
         if (file) {
-            const url = URL.createObjectURL(file);
-            this.vicarLetterPreviewUrl.set(url);
-          }
+          const url = URL.createObjectURL(file);
+          this.vicarLetterPreviewUrl.set(url);
+        }
       }
     }
   }
@@ -545,7 +566,10 @@ export class PremaritalRegister {
     this.formSubmitted.set(true);
 
     // Auto-save form data to localStorage before attempting submission
-    localStorage.setItem(this.storageKey, JSON.stringify(this.form.getRawValue()));
+    localStorage.setItem(
+      this.storageKey,
+      JSON.stringify(this.form.getRawValue()),
+    );
 
     // Prevent submission while async validators are still running
     if (this.form.pending) {
@@ -570,8 +594,10 @@ export class PremaritalRegister {
     this.isSubmitting.set(true);
 
     const selectedSession = this.sessionList().find(
-      (session: any) => Number(session.id) === Number(raw.sessionId)
-    ) as { sessionName?: string; startDate?: string; endDate?: string } | undefined;
+      (session: any) => Number(session.id) === Number(raw.sessionId),
+    ) as
+      | { sessionName?: string; startDate?: string; endDate?: string }
+      | undefined;
 
     const photo = this.photoFile()!;
     const letter = this.vicarLetterFile()!;
@@ -590,9 +616,7 @@ export class PremaritalRegister {
           ? null
           : this.selectedChurch()?.id || null,
       priestName:
-        raw.churchMembership === 'not-member'
-          ? null
-          : raw.priestName || null,
+        raw.churchMembership === 'not-member' ? null : raw.priestName || null,
       churchName:
         raw.churchMembership === 'not-member'
           ? raw.manualChurchName
@@ -612,7 +636,9 @@ export class PremaritalRegister {
       sessionId: Number(raw.sessionId),
       paymentStatus: false,
       // Use special bypass token when CAPTCHA bypass is enabled
-      recaptchaToken: this.captchaBypassEnabled() ? 'CAPTCHA_BYPASS_AUTHORIZED' : raw.recaptcha,
+      recaptchaToken: this.captchaBypassEnabled()
+        ? 'CAPTCHA_BYPASS_AUTHORIZED'
+        : raw.recaptcha,
     };
 
     this.api.apiPremaritalregisterPost({ body }).subscribe({
@@ -634,8 +660,8 @@ export class PremaritalRegister {
               forkJoin([
                 this.fileUploadService.uploadFileToAzure(photo, photoSasUrl!),
                 this.fileUploadService.uploadFileToAzure(letter, letterSasUrl!),
-              ])
-            )
+              ]),
+            ),
           )
           .subscribe({
             next: ([photoUrl, letterUrl]) => {
@@ -654,7 +680,7 @@ export class PremaritalRegister {
                   next: () => {
                     this.isSubmitting.set(false); // Hide loading overlay
                     this.successMessage.set(
-                      'Registration submitted successfully!'
+                      'Registration submitted successfully!',
                     );
                     const calendarEvent: CalendarEvent | undefined =
                       selectedSession?.startDate && selectedSession?.endDate
@@ -682,6 +708,7 @@ export class PremaritalRegister {
                       this.clearLocalStorage(); // Clear saved form data after successful submission
                       this.form.reset();
                       window.history.back();
+                      this.appFeedback.promptAfterSubmission();
                     });
                   },
                   error: (err) => {
@@ -692,14 +719,14 @@ export class PremaritalRegister {
                       .subscribe({
                         next: () =>
                           console.warn(
-                            `Rolled back registration ${registerId}`
+                            `Rolled back registration ${registerId}`,
                           ),
                         error: (rollbackErr) =>
                           console.error('Rollback failed', rollbackErr),
                       });
 
                     this.errorMessage.set(
-                      'File upload failed. Please try again.'
+                      'File upload failed. Please try again.',
                     );
                     this.showErrorModal.set(true);
                     this.isSubmitting.set(false);
@@ -790,7 +817,7 @@ export class PremaritalRegister {
       const formElement = this.formEl?.nativeElement;
       if (!formElement) return;
       const firstInvalid: HTMLElement | null = formElement.querySelector(
-        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid'
+        'input.ng-invalid, textarea.ng-invalid, select.ng-invalid, mat-select.ng-invalid',
       );
       if (firstInvalid) {
         if (typeof (firstInvalid as any).focus === 'function') {
@@ -809,7 +836,8 @@ export class PremaritalRegister {
     if (!document.querySelector('link[href*="shepherd"]')) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
-      link.href = 'https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css';
+      link.href =
+        'https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css';
       document.head.appendChild(link);
     }
 
@@ -831,7 +859,7 @@ export class PremaritalRegister {
     // Step 1: Welcome & Introduction
     this.tour.addStep({
       id: 'welcome',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Welcome to the Premarital Registration Form</h3>
         <p class="mb-2">This guided tour will help you understand each section of the form.</p>
         <p class="text-sm text-amber-600 dark:text-amber-400">
@@ -840,12 +868,12 @@ export class PremaritalRegister {
       `,
       buttons: [
         {
-          text: 'Exit',
+          text: $localize`Exit`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.complete(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -854,7 +882,7 @@ export class PremaritalRegister {
     // Step 2: Personal Information
     this.tour.addStep({
       id: 'personal-info',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Personal Information</h3>
         <p>Enter your basic personal details:</p>
         <ul class="list-disc ml-4 mt-2 text-sm">
@@ -870,12 +898,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -884,7 +912,7 @@ export class PremaritalRegister {
     // Step 3: Education & Professional Details
     this.tour.addStep({
       id: 'education-professional',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Education & Professional Details</h3>
         <p class="mb-2">Provide information about your education and current occupation.</p>
         <ul class="list-disc ml-4 text-sm">
@@ -898,12 +926,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -912,7 +940,7 @@ export class PremaritalRegister {
     // Step 4: Address
     this.tour.addStep({
       id: 'address',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Address</h3>
         <p class="mb-2">Enter your complete residential address.</p>
         <p class="text-sm text-blue-600 dark:text-blue-400">
@@ -925,12 +953,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -939,7 +967,7 @@ export class PremaritalRegister {
     // Step 5: Church Membership Selection
     this.tour.addStep({
       id: 'church-membership',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Church Membership</h3>
         <p class="mb-2">Select your CSI MKD membership status:</p>
         <ul class="list-disc ml-4 text-sm">
@@ -954,12 +982,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -968,7 +996,7 @@ export class PremaritalRegister {
     // Step 6: Church Details (conditional - for members)
     this.tour.addStep({
       id: 'church-member-details',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Church Details (For Members)</h3>
         <p class="mb-2">If you selected "Member of CSI MKD":</p>
         <ul class="list-disc ml-4 text-sm">
@@ -983,7 +1011,9 @@ export class PremaritalRegister {
       },
       when: {
         show: () => {
-          const element = document.querySelector('#church-member-details-section') as HTMLElement;
+          const element = document.querySelector(
+            '#church-member-details-section',
+          ) as HTMLElement;
           if (!element || !element.offsetParent) {
             this.tour?.next();
           }
@@ -991,12 +1021,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1005,7 +1035,7 @@ export class PremaritalRegister {
     // Step 7: Church Details (conditional - for non-members)
     this.tour.addStep({
       id: 'church-nonmember-details',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Church Details (For Non-Members)</h3>
         <p class="mb-2">If you selected "Not member of CSI MKD":</p>
         <p class="text-sm">Enter the name of your church manually in the text field.</p>
@@ -1016,7 +1046,9 @@ export class PremaritalRegister {
       },
       when: {
         show: () => {
-          const element = document.querySelector('#church-nonmember-details-section') as HTMLElement;
+          const element = document.querySelector(
+            '#church-nonmember-details-section',
+          ) as HTMLElement;
           if (!element || !element.offsetParent) {
             this.tour?.next();
           }
@@ -1024,12 +1056,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1038,7 +1070,7 @@ export class PremaritalRegister {
     // Step 8: Church Activities
     this.tour.addStep({
       id: 'church-activities',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Church Activities</h3>
         <p class="mb-2">Select the church activities you participate in:</p>
         <ul class="list-disc ml-4 text-sm">
@@ -1054,12 +1086,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1068,7 +1100,7 @@ export class PremaritalRegister {
     // Step 9: Partner & Marriage Information
     this.tour.addStep({
       id: 'partner-marriage',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Partner & Marriage Information</h3>
         <p class="mb-2">Provide details about your upcoming marriage:</p>
         <ul class="list-disc ml-4 text-sm">
@@ -1082,12 +1114,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1096,7 +1128,7 @@ export class PremaritalRegister {
     // Step 10: Contact Information
     this.tour.addStep({
       id: 'contact-info',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Contact Information</h3>
         <p class="mb-2">Provide your contact details for communication:</p>
         <ul class="list-disc ml-4 text-sm">
@@ -1114,12 +1146,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1128,7 +1160,7 @@ export class PremaritalRegister {
     // Step 11: Session Selection
     this.tour.addStep({
       id: 'session-selection',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Session Selection</h3>
         <p class="mb-2">Choose your preferred counselling session:</p>
         <ul class="list-disc ml-4 text-sm">
@@ -1143,12 +1175,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1157,7 +1189,7 @@ export class PremaritalRegister {
     // Step 12: File Uploads
     this.tour.addStep({
       id: 'file-uploads',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Required File Uploads</h3>
         <p class="mb-2">Upload the following required documents:</p>
         <ul class="list-disc ml-4 text-sm">
@@ -1172,12 +1204,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1186,7 +1218,7 @@ export class PremaritalRegister {
     // Step 13: Declarations & Consent
     this.tour.addStep({
       id: 'declarations-consent',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Declarations & Consent</h3>
         <p class="mb-3">Complete these two required steps:</p>
         <div class="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg mb-3">
@@ -1212,12 +1244,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1226,7 +1258,7 @@ export class PremaritalRegister {
     // Step 14: Security & Submit
     this.tour.addStep({
       id: 'security-submit',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">Security Verification & Submit</h3>
         <p class="mb-2">Final steps to complete your registration:</p>
         <ul class="list-disc ml-4 text-sm">
@@ -1243,12 +1275,12 @@ export class PremaritalRegister {
       },
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Next',
+          text: $localize`Next`,
           action: () => this.tour?.next(),
         },
       ],
@@ -1257,7 +1289,7 @@ export class PremaritalRegister {
     // Step 15: Completion
     this.tour.addStep({
       id: 'completion',
-      text: `
+      text: $localize`
         <h3 class="text-lg font-bold mb-2">🎉 Tour Complete!</h3>
         <p class="mb-2">You've completed the guided tour of the premarital registration form.</p>
         <p class="text-sm">You can now proceed to fill out the form. If you need to see the tour again, click the help icon (?) in the form header.</p>
@@ -1265,12 +1297,12 @@ export class PremaritalRegister {
       `,
       buttons: [
         {
-          text: 'Back',
+          text: $localize`Back`,
           classes: 'shepherd-button-secondary',
           action: () => this.tour?.back(),
         },
         {
-          text: 'Finish',
+          text: $localize`Finish`,
           action: () => this.tour?.complete(),
         },
       ],
