@@ -651,6 +651,10 @@
           <context context-type="linenumber">673</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">199</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/dashboard/dashboard.ts</context>
           <context context-type="linenumber">77</context>
         </context-group>
@@ -664,15 +668,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">98</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">138</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">179</context>
+          <context context-type="linenumber">177</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/feedback-list/feedback-list.ts</context>
@@ -849,6 +853,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.ts</context>
           <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">245</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6228406059259289350" datatype="html">
@@ -1181,6 +1189,91 @@
           <context context-type="linenumber">449</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6810066191929458650" datatype="html">
+        <source>App Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8044008977188933274" datatype="html">
+        <source>What visitors say about this web app.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1102717806459547726" datatype="html">
+        <source>Refresh</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">39,40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/question-answers-list/question-answers-list.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4198751718727414068" datatype="html">
+        <source> Failed to load app feedback </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8679806927601731663" datatype="html">
+        <source>Try Again</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">63,64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4713003419468555269" datatype="html">
+        <source>No feedback yet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">73,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3882546284286111018" datatype="html">
+        <source> Feedback shared by visitors will appear here. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6306441078838263413" datatype="html">
+        <source>reviews</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/instructors/instructors.html</context>
+          <context context-type="linenumber">99,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1627281964975977403" datatype="html">
+        <source>Likes:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="655491360752649493" datatype="html">
+        <source>Could be better:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4441603819269090410" datatype="html">
+        <source>Failed to load app feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/admin/app-feedback-list/app-feedback-list.ts</context>
+          <context context-type="linenumber">198</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="4453176063787191635" datatype="html">
         <source>Welcome back, Admin!</source>
         <context-group purpose="location">
@@ -1428,74 +1521,74 @@
         <source>Failed to trigger database backup</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9161905680684992267" datatype="html">
         <source>Authentication failed. Please try logging in again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7189048380135498679" datatype="html">
         <source>You do not have permission to perform this action.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4067268611449190205" datatype="html">
         <source>Server error occurred while creating backup. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2464681312165522699" datatype="html">
         <source>Database backup triggered successfully!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5409919245352021272" datatype="html">
         <source>Failed to download backup file</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7261573874031710571" datatype="html">
         <source>You do not have permission to download backups.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="9178804070858490697" datatype="html">
         <source>No backup file found. Please create a backup first.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5259882452306610908" datatype="html">
         <source>Server error occurred while downloading backup. Please try again later.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2976389414926376858" datatype="html">
         <source>Backup file downloaded successfully!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/database-backup/database-backup.ts</context>
-          <context context-type="linenumber">178</context>
+          <context context-type="linenumber">176</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6405359886962711940" datatype="html">
@@ -1928,13 +2021,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/admin/instructors/instructors.html</context>
           <context context-type="linenumber">95,96</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6306441078838263413" datatype="html">
-        <source>reviews</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/instructors/instructors.html</context>
-          <context context-type="linenumber">99,100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3193976279273491157" datatype="html">
@@ -2623,13 +2709,6 @@
           <context context-type="linenumber">6,7</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1102717806459547726" datatype="html">
-        <source>Refresh</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/admin/question-answers-list/question-answers-list.html</context>
-          <context context-type="linenumber">17,18</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="6552060485269266940" datatype="html">
         <source>Error Loading Data</source>
         <context-group purpose="location">
@@ -3226,7 +3305,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">131,132</context>
+          <context context-type="linenumber">141,142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1842559488621738609" datatype="html">
@@ -3237,7 +3316,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">142,143</context>
+          <context context-type="linenumber">152,153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3301086086650990787" datatype="html">
@@ -3248,7 +3327,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">152,153</context>
+          <context context-type="linenumber">162,163</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/register/abroad-premarital-register/abroad-premarital-register.html</context>
@@ -3279,7 +3358,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">162,163</context>
+          <context context-type="linenumber">172,173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="Premarital Nav Text" datatype="html">
@@ -3296,18 +3375,25 @@
           <context context-type="linenumber">86,87</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8542937285523976690" datatype="html">
+        <source>Share feedback about this app</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">96,97</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="2102825898069375693" datatype="html">
         <source>Menu</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5238622114413187924" datatype="html">
         <source>Premarital Sessions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">172,173</context>
+          <context context-type="linenumber">182,183</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.html</context>
@@ -3318,84 +3404,91 @@
         <source>Settings</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">180</context>
+          <context context-type="linenumber">190</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2826581353496868063" datatype="html">
         <source>Language</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">186,187</context>
+          <context context-type="linenumber">196,197</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7103588127254721505" datatype="html">
         <source>Theme</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">195,196</context>
+          <context context-type="linenumber">205,206</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6512306107256461326" datatype="html">
+        <source>Share Feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
+          <context context-type="linenumber">218,219</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7922989125096435449" datatype="html">
         <source>Contact</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">220,221</context>
+          <context context-type="linenumber">242,243</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3082543984078251338" datatype="html">
         <source>Mon – Sat | 9:00 AM – 6:00 PM</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">226,227</context>
+          <context context-type="linenumber">248,249</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6685758014797560182" datatype="html">
         <source>Visit Us</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">233,234</context>
+          <context context-type="linenumber">255,256</context>
         </context-group>
       </trans-unit>
       <trans-unit id="15139457058898869" datatype="html">
         <source>CSI Counselling Centre</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">236,237</context>
+          <context context-type="linenumber">258,259</context>
         </context-group>
       </trans-unit>
       <trans-unit id="44607424985578943" datatype="html">
         <source>CMS Press Compound</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">237,238</context>
+          <context context-type="linenumber">259,260</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3439648431163558335" datatype="html">
         <source>Chalukunnu, Kottayam-1</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">238,239</context>
+          <context context-type="linenumber">260,261</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6872852153782905618" datatype="html">
         <source>Kerala, India – 686001</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">239,240</context>
+          <context context-type="linenumber">261,262</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1333708020551014414" datatype="html">
         <source> “Come to me, all who are weary and burdened, and I will give you rest.” </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">247,248</context>
+          <context context-type="linenumber">269,270</context>
         </context-group>
       </trans-unit>
       <trans-unit id="357046268884988158" datatype="html">
         <source>– Matthew 11:28</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/public-layout.html</context>
-          <context context-type="linenumber">249,250</context>
+          <context context-type="linenumber">271,272</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6578397717654172779" datatype="html">
@@ -4790,6 +4883,83 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/sessions/sessions.ts</context>
           <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5718599965834417066" datatype="html">
+        <source> How is your experience? </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4676093505808064453" datatype="html">
+        <source> A moment of your time helps us make this app better for everyone. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4734971992998163503" datatype="html">
+        <source>Rate the app from 1 to 5 stars</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7381028099423932383" datatype="html">
+        <source>What do you like most?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1339856927392362204" datatype="html">
+        <source>What could be better?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5336944753883027145" datatype="html">
+        <source>Maybe later</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">93,94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7102649289752747375" datatype="html">
+        <source>Send feedback</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">105,106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3357031660050032232" datatype="html">
+        <source>Thank you!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">114,115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1693820754490681468" datatype="html">
+        <source>Your feedback means a lot to us.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">115,116</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5568643437174001450" datatype="html">
+        <source><x id="PH" equiv-text="star"/> out of 5 stars</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">214</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3152384779161648108" datatype="html">
+        <source>Could not send feedback. Please try again later.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/components/app-feedback-dialog/app-feedback-dialog.ts</context>
+          <context context-type="linenumber">244</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8283206831282705604" datatype="html">

@@ -3808,6 +3808,95 @@
         <source>Pre-marital certificate downloaded successfully!</source>
         <target>വിവാഹപൂർവ സർട്ടിഫിക്കറ്റ് വിജയകരമായി ഡൗൺലോഡ് ചെയ്തു!</target>
       </trans-unit>
+      <trans-unit id="6810066191929458650" datatype="html">
+        <source>App Feedback</source>
+        <target>ആപ്പ് ഫീഡ്ബാക്ക്</target>
+      </trans-unit>
+      <trans-unit id="8044008977188933274" datatype="html">
+        <source>What visitors say about this web app.</source>
+        <target>ഈ വെബ് ആപ്പിനെക്കുറിച്ച് സന്ദർശകർ പറയുന്നത്.</target>
+      </trans-unit>
+      <trans-unit id="4713003419468555269" datatype="html">
+        <source>No feedback yet</source>
+        <target>ഇതുവരെ ഫീഡ്ബാക്കൊന്നുമില്ല</target>
+      </trans-unit>
+      <trans-unit id="3882546284286111018" datatype="html">
+        <source> Feedback shared by visitors will appear here. </source>
+        <target>സന്ദർശകർ പങ്കിടുന്ന ഫീഡ്ബാക്ക് ഇവിടെ കാണാം.</target>
+      </trans-unit>
+      <trans-unit id="1627281964975977403" datatype="html">
+        <source>Likes:</source>
+        <target>ഇഷ്ടപ്പെട്ടത്:</target>
+      </trans-unit>
+      <trans-unit id="655491360752649493" datatype="html">
+        <source>Could be better:</source>
+        <target>മെച്ചപ്പെടുത്താവുന്നത്:</target>
+      </trans-unit>
+      <trans-unit id="4441603819269090410" datatype="html">
+        <source>Failed to load app feedback</source>
+        <target>ആപ്പ് ഫീഡ്ബാക്ക് ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല</target>
+      </trans-unit>
+      <trans-unit id="8542937285523976690" datatype="html">
+        <source>Share feedback about this app</source>
+        <target>ഈ ആപ്പിനെക്കുറിച്ചുള്ള അഭിപ്രായം പങ്കിടുക</target>
+      </trans-unit>
+      <trans-unit id="6512306107256461326" datatype="html">
+        <source>Share Feedback</source>
+        <target>അഭിപ്രായം പങ്കിടുക</target>
+      </trans-unit>
+      <trans-unit id="5718599965834417066" datatype="html">
+        <source> How is your experience? </source>
+        <target>നിങ്ങളുടെ അനുഭവം എങ്ങനെയുണ്ട്?</target>
+      </trans-unit>
+      <trans-unit id="4676093505808064453" datatype="html">
+        <source> A moment of your time helps us make this app better for everyone. </source>
+        <target>നിങ്ങളുടെ ഒരു നിമിഷം ഈ ആപ്പ് എല്ലാവർക്കുമായി മെച്ചപ്പെടുത്താൻ ഞങ്ങളെ സഹായിക്കും.</target>
+      </trans-unit>
+      <trans-unit id="4734971992998163503" datatype="html">
+        <source>Rate the app from 1 to 5 stars</source>
+        <target>ആപ്പിന് 1 മുതൽ 5 വരെ നക്ഷത്രങ്ങൾ നൽകുക</target>
+      </trans-unit>
+      <trans-unit id="7381028099423932383" datatype="html">
+        <source>What do you like most?</source>
+        <target>നിങ്ങൾക്ക് ഏറ്റവും ഇഷ്ടപ്പെട്ടത് എന്താണ്?</target>
+      </trans-unit>
+      <trans-unit id="1339856927392362204" datatype="html">
+        <source>What could be better?</source>
+        <target>എന്ത് മെച്ചപ്പെടുത്താം?</target>
+      </trans-unit>
+      <trans-unit id="5336944753883027145" datatype="html">
+        <source>Maybe later</source>
+        <target>പിന്നീടാകാം</target>
+      </trans-unit>
+      <trans-unit id="7102649289752747375" datatype="html">
+        <source>Send feedback</source>
+        <target>അഭിപ്രായം അയയ്ക്കുക</target>
+      </trans-unit>
+      <trans-unit id="3357031660050032232" datatype="html">
+        <source>Thank you!</source>
+        <target>നന്ദി!</target>
+      </trans-unit>
+      <trans-unit id="1693820754490681468" datatype="html">
+        <source>Your feedback means a lot to us.</source>
+        <target>നിങ്ങളുടെ അഭിപ്രായം ഞങ്ങൾക്ക് വളരെ വിലപ്പെട്ടതാണ്.</target>
+      </trans-unit>
+      <trans-unit id="3152384779161648108" datatype="html">
+        <source>Could not send feedback. Please try again later.</source>
+        <target>അഭിപ്രായം അയയ്ക്കാൻ കഴിഞ്ഞില്ല. ദയവായി പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</target>
+      </trans-unit>
+      <trans-unit id="5568643437174001450" datatype="html">
+        <source>
+          <x id="PH" equiv-text="star" /> out of 5 stars</source>
+        <target>5-ൽ <x id="PH" equiv-text="star" /> നക്ഷത്രം</target>
+      </trans-unit>
+      <trans-unit id="4198751718727414068" datatype="html">
+        <source> Failed to load app feedback </source>
+        <target>ആപ്പ് ഫീഡ്ബാക്ക് ലോഡ് ചെയ്യാൻ കഴിഞ്ഞില്ല</target>
+      </trans-unit>
+      <trans-unit id="8679806927601731663" datatype="html">
+        <source>Try Again</source>
+        <target>വീണ്ടും ശ്രമിക്കുക</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

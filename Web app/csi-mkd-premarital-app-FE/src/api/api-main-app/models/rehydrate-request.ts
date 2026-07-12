@@ -4,4 +4,5 @@
 
 export interface RehydrateRequest {
   blobUrl?: string | null;
+  checkOnly?: boolean;
 }

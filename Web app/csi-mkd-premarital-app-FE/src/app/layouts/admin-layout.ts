@@ -91,6 +91,11 @@ export class AdminLayout {
       label: 'Pre-Confirm List',
     },
     {
+      routerLink: '/admin/app-feedback',
+      icon: 'rate_review',
+      label: 'App Feedback',
+    },
+    {
       routerLink: '/admin/database-backup',
       icon: 'backup',
       label: 'Database Backup',
@@ -99,7 +104,7 @@ export class AdminLayout {
 
   readonly sidenavMode = computed(() => (this.isMobile() ? 'over' : 'side'));
   readonly sidenavOpened = computed(
-    () => !this.isMobile() || this.sidenavOpen()
+    () => !this.isMobile() || this.sidenavOpen(),
   );
   readonly menuIcon = computed(() => (this.sidenavOpen() ? 'close' : 'menu'));
 

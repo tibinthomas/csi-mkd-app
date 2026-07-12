@@ -2,7 +2,7 @@ import {
   Component,
   inject,
   signal,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,6 +16,7 @@ import {
   Router,
 } from '@angular/router';
 import { LanguageSelectorComponent } from '../shared/language-selector/language-selector';
+import { AppFeedbackService } from '../core/services/app-feedback.service';
 import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
 import { DoubleTapDirective } from '../shared/directives/double-tap.directive';
 import packageInfo from '../../../package.json';
@@ -40,13 +41,23 @@ import packageInfo from '../../../package.json';
 })
 export class PublicLayout {
   private router = inject(Router);
+  private appFeedback = inject(AppFeedbackService);
 
   mobileMenuOpen = signal(false);
   currentYear = new Date().getFullYear();
   version = packageInfo.version;
 
+  constructor() {
+    this.appFeedback.registerVisitAndMaybePrompt();
+  }
+
+  openFeedback() {
+    this.closeMobileMenu();
+    this.appFeedback.open();
+  }
+
   toggleMobileMenu() {
-    this.mobileMenuOpen.update(value => !value);
+    this.mobileMenuOpen.update((value) => !value);
   }
 
   closeMobileMenu() {

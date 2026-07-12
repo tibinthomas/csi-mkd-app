@@ -28,7 +28,7 @@ export const routes: Routes = [
         },
         loadComponent: () =>
           import('./feedback-questions/feedback-questions').then(
-            (m) => m.FeedbackQuestions
+            (m) => m.FeedbackQuestions,
           ),
         canDeactivate: [pendingChangesGuard],
       },
@@ -41,7 +41,7 @@ export const routes: Routes = [
         },
         loadComponent: () =>
           import('./feedback-questions/feedback/feedback').then(
-            (m) => m.Feedback
+            (m) => m.Feedback,
           ),
         canDeactivate: [pendingChangesGuard],
       },
@@ -53,7 +53,7 @@ export const routes: Routes = [
         },
         loadComponent: () =>
           import('./feedback-questions/questions/questions').then(
-            (m) => m.Questions
+            (m) => m.Questions,
           ),
         canDeactivate: [pendingChangesGuard],
       },
@@ -80,7 +80,7 @@ export const routes: Routes = [
         data: { description: 'Register for premarital counselling sessions.' },
         loadComponent: () =>
           import('./register/premarital-register/premarital-register').then(
-            (m) => m.PremaritalRegister
+            (m) => m.PremaritalRegister,
           ),
         canDeactivate: [pendingChangesGuard],
       },
@@ -91,9 +91,9 @@ export const routes: Routes = [
           description: 'Register for abroad premarital counselling sessions.',
         },
         loadComponent: () =>
-          import(
-            './register/abroad-premarital-register/abroad-premarital-register'
-          ).then((m) => m.AbroadPremaritalRegister),
+          import('./register/abroad-premarital-register/abroad-premarital-register').then(
+            (m) => m.AbroadPremaritalRegister,
+          ),
         canDeactivate: [pendingChangesGuard],
       },
       {
@@ -102,7 +102,7 @@ export const routes: Routes = [
         data: { description: 'Register for general counselling sessions.' },
         loadComponent: () =>
           import('./register/general-register/general-register').then(
-            (m) => m.GeneralRegister
+            (m) => m.GeneralRegister,
           ),
         canDeactivate: [pendingChangesGuard],
       },
@@ -114,7 +114,7 @@ export const routes: Routes = [
         },
         loadComponent: () =>
           import('./register/pre-confirm-register/pre-confirm-register').then(
-            (m) => m.PreConfirmRegister
+            (m) => m.PreConfirmRegister,
           ),
         canDeactivate: [pendingChangesGuard],
       },
@@ -133,9 +133,9 @@ export const routes: Routes = [
             'Register for a specific abroad premarital counselling session.',
         },
         loadComponent: () =>
-          import(
-            './register/abroad-premarital-register/abroad-premarital-register'
-          ).then((m) => m.AbroadPremaritalRegister),
+          import('./register/abroad-premarital-register/abroad-premarital-register').then(
+            (m) => m.AbroadPremaritalRegister,
+          ),
       },
       {
         path: 'register/premarital-register/:sessionId',
@@ -146,7 +146,7 @@ export const routes: Routes = [
         },
         loadComponent: () =>
           import('./register/premarital-register/premarital-register').then(
-            (m) => m.PremaritalRegister
+            (m) => m.PremaritalRegister,
           ),
       },
     ],
@@ -184,16 +184,20 @@ export const routes: Routes = [
         data: { description: 'View and manage premarital registrations.' },
         loadComponent: () =>
           import('./admin/premarital/premarital').then(
-            (m) => m.PremaritalComponent
+            (m) => m.PremaritalComponent,
           ),
       },
       {
         path: 'abroad-premarital',
-        title: 'Abroad & Outside Kerala Registrations - CSI MKD Premarital Counsel',
-        data: { description: 'View and manage abroad and outside Kerala premarital registrations.' },
+        title:
+          'Abroad & Outside Kerala Registrations - CSI MKD Premarital Counsel',
+        data: {
+          description:
+            'View and manage abroad and outside Kerala premarital registrations.',
+        },
         loadComponent: () =>
           import('./admin/abroad-premarital/abroad-premarital-list').then(
-            (m) => m.AbroadPremaritalListComponent
+            (m) => m.AbroadPremaritalListComponent,
           ),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -203,7 +207,7 @@ export const routes: Routes = [
         data: { description: 'Configure premarital counselling sessions.' },
         loadComponent: () =>
           import('./admin/session-config/session-config').then(
-            (m) => m.SessionConfig
+            (m) => m.SessionConfig,
           ),
       },
 
@@ -213,7 +217,7 @@ export const routes: Routes = [
         data: { description: 'View and manage general registrations.' },
         loadComponent: () =>
           import('./admin/general-list/general-list').then(
-            (m) => m.GeneralList
+            (m) => m.GeneralList,
           ),
       },
       {
@@ -224,7 +228,7 @@ export const routes: Routes = [
         },
         loadComponent: () =>
           import('./admin/pre-confirm-list/pre-confirm-list').then(
-            (m) => m.PreConfirmList
+            (m) => m.PreConfirmList,
           ),
       },
       {
@@ -233,7 +237,7 @@ export const routes: Routes = [
         data: { description: 'Deactivate sessions that will begin in 3 days' },
         loadComponent: () =>
           import('./admin/deactivate-sessions/deactivate-sessions').then(
-            (m) => m.DeactivateSessions
+            (m) => m.DeactivateSessions,
           ),
       },
       {
@@ -241,9 +245,7 @@ export const routes: Routes = [
         title: 'Instructors Management - CSI MKD Premarital Counsel',
         data: { description: 'Manage counseling instructors' },
         loadComponent: () =>
-          import('./admin/instructors/instructors').then(
-            (m) => m.Instructors
-          ),
+          import('./admin/instructors/instructors').then((m) => m.Instructors),
       },
       {
         path: 'feedback-list',
@@ -251,16 +253,27 @@ export const routes: Routes = [
         data: { description: 'View submitted feedback from participants' },
         loadComponent: () =>
           import('./admin/feedback-list/feedback-list').then(
-            (m) => m.FeedbackList
+            (m) => m.FeedbackList,
           ),
       },
       {
         path: 'question-answers-list',
         title: 'Question Answers List - CSI MKD Premarital Counsel',
-        data: { description: 'View submitted question answers from participants' },
+        data: {
+          description: 'View submitted question answers from participants',
+        },
         loadComponent: () =>
           import('./admin/question-answers-list/question-answers-list').then(
-            (m) => m.QuestionAnswersList
+            (m) => m.QuestionAnswersList,
+          ),
+      },
+      {
+        path: 'app-feedback',
+        title: 'App Feedback - CSI MKD Premarital Counsel',
+        data: { description: 'View feedback submitted about the web app' },
+        loadComponent: () =>
+          import('./admin/app-feedback-list/app-feedback-list').then(
+            (m) => m.AppFeedbackList,
           ),
       },
       {
@@ -269,7 +282,7 @@ export const routes: Routes = [
         data: { description: 'Manage database backups and recovery' },
         loadComponent: () =>
           import('./admin/database-backup/database-backup').then(
-            (m) => m.DatabaseBackup
+            (m) => m.DatabaseBackup,
           ),
       },
     ],

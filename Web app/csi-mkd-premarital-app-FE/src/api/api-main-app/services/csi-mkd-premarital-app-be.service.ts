@@ -147,10 +147,13 @@ import { apiSessionconfigPost } from '../fn/csi-mkd-premarital-app-be/api-sessio
 import { ApiSessionconfigPost$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-post';
 import { apiSessionconfigSessionsGet } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
 import { ApiSessionconfigSessionsGet$Params } from '../fn/csi-mkd-premarital-app-be/api-sessionconfig-sessions-get';
+import { AppFeedbackResponseDto } from '../models/app-feedback-response-dto';
 import { CheckEmailResponseDto } from '../models/check-email-response-dto';
 import { ClassFeedbackAnalyticsDto } from '../models/class-feedback-analytics-dto';
 import { ClassFeedbackResponseDto } from '../models/class-feedback-response-dto';
 import { EmailConfig } from '../models/email-config';
+import { getAppFeedback } from '../fn/csi-mkd-premarital-app-be/get-app-feedback';
+import { GetAppFeedback$Params } from '../fn/csi-mkd-premarital-app-be/get-app-feedback';
 import { getFeedbackEntriesCountByRegistrationId } from '../fn/csi-mkd-premarital-app-be/get-feedback-entries-count-by-registration-id';
 import { GetFeedbackEntriesCountByRegistrationId$Params } from '../fn/csi-mkd-premarital-app-be/get-feedback-entries-count-by-registration-id';
 import { getStructuredFeedbackDebug } from '../fn/csi-mkd-premarital-app-be/get-structured-feedback-debug';
@@ -164,6 +167,8 @@ import { HealthGet$Params } from '../fn/csi-mkd-premarital-app-be/health-get';
 import { InstructorDto } from '../models/instructor-dto';
 import { InstructorRatingDto } from '../models/instructor-rating-dto';
 import { SessionConfigurationDto } from '../models/session-configuration-dto';
+import { submitAppFeedback } from '../fn/csi-mkd-premarital-app-be/submit-app-feedback';
+import { SubmitAppFeedback$Params } from '../fn/csi-mkd-premarital-app-be/submit-app-feedback';
 
 @Injectable({ providedIn: 'root' })
 export class CsiMkdPremaritalAppBeService extends BaseService {
@@ -1609,6 +1614,72 @@ export class CsiMkdPremaritalAppBeService extends BaseService {
   getStructuredFeedbackDebug(params?: GetStructuredFeedbackDebug$Params, context?: HttpContext): Observable<Array<ClassFeedbackResponseDto>> {
     return this.getStructuredFeedbackDebug$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<ClassFeedbackResponseDto>>): Array<ClassFeedbackResponseDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `getAppFeedback()` */
+  static readonly GetAppFeedbackPath = '/api/appfeedback';
+
+  /**
+   * List feedback submitted about the web application (admin).
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAppFeedback()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAppFeedback$Response(params?: GetAppFeedback$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<AppFeedbackResponseDto>>> {
+    return getAppFeedback(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * List feedback submitted about the web application (admin).
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAppFeedback$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAppFeedback(params?: GetAppFeedback$Params, context?: HttpContext): Observable<Array<AppFeedbackResponseDto>> {
+    return this.getAppFeedback$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<AppFeedbackResponseDto>>): Array<AppFeedbackResponseDto> => r.body)
+    );
+  }
+
+  /** Path part for operation `submitAppFeedback()` */
+  static readonly SubmitAppFeedbackPath = '/api/appfeedback';
+
+  /**
+   * Submit feedback about the web application (rating and comments).
+   *
+   *
+   *
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `submitAppFeedback()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  submitAppFeedback$Response(params: SubmitAppFeedback$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return submitAppFeedback(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * Submit feedback about the web application (rating and comments).
+   *
+   *
+   *
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `submitAppFeedback$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  submitAppFeedback(params: SubmitAppFeedback$Params, context?: HttpContext): Observable<void> {
+    return this.submitAppFeedback$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

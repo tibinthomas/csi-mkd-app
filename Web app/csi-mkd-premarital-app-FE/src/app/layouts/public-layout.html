@@ -89,6 +89,16 @@
 
       <!-- Desktop Action Icons -->
       <div class="hidden md:flex items-center gap-2 cx-action-cluster">
+        <button
+          mat-icon-button
+          class="header-icon-small"
+          (click)="openFeedback()"
+          aria-label="Share feedback about this app"
+          i18n-aria-label
+          data-testid="app-feedback-button"
+        >
+          <mat-icon aria-hidden="true">rate_review</mat-icon>
+        </button>
         <app-language-selector class="header-icon-small"></app-language-selector>
         <app-theme-toggle class="header-icon-small"></app-theme-toggle>
       </div>
@@ -195,6 +205,18 @@
         <span class="text-base font-semibold" i18n>Theme</span>
       </div>
       <app-theme-toggle class="header-icon-small"></app-theme-toggle>
+    </div>
+
+    <!-- App Feedback -->
+    <div
+      class="cx-mobile-setting cursor-pointer"
+      (click)="openFeedback()"
+      data-testid="app-feedback-mobile"
+    >
+      <div class="flex items-center gap-4">
+        <span class="cx-mobile-icon"><mat-icon>rate_review</mat-icon></span>
+        <span class="text-base font-semibold" i18n>Share Feedback</span>
+      </div>
     </div>
   </div>
 </div>
