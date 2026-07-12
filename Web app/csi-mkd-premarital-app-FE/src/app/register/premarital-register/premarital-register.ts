@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  declareExperimentalWebMcpTool,
   ElementRef,
   inject,
   signal,
@@ -14,7 +15,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { catchError, forkJoin, map, of, switchMap } from 'rxjs';
+import { catchError, firstValueFrom, forkJoin, map, of, switchMap } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -274,6 +275,235 @@ export class PremaritalRegister {
       this.form.get('priestName')?.updateValueAndValidity();
       this.form.get('manualChurchName')?.updateValueAndValidity();
     });
+
+    this.registerWebMcpTools();
+  }
+
+  // WebMCP (experimental): lets in-browser AI agents help visitors fill this
+  // form. Tools are scoped to this component's injector, so they unregister
+  // automatically when the page is left. Agents can never submit: files,
+  // consents, and reCAPTCHA remain manual steps for the visitor.
+  private registerWebMcpTools(): void {
+    declareExperimentalWebMcpTool({
+      name: 'premarital_registration_get_status',
+      description:
+        'Reads the current state of the CSI MKD premarital counselling registration form: ' +
+        'field values, which fields are still invalid (with error codes), available clergy ' +
+        'districts, churches for the selected district, and available counselling sessions. ' +
+        'Call this before and after filling to know what remains to be done.',
+      inputSchema: { type: 'object', properties: {} },
+      execute: () => JSON.stringify(this.webMcpStatus()),
+    });
+
+    declareExperimentalWebMcpTool({
+      name: 'premarital_registration_fill',
+      description:
+        'Fills fields of the premarital counselling registration form on behalf of the visitor. ' +
+        'All properties are optional; only provided ones are applied. Returns which fields were ' +
+        'applied or rejected and what is still invalid. It cannot upload the photo or vicar ' +
+        'letter, tick the declaration/consent checkboxes, solve reCAPTCHA, or submit — the ' +
+        'visitor must do those manually. Each partner must register separately.',
+      inputSchema: {
+        type: 'object',
+        properties: {
+          firstName: {
+            type: 'string',
+            description: 'Legal first name (letters only)',
+          },
+          lastName: {
+            type: 'string',
+            description: 'Legal last name (letters only)',
+          },
+          fatherName: { type: 'string', description: "Father's full name" },
+          address: { type: 'string', description: 'Full residential address' },
+          sex: { type: 'string', description: 'Exactly "Male" or "Female"' },
+          age: { type: 'number', description: 'Age in years, 1-120' },
+          education: {
+            type: 'string',
+            description: 'Highest educational qualification',
+          },
+          occupation: { type: 'string', description: 'Current occupation' },
+          churchMembership: {
+            type: 'string',
+            description: 'Exactly "member" (CSI MKD member) or "not-member"',
+          },
+          churchDistrict: {
+            type: 'string',
+            description:
+              'Clergy district (members only). Must be one of availableDistricts from get_status.',
+          },
+          churchName: {
+            type: 'string',
+            description:
+              'Church name (members only). Must be one of availableChurches after the district is set.',
+          },
+          manualChurchName: {
+            type: 'string',
+            description: 'Church name typed manually (non-members only)',
+          },
+          fianceName: { type: 'string', description: "Fiancé/fiancée's name" },
+          dateOfMarriage: {
+            type: 'string',
+            description:
+              'Planned marriage date in YYYY-MM-DD format (must be in the future)',
+          },
+          countryCode: {
+            type: 'string',
+            description: 'Phone country code, e.g. "+91"',
+          },
+          phone: { type: 'string', description: '10-digit WhatsApp number' },
+          email: {
+            type: 'string',
+            description: 'Email address for the confirmation',
+          },
+          days: {
+            type: 'string',
+            description:
+              'Exactly "1 Day (Only with the Bishop\'s permission)" or "3 Days"',
+          },
+          sessionId: {
+            type: 'number',
+            description: 'Id of a session from availableSessions in get_status',
+          },
+        },
+        additionalProperties: false,
+      },
+      execute: async (args) => {
+        const applied: string[] = [];
+        const rejected: Record<string, string> = {};
+
+        const enums: Record<string, string[]> = {
+          sex: ['Male', 'Female'],
+          churchMembership: ['member', 'not-member'],
+          days: ["1 Day (Only with the Bishop's permission)", '3 Days'],
+        };
+
+        const setControl = (key: string, value: unknown): void => {
+          const control = this.form.get(key);
+          if (!control) {
+            rejected[key] = 'unknown field';
+            return;
+          }
+          control.setValue(value);
+          control.markAsDirty();
+          control.markAsTouched();
+          applied.push(key);
+        };
+
+        // Membership first: it toggles which church fields exist and validate
+        for (const key of ['churchMembership', 'sex', 'days'] as const) {
+          const value = args[key];
+          if (value === undefined) continue;
+          if (!enums[key].includes(value)) {
+            rejected[key] = `must be one of: ${enums[key].join(' | ')}`;
+          } else {
+            setControl(key, value);
+          }
+        }
+
+        // District loads its church list asynchronously; wait so churchName can validate
+        if (args.churchDistrict !== undefined) {
+          const districts = this.allLocations() as string[];
+          if (districts.length && !districts.includes(args.churchDistrict)) {
+            rejected['churchDistrict'] =
+              `not a known district; see availableDistricts`;
+          } else {
+            setControl('churchDistrict', args.churchDistrict);
+            this.onDistrictChange(args.churchDistrict);
+            const churches = await firstValueFrom(
+              this.churchDataService.getChurchesByLocationAndSearch(
+                args.churchDistrict,
+              ),
+            ).catch(() => []);
+            this.availableChurches.set(churches);
+          }
+        }
+
+        if (args.churchName !== undefined) {
+          const church = this.availableChurches().find(
+            (c) => c.name === args.churchName,
+          );
+          if (!church) {
+            rejected['churchName'] =
+              'not found in the selected district; see availableChurches in get_status';
+          } else {
+            setControl('churchName', args.churchName);
+            this.onChurchChange(args.churchName);
+          }
+        }
+
+        if (args.dateOfMarriage !== undefined) {
+          const date = new Date(args.dateOfMarriage);
+          if (isNaN(date.getTime())) {
+            rejected['dateOfMarriage'] = 'invalid date; use YYYY-MM-DD';
+          } else {
+            setControl('dateOfMarriage', date);
+          }
+        }
+
+        if (args.sessionId !== undefined) {
+          const session = (this.sessionList() as any[]).find(
+            (s) => s.id === args.sessionId,
+          );
+          if (!session) {
+            rejected['sessionId'] =
+              'unknown session id; see availableSessions in get_status';
+          } else {
+            setControl('sessionId', args.sessionId);
+          }
+        }
+
+        const passthrough = [
+          'firstName',
+          'lastName',
+          'fatherName',
+          'address',
+          'age',
+          'education',
+          'occupation',
+          'manualChurchName',
+          'fianceName',
+          'countryCode',
+          'phone',
+          'email',
+        ] as const;
+        for (const key of passthrough) {
+          if (args[key] !== undefined) setControl(key, args[key]);
+        }
+
+        return JSON.stringify({ applied, rejected, ...this.webMcpStatus() });
+      },
+    });
+  }
+
+  private webMcpStatus(): Record<string, unknown> {
+    const invalidControls: Record<string, string[]> = {};
+    for (const [key, control] of Object.entries(this.form.controls)) {
+      if (key !== 'recaptcha' && control.enabled && control.invalid) {
+        invalidControls[key] = Object.keys(control.errors ?? {});
+      }
+    }
+    const { recaptcha: _recaptcha, ...values } = this.form.getRawValue();
+    return {
+      values,
+      invalidControls,
+      availableDistricts: this.allLocations(),
+      availableChurches: this.availableChurches().map((c) => c.name),
+      availableSessions: (this.sessionList() as any[])
+        .filter((s) => s.isActive)
+        .map((s) => ({
+          id: s.id,
+          name: s.sessionName,
+          startDate: s.startDate,
+          endDate: s.endDate,
+        })),
+      manualStepsForVisitor: [
+        'Upload a passport-size photo (JPG/PNG, max 2MB)',
+        'Upload the vicar letter (PDF/DOC/DOCX/JPG/PNG, max 2MB)',
+        'Tick the declaration checkbox and accept the informed consent dialog',
+        'Complete the reCAPTCHA and click Register',
+      ],
+    };
   }
 
   // LocalStorage key for saving form progress
