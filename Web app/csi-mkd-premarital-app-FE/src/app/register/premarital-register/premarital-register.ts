@@ -1062,15 +1062,6 @@ export class PremaritalRegister {
   }
 
   startTutorial(): void {
-    // Dynamically import Shepherd CSS
-    if (!document.querySelector('link[href*="shepherd"]')) {
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href =
-        'https://cdn.jsdelivr.net/npm/shepherd.js@13.0.0/dist/css/shepherd.css';
-      document.head.appendChild(link);
-    }
-
     if (this.tour) {
       this.tour.complete();
     }

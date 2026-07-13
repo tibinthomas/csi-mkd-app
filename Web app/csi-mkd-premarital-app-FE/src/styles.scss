@@ -3,6 +3,7 @@
 @use './app/core/theme/theme-tokens.scss' as *;
 @use './app/core/theme/component-theme-overrides.scss' as *;
 @use './app/core/theme/glass-design-system.scss' as *;
+@use './app/core/theme/shepherd-theme.scss' as *;
 
 @tailwind base;
 @tailwind components;

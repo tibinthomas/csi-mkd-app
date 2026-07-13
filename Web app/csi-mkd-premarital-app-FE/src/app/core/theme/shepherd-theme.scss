@@ -1,0 +1,125 @@
+// =============================================================================
+// SHEPHERD.JS TOUR THEME  ·  CSI MKD Premarital Counselling Centre
+// -----------------------------------------------------------------------------
+// Styles the guided form tour (`.shepherd-theme-custom`, see
+// premarital-register.ts → startTutorial()) to match the app's glass design
+// system and Material 3 tokens. Base Shepherd CSS is bundled via angular.json;
+// light/dark switching comes for free from the --glass-* / --md-sys-color-*
+// custom properties defined in glass-design-system.scss and theme-tokens.scss.
+// =============================================================================
+
+.shepherd-element.shepherd-theme-custom {
+  max-width: 26rem;
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--glass-shadow-lg);
+  color: var(--md-sys-color-on-surface);
+  font-family: 'PT Serif', 'Inter', 'Manjari', 'Chilanka', 'Rachana',
+    'Karthika', 'Malayalam Sangam MN', sans-serif;
+
+  .shepherd-arrow::before {
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+  }
+
+  .shepherd-header {
+    background: transparent;
+    padding: 0.75rem 1rem 0 0;
+  }
+
+  .shepherd-cancel-icon {
+    color: var(--md-sys-color-on-surface-variant, currentColor);
+    transition: color 0.3s ease, transform 0.3s ease;
+
+    &:hover {
+      color: var(--cx-rose-deep);
+      transform: scale(1.1);
+    }
+  }
+
+  .shepherd-text {
+    padding: 0.5rem 1.5rem 0.75rem;
+    color: var(--md-sys-color-on-surface);
+    font-size: 0.95rem;
+    line-height: 1.6;
+
+    h3 {
+      background: var(--cx-grad-heading);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+  }
+
+  .shepherd-footer {
+    padding: 0.25rem 1.5rem 1.25rem;
+    gap: 0.6rem;
+  }
+
+  .shepherd-button {
+    margin: 0;
+    padding: 0.55rem 1.4rem;
+    border-radius: 999px;
+    letter-spacing: 0.02em;
+    font-family: inherit;
+    font-size: 0.9rem;
+    background-image: var(--cx-grad-primary);
+    background-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 26px -10px rgba(168, 56, 90, 0.6);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.3s ease, filter 0.3s ease;
+
+    &:not(:disabled):hover {
+      background-image: var(--cx-grad-primary);
+      background-color: transparent;
+      color: #fff;
+      transform: translateY(-2px);
+      filter: saturate(1.08) brightness(1.04);
+      box-shadow: 0 14px 32px -10px rgba(168, 56, 90, 0.62);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &.shepherd-button-secondary {
+      background-image: none;
+      background-color: var(--glass-bg-faint);
+      border: 1px solid var(--glass-border-soft);
+      color: var(--md-sys-color-on-surface);
+      box-shadow: none;
+
+      &:not(:disabled):hover {
+        background-image: none;
+        background-color: var(--glass-bg);
+        color: var(--md-sys-color-on-surface);
+        box-shadow: var(--cx-glow);
+      }
+    }
+  }
+}
+
+// Dim the page behind the tour with the app's plum/wine tone instead of black.
+.shepherd-modal-overlay-container.shepherd-modal-is-visible {
+  fill: var(--cx-wine);
+  opacity: 0.45;
+}
+
+:root[data-theme='dark'] .shepherd-modal-overlay-container.shepherd-modal-is-visible {
+  fill: #000;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shepherd-element.shepherd-theme-custom,
+  .shepherd-element.shepherd-theme-custom .shepherd-button,
+  .shepherd-element.shepherd-theme-custom .shepherd-cancel-icon {
+    transition: none;
+  }
+}
