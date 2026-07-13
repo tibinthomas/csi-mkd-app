@@ -270,5 +270,73 @@
       </div>
     </div>
   </section>
+
+  <!-- ================= SUPPORTED BY ================= -->
+  <section class="py-20 px-6" role="region" [attr.aria-labelledby]="'supporters-heading'">
+    <div class="max-w-6xl mx-auto">
+      <div class="cx-section-head mb-10" [appAnimateOnScroll]="'fadeIn'">
+        <span class="cx-eyebrow"><mat-icon>handshake</mat-icon></span>
+        <h2 id="supporters-heading" class="cx-h2 cx-gradient-text text-3xl sm:text-4xl mt-4">
+          {{ supportersContent.title }}
+        </h2>
+        <hr class="cx-divider w-28 mt-4" />
+        <p class="cx-lead text-base mt-6 max-w-2xl mx-auto text-on-surface-variant">
+          {{ supportersContent.gratitude }}
+        </p>
+      </div>
+
+      @if (sponsors.length > 0) {
+      <div class="cx-sponsor-grid" role="list" aria-label="Our supporters" [appAnimateOnScroll]="'fadeIn'">
+        @for (sponsor of sponsors; track sponsor.name; let i = $index) {
+        <div class="cx-sponsor-card glass-card" role="listitem" [style.animation-delay]="i * 80 + 'ms'">
+          @if (sponsor.logo) {
+          <img
+            [src]="sponsor.logo"
+            [alt]="sponsor.name + ' logo'"
+            class="cx-sponsor-logo"
+            loading="lazy"
+          />
+          }
+          @if (sponsor.url) {
+          <a
+            [href]="sponsor.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="cx-sponsor-name cx-footer-link"
+            [attr.aria-label]="'Visit ' + sponsor.name"
+            >{{ sponsor.name }}</a
+          >
+          } @else {
+          <span class="cx-sponsor-name">{{ sponsor.name }}</span>
+          }
+          @if (sponsor.tagline) {
+          <span class="cx-sponsor-tagline">{{ sponsor.tagline }}</span>
+          }
+        </div>
+        }
+      </div>
+      }
+
+      <div class="cx-sponsor-invite text-center mt-10" [appAnimateOnScroll]="'fadeIn'">
+        <p class="text-sm text-on-surface-variant mb-4">
+          {{ supportersContent.becomeSupporter }}
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a
+            mat-stroked-button
+            [href]="'mailto:' + sponsorContactEmail + '?subject=Supporting the CSI Counselling Centre'"
+            data-testid="become-supporter-cta"
+          >
+            <mat-icon aria-hidden="true">mail</mat-icon>
+            <span>{{ supportersContent.becomeSupporterCta }}</span>
+          </a>
+          <a mat-flat-button color="primary" routerLink="/donate" data-testid="about-donate-cta">
+            <mat-icon aria-hidden="true">volunteer_activism</mat-icon>
+            <span>{{ supportersContent.donateCta }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 <router-outlet></router-outlet>

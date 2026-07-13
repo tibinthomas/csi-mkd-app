@@ -1,0 +1,241 @@
+<main role="main" class="cx-donate py-20 px-6">
+  <div class="max-w-5xl mx-auto">
+    <!-- ================= HEADER ================= -->
+    <div class="cx-section-head mb-10" [appAnimateOnScroll]="'fadeIn'">
+      <span class="cx-eyebrow"><mat-icon>volunteer_activism</mat-icon></span>
+      <h1 class="cx-h2 cx-gradient-text text-4xl sm:text-5xl mt-4">
+        {{ pageContent.title }}
+      </h1>
+      <hr class="cx-divider w-32 mt-4" />
+      <p class="cx-lead text-lg mt-6 text-on-surface">{{ pageContent.subtitle }}</p>
+    </div>
+
+    <p
+      class="text-base leading-relaxed text-on-surface-variant text-center max-w-3xl mx-auto mb-14"
+      [appAnimateOnScroll]="'fadeIn'"
+    >
+      {{ pageContent.intro }}
+    </p>
+
+    <!-- ================= WHERE YOUR GIFT GOES ================= -->
+    <section role="region" aria-labelledby="impact-heading" class="mb-16">
+      <h2 id="impact-heading" class="sr-only" i18n="@@Donate Impact Heading">
+        Where your gift goes
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" role="list">
+        @for (item of impactItems; track item.title; let i = $index) {
+        <mat-card
+          class="elegant-card cx-donate-impact-card flex flex-col h-full text-center"
+          role="listitem"
+          [appAnimateOnScroll]="'slideInUp'"
+          [style.animation-delay]="i * 90 + 'ms'"
+        >
+          <span class="cx-icon-chip mx-auto" aria-hidden="true">
+            <mat-icon>{{ item.icon }}</mat-icon>
+          </span>
+          <mat-card-header class="justify-center pb-2 pt-4">
+            <mat-card-title class="text-lg !font-bold">{{ item.title }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content class="text-sm text-on-surface">
+            <p>{{ item.description }}</p>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </section>
+
+    <!-- ================= WAYS TO GIVE ================= -->
+    <section role="region" aria-labelledby="give-heading" class="mb-16">
+      <div class="cx-section-head mb-10" [appAnimateOnScroll]="'fadeIn'">
+        <span class="cx-eyebrow"><mat-icon>redeem</mat-icon></span>
+        <h2
+          id="give-heading"
+          class="cx-h2 cx-gradient-text text-3xl sm:text-4xl mt-4"
+          i18n="@@Donate Ways To Give Heading"
+        >
+          Ways to Give
+        </h2>
+        <hr class="cx-divider w-28 mt-4" />
+      </div>
+
+      <div class="cx-donate-methods">
+        <!-- UPI -->
+        @if (config.upiId) {
+        <mat-card class="glass-card cx-donate-method" [appAnimateOnScroll]="'slideInUp'">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="cx-donate-method-icon">qr_code_2</mat-icon>
+            <mat-card-title class="!font-bold" i18n="@@Donate UPI Title">Give via UPI</mat-card-title>
+            <mat-card-subtitle i18n="@@Donate UPI Subtitle"
+              >Google Pay, PhonePe, Paytm, or any UPI app</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <div class="cx-donate-detail-row">
+              <span class="cx-donate-detail-value" data-testid="donate-upi-id">{{ config.upiId }}</span>
+              <button
+                mat-icon-button
+                (click)="copyToClipboard(config.upiId, 'UPI ID')"
+                aria-label="Copy UPI ID"
+                i18n-aria-label="@@Donate Copy UPI Aria"
+                data-testid="donate-copy-upi"
+              >
+                <mat-icon aria-hidden="true">content_copy</mat-icon>
+              </button>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <a
+              mat-flat-button
+              color="primary"
+              class="cx-cta-btn"
+              [href]="upiDeepLink"
+              data-testid="donate-upi-pay"
+            >
+              <mat-icon aria-hidden="true">currency_rupee</mat-icon>
+              <span i18n="@@Donate UPI Pay Button">Pay with UPI App</span>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+        }
+
+        <!-- Razorpay -->
+        @if (config.razorpayPageUrl) {
+        <mat-card class="glass-card cx-donate-method" [appAnimateOnScroll]="'slideInUp'">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="cx-donate-method-icon">credit_card</mat-icon>
+            <mat-card-title class="!font-bold" i18n="@@Donate Razorpay Title">Give Online</mat-card-title>
+            <mat-card-subtitle i18n="@@Donate Razorpay Subtitle"
+              >Cards, net banking, and UPI via our secure Razorpay page</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-actions>
+            <a
+              mat-flat-button
+              color="primary"
+              class="cx-cta-btn"
+              [href]="config.razorpayPageUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="donate-razorpay"
+            >
+              <mat-icon aria-hidden="true">open_in_new</mat-icon>
+              <span i18n="@@Donate Razorpay Button">Donate Securely</span>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+        }
+
+        <!-- Bank transfer -->
+        @if (config.bankTransfer; as bank) {
+        <mat-card class="glass-card cx-donate-method" [appAnimateOnScroll]="'slideInUp'">
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="cx-donate-method-icon">account_balance</mat-icon>
+            <mat-card-title class="!font-bold" i18n="@@Donate Bank Title">Bank Transfer</mat-card-title>
+            <mat-card-subtitle i18n="@@Donate Bank Subtitle">NEFT / IMPS / RTGS</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <dl class="cx-donate-bank">
+              <div class="cx-donate-detail-row">
+                <dt i18n="@@Donate Bank Account Name">Account Name</dt>
+                <dd data-testid="donate-bank-name">{{ bank.accountName }}</dd>
+              </div>
+              <div class="cx-donate-detail-row">
+                <dt i18n="@@Donate Bank Account Number">Account Number</dt>
+                <dd>
+                  <span data-testid="donate-bank-account">{{ bank.accountNumber }}</span>
+                  <button
+                    mat-icon-button
+                    (click)="copyToClipboard(bank.accountNumber, 'Account number')"
+                    aria-label="Copy account number"
+                    i18n-aria-label="@@Donate Copy Account Aria"
+                    data-testid="donate-copy-account"
+                  >
+                    <mat-icon aria-hidden="true">content_copy</mat-icon>
+                  </button>
+                </dd>
+              </div>
+              <div class="cx-donate-detail-row">
+                <dt i18n="@@Donate Bank IFSC">IFSC</dt>
+                <dd>
+                  <span data-testid="donate-bank-ifsc">{{ bank.ifsc }}</span>
+                  <button
+                    mat-icon-button
+                    (click)="copyToClipboard(bank.ifsc, 'IFSC code')"
+                    aria-label="Copy IFSC code"
+                    i18n-aria-label="@@Donate Copy IFSC Aria"
+                    data-testid="donate-copy-ifsc"
+                  >
+                    <mat-icon aria-hidden="true">content_copy</mat-icon>
+                  </button>
+                </dd>
+              </div>
+              <div class="cx-donate-detail-row">
+                <dt i18n="@@Donate Bank Branch">Bank & Branch</dt>
+                <dd data-testid="donate-bank-branch">{{ bank.bankName }}, {{ bank.branch }}</dd>
+              </div>
+            </dl>
+          </mat-card-content>
+        </mat-card>
+        }
+
+        <!-- Fallback: contact the office -->
+        @if (!hasOnlineMethod) {
+        <mat-card
+          class="glass-card cx-donate-method cx-donate-contact"
+          [appAnimateOnScroll]="'slideInUp'"
+          data-testid="donate-contact-fallback"
+        >
+          <mat-card-header>
+            <mat-icon mat-card-avatar class="cx-donate-method-icon">support_agent</mat-icon>
+            <mat-card-title class="!font-bold" i18n="@@Donate Contact Title"
+              >Give through the Centre Office</mat-card-title
+            >
+            <mat-card-subtitle i18n="@@Donate Contact Subtitle"
+              >Online giving is being set up — until then, our office will gladly assist you</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <ul class="cx-donate-contact-list">
+              <li>
+                <mat-icon aria-hidden="true">call</mat-icon>
+                <a [href]="'tel:' + config.contactPhone" class="cx-footer-link" data-testid="donate-phone">{{
+                  config.contactPhone
+                }}</a>
+              </li>
+              <li>
+                <mat-icon aria-hidden="true">mail</mat-icon>
+                <a
+                  [href]="'mailto:' + config.contactEmail + '?subject=Donation to CSI Counselling Centre'"
+                  class="cx-footer-link"
+                  data-testid="donate-email"
+                  >{{ config.contactEmail }}</a
+                >
+              </li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+        }
+      </div>
+    </section>
+
+    <!-- ================= SCRIPTURE + RECEIPTS ================= -->
+    <section class="text-center max-w-2xl mx-auto" [appAnimateOnScroll]="'fadeIn'">
+      <mat-icon class="cx-scripture-mark" aria-hidden="true">format_quote</mat-icon>
+      <blockquote class="italic text-base leading-relaxed text-on-surface">
+        {{ pageContent.scripture }}
+      </blockquote>
+      <p class="mt-2 text-xs tracking-widest uppercase opacity-80 text-on-surface-variant">
+        {{ pageContent.scriptureRef }}
+      </p>
+      <p class="mt-8 text-sm text-on-surface-variant">
+        {{ pageContent.receiptNote }}
+        <a
+          [href]="'mailto:' + config.contactEmail"
+          class="cx-footer-link font-semibold"
+          data-testid="donate-receipt-email"
+          >{{ config.contactEmail }}</a
+        >
+      </p>
+    </section>
+  </div>
+</main>

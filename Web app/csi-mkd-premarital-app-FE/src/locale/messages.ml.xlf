@@ -4403,6 +4403,174 @@
           <context context-type="linenumber">1305</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="Support Us Nav" datatype="html">
+        <source>Support Us</source>
+        <target>ഞങ്ങളെ പിന്തുണയ്ക്കൂ</target>
+      </trans-unit>
+      <trans-unit id="Support Us Nav Mobile" datatype="html">
+        <source>Support Us</source>
+        <target>ഞങ്ങളെ പിന്തുണയ്ക്കൂ</target>
+      </trans-unit>
+      <trans-unit id="Support Us Footer" datatype="html">
+        <source>Support our ministry →</source>
+        <target>ഞങ്ങളുടെ ശുശ്രൂഷയെ പിന്തുണയ്ക്കൂ →</target>
+      </trans-unit>
+      <trans-unit id="Donate Page Title" datatype="html">
+        <source>Support Our Ministry</source>
+        <target>ഞങ്ങളുടെ ശുശ്രൂഷയെ പിന്തുണയ്ക്കുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Page Subtitle" datatype="html">
+        <source>Your generosity keeps confidential, affordable counselling within everyone's reach.</source>
+        <target>നിങ്ങളുടെ ഉദാരത രഹസ്യസ്വഭാവമുള്ളതും താങ്ങാനാവുന്നതുമായ കൗൺസിലിംഗ് എല്ലാവർക്കും ലഭ്യമാക്കുന്നു.</target>
+      </trans-unit>
+      <trans-unit id="Donate Page Intro" datatype="html">
+        <source>The CSI Counselling Centre serves couples, families, students, and individuals across the Madhya Kerala Diocese. Every contribution — however small — helps us subsidise sessions, train counsellors, and reach schools and parishes throughout Kerala.</source>
+        <target>സി.എസ്.ഐ കൗൺസിലിംഗ് സെന്റർ മധ്യകേരള മഹായിടവകയിലുടനീളമുള്ള ദമ്പതികളെയും കുടുംബങ്ങളെയും വിദ്യാർത്ഥികളെയും വ്യക്തികളെയും സേവിക്കുന്നു. എത്ര ചെറുതായാലും ഓരോ സംഭാവനയും സെഷനുകൾ താങ്ങാനാവുന്ന നിരക്കിൽ നൽകാനും കൗൺസിലർമാരെ പരിശീലിപ്പിക്കാനും കേരളത്തിലുടനീളം സ്കൂളുകളിലും ഇടവകകളിലും എത്തിച്ചേരാനും ഞങ്ങളെ സഹായിക്കുന്നു.</target>
+      </trans-unit>
+      <trans-unit id="Donate Scripture" datatype="html">
+        <source>“Each of you should give what you have decided in your heart to give, not reluctantly or under compulsion, for God loves a cheerful giver.”</source>
+        <target>“അവനവൻ ഹൃദയത്തിൽ നിശ്ചയിച്ചതുപോലെ കൊടുക്കട്ടെ; സങ്കടത്തോടെ അരുത്, നിർബന്ധത്താലും അരുത്; സന്തോഷത്തോടെ കൊടുക്കുന്നവനെ ദൈവം സ്നേഹിക്കുന്നു.”</target>
+      </trans-unit>
+      <trans-unit id="Donate Scripture Reference" datatype="html">
+        <source>– 2 Corinthians 9:7</source>
+        <target>– 2 കൊരിന്ത്യർ 9:7</target>
+      </trans-unit>
+      <trans-unit id="Donate Receipt Note" datatype="html">
+        <source>For donation receipts or any questions about giving, please contact the Centre office.</source>
+        <target>സംഭാവന രസീതുകൾക്കോ സംഭാവന സംബന്ധിച്ച സംശയങ്ങൾക്കോ സെന്റർ ഓഫീസുമായി ബന്ധപ്പെടുക.</target>
+      </trans-unit>
+      <trans-unit id="Donate Impact Heading" datatype="html">
+        <source>Where your gift goes</source>
+        <target>നിങ്ങളുടെ സംഭാവന എവിടേക്ക് പോകുന്നു</target>
+      </trans-unit>
+      <trans-unit id="Donate Impact Counselling Title" datatype="html">
+        <source>Subsidised Counselling</source>
+        <target>താങ്ങാനാവുന്ന നിരക്കിൽ കൗൺസിലിംഗ്</target>
+      </trans-unit>
+      <trans-unit id="Donate Impact Counselling Description" datatype="html">
+        <source>Keep individual, couple, and family sessions affordable for every household.</source>
+        <target>വ്യക്തിഗത, ദമ്പതി, കുടുംബ സെഷനുകൾ എല്ലാ കുടുംബങ്ങൾക്കും താങ്ങാനാവുന്നതാക്കി നിലനിർത്തുക.</target>
+      </trans-unit>
+      <trans-unit id="Donate Impact Outreach Title" datatype="html">
+        <source>School &amp; College Outreach</source>
+        <target>സ്കൂൾ &amp; കോളേജ് ഔട്ട്റീച്ച്</target>
+      </trans-unit>
+      <trans-unit id="Donate Impact Outreach Description" datatype="html">
+        <source>Bring the SHAPE empowerment programme to more students across Kerala.</source>
+        <target>SHAPE ശാക്തീകരണ പരിപാടി കേരളത്തിലുടനീളം കൂടുതൽ വിദ്യാർത്ഥികളിലേക്ക് എത്തിക്കുക.</target>
+      </trans-unit>
+      <trans-unit id="Donate Impact Camps Title" datatype="html">
+        <source>Residential Camps</source>
+        <target>റെസിഡൻഷ്യൽ ക്യാമ്പുകൾ</target>
+      </trans-unit>
+      <trans-unit id="Donate Impact Camps Description" datatype="html">
+        <source>Support the monthly three-day premarital camps and pre-confirmation programmes.</source>
+        <target>പ്രതിമാസ മൂന്നുദിവസത്തെ വിവാഹപൂർവ ക്യാമ്പുകളെയും പ്രീ-കൺഫർമേഷൻ പരിപാടികളെയും പിന്തുണയ്ക്കുക.</target>
+      </trans-unit>
+      <trans-unit id="Donate Ways To Give Heading" datatype="html">
+        <source>Ways to Give</source>
+        <target>സംഭാവന നൽകാനുള്ള വഴികൾ</target>
+      </trans-unit>
+      <trans-unit id="Donate UPI Title" datatype="html">
+        <source>Give via UPI</source>
+        <target>UPI വഴി നൽകുക</target>
+      </trans-unit>
+      <trans-unit id="Donate UPI Subtitle" datatype="html">
+        <source>Google Pay, PhonePe, Paytm, or any UPI app</source>
+        <target>Google Pay, PhonePe, Paytm, അല്ലെങ്കിൽ ഏതെങ്കിലും UPI ആപ്പ്</target>
+      </trans-unit>
+      <trans-unit id="Donate Copy UPI Aria" datatype="html">
+        <source>Copy UPI ID</source>
+        <target>UPI ഐഡി കോപ്പി ചെയ്യുക</target>
+      </trans-unit>
+      <trans-unit id="Donate UPI Pay Button" datatype="html">
+        <source>Pay with UPI App</source>
+        <target>UPI ആപ്പ് വഴി പണമടയ്ക്കുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Razorpay Title" datatype="html">
+        <source>Give Online</source>
+        <target>ഓൺലൈനായി നൽകുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Razorpay Subtitle" datatype="html">
+        <source>Cards, net banking, and UPI via our secure Razorpay page</source>
+        <target>ഞങ്ങളുടെ സുരക്ഷിത Razorpay പേജ് വഴി കാർഡുകൾ, നെറ്റ് ബാങ്കിംഗ്, UPI</target>
+      </trans-unit>
+      <trans-unit id="Donate Razorpay Button" datatype="html">
+        <source>Donate Securely</source>
+        <target>സുരക്ഷിതമായി സംഭാവന ചെയ്യുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Bank Title" datatype="html">
+        <source>Bank Transfer</source>
+        <target>ബാങ്ക് ട്രാൻസ്ഫർ</target>
+      </trans-unit>
+      <trans-unit id="Donate Bank Subtitle" datatype="html">
+        <source>NEFT / IMPS / RTGS</source>
+        <target>NEFT / IMPS / RTGS</target>
+      </trans-unit>
+      <trans-unit id="Donate Bank Account Name" datatype="html">
+        <source>Account Name</source>
+        <target>അക്കൗണ്ട് പേര്</target>
+      </trans-unit>
+      <trans-unit id="Donate Bank Account Number" datatype="html">
+        <source>Account Number</source>
+        <target>അക്കൗണ്ട് നമ്പർ</target>
+      </trans-unit>
+      <trans-unit id="Donate Copy Account Aria" datatype="html">
+        <source>Copy account number</source>
+        <target>അക്കൗണ്ട് നമ്പർ കോപ്പി ചെയ്യുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Bank IFSC" datatype="html">
+        <source>IFSC</source>
+        <target>IFSC</target>
+      </trans-unit>
+      <trans-unit id="Donate Copy IFSC Aria" datatype="html">
+        <source>Copy IFSC code</source>
+        <target>IFSC കോഡ് കോപ്പി ചെയ്യുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Bank Branch" datatype="html">
+        <source>Bank &amp; Branch</source>
+        <target>ബാങ്കും ബ്രാഞ്ചും</target>
+      </trans-unit>
+      <trans-unit id="Donate Contact Title" datatype="html">
+        <source>Give through the Centre Office</source>
+        <target>സെന്റർ ഓഫീസ് വഴി നൽകുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Contact Subtitle" datatype="html">
+        <source>Online giving is being set up — until then, our office will gladly assist you</source>
+        <target>ഓൺലൈൻ സംഭാവനാ സൗകര്യം ഒരുങ്ങിക്കൊണ്ടിരിക്കുന്നു — അതുവരെ ഞങ്ങളുടെ ഓഫീസ് നിങ്ങളെ സന്തോഷത്തോടെ സഹായിക്കും</target>
+      </trans-unit>
+      <trans-unit id="Donate Copied Message" datatype="html">
+        <source><x id="label" equiv-text="label"/> copied to clipboard</source>
+        <target><x id="label" equiv-text="label"/> ക്ലിപ്പ്ബോർഡിലേക്ക് കോപ്പി ചെയ്തു</target>
+      </trans-unit>
+      <trans-unit id="Donate Snackbar Close" datatype="html">
+        <source>Close</source>
+        <target>അടയ്ക്കുക</target>
+      </trans-unit>
+      <trans-unit id="Donate Copy Failed Message" datatype="html">
+        <source>Could not copy. Please copy it manually.</source>
+        <target>കോപ്പി ചെയ്യാൻ കഴിഞ്ഞില്ല. ദയവായി സ്വയം കോപ്പി ചെയ്യുക.</target>
+      </trans-unit>
+      <trans-unit id="Supported By Title" datatype="html">
+        <source>Supported By</source>
+        <target>ഞങ്ങളെ പിന്തുണയ്ക്കുന്നവർ</target>
+      </trans-unit>
+      <trans-unit id="Supported By Gratitude" datatype="html">
+        <source>We gratefully acknowledge the organisations and well-wishers whose generosity helps this ministry serve our community.</source>
+        <target>ഈ ശുശ്രൂഷയ്ക്ക് സമൂഹത്തെ സേവിക്കാൻ ഉദാരമായി സഹായിക്കുന്ന സ്ഥാപനങ്ങളെയും അഭ്യുദയകാംക്ഷികളെയും ഞങ്ങൾ നന്ദിയോടെ സ്മരിക്കുന്നു.</target>
+      </trans-unit>
+      <trans-unit id="Become Supporter Text" datatype="html">
+        <source>Your organisation can support this ministry too.</source>
+        <target>നിങ്ങളുടെ സ്ഥാപനത്തിനും ഈ ശുശ്രൂഷയെ പിന്തുണയ്ക്കാം.</target>
+      </trans-unit>
+      <trans-unit id="Become Supporter CTA" datatype="html">
+        <source>Partner with us</source>
+        <target>ഞങ്ങളോടൊപ്പം പങ്കാളിയാകൂ</target>
+      </trans-unit>
+      <trans-unit id="Supported By Donate CTA" datatype="html">
+        <source>Make a donation</source>
+        <target>സംഭാവന നൽകുക</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

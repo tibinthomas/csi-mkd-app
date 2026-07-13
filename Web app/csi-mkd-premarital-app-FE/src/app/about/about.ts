@@ -1,15 +1,12 @@
 import { NgOptimizedImage, CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll.directive';
 import { FloatingAngelsComponent } from '../shared/components/floating-angels/floating-angels.component';
+import { DONATION_CONFIG, SPONSORS } from '../config/support-config';
 
 interface ServiceItem {
   readonly image: string;
@@ -143,6 +140,17 @@ export class About {
     services: $localize`:@@Our Services Title:Our Services`,
     whyChooseUs: $localize`:@@Why Choose Us Title:Why Choose Us?`,
     bookAppointment: $localize`:@@Book Appointment Button:Book Appointment`,
+  };
+
+  readonly sponsors = SPONSORS;
+  readonly sponsorContactEmail = DONATION_CONFIG.contactEmail;
+
+  readonly supportersContent = {
+    title: $localize`:@@Supported By Title:Supported By`,
+    gratitude: $localize`:@@Supported By Gratitude:We gratefully acknowledge the organisations and well-wishers whose generosity helps this ministry serve our community.`,
+    becomeSupporter: $localize`:@@Become Supporter Text:Your organisation can support this ministry too.`,
+    becomeSupporterCta: $localize`:@@Become Supporter CTA:Partner with us`,
+    donateCta: $localize`:@@Supported By Donate CTA:Make a donation`,
   };
 
   // Words of the hero title, revealed with a staggered rise animation

@@ -119,6 +119,15 @@ export const routes: Routes = [
         canDeactivate: [pendingChangesGuard],
       },
       {
+        path: 'donate',
+        title: 'Support Us - CSI MKD Premarital Counsel',
+        data: {
+          description:
+            'Support the ministry of the CSI Counselling Centre with a donation.',
+        },
+        loadComponent: () => import('./donate/donate').then((m) => m.Donate),
+      },
+      {
         path: 'sessions',
         title: 'Counselling Sessions - CSI MKD Premarital Counsel',
         data: { description: 'View upcoming premarital counselling sessions.' },

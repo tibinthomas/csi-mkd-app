@@ -1,0 +1,99 @@
+/* ============================================================
+   DONATE / SUPPORT US
+   ============================================================ */
+
+.cx-donate-methods {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 44rem;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    max-width: none;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+}
+
+.cx-donate-method {
+  padding: 1.25rem;
+
+  mat-card-actions {
+    padding: 0.75rem 1rem 1rem;
+  }
+}
+
+.cx-donate-method-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  color: var(--cx-rose-deep, var(--md-sys-color-primary));
+  font-size: 2rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+:host-context([data-theme='dark']) .cx-donate-method-icon {
+  color: var(--cx-gold-soft, var(--md-sys-color-primary));
+}
+
+.cx-donate-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+
+  dt {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.75;
+  }
+
+  dd {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.cx-donate-detail-value {
+  font-family: monospace;
+  font-size: 1.05rem;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.cx-donate-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  mat-icon {
+    font-size: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    opacity: 0.8;
+  }
+}
+
+.cx-donate-impact-card {
+  padding-top: 1.5rem;
+
+  .cx-icon-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
