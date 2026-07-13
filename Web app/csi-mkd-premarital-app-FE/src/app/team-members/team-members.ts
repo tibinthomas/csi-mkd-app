@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll.directive';
+import { AdBanner } from '../shared/ad-banner/ad-banner';
 
 @Component({
   selector: 'app-team-members',
-  imports: [MatCardModule, AnimateOnScrollDirective],
+  imports: [MatCardModule, AnimateOnScrollDirective, AdBanner],
   templateUrl: './team-members.html',
   styleUrl: './team-members.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

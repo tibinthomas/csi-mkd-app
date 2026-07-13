@@ -19,6 +19,7 @@ import { LanguageSelectorComponent } from '../shared/language-selector/language-
 import { AppFeedbackService } from '../core/services/app-feedback.service';
 import { ThemeToggle } from '../shared/theme-toggle/theme-toggle';
 import { DoubleTapDirective } from '../shared/directives/double-tap.directive';
+import { CookieConsent } from '../shared/cookie-consent/cookie-consent';
 import packageInfo from '../../../package.json';
 
 @Component({
@@ -35,6 +36,7 @@ import packageInfo from '../../../package.json';
     ThemeToggle,
     RouterLinkActive,
     DoubleTapDirective,
+    CookieConsent,
   ],
   changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './public-layout.html',

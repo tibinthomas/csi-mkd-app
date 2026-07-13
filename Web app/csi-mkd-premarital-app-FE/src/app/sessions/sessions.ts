@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 import { RouterOutlet, Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { firstValueFrom } from 'rxjs';
+import { AdBanner } from '../shared/ad-banner/ad-banner';
 
 @Component({
   selector: 'app-sessions',
@@ -27,6 +28,7 @@ import { firstValueFrom } from 'rxjs';
     DatePipe,
     RouterOutlet,
     MatProgressSpinnerModule,
+    AdBanner,
   ],
   templateUrl: './sessions.html',
   styleUrl: './sessions.scss',

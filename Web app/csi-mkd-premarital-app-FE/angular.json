@@ -76,7 +76,8 @@
               "define": {
                 "API_ROOT_URL_MAIN_APP": "\"https://csi-mid-counselling-web-api.icystone-0eff0e5d.southindia.azurecontainerapps.io\"",
                 "API_ROOT_URL_FN_APP": "\"https://fn-app-csi-mkd-counselling-d4cdf4eyfqfbeng9.centralindia-01.azurewebsites.net/api\"",
-                "APPLICATION_INSIGHTS_CONNECTION_STRING": "\"InstrumentationKey=012db396-d0d9-47e0-82b0-46c802b198c1;IngestionEndpoint=https://centralindia-0.in.applicationinsights.azure.com/;LiveEndpoint=https://centralindia.livediagnostics.monitor.azure.com/;ApplicationId=c7c79229-b13a-4096-a000-2d5b2575c0a6\""
+                "APPLICATION_INSIGHTS_CONNECTION_STRING": "\"InstrumentationKey=012db396-d0d9-47e0-82b0-46c802b198c1;IngestionEndpoint=https://centralindia-0.in.applicationinsights.azure.com/;LiveEndpoint=https://centralindia.livediagnostics.monitor.azure.com/;ApplicationId=c7c79229-b13a-4096-a000-2d5b2575c0a6\"",
+                "ADSENSE_CLIENT_ID": "\"\""
               },
               "serviceWorker": "ngsw-config.json",
               "deleteOutputPath": true,
@@ -89,7 +90,8 @@
               "define": {
                 "API_ROOT_URL_MAIN_APP": "\"http://localhost:5177\"",
                 "API_ROOT_URL_FN_APP": "\"http://localhost:7071/api\"",
-                "APPLICATION_INSIGHTS_CONNECTION_STRING": "\"\""
+                "APPLICATION_INSIGHTS_CONNECTION_STRING": "\"\"",
+                "ADSENSE_CLIENT_ID": "\"\""
               }
             }
           },

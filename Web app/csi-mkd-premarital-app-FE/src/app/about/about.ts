@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AnimateOnScrollDirective } from '../shared/directives/animate-on-scroll.directive';
 import { FloatingAngelsComponent } from '../shared/components/floating-angels/floating-angels.component';
+import { AdBanner } from '../shared/ad-banner/ad-banner';
 
 interface ServiceItem {
   readonly image: string;
@@ -50,6 +51,7 @@ interface HeroContent {
     MatIconModule,
     AnimateOnScrollDirective,
     FloatingAngelsComponent,
+    AdBanner,
   ],
 })
 export class About {
